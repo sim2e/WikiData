@@ -1,0 +1,399 @@
+In mathematics, an integral transform is a type of transform that maps a function from its original function space into another function space via integration, where some of the properties of the original function might be more easily characterized and manipulated than in the original function space. The transformed function can generally be mapped back to the original function space using the inverse transform.
+
+General form
+An integral transform is any transform 
+  
+    
+      
+        T
+      
+    
+    {\displaystyle T}
+   of the following form:
+
+  
+    
+      
+        (
+        T
+        f
+        )
+        (
+        u
+        )
+        =
+        
+          ∫
+          
+            
+              t
+              
+                1
+              
+            
+          
+          
+            
+              t
+              
+                2
+              
+            
+          
+        
+        f
+        (
+        t
+        )
+        
+        K
+        (
+        t
+        ,
+        u
+        )
+        
+        d
+        t
+      
+    
+    {\displaystyle (Tf)(u)=\int _{t_{1}}^{t_{2}}f(t)\,K(t,u)\,dt}
+  The input of this transform is a function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  , and the output is another function 
+  
+    
+      
+        T
+        f
+      
+    
+    {\displaystyle Tf}
+  . An integral transform is a particular kind of mathematical operator.
+There are numerous useful integral transforms. Each is specified by a choice of the function 
+  
+    
+      
+        K
+      
+    
+    {\displaystyle K}
+   of two variables, the kernel function, integral kernel or nucleus of the transform.
+Some kernels have an associated inverse kernel 
+  
+    
+      
+        
+          K
+          
+            −
+            1
+          
+        
+        (
+        u
+        ,
+        t
+        )
+      
+    
+    {\displaystyle K^{-1}(u,t)}
+   which (roughly speaking) yields an inverse transform:
+
+  
+    
+      
+        f
+        (
+        t
+        )
+        =
+        
+          ∫
+          
+            
+              u
+              
+                1
+              
+            
+          
+          
+            
+              u
+              
+                2
+              
+            
+          
+        
+        (
+        T
+        f
+        )
+        (
+        u
+        )
+        
+        
+          K
+          
+            −
+            1
+          
+        
+        (
+        u
+        ,
+        t
+        )
+        
+        d
+        u
+      
+    
+    {\displaystyle f(t)=\int _{u_{1}}^{u_{2}}(Tf)(u)\,K^{-1}(u,t)\,du}
+  A symmetric kernel is one that is unchanged when the two variables are permuted; it is a kernel function 
+  
+    
+      
+        K
+      
+    
+    {\displaystyle K}
+   such that 
+  
+    
+      
+        K
+        (
+        t
+        ,
+        u
+        )
+        =
+        K
+        (
+        u
+        ,
+        t
+        )
+      
+    
+    {\displaystyle K(t,u)=K(u,t)}
+  . In the theory of integral equations, symmetric kernels correspond to self-adjoint operators.
+
+Motivation
+There are many classes of problems that are difficult to solve—or at least quite unwieldy algebraically—in their original representations. An integral transform "maps" an equation from its original "domain" into another domain, in which manipulating and solving the equation may be much easier than in the original domain. The solution can then be mapped back to the original domain with the inverse of the integral transform.
+There are many applications of probability that rely on integral transforms, such as "pricing kernel" or stochastic discount factor, or the smoothing of data recovered from robust statistics; see kernel (statistics).
+
+History
+The precursor of the transforms were the Fourier series to express functions in finite intervals. Later the Fourier transform was developed to remove the requirement of finite intervals.
+Using the Fourier series, just about any practical function of time (the voltage across the terminals of an electronic device for example) can be represented as a sum of sines and cosines, each suitably scaled (multiplied by a constant factor), shifted (advanced or retarded in time) and "squeezed" or "stretched" (increasing or decreasing the frequency). The sines and cosines in the Fourier series are an example of an orthonormal basis.
+
+Usage example
+As an example of an application of integral transforms, consider the Laplace transform. This is a technique that maps differential or integro-differential equations in the "time" domain into polynomial equations in what is termed the "complex frequency" domain. (Complex frequency is similar to actual, physical frequency but rather more general. Specifically, the imaginary component ω of the complex frequency s = −σ + iω corresponds to the usual concept of frequency, viz., the rate at which a sinusoid cycles, whereas the real component σ of the complex frequency corresponds to the degree of "damping", i.e. an exponential decrease of the amplitude.) The equation cast in terms of complex frequency is readily solved in the complex frequency domain (roots of the polynomial equations in the complex frequency domain correspond to eigenvalues in the time domain), leading to a "solution" formulated in the frequency domain. Employing the inverse transform, i.e., the inverse procedure of the original Laplace transform, one obtains a time-domain solution. In this example, polynomials in the complex frequency domain (typically occurring in the denominator) correspond to power series in the time domain, while axial shifts in the complex frequency domain correspond to damping by decaying exponentials in the time domain.
+The Laplace transform finds wide application in physics and particularly in electrical engineering, where the characteristic equations that describe the behavior of an electric circuit in the complex frequency domain correspond to linear combinations of exponentially scaled and time-shifted damped sinusoids in the time domain. Other integral transforms find special applicability within other scientific and mathematical disciplines.
+Another usage example is the kernel in the path integral:
+
+  
+    
+      
+        ψ
+        (
+        x
+        ,
+        t
+        )
+        =
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        ψ
+        (
+        
+          x
+          ′
+        
+        ,
+        
+          t
+          ′
+        
+        )
+        K
+        (
+        x
+        ,
+        t
+        ;
+        
+          x
+          ′
+        
+        ,
+        
+          t
+          ′
+        
+        )
+        d
+        
+          x
+          ′
+        
+        .
+      
+    
+    {\displaystyle \psi (x,t)=\int _{-\infty }^{\infty }\psi (x',t')K(x,t;x',t')dx'.}
+  This states that the total amplitude 
+  
+    
+      
+        ψ
+        (
+        x
+        ,
+        t
+        )
+      
+    
+    {\displaystyle \psi (x,t)}
+   to arrive at 
+  
+    
+      
+        (
+        x
+        ,
+        t
+        )
+      
+    
+    {\displaystyle (x,t)}
+   is the sum (the integral) over all possible values 
+  
+    
+      
+        
+          x
+          ′
+        
+      
+    
+    {\displaystyle x'}
+   of the total amplitude 
+  
+    
+      
+        ψ
+        (
+        
+          x
+          ′
+        
+        ,
+        
+          t
+          ′
+        
+        )
+      
+    
+    {\displaystyle \psi (x',t')}
+   to arrive at the point 
+  
+    
+      
+        (
+        
+          x
+          ′
+        
+        ,
+        
+          t
+          ′
+        
+        )
+      
+    
+    {\displaystyle (x',t')}
+   multiplied by the amplitude to go from 
+  
+    
+      
+        
+          x
+          ′
+        
+      
+    
+    {\displaystyle x'}
+   to 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   [i.e. 
+  
+    
+      
+        K
+        (
+        x
+        ,
+        t
+        ;
+        
+          x
+          ′
+        
+        ,
+        
+          t
+          ′
+        
+        )
+      
+    
+    {\displaystyle K(x,t;x',t')}
+  ].  It is often referred to as the propagator for a given system. This (physics) kernel is the kernel of the integral transform. However, for each quantum system, there is a different kernel.
+
+Table of transforms
+In the limits of integration for the inverse transform, c is a constant which depends on the nature of the transform function. For example, for the one and two-sided Laplace transform, c must be greater than the largest real part of the zeroes of the transform function.
+Note that there are alternative notations and conventions for the Fourier transform.
+
+Different domains
+Here integral transforms are defined for functions on the real numbers, but they can be defined more generally for functions on a group.
+
+If instead one uses functions on the circle (periodic functions), integration kernels are then biperiodic functions; convolution by functions on the circle yields circular convolution.
+If one uses functions on the cyclic group of order n (Cn or Z/nZ), one obtains n × n matrices as integration kernels; convolution corresponds to circulant matrices.
+
+General theory
+Although the properties of integral transforms vary widely, they have some properties in common. For example, every integral transform is a linear operator, since the integral is a linear operator, and in fact if the kernel is allowed to be a generalized function then all linear  operators are integral transforms (a properly formulated version of this statement is the Schwartz kernel theorem).
+The general theory of such integral equations is known as Fredholm theory.  In this theory, the kernel is understood to be a compact operator acting on a Banach space of functions. Depending on the situation, the kernel is then variously referred to as the Fredholm operator, the nuclear operator or the Fredholm kernel.
+
+See also
+References
+Further reading
+A. D. Polyanin and A. V. Manzhirov, Handbook of Integral Equations, CRC Press, Boca Raton, 1998. ISBN 0-8493-2876-4
+R. K. M. Thambynayagam, The Diffusion Handbook: Applied Solutions for Engineers, McGraw-Hill, New York, 2011. ISBN 978-0-07-175184-1
+"Integral transform", Encyclopedia of Mathematics, EMS Press, 2001 [1994]
+Tables of Integral Transforms at EqWorld: The World of Mathematical Equations.

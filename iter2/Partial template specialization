@@ -1,0 +1,27 @@
+Partial template specialization is a particular form of class template specialization. Usually used in reference to the C++ programming language, it allows the programmer to specialize only some arguments of a class template, as opposed to explicit full specialization, where all the template arguments are provided.
+
+Templates and specialization
+Class templates are really meta-classes: they are partial abstract data types that provide instructions to the compiler on how to create classes with the proper data members. For example, the C++ standard containers are class templates. When a programmer uses a vector, one instantiates it with a specific data type, for example, int, string or double. Each type of vector results in a different class in the compiler's object code, each one working with a different data type. This process is called monomorphization of generics.
+If one knows that a class template will be used with a specific data type fairly often and this data type allows some optimizations (e.g. bit shifting with integers, as opposed to multiplying or dividing by 2), one may introduce a specialized class template with some of the template parameters preset. When the compiler sees such a class template instantiated in code, it will generally choose the most specialized template definition that matches the instantiation. Therefore, an explicit full specialization (one where all the template arguments are specified) will be preferred to a partial specialization if all the template arguments match.
+
+Partial specialization
+Templates can have more than one parameter type. Some older compilers allow one only to specialize either all or none of the template's parameters. Compilers that support partial specialization allow the programmer to specialize some parameters while leaving the others generic.
+
+Example
+Suppose there exists a KeyValuePair class with two template parameters, as follows.
+
+The following is an example of a class that defines an explicit full template specialization of KeyValuePair by pairing integers with strings. The class type retains the same name as the original version.
+
+The next is an example of partial specialization of KeyValuePair with the same name as the original version and one specialized template parameter.
+
+The next example class KeyStringPair is derived from the original  KeyValuePair with a new name, and defines a partial template specialization. In contrast to the explicit specialization above, only the Value template parameter of the superclass is specialized, while the Key template parameter remains generic.
+
+It does not matter which template parameters are specialized and which remain generic. For instance, the following is also a valid example of a partial specialization of the original KeyValuePair class.
+
+Caveats
+C++ templates are not limited to classes - they can also be used to define function templates. Although function templates can be fully specialized, they cannot be partially specialized, irrespective of whether they are member function templates or non-member function templates. This can be beneficial to compiler writers, but affects the flexibility and granularity of what developers can do. But, function templates can be overloaded, which gives nearly the same effect as what partial function template specialization would have. The following examples are provided to illustrate these points.
+
+In the example listed above, note that while the last two definitions of the function Foo are legal C++, they are considered ill-formed according to the standard because they are non-overloadable declarations. This is because the definition of function overloading only accounts for the function name, parameter type list and the enclosing namespace (if any). It does not account for the return type. However, these functions can still be called by explicitly indicating the signature to the compiler, as demonstrated by the following program.
+
+
+== References ==

@@ -1,0 +1,8468 @@
+In the mathematical discipline of set theory, forcing is a technique for proving consistency and independence results. Intuitively, forcing can be thought of as a technique to expand the set theoretical universe 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   to a larger universe 
+  
+    
+      
+        V
+        [
+        G
+        ]
+      
+    
+    {\displaystyle V[G]}
+   by introducing a new "generic" object 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  .
+Forcing was first used by Paul Cohen in 1963, to prove the independence of the axiom of choice and the continuum hypothesis from Zermelo–Fraenkel set theory. It has been considerably reworked and simplified in the following years, and has since served as a powerful technique, both in set theory and in areas of mathematical logic such as recursion theory. Descriptive set theory uses the notions of forcing from both recursion theory and set theory. Forcing has also been used in model theory, but it is common in model theory to define genericity directly without mention of forcing.
+
+Intuition
+Forcing is usually used to construct an expanded universe that satisfies some desired property. For example, the expanded universe might contain many new real numbers (at least 
+  
+    
+      
+        
+          ℵ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \aleph _{2}}
+   of them), identified with subsets of the set 
+  
+    
+      
+        
+          N
+        
+      
+    
+    {\displaystyle \mathbb {N} }
+   of natural numbers, that were not there in the old universe, and thereby violate the continuum hypothesis.
+In order to intuitively justify such an expansion, it is best to think of the "old universe" as a model 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   of the set theory, which is itself a set in the "real universe" 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  . By the Löwenheim–Skolem theorem, 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   can be chosen to be a "bare bones" model that is externally countable, which guarantees that there will be many subsets (in 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  ) of 
+  
+    
+      
+        
+          N
+        
+      
+    
+    {\displaystyle \mathbb {N} }
+   that are not in 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  . Specifically, there is an ordinal 
+  
+    
+      
+        
+          ℵ
+          
+            2
+          
+          
+            M
+          
+        
+      
+    
+    {\displaystyle \aleph _{2}^{M}}
+   that "plays the role of the cardinal 
+  
+    
+      
+        
+          ℵ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \aleph _{2}}
+  " in 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  , but is actually countable in 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  . Working in 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  , it should be easy to find one distinct subset of 
+  
+    
+      
+        
+          N
+        
+      
+    
+    {\displaystyle \mathbb {N} }
+   per each element of 
+  
+    
+      
+        
+          ℵ
+          
+            2
+          
+          
+            M
+          
+        
+      
+    
+    {\displaystyle \aleph _{2}^{M}}
+  . (For simplicity, this family of subsets can be characterized with a single subset 
+  
+    
+      
+        X
+        ⊆
+        
+          ℵ
+          
+            2
+          
+          
+            M
+          
+        
+        ×
+        
+          N
+        
+      
+    
+    {\displaystyle X\subseteq \aleph _{2}^{M}\times \mathbb {N} }
+  .)
+However, in some sense, it may be desirable to "construct the expanded model 
+  
+    
+      
+        M
+        [
+        X
+        ]
+      
+    
+    {\displaystyle M[X]}
+   within 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  ". This would help ensure that 
+  
+    
+      
+        M
+        [
+        X
+        ]
+      
+    
+    {\displaystyle M[X]}
+   "resembles" 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   in certain aspects, such as 
+  
+    
+      
+        
+          ℵ
+          
+            2
+          
+          
+            M
+            [
+            X
+            ]
+          
+        
+      
+    
+    {\displaystyle \aleph _{2}^{M[X]}}
+   being the same as 
+  
+    
+      
+        
+          ℵ
+          
+            2
+          
+          
+            M
+          
+        
+      
+    
+    {\displaystyle \aleph _{2}^{M}}
+   (more generally, that cardinal collapse does not occur), and allow fine control over the properties of 
+  
+    
+      
+        M
+        [
+        X
+        ]
+      
+    
+    {\displaystyle M[X]}
+  . More precisely, every member of 
+  
+    
+      
+        M
+        [
+        X
+        ]
+      
+    
+    {\displaystyle M[X]}
+   should be given a  (non-unique) name in 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  . The name can be thought as an expression in terms of 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+  , just like in a simple field extension 
+  
+    
+      
+        L
+        =
+        K
+        (
+        θ
+        )
+      
+    
+    {\displaystyle L=K(\theta )}
+   every element of 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   can be expressed in terms of 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+  . A major component of forcing is manipulating those names within 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  , so sometimes it may help to directly think of 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   as "the universe", knowing that the theory of forcing guarantees that 
+  
+    
+      
+        M
+        [
+        X
+        ]
+      
+    
+    {\displaystyle M[X]}
+   will correspond to an actual model.
+A subtle point of forcing is that, if 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   is taken to be an arbitrary "missing subset" of some set in 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  , then the 
+  
+    
+      
+        M
+        [
+        X
+        ]
+      
+    
+    {\displaystyle M[X]}
+   constructed "within 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  " may not even be a model. This is because 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   may encode "special" information about 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   that is invisible within 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   (e.g. the countability of 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  ), and thus prove the existence of sets that are "too complex for 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   to describe".Forcing avoids such problems by requiring the newly introduced set 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   to be a generic set relative to 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  . Some statements are "forced" to hold for any generic 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+  : For example, a generic 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   is "forced" to be infinite. Furthermore, any property (describable in 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  ) of a generic set is "forced" to hold under some forcing condition. The concept of "forcing" can be defined within 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  , and it gives 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   enough reasoning power to prove that 
+  
+    
+      
+        M
+        [
+        X
+        ]
+      
+    
+    {\displaystyle M[X]}
+   is indeed a model that satisfies the desired properties.
+Cohen's original technique, now called ramified forcing, is slightly different from the unramified forcing expounded here. Forcing is also equivalent to the method of Boolean-valued models, which some feel is conceptually more natural and intuitive, but usually much more difficult to apply.
+
+The role of the model
+In order for the above approach to work smoothly, 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   must in fact be a standard transitive model in 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  , so that membership and other elementary notions can be handled intuitively in both 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   and 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  . A standard transitive model can be obtained from any standard model through the Mostowski collapse lemma, but the existence of any standard model of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   (or any variant thereof) is in itself a stronger assumption than the consistency of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+  .
+To get around this issue, a standard technique is to let 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   be a standard transitive model of an arbitrary finite subset of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   (any axiomatization of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   has at least one axiom schema, and thus an infinite number of axioms), the existence of which is guaranteed by the reflection principle. As the goal of a forcing argument is to prove consistency results, this is enough since any inconsistency in a theory must manifest with a derivation of a finite length, and thus involve only a finite number of axioms.
+
+Forcing conditions and forcing posets
+Each forcing condition can be regarded as a finite piece of information regarding the object 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   adjoined to the model. There are many different ways of providing information about an object, which give rise to different forcing notions. A general approach to formalizing forcing notions is to regard forcing conditions as abstract objects with a poset structure.
+A forcing poset is an ordered triple, 
+  
+    
+      
+        (
+        
+          P
+        
+        ,
+        ≤
+        ,
+        
+          1
+        
+        )
+      
+    
+    {\displaystyle (\mathbb {P} ,\leq ,\mathbf {1} )}
+  , where 
+  
+    
+      
+        ≤
+      
+    
+    {\displaystyle \leq }
+   is a preorder on 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+  , and 
+  
+    
+      
+        
+          1
+        
+      
+    
+    {\displaystyle \mathbf {1} }
+   is the largest element. Members of 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+   are the forcing conditions (or just conditions). The order relation 
+  
+    
+      
+        p
+        ≤
+        q
+      
+    
+    {\displaystyle p\leq q}
+   means "
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is stronger than 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+  ". (Intuitively, the "smaller" condition provides "more" information, just as the smaller interval 
+  
+    
+      
+        [
+        3.1415926
+        ,
+        3.1415927
+        ]
+      
+    
+    {\displaystyle [3.1415926,3.1415927]}
+   provides more information about the number π than the interval 
+  
+    
+      
+        [
+        3.1
+        ,
+        3.2
+        ]
+      
+    
+    {\displaystyle [3.1,3.2]}
+   does.) Furthermore, the preorder 
+  
+    
+      
+        ≤
+      
+    
+    {\displaystyle \leq }
+   must be atomless, meaning that it must satisfy the splitting condition:
+
+For each 
+  
+    
+      
+        p
+        ∈
+        
+          P
+        
+      
+    
+    {\displaystyle p\in \mathbb {P} }
+  , there are 
+  
+    
+      
+        q
+        ,
+        r
+        ∈
+        
+          P
+        
+      
+    
+    {\displaystyle q,r\in \mathbb {P} }
+   such that 
+  
+    
+      
+        q
+        ,
+        r
+        ≤
+        p
+      
+    
+    {\displaystyle q,r\leq p}
+  , with no 
+  
+    
+      
+        s
+        ∈
+        
+          P
+        
+      
+    
+    {\displaystyle s\in \mathbb {P} }
+   such that 
+  
+    
+      
+        s
+        ≤
+        q
+        ,
+        r
+      
+    
+    {\displaystyle s\leq q,r}
+  .In other words, it must be possible to strengthen any forcing condition 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   in at least two incompatible directions. Intuitively, this is because 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is only a finite piece of information, whereas an infinite piece of information is needed to determine 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+  .
+There are various conventions in use. Some authors require 
+  
+    
+      
+        ≤
+      
+    
+    {\displaystyle \leq }
+   to also be antisymmetric, so that the relation is a partial order. Some use the term partial order anyway, conflicting with standard terminology, while some use the term preorder. The largest element can be dispensed with. The reverse ordering is also used, most notably by Saharon Shelah and his co-authors.
+
+Examples
+Let 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   be any infinite set (such as 
+  
+    
+      
+        
+          N
+        
+      
+    
+    {\displaystyle \mathbb {N} }
+  ), and let the generic object in question be a new subset 
+  
+    
+      
+        X
+        ⊆
+        S
+      
+    
+    {\displaystyle X\subseteq S}
+  . In Cohen's original formulation of forcing, each forcing condition is a finite set of sentences, either of the form 
+  
+    
+      
+        a
+        ∈
+        X
+      
+    
+    {\displaystyle a\in X}
+   or 
+  
+    
+      
+        a
+        ∉
+        X
+      
+    
+    {\displaystyle a\notin X}
+  , that are self-consistent (i.e. 
+  
+    
+      
+        a
+        ∈
+        X
+      
+    
+    {\displaystyle a\in X}
+   and 
+  
+    
+      
+        a
+        ∉
+        X
+      
+    
+    {\displaystyle a\notin X}
+   for the same value of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   do not appear in the same condition). This forcing notion is usually called Cohen forcing.
+The forcing poset for Cohen forcing can be formally written as 
+  
+    
+      
+        (
+        Fin
+        ⁡
+        (
+        S
+        ,
+        2
+        )
+        ,
+        ⊇
+        ,
+        0
+        )
+      
+    
+    {\displaystyle (\operatorname {Fin} (S,2),\supseteq ,0)}
+  , the finite partial functions from 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   to 
+  
+    
+      
+        2
+         
+        
+          
+            
+              
+                =
+              
+              
+                df
+              
+            
+          
+        
+         
+        {
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle 2~{\stackrel {\text{df}}{=}}~\{0,1\}}
+   under reverse inclusion. Cohen forcing satisfies the splitting condition because given any condition 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , one can always find an element 
+  
+    
+      
+        a
+        ∈
+        S
+      
+    
+    {\displaystyle a\in S}
+   not mentioned in 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , and add either the sentence 
+  
+    
+      
+        a
+        ∈
+        X
+      
+    
+    {\displaystyle a\in X}
+   or 
+  
+    
+      
+        a
+        ∉
+        X
+      
+    
+    {\displaystyle a\notin X}
+   to 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   to get two new forcing conditions, incompatible with each other.
+Another instructive example of a forcing poset is 
+  
+    
+      
+        (
+        Bor
+        ⁡
+        (
+        I
+        )
+        ,
+        ⊆
+        ,
+        I
+        )
+      
+    
+    {\displaystyle (\operatorname {Bor} (I),\subseteq ,I)}
+  , where 
+  
+    
+      
+        I
+        =
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle I=[0,1]}
+   and 
+  
+    
+      
+        Bor
+        ⁡
+        (
+        I
+        )
+      
+    
+    {\displaystyle \operatorname {Bor} (I)}
+   is the collection of Borel subsets of 
+  
+    
+      
+        I
+      
+    
+    {\displaystyle I}
+   having non-zero Lebesgue measure. The generic object associated with this forcing poset is a random real number 
+  
+    
+      
+        r
+        ∈
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle r\in [0,1]}
+  . It can be shown that 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   falls in every Borel subset of 
+  
+    
+      
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle [0,1]}
+   with measure 1, provided that the Borel subset is "described" in the original unexpanded universe (this can be formalized with the concept of Borel codes). Each forcing condition can be regarded as a random event with probability equal to its measure. Due to the ready intuition this example can provide, probabilistic language is sometimes used with other divergent forcing posets.
+
+Generic filters
+Even though each individual forcing condition 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   cannot fully determine the generic object 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+  , the set 
+  
+    
+      
+        G
+        ⊆
+        
+          P
+        
+      
+    
+    {\displaystyle G\subseteq \mathbb {P} }
+   of all true forcing conditions does determine 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+  . In fact, without loss of generality, 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   is commonly considered to be the generic object adjoined to 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  , so the expanded model is called 
+  
+    
+      
+        M
+        [
+        G
+        ]
+      
+    
+    {\displaystyle M[G]}
+  . It is usually easy enough to show that the originally desired object 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   is indeed in the model 
+  
+    
+      
+        M
+        [
+        G
+        ]
+      
+    
+    {\displaystyle M[G]}
+  .
+Under this convention, the concept of "generic object" can be described in a general way. Specifically, the set 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   should be a generic filter on 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+   relative to 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  . The "filter" condition means that it makes sense that 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   is a set of all true forcing conditions:
+
+  
+    
+      
+        G
+        ⊆
+        
+          P
+        
+        ;
+      
+    
+    {\displaystyle G\subseteq \mathbb {P} ;}
+  
+
+  
+    
+      
+        
+          1
+        
+        ∈
+        G
+        ;
+      
+    
+    {\displaystyle \mathbf {1} \in G;}
+  
+if 
+  
+    
+      
+        p
+        ≥
+        q
+        ∈
+        G
+      
+    
+    {\displaystyle p\geq q\in G}
+  , then 
+  
+    
+      
+        p
+        ∈
+        G
+        ;
+      
+    
+    {\displaystyle p\in G;}
+  
+if 
+  
+    
+      
+        p
+        ,
+        q
+        ∈
+        G
+      
+    
+    {\displaystyle p,q\in G}
+  , then there exists an 
+  
+    
+      
+        r
+        ∈
+        G
+      
+    
+    {\displaystyle r\in G}
+   such that 
+  
+    
+      
+        r
+        ≤
+        p
+        ,
+        q
+        .
+      
+    
+    {\displaystyle r\leq p,q.}
+  For 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   to be "generic relative to 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  " means:
+
+If 
+  
+    
+      
+        D
+        ∈
+        M
+      
+    
+    {\displaystyle D\in M}
+   is a "dense" subset of 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+   (that is, for each 
+  
+    
+      
+        p
+        ∈
+        
+          P
+        
+      
+    
+    {\displaystyle p\in \mathbb {P} }
+  , there exists a 
+  
+    
+      
+        q
+        ∈
+        D
+      
+    
+    {\displaystyle q\in D}
+   such that 
+  
+    
+      
+        q
+        ≤
+        p
+      
+    
+    {\displaystyle q\leq p}
+  ), then 
+  
+    
+      
+        G
+        ∩
+        D
+        ≠
+        ∅
+      
+    
+    {\displaystyle G\cap D\neq \varnothing }
+  .Given that 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   is a countable model, the existence of a generic filter 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   follows from the Rasiowa–Sikorski lemma. In fact, slightly more is true: Given a condition 
+  
+    
+      
+        p
+        ∈
+        
+          P
+        
+      
+    
+    {\displaystyle p\in \mathbb {P} }
+  , one can find a generic filter 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   such that 
+  
+    
+      
+        p
+        ∈
+        G
+      
+    
+    {\displaystyle p\in G}
+  . Due to the splitting condition on 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+  , if 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   is a filter, then 
+  
+    
+      
+        
+          P
+        
+        ∖
+        G
+      
+    
+    {\displaystyle \mathbb {P} \setminus G}
+   is dense. If 
+  
+    
+      
+        G
+        ∈
+        M
+      
+    
+    {\displaystyle G\in M}
+  , then 
+  
+    
+      
+        
+          P
+        
+        ∖
+        G
+        ∈
+        M
+      
+    
+    {\displaystyle \mathbb {P} \setminus G\in M}
+   because 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   is a model of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+  . For this reason, a generic filter is never in 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  .
+
+P-names and interpretations
+Associated with a forcing poset 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+   is the class 
+  
+    
+      
+        
+          V
+          
+            (
+            
+              P
+            
+            )
+          
+        
+      
+    
+    {\displaystyle V^{(\mathbb {P} )}}
+   of 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+  -names. A 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+  -name is a set 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   of the form
+
+  
+    
+      
+        A
+        ⊆
+        {
+        (
+        u
+        ,
+        p
+        )
+        ∣
+        u
+         
+        
+          is a
+        
+         
+        
+          P
+        
+        
+          -name and
+        
+         
+        p
+        ∈
+        
+          P
+        
+        }
+        .
+      
+    
+    {\displaystyle A\subseteq \{(u,p)\mid u~{\text{is a}}~\mathbb {P} {\text{-name and}}~p\in \mathbb {P} \}.}
+  Given any filter 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   on 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+  , the interpretation or valuation map from 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+  -names is given by
+
+  
+    
+      
+        val
+        ⁡
+        (
+        u
+        ,
+        G
+        )
+        =
+        {
+        val
+        ⁡
+        (
+        v
+        ,
+        G
+        )
+        ∣
+        ∃
+        p
+        ∈
+        G
+        :
+         
+        (
+        v
+        ,
+        p
+        )
+        ∈
+        u
+        }
+        .
+      
+    
+    {\displaystyle \operatorname {val} (u,G)=\{\operatorname {val} (v,G)\mid \exists p\in G:~(v,p)\in u\}.}
+  The 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+  -names are, in fact, an expansion of the universe. Given 
+  
+    
+      
+        x
+        ∈
+        V
+      
+    
+    {\displaystyle x\in V}
+  , one defines 
+  
+    
+      
+        
+          
+            
+              x
+              ˇ
+            
+          
+        
+      
+    
+    {\displaystyle {\check {x}}}
+   to be the 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+  -name
+
+  
+    
+      
+        
+          
+            
+              x
+              ˇ
+            
+          
+        
+        =
+        {
+        (
+        
+          
+            
+              y
+              ˇ
+            
+          
+        
+        ,
+        
+          1
+        
+        )
+        ∣
+        y
+        ∈
+        x
+        }
+        .
+      
+    
+    {\displaystyle {\check {x}}=\{({\check {y}},\mathbf {1} )\mid y\in x\}.}
+  Since 
+  
+    
+      
+        
+          1
+        
+        ∈
+        G
+      
+    
+    {\displaystyle \mathbf {1} \in G}
+  , it follows that 
+  
+    
+      
+        val
+        ⁡
+        (
+        
+          
+            
+              x
+              ˇ
+            
+          
+        
+        ,
+        G
+        )
+        =
+        x
+      
+    
+    {\displaystyle \operatorname {val} ({\check {x}},G)=x}
+  . In a sense, 
+  
+    
+      
+        
+          
+            
+              x
+              ˇ
+            
+          
+        
+      
+    
+    {\displaystyle {\check {x}}}
+   is a "name for 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  " that does not depend on the specific choice of 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  .
+This also allows defining a "name for 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  " without explicitly referring to 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  :
+
+  
+    
+      
+        
+          
+            G
+            _
+          
+        
+        =
+        {
+        (
+        
+          
+            
+              p
+              ˇ
+            
+          
+        
+        ,
+        p
+        )
+        ∣
+        p
+        ∈
+        
+          P
+        
+        }
+      
+    
+    {\displaystyle {\underline {G}}=\{({\check {p}},p)\mid p\in \mathbb {P} \}}
+  so that 
+  
+    
+      
+        val
+        ⁡
+        (
+        
+          
+            G
+            _
+          
+        
+        ,
+        G
+        )
+        =
+        {
+        val
+        ⁡
+        (
+        
+          
+            
+              p
+              ˇ
+            
+          
+        
+        ,
+        G
+        )
+        ∣
+        p
+        ∈
+        G
+        }
+        =
+        G
+      
+    
+    {\displaystyle \operatorname {val} ({\underline {G}},G)=\{\operatorname {val} ({\check {p}},G)\mid p\in G\}=G}
+  .
+
+Rigorous definitions
+The concepts of 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+  -names, interpretations, and 
+  
+    
+      
+        
+          
+            
+              x
+              ˇ
+            
+          
+        
+      
+    
+    {\displaystyle {\check {x}}}
+   are actually defined by transfinite recursion. With 
+  
+    
+      
+        ∅
+      
+    
+    {\displaystyle \varnothing }
+   the empty set, 
+  
+    
+      
+        α
+        +
+        1
+      
+    
+    {\displaystyle \alpha +1}
+   the successor ordinal to ordinal 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+  , 
+  
+    
+      
+        
+          
+            P
+          
+        
+      
+    
+    {\displaystyle {\mathcal {P}}}
+   the power-set operator, and 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   a limit ordinal, define the following hierarchy:
+
+  
+    
+      
+        
+          
+            
+              
+                Name
+                ⁡
+                (
+                ∅
+                )
+              
+              
+                
+                =
+                ∅
+                ,
+              
+            
+            
+              
+                Name
+                ⁡
+                (
+                α
+                +
+                1
+                )
+              
+              
+                
+                =
+                
+                  
+                    P
+                  
+                
+                (
+                Name
+                ⁡
+                (
+                α
+                )
+                ×
+                
+                  P
+                
+                )
+                ,
+              
+            
+            
+              
+                Name
+                ⁡
+                (
+                λ
+                )
+              
+              
+                
+                =
+                ⋃
+                {
+                Name
+                ⁡
+                (
+                α
+                )
+                ∣
+                α
+                <
+                λ
+                }
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\operatorname {Name} (\varnothing )&=\varnothing ,\\\operatorname {Name} (\alpha +1)&={\mathcal {P}}(\operatorname {Name} (\alpha )\times \mathbb {P} ),\\\operatorname {Name} (\lambda )&=\bigcup \{\operatorname {Name} (\alpha )\mid \alpha <\lambda \}.\end{aligned}}}
+  Then the class of 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+  -names is defined as
+
+  
+    
+      
+        
+          V
+          
+            (
+            
+              P
+            
+            )
+          
+        
+        =
+        ⋃
+        {
+        Name
+        ⁡
+        (
+        α
+        )
+         
+        
+          |
+        
+         
+        α
+         
+        
+          is an ordinal
+        
+        }
+        .
+      
+    
+    {\displaystyle V^{(\mathbb {P} )}=\bigcup \{\operatorname {Name} (\alpha )~|~\alpha ~{\text{is an ordinal}}\}.}
+  The interpretation map and the map 
+  
+    
+      
+        x
+        ↦
+        
+          
+            
+              x
+              ˇ
+            
+          
+        
+      
+    
+    {\displaystyle x\mapsto {\check {x}}}
+   can similarly be defined with a hierarchical construction.
+
+Forcing
+Given a generic filter 
+  
+    
+      
+        G
+        ⊆
+        
+          P
+        
+      
+    
+    {\displaystyle G\subseteq \mathbb {P} }
+  , one proceeds as follows. The subclass of 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+  -names in 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   is denoted 
+  
+    
+      
+        
+          M
+          
+            (
+            
+              P
+            
+            )
+          
+        
+      
+    
+    {\displaystyle M^{(\mathbb {P} )}}
+  . Let 
+
+  
+    
+      
+        M
+        [
+        G
+        ]
+        =
+        
+          {
+          
+            val
+            ⁡
+            (
+            u
+            ,
+            G
+            )
+             
+            
+              
+                |
+              
+            
+             
+            u
+            ∈
+            
+              M
+              
+                (
+                
+                  P
+                
+                )
+              
+            
+          
+          }
+        
+        .
+      
+    
+    {\displaystyle M[G]=\left\{\operatorname {val} (u,G)~{\Big |}~u\in M^{(\mathbb {P} )}\right\}.}
+  To reduce the study of the set theory of 
+  
+    
+      
+        M
+        [
+        G
+        ]
+      
+    
+    {\displaystyle M[G]}
+   to that of 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  , one works with the "forcing language", which is built up like ordinary first-order logic, with membership as the binary relation and all the 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+  -names as constants.
+Define 
+  
+    
+      
+        p
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+        
+        φ
+        (
+        
+          u
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          u
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle p\Vdash _{M,\mathbb {P} }\varphi (u_{1},\ldots ,u_{n})}
+   (to be read as "
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   forces 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   in the model 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   with poset 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+  "), where 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is a condition, 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   is a formula in the forcing language, and the 
+  
+    
+      
+        
+          u
+          
+            i
+          
+        
+      
+    
+    {\displaystyle u_{i}}
+  's are 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+  -names, to mean that if 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   is a generic filter containing 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , then 
+  
+    
+      
+        M
+        [
+        G
+        ]
+        ⊨
+        φ
+        (
+        val
+        ⁡
+        (
+        
+          u
+          
+            1
+          
+        
+        ,
+        G
+        )
+        ,
+        …
+        ,
+        val
+        ⁡
+        (
+        
+          u
+          
+            n
+          
+        
+        ,
+        G
+        )
+        )
+      
+    
+    {\displaystyle M[G]\models \varphi (\operatorname {val} (u_{1},G),\ldots ,\operatorname {val} (u_{n},G))}
+  . The special case 
+  
+    
+      
+        
+          1
+        
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+        
+        φ
+      
+    
+    {\displaystyle \mathbf {1} \Vdash _{M,\mathbb {P} }\varphi }
+   is often written as "
+  
+    
+      
+        
+          P
+        
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+        
+        φ
+      
+    
+    {\displaystyle \mathbb {P} \Vdash _{M,\mathbb {P} }\varphi }
+  " or simply "
+  
+    
+      
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+        
+        φ
+      
+    
+    {\displaystyle \Vdash _{M,\mathbb {P} }\varphi }
+  ". Such statements are true in 
+  
+    
+      
+        M
+        [
+        G
+        ]
+      
+    
+    {\displaystyle M[G]}
+  , no matter what 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   is.
+What is important is that this external definition of the forcing relation 
+  
+    
+      
+        p
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+        
+        φ
+      
+    
+    {\displaystyle p\Vdash _{M,\mathbb {P} }\varphi }
+   is equivalent to an internal definition within 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  , defined by transfinite induction (specifically 
+  
+    
+      
+        ∈
+      
+    
+    {\displaystyle \in }
+  -induction) over the 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+  -names on instances of 
+  
+    
+      
+        u
+        ∈
+        v
+      
+    
+    {\displaystyle u\in v}
+   and 
+  
+    
+      
+        u
+        =
+        v
+      
+    
+    {\displaystyle u=v}
+  , and then by ordinary induction over the complexity of formulae. This has the effect that all the properties of 
+  
+    
+      
+        M
+        [
+        G
+        ]
+      
+    
+    {\displaystyle M[G]}
+   are really properties of 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  , and the verification of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   in 
+  
+    
+      
+        M
+        [
+        G
+        ]
+      
+    
+    {\displaystyle M[G]}
+   becomes straightforward. This is usually summarized as the following three key properties:
+
+Truth: 
+  
+    
+      
+        M
+        [
+        G
+        ]
+        ⊨
+        φ
+        (
+        val
+        ⁡
+        (
+        
+          u
+          
+            1
+          
+        
+        ,
+        G
+        )
+        ,
+        …
+        ,
+        val
+        ⁡
+        (
+        
+          u
+          
+            n
+          
+        
+        ,
+        G
+        )
+        )
+      
+    
+    {\displaystyle M[G]\models \varphi (\operatorname {val} (u_{1},G),\ldots ,\operatorname {val} (u_{n},G))}
+   if and only if it is forced by 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  , that is, for some condition 
+  
+    
+      
+        p
+        ∈
+        G
+      
+    
+    {\displaystyle p\in G}
+  , we have 
+  
+    
+      
+        p
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+        
+        φ
+        (
+        
+          u
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          u
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle p\Vdash _{M,\mathbb {P} }\varphi (u_{1},\ldots ,u_{n})}
+  .
+Definability: The statement "
+  
+    
+      
+        p
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+        
+        φ
+        (
+        
+          u
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          u
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle p\Vdash _{M,\mathbb {P} }\varphi (u_{1},\ldots ,u_{n})}
+  " is definable in 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  .
+Coherence: 
+  
+    
+      
+        p
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+        
+        φ
+        (
+        
+          u
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          u
+          
+            n
+          
+        
+        )
+        ∧
+        q
+        ≤
+        p
+        
+        ⟹
+        
+        q
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+        
+        φ
+        (
+        
+          u
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          u
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle p\Vdash _{M,\mathbb {P} }\varphi (u_{1},\ldots ,u_{n})\land q\leq p\implies q\Vdash _{M,\mathbb {P} }\varphi (u_{1},\ldots ,u_{n})}
+  .
+
+Internal definition
+There are many different but equivalent ways to define the forcing relation 
+  
+    
+      
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \Vdash _{M,\mathbb {P} }}
+   in 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  . One way to simplify the definition is to first define a modified forcing relation 
+  
+    
+      
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \Vdash _{M,\mathbb {P} }^{*}}
+   that is strictly stronger than 
+  
+    
+      
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \Vdash _{M,\mathbb {P} }}
+  . The modified relation 
+  
+    
+      
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \Vdash _{M,\mathbb {P} }^{*}}
+   still satisfies the three key properties of forcing, but 
+  
+    
+      
+        p
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+          
+            ∗
+          
+        
+        φ
+      
+    
+    {\displaystyle p\Vdash _{M,\mathbb {P} }^{*}\varphi }
+   and 
+  
+    
+      
+        p
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+          
+            ∗
+          
+        
+        
+          φ
+          ′
+        
+      
+    
+    {\displaystyle p\Vdash _{M,\mathbb {P} }^{*}\varphi '}
+   are not necessarily equivalent even if the first-order formulae 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   and 
+  
+    
+      
+        
+          φ
+          ′
+        
+      
+    
+    {\displaystyle \varphi '}
+   are equivalent. The unmodified forcing relation can then be defined as
+
+In fact, Cohen's original concept of forcing is essentially 
+  
+    
+      
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \Vdash _{M,\mathbb {P} }^{*}}
+   rather than 
+  
+    
+      
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \Vdash _{M,\mathbb {P} }}
+  .The modified forcing relation 
+  
+    
+      
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \Vdash _{M,\mathbb {P} }^{*}}
+   can be defined recursively as follows:
+
+  
+    
+      
+        p
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+          
+            ∗
+          
+        
+        u
+        ∈
+        v
+      
+    
+    {\displaystyle p\Vdash _{M,\mathbb {P} }^{*}u\in v}
+   means 
+  
+    
+      
+        (
+        ∃
+        (
+        w
+        ,
+        q
+        )
+        ∈
+        v
+        )
+        (
+        q
+        ≥
+        p
+        ∧
+        p
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+          
+            ∗
+          
+        
+        w
+        =
+        u
+        )
+        .
+      
+    
+    {\displaystyle (\exists (w,q)\in v)(q\geq p\wedge p\Vdash _{M,\mathbb {P} }^{*}w=u).}
+  
+
+  
+    
+      
+        p
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+          
+            ∗
+          
+        
+        u
+        ≠
+        v
+      
+    
+    {\displaystyle p\Vdash _{M,\mathbb {P} }^{*}u\neq v}
+   means 
+  
+    
+      
+        (
+        ∃
+        (
+        w
+        ,
+        q
+        )
+        ∈
+        v
+        )
+        (
+        q
+        ≥
+        p
+        ∧
+        p
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+          
+            ∗
+          
+        
+        w
+        ∉
+        u
+        )
+        ∨
+        (
+        ∃
+        (
+        w
+        ,
+        q
+        )
+        ∈
+        v
+        )
+        (
+        q
+        ≥
+        p
+        ∧
+        p
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+          
+            ∗
+          
+        
+        w
+        ∉
+        u
+        )
+        .
+      
+    
+    {\displaystyle (\exists (w,q)\in v)(q\geq p\wedge p\Vdash _{M,\mathbb {P} }^{*}w\notin u)\vee (\exists (w,q)\in v)(q\geq p\wedge p\Vdash _{M,\mathbb {P} }^{*}w\notin u).}
+  
+
+  
+    
+      
+        p
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+          
+            ∗
+          
+        
+        ¬
+        φ
+      
+    
+    {\displaystyle p\Vdash _{M,\mathbb {P} }^{*}\neg \varphi }
+   means 
+  
+    
+      
+        ¬
+        (
+        ∃
+        q
+        ≤
+        p
+        )
+        (
+        q
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+          
+            ∗
+          
+        
+        φ
+        )
+        .
+      
+    
+    {\displaystyle \neg (\exists q\leq p)(q\Vdash _{M,\mathbb {P} }^{*}\varphi ).}
+  
+
+  
+    
+      
+        p
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+          
+            ∗
+          
+        
+        (
+        φ
+        ∨
+        ψ
+        )
+      
+    
+    {\displaystyle p\Vdash _{M,\mathbb {P} }^{*}(\varphi \vee \psi )}
+   means 
+  
+    
+      
+        (
+        p
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+          
+            ∗
+          
+        
+        φ
+        )
+        ∨
+        (
+        p
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+          
+            ∗
+          
+        
+        ψ
+        )
+        .
+      
+    
+    {\displaystyle (p\Vdash _{M,\mathbb {P} }^{*}\varphi )\vee (p\Vdash _{M,\mathbb {P} }^{*}\psi ).}
+  
+
+  
+    
+      
+        p
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+          
+            ∗
+          
+        
+        ∃
+        x
+        
+        φ
+        (
+        x
+        )
+      
+    
+    {\displaystyle p\Vdash _{M,\mathbb {P} }^{*}\exists x\,\varphi (x)}
+   means 
+  
+    
+      
+        (
+        ∃
+        u
+        ∈
+        
+          M
+          
+            (
+            
+              P
+            
+            )
+          
+        
+        )
+        (
+        p
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+          
+            ∗
+          
+        
+        φ
+        (
+        u
+        )
+        )
+        .
+      
+    
+    {\displaystyle (\exists u\in M^{(\mathbb {P} )})(p\Vdash _{M,\mathbb {P} }^{*}\varphi (u)).}
+  Other symbols of the forcing language can be defined in terms of these symbols: For example, 
+  
+    
+      
+        u
+        =
+        v
+      
+    
+    {\displaystyle u=v}
+   means 
+  
+    
+      
+        ¬
+        (
+        u
+        ≠
+        v
+        )
+      
+    
+    {\displaystyle \neg (u\neq v)}
+  , 
+  
+    
+      
+        ∀
+        x
+        
+        φ
+        (
+        x
+        )
+      
+    
+    {\displaystyle \forall x\,\varphi (x)}
+   means 
+  
+    
+      
+        ¬
+        ∃
+        x
+        
+        ¬
+        φ
+        (
+        x
+        )
+      
+    
+    {\displaystyle \neg \exists x\,\neg \varphi (x)}
+  , etc. Cases 1 and 2 depend on each other and on case 3, but the recursion always refer to 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+  -names with lesser ranks, so transfinite induction allows the definition to go through.
+By construction, 
+  
+    
+      
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \Vdash _{M,\mathbb {P} }^{*}}
+   (and thus 
+  
+    
+      
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \Vdash _{M,\mathbb {P} }}
+  ) automatically satisfies Definability. The proof that 
+  
+    
+      
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \Vdash _{M,\mathbb {P} }^{*}}
+   also satisfies Truth and Coherence is by inductively inspecting each of the five cases above. Cases 4 and 5 are trivial (thanks to the choice of 
+  
+    
+      
+        ∨
+      
+    
+    {\displaystyle \vee }
+   and 
+  
+    
+      
+        ∃
+      
+    
+    {\displaystyle \exists }
+   as the elementary symbols), cases 1 and 2 relies only on the assumption that 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   is a filter, and only case 3 requires 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   to be a generic filter.Formally, an internal definition of the forcing relation (such as the one presented above) is actually a transformation of an arbitrary formula 
+  
+    
+      
+        φ
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle \varphi (x_{1},\dots ,x_{n})}
+   to another formula 
+  
+    
+      
+        p
+        
+          ⊩
+          
+            
+              P
+            
+          
+        
+        φ
+        (
+        
+          u
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          u
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle p\Vdash _{\mathbb {P} }\varphi (u_{1},\dots ,u_{n})}
+   where 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   and 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+   are additional variables. The model 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   does not explicitly appear in the transformation (note that within 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  , 
+  
+    
+      
+        u
+        ∈
+        
+          M
+          
+            (
+            
+              P
+            
+            )
+          
+        
+      
+    
+    {\displaystyle u\in M^{(\mathbb {P} )}}
+   just means "
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   is a 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+  -name"), and indeed one may take this transformation as a "syntactic" definition of the forcing relation in the universe 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   of all sets regardless of any countable transitive model. However, if one wants to force over some countable transitive model 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  , then the latter formula should be interpreted under 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   (i.e. with all quantifiers ranging only over 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  ), in which case it is equivalent to the external "semantic" definition of 
+  
+    
+      
+        
+          ⊩
+          
+            M
+            ,
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \Vdash _{M,\mathbb {P} }}
+   described at the top of this section:
+
+For any formula 
+  
+    
+      
+        φ
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle \varphi (x_{1},\dots ,x_{n})}
+   there is a theorem 
+  
+    
+      
+        T
+      
+    
+    {\displaystyle T}
+   of the theory 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   (for example conjunction of finite number of axioms) such that for any countable transitive model 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   such that 
+  
+    
+      
+        M
+        ⊨
+        T
+      
+    
+    {\displaystyle M\models T}
+   and any atomless partial order 
+  
+    
+      
+        
+          P
+        
+        ∈
+        M
+      
+    
+    {\displaystyle \mathbb {P} \in M}
+   and any 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+  -generic filter 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   over 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   This the sense under which the forcing relation is indeed "definable in 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  ".
+
+Consistency
+The discussion above can be summarized by the fundamental consistency result that, given a forcing poset 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+  , we may assume the existence of a generic filter 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  , not belonging to the universe 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  , such that 
+  
+    
+      
+        V
+        [
+        G
+        ]
+      
+    
+    {\displaystyle V[G]}
+   is again a set-theoretic universe that models 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+  . Furthermore, all truths in 
+  
+    
+      
+        V
+        [
+        G
+        ]
+      
+    
+    {\displaystyle V[G]}
+   may be reduced to truths in 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   involving the forcing relation.
+Both styles, adjoining 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   to either a countable transitive model 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   or the whole universe 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  , are commonly used. Less commonly seen is the approach using the "internal" definition of forcing, in which no mention of set or class models is made. This was Cohen's original method, and in one elaboration, it becomes the method of Boolean-valued analysis.
+
+Cohen forcing
+The simplest nontrivial forcing poset is 
+  
+    
+      
+        (
+        Fin
+        ⁡
+        (
+        ω
+        ,
+        2
+        )
+        ,
+        ⊇
+        ,
+        0
+        )
+      
+    
+    {\displaystyle (\operatorname {Fin} (\omega ,2),\supseteq ,0)}
+  , the finite partial functions from 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+   to 
+  
+    
+      
+        2
+         
+        
+          
+            
+              
+                =
+              
+              
+                df
+              
+            
+          
+        
+         
+        {
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle 2~{\stackrel {\text{df}}{=}}~\{0,1\}}
+   under reverse inclusion. That is, a condition 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is essentially two disjoint finite subsets 
+  
+    
+      
+        
+          
+            p
+            
+              −
+              1
+            
+          
+        
+        [
+        1
+        ]
+      
+    
+    {\displaystyle {p^{-1}}[1]}
+   and 
+  
+    
+      
+        
+          
+            p
+            
+              −
+              1
+            
+          
+        
+        [
+        0
+        ]
+      
+    
+    {\displaystyle {p^{-1}}[0]}
+   of 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+  , to be thought of as the "yes" and "no" parts of 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , with no information provided on values outside the domain of 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  . "
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   is stronger than 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  " means that 
+  
+    
+      
+        q
+        ⊇
+        p
+      
+    
+    {\displaystyle q\supseteq p}
+  , in other words, the "yes" and "no" parts of 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   are supersets of the "yes" and "no" parts of 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , and in that sense, provide more information.
+Let 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   be a generic filter for this poset. If 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   and 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   are both in 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  , then 
+  
+    
+      
+        p
+        ∪
+        q
+      
+    
+    {\displaystyle p\cup q}
+   is a condition because 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   is a filter. This means that 
+  
+    
+      
+        g
+        =
+        ⋃
+        G
+      
+    
+    {\displaystyle g=\bigcup G}
+   is a well-defined partial function from 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+   to 
+  
+    
+      
+        2
+      
+    
+    {\displaystyle 2}
+   because any two conditions in 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   agree on their common domain.
+In fact, 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   is a total function. Given 
+  
+    
+      
+        n
+        ∈
+        ω
+      
+    
+    {\displaystyle n\in \omega }
+  , let 
+  
+    
+      
+        
+          D
+          
+            n
+          
+        
+        =
+        {
+        p
+        ∣
+        p
+        (
+        n
+        )
+         
+        
+          is defined
+        
+        }
+      
+    
+    {\displaystyle D_{n}=\{p\mid p(n)~{\text{is defined}}\}}
+  . Then 
+  
+    
+      
+        
+          D
+          
+            n
+          
+        
+      
+    
+    {\displaystyle D_{n}}
+   is dense. (Given any 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , if 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is not in 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  's domain, adjoin a value for 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  —the result is in 
+  
+    
+      
+        
+          D
+          
+            n
+          
+        
+      
+    
+    {\displaystyle D_{n}}
+  .) A condition 
+  
+    
+      
+        p
+        ∈
+        G
+        ∩
+        
+          D
+          
+            n
+          
+        
+      
+    
+    {\displaystyle p\in G\cap D_{n}}
+   has 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   in its domain, and since 
+  
+    
+      
+        p
+        ⊆
+        g
+      
+    
+    {\displaystyle p\subseteq g}
+  , we find that 
+  
+    
+      
+        g
+        (
+        n
+        )
+      
+    
+    {\displaystyle g(n)}
+   is defined.
+Let 
+  
+    
+      
+        X
+        =
+        
+          
+            g
+            
+              −
+              1
+            
+          
+        
+        [
+        1
+        ]
+      
+    
+    {\displaystyle X={g^{-1}}[1]}
+  , the set of all "yes" members of the generic conditions. It is possible to give a name for 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   directly. Let 
+
+  
+    
+      
+        
+          
+            X
+            _
+          
+        
+        =
+        
+          {
+          
+            
+              (
+              
+                
+                  
+                    
+                      n
+                      ˇ
+                    
+                  
+                
+                ,
+                p
+              
+              )
+            
+            ∣
+            p
+            (
+            n
+            )
+            =
+            1
+          
+          }
+        
+        .
+      
+    
+    {\displaystyle {\underline {X}}=\left\{\left({\check {n}},p\right)\mid p(n)=1\right\}.}
+  Then 
+  
+    
+      
+        val
+        ⁡
+        (
+        
+          
+            X
+            _
+          
+        
+        ,
+        G
+        )
+        =
+        X
+        .
+      
+    
+    {\displaystyle \operatorname {val} ({\underline {X}},G)=X.}
+   Now suppose that 
+  
+    
+      
+        A
+        ⊆
+        ω
+      
+    
+    {\displaystyle A\subseteq \omega }
+   in 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  . We claim that 
+  
+    
+      
+        X
+        ≠
+        A
+      
+    
+    {\displaystyle X\neq A}
+  . Let 
+
+  
+    
+      
+        
+          D
+          
+            A
+          
+        
+        =
+        {
+        p
+        ∣
+        (
+        ∃
+        n
+        )
+        (
+        n
+        ∈
+        Dom
+        ⁡
+        (
+        p
+        )
+        ∧
+        (
+        p
+        (
+        n
+        )
+        =
+        1
+        
+        ⟺
+        
+        n
+        ∉
+        A
+        )
+        )
+        }
+        .
+      
+    
+    {\displaystyle D_{A}=\{p\mid (\exists n)(n\in \operatorname {Dom} (p)\land (p(n)=1\iff n\notin A))\}.}
+  Then 
+  
+    
+      
+        
+          D
+          
+            A
+          
+        
+      
+    
+    {\displaystyle D_{A}}
+   is dense. (Given any 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , find 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   that is not in its domain, and adjoin a value for 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   contrary to the status of "
+  
+    
+      
+        n
+        ∈
+        A
+      
+    
+    {\displaystyle n\in A}
+  ".) Then any 
+  
+    
+      
+        p
+        ∈
+        G
+        ∩
+        
+          D
+          
+            A
+          
+        
+      
+    
+    {\displaystyle p\in G\cap D_{A}}
+   witnesses 
+  
+    
+      
+        X
+        ≠
+        A
+      
+    
+    {\displaystyle X\neq A}
+  . To summarize, 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   is a "new" subset of 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+  , necessarily infinite.
+Replacing 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+   with 
+  
+    
+      
+        ω
+        ×
+        
+          ω
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \omega \times \omega _{2}}
+  , that is, consider instead finite partial functions whose inputs are of the form 
+  
+    
+      
+        (
+        n
+        ,
+        α
+        )
+      
+    
+    {\displaystyle (n,\alpha )}
+  , with 
+  
+    
+      
+        n
+        <
+        ω
+      
+    
+    {\displaystyle n<\omega }
+   and 
+  
+    
+      
+        α
+        <
+        
+          ω
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \alpha <\omega _{2}}
+  , and whose outputs are 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+   or 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+  , one gets 
+  
+    
+      
+        
+          ω
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \omega _{2}}
+   new subsets of 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+  . They are all distinct, by a density argument: Given 
+  
+    
+      
+        α
+        <
+        β
+        <
+        
+          ω
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \alpha <\beta <\omega _{2}}
+  , let 
+
+  
+    
+      
+        
+          D
+          
+            α
+            ,
+            β
+          
+        
+        =
+        {
+        p
+        ∣
+        (
+        ∃
+        n
+        )
+        (
+        p
+        (
+        n
+        ,
+        α
+        )
+        ≠
+        p
+        (
+        n
+        ,
+        β
+        )
+        )
+        }
+        ,
+      
+    
+    {\displaystyle D_{\alpha ,\beta }=\{p\mid (\exists n)(p(n,\alpha )\neq p(n,\beta ))\},}
+  then each 
+  
+    
+      
+        
+          D
+          
+            α
+            ,
+            β
+          
+        
+      
+    
+    {\displaystyle D_{\alpha ,\beta }}
+   is dense, and a generic condition in it proves that the αth new set disagrees somewhere with the 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+  th new set.
+This is not yet the falsification of the continuum hypothesis. One must prove that no new maps have been introduced which map 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+   onto 
+  
+    
+      
+        
+          ω
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \omega _{1}}
+  , or 
+  
+    
+      
+        
+          ω
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \omega _{1}}
+   onto 
+  
+    
+      
+        
+          ω
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \omega _{2}}
+  . For example, if one considers instead 
+  
+    
+      
+        Fin
+        ⁡
+        (
+        ω
+        ,
+        
+          ω
+          
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle \operatorname {Fin} (\omega ,\omega _{1})}
+  , finite partial functions from 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+   to 
+  
+    
+      
+        
+          ω
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \omega _{1}}
+  , the first uncountable ordinal, one gets in 
+  
+    
+      
+        V
+        [
+        G
+        ]
+      
+    
+    {\displaystyle V[G]}
+   a bijection from 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+   to 
+  
+    
+      
+        
+          ω
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \omega _{1}}
+  . In other words, 
+  
+    
+      
+        
+          ω
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \omega _{1}}
+   has collapsed, and in the forcing extension, is a countable ordinal.
+The last step in showing the independence of the continuum hypothesis, then, is to show that Cohen forcing does not collapse cardinals. For this, a sufficient combinatorial property is that all of the antichains of the forcing poset are countable.
+
+The countable chain condition
+An (strong) antichain 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   of 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+   is a subset such that if 
+  
+    
+      
+        p
+        ,
+        q
+        ∈
+        A
+      
+    
+    {\displaystyle p,q\in A}
+  , then 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   and 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   are incompatible (written 
+  
+    
+      
+        p
+        ⊥
+        q
+      
+    
+    {\displaystyle p\perp q}
+  ), meaning there is no 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   in 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+   such that 
+  
+    
+      
+        r
+        ≤
+        p
+      
+    
+    {\displaystyle r\leq p}
+   and 
+  
+    
+      
+        r
+        ≤
+        q
+      
+    
+    {\displaystyle r\leq q}
+  .  In the example on Borel sets, incompatibility means that 
+  
+    
+      
+        p
+        ∩
+        q
+      
+    
+    {\displaystyle p\cap q}
+   has zero measure. In the example on finite partial functions, incompatibility means that 
+  
+    
+      
+        p
+        ∪
+        q
+      
+    
+    {\displaystyle p\cup q}
+   is not a function, in other words, 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   and 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   assign different values to some domain input.
+
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+   satisfies the countable chain condition (c.c.c.) if and only if every antichain in 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+   is countable. (The name, which is obviously inappropriate, is a holdover from older terminology. Some mathematicians write "c.a.c." for "countable antichain condition".)
+It is easy to see that 
+  
+    
+      
+        Bor
+        ⁡
+        (
+        I
+        )
+      
+    
+    {\displaystyle \operatorname {Bor} (I)}
+   satisfies the c.c.c. because the measures add up to at most 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+  . Also, 
+  
+    
+      
+        Fin
+        ⁡
+        (
+        E
+        ,
+        2
+        )
+      
+    
+    {\displaystyle \operatorname {Fin} (E,2)}
+   satisfies the c.c.c., but the proof is more difficult.
+Given an uncountable subfamily 
+  
+    
+      
+        W
+        ⊆
+        Fin
+        ⁡
+        (
+        E
+        ,
+        2
+        )
+      
+    
+    {\displaystyle W\subseteq \operatorname {Fin} (E,2)}
+  , shrink 
+  
+    
+      
+        W
+      
+    
+    {\displaystyle W}
+   to an uncountable subfamily 
+  
+    
+      
+        
+          W
+          
+            0
+          
+        
+      
+    
+    {\displaystyle W_{0}}
+   of sets of size 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  , for some 
+  
+    
+      
+        n
+        <
+        ω
+      
+    
+    {\displaystyle n<\omega }
+  . If 
+  
+    
+      
+        p
+        (
+        
+          e
+          
+            1
+          
+        
+        )
+        =
+        
+          b
+          
+            1
+          
+        
+      
+    
+    {\displaystyle p(e_{1})=b_{1}}
+   for uncountably many 
+  
+    
+      
+        p
+        ∈
+        
+          W
+          
+            0
+          
+        
+      
+    
+    {\displaystyle p\in W_{0}}
+  , shrink this to an uncountable subfamily 
+  
+    
+      
+        
+          W
+          
+            1
+          
+        
+      
+    
+    {\displaystyle W_{1}}
+   and repeat, getting a finite set 
+  
+    
+      
+        {
+        (
+        
+          e
+          
+            1
+          
+        
+        ,
+        
+          b
+          
+            1
+          
+        
+        )
+        ,
+        …
+        ,
+        (
+        
+          e
+          
+            k
+          
+        
+        ,
+        
+          b
+          
+            k
+          
+        
+        )
+        }
+      
+    
+    {\displaystyle \{(e_{1},b_{1}),\ldots ,(e_{k},b_{k})\}}
+   and an uncountable family 
+  
+    
+      
+        
+          W
+          
+            k
+          
+        
+      
+    
+    {\displaystyle W_{k}}
+   of incompatible conditions of size 
+  
+    
+      
+        n
+        −
+        k
+      
+    
+    {\displaystyle n-k}
+   such that every 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+   is in 
+  
+    
+      
+        Dom
+        ⁡
+        (
+        p
+        )
+      
+    
+    {\displaystyle \operatorname {Dom} (p)}
+   for at most countable many 
+  
+    
+      
+        p
+        ∈
+        
+          W
+          
+            k
+          
+        
+      
+    
+    {\displaystyle p\in W_{k}}
+  . Now, pick an arbitrary 
+  
+    
+      
+        p
+        ∈
+        
+          W
+          
+            k
+          
+        
+      
+    
+    {\displaystyle p\in W_{k}}
+  , and pick from 
+  
+    
+      
+        
+          W
+          
+            k
+          
+        
+      
+    
+    {\displaystyle W_{k}}
+   any 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   that is not one of the countably many members that have a domain member in common with 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  . Then 
+  
+    
+      
+        p
+        ∪
+        {
+        (
+        
+          e
+          
+            1
+          
+        
+        ,
+        
+          b
+          
+            1
+          
+        
+        )
+        ,
+        …
+        ,
+        (
+        
+          e
+          
+            k
+          
+        
+        ,
+        
+          b
+          
+            k
+          
+        
+        )
+        }
+      
+    
+    {\displaystyle p\cup \{(e_{1},b_{1}),\ldots ,(e_{k},b_{k})\}}
+   and 
+  
+    
+      
+        q
+        ∪
+        {
+        (
+        
+          e
+          
+            1
+          
+        
+        ,
+        
+          b
+          
+            1
+          
+        
+        )
+        ,
+        …
+        ,
+        (
+        
+          e
+          
+            k
+          
+        
+        ,
+        
+          b
+          
+            k
+          
+        
+        )
+        }
+      
+    
+    {\displaystyle q\cup \{(e_{1},b_{1}),\ldots ,(e_{k},b_{k})\}}
+   are compatible, so 
+  
+    
+      
+        W
+      
+    
+    {\displaystyle W}
+   is not an antichain. In other words, 
+  
+    
+      
+        Fin
+        ⁡
+        (
+        E
+        ,
+        2
+        )
+      
+    
+    {\displaystyle \operatorname {Fin} (E,2)}
+  -antichains are countable.
+The importance of antichains in forcing is that for most purposes, dense sets and maximal antichains are equivalent. A maximal antichain 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is one that cannot be extended to a larger antichain. This means that every element 
+  
+    
+      
+        p
+        ∈
+        
+          P
+        
+      
+    
+    {\displaystyle p\in \mathbb {P} }
+   is compatible with some member of 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  . The existence of a maximal antichain follows from Zorn's Lemma. Given a maximal antichain 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  , let 
+
+  
+    
+      
+        D
+        =
+        
+          {
+          
+            p
+            ∈
+            
+              P
+            
+            ∣
+            (
+            ∃
+            q
+            ∈
+            A
+            )
+            (
+            p
+            ≤
+            q
+            )
+          
+          }
+        
+        .
+      
+    
+    {\displaystyle D=\left\{p\in \mathbb {P} \mid (\exists q\in A)(p\leq q)\right\}.}
+  Then 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+   is dense, and 
+  
+    
+      
+        G
+        ∩
+        D
+        ≠
+        ∅
+      
+    
+    {\displaystyle G\cap D\neq \varnothing }
+   if and only if 
+  
+    
+      
+        G
+        ∩
+        A
+        ≠
+        ∅
+      
+    
+    {\displaystyle G\cap A\neq \varnothing }
+  . Conversely, given a dense set 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+  , Zorn's Lemma shows that there exists a maximal antichain 
+  
+    
+      
+        A
+        ⊆
+        D
+      
+    
+    {\displaystyle A\subseteq D}
+  , and then 
+  
+    
+      
+        G
+        ∩
+        D
+        ≠
+        ∅
+      
+    
+    {\displaystyle G\cap D\neq \varnothing }
+   if and only if 
+  
+    
+      
+        G
+        ∩
+        A
+        ≠
+        ∅
+      
+    
+    {\displaystyle G\cap A\neq \varnothing }
+  .
+Assume that 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbb {P} }
+   satisfies the c.c.c. Given 
+  
+    
+      
+        x
+        ,
+        y
+        ∈
+        V
+      
+    
+    {\displaystyle x,y\in V}
+  , with 
+  
+    
+      
+        f
+        :
+        x
+        →
+        y
+      
+    
+    {\displaystyle f:x\to y}
+   a function in 
+  
+    
+      
+        V
+        [
+        G
+        ]
+      
+    
+    {\displaystyle V[G]}
+  , one can approximate 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   inside 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   as follows. Let 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   be a name for 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   (by the definition of 
+  
+    
+      
+        V
+        [
+        G
+        ]
+      
+    
+    {\displaystyle V[G]}
+  ) and let 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   be a condition that forces 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   to be a function from 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   to 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  . Define a function 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+  , whose domain is 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  , by 
+
+  
+    
+      
+        F
+        (
+        a
+        )
+        
+          
+            
+              
+                =
+              
+              
+                df
+              
+            
+          
+        
+        
+          {
+          
+            b
+            
+              |
+              
+                (
+                ∃
+                q
+                ∈
+                
+                  P
+                
+                )
+                
+                  [
+                  
+                    (
+                    q
+                    ≤
+                    p
+                    )
+                    ∧
+                    
+                      (
+                      
+                        q
+                        ⊩
+                         
+                        u
+                        
+                          (
+                          
+                            
+                              
+                                a
+                                ˇ
+                              
+                            
+                          
+                          )
+                        
+                        =
+                        
+                          
+                            
+                              b
+                              ˇ
+                            
+                          
+                        
+                      
+                      )
+                    
+                  
+                  ]
+                
+              
+              }
+            
+            .
+          
+          
+        
+      
+    
+    {\displaystyle F(a){\stackrel {\text{df}}{=}}\left\{b\left|(\exists q\in \mathbb {P} )\left[(q\leq p)\land \left(q\Vdash ~u\left({\check {a}}\right)={\check {b}}\right)\right]\right\}.\right.}
+  By the definability of forcing, this definition makes sense within 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  . By the coherence of forcing, a different 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   come from an incompatible 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  . By c.c.c., 
+  
+    
+      
+        F
+        (
+        a
+        )
+      
+    
+    {\displaystyle F(a)}
+   is countable.
+In summary, 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is unknown in 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   as it depends on 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  , but it is not wildly unknown for a c.c.c.-forcing. One can identify a countable set of guesses for what the value of 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is at any input, independent of 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  .
+This has the following very important consequence. If in 
+  
+    
+      
+        V
+        [
+        G
+        ]
+      
+    
+    {\displaystyle V[G]}
+  , 
+  
+    
+      
+        f
+        :
+        α
+        →
+        β
+      
+    
+    {\displaystyle f:\alpha \to \beta }
+   is a surjection from one infinite ordinal onto another, then there is a surjection 
+  
+    
+      
+        g
+        :
+        ω
+        ×
+        α
+        →
+        β
+      
+    
+    {\displaystyle g:\omega \times \alpha \to \beta }
+   in 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  , and consequently, a surjection 
+  
+    
+      
+        h
+        :
+        α
+        →
+        β
+      
+    
+    {\displaystyle h:\alpha \to \beta }
+   in 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  . In particular, cardinals cannot collapse. The conclusion is that 
+  
+    
+      
+        
+          2
+          
+            
+              ℵ
+              
+                0
+              
+            
+          
+        
+        ≥
+        
+          ℵ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle 2^{\aleph _{0}}\geq \aleph _{2}}
+   in 
+  
+    
+      
+        V
+        [
+        G
+        ]
+      
+    
+    {\displaystyle V[G]}
+  .
+
+Easton forcing
+The exact value of the continuum in the above Cohen model, and variants like 
+  
+    
+      
+        Fin
+        ⁡
+        (
+        ω
+        ×
+        κ
+        ,
+        2
+        )
+      
+    
+    {\displaystyle \operatorname {Fin} (\omega \times \kappa ,2)}
+   for cardinals 
+  
+    
+      
+        κ
+      
+    
+    {\displaystyle \kappa }
+   in general, was worked out by Robert M. Solovay, who also worked out how to violate 
+  
+    
+      
+        
+          
+            G
+            C
+            H
+          
+        
+      
+    
+    {\displaystyle {\mathsf {GCH}}}
+   (the generalized continuum hypothesis), for regular cardinals only, a finite number of times. For example, in the above Cohen model, if 
+  
+    
+      
+        
+          
+            C
+            H
+          
+        
+      
+    
+    {\displaystyle {\mathsf {CH}}}
+   holds in 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  , then 
+  
+    
+      
+        
+          2
+          
+            
+              ℵ
+              
+                0
+              
+            
+          
+        
+        =
+        
+          ℵ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle 2^{\aleph _{0}}=\aleph _{2}}
+   holds in 
+  
+    
+      
+        V
+        [
+        G
+        ]
+      
+    
+    {\displaystyle V[G]}
+  .
+William B. Easton worked out the proper class version of violating the 
+  
+    
+      
+        
+          
+            G
+            C
+            H
+          
+        
+      
+    
+    {\displaystyle {\mathsf {GCH}}}
+   for regular cardinals, basically showing that the known restrictions, (monotonicity, Cantor's Theorem and König's Theorem), were the only 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+  -provable restrictions (see Easton's Theorem).
+Easton's work was notable in that it involved forcing with a proper class of conditions. In general, the method of forcing with a proper class of conditions fails to give a model of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+  . For example, forcing with 
+  
+    
+      
+        Fin
+        ⁡
+        (
+        ω
+        ×
+        
+          O
+          n
+        
+        ,
+        2
+        )
+      
+    
+    {\displaystyle \operatorname {Fin} (\omega \times \mathbf {On} ,2)}
+  , where 
+  
+    
+      
+        
+          O
+          n
+        
+      
+    
+    {\displaystyle \mathbf {On} }
+   is the proper class of all ordinals, makes the continuum a proper class. On the other hand, forcing with 
+  
+    
+      
+        Fin
+        ⁡
+        (
+        ω
+        ,
+        
+          O
+          n
+        
+        )
+      
+    
+    {\displaystyle \operatorname {Fin} (\omega ,\mathbf {On} )}
+   introduces a countable enumeration of the ordinals. In both cases, the resulting 
+  
+    
+      
+        V
+        [
+        G
+        ]
+      
+    
+    {\displaystyle V[G]}
+   is visibly not a model of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+  .
+At one time, it was thought that more sophisticated forcing would also allow an arbitrary variation in the powers of singular cardinals. However, this has turned out to be a difficult, subtle and even surprising problem, with several more restrictions provable in 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   and with the forcing models depending on the consistency of various large-cardinal properties. Many open problems remain.
+
+Random reals
+Random forcing can be defined as forcing over the set 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   of all compact subsets of 
+  
+    
+      
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle [0,1]}
+   of positive measure ordered by relation 
+  
+    
+      
+        ⊆
+      
+    
+    {\displaystyle \subseteq }
+   (smaller set in context of inclusion is smaller set in ordering and represents condition with more information). There are two types of important dense sets:
+
+For any positive integer 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   the set  is dense, where 
+  
+    
+      
+        diam
+        ⁡
+        (
+        p
+        )
+      
+    
+    {\displaystyle \operatorname {diam} (p)}
+   is diameter of the set 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  .
+For any Borel subset 
+  
+    
+      
+        B
+        ⊆
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle B\subseteq [0,1]}
+   of measure 1, the set  is dense.For any filter 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   and for any finitely many elements 
+  
+    
+      
+        
+          p
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          p
+          
+            n
+          
+        
+        ∈
+        G
+      
+    
+    {\displaystyle p_{1},\ldots ,p_{n}\in G}
+   there is 
+  
+    
+      
+        q
+        ∈
+        G
+      
+    
+    {\displaystyle q\in G}
+   such that holds 
+  
+    
+      
+        q
+        ≤
+        
+          p
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          p
+          
+            n
+          
+        
+      
+    
+    {\displaystyle q\leq p_{1},\ldots ,p_{n}}
+  . In case of this ordering, this means that any filter is set of compact sets with finite intersection property. For this reason, intersection of all elements of any filter is nonempty. If 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   is a filter intersecting the dense set 
+  
+    
+      
+        
+          D
+          
+            n
+          
+        
+      
+    
+    {\displaystyle D_{n}}
+   for any positive integer 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  , then the filter 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   contains conditions of arbitrarily small positive diameter. Therefore, the intersection of all conditions from 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   has diameter 0. But the only nonempty sets of diameter 0 are singletons. So there is exactly one real number 
+  
+    
+      
+        
+          r
+          
+            G
+          
+        
+      
+    
+    {\displaystyle r_{G}}
+   such that 
+  
+    
+      
+        
+          r
+          
+            G
+          
+        
+        ∈
+        ⋂
+        G
+      
+    
+    {\displaystyle r_{G}\in \bigcap G}
+  .
+Let 
+  
+    
+      
+        B
+        ⊆
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle B\subseteq [0,1]}
+   be any Borel set of measure 1. If 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   intersects 
+  
+    
+      
+        
+          D
+          
+            B
+          
+        
+      
+    
+    {\displaystyle D_{B}}
+  , then 
+  
+    
+      
+        
+          r
+          
+            G
+          
+        
+        ∈
+        B
+      
+    
+    {\displaystyle r_{G}\in B}
+  .
+However, a generic filter over a countable transitive model 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   is not in 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  . The real 
+  
+    
+      
+        
+          r
+          
+            G
+          
+        
+      
+    
+    {\displaystyle r_{G}}
+   defined by 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   is provably not an element of 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  . The problem is that if 
+  
+    
+      
+        p
+        ∈
+        P
+      
+    
+    {\displaystyle p\in P}
+  , then 
+  
+    
+      
+        V
+        ⊨
+      
+    
+    {\displaystyle V\models }
+   "
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is compact", but from the viewpoint of some larger universe 
+  
+    
+      
+        U
+        ⊃
+        V
+      
+    
+    {\displaystyle U\supset V}
+  , 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   can be non-compact and the intersection of all conditions from the generic filter 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   is actually empty. For this reason, we consider the set 
+  
+    
+      
+        C
+        =
+        {
+        
+          
+            
+              p
+              ¯
+            
+          
+        
+        :
+        p
+        ∈
+        G
+        }
+      
+    
+    {\displaystyle C=\{{\bar {p}}:p\in G\}}
+   of topological closures of conditions from G. Because of 
+  
+    
+      
+        
+          
+            
+              p
+              ¯
+            
+          
+        
+        ⊇
+        p
+      
+    
+    {\displaystyle {\bar {p}}\supseteq p}
+   and the finite intersection property of 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  , the set 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   also has the finite intersection property. Elements of the set 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   are bounded closed sets as closures of bounded sets. Therefore, 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+  
+is a set of compact sets with the finite intersection property and thus has nonempty intersection. Since 
+  
+    
+      
+        diam
+        ⁡
+        (
+        
+          
+            
+              p
+              ¯
+            
+          
+        
+        )
+        =
+        diam
+        ⁡
+        (
+        p
+        )
+      
+    
+    {\displaystyle \operatorname {diam} ({\bar {p}})=\operatorname {diam} (p)}
+   and the ground model 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   inherits a metric from the universe 
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+  , the set 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   has elements of arbitrarily small diameter. Finally, there is exactly one real that belongs to all members of the set 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+  . The generic filter 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   can be reconstructed from 
+  
+    
+      
+        
+          r
+          
+            G
+          
+        
+      
+    
+    {\displaystyle r_{G}}
+   as 
+  
+    
+      
+        G
+        =
+        {
+        p
+        ∈
+        P
+        :
+        
+          r
+          
+            G
+          
+        
+        ∈
+        
+          
+            
+              p
+              ¯
+            
+          
+        
+        }
+      
+    
+    {\displaystyle G=\{p\in P:r_{G}\in {\bar {p}}\}}
+  .
+If 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is name of 
+  
+    
+      
+        
+          r
+          
+            G
+          
+        
+      
+    
+    {\displaystyle r_{G}}
+  , and for 
+  
+    
+      
+        B
+        ∈
+        V
+      
+    
+    {\displaystyle B\in V}
+   holds 
+  
+    
+      
+        V
+        ⊨
+      
+    
+    {\displaystyle V\models }
+  "
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   is Borel set of measure 1", then holds 
+
+  
+    
+      
+        V
+        [
+        G
+        ]
+        ⊨
+        
+          (
+          
+            p
+            
+              ⊩
+              
+                
+                  P
+                
+              
+            
+            a
+            ∈
+            
+              
+                
+                  B
+                  ˇ
+                
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle V[G]\models \left(p\Vdash _{\mathbb {P} }a\in {\check {B}}\right)}
+  for some 
+  
+    
+      
+        p
+        ∈
+        G
+      
+    
+    {\displaystyle p\in G}
+  . There is name 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   such that for any generic filter 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   holds 
+
+  
+    
+      
+        val
+        ⁡
+        (
+        a
+        ,
+        G
+        )
+        ∈
+        
+          ⋃
+          
+            p
+            ∈
+            G
+          
+        
+        
+          
+            
+              p
+              ¯
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \operatorname {val} (a,G)\in \bigcup _{p\in G}{\bar {p}}.}
+  Then 
+
+  
+    
+      
+        V
+        [
+        G
+        ]
+        ⊨
+        
+          (
+          
+            p
+            
+              ⊩
+              
+                
+                  P
+                
+              
+            
+            a
+            ∈
+            
+              
+                
+                  B
+                  ˇ
+                
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle V[G]\models \left(p\Vdash _{\mathbb {P} }a\in {\check {B}}\right)}
+  holds for any condition 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  .
+Every Borel set can, non-uniquely, be built up, starting from intervals with rational endpoints and applying the operations of complement and countable unions, a countable number of times. The record of such a construction is called a Borel code. Given a Borel set 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   in 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  , one recovers a Borel code, and then applies the same construction sequence in 
+  
+    
+      
+        V
+        [
+        G
+        ]
+      
+    
+    {\displaystyle V[G]}
+  , getting a Borel set 
+  
+    
+      
+        
+          B
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle B^{*}}
+  . It can be proven that one gets the same set independent of the construction of 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+  , and that basic properties are preserved. For example, if 
+  
+    
+      
+        B
+        ⊆
+        C
+      
+    
+    {\displaystyle B\subseteq C}
+  , then 
+  
+    
+      
+        
+          B
+          
+            ∗
+          
+        
+        ⊆
+        
+          C
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle B^{*}\subseteq C^{*}}
+  . If 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   has measure zero, then 
+  
+    
+      
+        
+          B
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle B^{*}}
+   has measure zero. This mapping 
+  
+    
+      
+        B
+        ↦
+        
+          B
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle B\mapsto B^{*}}
+   is injective.
+For any set 
+  
+    
+      
+        B
+        ⊆
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle B\subseteq [0,1]}
+   such that 
+  
+    
+      
+        B
+        ∈
+        V
+      
+    
+    {\displaystyle B\in V}
+   and 
+  
+    
+      
+        V
+        ⊨
+      
+    
+    {\displaystyle V\models }
+  "
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   is a Borel set of measure 1" holds 
+  
+    
+      
+        r
+        ∈
+        
+          B
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle r\in B^{*}}
+  .
+This means that 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   is "infinite random sequence of 0s and 1s" from the viewpoint of 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  , which means that it satisfies all statistical tests from the ground model 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  .
+So given 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  , a random real, one can show that 
+
+  
+    
+      
+        G
+        =
+        
+          {
+          
+            B
+             
+            (
+            
+              in 
+            
+            V
+            )
+            ∣
+            r
+            ∈
+            
+              B
+              
+                ∗
+              
+            
+             
+            (
+            
+              in 
+            
+            V
+            [
+            G
+            ]
+            )
+          
+          }
+        
+        .
+      
+    
+    {\displaystyle G=\left\{B~({\text{in }}V)\mid r\in B^{*}~({\text{in }}V[G])\right\}.}
+  Because of the mutual inter-definability between 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   and 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  , one generally writes 
+  
+    
+      
+        V
+        [
+        r
+        ]
+      
+    
+    {\displaystyle V[r]}
+   for 
+  
+    
+      
+        V
+        [
+        G
+        ]
+      
+    
+    {\displaystyle V[G]}
+  .
+A different interpretation of reals in 
+  
+    
+      
+        V
+        [
+        G
+        ]
+      
+    
+    {\displaystyle V[G]}
+   was provided by Dana Scott. Rational numbers in 
+  
+    
+      
+        V
+        [
+        G
+        ]
+      
+    
+    {\displaystyle V[G]}
+   have names that correspond to countably-many distinct rational values assigned to a maximal antichain of Borel sets – in other words, a certain rational-valued function on 
+  
+    
+      
+        I
+        =
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle I=[0,1]}
+  . Real numbers in 
+  
+    
+      
+        V
+        [
+        G
+        ]
+      
+    
+    {\displaystyle V[G]}
+   then correspond to Dedekind cuts of such functions, that is, measurable functions.
+
+Boolean-valued models
+Perhaps more clearly, the method can be explained in terms of Boolean-valued models. In these, any statement is assigned a truth value from some complete atomless Boolean algebra, rather than just a true/false value. Then an ultrafilter is picked in this Boolean algebra, which assigns values true/false to statements of our theory. The point is that the resulting theory has a model that contains this ultrafilter, which can be understood as a new model obtained by extending the old one with this ultrafilter. By picking a Boolean-valued model in an appropriate way, we can get a model that has the desired property. In it, only statements that must be true (are "forced" to be true) will be true, in a sense (since it has this extension/minimality property).
+
+Meta-mathematical explanation
+In forcing, we usually seek to show that some sentence is consistent with 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   (or optionally some extension of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+  ). One way to interpret the argument is to assume that 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   is consistent and then prove that 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   combined with the new sentence is also consistent.
+Each "condition" is a finite piece of information – the idea is that only finite pieces are relevant for consistency, since, by the compactness theorem, a theory is satisfiable if and only if every finite subset of its axioms is satisfiable. Then we can pick an infinite set of consistent conditions to extend our model. Therefore, assuming the consistency of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+  , we prove the consistency of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   extended by this infinite set.
+
+Logical explanation
+By Gödel's second incompleteness theorem, one cannot prove the consistency of any sufficiently strong formal theory, such as 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+  , using only the axioms of the theory itself, unless the theory is inconsistent. Consequently, mathematicians do not attempt to prove the consistency of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   using only the axioms of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+  , or to prove that 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+        +
+        H
+      
+    
+    {\displaystyle {\mathsf {ZFC}}+H}
+   is consistent for any hypothesis 
+  
+    
+      
+        H
+      
+    
+    {\displaystyle H}
+   using only 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+        +
+        H
+      
+    
+    {\displaystyle {\mathsf {ZFC}}+H}
+  . For this reason, the aim of a consistency proof is to prove the consistency of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+        +
+        H
+      
+    
+    {\displaystyle {\mathsf {ZFC}}+H}
+   relative to the consistency of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+  . Such problems are known as problems of relative consistency, one of which proves
+
+The general schema of relative consistency proofs follows. As any proof is finite, it uses only a finite number of axioms:
+
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+        +
+        ¬
+        Con
+        ⁡
+        (
+        
+          
+            Z
+            F
+            C
+          
+        
+        +
+        H
+        )
+        ⊢
+        (
+        ∃
+        T
+        )
+        (
+        Fin
+        ⁡
+        (
+        T
+        )
+        ∧
+        T
+        ⊆
+        
+          
+            Z
+            F
+            C
+          
+        
+        ∧
+        (
+        T
+        ⊢
+        ¬
+        H
+        )
+        )
+        .
+      
+    
+    {\displaystyle {\mathsf {ZFC}}+\lnot \operatorname {Con} ({\mathsf {ZFC}}+H)\vdash (\exists T)(\operatorname {Fin} (T)\land T\subseteq {\mathsf {ZFC}}\land (T\vdash \lnot H)).}
+  For any given proof, 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   can verify the validity of this proof. This is provable by induction on the length of the proof.
+
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+        ⊢
+        (
+        ∀
+        T
+        )
+        (
+        (
+        T
+        ⊢
+        ¬
+        H
+        )
+        →
+        (
+        
+          
+            Z
+            F
+            C
+          
+        
+        ⊢
+        (
+        T
+        ⊢
+        ¬
+        H
+        )
+        )
+        )
+        .
+      
+    
+    {\displaystyle {\mathsf {ZFC}}\vdash (\forall T)((T\vdash \lnot H)\rightarrow ({\mathsf {ZFC}}\vdash (T\vdash \lnot H))).}
+  Then resolve
+
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+        +
+        ¬
+        Con
+        ⁡
+        (
+        
+          
+            Z
+            F
+            C
+          
+        
+        +
+        H
+        )
+        ⊢
+        (
+        ∃
+        T
+        )
+        (
+        Fin
+        ⁡
+        (
+        T
+        )
+        ∧
+        T
+        ⊆
+        
+          
+            Z
+            F
+            C
+          
+        
+        ∧
+        (
+        
+          
+            Z
+            F
+            C
+          
+        
+        ⊢
+        (
+        T
+        ⊢
+        ¬
+        H
+        )
+        )
+        )
+        .
+      
+    
+    {\displaystyle {\mathsf {ZFC}}+\lnot \operatorname {Con} ({\mathsf {ZFC}}+H)\vdash (\exists T)(\operatorname {Fin} (T)\land T\subseteq {\mathsf {ZFC}}\land ({\mathsf {ZFC}}\vdash (T\vdash \lnot H))).}
+  By proving the following
+
+it can be concluded that
+
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+        +
+        ¬
+        Con
+        ⁡
+        (
+        
+          
+            Z
+            F
+            C
+          
+        
+        +
+        H
+        )
+        ⊢
+        (
+        ∃
+        T
+        )
+        (
+        Fin
+        ⁡
+        (
+        T
+        )
+        ∧
+        T
+        ⊆
+        
+          
+            Z
+            F
+            C
+          
+        
+        ∧
+        (
+        
+          
+            Z
+            F
+            C
+          
+        
+        ⊢
+        (
+        T
+        ⊢
+        ¬
+        H
+        )
+        )
+        ∧
+        (
+        
+          
+            Z
+            F
+            C
+          
+        
+        ⊢
+        Con
+        ⁡
+        (
+        T
+        +
+        H
+        )
+        )
+        )
+        ,
+      
+    
+    {\displaystyle {\mathsf {ZFC}}+\lnot \operatorname {Con} ({\mathsf {ZFC}}+H)\vdash (\exists T)(\operatorname {Fin} (T)\land T\subseteq {\mathsf {ZFC}}\land ({\mathsf {ZFC}}\vdash (T\vdash \lnot H))\land ({\mathsf {ZFC}}\vdash \operatorname {Con} (T+H))),}
+  which is equivalent to
+
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+        +
+        ¬
+        Con
+        ⁡
+        (
+        
+          
+            Z
+            F
+            C
+          
+        
+        +
+        H
+        )
+        ⊢
+        ¬
+        Con
+        ⁡
+        (
+        
+          
+            Z
+            F
+            C
+          
+        
+        )
+        ,
+      
+    
+    {\displaystyle {\mathsf {ZFC}}+\lnot \operatorname {Con} ({\mathsf {ZFC}}+H)\vdash \lnot \operatorname {Con} ({\mathsf {ZFC}}),}
+  which gives (*). The core of the relative consistency proof is proving (**). A 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   proof of 
+  
+    
+      
+        Con
+        ⁡
+        (
+        T
+        +
+        H
+        )
+      
+    
+    {\displaystyle \operatorname {Con} (T+H)}
+   can be constructed for any given finite subset 
+  
+    
+      
+        T
+      
+    
+    {\displaystyle T}
+   of the 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   axioms (by 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   instruments of course). (No universal proof of 
+  
+    
+      
+        Con
+        ⁡
+        (
+        T
+        +
+        H
+        )
+      
+    
+    {\displaystyle \operatorname {Con} (T+H)}
+   of course.)
+In 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+  , it is provable that for any condition 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , the set of formulas (evaluated by names) forced by 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is deductively closed. Furthermore, for any 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   axiom, 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   proves that this axiom is forced by 
+  
+    
+      
+        
+          1
+        
+      
+    
+    {\displaystyle \mathbf {1} }
+  . Then it suffices to prove that there is at least one condition that forces 
+  
+    
+      
+        H
+      
+    
+    {\displaystyle H}
+  .
+In the case of Boolean-valued forcing, the procedure is similar: proving that the Boolean value of 
+  
+    
+      
+        H
+      
+    
+    {\displaystyle H}
+   is not 
+  
+    
+      
+        
+          0
+        
+      
+    
+    {\displaystyle \mathbf {0} }
+  .
+Another approach uses the Reflection Theorem. For any given finite set of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   axioms, there is a 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   proof that this set of axioms has a countable transitive model. For any given finite set 
+  
+    
+      
+        T
+      
+    
+    {\displaystyle T}
+   of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   axioms, there is a finite set 
+  
+    
+      
+        
+          T
+          ′
+        
+      
+    
+    {\displaystyle T'}
+   of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   axioms such that 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   proves that if a countable transitive model 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   satisfies 
+  
+    
+      
+        
+          T
+          ′
+        
+      
+    
+    {\displaystyle T'}
+  , then 
+  
+    
+      
+        M
+        [
+        G
+        ]
+      
+    
+    {\displaystyle M[G]}
+   satisfies 
+  
+    
+      
+        T
+      
+    
+    {\displaystyle T}
+  . By proving that there is finite set 
+  
+    
+      
+        
+          T
+          ″
+        
+      
+    
+    {\displaystyle T''}
+   of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   axioms such that if a countable transitive model 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   satisfies 
+  
+    
+      
+        
+          T
+          ″
+        
+      
+    
+    {\displaystyle T''}
+  , then 
+  
+    
+      
+        M
+        [
+        G
+        ]
+      
+    
+    {\displaystyle M[G]}
+   satisfies the hypothesis 
+  
+    
+      
+        H
+      
+    
+    {\displaystyle H}
+  . Then, for any given finite set 
+  
+    
+      
+        T
+      
+    
+    {\displaystyle T}
+   of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   axioms, 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   proves 
+  
+    
+      
+        Con
+        ⁡
+        (
+        T
+        +
+        H
+        )
+      
+    
+    {\displaystyle \operatorname {Con} (T+H)}
+  .
+Sometimes in (**), a stronger theory 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   than 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFC}}}
+   is used for proving 
+  
+    
+      
+        Con
+        ⁡
+        (
+        T
+        +
+        H
+        )
+      
+    
+    {\displaystyle \operatorname {Con} (T+H)}
+  . Then we have proof of the consistency of 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+        +
+        H
+      
+    
+    {\displaystyle {\mathsf {ZFC}}+H}
+   relative to the consistency of 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+  . Note that 
+  
+    
+      
+        
+          
+            Z
+            F
+            C
+          
+        
+        ⊢
+        Con
+        ⁡
+        (
+        
+          
+            Z
+            F
+            C
+          
+        
+        )
+        ↔
+        Con
+        ⁡
+        (
+        
+          
+            Z
+            F
+            L
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathsf {ZFC}}\vdash \operatorname {Con} ({\mathsf {ZFC}})\leftrightarrow \operatorname {Con} ({\mathsf {ZFL}})}
+  , where 
+  
+    
+      
+        
+          
+            Z
+            F
+            L
+          
+        
+      
+    
+    {\displaystyle {\mathsf {ZFL}}}
+   is 
+  
+    
+      
+        
+          
+            Z
+            F
+          
+        
+        +
+        V
+        =
+        L
+      
+    
+    {\displaystyle {\mathsf {ZF}}+V=L}
+   (the axiom of constructibility).
+
+See also
+List of forcing notions
+Nice name
+
+Notes
+References
+Bell, John Lane (1985). Boolean-Valued Models and Independence Proofs in Set Theory. Oxford: Oxford University Press. ISBN 9780198532415.
+Cohen, Paul Joseph (2008) [1966]. Set theory and the continuum hypothesis. Mineola, New York City: Dover Publications. p. 151. ISBN 978-0-486-46921-8.
+Grishin, V. N. (2001) [1994], "Forcing Method", Encyclopedia of Mathematics, EMS Press
+Jech, Thomas J. (2013) [1978]. Set Theory: The Third Millennium Edition. Springer Verlag. ISBN 9783642078996.
+Kunen, Kenneth (1980). Set Theory: An Introduction to Independence Proofs. North-Holland Publishing Company. ISBN 978-0-444-85401-8.
+Shoenfield, J. R. (1971). "Unramified forcing". Axiomatic Set Theory. Proc. Sympos. Pure Math. Vol. XIII, Part I. Providence, R.I.: Amer. Math. Soc. pp. 357–381. MR 0280359.
+
+Bibliography
+Chow, Timothy (2008). "A Beginner's Guide to Forcing". arXiv:0712.1320v2. A good introduction to the concepts of forcing that avoids a lot of technical detail. It includes a section on Boolean-valued models.
+Cohen, Paul Joseph (December 1963). "The independence of the continuum hypothesis". Proceedings of the National Academy of Sciences of the United States of America. 50 (6): 1143–1148. Bibcode:1963PNAS...50.1143C. doi:10.1073/pnas.50.6.1143. PMC 221287. PMID 16578557.
+Cohen, Paul Joseph (January 1964). "The independence of the continuum hypothesis, II". Proceedings of the National Academy of Sciences of the United States of America. 51 (1): 105–110. Bibcode:1964PNAS...51..105C. doi:10.1073/pnas.51.1.105. PMC 300611. PMID 16591132.
+Cohen, Paul Joseph (2002). "The Discovery of Forcing". Rocky Mountain J. Math. 32 (4): 1071–1100. doi:10.1216/rmjm/1181070010. A historical lecture about how he developed his independence proof.
+Easwaran, Kenny (2007). "A Cheerful Introduction to Forcing and the Continuum Hypothesis". arXiv:0712.2279 [math.LO]. The article is also aimed at the beginner but includes more technical details than Chow (2008)
+Gunther, Emmanuel; Pagano, Miguel; Sánchez Terraf, Pedro; Steinberg, Matías (May 2020). "Formalization of Forcing in Isabelle/ZF". Archive of Formal Proofs. arXiv:2001.09715. Retrieved 20 August 2023.
+Kanamori, Akihiro (2007). "Set theory from Cantor to Cohen" (PDF).
+Weaver, Nik (2014). Forcing for Mathematicians. World Scientific Publishing Co. p. 153. doi:10.1142/8962. ISBN 978-9814566001. Written for mathematicians who want to learn the basic machinery of forcing. No background in logic is assumed, beyond the facility with formal syntax which should be second nature to any well-trained mathematician.
+Weisstein, Eric W. "Forcing". MathWorld.

@@ -1,0 +1,2041 @@
+Holevo's theorem is an important limitative theorem in quantum computing, an interdisciplinary field of physics and computer science. It is sometimes called Holevo's bound, since it establishes an upper bound to the amount of information that can be known about a quantum state (accessible information). It was published by Alexander Holevo in 1973.
+
+Accessible information
+As for several concepts in quantum information theory, accessible information is best understood in terms of a 2-party communication. So we introduce two parties, Alice and Bob. Alice has a classical random variable X, which can take the values {1, 2, ..., n} with corresponding probabilities {p1, p2, ..., pn}. Alice then prepares a quantum state, represented by the density matrix ρX chosen from a set {ρ1, ρ2, ... ρn}, and gives this state to Bob. Bob's goal is to find the value of X, and in order to do that, he performs a measurement on the state ρX, obtaining a classical outcome, which we denote with Y. In this context, the amount of accessible information, that is, the amount of information that Bob can get about the variable X, is the maximum value of the mutual information I(X : Y) between the random variables X and Y over all the possible measurements that Bob can do.There is currently no known formula to compute the accessible information. There are however several upper bounds, the best-known of which is the Holevo bound, which is specified in the following theorem.
+
+Statement of the theorem
+Let {ρ1, ρ2, ..., ρn} be a set of mixed states and let ρX be one of these states drawn according to the probability distribution P = {p1, p2, ..., pn}.
+Then, for any measurement described by POVM elements {EY} and performed on 
+  
+    
+      
+        ρ
+        =
+        
+          ∑
+          
+            X
+          
+        
+        
+          p
+          
+            X
+          
+        
+        
+          ρ
+          
+            X
+          
+        
+      
+    
+    {\displaystyle \rho =\sum _{X}p_{X}\rho _{X}}
+  , the amount of accessible information about the variable X knowing the outcome Y of the measurement is bounded from above as follows:
+
+  
+    
+      
+        I
+        (
+        X
+        :
+        Y
+        )
+        ≤
+        S
+        (
+        ρ
+        )
+        −
+        
+          ∑
+          
+            i
+          
+        
+        
+          p
+          
+            i
+          
+        
+        S
+        (
+        
+          ρ
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle I(X:Y)\leq S(\rho )-\sum _{i}p_{i}S(\rho _{i})}
+  where 
+  
+    
+      
+        ρ
+        =
+        
+          ∑
+          
+            i
+          
+        
+        
+          p
+          
+            i
+          
+        
+        
+          ρ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \rho =\sum _{i}p_{i}\rho _{i}}
+   and 
+  
+    
+      
+        S
+        (
+        ⋅
+        )
+      
+    
+    {\displaystyle S(\cdot )}
+   is the von Neumann entropy.
+The quantity on the right hand side of this inequality is called the Holevo information or Holevo χ quantity:
+
+  
+    
+      
+        χ
+        :=
+        S
+        (
+        ρ
+        )
+        −
+        
+          ∑
+          
+            i
+          
+        
+        
+          p
+          
+            i
+          
+        
+        S
+        (
+        
+          ρ
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle \chi :=S(\rho )-\sum _{i}p_{i}S(\rho _{i})}
+  .
+
+Proof
+Consider the composite system that describes the entire communication process, which involves Alice's classical input 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+  , the quantum system 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+  , and Bob's classical output 
+  
+    
+      
+        Y
+      
+    
+    {\displaystyle Y}
+  . The classical input 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   can be written as a classical register 
+  
+    
+      
+        
+          ρ
+          
+            X
+          
+        
+        :=
+        
+          ∑
+          
+            x
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          p
+          
+            x
+          
+        
+        
+          |
+        
+        x
+        ⟩
+        ⟨
+        x
+        
+          |
+        
+      
+    
+    {\displaystyle \rho ^{X}:=\sum \nolimits _{x=1}^{n}p_{x}|x\rangle \langle x|}
+   with respect to some orthonormal basis 
+  
+    
+      
+        {
+        
+          |
+        
+        x
+        ⟩
+        
+          }
+          
+            x
+            =
+            1
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \{|x\rangle \}_{x=1}^{n}}
+  . By writing 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   in this manner, the von Neumann entropy 
+  
+    
+      
+        S
+        (
+        X
+        )
+      
+    
+    {\displaystyle S(X)}
+   of the state 
+  
+    
+      
+        
+          ρ
+          
+            X
+          
+        
+      
+    
+    {\displaystyle \rho ^{X}}
+   corresponds to the Shannon entropy 
+  
+    
+      
+        H
+        (
+        X
+        )
+      
+    
+    {\displaystyle H(X)}
+   of the probability distribution 
+  
+    
+      
+        {
+        
+          p
+          
+            x
+          
+        
+        
+          }
+          
+            x
+            =
+            1
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \{p_{x}\}_{x=1}^{n}}
+  :
+
+  
+    
+      
+        S
+        (
+        X
+        )
+        =
+        −
+        tr
+        ⁡
+        
+          (
+          
+            
+              ρ
+              
+                X
+              
+            
+            log
+            ⁡
+            
+              ρ
+              
+                X
+              
+            
+          
+          )
+        
+        =
+        −
+        tr
+        ⁡
+        
+          (
+          
+            
+              ∑
+              
+                x
+                =
+                1
+              
+              
+                n
+              
+            
+            
+              p
+              
+                x
+              
+            
+            log
+            ⁡
+            
+              p
+              
+                x
+              
+            
+            
+              |
+            
+            x
+            ⟩
+            ⟨
+            x
+            
+              |
+            
+          
+          )
+        
+        =
+        −
+        
+          ∑
+          
+            x
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          p
+          
+            x
+          
+        
+        log
+        ⁡
+        
+          p
+          
+            x
+          
+        
+        =
+        H
+        (
+        X
+        )
+        .
+      
+    
+    {\displaystyle S(X)=-\operatorname {tr} \left(\rho ^{X}\log \rho ^{X}\right)=-\operatorname {tr} \left(\sum _{x=1}^{n}p_{x}\log p_{x}|x\rangle \langle x|\right)=-\sum _{x=1}^{n}p_{x}\log p_{x}=H(X).}
+  The initial state of the system, where Alice prepares the state 
+  
+    
+      
+        
+          ρ
+          
+            x
+          
+        
+      
+    
+    {\displaystyle \rho _{x}}
+   with probability 
+  
+    
+      
+        
+          p
+          
+            x
+          
+        
+      
+    
+    {\displaystyle p_{x}}
+  , is described by
+
+  
+    
+      
+        
+          ρ
+          
+            X
+            Q
+          
+        
+        :=
+        
+          ∑
+          
+            x
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          p
+          
+            x
+          
+        
+        
+          |
+        
+        x
+        ⟩
+        ⟨
+        x
+        
+          |
+        
+        ⊗
+        
+          ρ
+          
+            x
+          
+        
+        .
+      
+    
+    {\displaystyle \rho ^{XQ}:=\sum _{x=1}^{n}p_{x}|x\rangle \langle x|\otimes \rho _{x}.}
+  Afterwards, Alice sends the quantum state to Bob. As Bob only has access to the quantum system 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+   but not the input 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+  , he receives a mixed state of the form 
+  
+    
+      
+        ρ
+        :=
+        
+          tr
+          
+            X
+          
+        
+        ⁡
+        
+          (
+          
+            ρ
+            
+              X
+              Q
+            
+          
+          )
+        
+        =
+        
+          ∑
+          
+            x
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          p
+          
+            x
+          
+        
+        
+          ρ
+          
+            x
+          
+        
+      
+    
+    {\displaystyle \rho :=\operatorname {tr} _{X}\left(\rho ^{XQ}\right)=\sum \nolimits _{x=1}^{n}p_{x}\rho _{x}}
+  . Bob measures this state with respect to the POVM elements 
+  
+    
+      
+        {
+        
+          E
+          
+            y
+          
+        
+        
+          }
+          
+            y
+            =
+            1
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \{E_{y}\}_{y=1}^{m}}
+  , and the probabilities 
+  
+    
+      
+        {
+        
+          q
+          
+            y
+          
+        
+        
+          }
+          
+            y
+            =
+            1
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \{q_{y}\}_{y=1}^{m}}
+   of measuring the outcomes 
+  
+    
+      
+        y
+        =
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        m
+      
+    
+    {\displaystyle y=1,2,\dots ,m}
+   form the classical output 
+  
+    
+      
+        Y
+      
+    
+    {\displaystyle Y}
+  . This measurement process can be described as a quantum instrument
+
+  
+    
+      
+        
+          
+            
+              E
+            
+          
+          
+            Q
+          
+        
+        (
+        
+          ρ
+          
+            x
+          
+        
+        )
+        =
+        
+          ∑
+          
+            y
+            =
+            1
+          
+          
+            m
+          
+        
+        
+          q
+          
+            y
+            
+              |
+            
+            x
+          
+        
+        
+          ρ
+          
+            y
+            
+              |
+            
+            x
+          
+        
+        ⊗
+        
+          |
+        
+        y
+        ⟩
+        ⟨
+        y
+        
+          |
+        
+        ,
+      
+    
+    {\displaystyle {\mathcal {E}}^{Q}(\rho _{x})=\sum _{y=1}^{m}q_{y|x}\rho _{y|x}\otimes |y\rangle \langle y|,}
+  where 
+  
+    
+      
+        
+          q
+          
+            y
+            
+              |
+            
+            x
+          
+        
+        =
+        tr
+        ⁡
+        
+          (
+          
+            
+              E
+              
+                y
+              
+            
+            
+              ρ
+              
+                x
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle q_{y|x}=\operatorname {tr} \left(E_{y}\rho _{x}\right)}
+   is the probability of outcome 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   given the state 
+  
+    
+      
+        
+          ρ
+          
+            x
+          
+        
+      
+    
+    {\displaystyle \rho _{x}}
+  , while 
+  
+    
+      
+        
+          ρ
+          
+            y
+            
+              |
+            
+            x
+          
+        
+        =
+        W
+        
+          
+            
+              E
+              
+                y
+              
+            
+          
+        
+        
+          ρ
+          
+            x
+          
+        
+        
+          
+            
+              E
+              
+                y
+              
+            
+          
+        
+        
+          W
+          
+            †
+          
+        
+        
+          /
+        
+        
+          q
+          
+            y
+            
+              |
+            
+            x
+          
+        
+      
+    
+    {\displaystyle \rho _{y|x}=W{\sqrt {E_{y}}}\rho _{x}{\sqrt {E_{y}}}W^{\dagger }/q_{y|x}}
+   for some unitary 
+  
+    
+      
+        W
+      
+    
+    {\displaystyle W}
+   is the normalised post-measurement state. Then, the state of the entire system after the measurement process is
+
+  
+    
+      
+        
+          ρ
+          
+            X
+            
+              Q
+              ′
+            
+            Y
+          
+        
+        :=
+        
+          [
+          
+            
+              
+                
+                  I
+                
+              
+              
+                X
+              
+            
+            ⊗
+            
+              
+                
+                  E
+                
+              
+              
+                Q
+              
+            
+          
+          ]
+        
+        
+        
+          (
+          
+            ρ
+            
+              X
+              Q
+            
+          
+          )
+        
+        =
+        
+          ∑
+          
+            x
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          ∑
+          
+            y
+            =
+            1
+          
+          
+            m
+          
+        
+        
+          p
+          
+            x
+          
+        
+        
+          q
+          
+            y
+            
+              |
+            
+            x
+          
+        
+        
+          |
+        
+        x
+        ⟩
+        ⟨
+        x
+        
+          |
+        
+        ⊗
+        
+          ρ
+          
+            y
+            
+              |
+            
+            x
+          
+        
+        ⊗
+        
+          |
+        
+        y
+        ⟩
+        ⟨
+        y
+        
+          |
+        
+        .
+      
+    
+    {\displaystyle \rho ^{XQ'Y}:=\left[{\mathcal {I}}^{X}\otimes {\mathcal {E}}^{Q}\right]\!\left(\rho ^{XQ}\right)=\sum _{x=1}^{n}\sum _{y=1}^{m}p_{x}q_{y|x}|x\rangle \langle x|\otimes \rho _{y|x}\otimes |y\rangle \langle y|.}
+  Here 
+  
+    
+      
+        
+          
+            
+              I
+            
+          
+          
+            X
+          
+        
+      
+    
+    {\displaystyle {\mathcal {I}}^{X}}
+   is the identity channel on the system 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+  . Since 
+  
+    
+      
+        
+          
+            
+              E
+            
+          
+          
+            Q
+          
+        
+      
+    
+    {\displaystyle {\mathcal {E}}^{Q}}
+   is a quantum channel, and the quantum mutual information is monotonic under completely positive trace-preserving maps, 
+  
+    
+      
+        S
+        (
+        X
+        :
+        
+          Q
+          ′
+        
+        Y
+        )
+        ≤
+        S
+        (
+        X
+        :
+        Q
+        )
+      
+    
+    {\displaystyle S(X:Q'Y)\leq S(X:Q)}
+  . Additionally, as the partial trace over 
+  
+    
+      
+        
+          Q
+          ′
+        
+      
+    
+    {\displaystyle Q'}
+   is also completely positive and trace-preserving, 
+  
+    
+      
+        S
+        (
+        X
+        :
+        Y
+        )
+        ≤
+        S
+        (
+        X
+        :
+        
+          Q
+          ′
+        
+        Y
+        )
+      
+    
+    {\displaystyle S(X:Y)\leq S(X:Q'Y)}
+  . These two inequalities give
+
+  
+    
+      
+        S
+        (
+        X
+        :
+        Y
+        )
+        ≤
+        S
+        (
+        X
+        :
+        Q
+        )
+        .
+      
+    
+    {\displaystyle S(X:Y)\leq S(X:Q).}
+  On the left-hand side, the quantities of interest depend only on
+
+  
+    
+      
+        
+          ρ
+          
+            X
+            Y
+          
+        
+        :=
+        
+          tr
+          
+            
+              Q
+              ′
+            
+          
+        
+        ⁡
+        
+          (
+          
+            ρ
+            
+              X
+              
+                Q
+                ′
+              
+              Y
+            
+          
+          )
+        
+        =
+        
+          ∑
+          
+            x
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          ∑
+          
+            y
+            =
+            1
+          
+          
+            m
+          
+        
+        
+          p
+          
+            x
+          
+        
+        
+          q
+          
+            y
+            
+              |
+            
+            x
+          
+        
+        
+          |
+        
+        x
+        ⟩
+        ⟨
+        x
+        
+          |
+        
+        ⊗
+        
+          |
+        
+        y
+        ⟩
+        ⟨
+        y
+        
+          |
+        
+        =
+        
+          ∑
+          
+            x
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          ∑
+          
+            y
+            =
+            1
+          
+          
+            m
+          
+        
+        
+          p
+          
+            x
+            ,
+            y
+          
+        
+        
+          |
+        
+        x
+        ,
+        y
+        ⟩
+        ⟨
+        x
+        ,
+        y
+        
+          |
+        
+        ,
+      
+    
+    {\displaystyle \rho ^{XY}:=\operatorname {tr} _{Q'}\left(\rho ^{XQ'Y}\right)=\sum _{x=1}^{n}\sum _{y=1}^{m}p_{x}q_{y|x}|x\rangle \langle x|\otimes |y\rangle \langle y|=\sum _{x=1}^{n}\sum _{y=1}^{m}p_{x,y}|x,y\rangle \langle x,y|,}
+  with joint probabilities 
+  
+    
+      
+        
+          p
+          
+            x
+            ,
+            y
+          
+        
+        =
+        
+          p
+          
+            x
+          
+        
+        
+          q
+          
+            y
+            
+              |
+            
+            x
+          
+        
+      
+    
+    {\displaystyle p_{x,y}=p_{x}q_{y|x}}
+  . Clearly, 
+  
+    
+      
+        
+          ρ
+          
+            X
+            Y
+          
+        
+      
+    
+    {\displaystyle \rho ^{XY}}
+   and 
+  
+    
+      
+        
+          ρ
+          
+            Y
+          
+        
+        :=
+        
+          tr
+          
+            X
+          
+        
+        ⁡
+        (
+        
+          ρ
+          
+            X
+            Y
+          
+        
+        )
+      
+    
+    {\displaystyle \rho ^{Y}:=\operatorname {tr} _{X}(\rho ^{XY})}
+  , which are in the same form as 
+  
+    
+      
+        
+          ρ
+          
+            X
+          
+        
+      
+    
+    {\displaystyle \rho ^{X}}
+  , describe classical registers. Hence,
+
+  
+    
+      
+        S
+        (
+        X
+        :
+        Y
+        )
+        =
+        S
+        (
+        X
+        )
+        +
+        S
+        (
+        Y
+        )
+        −
+        S
+        (
+        X
+        Y
+        )
+        =
+        H
+        (
+        X
+        )
+        +
+        H
+        (
+        Y
+        )
+        −
+        H
+        (
+        X
+        Y
+        )
+        =
+        I
+        (
+        X
+        :
+        Y
+        )
+        .
+      
+    
+    {\displaystyle S(X:Y)=S(X)+S(Y)-S(XY)=H(X)+H(Y)-H(XY)=I(X:Y).}
+  Meanwhile, 
+  
+    
+      
+        S
+        (
+        X
+        :
+        Q
+        )
+      
+    
+    {\displaystyle S(X:Q)}
+   depends on the term
+
+  
+    
+      
+        log
+        ⁡
+        
+          ρ
+          
+            X
+            Q
+          
+        
+        =
+        log
+        ⁡
+        
+          (
+          
+            
+              ∑
+              
+                x
+                =
+                1
+              
+              
+                n
+              
+            
+            
+              p
+              
+                x
+              
+            
+            
+              |
+            
+            x
+            ⟩
+            ⟨
+            x
+            
+              |
+            
+            ⊗
+            
+              ρ
+              
+                x
+              
+            
+          
+          )
+        
+        =
+        
+          ∑
+          
+            x
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          |
+        
+        x
+        ⟩
+        ⟨
+        x
+        
+          |
+        
+        ⊗
+        log
+        ⁡
+        
+          (
+          
+            
+              p
+              
+                x
+              
+            
+            
+              ρ
+              
+                x
+              
+            
+          
+          )
+        
+        =
+        
+          ∑
+          
+            x
+            =
+            1
+          
+          
+            n
+          
+        
+        log
+        ⁡
+        
+          p
+          
+            x
+          
+        
+        
+          |
+        
+        x
+        ⟩
+        ⟨
+        x
+        
+          |
+        
+        ⊗
+        
+          I
+          
+            Q
+          
+        
+        +
+        
+          ∑
+          
+            x
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          |
+        
+        x
+        ⟩
+        ⟨
+        x
+        
+          |
+        
+        ⊗
+        log
+        ⁡
+        
+          ρ
+          
+            x
+          
+        
+        ,
+      
+    
+    {\displaystyle \log \rho ^{XQ}=\log \left(\sum _{x=1}^{n}p_{x}|x\rangle \langle x|\otimes \rho _{x}\right)=\sum _{x=1}^{n}|x\rangle \langle x|\otimes \log \left(p_{x}\rho _{x}\right)=\sum _{x=1}^{n}\log p_{x}|x\rangle \langle x|\otimes I^{Q}+\sum _{x=1}^{n}|x\rangle \langle x|\otimes \log \rho _{x},}
+  where 
+  
+    
+      
+        
+          I
+          
+            Q
+          
+        
+      
+    
+    {\displaystyle I^{Q}}
+   is the identity operator on the quantum system 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+  . Then, the right-hand side is
+
+  
+    
+      
+        
+          
+            
+              
+                S
+                (
+                X
+                :
+                Q
+                )
+              
+              
+                
+                =
+                S
+                (
+                X
+                )
+                +
+                S
+                (
+                Q
+                )
+                −
+                S
+                (
+                X
+                Q
+                )
+              
+            
+            
+              
+              
+                
+                =
+                S
+                (
+                X
+                )
+                +
+                S
+                (
+                ρ
+                )
+                +
+                tr
+                ⁡
+                
+                  (
+                  
+                    
+                      ρ
+                      
+                        X
+                        Q
+                      
+                    
+                    log
+                    ⁡
+                    
+                      ρ
+                      
+                        X
+                        Q
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                S
+                (
+                X
+                )
+                +
+                S
+                (
+                ρ
+                )
+                +
+                tr
+                ⁡
+                
+                  (
+                  
+                    
+                      ∑
+                      
+                        x
+                        =
+                        1
+                      
+                      
+                        n
+                      
+                    
+                    
+                      p
+                      
+                        x
+                      
+                    
+                    log
+                    ⁡
+                    
+                      p
+                      
+                        x
+                      
+                    
+                    
+                      |
+                    
+                    x
+                    ⟩
+                    ⟨
+                    x
+                    
+                      |
+                    
+                    ⊗
+                    
+                      ρ
+                      
+                        x
+                      
+                    
+                  
+                  )
+                
+                +
+                tr
+                ⁡
+                
+                  (
+                  
+                    
+                      ∑
+                      
+                        x
+                        =
+                        1
+                      
+                      
+                        n
+                      
+                    
+                    
+                      p
+                      
+                        x
+                      
+                    
+                    
+                      |
+                    
+                    x
+                    ⟩
+                    ⟨
+                    x
+                    
+                      |
+                    
+                    ⊗
+                    
+                      ρ
+                      
+                        x
+                      
+                    
+                    log
+                    ⁡
+                    
+                      ρ
+                      
+                        x
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                S
+                (
+                X
+                )
+                +
+                S
+                (
+                ρ
+                )
+                +
+                
+                  
+                    
+                      
+                        tr
+                        ⁡
+                        
+                          (
+                          
+                            
+                              ∑
+                              
+                                x
+                                =
+                                1
+                              
+                              
+                                n
+                              
+                            
+                            
+                              p
+                              
+                                x
+                              
+                            
+                            log
+                            ⁡
+                            
+                              p
+                              
+                                x
+                              
+                            
+                            
+                              |
+                            
+                            x
+                            ⟩
+                            ⟨
+                            x
+                            
+                              |
+                            
+                          
+                          )
+                        
+                      
+                      ⏟
+                    
+                  
+                  
+                    −
+                    S
+                    (
+                    X
+                    )
+                  
+                
+                +
+                tr
+                ⁡
+                
+                  (
+                  
+                    
+                      ∑
+                      
+                        x
+                        =
+                        1
+                      
+                      
+                        n
+                      
+                    
+                    
+                      p
+                      
+                        x
+                      
+                    
+                    
+                      ρ
+                      
+                        x
+                      
+                    
+                    log
+                    ⁡
+                    
+                      ρ
+                      
+                        x
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                S
+                (
+                ρ
+                )
+                +
+                
+                  ∑
+                  
+                    x
+                    =
+                    1
+                  
+                  
+                    n
+                  
+                
+                
+                  p
+                  
+                    x
+                  
+                
+                
+                  
+                    
+                      
+                        tr
+                        ⁡
+                        
+                          (
+                          
+                            
+                              ρ
+                              
+                                x
+                              
+                            
+                            log
+                            ⁡
+                            
+                              ρ
+                              
+                                x
+                              
+                            
+                          
+                          )
+                        
+                      
+                      ⏟
+                    
+                  
+                  
+                    −
+                    S
+                    (
+                    
+                      ρ
+                      
+                        x
+                      
+                    
+                    )
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                S
+                (
+                ρ
+                )
+                −
+                
+                  ∑
+                  
+                    x
+                    =
+                    1
+                  
+                  
+                    n
+                  
+                
+                
+                  p
+                  
+                    x
+                  
+                
+                S
+                (
+                
+                  ρ
+                  
+                    x
+                  
+                
+                )
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}S(X:Q)&=S(X)+S(Q)-S(XQ)\\&=S(X)+S(\rho )+\operatorname {tr} \left(\rho ^{XQ}\log \rho ^{XQ}\right)\\&=S(X)+S(\rho )+\operatorname {tr} \left(\sum _{x=1}^{n}p_{x}\log p_{x}|x\rangle \langle x|\otimes \rho _{x}\right)+\operatorname {tr} \left(\sum _{x=1}^{n}p_{x}|x\rangle \langle x|\otimes \rho _{x}\log \rho _{x}\right)\\&=S(X)+S(\rho )+\underbrace {\operatorname {tr} \left(\sum _{x=1}^{n}p_{x}\log p_{x}|x\rangle \langle x|\right)} _{-S(X)}+\operatorname {tr} \left(\sum _{x=1}^{n}p_{x}\rho _{x}\log \rho _{x}\right)\\&=S(\rho )+\sum _{x=1}^{n}p_{x}\underbrace {\operatorname {tr} \left(\rho _{x}\log \rho _{x}\right)} _{-S(\rho _{x})}\\&=S(\rho )-\sum _{x=1}^{n}p_{x}S(\rho _{x}),\end{aligned}}}
+  which completes the proof.
+
+Comments and remarks
+In essence, the Holevo bound proves that given n qubits, although they can "carry" a larger amount of (classical) information (thanks to quantum superposition), the amount of classical information that can be retrieved, i.e. accessed, can be only up to n classical (non-quantum encoded) bits. It was also established, both theoretically and experimentally, that there are computations where quantum bits carry more information through the process of the computation than is possible classically.
+
+See also
+Superdense coding
+
+References
+Further reading
+Holevo, Alexander S. (1973). "Bounds for the quantity of information transmitted by a quantum communication channel". Problems of Information Transmission. 9: 177–183.
+Nielsen, Michael A.; Chuang, Isaac L. (2000). Quantum Computation and Quantum Information. Cambridge, UK: Cambridge University Press. ISBN 978-0-521-63235-5. OCLC 43641333.  (see page 531, subsection 12.1.1 - equation (12.6) )
+Wilde, Mark M. (2011). "From Classical to Quantum Shannon Theory". arXiv:1106.1445v2 [quant-ph].. See in particular Section 11.6 and following. Holevo's theorem is presented as exercise 11.9.1 on page 288.

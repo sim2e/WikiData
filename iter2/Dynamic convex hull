@@ -1,0 +1,47 @@
+The dynamic convex hull problem is a class of dynamic problems in computational geometry. The problem consists in the maintenance, i.e., keeping track, of the convex hull for input data undergoing a sequence of discrete changes, i.e., when input data elements may be inserted, deleted, or modified.  It should be distinguished from the kinetic convex hull, which studies similar problems for continuously moving points. Dynamic convex hull problems may be distinguished by the types of the input data and the allowed types of modification of the input data.
+
+Planar point set
+It is easy to construct an example for which the convex hull contains all input points, but after the insertion of a single point the convex hull becomes a triangle. And conversely, the deletion of a single point may produce the opposite drastic change of the size of the output. Therefore, if the convex hull is required to be reported in traditional way as a polygon,  the lower bound for the worst-case computational complexity of the recomputation of the convex hull is 
+  
+    
+      
+        Ω
+        (
+        N
+        )
+      
+    
+    {\displaystyle \Omega (N)}
+  , since this time is required for a mere reporting of the output. This lower bound is attainable, because several general-purpose convex hull algorithms run in linear time when input points are ordered in some way and logarithmic-time methods for dynamic maintenance of ordered data are well-known.
+This problem may be overcome by eliminating the restriction on the output representation. There are data structures that can maintain representations of the convex hull in an amount of time per update that is much smaller than linear. For many years the best algorithm of this type was that of Overmars and van Leeuwen (1981), which took time O(log2 n) per update, but it has since been improved by Timothy M. Chan and others.
+In a number of applications finding the convex hull is a step in an algorithm for the solution of the overall problem. The selected representation of the convex hull may influence on the computational complexity of further operations of the overall algorithm. For example, the point in polygon query for a convex polygon represented by the ordered set of its vertices may be answered in logarithmic time, which would be impossible for convex hulls reported by the set of it vertices without any additional information. Therefore, some research of dynamic convex hull algorithms involves the  computational complexity of various geometric search problems with convex hulls stored in specific kinds of data structures. The mentioned approach of Overmars and van Leeuwen allows for logarithmic complexity of various common queries.
+
+References
+Alexandron, Giora; Kaplan, Haim; Sharir, Micha (2005), "Kinetic and dynamic data structures for convex hulls and upper envelopes", Algorithms and Data Structures (WADS 2005), Lecture Notes in Computer Science, vol. 3608, Berlin: Springer, pp. 269–281, doi:10.1007/11534273_24, MR 2200329
+Brodal, Gerth Stølting; Jacob, Riko (2000), "Dynamic planar convex hull with optimal query time and 
+  
+    
+      
+        O
+        (
+        log
+        ⁡
+        n
+        ⋅
+        log
+        ⁡
+        log
+        ⁡
+        n
+        )
+      
+    
+    {\displaystyle O(\log n\cdot \log \log n)}
+   update time", Algorithm Theory (SWAT 2000, Bergen), Lecture Notes in Computer Science, vol. 1851, Berlin: Springer, pp. 57–70, doi:10.1007/3-540-44985-X_7, MR 1792585
+Chan, Timothy M. (2001), "Dynamic planar convex hull operations in near-logarithmic amortized time", Journal of the ACM, 48 (1): 1–12, doi:10.1145/363647.363652, MR 1867273
+Chan, Timothy M. (2010), "A dynamic data structure for 3-D convex hulls and 2-D nearest neighbor queries", Journal of the ACM, 57 (3): A16:1–A16:15, doi:10.1145/1706591.1706596, MR 2665885
+Chan, Timothy M. (2012), "Three problems about dynamic convex hulls", International Journal of Computational Geometry & Applications, 22 (4): 341–364, doi:10.1142/S0218195912600096, MR 2994585
+Demaine, Erik D.; Pǎtraşcu, Mihai (2007), "Tight bounds for dynamic convex hull queries (again)", Proc. Symp. Computational Geometry (SoCG 2007), New York: ACM, pp. 354–363, doi:10.1145/1247069.1247131, MR 2469185
+Hershberger, John; Suri, Subhash (1992), "Applications of a semi-dynamic convex hull algorithm", BIT, 32 (2): 249–267, doi:10.1007/BF01994880, MR 1172189
+Oh, Eunjin; Ahn, Hee-Kap (2017), "Dynamic geodesic convex hulls in dynamic simple polygons", 33rd International Symposium on Computational Geometry (SoCG 2017), LIPIcs, vol. 77, Schloss Dagstuhl, pp. 51:1–51:15, doi:10.4230/LIPIcs.SoCG.2017.51, MR 3685723
+Overmars, M. H.; van Leeuwen, J. (1981), "Maintenance of configurations in the plane", Journal of Computer and System Sciences, 23 (2): 166–204, doi:10.1016/0022-0000(81)90012-X.

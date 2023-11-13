@@ -1,0 +1,1468 @@
+Cobham's theorem is a theorem in combinatorics on words that has important connections with number theory, notably transcendental numbers, and automata theory. Informally, the theorem gives the condition for the members of a set S of natural numbers written in bases b1 and base b2 to be recognised by finite automata. Specifically, consider bases b1 and b2 such that they are not powers of the same integer. Cobham's theorem states that S written in bases b1 and b2 is recognised by finite automata if and only if S is a finite union of arithmetic progressions. The theorem was proved by Alan Cobham in 1969 and has since given rise to many extensions and generalisations.
+
+Definitions
+Let 
+  
+    
+      
+        n
+        >
+        0
+      
+    
+    {\displaystyle n>0}
+   be an integer. The representation of a natural number 
+  
+    
+      
+        n
+      
+    
+    {\textstyle n}
+   in base 
+  
+    
+      
+        b
+      
+    
+    {\textstyle b}
+   is the sequence of digits 
+  
+    
+      
+        
+          n
+          
+            0
+          
+        
+        
+          n
+          
+            1
+          
+        
+        ⋯
+        
+          n
+          
+            h
+          
+        
+      
+    
+    {\displaystyle n_{0}n_{1}\cdots n_{h}}
+   such that
+
+  
+    
+      
+        n
+        =
+        
+          n
+          
+            0
+          
+        
+        +
+        
+          n
+          
+            1
+          
+        
+        b
+        +
+        ⋯
+        +
+        
+          n
+          
+            h
+          
+        
+        
+          b
+          
+            h
+          
+        
+      
+    
+    {\displaystyle n=n_{0}+n_{1}b+\cdots +n_{h}b^{h}}
+  where 
+  
+    
+      
+        0
+        ≤
+        
+          n
+          
+            0
+          
+        
+        ,
+        
+          n
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          n
+          
+            h
+          
+        
+        <
+        b
+      
+    
+    {\displaystyle 0\leq n_{0},n_{1},\ldots ,n_{h}<b}
+   and 
+  
+    
+      
+        
+          n
+          
+            h
+          
+        
+        >
+        0
+      
+    
+    {\displaystyle n_{h}>0}
+  . The word 
+  
+    
+      
+        
+          n
+          
+            0
+          
+        
+        
+          n
+          
+            1
+          
+        
+        ⋯
+        
+          n
+          
+            h
+          
+        
+      
+    
+    {\displaystyle n_{0}n_{1}\cdots n_{h}}
+   is often denoted 
+  
+    
+      
+        ⟨
+        n
+        
+          ⟩
+          
+            b
+          
+        
+      
+    
+    {\displaystyle \langle n\rangle _{b}}
+  , or more simply, 
+  
+    
+      
+        
+          n
+          
+            b
+          
+        
+      
+    
+    {\displaystyle n_{b}}
+  .
+A set of natural numbers S is recognisable in base 
+  
+    
+      
+        b
+      
+    
+    {\textstyle b}
+   or more simply 
+  
+    
+      
+        b
+      
+    
+    {\textstyle b}
+  -recognisable or 
+  
+    
+      
+        b
+      
+    
+    {\textstyle b}
+  -automatic if the set 
+  
+    
+      
+        {
+        
+          n
+          
+            b
+          
+        
+        ∣
+        n
+        ∈
+        S
+        }
+      
+    
+    {\displaystyle \{n_{b}\mid n\in S\}}
+   of the representations of its elements in base 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   is a language recognisable by a finite automaton on the alphabet 
+  
+    
+      
+        {
+        0
+        ,
+        1
+        ,
+        …
+        ,
+        b
+        −
+        1
+        }
+      
+    
+    {\displaystyle \{0,1,\ldots ,b-1\}}
+  .
+Two positive integers 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   and 
+  
+    
+      
+        ℓ
+      
+    
+    {\displaystyle \ell }
+   are multiplicatively independent if there are no non-negative integers 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   and 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   such that 
+  
+    
+      
+        
+          k
+          
+            p
+          
+        
+        =
+        
+          ℓ
+          
+            q
+          
+        
+      
+    
+    {\displaystyle k^{p}=\ell ^{q}}
+  . For example, 2 and 3 are multiplicatively independent, but 8 and 16 are not since 
+  
+    
+      
+        
+          8
+          
+            4
+          
+        
+        =
+        
+          16
+          
+            3
+          
+        
+      
+    
+    {\displaystyle 8^{4}=16^{3}}
+  . Two integers are multiplicatively dependent if and only if they are powers of a same third integer.
+
+Problem statements
+Original problem statement
+More equivalent statements of the theorem have been given. The original version by Cobham is the following: Another way to state the theorem is by using automatic sequences. Cobham himself calls them "uniform tag sequences.". The following form is found in Allouche and Shallit's book:We can show that the characteristic sequence of a set of natural numbers S recognisable by finite automata in base k is a k-automatic sequence and that conversely, for all k-automatic sequences 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   and all integers 
+  
+    
+      
+        0
+        ≤
+        i
+        <
+        k
+      
+    
+    {\displaystyle 0\leq i<k}
+  , the set 
+  
+    
+      
+        
+          S
+          
+            i
+          
+        
+      
+    
+    {\displaystyle S_{i}}
+   of natural numbers 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   such that 
+  
+    
+      
+        
+          u
+          
+            s
+          
+        
+        =
+        i
+      
+    
+    {\displaystyle u_{s}=i}
+   is recognisable in base 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  .
+
+Formulation in logic
+Cobham's theorem can be formulated in first-order logic using a theorem proven by Büchi in 1960. This formulation in logic allows for extensions and generalisations. The logical expression uses the theory
+
+  
+    
+      
+        ⟨
+        N
+        ,
+        +
+        ,
+        
+          V
+          
+            r
+          
+        
+        ⟩
+      
+    
+    {\displaystyle \langle N,+,V_{r}\rangle }
+  of natural integers equipped with addition and the function 
+  
+    
+      
+        
+          V
+          
+            r
+          
+        
+      
+    
+    {\displaystyle V_{r}}
+   defined by 
+  
+    
+      
+        
+          V
+          
+            r
+          
+        
+        (
+        0
+        )
+        =
+        1
+      
+    
+    {\displaystyle V_{r}(0)=1}
+   and for any positive integer 
+  
+    
+      
+        n
+      
+    
+    {\textstyle n}
+  , 
+  
+    
+      
+        
+          V
+          
+            r
+          
+        
+        (
+        n
+        )
+        =
+        m
+      
+    
+    {\displaystyle V_{r}(n)=m}
+   if 
+  
+    
+      
+        
+          r
+          
+            m
+          
+        
+      
+    
+    {\displaystyle r^{m}}
+   is the largest power of 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   that divides 
+  
+    
+      
+        n
+      
+    
+    {\textstyle n}
+  . For example, 
+  
+    
+      
+        
+          V
+          
+            2
+          
+        
+        (
+        20
+        )
+        =
+        4
+      
+    
+    {\displaystyle V_{2}(20)=4}
+  , and 
+  
+    
+      
+        
+          V
+          
+            3
+          
+        
+        (
+        20
+        )
+        =
+        1
+      
+    
+    {\displaystyle V_{3}(20)=1}
+  . 
+A set of integers 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   is definable in first-order logic in 
+  
+    
+      
+        ⟨
+        N
+        ,
+        +
+        ,
+        
+          V
+          
+            r
+          
+        
+        ⟩
+      
+    
+    {\displaystyle \langle N,+,V_{r}\rangle }
+   if it can be described by a first-order formula with equality, addition, and 
+  
+    
+      
+        
+          V
+          
+            r
+          
+        
+      
+    
+    {\displaystyle V_{r}}
+  .
+Examples:
+
+The set of odd numbers is definable (without 
+  
+    
+      
+        
+          V
+          
+            r
+          
+        
+      
+    
+    {\displaystyle V_{r}}
+  ) by the formula 
+  
+    
+      
+        (
+        ∃
+        y
+        )
+        (
+        x
+        =
+        y
+        +
+        y
+        +
+        1
+        )
+      
+    
+    {\displaystyle (\exists y)(x=y+y+1)}
+  
+The set 
+  
+    
+      
+        {
+        
+          2
+          
+            n
+          
+        
+        ∣
+        n
+        ≥
+        0
+        }
+      
+    
+    {\displaystyle \{2^{n}\mid n\geq 0\}}
+   of the powers of 2 is definable by the simple formula 
+  
+    
+      
+        
+          V
+          
+            2
+          
+        
+        (
+        x
+        )
+        =
+        x
+      
+    
+    {\displaystyle V_{2}(x)=x}
+  .We can push the analogy with logic further by noting that S is first-order definable in Presburger arithmetic if and only if it is ultimately periodic. So, a set S is definable in the logics 
+  
+    
+      
+        ⟨
+        N
+        ,
+        +
+        ,
+        
+          V
+          
+            k
+          
+        
+        ⟩
+      
+    
+    {\displaystyle \langle N,+,V_{k}\rangle }
+   and 
+  
+    
+      
+        ⟨
+        N
+        ,
+        +
+        ,
+        
+          V
+          
+            ℓ
+          
+        
+        ⟩
+      
+    
+    {\displaystyle \langle N,+,V_{\ell }\rangle }
+   if and only if it is definable in Presburger arithmetic.
+
+Generalisations
+Approach by morphisms
+An automatic sequence is a particular morphic word, whose morphism is uniform, meaning that the length of the images generated by the morphism for each letter of its input alphabet is the same. A set of integers is hence k-recognisable if and only if its characteristic sequence is generated by a uniform morphism followed by a coding, where a coding is a morphism that maps each letter of the input alphabet to a letter of the output alphabet. For example, the characteristic sequence of the powers of 2 is produced by the 2-uniform morphism (meaning each letter is mapped to a word of length 2) over the alphabet 
+  
+    
+      
+        B
+        =
+        {
+        a
+        ,
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle B=\{a,0,1\}}
+   defined by
+
+  
+    
+      
+        a
+        ↦
+        a
+        1
+         
+        ,
+        
+        1
+        ↦
+        10
+         
+        ,
+        
+        0
+        ↦
+        00
+      
+    
+    {\displaystyle a\mapsto a1\ ,\quad 1\mapsto 10\ ,\quad 0\mapsto 00}
+  which generates the infinite word
+
+  
+    
+      
+        a
+        11010001
+        ⋯
+      
+    
+    {\displaystyle a11010001\cdots }
+  ,followed by the coding (that is, letter to letter) that maps 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   to 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+   and leaves 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+   and 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+   unchanged, giving
+
+  
+    
+      
+        011010001
+        ⋯
+      
+    
+    {\displaystyle 011010001\cdots }
+  .The notion has been extended as follows: a morphic word 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   is 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+  -substitutive for a certain number 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   if when written in the form
+
+  
+    
+      
+        s
+        =
+        π
+        (
+        
+          f
+          
+            ω
+          
+        
+        (
+        b
+        )
+        )
+      
+    
+    {\displaystyle s=\pi (f^{\omega }(b))}
+  where the morphism 
+  
+    
+      
+        f
+        :
+        
+          B
+          
+            ∗
+          
+        
+        →
+        
+          B
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle f:B^{*}\to B^{*}}
+  , prolongable in 
+  
+    
+      
+        b
+      
+    
+    {\textstyle b}
+  , has the following properties: 
+
+all letters of 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   occur in 
+  
+    
+      
+        
+          f
+          
+            ω
+          
+        
+        (
+        b
+        )
+      
+    
+    {\displaystyle f^{\omega }(b)}
+  , and
+
+  
+    
+      
+        α
+        >
+        1
+      
+    
+    {\displaystyle \alpha >1}
+   is the dominant eigenvalue of the matrix of morphism 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  , namely, the matrix 
+  
+    
+      
+        M
+        (
+        f
+        )
+        =
+        (
+        
+          m
+          
+            x
+            ,
+            y
+          
+        
+        
+          )
+          
+            x
+            ∈
+            B
+            ,
+            y
+            ∈
+            A
+          
+        
+      
+    
+    {\displaystyle M(f)=(m_{x,y})_{x\in B,y\in A}}
+  , where 
+  
+    
+      
+        
+          m
+          
+            x
+            ,
+            y
+          
+        
+      
+    
+    {\displaystyle m_{x,y}}
+   is the number of occurrences of the letter 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   in the word 
+  
+    
+      
+        f
+        (
+        y
+        )
+      
+    
+    {\displaystyle f(y)}
+  .A set S of natural numbers is 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+  -recognisable if its characteristic sequence 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   is 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+  -substitutive.
+A last definition: a Perron number is an algebraic number 
+  
+    
+      
+        z
+        >
+        1
+      
+    
+    {\displaystyle z>1}
+   such that all its conjugates belong to the disc 
+  
+    
+      
+        {
+        
+          z
+          ′
+        
+        ∈
+        
+          C
+        
+        ,
+        
+          |
+        
+        
+          z
+          ′
+        
+        
+          |
+        
+        <
+        z
+        }
+      
+    
+    {\displaystyle \{z'\in \mathbb {C} ,|z'|<z\}}
+  . These are exactly the dominant eigenvalues of the primitive matrices of positive integers.
+
+We then have the following statement:
+
+Logic approach
+The logic equivalent permits to consider more general situations: the automatic sequences over the natural numbers 
+  
+    
+      
+        
+          N
+        
+      
+    
+    {\displaystyle \mathbb {N} }
+   or recognisable sets have been extended to the integers 
+  
+    
+      
+        
+          Z
+        
+      
+    
+    {\displaystyle \mathbb {Z} }
+  , to the Cartesian products 
+  
+    
+      
+        
+          
+            N
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \mathbb {N} ^{m}}
+  , to the real numbers 
+  
+    
+      
+        
+          R
+        
+      
+    
+    {\displaystyle \mathbb {R} }
+   and to the Cartesian products 
+  
+    
+      
+        
+          
+            R
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \mathbb {R} ^{m}}
+  .
+Extension to 
+  
+    
+      
+        
+          Z
+        
+      
+    
+    {\displaystyle \mathbb {Z} }
+  We code the base 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   integers by prepending to the representation of a positive integer the digit 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+  , and by representing negative integers by 
+  
+    
+      
+        k
+        −
+        1
+      
+    
+    {\displaystyle k-1}
+   followed by the number's 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -complement. For example, in base 2, the integer 
+  
+    
+      
+        −
+        6
+        =
+        −
+        8
+        +
+        2
+      
+    
+    {\displaystyle -6=-8+2}
+   is represented as 
+  
+    
+      
+        1010
+      
+    
+    {\displaystyle 1010}
+  . The powers of 2 are written as 
+  
+    
+      
+        
+          010
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle 010^{*}}
+  , and their negatives 
+  
+    
+      
+        
+          110
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle 110^{*}}
+   (since 
+  
+    
+      
+        11000
+      
+    
+    {\displaystyle 11000}
+   is the representation of 
+  
+    
+      
+        −
+        16
+        +
+        8
+        =
+        −
+        8
+      
+    
+    {\displaystyle -16+8=-8}
+  ).
+
+Extension to 
+  
+    
+      
+        
+          
+            N
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \mathbb {N} ^{m}}
+  A subset 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   of 
+  
+    
+      
+        
+          N
+          
+            m
+          
+        
+      
+    
+    {\displaystyle N^{m}}
+   is recognisable in base 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   if the elements of 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+  , written as vectors with 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   components, are recognisable over the resulting alphabet.
+
+For example, in base 2, we have 
+  
+    
+      
+        3
+        =
+        
+          11
+          
+            2
+          
+        
+      
+    
+    {\displaystyle 3=11_{2}}
+   and 
+  
+    
+      
+        9
+        =
+        
+          1001
+          
+            2
+          
+        
+      
+    
+    {\displaystyle 9=1001_{2}}
+  ; the vector  
+  
+    
+      
+        
+          
+            (
+            
+              
+                
+                  3
+                
+              
+              
+                
+                  9
+                
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle {\begin{pmatrix}3\\9\end{pmatrix}}}
+   is written as 
+  
+    
+      
+        
+          
+            (
+            
+              
+                
+                  0011
+                
+              
+              
+                
+                  1001
+                
+              
+            
+            )
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  0
+                
+              
+              
+                
+                  1
+                
+              
+            
+            )
+          
+        
+        
+          
+            (
+            
+              
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+              
+            
+            )
+          
+        
+        
+          
+            (
+            
+              
+                
+                  1
+                
+              
+              
+                
+                  0
+                
+              
+            
+            )
+          
+        
+        
+          
+            (
+            
+              
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle {\begin{pmatrix}0011\\1001\end{pmatrix}}={\begin{pmatrix}0\\1\end{pmatrix}}{\begin{pmatrix}0\\0\end{pmatrix}}{\begin{pmatrix}1\\0\end{pmatrix}}{\begin{pmatrix}1\\1\end{pmatrix}}}
+  .An elegant proof of this theorem is given by Muchnik in 1991 by induction on 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  .Other extensions have been given to the real numbers and vectors of real numbers.
+
+Proofs
+Samuel Eilenberg announced the theorem without proof in his book; he says "The proof is correct, long, and hard. It is a challenge to find a more reasonable proof of this fine theorem." Georges Hansel proposed a more simple proof, published in the not-easily accessible proceedings of a conference. The proof of Dominique Perrin and that of Allouche and Shallit's book contains the same error in one of the lemmas, mentioned in the list of errata of the book. This error was uncovered in a note by Tomi Kärki, and corrected by Michel Rigo and Laurent Waxweiler. This part of the proof has been recently written.In January 2018, Thijmen J. P. Krebs announced, on Arxiv, a simplified proof of the original theorem, based on Dirichlet's approximation criterion instead of that of Kronecker; the article appeared in 2021. The employed method has been refined and used by Mol, Rampersad, Shallit and Stipulanti.
+
+Notes and references
+Bibliography
+Allouche, Jean-Paul [in French]; Shallit, Jeffrey (2003). Automatic Sequences: theory, applications, generalizations. Cambridge: Cambridge University Press. ISBN 0-521-82332-3.

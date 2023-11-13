@@ -1,0 +1,604 @@
+Vibronic coupling (also called nonadiabatic coupling or derivative coupling) in a molecule involves the interaction between electronic and nuclear vibrational motion.  The term "vibronic" originates from the combination of the terms "vibrational" and "electronic", denoting the idea that in a molecule, vibrational and electronic interactions are interrelated and influence each other. The magnitude of vibronic coupling reflects the degree of such interrelation.
+In theoretical chemistry, the vibronic coupling is neglected within the Born–Oppenheimer approximation.  Vibronic couplings are crucial to the understanding of nonadiabatic processes, especially near points of conical intersections.  The direct calculation of vibronic couplings used to be uncommon due to difficulties associated with its evaluation, but has recently gained popularity due to increased interest in the quantitative prediction of internal conversion rates, as well as the development of cheap but rigorous ways to analytically calculate the vibronic couplings, especially at the TDDFT level.
+
+Definition
+Vibronic coupling describes the mixing of different electronic states as a result of small vibrations.
+
+  
+    
+      
+        
+          
+            f
+          
+          
+            
+              k
+              ′
+            
+            k
+          
+        
+        ≡
+        ⟨
+        
+        
+          χ
+          
+            
+              k
+              ′
+            
+          
+        
+        (
+        
+          r
+        
+        ;
+        
+          R
+        
+        )
+        
+        
+          |
+        
+        
+        
+          
+            
+              
+                ∇
+                ^
+              
+            
+          
+          
+            
+              R
+            
+          
+        
+        
+          χ
+          
+            k
+          
+        
+        (
+        
+          r
+        
+        ;
+        
+          R
+        
+        )
+        
+          ⟩
+          
+            (
+            
+              r
+            
+            )
+          
+        
+      
+    
+    {\displaystyle \mathbf {f} _{k'k}\equiv \langle \,\chi _{k'}(\mathbf {r} ;\mathbf {R} )\,|\,{\hat {\nabla }}_{\mathbf {R} }\chi _{k}(\mathbf {r} ;\mathbf {R} )\rangle _{(\mathbf {r} )}}
+
+Evaluation
+The evaluation of vibronic coupling often involves complex mathematical treatment.
+
+Numerical gradients
+The form of vibronic coupling is essentially the derivative of the wave function.  Each component of the vibronic coupling vector can be calculated with numerical differentiation methods using wave functions at displaced geometries.  This is the procedure used in MOLPRO.First order accuracy can be achieved with forward difference formula:
+
+  
+    
+      
+        (
+        
+          
+            f
+          
+          
+            
+              k
+              ′
+            
+            k
+          
+        
+        
+          )
+          
+            l
+          
+        
+        ≈
+        
+          
+            1
+            d
+          
+        
+        
+          [
+          
+            
+              γ
+              
+                
+                  k
+                  ′
+                
+                k
+              
+            
+            (
+            
+              R
+            
+            
+              |
+            
+            
+              R
+            
+            +
+            d
+            
+              
+                e
+              
+              
+                l
+              
+            
+            )
+            −
+            
+              γ
+              
+                
+                  k
+                  ′
+                
+                k
+              
+            
+            (
+            
+              R
+            
+            
+              |
+            
+            
+              R
+            
+            )
+          
+          ]
+        
+      
+    
+    {\displaystyle (\mathbf {f} _{k'k})_{l}\approx {\frac {1}{d}}\left[\gamma ^{k'k}(\mathbf {R} |\mathbf {R} +d\mathbf {e} _{l})-\gamma ^{k'k}(\mathbf {R} |\mathbf {R} )\right]}
+  Second order accuracy can be achieved with central difference formula:
+
+  
+    
+      
+        (
+        
+          
+            f
+          
+          
+            
+              k
+              ′
+            
+            k
+          
+        
+        
+          )
+          
+            l
+          
+        
+        ≈
+        
+          
+            1
+            
+              2
+              d
+            
+          
+        
+        
+          [
+          
+            
+              γ
+              
+                
+                  k
+                  ′
+                
+                k
+              
+            
+            (
+            
+              R
+            
+            
+              |
+            
+            
+              R
+            
+            +
+            d
+            
+              
+                e
+              
+              
+                l
+              
+            
+            )
+            −
+            
+              γ
+              
+                
+                  k
+                  ′
+                
+                k
+              
+            
+            (
+            
+              R
+            
+            
+              |
+            
+            
+              R
+            
+            −
+            d
+            
+              
+                e
+              
+              
+                l
+              
+            
+            )
+          
+          ]
+        
+      
+    
+    {\displaystyle (\mathbf {f} _{k'k})_{l}\approx {\frac {1}{2d}}\left[\gamma ^{k'k}(\mathbf {R} |\mathbf {R} +d\mathbf {e} _{l})-\gamma ^{k'k}(\mathbf {R} |\mathbf {R} -d\mathbf {e} _{l})\right]}
+  Here, 
+  
+    
+      
+        
+          
+            e
+          
+          
+            l
+          
+        
+      
+    
+    {\displaystyle \mathbf {e} _{l}}
+   is a unit vector along direction 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+  . 
+  
+    
+      
+        
+          γ
+          
+            
+              k
+              ′
+            
+            k
+          
+        
+      
+    
+    {\displaystyle \gamma ^{k'k}}
+   is the transition density between the two electronic states.
+
+  
+    
+      
+        
+          γ
+          
+            
+              k
+              ′
+            
+            k
+          
+        
+        (
+        
+          
+            R
+          
+          
+            1
+          
+        
+        
+          |
+        
+        
+          
+            R
+          
+          
+            2
+          
+        
+        )
+        =
+        ⟨
+        
+          χ
+          
+            
+              k
+              ′
+            
+          
+        
+        (
+        
+          r
+        
+        ;
+        
+          
+            R
+          
+          
+            1
+          
+        
+        )
+        
+        
+          |
+        
+        
+        
+          χ
+          
+            k
+          
+        
+        (
+        
+          r
+        
+        ;
+        
+          
+            R
+          
+          
+            2
+          
+        
+        )
+        
+          ⟩
+          
+            (
+            
+              r
+            
+            )
+          
+        
+      
+    
+    {\displaystyle \gamma ^{k'k}(\mathbf {R} _{1}|\mathbf {R} _{2})=\langle \chi _{k'}(\mathbf {r} ;\mathbf {R} _{1})\,|\,\chi _{k}(\mathbf {r} ;\mathbf {R} _{2})\rangle _{(\mathbf {r} )}}
+  Evaluation of electronic wave functions for both electronic states are required at N displacement geometries for first order accuracy and 2*N displacements to achieve second order accuracy, where N is the number of nuclear degrees of freedom.  This can be extremely computationally demanding for large molecules.
+As with other numerical differentiation methods, the evaluation of nonadiabatic coupling vector with this method is numerically unstable, limiting the accuracy of the result. Moreover, the calculation of the two transition densities in the numerator are not straightforward. The wave functions of both electronic states are expanded with Slater determinants or configuration state functions (CSF). The contribution from the change of CSF basis is too demanding to evaluate using numerical method, and is usually ignored by employing an approximate diabatic CSF basis. This will also cause further inaccuracy of the calculated coupling vector, although this error is usually tolerable.
+
+Analytic gradient methods
+Evaluating derivative couplings with analytic gradient methods has the advantage of high accuracy and very low cost, usually much cheaper than one single point calculation.  This means an acceleration factor of 2N. However, the process involves intense mathematical treatment and programming. As a result, few programs have currently implemented analytic evaluation of vibronic couplings at wave function theory levels. Details about this method can be found in ref. For the implementation for SA-MCSCF and MRCI in COLUMBUS, please see ref.
+
+TDDFT-based methods
+The computational cost of evaluating the vibronic coupling using (multireference) wave function theory has led to the idea of evaluating them at the TDDFT level, which indirectly describes the excited states of a system without describing its excited state wave functions. However, the derivation of the TDDFT vibronic coupling theory is not trivial, since there are no electronic wave functions in TDDFT that are available for plugging into the defining equation of the vibronic coupling.In 2000, Chernyak and Mukamel showed that in the complete basis set (CBS) limit, knowledge of the reduced transition density matrix between a pair of states (both at the unperturbed geometry) suffices to determine the vibronic couplings between them. The vibronic couplings between two electronic states are given by contracting their reduced transition density matrix with the geometric derivatives of the nuclear attraction operator, followed by dividing by the energy difference of the two electronic states:
+
+  
+    
+      
+        (
+        
+          
+            f
+          
+          
+            
+              k
+              ′
+            
+            k
+          
+        
+        
+          )
+          
+            l
+          
+        
+        =
+        
+          
+            1
+            
+              
+                E
+                
+                  k
+                
+              
+              −
+              
+                E
+                
+                  
+                    k
+                    ′
+                  
+                
+              
+            
+          
+        
+        
+          ∑
+          
+            p
+            q
+          
+        
+        ⟨
+        
+          ψ
+          
+            p
+          
+        
+        
+          |
+        
+        
+          
+            ∂
+            
+              ∂
+              
+                
+                  e
+                
+                
+                  l
+                
+              
+            
+          
+        
+        
+          
+            
+              
+                V
+                ^
+              
+            
+          
+          
+            
+              n
+              e
+            
+          
+        
+        
+          |
+        
+        
+          ψ
+          
+            q
+          
+        
+        ⟩
+        (
+        
+          γ
+          
+            
+              k
+              ′
+            
+            k
+          
+        
+        (
+        
+          R
+        
+        
+          |
+        
+        
+          R
+        
+        )
+        
+          )
+          
+            p
+            q
+          
+        
+      
+    
+    {\displaystyle (\mathbf {f} _{k'k})_{l}={\frac {1}{E_{k}-E_{k'}}}\sum _{pq}\langle \psi _{p}|{\frac {\partial }{\partial \mathbf {e} _{l}}}{\hat {V}}_{\rm {ne}}|\psi _{q}\rangle (\gamma ^{k'k}(\mathbf {R} |\mathbf {R} ))_{pq}}
+  This enables one to calculate the vibronic couplings at the TDDFT level, since although TDDFT does not give excited state wave functions, it does give reduced transition density matrices, not only between the ground state and an excited state, but also between two excited states. The proof of the Chernyak-Mukamel formula is straightforward and involves the Hellmann-Feynman theorem. While the formula provides useful accuracy for a plane-wave basis (see e.g. ref.), it converges extremely slowly with respect to the basis set if an atomic orbital basis set is used, due to the neglect of the Pulay force. Therefore, modern implementations in molecular codes typically use expressions that include the Pulay force contributions, derived from the Lagrangian formalism. They are more expensive than the Chernyak-Mukamel formula, but still much cheaper than the vibronic couplings at wave function theory levels (more specifically, they are roughly as expensive as the SCF gradient for ground state-excited state vibronic couplings, and as expensive as the TDDFT gradient for excited state-excited state vibronic couplings). Moreover, they are much more accurate than the Chernyak-Mukamel formula for realistically sized atomic orbital basis sets.
+
+Crossings and avoided crossings of potential energy surfaces
+Vibronic coupling is large in the case of two adiabatic potential energy surfaces coming close to each other (that is, when the energy gap between them is of the order of magnitude of one oscillation quantum).  This happens in the neighbourhood of an avoided crossing of  potential energy surfaces corresponding to distinct electronic states of the same spin symmetry.  At the vicinity of conical intersections, where the potential energy surfaces of the same spin symmetry cross, the magnitude of vibronic coupling approaches infinity.  In either case the adiabatic or Born–Oppenheimer approximation fails and vibronic couplings have to be taken into account.
+The large magnitude of vibronic coupling near avoided crossings and conical intersections allows wave functions to propagate from one adiabatic potential energy surface to another, giving rise to nonadiabatic phenomena such as radiationless decay. Therefore, one of the most important applications of vibronic couplings is the quantitative calculation of internal conversion rates, through e.g. nonadiabatic molecular dynamics (including but not limited to surface hopping and path integral molecular dynamics). When the potential energy surfaces of both the initial and the final electronic state are approximated by multidimensional harmonic oscillators, one can compute the internal conversion rate by evaluating the vibration correlation function, which is much cheaper than nonadiabatic molecular dynamics and is free from random noise; this gives a fast method to compute the rates of relatively slow internal conversion processes, for which nonadiabatic molecular dynamics methods are not affordable.The singularity of vibronic coupling at conical intersections is responsible for the existence of Geometric phase, which was discovered by Longuet-Higgins in this context. Geometric phase around the conical intersection involving the ground electronic state of the C6H3F3+ molecular ion is discussed on pages 385-386 of the textbook by Bunker and Jensen.
+
+Difficulties and alternatives
+Although crucial to the understanding of nonadiabatic processes, direct evaluation of vibronic couplings has been very limited until very recently.
+Evaluation of vibronic couplings is often associated with severe difficulties in mathematical formulation and program implementations.  As a result, the algorithms to evaluate vibronic couplings at wave function theory levels, or between two excited states, are not yet implemented in many quantum chemistry program suites. By comparison, vibronic couplings between the ground state and an excited state at the TDDFT level, which are easy to formulate and cheap to calculate, are more widely available.
+The evaluation of vibronic couplings typically requires correct description of at least two electronic states in regions where they are strongly coupled.  This usually requires the use of multi-reference methods such as MCSCF and MRCI, which are computationally demanding and delicate quantum-chemical methods.  However, there are also applications where vibronic couplings are needed but the relevant electronic states are not strongly coupled, for example when calculating slow internal conversion processes; in this case even methods like TDDFT, which fails near ground state-excited state conical intersections, can give useful accuracy. Moreover, TDDFT can describe the vibronic coupling between two excited states in a qualitatively correct fashion, even if the two excited states are very close in energy and therefore strongly coupled (provided that the equation-of-motion (EOM) variant of the TDDFT vibronic coupling is used in place of the time-dependent perturbation theory (TDPT) variant). Therefore, the unsuitability of TDDFT for calculating ground state-excited state vibronic couplings near a ground state-excited state conical intersection can be bypassed by choosing a third state as the reference state of the TDDFT calculation (i.e. the ground state is treated like an excited state), leading to the popular approach of using spin-flip TDDFT to evaluate ground state-excited state vibronic couplings. When even an approximate calculation is unrealistic, the magnitude of vibronic coupling is often introduced as an empirical parameter determined by reproducing experimental data.
+Alternatively, one can avoid explicit use of derivative couplings by switch from the adiabatic to the diabatic representation of the potential energy surfaces.  Although rigorous validation of a diabatic representation requires knowledge of vibronic coupling, it is often possible to construct such diabatic representations by referencing the continuity of physical quantities such as dipole moment, charge distribution or orbital occupations.  However, such construction requires detailed knowledge of a molecular system and introduces significant arbitrariness.  Diabatic representations constructed with different method can yield different results and the reliability of the result relies on the discretion of the researcher.
+
+Theoretical development
+The first discussion of the effect of vibronic coupling on molecular spectra is given in the paper by Herzberg and Teller.
+Although the Herzberg–Teller effect appears to be the result of either vibronic coupling or the dependence of the electronic transition moment on the nuclear coordinates, it can be shown that these two apparently different causes of the Herzberg–Teller effect in a spectrum are two manifestations of the same phenomenon (see Section 14.1.9 of the book by Bunker and Jensen).
+Calculations of the lower excited levels of benzene by Sklar in 1937 (with the valence bond method) and later in 1938 by Goeppert-Mayer and Sklar (with the molecular orbital method) demonstrated a correspondence between the theoretical predictions and experimental results of the benzene spectrum. The benzene spectrum was the first qualitative computation of the efficiencies of various vibrations at inducing intensity absorption.
+
+See also
+Jahn–Teller effect
+Born–Huang approximation
+Born–Oppenheimer approximation
+Conical intersection
+
+
+== References ==

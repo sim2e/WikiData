@@ -1,0 +1,491 @@
+In automata theory, an alternating finite automaton (AFA) is a nondeterministic finite automaton whose transitions are divided into existential and universal transitions. For example, let A be an alternating automaton.
+
+For an existential transition 
+  
+    
+      
+        (
+        q
+        ,
+        a
+        ,
+        
+          q
+          
+            1
+          
+        
+        ∨
+        
+          q
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle (q,a,q_{1}\vee q_{2})}
+  , A nondeterministically chooses to switch the state to either 
+  
+    
+      
+        
+          q
+          
+            1
+          
+        
+      
+    
+    {\displaystyle q_{1}}
+   or 
+  
+    
+      
+        
+          q
+          
+            2
+          
+        
+      
+    
+    {\displaystyle q_{2}}
+  , reading a. Thus, behaving like a regular nondeterministic finite automaton.
+For a universal transition 
+  
+    
+      
+        (
+        q
+        ,
+        a
+        ,
+        
+          q
+          
+            1
+          
+        
+        ∧
+        
+          q
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle (q,a,q_{1}\wedge q_{2})}
+  , A moves to 
+  
+    
+      
+        
+          q
+          
+            1
+          
+        
+      
+    
+    {\displaystyle q_{1}}
+   and 
+  
+    
+      
+        
+          q
+          
+            2
+          
+        
+      
+    
+    {\displaystyle q_{2}}
+  , reading a, simulating the behavior of a parallel machine.Note that due to the universal quantification a run is represented by a run tree. A accepts a word w, if there exists a run tree on w such that every path ends in an accepting state.
+A basic theorem states that any AFA is equivalent to a deterministic finite automaton (DFA), hence AFAs accept exactly the regular languages.
+An alternative model which is frequently used is the one where Boolean combinations are in disjunctive normal form so that, e.g., 
+  
+    
+      
+        {
+        {
+        
+          q
+          
+            1
+          
+        
+        }
+        ,
+        {
+        
+          q
+          
+            2
+          
+        
+        ,
+        
+          q
+          
+            3
+          
+        
+        }
+        }
+      
+    
+    {\displaystyle \{\{q_{1}\},\{q_{2},q_{3}\}\}}
+   would represent 
+  
+    
+      
+        
+          q
+          
+            1
+          
+        
+        ∨
+        (
+        
+          q
+          
+            2
+          
+        
+        ∧
+        
+          q
+          
+            3
+          
+        
+        )
+      
+    
+    {\displaystyle q_{1}\vee (q_{2}\wedge q_{3})}
+  . The state tt (true) is represented by 
+  
+    
+      
+        {
+        ∅
+        }
+      
+    
+    {\displaystyle \{\emptyset \}}
+   in this case and ff (false) by 
+  
+    
+      
+        ∅
+      
+    
+    {\displaystyle \emptyset }
+  . This representation is usually more efficient.
+Alternating finite automata can be extended to accept trees in the same way as tree automata, yielding alternating tree automata.
+
+Formal definition
+An alternating finite automaton (AFA) is a 6-tuple,
+
+  
+    
+      
+        (
+        S
+        (
+        ∃
+        )
+        ,
+        S
+        (
+        ∀
+        )
+        ,
+        Σ
+        ,
+        δ
+        ,
+        
+          P
+          
+            0
+          
+        
+        ,
+        F
+        )
+      
+    
+    {\displaystyle (S(\exists ),S(\forall ),\Sigma ,\delta ,P_{0},F)}
+  , where
+
+  
+    
+      
+        S
+        (
+        ∃
+        )
+      
+    
+    {\displaystyle S(\exists )}
+   is a finite set of existential states. Also commonly represented as 
+  
+    
+      
+        S
+        (
+        ∨
+        )
+      
+    
+    {\displaystyle S(\vee )}
+  .
+
+  
+    
+      
+        S
+        (
+        ∀
+        )
+      
+    
+    {\displaystyle S(\forall )}
+   is a finite set of universal states. Also commonly represented as 
+  
+    
+      
+        S
+        (
+        ∧
+        )
+      
+    
+    {\displaystyle S(\wedge )}
+  .
+
+  
+    
+      
+         
+        Σ
+      
+    
+    {\displaystyle \ \Sigma }
+   is a finite set of input symbols.
+
+  
+    
+      
+         
+        δ
+      
+    
+    {\displaystyle \ \delta }
+   is a set of transition relations to next state 
+  
+    
+      
+        (
+        S
+        (
+        ∃
+        )
+        ∪
+        S
+        (
+        ∀
+        )
+        )
+        ×
+        (
+        Σ
+        ∪
+        {
+        ε
+        }
+        )
+        →
+        
+          2
+          
+            S
+            (
+            ∃
+            )
+            ∪
+            S
+            (
+            ∀
+            )
+          
+        
+      
+    
+    {\displaystyle (S(\exists )\cup S(\forall ))\times (\Sigma \cup \{\varepsilon \})\to 2^{S(\exists )\cup S(\forall )}}
+  .
+
+  
+    
+      
+         
+        
+          P
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \ P_{0}}
+   is the initial (start) state, such that 
+  
+    
+      
+        
+          P
+          
+            0
+          
+        
+        ∈
+        S
+        (
+        ∃
+        )
+        ∪
+        S
+        (
+        ∀
+        )
+      
+    
+    {\displaystyle P_{0}\in S(\exists )\cup S(\forall )}
+  .
+
+  
+    
+      
+         
+        F
+      
+    
+    {\displaystyle \ F}
+   is a set of accepting (final) states such that 
+  
+    
+      
+        F
+        ⊆
+        S
+        (
+        ∃
+        )
+        ∪
+        S
+        (
+        ∀
+        )
+      
+    
+    {\displaystyle F\subseteq S(\exists )\cup S(\forall )}
+  .The model was introduced by Chandra, Kozen and Stockmeyer.
+
+State complexity
+Even though AFA can accept exactly the regular languages, they are different from other types of finite automata in the succinctness of description, measured by the number of their states.
+Chandra et al. proved that converting an 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -state AFA to an equivalent DFA
+requires 
+  
+    
+      
+        
+          2
+          
+            
+              2
+              
+                n
+              
+            
+          
+        
+      
+    
+    {\displaystyle 2^{2^{n}}}
+   states in the worst case. Another construction by Fellah, Jürgensen and Yu. converts an AFA with 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   states to a nondeterministic finite automaton (NFA) with up to 
+  
+    
+      
+        
+          2
+          
+            n
+          
+        
+      
+    
+    {\displaystyle 2^{n}}
+   states by performing a similar kind of powerset construction as used for the transformation of an NFA to a DFA.
+
+Computational complexity
+The membership problem asks, given an AFA 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   and a word 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+  , whether 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   accepts 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+  . This problem is P-complete. This is true even on a singleton alphabet, i.e., when the automaton accepts a unary language.
+The non-emptiness problem (is the language of an input AFA non-empty?), the universality problem (is the complement of the language of an input AFA empty?), and the equivalence problem (do two input AFAs recognize the same language) are PSPACE-complete for AFAs: Theorems 23, 24, 25 .
+
+References
+
+Pippenger, Nicholas (1997). Theories of Computability. Cambridge University Press. ISBN 978-0-521-55380-3.

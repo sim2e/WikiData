@@ -1,0 +1,1251 @@
+In graph theory, a clustering coefficient is a measure of the degree to which nodes in a graph tend to cluster together. Evidence suggests that in most real-world networks, and in particular social networks, nodes tend to create tightly knit groups characterised by a relatively high density of ties; this likelihood tends to be greater than the average probability of a tie randomly established between two nodes (Holland and Leinhardt, 1971; Watts and Strogatz, 1998).
+Two versions of this measure exist: the global and the local. The global version was designed to give an overall indication of the clustering in the network, whereas the local gives an indication of the embeddedness of single nodes.
+
+Local clustering coefficient
+The local clustering coefficient of a vertex (node) in a graph quantifies how close its neighbours are to being a clique (complete graph). Duncan J. Watts and Steven Strogatz introduced the measure in 1998 to determine whether a graph is a small-world network.
+A graph 
+  
+    
+      
+        G
+        =
+        (
+        V
+        ,
+        E
+        )
+      
+    
+    {\displaystyle G=(V,E)}
+   formally consists of a set of vertices 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   and a set of edges 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   between them. An edge 
+  
+    
+      
+        
+          e
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle e_{ij}}
+   connects vertex 
+  
+    
+      
+        
+          v
+          
+            i
+          
+        
+      
+    
+    {\displaystyle v_{i}}
+   with vertex 
+  
+    
+      
+        
+          v
+          
+            j
+          
+        
+      
+    
+    {\displaystyle v_{j}}
+  .
+The neighbourhood  
+  
+    
+      
+        
+          N
+          
+            i
+          
+        
+      
+    
+    {\displaystyle N_{i}}
+   for a vertex 
+  
+    
+      
+        
+          v
+          
+            i
+          
+        
+      
+    
+    {\displaystyle v_{i}}
+   is defined as its immediately connected neighbours as follows:
+
+  
+    
+      
+        
+          N
+          
+            i
+          
+        
+        =
+        {
+        
+          v
+          
+            j
+          
+        
+        :
+        
+          e
+          
+            i
+            j
+          
+        
+        ∈
+        E
+        ∨
+        
+          e
+          
+            j
+            i
+          
+        
+        ∈
+        E
+        }
+        .
+      
+    
+    {\displaystyle N_{i}=\{v_{j}:e_{ij}\in E\lor e_{ji}\in E\}.}
+  We define 
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+      
+    
+    {\displaystyle k_{i}}
+   as the number of vertices, 
+  
+    
+      
+        
+          |
+        
+        
+          N
+          
+            i
+          
+        
+        
+          |
+        
+      
+    
+    {\displaystyle |N_{i}|}
+  , in the neighbourhood, 
+  
+    
+      
+        
+          N
+          
+            i
+          
+        
+      
+    
+    {\displaystyle N_{i}}
+  , of a vertex.
+The local clustering coefficient 
+  
+    
+      
+        
+          C
+          
+            i
+          
+        
+      
+    
+    {\displaystyle C_{i}}
+   for a vertex 
+  
+    
+      
+        
+          v
+          
+            i
+          
+        
+      
+    
+    {\displaystyle v_{i}}
+   is then given by a proportion of the number of links between the vertices within its neighbourhood divided by the number of links that could possibly exist between them. For a directed graph, 
+  
+    
+      
+        
+          e
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle e_{ij}}
+   is distinct from 
+  
+    
+      
+        
+          e
+          
+            j
+            i
+          
+        
+      
+    
+    {\displaystyle e_{ji}}
+  , and therefore for each neighbourhood 
+  
+    
+      
+        
+          N
+          
+            i
+          
+        
+      
+    
+    {\displaystyle N_{i}}
+   there are 
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+        (
+        
+          k
+          
+            i
+          
+        
+        −
+        1
+        )
+      
+    
+    {\displaystyle k_{i}(k_{i}-1)}
+   links that could exist among the vertices within the neighbourhood (
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+      
+    
+    {\displaystyle k_{i}}
+   is the number of neighbours of a vertex). Thus, the local clustering coefficient for directed graphs is given as 
+
+  
+    
+      
+        
+          C
+          
+            i
+          
+        
+        =
+        
+          
+            
+              
+                |
+              
+              {
+              
+                e
+                
+                  j
+                  k
+                
+              
+              :
+              
+                v
+                
+                  j
+                
+              
+              ,
+              
+                v
+                
+                  k
+                
+              
+              ∈
+              
+                N
+                
+                  i
+                
+              
+              ,
+              
+                e
+                
+                  j
+                  k
+                
+              
+              ∈
+              E
+              }
+              
+                |
+              
+            
+            
+              
+                k
+                
+                  i
+                
+              
+              (
+              
+                k
+                
+                  i
+                
+              
+              −
+              1
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle C_{i}={\frac {|\{e_{jk}:v_{j},v_{k}\in N_{i},e_{jk}\in E\}|}{k_{i}(k_{i}-1)}}.}
+  An undirected graph has the property that 
+  
+    
+      
+        
+          e
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle e_{ij}}
+   and 
+  
+    
+      
+        
+          e
+          
+            j
+            i
+          
+        
+      
+    
+    {\displaystyle e_{ji}}
+   are considered identical. Therefore, if a vertex 
+  
+    
+      
+        
+          v
+          
+            i
+          
+        
+      
+    
+    {\displaystyle v_{i}}
+   has 
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+      
+    
+    {\displaystyle k_{i}}
+   neighbours, 
+  
+    
+      
+        
+          
+            
+              
+                k
+                
+                  i
+                
+              
+              (
+              
+                k
+                
+                  i
+                
+              
+              −
+              1
+              )
+            
+            2
+          
+        
+      
+    
+    {\displaystyle {\frac {k_{i}(k_{i}-1)}{2}}}
+   edges could exist among the vertices within the neighbourhood. Thus, the local clustering coefficient for undirected graphs can be defined as
+
+  
+    
+      
+        
+          C
+          
+            i
+          
+        
+        =
+        
+          
+            
+              2
+              
+                |
+              
+              {
+              
+                e
+                
+                  j
+                  k
+                
+              
+              :
+              
+                v
+                
+                  j
+                
+              
+              ,
+              
+                v
+                
+                  k
+                
+              
+              ∈
+              
+                N
+                
+                  i
+                
+              
+              ,
+              
+                e
+                
+                  j
+                  k
+                
+              
+              ∈
+              E
+              }
+              
+                |
+              
+            
+            
+              
+                k
+                
+                  i
+                
+              
+              (
+              
+                k
+                
+                  i
+                
+              
+              −
+              1
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle C_{i}={\frac {2|\{e_{jk}:v_{j},v_{k}\in N_{i},e_{jk}\in E\}|}{k_{i}(k_{i}-1)}}.}
+  Let 
+  
+    
+      
+        
+          λ
+          
+            G
+          
+        
+        (
+        v
+        )
+      
+    
+    {\displaystyle \lambda _{G}(v)}
+   be the number of triangles on 
+  
+    
+      
+        v
+        ∈
+        V
+        (
+        G
+        )
+      
+    
+    {\displaystyle v\in V(G)}
+   for undirected graph 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  . That is, 
+  
+    
+      
+        
+          λ
+          
+            G
+          
+        
+        (
+        v
+        )
+      
+    
+    {\displaystyle \lambda _{G}(v)}
+   is the number of subgraphs of 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   with 3 edges and 3 vertices, one of which is 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+  . Let 
+  
+    
+      
+        
+          τ
+          
+            G
+          
+        
+        (
+        v
+        )
+      
+    
+    {\displaystyle \tau _{G}(v)}
+   be the number of triples on 
+  
+    
+      
+        v
+        ∈
+        G
+      
+    
+    {\displaystyle v\in G}
+  . That is, 
+  
+    
+      
+        
+          τ
+          
+            G
+          
+        
+        (
+        v
+        )
+      
+    
+    {\displaystyle \tau _{G}(v)}
+   is the number of subgraphs (not necessarily induced) with 2 edges and 3 vertices, one of which is 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   and such that 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   is incident to both edges. Then we can also define the clustering coefficient as
+
+  
+    
+      
+        
+          C
+          
+            i
+          
+        
+        =
+        
+          
+            
+              
+                λ
+                
+                  G
+                
+              
+              (
+              v
+              )
+            
+            
+              
+                τ
+                
+                  G
+                
+              
+              (
+              v
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle C_{i}={\frac {\lambda _{G}(v)}{\tau _{G}(v)}}.}
+  It is simple to show that the two preceding definitions are the same, since
+
+  
+    
+      
+        
+          τ
+          
+            G
+          
+        
+        (
+        v
+        )
+        =
+        C
+        (
+        
+          
+            k
+            
+              i
+            
+          
+        
+        ,
+        2
+        )
+        =
+        
+          
+            1
+            2
+          
+        
+        
+          k
+          
+            i
+          
+        
+        (
+        
+          k
+          
+            i
+          
+        
+        −
+        1
+        )
+        .
+      
+    
+    {\displaystyle \tau _{G}(v)=C({k_{i}},2)={\frac {1}{2}}k_{i}(k_{i}-1).}
+  These measures are 1 if every neighbour connected to 
+  
+    
+      
+        
+          v
+          
+            i
+          
+        
+      
+    
+    {\displaystyle v_{i}}
+   is also connected to every other vertex within the neighbourhood, and 0 if no vertex that is connected to 
+  
+    
+      
+        
+          v
+          
+            i
+          
+        
+      
+    
+    {\displaystyle v_{i}}
+   connects to any other vertex that is connected to 
+  
+    
+      
+        
+          v
+          
+            i
+          
+        
+      
+    
+    {\displaystyle v_{i}}
+  .
+Since any graph is fully specified by its adjacency matrix A, the local clustering coefficient for a simple undirected graph can be expressed in terms of A as:
+
+  
+    
+      
+        
+          C
+          
+            i
+          
+        
+        =
+        
+          
+            1
+            
+              
+                k
+                
+                  i
+                
+              
+              (
+              
+                k
+                
+                  i
+                
+              
+              −
+              1
+              )
+            
+          
+        
+        
+          ∑
+          
+            j
+            ,
+            k
+          
+        
+        
+          A
+          
+            i
+            j
+          
+        
+        
+          A
+          
+            j
+            k
+          
+        
+        
+          A
+          
+            k
+            i
+          
+        
+      
+    
+    {\displaystyle C_{i}={\frac {1}{k_{i}(k_{i}-1)}}\sum _{j,k}A_{ij}A_{jk}A_{ki}}
+  where:
+
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+        =
+        
+          ∑
+          
+            j
+          
+        
+        
+          A
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle k_{i}=\sum _{j}A_{ij}}
+  and Ci=0 when ki is zero or one. In the above expression, the numerator counts twice the number of complete triangles that vertex i is involved in. In the denominator, ki2 counts the number of edge pairs that vertex i is involved in plus the number of single edges traversed twice. ki is the number of edges connected to vertex i, and subtracting ki then removes the latter, leaving only a set of edge pairs that could conceivably be connected into triangles. For every such edge pair, there will be another edge pair which could form the same triangle, so the denominator counts twice the number of conceivable triangles that vertex i could be involved in.
+
+Global clustering coefficient
+The global clustering coefficient is based on triplets of nodes. A triplet is three nodes that are connected by either two (open triplet) or three (closed triplet) undirected ties. A triangle graph therefore includes three closed triplets, one centered on each of the nodes (n.b. this means the three triplets in a triangle come from overlapping selections of nodes). The global clustering coefficient is the number of closed triplets (or 3 x triangles) over the total number of triplets (both open and closed). The first attempt to measure it was made by Luce and Perry (1949). This measure gives an indication of the clustering in the whole network (global), and can be applied to both undirected and directed networks (often called transitivity, see Wasserman and Faust, 1994, page 243).
+The global clustering coefficient is defined as:
+
+  
+    
+      
+        C
+        =
+        
+          
+            
+              number of closed triplets
+            
+            
+              number of all triplets (open and closed)
+            
+          
+        
+      
+    
+    {\displaystyle C={\frac {\mbox{number of closed triplets}}{\mbox{number of all triplets (open and closed)}}}}
+  .The number of closed triplets has also been referred to as 3 × triangles in the literature, so:
+
+  
+    
+      
+        C
+        =
+        
+          
+            
+              3
+              ×
+              
+                
+                  number of triangles
+                
+              
+            
+            
+              number of all triplets
+            
+          
+        
+      
+    
+    {\displaystyle C={\frac {3\times {\mbox{number of triangles}}}{\mbox{number of all triplets}}}}
+  .A generalisation to weighted networks was proposed by Opsahl and Panzarasa (2009), and a redefinition to two-mode networks (both binary and weighted) by Opsahl (2009).Since any graph is fully specified by its adjacency matrix A, the global clustering coefficient for an undirected graph can be expressed in terms of A as:
+
+  
+    
+      
+        C
+        =
+        
+          
+            
+              
+                ∑
+                
+                  i
+                  ,
+                  j
+                  ,
+                  k
+                
+              
+              
+                A
+                
+                  i
+                  j
+                
+              
+              
+                A
+                
+                  j
+                  k
+                
+              
+              
+                A
+                
+                  k
+                  i
+                
+              
+            
+            
+              
+                ∑
+                
+                  i
+                
+              
+              
+                k
+                
+                  i
+                
+              
+              (
+              
+                k
+                
+                  i
+                
+              
+              −
+              1
+              )
+            
+          
+        
+      
+    
+    {\displaystyle C={\frac {\sum _{i,j,k}A_{ij}A_{jk}A_{ki}}{\sum _{i}k_{i}(k_{i}-1)}}}
+  where:
+
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+        =
+        
+          ∑
+          
+            j
+          
+        
+        
+          A
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle k_{i}=\sum _{j}A_{ij}}
+  and C=0 when the denominator is zero.
+
+Network average clustering coefficient
+As an alternative to the global clustering coefficient, the overall level of clustering in a network is measured by Watts and Strogatz as the average of the local clustering coefficients of all the vertices 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   :
+
+  
+    
+      
+        
+          
+            
+              C
+              ¯
+            
+          
+        
+        =
+        
+          
+            1
+            n
+          
+        
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          C
+          
+            i
+          
+        
+        .
+      
+    
+    {\displaystyle {\bar {C}}={\frac {1}{n}}\sum _{i=1}^{n}C_{i}.}
+  It is worth noting that this metric places more weight on the low degree nodes, while the transitivity ratio places more weight on the high degree nodes.
+A generalisation to weighted networks was proposed by Barrat et al. (2004), and a redefinition to bipartite graphs (also called two-mode networks) by Latapy et al. (2008) and Opsahl (2009).Alternative generalisations to weighted and directed graphs have been provided by Fagiolo (2007) and Clemente and Grassi (2018).This formula is not, by default, defined for graphs with isolated vertices; see Kaiser (2008) and Barmpoutis et al. The networks with the largest possible average clustering coefficient are found to have a modular structure, and at the same time, they have the smallest possible average distance among the different nodes.
+
+Percolation of clustered networks
+For a random tree-like network without degree-degree correlation, it can be shown that such network can have a giant component, and the percolation threshold (transmission probability) is given by 
+  
+    
+      
+        
+          p
+          
+            c
+          
+        
+        =
+        
+          
+            1
+            
+              
+                g
+                
+                  1
+                
+                ′
+              
+              (
+              1
+              )
+            
+          
+        
+      
+    
+    {\displaystyle p_{c}={\frac {1}{g_{1}'(1)}}}
+  ,  where 
+  
+    
+      
+        
+          g
+          
+            1
+          
+        
+        (
+        z
+        )
+      
+    
+    {\displaystyle g_{1}(z)}
+   is the generating function corresponding to the excess degree distribution.
+In networks with low clustering, 
+  
+    
+      
+        0
+        <
+        C
+        ≪
+        1
+      
+    
+    {\displaystyle 0<C\ll 1}
+  , the critical point gets scaled by 
+  
+    
+      
+        (
+        1
+        −
+        C
+        
+          )
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle (1-C)^{-1}}
+   such that:
+
+  
+    
+      
+        
+          p
+          
+            c
+          
+        
+        =
+        
+          
+            1
+            
+              1
+              −
+              C
+            
+          
+        
+        
+          
+            1
+            
+              
+                g
+                
+                  1
+                
+                ′
+              
+              (
+              1
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle p_{c}={\frac {1}{1-C}}{\frac {1}{g_{1}'(1)}}.}
+  This indicates that for a given degree distribution, the clustering leads to a larger percolation threshold, mainly because for a fixed number of links, the clustering structure reinforces the core of the network with the price of diluting the global connections. For networks with high clustering, strong clustering could induce the core–periphery structure, in which the core and periphery might percolate at different critical points, and the above approximate treatment is not applicable.For studying the robustness of clustered networks a percolation approach is developed.
+
+See also
+Directed graph
+Graph theory
+Network theory
+Network science
+Percolation theory
+Scale free network
+Small world
+
+References
+External links
+ Media related to Clustering coefficient at Wikimedia Commons

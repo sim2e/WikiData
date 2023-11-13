@@ -1,0 +1,1096 @@
+Combinatory logic is a notation to eliminate the need for quantified variables in mathematical logic. It was introduced by Moses Schönfinkel and Haskell Curry, and has more recently been used in computer science as a theoretical model of computation and also as a basis for the design of functional programming languages. It is based on combinators, which were introduced by Schönfinkel in 1920 with the idea of providing an analogous way to build up functions—and to remove any mention of variables—particularly in predicate logic.  A combinator is a higher-order function that uses only function application and earlier defined combinators to define a result from its arguments.
+
+In mathematics
+Combinatory logic was originally intended as a 'pre-logic' that would clarify the role of quantified variables in logic, essentially by eliminating them. Another way of eliminating quantified variables is Quine's predicate functor logic. While the expressive power of combinatory logic typically exceeds that of first-order logic, the expressive power of predicate functor logic is identical to that of first order logic (Quine 1960, 1966, 1976).
+The original inventor of combinatory logic, Moses Schönfinkel, published nothing on combinatory logic after his original 1924 paper. Haskell Curry rediscovered the combinators while working as an instructor at Princeton University in late 1927. In the late 1930s, Alonzo Church and his students at Princeton invented a rival formalism for functional abstraction, the lambda calculus, which proved more popular than combinatory logic. The upshot of these historical contingencies was that until theoretical computer science began taking an interest in combinatory logic in the 1960s and 1970s, nearly all work on the subject was by Haskell Curry and his students, or by Robert Feys in Belgium. Curry and Feys (1958), and Curry et al. (1972) survey the early history of combinatory logic. For a more modern treatment of combinatory logic and the lambda calculus together, see the book by Barendregt, which reviews the models Dana Scott devised for combinatory logic in the 1960s and 1970s.
+
+In computing
+In computer science, combinatory logic is used as a simplified model of computation, used in computability theory and proof theory. Despite its simplicity, combinatory logic captures many essential features of computation.
+Combinatory logic can be viewed as a variant of the lambda calculus, in which lambda expressions (representing functional abstraction) are replaced by a limited set of combinators, primitive functions without free variables. It is easy to transform lambda expressions into combinator expressions, and combinator reduction is much simpler than lambda reduction. Hence combinatory logic has been used to model some non-strict functional programming languages and hardware. The purest form of this view is the programming language Unlambda, whose sole primitives are the S and K combinators augmented with character input/output. Although not a practical programming language, Unlambda is of some theoretical interest.
+Combinatory logic can be given a variety of interpretations. Many early papers by Curry showed how to translate axiom sets for conventional logic into combinatory logic equations. Dana Scott in the 1960s and 1970s showed how to marry model theory and combinatory logic.
+
+Summary of lambda calculus
+Lambda calculus is concerned with objects called lambda-terms, which can be represented by the following three forms of strings:
+
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+  
+
+  
+    
+      
+        λ
+        v
+        .
+        
+          E
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \lambda v.E_{1}}
+  
+
+  
+    
+      
+        (
+        
+          E
+          
+            1
+          
+        
+        
+          E
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle (E_{1}E_{2})}
+  where 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   is a variable name drawn from a predefined infinite set of variable names, and 
+  
+    
+      
+        
+          E
+          
+            1
+          
+        
+      
+    
+    {\displaystyle E_{1}}
+   and 
+  
+    
+      
+        
+          E
+          
+            2
+          
+        
+      
+    
+    {\displaystyle E_{2}}
+   are lambda-terms.
+Terms of the form 
+  
+    
+      
+        λ
+        v
+        .
+        
+          E
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \lambda v.E_{1}}
+   are called abstractions. The variable v is called the formal parameter of the abstraction, and 
+  
+    
+      
+        
+          E
+          
+            1
+          
+        
+      
+    
+    {\displaystyle E_{1}}
+   is the body of the abstraction. The term 
+  
+    
+      
+        λ
+        v
+        .
+        
+          E
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \lambda v.E_{1}}
+   represents the function which, applied to an argument, binds the formal parameter v to the argument and then computes the resulting value of 
+  
+    
+      
+        
+          E
+          
+            1
+          
+        
+      
+    
+    {\displaystyle E_{1}}
+  — that is, it returns 
+  
+    
+      
+        
+          E
+          
+            1
+          
+        
+      
+    
+    {\displaystyle E_{1}}
+  , with every occurrence of v replaced by the argument.
+Terms of the form 
+  
+    
+      
+        (
+        
+          E
+          
+            1
+          
+        
+        
+          E
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle (E_{1}E_{2})}
+   are called applications. Applications model function invocation or execution: the function represented by 
+  
+    
+      
+        
+          E
+          
+            1
+          
+        
+      
+    
+    {\displaystyle E_{1}}
+   is to be invoked, with 
+  
+    
+      
+        
+          E
+          
+            2
+          
+        
+      
+    
+    {\displaystyle E_{2}}
+   as its argument, and the result is computed. If 
+  
+    
+      
+        
+          E
+          
+            1
+          
+        
+      
+    
+    {\displaystyle E_{1}}
+   (sometimes called the applicand) is an abstraction, the term may be reduced: 
+  
+    
+      
+        
+          E
+          
+            2
+          
+        
+      
+    
+    {\displaystyle E_{2}}
+  , the argument, may be substituted into the body of 
+  
+    
+      
+        
+          E
+          
+            1
+          
+        
+      
+    
+    {\displaystyle E_{1}}
+   in place of the formal parameter of 
+  
+    
+      
+        
+          E
+          
+            1
+          
+        
+      
+    
+    {\displaystyle E_{1}}
+  , and the result is a new lambda term which is equivalent to the old one. If a lambda term contains no subterms of the form 
+  
+    
+      
+        (
+        (
+        λ
+        v
+        .
+        
+          E
+          
+            1
+          
+        
+        )
+        
+          E
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle ((\lambda v.E_{1})E_{2})}
+   then it cannot be reduced, and is said to be in normal form.
+The expression 
+  
+    
+      
+        E
+        [
+        v
+        :=
+        a
+        ]
+      
+    
+    {\displaystyle E[v:=a]}
+   represents the result of taking the term E and replacing all free occurrences of v in it with a. Thus we write
+
+  
+    
+      
+        (
+        (
+        λ
+        v
+        .
+        E
+        )
+        a
+        )
+        ⇒
+        E
+        [
+        v
+        :=
+        a
+        ]
+      
+    
+    {\displaystyle ((\lambda v.E)a)\Rightarrow E[v:=a]}
+  By convention, we take 
+  
+    
+      
+        (
+        a
+        b
+        c
+        )
+      
+    
+    {\displaystyle (abc)}
+   as shorthand for 
+  
+    
+      
+        (
+        (
+        a
+        b
+        )
+        c
+        )
+      
+    
+    {\displaystyle ((ab)c)}
+   (i.e., application is left associative).
+The motivation for this definition of reduction is that it captures the essential behavior of all mathematical functions. For example, consider the function that computes the square of a number. We might write
+
+The square of x is 
+  
+    
+      
+        x
+        ∗
+        x
+      
+    
+    {\displaystyle x*x}
+  (Using "
+  
+    
+      
+        ∗
+      
+    
+    {\displaystyle *}
+  " to indicate multiplication.)  x here is the formal parameter of the function. To evaluate the square for a particular argument, say 3, we insert it into the definition in place of the formal parameter:
+
+The square of 3 is 
+  
+    
+      
+        3
+        ∗
+        3
+      
+    
+    {\displaystyle 3*3}
+  To evaluate the resulting expression 
+  
+    
+      
+        3
+        ∗
+        3
+      
+    
+    {\displaystyle 3*3}
+  , we would have to resort to our knowledge of multiplication and the number 3. Since any computation is simply a composition of the evaluation of suitable functions on suitable primitive arguments, this simple substitution principle suffices to capture the essential mechanism of computation.
+Moreover, in lambda calculus, notions such as '3' and '
+  
+    
+      
+        ∗
+      
+    
+    {\displaystyle *}
+  ' can be represented without any need for externally defined primitive operators or constants. It is possible to identify terms in lambda calculus, which, when suitably interpreted, behave like the number 3 and like the multiplication operator, q.v. Church encoding.
+Lambda calculus is known to be computationally equivalent in power to many other plausible models for computation (including Turing machines); that is, any calculation that can be accomplished in any of these other models can be expressed in lambda calculus, and vice versa. According to the Church-Turing thesis, both models can express any possible computation.
+It is perhaps surprising that lambda-calculus can represent any conceivable computation using only the simple notions of function abstraction and application based on simple textual substitution of terms for variables. But even more remarkable is that abstraction is not even required. Combinatory logic is a model of computation equivalent to lambda calculus, but without abstraction. The advantage of this is that evaluating expressions in lambda calculus is quite complicated because the semantics of substitution must be specified with great care to avoid variable capture problems.  In contrast, evaluating expressions in combinatory logic is much simpler, because there is no notion of substitution.
+
+Combinatory calculi
+Since abstraction is the only way to manufacture functions in the lambda calculus, something must replace it in the combinatory calculus. Instead of abstraction, combinatory calculus provides a limited set of primitive functions out of which other functions may be built.
+
+Combinatory terms
+A combinatory term has one of the following forms:
+
+The primitive functions are combinators, or functions that, when seen as lambda terms, contain no free variables.
+To shorten the notations, a general convention is that 
+  
+    
+      
+        (
+        
+          E
+          
+            1
+          
+        
+        
+          E
+          
+            2
+          
+        
+        
+          E
+          
+            3
+          
+        
+        .
+        .
+        .
+        
+          E
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle (E_{1}E_{2}E_{3}...E_{n})}
+  , or even 
+  
+    
+      
+        
+          E
+          
+            1
+          
+        
+        
+          E
+          
+            2
+          
+        
+        
+          E
+          
+            3
+          
+        
+        .
+        .
+        .
+        
+          E
+          
+            n
+          
+        
+      
+    
+    {\displaystyle E_{1}E_{2}E_{3}...E_{n}}
+  , denotes the term 
+  
+    
+      
+        (
+        .
+        .
+        .
+        (
+        (
+        
+          E
+          
+            1
+          
+        
+        
+          E
+          
+            2
+          
+        
+        )
+        
+          E
+          
+            3
+          
+        
+        )
+        .
+        .
+        .
+        
+          E
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle (...((E_{1}E_{2})E_{3})...E_{n})}
+  . This is the same general convention (left-associativity) as for multiple application in lambda calculus.
+
+Reduction in combinatory logic
+In combinatory logic, each primitive combinator comes with a reduction rule of the form
+
+(P x1 ... xn) = Ewhere E is a term mentioning only variables from the set {x1 ... xn}. It is in this way that primitive combinators behave as functions.
+
+Examples of combinators
+The simplest example of a combinator is I, the identity combinator, defined by
+
+(I x) = xfor all terms x.  Another simple combinator is K, which manufactures constant functions:  (K x) is the function which, for any argument, returns x, so we say
+
+((K x) y) = xfor all terms x and y.  Or, following the convention for multiple application,
+
+(K x y) = xA third combinator is S, which is a generalized version of application:
+
+(S x y z) = (x z (y z))S applies x to y after first substituting z into
+each of them. Or put another way, x is applied to y inside the environment z.
+Given S and K, I itself is unnecessary, since it can be built from the other two:
+
+((S K K) x)
+=  (S K K x)
+=  (K x (K x))
+=  xfor any term x.  Note that although ((S K K)
+x) = (I x) for any x, (S K K)
+itself is not equal to I.  We say the terms are extensionally equal.  Extensional equality captures the mathematical notion of the equality of functions: that two functions are equal if they always produce the same results for the same arguments.  In contrast, the terms themselves, together with the reduction of primitive combinators, capture the notion of intensional equality of functions: that two functions are equal only if they have identical implementations up to the expansion of primitive combinators.  There are many ways to implement an identity function; (S K K) and I are among these ways.  (S K S) is yet another. We will use the word equivalent to indicate extensional equality, reserving equal for identical combinatorial terms.
+A more interesting combinator is the fixed point combinator or Y combinator, which can be used to implement recursion.
+
+Completeness of the S-K basis
+S and K can be composed to produce combinators that are extensionally equal to any lambda term, and therefore, by Church's thesis, to any computable function whatsoever. The proof is to present a transformation, T[ ], which converts an arbitrary lambda term into an equivalent combinator.
+T[ ] may be defined as follows:
+
+T[x]          => x
+T[(E₁ E₂)]    => (T[E₁] T[E₂])
+T[λx.E]       => (K T[E])         (if x does not occur free in E)
+T[λx.x]       => I
+T[λx.λy.E]    => T[λx.T[λy.E]] (if x occurs free in E)
+T[λx.(E₁ E₂)] => (S T[λx.E₁] T[λx.E₂]) (if x occurs free in E₁ or E₂)Note that T[ ] as given is not a well-typed mathematical function, but rather a term rewriter: Although it eventually yields a combinator, the transformation may generate intermediary expressions that are neither lambda terms nor combinators, via rule (5).
+This process is also known as abstraction elimination. This definition is exhaustive: any lambda expression will be subject to exactly one of these rules (see Summary of lambda calculus above).
+It is related to the process of bracket abstraction, which takes an expression E built from variables and application and produces a combinator expression [x]E in which the variable x is not free, such that [x]E x = E holds. A very simple algorithm for bracket abstraction is defined by induction on the structure of expressions as follows:
+[x]y := K y
+[x]x := I
+[x](E₁ E₂) := S([x]E₁)([x]E₂)Bracket abstraction induces a translation from lambda terms to combinator expressions, by interpreting lambda-abstractions using the bracket abstraction algorithm.
+
+Conversion of a lambda term to an equivalent combinatorial term
+For example, we will convert the lambda term λx.λy.(y x) to a combinatorial term:
+
+T[λx.λy.(y x)]
+= T[λx.T[λy.(y x)]] (by 5)
+= T[λx.(S T[λy.y] T[λy.x])] (by 6)
+= T[λx.(S I       T[λy.x])] (by 4)
+= T[λx.(S I       (K T[x]))] (by 3)
+= T[λx.(S I       (K x))] (by 1)
+= (S T[λx.(S I)] T[λx.(K x)]) (by 6)
+= (S (K (S I))   T[λx.(K x)]) (by 3)
+= (S (K (S I))   (S T[λx.K] T[λx.x])) (by 6)
+= (S (K (S I))   (S (K K) T[λx.x])) (by 3)
+= (S (K (S I))   (S (K K) I)) (by 4)If we apply this combinatorial term to any two terms x and y (by feeding them in a queue-like fashion into the combinator 'from the right'), it reduces as follows:
+
+(S (K (S I)) (S (K K) I) x y)
+= (K (S I) x  (S (K K)   I x) y)
+= (S I (S (K K)   I x) y)
+= (I y (S (K K)   I x y))
+= (y (S (K K)   I x y))
+= (y (K K x (I x) y))
+= (y (K (I x) y))
+= (y (I x))
+= (y x)The combinatory representation, (S (K (S I)) (S (K K) I)) is much longer than the representation as a lambda term, λx.λy.(y x).  This is typical. In general, the T[ ] construction may expand a lambda term of length n to a combinatorial term of length Θ(n3).
+
+Explanation of the T[ ] transformation
+The T[ ] transformation is motivated by a desire to eliminate abstraction. Two special cases, rules 3 and 4, are trivial: λx.x is clearly equivalent to I, and λx.E is clearly equivalent to (K T[E]) if x does not appear free in E.
+The first two rules are also simple: Variables convert to themselves,and applications, which are allowed in combinatory terms, are converted to combinators simply by converting the applicand and the argument to combinators.
+It is rules 5 and 6 that are of interest.  Rule 5 simply says that to convert a complex abstraction to a combinator, we must first convert its body to a combinator, and then eliminate the abstraction.  Rule 6 actually eliminates the abstraction.
+λx.(E₁ E₂) is a function which takes an argument, say a, and substitutes it into the lambda term (E₁ E₂) in place of x, yielding (E₁ E₂)[x : = a]. But substituting a into (E₁ E₂) in place of x is just the same as substituting it into both E₁ and E₂, so
+
+(E₁ E₂)[x := a] = (E₁[x := a] E₂[x := a])(λx.(E₁ E₂) a) = ((λx.E₁ a) (λx.E₂ a))
+= (S λx.E₁ λx.E₂ a)
+= ((S λx.E₁ λx.E₂) a)By extensional equality,
+
+λx.(E₁ E₂)     = (S λx.E₁ λx.E₂)Therefore, to  find  a combinator equivalent to λx.(E₁ E₂), it is sufficient to find a combinator equivalent to (S λx.E₁ λx.E₂), and
+
+(S T[λx.E₁] T[λx.E₂])evidently fits the bill.  E₁ and E₂ each contain strictly fewer applications than (E₁ E₂), so the recursion must terminate in a lambda term with no applications at all—either a variable, or a term of the
+form λx.E.
+
+Simplifications of the transformation
+η-reduction
+The combinators generated by the T[ ] transformation can be made smaller if we take into account the η-reduction rule:
+
+T[λx.(E x)] = T[E]   (if x is not free in E)λx.(E x) is the function which takes an argument, x, and applies the function E to it; this is extensionally equal to the function E itself. It is therefore sufficient to convert E to combinatorial form.
+Taking this simplification into account, the example above becomes:
+
+  T[λx.λy.(y x)]
+= ...
+= (S (K (S I))   T[λx.(K x)])
+= (S (K (S I))   K)                 (by η-reduction)This combinator is equivalent to the earlier, longer one:
+
+  (S (K (S I))   K x y)
+= (K (S I) x (K x) y)
+= (S I (K x) y)
+= (I y (K x y))
+= (y (K x y))
+= (y x)Similarly, the original version of the T[ ] transformation transformed the identity function λf.λx.(f x) into (S (S (K S) (S (K K) I)) (K I)).  With the η-reduction rule, λf.λx.(f x) is
+transformed into I.
+
+One-point basis
+There are one-point bases from which every combinator can be composed extensionally equal to any lambda term. The simplest example of such a basis is {X} where:
+
+X ≡ λx.((xS)K)It is not difficult to verify that:
+
+X (X (X X)) =β K and
+X (X (X (X X))) =β S.Since {K, S} is a basis, it follows that {X} is a basis too. The Iota programming language uses X as its sole combinator.
+Another simple example of a one-point basis is:
+
+X' ≡ λx.(x K S K) with
+(X' X') X' =β K and
+X' (X' X') =β SIn fact, there exist infinitely many such bases.
+
+Combinators B, C
+In addition to S and K, Schönfinkel (1924) included two combinators which are now called B and C, with the following reductions:
+
+(C f g x) = ((f x) g)
+(B f g x) = (f (g x))He also explains how they in turn can be expressed using only S and K:
+
+B = (S (K S) K)
+C = (S (S (K (S (K S) K)) S) (K K))These combinators are extremely useful when translating predicate logic or lambda calculus into combinator expressions. They were also used by Curry, and much later by David Turner, whose name has been associated with their computational use. Using them, we can extend the rules for the transformation as follows:
+
+T[x]          ⇒ x
+T[(E₁ E₂)]    ⇒ (T[E₁] T[E₂])
+T[λx.E]       ⇒ (K T[E])         (if x is not free in E)
+T[λx.x]       ⇒ I
+T[λx.λy.E]    ⇒ T[λx.T[λy.E]] (if x is free in E)
+T[λx.(E₁ E₂)] ⇒ (S T[λx.E₁] T[λx.E₂]) (if x is free in both E₁ and E₂)
+T[λx.(E₁ E₂)] ⇒ (C T[λx.E₁] T[E₂]) (if x is free in E₁ but not E₂)
+T[λx.(E₁ E₂)] ⇒ (B T[E₁] T[λx.E₂]) (if x is free in E₂ but not E₁)Using B and C combinators, the transformation of λx.λy.(y x) looks like this:
+
+  T[λx.λy.(y x)]
+= T[λx.T[λy.(y x)]]
+= T[λx.(C T[λy.y] x)]     (by rule 7)
+= T[λx.(C I x)]
+= (C I) (η-reduction)
+= 
+  
+    
+      
+        
+          
+            C
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \mathbf {C} _{*}}
+   (traditional canonical notation: 
+  
+    
+      
+        
+          
+            X
+          
+          
+            ∗
+          
+        
+        =
+        
+          X
+          I
+        
+      
+    
+    {\displaystyle \mathbf {X} _{*}=\mathbf {XI} }
+  )
+= 
+  
+    
+      
+        
+          
+            I
+          
+          ′
+        
+      
+    
+    {\displaystyle \mathbf {I} '}
+   (traditional canonical notation: 
+  
+    
+      
+        
+          
+            X
+          
+          ′
+        
+        =
+        
+          C
+          X
+        
+      
+    
+    {\displaystyle \mathbf {X} '=\mathbf {CX} }
+  )And indeed, (C I x y) does reduce to (y x):
+
+  (C I x y)
+= (I y x)
+= (y x)The motivation here is that B and C are limited versions of S. Whereas S takes a value and substitutes it into both the applicand and its argument before performing the application, C performs the
+substitution only in the applicand, and B only in the argument.
+The modern names for the combinators come from Haskell Curry's doctoral thesis of 1930 (see B, C, K, W System). In Schönfinkel's original paper, what we now call  S, K, I, B and C were called S, C, I, Z, and T respectively.
+The reduction in combinator size that results from the new transformation rules can also be achieved without introducing B and C, as demonstrated in Section 3.2 of Tromp (2008).
+
+CLK versus CLI calculus
+A distinction must be made between the CLK as described in this article and the CLI calculus. The distinction corresponds to that between the λK and the λI calculus. Unlike the λK calculus, the λI calculus restricts abstractions to:
+
+λx.E where x has at least one free occurrence in E.As a consequence, combinator K is not present in the λI calculus nor in the CLI calculus. The constants of CLI are: I, B, C and S, which form a basis from which all CLI terms can be composed (modulo equality). Every λI term can be converted into an equal CLI combinator according to rules similar to those presented above for the conversion of λK terms into CLK combinators. See chapter 9 in Barendregt (1984).
+
+Reverse conversion
+The conversion L[ ] from combinatorial terms to lambda terms is trivial:
+
+L[I] = λx.x
+L[K] = λx.λy.x
+L[C] = λx.λy.λz.(x z y)
+L[B] = λx.λy.λz.(x (y z))
+L[S] = λx.λy.λz.(x z (y z))
+L[(E₁ E₂)] = (L[E₁] L[E₂])Note, however, that this transformation is not the inverse
+transformation of any of the versions of T[ ] that we have seen.
+
+Undecidability of combinatorial calculus
+A normal form is any combinatory term in which the primitive combinators that occur, if any, are not applied to enough arguments to be simplified. It is undecidable whether a general combinatory term has a normal form; whether two combinatory terms are equivalent, etc.  This is equivalent to the undecidability of the corresponding problems for lambda terms.  However, a direct proof is as follows:
+First, the term
+
+Ω = (S I I (S I I))has no normal form, because it reduces to itself after three steps, as follows:
+
+(S I I (S I I))
+= (I (S I I) (I (S I I)))
+= (S I I (I (S I I)))
+= (S I I (S I I))and clearly no other reduction order can make the expression shorter.
+Now, suppose N were a combinator for detecting normal forms, such that
+
+  
+    
+      
+        (
+        
+          N
+        
+         
+        x
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  
+                    T
+                  
+                  ,
+                  
+                     if 
+                  
+                  x
+                  
+                     has a normal form
+                  
+                
+              
+              
+                
+                  
+                    F
+                  
+                  ,
+                  
+                     otherwise.
+                  
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle (\mathbf {N} \ x)={\begin{cases}\mathbf {T} ,{\text{ if }}x{\text{ has a normal form}}\\\mathbf {F} ,{\text{ otherwise.}}\end{cases}}}
+  
+(Where T and F represent the conventional Church encodings of true and false, λx.λy.x and λx.λy.y, transformed into combinatory logic. The combinatory versions have T = K and F = (K I).)Now let
+
+Z = (C (C (B N (S I I)) Ω) I)now consider the term  (S I I Z).  Does (S I I Z) have a normal
+form? It does if and only if the following do also:
+
+  (S I I Z)
+= (I Z (I Z))
+= (Z (I Z))
+= (Z Z)
+= (C (C (B N (S I I)) Ω) I Z)           (definition of Z)
+= (C (B N (S I I)) Ω Z I)
+= (B N (S I I) Z Ω I)
+= (N (S I I Z) Ω I)Now we need to apply N to (S I I Z).
+Either (S I I Z) has a normal form, or it does not.  If it does have a normal form, then the foregoing reduces as follows:
+
+  (N (S I I Z) Ω I)
+= (K Ω I)                               (definition of N)
+= Ωbut Ω does not have a normal form, so we have a contradiction.  But
+if (S I I Z) does not have a normal form, the foregoing reduces as follows:
+
+  (N (S I I Z) Ω I)
+= (K I Ω I)                             (definition of N)
+= (I I)
+= Iwhich means that the normal form of (S I I Z) is simply I, another
+contradiction.  Therefore, the hypothetical normal-form combinator N cannot exist.
+The combinatory logic analogue of Rice's theorem says that there is no complete nontrivial predicate.  A predicate is a combinator that, when applied,  returns either T or F. A predicate N is nontrivial if there are two arguments A and B such that N A = T and N B = F. A combinator N is complete if NM has a normal form for every argument M.  The analogue of Rice's theorem then says that every complete predicate is trivial. The proof of this theorem is rather simple.
+
+From this undecidability theorem it immediately follows that there is no complete predicate that can discriminate between terms that have a normal form and terms that do not have a normal form. It also follows that there is no complete predicate, say EQUAL, such that:
+
+(EQUAL A B) = T if A = B and
+(EQUAL A B) = F if A ≠ B.If EQUAL would exist, then for all A, λx.(EQUAL x A) would have to be a complete non trivial predicate.
+
+Applications
+Compilation of functional languages
+David Turner used his combinators to implement the SASL programming language.
+Kenneth E. Iverson used primitives based on Curry's combinators in his J programming language, a successor to APL. This enabled what Iverson called tacit programming, that is, programming in functional expressions containing no variables, along with powerful tools for working with such programs. It turns out that tacit programming is possible in any APL-like language with user-defined operators.
+
+Logic
+The Curry–Howard isomorphism implies a connection between logic and programming: every proof of a theorem of intuitionistic logic corresponds to a reduction of a typed lambda term, and conversely. Moreover, theorems can be identified with function type signatures. Specifically, a typed combinatory logic corresponds to a Hilbert system in proof theory.
+The K and S combinators correspond to the axioms
+
+AK: A → (B → A),
+AS: (A → (B → C)) → ((A → B) → (A → C)),and function application corresponds to the detachment (modus ponens) rule
+
+MP: from A and A → B infer B.The calculus consisting of AK, AS, and MP is complete for the implicational fragment of the intuitionistic logic, which can be seen as follows. Consider the set W of all deductively closed sets of formulas, ordered by inclusion. Then 
+  
+    
+      
+        ⟨
+        W
+        ,
+        ⊆
+        ⟩
+      
+    
+    {\displaystyle \langle W,\subseteq \rangle }
+   is an intuitionistic Kripke frame, and we define a model 
+  
+    
+      
+        ⊩
+      
+    
+    {\displaystyle \Vdash }
+   in this frame by
+
+  
+    
+      
+        X
+        ⊩
+        A
+        
+        ⟺
+        
+        A
+        ∈
+        X
+        .
+      
+    
+    {\displaystyle X\Vdash A\iff A\in X.}
+  This definition obeys the conditions on satisfaction of →: on one hand, if 
+  
+    
+      
+        X
+        ⊩
+        A
+        →
+        B
+      
+    
+    {\displaystyle X\Vdash A\to B}
+  , and 
+  
+    
+      
+        Y
+        ∈
+        W
+      
+    
+    {\displaystyle Y\in W}
+   is such that 
+  
+    
+      
+        Y
+        ⊇
+        X
+      
+    
+    {\displaystyle Y\supseteq X}
+   and 
+  
+    
+      
+        Y
+        ⊩
+        A
+      
+    
+    {\displaystyle Y\Vdash A}
+  , then 
+  
+    
+      
+        Y
+        ⊩
+        B
+      
+    
+    {\displaystyle Y\Vdash B}
+   by modus ponens. On the other hand, if 
+  
+    
+      
+        X
+        ⊮
+        A
+        →
+        B
+      
+    
+    {\displaystyle X\not \Vdash A\to B}
+  , then 
+  
+    
+      
+        X
+        ,
+        A
+        ⊬
+        B
+      
+    
+    {\displaystyle X,A\not \vdash B}
+   by the deduction theorem, thus the deductive closure of 
+  
+    
+      
+        X
+        ∪
+        {
+        A
+        }
+      
+    
+    {\displaystyle X\cup \{A\}}
+   is an element 
+  
+    
+      
+        Y
+        ∈
+        W
+      
+    
+    {\displaystyle Y\in W}
+   such that 
+  
+    
+      
+        Y
+        ⊇
+        X
+      
+    
+    {\displaystyle Y\supseteq X}
+  , 
+  
+    
+      
+        Y
+        ⊩
+        A
+      
+    
+    {\displaystyle Y\Vdash A}
+  , and 
+  
+    
+      
+        Y
+        ⊮
+        B
+      
+    
+    {\displaystyle Y\not \Vdash B}
+  .
+Let A be any formula which is not provable in the calculus. Then A does not belong to the deductive closure X of the empty set, thus 
+  
+    
+      
+        X
+        ⊮
+        A
+      
+    
+    {\displaystyle X\not \Vdash A}
+  , and A is not intuitionistically valid.
+
+See also
+Applicative computing systems
+B, C, K, W system
+Categorical abstract machine
+Combinatory categorial grammar
+Explicit substitution
+Fixed point combinator
+Graph reduction machine
+Lambda calculus and Cylindric algebra, other approaches to modelling quantification and eliminating variables
+SKI combinator calculus
+Supercombinator
+To Mock a Mockingbird
+
+References
+Literature
+Barendregt, Hendrik Pieter (1984). The Lambda Calculus, Its Syntax and Semantics. Studies in Logic and the Foundations of Mathematics. Vol. 103. North Holland. ISBN 0-444-87508-5.
+Cherlin, Edward (1991). "Pure functions in APL and J". Proceedings of the international conference on APL '91 - APL '91. pp. 88–93. doi:10.1145/114054.114065. ISBN 0897914414. S2CID 25802202.
+Curry, Haskell Brooks (1930). "Grundlagen der Kombinatorischen Logik" [Foundations of combinatorial logic]. American Journal of Mathematics (in German). The Johns Hopkins University Press. 52 (3): 509–536. doi:10.2307/2370619. JSTOR 2370619.
+Curry, Haskell Brooks; Feys, Robert (1958). Combinatory Logic. Vol. I. Amsterdam: North Holland. ISBN 0-7204-2208-6.
+Curry, Haskell Brooks; Hindley, J. Roger; Seldin, Jonathan P. (1972). Combinatory Logic. Vol. II. Amsterdam: North Holland. ISBN 0-7204-2208-6.
+Field, Anthony J.; Harrison, Peter G. (1998). Functional Programming. Addison-Wesley. ISBN 0-201-19249-7.
+Goldberg, Mayer (2004). "A construction of one-point bases in extended lambda calculi". Information Processing Letters. 89 (6): 281–286. doi:10.1016/j.ipl.2003.12.005.
+Hindley, J. Roger; Meredith, David (1990). "Principal type-schemes and condensed detachment". Journal of Symbolic Logic. 55 (1): 90–105. doi:10.2307/2274956. JSTOR 2274956. MR 1043546. S2CID 6930576.
+Hindley, J. Roger; Seldin, Jonathan P. (2008) [1986]. Lambda-Calculus and Combinators: An Introduction (2nd ed.). Cambridge University Press. ISBN 9780521898850.
+Lachowski, Łukasz (2018). "On the Complexity of the Standard Translation of Lambda Calculus into Combinatory Logic". Reports on Mathematical Logic. 2018 (53): 19–42. doi:10.4467/20842589RM.18.002.8835. Retrieved 9 September 2018.
+Paulson, Lawrence C. (1995). Foundations of Functional Programming. University of Cambridge.
+Quine, Willard Van Orman (1960). "Variables explained away". Proceedings of the American Philosophical Society. 104 (3): 343–347. JSTOR 985250. Reprinted as Chapter 23 of Quine (1996)
+Quine, Willard Van Orman (1996) [1960]. "Variables explained away". Selected Logic Papers (Enl. ed., 2. print ed.). Cambridge, Mass.: Harvard University Press. pp. 227–235. ISBN 9780674798373.
+Schönfinkel, Moses (1924). "Über die Bausteine der mathematischen Logik" (PDF). Mathematische Annalen (in German). 92 (3–4): 305–316. doi:10.1007/bf01448013. S2CID 118507515. The article that founded combinatory logic. English translation: Schönfinkel (1967)
+Schönfinkel, Moses (1967) [1924]. Van Heijenoort, Jean (ed.). Über die Bausteine der mathematischen Logik [On the building blocks of mathematical logic]. From Frege to Gödel: A Source Book in Mathematical Logic, 1879-1931. Translated by Bauer-Mengelberg, Stefan. Cambridge, MA, USA: Harvard University Press. pp. 355–366. ISBN 978-0674324497. OCLC 503886453.
+Seldin, Jonathan P. (3 March 2008). "The Logic of Curry and Church" (PDF). Retrieved 17 September 2023.
+Smullyan, Raymond (1985). To Mock a Mockingbird And Other Logic Puzzles Including an Amazing Adventure in Combinatory Logic. Knopf. ISBN 0-394-53491-3. A gentle introduction to combinatory logic, presented as a series of recreational puzzles using bird watching metaphors.
+Smullyan, Raymond (1994). Diagonalization and Self-Reference. Oxford logic guides. Vol. 27. Oxford and New York: Oxford University Press. ISBN 978-0198534501. Chapters 17–20 are a more formal introduction to combinatory logic, with a special emphasis on fixed point results.
+Sørensen, Morten Heine B; Urzyczyn, Paweł (2006) [1999]. Lectures on the Curry–Howard Isomorphism (PDF). Studies in Logic and the Foundations of Mathematics. Vol. 149 (1st ed.). Elsevier. p. 442. ISBN 978-0444520777.
+Tromp, John (2008). "Binary Lambda Calculus and Combinatory Logic" (PDF). In Calude, Cristian S. (ed.). Randomness And Complexity, from Leibniz To Chaitin. World Scientific Publishing Company. Archived from the original (PDF) on 2016-03-04.
+Turner, David A. (1979). "Another Algorithm for Bracket Abstraction". The Journal of Symbolic Logic. 44 (2): 267–270. doi:10.2307/2273733. JSTOR 2273733. S2CID 35835482.
+Wolfengagen, V. E. (2003). Combinatory logic in programming: Computations with objects through examples and exercises (2nd ed.). Moscow: "Center JurInfoR" Ltd. ISBN 5-89158-101-9.
+Wolfram, Stephen (2021). Combinators: A Centennial View. Wolfram Media. ISBN 978-1-57955-043-1. A celebration of the development of combinators, a hundred years after they were introduced by Schönfinkel (1924) (eBook: ISBN 978-1-57955-044-8)
+
+External links
+Stanford Encyclopedia of Philosophy: "Combinatory Logic" by Katalin Bimbó.
+1920–1931 Curry's block notes.
+Keenan, David C. (2001) "To Dissect a Mockingbird: A Graphical Notation for the Lambda Calculus with Animated Reduction."
+Rathman, Chris, "Combinator Birds." A table distilling much of the essence of Smullyan (1985).
+Drag 'n' Drop Combinators. (Java Applet)
+Binary Lambda Calculus and Combinatory Logic.
+Combinatory logic reduction web server
+Wolfram, Stephen (29 April 2020). Combinators: 100-Year Celebration. Wolfram Physics Project on YouTube. Retrieved 26 September 2023.

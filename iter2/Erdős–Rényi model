@@ -1,0 +1,1195 @@
+In the mathematical field of graph theory, the Erdős–Rényi model refers to one of two closely related models for generating random graphs or the evolution of a random network. These models are named after Hungarian mathematicians Paul Erdős and Alfréd Rényi, who introduced one of the models in 1959. Edgar Gilbert introduced the other model contemporaneously with and independently of Erdős and Rényi. In the model of Erdős and Rényi, all graphs on a fixed vertex set with a fixed number of edges are equally likely. In the model introduced by Gilbert, also called the Erdős–Rényi–Gilbert model, each edge has a fixed probability of being present or absent, independently of the other edges. These models can be used in the probabilistic method to prove the existence of graphs satisfying various properties, or to provide a rigorous definition of what it means for a property to hold for almost all graphs.
+
+Definition
+There are two closely related variants of the Erdős–Rényi random graph model.
+
+In the 
+  
+    
+      
+        G
+        (
+        n
+        ,
+        M
+        )
+      
+    
+    {\displaystyle G(n,M)}
+   model, a graph is chosen uniformly at random from the collection of all graphs which have 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   nodes and 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   edges. The nodes are considered to be labeled, meaning that graphs obtained from each other by permuting the vertices are considered to be distinct. For example, in the 
+  
+    
+      
+        G
+        (
+        3
+        ,
+        2
+        )
+      
+    
+    {\displaystyle G(3,2)}
+   model, there are three two-edge graphs on three labeled vertices (one for each choice of the middle vertex in a two-edge path), and each of these three graphs is included with probability 
+  
+    
+      
+        
+          
+            
+              1
+              3
+            
+          
+        
+      
+    
+    {\displaystyle {\tfrac {1}{3}}}
+  .
+In the 
+  
+    
+      
+        G
+        (
+        n
+        ,
+        p
+        )
+      
+    
+    {\displaystyle G(n,p)}
+   model, a graph is constructed by connecting labeled nodes randomly. Each edge is included in the graph with probability 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , independently from every other edge. Equivalently, the probability for generating each graph that has 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   nodes and 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   edges is  The parameter 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   in this model can be thought of as a weighting function; as 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   increases from 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+   to 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+  , the model becomes more and more likely to include graphs with more edges and less and less likely to include graphs with fewer edges.  In particular, the case 
+  
+    
+      
+        p
+        =
+        
+          
+            
+              1
+              2
+            
+          
+        
+      
+    
+    {\displaystyle p={\tfrac {1}{2}}}
+   corresponds to the case where all 
+  
+    
+      
+        
+          2
+          
+            
+              
+                (
+              
+              
+                n
+                2
+              
+              
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle 2^{\binom {n}{2}}}
+   graphs on 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   vertices are chosen with equal probability.The behavior of random graphs are often studied in the case where 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  , the number of vertices, tends to infinity.  Although 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   and 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   can be fixed in this case, they can also be functions depending on 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  .  For example, the statement that almost every graph in 
+  
+    
+      
+        G
+        (
+        n
+        ,
+        2
+        ln
+        ⁡
+        (
+        n
+        )
+        
+          /
+        
+        n
+        )
+      
+    
+    {\displaystyle G(n,2\ln(n)/n)}
+   is connected means that, as 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   tends to infinity, the probability that a graph on 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   vertices with edge probability 
+  
+    
+      
+        2
+        ln
+        ⁡
+        (
+        n
+        )
+        
+          /
+        
+        n
+      
+    
+    {\displaystyle 2\ln(n)/n}
+   is connected tends to 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+  .
+
+Comparison between the two models
+The expected number of edges in G(n, p) is 
+  
+    
+      
+        
+          
+            
+              
+                (
+              
+              
+                n
+                2
+              
+              
+                )
+              
+            
+          
+        
+        p
+      
+    
+    {\displaystyle {\tbinom {n}{2}}p}
+  , and by the law of large numbers any graph in G(n, p) will almost surely have approximately this many edges (provided the expected number of edges tends to infinity).  Therefore, a rough heuristic is that if pn2 → ∞, then G(n,p) should behave similarly to G(n, M) with 
+  
+    
+      
+        M
+        =
+        
+          
+            
+              
+                (
+              
+              
+                n
+                2
+              
+              
+                )
+              
+            
+          
+        
+        p
+      
+    
+    {\displaystyle M={\tbinom {n}{2}}p}
+   as n increases.
+For many graph properties, this is the case.  If P is any graph property which is monotone with respect to the subgraph ordering (meaning that if A is a subgraph of B and B satisfies P, then A will satisfy P as well), then the statements "P holds for almost all graphs in G(n, p)" and "P holds for almost all graphs in 
+  
+    
+      
+        G
+        (
+        n
+        ,
+        
+          
+            
+              
+                (
+              
+              
+                n
+                2
+              
+              
+                )
+              
+            
+          
+        
+        p
+        )
+      
+    
+    {\displaystyle G(n,{\tbinom {n}{2}}p)}
+  " are equivalent (provided pn2 → ∞). For example, this holds if P is the property of being connected, or if P is the property of containing a Hamiltonian cycle.  However, this will not necessarily hold for non-monotone properties (e.g. the property of having an even number of edges).
+In practice, the G(n, p) model is the one more commonly used today, in part due to the ease of analysis allowed by the independence of the edges.
+
+Properties of G(n, p)
+With the notation above, a graph in G(n, p) has on average 
+  
+    
+      
+        
+          
+            
+              
+                (
+              
+              
+                n
+                2
+              
+              
+                )
+              
+            
+          
+        
+        p
+      
+    
+    {\displaystyle {\tbinom {n}{2}}p}
+   edges. The distribution of the degree of any particular vertex is binomial:
+
+  
+    
+      
+        P
+        (
+        deg
+        ⁡
+        (
+        v
+        )
+        =
+        k
+        )
+        =
+        
+          
+            
+              (
+            
+            
+              
+                n
+                −
+                1
+              
+              k
+            
+            
+              )
+            
+          
+        
+        
+          p
+          
+            k
+          
+        
+        (
+        1
+        −
+        p
+        
+          )
+          
+            n
+            −
+            1
+            −
+            k
+          
+        
+        ,
+      
+    
+    {\displaystyle P(\deg(v)=k)={n-1 \choose k}p^{k}(1-p)^{n-1-k},}
+  where n is the total number of vertices in the graph. Since
+
+  
+    
+      
+        P
+        (
+        deg
+        ⁡
+        (
+        v
+        )
+        =
+        k
+        )
+        →
+        
+          
+            
+              (
+              n
+              p
+              
+                )
+                
+                  k
+                
+              
+              
+                
+                  e
+                
+                
+                  −
+                  n
+                  p
+                
+              
+            
+            
+              k
+              !
+            
+          
+        
+        
+        
+           as 
+        
+        n
+        →
+        ∞
+        
+           and 
+        
+        n
+        p
+        =
+        
+          constant
+        
+        ,
+      
+    
+    {\displaystyle P(\deg(v)=k)\to {\frac {(np)^{k}\mathrm {e} ^{-np}}{k!}}\quad {\text{ as }}n\to \infty {\text{ and }}np={\text{constant}},}
+  this distribution is Poisson for large n and np = const.
+In a 1960 paper, Erdős and Rényi described the behavior of G(n, p) very precisely for various values of p.  Their results included that:
+
+If np < 1, then a graph in G(n, p) will almost surely have no connected components of size larger than O(log(n)).
+If np = 1, then a graph in G(n, p) will almost surely have a largest component whose size is of order n2/3.
+If np → c > 1, where c is a constant, then a graph in G(n, p) will almost surely have a unique giant component containing a positive fraction of the vertices.  No other component will contain more than O(log(n)) vertices.
+If 
+  
+    
+      
+        p
+        <
+        
+          
+            
+              
+                (
+                1
+                −
+                ε
+                )
+                ln
+                ⁡
+                n
+              
+              n
+            
+          
+        
+      
+    
+    {\displaystyle p<{\tfrac {(1-\varepsilon )\ln n}{n}}}
+  , then a graph in G(n, p) will almost surely contain isolated vertices, and thus be disconnected.
+If 
+  
+    
+      
+        p
+        >
+        
+          
+            
+              
+                (
+                1
+                +
+                ε
+                )
+                ln
+                ⁡
+                n
+              
+              n
+            
+          
+        
+      
+    
+    {\displaystyle p>{\tfrac {(1+\varepsilon )\ln n}{n}}}
+  , then a graph in G(n, p) will almost surely be connected.Thus 
+  
+    
+      
+        
+          
+            
+              
+                ln
+                ⁡
+                n
+              
+              n
+            
+          
+        
+      
+    
+    {\displaystyle {\tfrac {\ln n}{n}}}
+   is a sharp threshold for the connectedness of G(n, p).
+Further properties of the graph can be described almost precisely as n tends to infinity.  For example, there is a k(n) (approximately equal to 2log2(n)) such that the largest clique in G(n, 0.5) has almost surely either size k(n) or k(n) + 1.Thus, even though finding the size of the largest clique in a graph is NP-complete, the size of the largest clique in a "typical" graph (according to this model) is very well understood.
+Edge-dual graphs of Erdos-Renyi graphs are graphs with nearly the same degree distribution, but with degree correlations and a significantly higher clustering coefficient.
+
+Relation to percolation
+In percolation theory one examines a finite or infinite graph and removes edges (or links) randomly. Thus the Erdős–Rényi process is in fact unweighted link percolation on the complete graph. (One refers to percolation in which nodes and/or links are removed with heterogeneous weights as weighted percolation). As percolation theory has much of its roots in physics, much of the research done was on the lattices in Euclidean spaces. The transition at np = 1 from giant component to small component has analogs for these graphs, but for lattices the transition point is difficult to determine. Physicists often refer to study of the complete graph as a mean field theory. Thus the Erdős–Rényi process is the mean-field case of percolation.
+Some significant work was also done on percolation on random graphs. From a physicist's point of view this would still be a mean-field model, so the justification of the research is often formulated in terms of the robustness of the graph, viewed as a communication network.  Given a random graph of n ≫ 1 nodes with an average degree 
+  
+    
+      
+        ⟨
+        k
+        ⟩
+      
+    
+    {\displaystyle \langle k\rangle }
+  . Remove randomly a fraction 
+  
+    
+      
+        1
+        −
+        
+          p
+          ′
+        
+      
+    
+    {\displaystyle 1-p'}
+   of nodes and leave only a fraction 
+  
+    
+      
+        
+          p
+          ′
+        
+      
+    
+    {\displaystyle p'}
+   from the network. There exists a critical percolation threshold 
+  
+    
+      
+        
+          p
+          
+            c
+          
+          ′
+        
+        =
+        
+          
+            
+              1
+              
+                ⟨
+                k
+                ⟩
+              
+            
+          
+        
+      
+    
+    {\displaystyle p'_{c}={\tfrac {1}{\langle k\rangle }}}
+   below which the network becomes fragmented while above 
+  
+    
+      
+        
+          p
+          
+            c
+          
+          ′
+        
+      
+    
+    {\displaystyle p'_{c}}
+   a giant connected component of order n exists. The relative size of the giant component, P∞, is given by
+
+  
+    
+      
+        
+          P
+          
+            ∞
+          
+        
+        =
+        
+          p
+          ′
+        
+        [
+        1
+        −
+        exp
+        ⁡
+        (
+        −
+        ⟨
+        k
+        ⟩
+        
+          P
+          
+            ∞
+          
+        
+        )
+        ]
+        .
+        
+      
+    
+    {\displaystyle P_{\infty }=p'[1-\exp(-\langle k\rangle P_{\infty })].\,}
+
+Caveats
+Both of the two major assumptions of the G(n, p) model (that edges are independent and that each edge is equally likely) may be inappropriate for modeling certain real-life phenomena. Erdős–Rényi graphs have low clustering, unlike many social networks. Some modeling alternatives include Barabási–Albert model and Watts and Strogatz model. These alternative models are not percolation processes, but instead represent a growth and rewiring model, respectively. Another alternative family of random graph models, capable of reproducing many real-life phenomena, are exponential random graph models.
+
+History
+The G(n, p) model was first introduced by Edgar Gilbert in a 1959 paper studying the connectivity threshold mentioned above.  The G(n, M) model was introduced by Erdős and Rényi in their 1959 paper.  As with Gilbert, their first investigations were as to the connectivity of G(n, M), with the more detailed analysis following in 1960.
+
+Continuum limit representation of critical G(n, p)
+A continuum limit of the graph was obtained when 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is of order 
+  
+    
+      
+        1
+        
+          /
+        
+        n
+      
+    
+    {\displaystyle 1/n}
+  . Specifically, consider the sequence of graphs 
+  
+    
+      
+        
+          G
+          
+            n
+          
+        
+        :=
+        G
+        (
+        n
+        ,
+        1
+        
+          /
+        
+        n
+        +
+        λ
+        
+          n
+          
+            −
+            
+              
+                4
+                3
+              
+            
+          
+        
+        )
+      
+    
+    {\displaystyle G_{n}:=G(n,1/n+\lambda n^{-{\frac {4}{3}}})}
+   for 
+  
+    
+      
+        λ
+        ∈
+        
+          R
+        
+      
+    
+    {\displaystyle \lambda \in \mathbb {R} }
+  . The limit object can be constructed as follows:
+
+First, generate a diffusion 
+  
+    
+      
+        
+          W
+          
+            λ
+          
+        
+        (
+        t
+        )
+        :=
+        W
+        (
+        t
+        )
+        +
+        λ
+        t
+        −
+        
+          
+            
+              t
+              
+                2
+              
+            
+            2
+          
+        
+      
+    
+    {\displaystyle W^{\lambda }(t):=W(t)+\lambda t-{\frac {t^{2}}{2}}}
+   where 
+  
+    
+      
+        W
+      
+    
+    {\displaystyle W}
+   is a standard Brownian motion.
+From this process, we define the reflected process 
+  
+    
+      
+        
+          R
+          
+            λ
+          
+        
+        (
+        t
+        )
+        :=
+        
+          W
+          
+            λ
+          
+        
+        (
+        t
+        )
+        −
+        
+          inf
+          
+            s
+            ∈
+            [
+            0
+            ,
+            t
+            ]
+          
+        
+        
+          W
+          
+            λ
+          
+        
+        (
+        s
+        )
+      
+    
+    {\displaystyle R^{\lambda }(t):=W^{\lambda }(t)-\inf \limits _{s\in [0,t]}W^{\lambda }(s)}
+  . This process can be seen as containing many successive excursion (not quite a Brownian excursion, see ). Because the drift of 
+  
+    
+      
+        
+          W
+          
+            λ
+          
+        
+      
+    
+    {\displaystyle W^{\lambda }}
+   is dominated by 
+  
+    
+      
+        −
+        
+          
+            
+              t
+              
+                2
+              
+            
+            2
+          
+        
+      
+    
+    {\displaystyle -{\frac {t^{2}}{2}}}
+  , these excursions become shorter and shorter as 
+  
+    
+      
+        t
+        →
+        +
+        ∞
+      
+    
+    {\displaystyle t\to +\infty }
+  . In particular, they can be sorted in order of decreasing lengths: we can partition 
+  
+    
+      
+        
+          R
+        
+      
+    
+    {\displaystyle \mathbb {R} }
+   into intervals 
+  
+    
+      
+        (
+        
+          C
+          
+            i
+          
+        
+        
+          )
+          
+            i
+            ∈
+            
+              N
+            
+          
+        
+      
+    
+    {\displaystyle (C_{i})_{i\in \mathbb {N} }}
+   of decreasing lengths such that 
+  
+    
+      
+        
+          R
+          
+            λ
+          
+        
+      
+    
+    {\displaystyle R^{\lambda }}
+   restricted to 
+  
+    
+      
+        
+          C
+          
+            i
+          
+        
+      
+    
+    {\displaystyle C_{i}}
+   is a Brownian excursion for any 
+  
+    
+      
+        i
+        ∈
+        
+          N
+        
+      
+    
+    {\displaystyle i\in \mathbb {N} }
+  .
+Now, consider an excursion 
+  
+    
+      
+        (
+        e
+        (
+        s
+        )
+        
+          )
+          
+            s
+            ∈
+            [
+            0
+            ,
+            1
+            ]
+          
+        
+      
+    
+    {\displaystyle (e(s))_{s\in [0,1]}}
+  . Construct a random graph as follows:Construct a real tree 
+  
+    
+      
+        
+          T
+          
+            e
+          
+        
+      
+    
+    {\displaystyle T_{e}}
+   (see Brownian tree).
+Consider a Poisson point process 
+  
+    
+      
+        Ξ
+      
+    
+    {\displaystyle \Xi }
+   on 
+  
+    
+      
+        [
+        0
+        ,
+        1
+        ]
+        ×
+        
+          
+            R
+          
+          
+            +
+          
+        
+      
+    
+    {\displaystyle [0,1]\times \mathbb {R} _{+}}
+   with unit intensity. To each point 
+  
+    
+      
+        (
+        x
+        ,
+        s
+        )
+        ∈
+        Ξ
+      
+    
+    {\displaystyle (x,s)\in \Xi }
+   such that 
+  
+    
+      
+        x
+        ≤
+        e
+        (
+        s
+        )
+      
+    
+    {\displaystyle x\leq e(s)}
+  , corresponds an underlying internal node and a leaf of the tree 
+  
+    
+      
+        
+          T
+          
+            e
+          
+        
+      
+    
+    {\displaystyle T_{e}}
+  . Identifying the two vertices, the tree 
+  
+    
+      
+        
+          T
+          
+            e
+          
+        
+      
+    
+    {\displaystyle T_{e}}
+   becomes a graph 
+  
+    
+      
+        
+          Γ
+          
+            e
+          
+        
+      
+    
+    {\displaystyle \Gamma _{e}}
+  Applying this procedure, one obtains a sequence of random infinite graphs of decreasing sizes: 
+  
+    
+      
+        (
+        
+          Γ
+          
+            i
+          
+        
+        
+          )
+          
+            i
+            ∈
+            
+              N
+            
+          
+        
+      
+    
+    {\displaystyle (\Gamma _{i})_{i\in \mathbb {N} }}
+  . The theorem states that this graph corresponds in a certain sense to the limit object of 
+  
+    
+      
+        
+          G
+          
+            n
+          
+        
+      
+    
+    {\displaystyle G_{n}}
+   as 
+  
+    
+      
+        n
+        →
+        +
+        ∞
+      
+    
+    {\displaystyle n\to +\infty }
+  .
+
+See also
+Rado graph – Infinite graph containing all countable graphs, the graph formed by extending the G(n, p) model to graphs with a countably infinite number of vertices. Unlike in the finite case, the result of this infinite process is (with probability 1) the same graph, up to isomorphism.
+Dual-phase evolution – Process that drives self-organization within complex adaptive systems describes ways in which properties associated with the Erdős–Rényi model contribute to the emergence of order in systems.
+Exponential random graph models – Statistical models for network analysisPages displaying wikidata descriptions as a fallback describe a general probability distribution of graphs on "n" nodes given a set of network statistics and various parameters associated with them.
+Stochastic block model, a generalization of the Erdős–Rényi model for graphs with latent community structure
+Watts–Strogatz model – Method of generating random small-world graphs
+Barabási–Albert model – Scale-free network generation algorithm
+
+References
+Literature
+West, Douglas B. (2001). Introduction to Graph Theory (2nd ed.). Prentice Hall. ISBN 0-13-014400-2.
+Newman, M. E. J. (2010). Networks: An Introduction. Oxford.
+
+Weblinks
+Video: Erdos-Renyi Random Graph

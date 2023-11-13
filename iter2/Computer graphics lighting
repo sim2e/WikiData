@@ -1,0 +1,87 @@
+Computer graphics lighting is the collection of techniques used to simulate light in computer graphics scenes. While lighting techniques offer flexibility in the level of detail and functionality available, they also operate at different levels of computational demand and complexity. Graphics artists can choose from a variety of light sources, models, shading techniques, and effects to suit the needs of each application.
+
+Light sources
+Light sources allow for different ways to introduce light into graphics scenes.
+
+Point
+Point sources emit light from a single point in all directions, with the intensity of the light decreasing with distance. An example of a point source is a standalone light bulb.
+
+Directional
+A directional source (or distant source) uniformly lights a scene from one direction. Unlike a point source, the intensity of light produced by a directional source does not change with distance over the scale of the scene, as the directional source is treated as though it is extremely far away. An example of a directional source is sunlight on Earth.
+
+Spotlight
+A spotlight produces a directed cone of light. The light becomes more intense as the viewer gets closer to the spotlight source and to the center of the light cone. An example of a spotlight is a flashlight.
+
+Area
+Area lights are 3D objects which emit light. Whereas point lights and spot lights sources are considered infinitesimally small points, area lights are treated as physical shapes. Area light produce softer shadows and more realistic lighting than point lights and spot lights.
+
+Ambient
+Ambient light sources illuminate objects even when no other light source is present. The intensity of ambient light is independent of direction, distance, and other objects, meaning the effect is completely uniform throughout the scene. This source ensures that objects are visible even in complete darkness.
+
+Lightwarp
+A lightwarp is a technique of which an object in the geometrical world refracts light based on the direction and intensity of the light. The light is then warped using an ambient diffuse term with a range of the color spectrum. The light then may be reflectively scattered to produce a higher depth of field, and refracted. The technique is used to produce a unique rendering style and can be used to limit overexposure of objects. Games such as Team Fortress 2 use the rendering technique to create a cartoon cel shaded stylized look.
+
+Lighting interactions
+In computer graphics, the overall effect of a light source on an object is determined by the combination of the object's interactions with it usually described by at least three main components. The three primary lighting components (and subsequent interaction types) are diffuse, ambient, and specular.
+
+Diffuse
+Diffuse lighting (or diffuse reflection) is the direct illumination of an object by an even amount of light interacting with a light-scattering surface. After light strikes an object, it is reflected as a function of the surface properties of the object as well as the angle of incoming light. This interaction is the primary contributor to the object's brightness and forms the basis for its color.
+
+Ambient
+As ambient light is directionless, it interacts uniformly across all surfaces, with its intensity determined by the strength of the ambient light sources and the properties of objects' surface materials, namely their ambient reflection coefficients.
+
+Specular
+The specular lighting component gives objects shine and highlights. This is distinct from mirror effects because other objects in the environment are not visible in these reflections. Instead, specular lighting creates bright spots on objects based on the intensity of the specular lighting component and the specular reflection coefficient of the surface.
+
+Illumination models
+Lighting models are used to replicate lighting effects in rendered environments where light is approximated based on the physics of light. Without lighting models, replicating lighting effects as they occur in the natural world would require more processing power than is practical for computer graphics. This lighting, or illumination model's purpose is to compute the color of every pixel or the amount of light reflected for different surfaces in the scene. There are two main illumination models, object oriented lighting and global illumination. They differ in that object oriented lighting considers each object individually, whereas global illumination maps how light interacts between objects. Currently, researchers are developing global illumination techniques to more accurately replicate how light interacts with its environment.
+
+Object oriented lighting
+Object oriented lighting, also known as local illumination, is defined by mapping a single light source to a single object. This technique is fast to compute, but often is an incomplete approximation of how light would behave in the scene in reality. It is often approximated by summing a combination of specular, diffuse, and ambient light of a specific object. The two predominant local illumination models are the Phong and the Blinn-Phong illumination models.
+
+Phong illumination model
+One of the most common reflection models is the Phong model. The Phong model assumes that the intensity of each pixel is the sum of the intensity due to diffuse, specular, and ambient lighting. This model takes into account the location of a viewer to determine specular light using the angle of light reflecting off an object. The cosine of the angle is taken and raised to a power decided by the designer. With this, the designer can decide how wide a highlight they want on an object; because of this, the power is called the shininess value. The shininess value is determined by the roughness of the surface where a mirror would have a value of infinity and the roughest surface might have a value of one. This model creates a more realistic looking white highlight based on the perspective of the viewer.
+
+Blinn-Phong illumination model
+The Blinn-Phong illumination model is similar to the Phong model as it uses specular light to create a highlight on an object based on its shininess. The Blinn-Phong differs from the Phong illumination model, as the Blinn-Phong model uses the vector normal to the surface of the object and halfway between the light source and the viewer. This model is used in order to have accurate specular lighting and reduced computation time. The process takes less time because finding the reflected light vector's direction is a more involved computation than calculating the halfway normal vector. While this is similar to the Phong model, it produces different visual results, and the specular reflection exponent or shininess might need modification in order to produce a similar specular reflection.
+
+Global illumination
+Global illumination differs from local illumination because it calculates light as it would travel throughout the entire scene. This lighting is based more heavily in physics and optics, with light rays scattering, reflecting, and indefinitely bouncing throughout the scene. There is still active research being done on global illumination as it requires more computational power than local illumination.
+
+Ray tracing
+Light sources emit rays that interact with various surfaces through absorption, reflection, or refraction. An observer of the scene would see any light source that reaches their eyes; a ray that does not reach the observer goes unnoticed. It is possible to simulate this by having all of the light sources emit rays and then compute how each of them interact with all of the objects in the scene. However, this process is inefficient as most of the light rays would not reach the observer and would waste processing time. Ray tracing solves this problem by reversing the process, instead sending view rays from the observer and calculating how they interact until they reach a light source. Although this way more effectively uses processing time and produces a light simulation closely imitating natural lighting, ray tracing still has high computation costs due to the high amounts of light that reach viewer's eyes.
+
+Radiosity
+Radiosity takes into account the energy given off by surrounding objects and the light source. Unlike ray tracing, which is dependent on the position and orientation of the observer, radiosity lighting is independent of view position. Radiosity requires more computational power than ray tracing, but can be more useful for scenes with static lighting because it would only have to be computed once. The surfaces of a scene can be divided into a large amount of patches; each patch radiates some light and affects the other patches, then a large set of equations needs to be solved simultaneously in order to get the final radiosity of each patch.
+
+Photon mapping
+Photon mapping was created as a two-pass global illumination algorithm that is more efficient than ray tracing. It is the basic principle of tracking photons released from a light source through a series of stages. The first pass includes the photons being released from a light source and bouncing off their first object; this map of where the photons are located is then recorded. The photon map contains both the position and direction of each photon which either bounce or are absorbed. The second pass happens with rendering where the reflections are calculated for different surfaces. In this process, the photon map is decoupled from the geometry of the scene, meaning rendering can be calculated separately. It is a useful technique because it can simulate caustics, and pre-processing steps do not need to be repeated if the view or objects change.
+
+Polygonal shading
+Polygonal shading is part of the rasterization process where 3D models are drawn as 2D pixel images. Shading applies a lighting model, in conjunction with the geometric attributes of the 3D model, to determine how lighting should be represented at each fragment (or pixel) of the resulting image. The polygons of the 3D model store the geometric values needed for the shading process. This information includes vertex positional values and surface normals, but can contain optional data, such as texture and bump maps.
+
+Flat shading
+Flat shading is a simple shading model with a uniform application of lighting and color per polygon. The color and normal of one vertex is used to calculate the shading of the entire polygon. Flat shading is inexpensive, as lighting for each polygon only needs to be calculated once per render.
+
+Gouraud shading
+Gouraud shading is a type of interpolated shading where the values inside of each polygon are a blend of its vertex values. Each vertex is given its own normal consisting of the average of the surface normals of the surrounding polygons. The lighting and shading at that vertex is then calculated using the average normal and the lighting model of choice. This process is repeated for all the vertices in the 3D model. Next, the shading of the edges between the vertices is calculated by interpolating between the vertex values. Finally, the shading inside of the polygon is calculated as an interpolation of the surrounding edge values. Gouraud shading generates a smooth lighting effect across the 3D model's surface.
+
+Phong shading
+Phong shading, similar to Gouraud shading, is another type of interpolative shading that blends between vertex values to shade polygons. The key difference between the two is that Phong shading interpolates the vertex normal values over the whole polygon before it calculates its shading. This contrasts with Gouraud shading which interpolates the already shaded vertex values over the whole polygon. Once Phong shading has calculated the normal of a fragment (pixel) inside the polygon, it can then apply a lighting model, shading that fragment. This process is repeated until each polygon of the 3D model is shaded.
+
+Lighting effects
+Caustics
+Caustics are an effect of light reflected and refracted in a medium with curved interfaces or reflected off a curved surface. They appear as ribbons of concentrated light and are often seen when looking at bodies of water or glass. Caustics can be implemented in 3D graphics by blending a caustic texture map with the texture map of the affected objects. The caustics texture can either be a static image that is animated to mimic the effects of caustics, or a Real-time calculation of caustics onto a blank image. The latter is more complicated and requires backwards ray tracing to simulate photons moving through the environment of the 3D render. In a photon mapping illumination model, Monte Carlo sampling is used in conjunction with the ray tracing to compute the intensity of light caused by the caustics.
+
+Reflection mapping
+Reflection mapping (also known as environment mapping) is a technique which uses 2D environment maps to create the effect of reflectivity without using ray tracing. Since the appearances of reflective objects depend on the relative positions of the viewers, the objects, and the surrounding environments, graphics algorithms produce reflection vectors to determine how to color the objects based on these elements. Using 2D environment maps rather than fully rendered, 3D objects to represent surroundings, reflections on objects can be determined using simple, computationally inexpensive algorithms.
+
+Particle systems
+Particle systems use collections of small particles to model chaotic, high-complexity events, such as fire, moving liquids, explosions, and moving hair. Particles which make up the complex animation are distributed by an emitter, which gives each particle its properties, such as speed, lifespan, and color. Over time, these particles may move, change color, or vary other properties, depending on the effect. Typically, particle systems incorporate randomness, such as in the initial properties the emitter gives each particle, to make the effect realistic and non-uniform.
+
+See also
+Per-pixel lighting
+Computer graphics
+
+
+== References ==

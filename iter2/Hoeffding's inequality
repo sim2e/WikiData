@@ -1,0 +1,2256 @@
+In probability theory, Hoeffding's inequality provides an upper bound on the probability that the sum of bounded independent random variables deviates from its expected value by more than a certain amount. Hoeffding's inequality was proven by Wassily Hoeffding in 1963.Hoeffding's inequality is a special case of the Azuma–Hoeffding inequality and McDiarmid's inequality. It is similar to the Chernoff bound, but tends to be less sharp, in particular when the variance of the random variables is small. It is similar to, but incomparable with, one of Bernstein's inequalities.
+
+Statement
+Let X1, ..., Xn be independent random variables such that 
+  
+    
+      
+        
+          a
+          
+            i
+          
+        
+        ≤
+        
+          X
+          
+            i
+          
+        
+        ≤
+        
+          b
+          
+            i
+          
+        
+      
+    
+    {\displaystyle a_{i}\leq X_{i}\leq b_{i}}
+   almost surely. Consider the sum of these random variables,
+
+  
+    
+      
+        
+          S
+          
+            n
+          
+        
+        =
+        
+          X
+          
+            1
+          
+        
+        +
+        ⋯
+        +
+        
+          X
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle S_{n}=X_{1}+\cdots +X_{n}.}
+  Then Hoeffding's theorem states that, for all t > 0,
+
+  
+    
+      
+        
+          
+            
+              
+                P
+                ⁡
+                
+                  (
+                  
+                    
+                      S
+                      
+                        n
+                      
+                    
+                    −
+                    
+                      E
+                    
+                    
+                      [
+                      
+                        S
+                        
+                          n
+                        
+                      
+                      ]
+                    
+                    ≥
+                    t
+                  
+                  )
+                
+              
+              
+                
+                ≤
+                exp
+                ⁡
+                
+                  (
+                  
+                    −
+                    
+                      
+                        
+                          2
+                          
+                            t
+                            
+                              2
+                            
+                          
+                        
+                        
+                          
+                            ∑
+                            
+                              i
+                              =
+                              1
+                            
+                            
+                              n
+                            
+                          
+                          (
+                          
+                            b
+                            
+                              i
+                            
+                          
+                          −
+                          
+                            a
+                            
+                              i
+                            
+                          
+                          
+                            )
+                            
+                              2
+                            
+                          
+                        
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+                P
+                ⁡
+                
+                  (
+                  
+                    
+                      |
+                      
+                        
+                          S
+                          
+                            n
+                          
+                        
+                        −
+                        
+                          E
+                        
+                        
+                          [
+                          
+                            S
+                            
+                              n
+                            
+                          
+                          ]
+                        
+                      
+                      |
+                    
+                    ≥
+                    t
+                  
+                  )
+                
+              
+              
+                
+                ≤
+                2
+                exp
+                ⁡
+                
+                  (
+                  
+                    −
+                    
+                      
+                        
+                          2
+                          
+                            t
+                            
+                              2
+                            
+                          
+                        
+                        
+                          
+                            ∑
+                            
+                              i
+                              =
+                              1
+                            
+                            
+                              n
+                            
+                          
+                          (
+                          
+                            b
+                            
+                              i
+                            
+                          
+                          −
+                          
+                            a
+                            
+                              i
+                            
+                          
+                          
+                            )
+                            
+                              2
+                            
+                          
+                        
+                      
+                    
+                  
+                  )
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\operatorname {P} \left(S_{n}-\mathrm {E} \left[S_{n}\right]\geq t\right)&\leq \exp \left(-{\frac {2t^{2}}{\sum _{i=1}^{n}(b_{i}-a_{i})^{2}}}\right)\\\operatorname {P} \left(\left|S_{n}-\mathrm {E} \left[S_{n}\right]\right|\geq t\right)&\leq 2\exp \left(-{\frac {2t^{2}}{\sum _{i=1}^{n}(b_{i}-a_{i})^{2}}}\right)\end{aligned}}}
+  Here E[Sn] is the expected value of Sn.
+Note that the inequalities also hold when the Xi have been obtained using sampling without replacement; in this case the random variables are not independent anymore. A proof of this statement can be found in Hoeffding's paper. For slightly better bounds in the case of sampling without replacement, see for instance the paper by Serfling (1974).
+
+Example
+Suppose 
+  
+    
+      
+        
+          a
+          
+            i
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle a_{i}=0}
+   and 
+  
+    
+      
+        
+          b
+          
+            i
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle b_{i}=1}
+   for all i. This can occur when Xi are independent Bernoulli random variables, though they need not be identically distributed. Then we get the inequality
+
+  
+    
+      
+        
+          
+            
+              
+                P
+                ⁡
+                
+                  (
+                  
+                    
+                      S
+                      
+                        n
+                      
+                    
+                    −
+                    
+                      E
+                    
+                    
+                      [
+                      
+                        S
+                        
+                          n
+                        
+                      
+                      ]
+                    
+                    ≥
+                    t
+                  
+                  )
+                
+              
+              
+                
+                ≤
+                exp
+                ⁡
+                (
+                −
+                2
+                
+                  t
+                  
+                    2
+                  
+                
+                
+                  /
+                
+                n
+                )
+              
+            
+            
+              
+                P
+                ⁡
+                
+                  (
+                  
+                    
+                      |
+                      
+                        
+                          S
+                          
+                            n
+                          
+                        
+                        −
+                        
+                          E
+                        
+                        
+                          [
+                          
+                            S
+                            
+                              n
+                            
+                          
+                          ]
+                        
+                      
+                      |
+                    
+                    ≥
+                    t
+                  
+                  )
+                
+              
+              
+                
+                ≤
+                2
+                exp
+                ⁡
+                (
+                −
+                2
+                
+                  t
+                  
+                    2
+                  
+                
+                
+                  /
+                
+                n
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\operatorname {P} \left(S_{n}-\mathrm {E} \left[S_{n}\right]\geq t\right)&\leq \exp(-2t^{2}/n)\\\operatorname {P} \left(\left|S_{n}-\mathrm {E} \left[S_{n}\right]\right|\geq t\right)&\leq 2\exp(-2t^{2}/n)\end{aligned}}}
+  for all 
+  
+    
+      
+        t
+        ≥
+        0
+      
+    
+    {\displaystyle t\geq 0}
+  . This is a version of the additive Chernoff bound which is more general, since it allows for random variables that take values between zero and one, but also weaker, since the Chernoff bound gives a better tail bound when the random variables have small variance.
+
+General case of bounded from above random variables
+Hoeffding's inequality can be extended to the case of bounded from above random variables.Let X1, ..., Xn be independent random variables such that  
+  
+    
+      
+        
+          E
+        
+        
+          X
+          
+            i
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle \mathrm {E} X_{i}=0}
+   and  
+  
+    
+      
+        
+          X
+          
+            i
+          
+        
+        ≤
+        
+          b
+          
+            i
+          
+        
+      
+    
+    {\displaystyle X_{i}\leq b_{i}}
+   almost surely. 
+Denote by
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  C
+                  
+                    i
+                  
+                  
+                    2
+                  
+                
+                =
+                
+                  {
+                  
+                    
+                      
+                        
+                          
+                            E
+                          
+                          
+                            X
+                            
+                              i
+                            
+                            
+                              2
+                            
+                          
+                          ,
+                        
+                        
+                          
+                            i
+                            f
+                          
+                           
+                          
+                            E
+                          
+                          
+                            X
+                            
+                              i
+                            
+                            
+                              2
+                            
+                          
+                          ≥
+                          
+                            b
+                            
+                              i
+                            
+                            
+                              2
+                            
+                          
+                          ,
+                        
+                      
+                      
+                        
+                          
+                            
+                              
+                                1
+                                4
+                              
+                            
+                            
+                              
+                                (
+                                
+                                  
+                                    b
+                                    
+                                      i
+                                    
+                                  
+                                  +
+                                  
+                                    
+                                      
+                                        
+                                          E
+                                        
+                                        
+                                          X
+                                          
+                                            i
+                                          
+                                          
+                                            2
+                                          
+                                        
+                                      
+                                      
+                                        b
+                                        
+                                          i
+                                        
+                                      
+                                    
+                                  
+                                
+                                )
+                              
+                              
+                                2
+                              
+                            
+                            ,
+                          
+                        
+                        
+                          
+                            
+                              otherwise
+                            
+                          
+                          .
+                        
+                      
+                    
+                  
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}C_{i}^{2}=\left\{{\begin{array}{ll}\mathrm {E} X_{i}^{2},&\mathrm {if} \ \mathrm {E} X_{i}^{2}\geq b_{i}^{2},\\\displaystyle {\frac {1}{4}}\left(b_{i}+{\frac {\mathrm {E} X_{i}^{2}}{b_{i}}}\right)^{2},&{\textrm {otherwise}}.\end{array}}\right.\end{aligned}}}
+  Hoeffding's inequality for bounded from aboved random variables  states that for all 
+  
+    
+      
+        t
+        ≥
+        0
+      
+    
+    {\displaystyle t\geq 0}
+  ,
+
+  
+    
+      
+        
+          P
+        
+        
+          (
+          
+            
+              |
+              
+                
+                  ∑
+                  
+                    i
+                    =
+                    1
+                  
+                  
+                    n
+                  
+                
+                
+                  X
+                  
+                    i
+                  
+                
+              
+              |
+            
+            ≥
+            t
+          
+          )
+        
+        ≤
+        2
+        exp
+        ⁡
+        
+          (
+          
+            −
+            
+              
+                
+                  t
+                  
+                    2
+                  
+                
+                
+                  2
+                  
+                    ∑
+                    
+                      i
+                      =
+                      1
+                    
+                    
+                      n
+                    
+                  
+                  
+                    C
+                    
+                      i
+                    
+                    
+                      2
+                    
+                  
+                
+              
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \mathrm {P} \left(\left|\sum _{i=1}^{n}X_{i}\right|\geq t\right)\leq 2\exp \left(-{\frac {t^{2}}{2\sum _{i=1}^{n}C_{i}^{2}}}\right).}
+  In particular, if 
+  
+    
+      
+        
+          E
+        
+        
+          X
+          
+            i
+          
+          
+            2
+          
+        
+        ≥
+        
+          b
+          
+            i
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \mathrm {E} X_{i}^{2}\geq b_{i}^{2}}
+   for all  
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  ,
+then for all 
+  
+    
+      
+        t
+        ≥
+        0
+      
+    
+    {\displaystyle t\geq 0}
+  ,
+
+  
+    
+      
+        
+          P
+        
+        
+          (
+          
+            
+              |
+              
+                
+                  ∑
+                  
+                    i
+                    =
+                    1
+                  
+                  
+                    n
+                  
+                
+                
+                  X
+                  
+                    i
+                  
+                
+              
+              |
+            
+            ≥
+            t
+          
+          )
+        
+        ≤
+        2
+        exp
+        ⁡
+        
+          (
+          
+            −
+            
+              
+                
+                  t
+                  
+                    2
+                  
+                
+                
+                  2
+                  
+                    ∑
+                    
+                      i
+                      =
+                      1
+                    
+                    
+                      n
+                    
+                  
+                  
+                    E
+                  
+                  
+                    X
+                    
+                      i
+                    
+                    
+                      2
+                    
+                  
+                
+              
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \mathrm {P} \left(\left|\sum _{i=1}^{n}X_{i}\right|\geq t\right)\leq 2\exp \left(-{\frac {t^{2}}{2\sum _{i=1}^{n}\mathrm {E} X_{i}^{2}}}\right).}
+
+General case of sub-Gaussian random variables
+The proof of Hoeffding's inequality can be generalized to any sub-Gaussian distribution. Recall that a random variable X is called sub-Gaussian, if 
+
+  
+    
+      
+        
+          P
+        
+        (
+        
+          |
+        
+        X
+        
+          |
+        
+        ≥
+        t
+        )
+        ≤
+        2
+        
+          e
+          
+            −
+            c
+            
+              t
+              
+                2
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle \mathrm {P} (|X|\geq t)\leq 2e^{-ct^{2}},}
+  for some c>0. For any bounded variable X, 
+  
+    
+      
+        
+          P
+        
+        (
+        
+          |
+        
+        X
+        
+          |
+        
+        ≥
+        t
+        )
+        =
+        0
+        ≤
+        2
+        
+          e
+          
+            −
+            c
+            
+              t
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle \mathrm {P} (|X|\geq t)=0\leq 2e^{-ct^{2}}}
+   for 
+  
+    
+      
+        t
+        >
+        T
+      
+    
+    {\displaystyle t>T}
+   for some sufficiently large T. Then 
+  
+    
+      
+        2
+        
+          e
+          
+            −
+            c
+            
+              T
+              
+                2
+              
+            
+          
+        
+        ≤
+        2
+        
+          e
+          
+            −
+            c
+            
+              t
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle 2e^{-cT^{2}}\leq 2e^{-ct^{2}}}
+   for all 
+  
+    
+      
+        t
+        ≤
+        T
+      
+    
+    {\displaystyle t\leq T}
+   so taking 
+  
+    
+      
+        c
+        =
+        log
+        ⁡
+        (
+        2
+        )
+        
+          /
+        
+        
+          T
+          
+            2
+          
+        
+      
+    
+    {\displaystyle c=\log(2)/T^{2}}
+   yields
+
+  
+    
+      
+        
+          P
+        
+        (
+        
+          |
+        
+        X
+        
+          |
+        
+        ≥
+        t
+        )
+        ≤
+        1
+        ≤
+        2
+        
+          e
+          
+            −
+            c
+            
+              T
+              
+                2
+              
+            
+          
+        
+        ≤
+        2
+        
+          e
+          
+            −
+            c
+            
+              t
+              
+                2
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle \mathrm {P} (|X|\geq t)\leq 1\leq 2e^{-cT^{2}}\leq 2e^{-ct^{2}},}
+  for 
+  
+    
+      
+        t
+        ≤
+        T
+      
+    
+    {\displaystyle t\leq T}
+  . So every bounded variable is sub-Gaussian.
+For a random variable X, the following norm is finite if and only if X is sub-Gaussian:
+
+  
+    
+      
+        ‖
+        X
+        
+          ‖
+          
+            
+              ψ
+              
+                2
+              
+            
+          
+        
+        :=
+        inf
+        
+          {
+          
+            c
+            ≥
+            0
+            :
+            
+              E
+            
+            
+              (
+              
+                e
+                
+                  
+                    X
+                    
+                      2
+                    
+                  
+                  
+                    /
+                  
+                  
+                    c
+                    
+                      2
+                    
+                  
+                
+              
+              )
+            
+            ≤
+            2
+          
+          }
+        
+        .
+      
+    
+    {\displaystyle \Vert X\Vert _{\psi _{2}}:=\inf \left\{c\geq 0:\mathrm {E} \left(e^{X^{2}/c^{2}}\right)\leq 2\right\}.}
+  Then let X1, ..., Xn be zero-mean independent sub-Gaussian random variables, the general version of the Hoeffding's inequality states that:
+
+  
+    
+      
+        
+          P
+        
+        
+          (
+          
+            
+              |
+              
+                
+                  ∑
+                  
+                    i
+                    =
+                    1
+                  
+                  
+                    n
+                  
+                
+                
+                  X
+                  
+                    i
+                  
+                
+              
+              |
+            
+            ≥
+            t
+          
+          )
+        
+        ≤
+        2
+        exp
+        ⁡
+        
+          (
+          
+            −
+            
+              
+                
+                  c
+                  
+                    t
+                    
+                      2
+                    
+                  
+                
+                
+                  
+                    ∑
+                    
+                      i
+                      =
+                      1
+                    
+                    
+                      n
+                    
+                  
+                  ‖
+                  
+                    X
+                    
+                      i
+                    
+                  
+                  
+                    ‖
+                    
+                      
+                        ψ
+                        
+                          2
+                        
+                      
+                    
+                    
+                      2
+                    
+                  
+                
+              
+            
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle \mathrm {P} \left(\left|\sum _{i=1}^{n}X_{i}\right|\geq t\right)\leq 2\exp \left(-{\frac {ct^{2}}{\sum _{i=1}^{n}\Vert X_{i}\Vert _{\psi _{2}}^{2}}}\right),}
+  where c > 0 is an absolute constant.
+
+Proof
+The proof of Hoeffding's inequality follows similarly to concentration inequalities like Chernoff bounds. The main difference is the use of Hoeffding's Lemma:
+
+Suppose X is a real random variable such that 
+  
+    
+      
+        X
+        ∈
+        
+          [
+          
+            a
+            ,
+            b
+          
+          ]
+        
+      
+    
+    {\displaystyle X\in \left[a,b\right]}
+   almost surely. Then
+
+  
+    
+      
+        
+          E
+        
+        
+          [
+          
+            e
+            
+              s
+              
+                (
+                
+                  X
+                  −
+                  
+                    E
+                  
+                  
+                    [
+                    X
+                    ]
+                  
+                
+                )
+              
+            
+          
+          ]
+        
+        ≤
+        exp
+        ⁡
+        
+          (
+          
+            
+              
+                
+                  1
+                  8
+                
+              
+            
+            
+              s
+              
+                2
+              
+            
+            (
+            b
+            −
+            a
+            
+              )
+              
+                2
+              
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \mathrm {E} \left[e^{s\left(X-\mathrm {E} \left[X\right]\right)}\right]\leq \exp \left({\tfrac {1}{8}}s^{2}(b-a)^{2}\right).}
+  Using this lemma, we can prove Hoeffding's inequality. As in the theorem statement, suppose X1, ..., Xn are n independent random variables such that 
+  
+    
+      
+        
+          X
+          
+            i
+          
+        
+        ∈
+        [
+        
+          a
+          
+            i
+          
+        
+        ,
+        
+          b
+          
+            i
+          
+        
+        ]
+      
+    
+    {\displaystyle X_{i}\in [a_{i},b_{i}]}
+   almost surely for all i, and let 
+  
+    
+      
+        
+          S
+          
+            n
+          
+        
+        =
+        
+          X
+          
+            1
+          
+        
+        +
+        ⋯
+        +
+        
+          X
+          
+            n
+          
+        
+      
+    
+    {\displaystyle S_{n}=X_{1}+\cdots +X_{n}}
+  .
+Then for s, t > 0, Markov's inequality and the independence of Xi implies:
+
+  
+    
+      
+        
+          
+            
+              
+                P
+                ⁡
+                
+                  (
+                  
+                    
+                      S
+                      
+                        n
+                      
+                    
+                    −
+                    
+                      E
+                    
+                    
+                      [
+                      
+                        S
+                        
+                          n
+                        
+                      
+                      ]
+                    
+                    ≥
+                    t
+                  
+                  )
+                
+              
+              
+                
+                =
+                P
+                ⁡
+                
+                  (
+                  
+                    exp
+                    ⁡
+                    (
+                    s
+                    (
+                    
+                      S
+                      
+                        n
+                      
+                    
+                    −
+                    
+                      E
+                    
+                    
+                      [
+                      
+                        S
+                        
+                          n
+                        
+                      
+                      ]
+                    
+                    )
+                    )
+                    ≥
+                    exp
+                    ⁡
+                    (
+                    s
+                    t
+                    )
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                ≤
+                exp
+                ⁡
+                (
+                −
+                s
+                t
+                )
+                
+                  E
+                
+                
+                  [
+                  
+                    exp
+                    ⁡
+                    (
+                    s
+                    (
+                    
+                      S
+                      
+                        n
+                      
+                    
+                    −
+                    
+                      E
+                    
+                    
+                      [
+                      
+                        S
+                        
+                          n
+                        
+                      
+                      ]
+                    
+                    )
+                    )
+                  
+                  ]
+                
+              
+            
+            
+              
+              
+                
+                =
+                exp
+                ⁡
+                (
+                −
+                s
+                t
+                )
+                
+                  ∏
+                  
+                    i
+                    =
+                    1
+                  
+                  
+                    n
+                  
+                
+                
+                  E
+                
+                
+                  [
+                  
+                    exp
+                    ⁡
+                    (
+                    s
+                    (
+                    
+                      X
+                      
+                        i
+                      
+                    
+                    −
+                    
+                      E
+                    
+                    
+                      [
+                      
+                        X
+                        
+                          i
+                        
+                      
+                      ]
+                    
+                    )
+                    )
+                  
+                  ]
+                
+              
+            
+            
+              
+              
+                
+                ≤
+                exp
+                ⁡
+                (
+                −
+                s
+                t
+                )
+                
+                  ∏
+                  
+                    i
+                    =
+                    1
+                  
+                  
+                    n
+                  
+                
+                exp
+                ⁡
+                
+                  
+                    (
+                  
+                
+                
+                  
+                    
+                      
+                        s
+                        
+                          2
+                        
+                      
+                      (
+                      
+                        b
+                        
+                          i
+                        
+                      
+                      −
+                      
+                        a
+                        
+                          i
+                        
+                      
+                      
+                        )
+                        
+                          2
+                        
+                      
+                    
+                    8
+                  
+                
+                
+                  
+                    )
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                exp
+                ⁡
+                
+                  (
+                  
+                    −
+                    s
+                    t
+                    +
+                    
+                      
+                        
+                          1
+                          8
+                        
+                      
+                    
+                    
+                      s
+                      
+                        2
+                      
+                    
+                    
+                      ∑
+                      
+                        i
+                        =
+                        1
+                      
+                      
+                        n
+                      
+                    
+                    (
+                    
+                      b
+                      
+                        i
+                      
+                    
+                    −
+                    
+                      a
+                      
+                        i
+                      
+                    
+                    
+                      )
+                      
+                        2
+                      
+                    
+                  
+                  )
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\operatorname {P} \left(S_{n}-\mathrm {E} \left[S_{n}\right]\geq t\right)&=\operatorname {P} \left(\exp(s(S_{n}-\mathrm {E} \left[S_{n}\right]))\geq \exp(st)\right)\\&\leq \exp(-st)\mathrm {E} \left[\exp(s(S_{n}-\mathrm {E} \left[S_{n}\right]))\right]\\&=\exp(-st)\prod _{i=1}^{n}\mathrm {E} \left[\exp(s(X_{i}-\mathrm {E} \left[X_{i}\right]))\right]\\&\leq \exp(-st)\prod _{i=1}^{n}\exp {\Big (}{\frac {s^{2}(b_{i}-a_{i})^{2}}{8}}{\Big )}\\&=\exp \left(-st+{\tfrac {1}{8}}s^{2}\sum _{i=1}^{n}(b_{i}-a_{i})^{2}\right)\end{aligned}}}
+  This upper bound is the best for the value of s minimizing the value inside the exponential. This can be done easily by optimizing a quadratic, giving
+
+  
+    
+      
+        s
+        =
+        
+          
+            
+              4
+              t
+            
+            
+              
+                ∑
+                
+                  i
+                  =
+                  1
+                
+                
+                  n
+                
+              
+              (
+              
+                b
+                
+                  i
+                
+              
+              −
+              
+                a
+                
+                  i
+                
+              
+              
+                )
+                
+                  2
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle s={\frac {4t}{\sum _{i=1}^{n}(b_{i}-a_{i})^{2}}}.}
+  Writing the above bound for this value of s, we get the desired bound:
+
+  
+    
+      
+        P
+        ⁡
+        
+          (
+          
+            
+              S
+              
+                n
+              
+            
+            −
+            
+              E
+            
+            
+              [
+              
+                S
+                
+                  n
+                
+              
+              ]
+            
+            ≥
+            t
+          
+          )
+        
+        ≤
+        exp
+        ⁡
+        
+          (
+          
+            −
+            
+              
+                
+                  2
+                  
+                    t
+                    
+                      2
+                    
+                  
+                
+                
+                  
+                    ∑
+                    
+                      i
+                      =
+                      1
+                    
+                    
+                      n
+                    
+                  
+                  (
+                  
+                    b
+                    
+                      i
+                    
+                  
+                  −
+                  
+                    a
+                    
+                      i
+                    
+                  
+                  
+                    )
+                    
+                      2
+                    
+                  
+                
+              
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \operatorname {P} \left(S_{n}-\mathrm {E} \left[S_{n}\right]\geq t\right)\leq \exp \left(-{\frac {2t^{2}}{\sum _{i=1}^{n}(b_{i}-a_{i})^{2}}}\right).}
+
+Usage
+Confidence intervals
+Hoeffding's inequality can be used to derive confidence intervals. We consider a coin that shows heads with probability p and tails with probability 1 − p. We toss the coin n times, generating n samples 
+  
+    
+      
+        
+          X
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          X
+          
+            n
+          
+        
+      
+    
+    {\displaystyle X_{1},\ldots ,X_{n}}
+   (which are i.i.d Bernoulli random variables). The expected number of times the coin comes up heads is pn. Furthermore, the probability that the coin comes up heads at least k times can be exactly quantified by the following expression:
+
+  
+    
+      
+        P
+        ⁡
+        (
+        H
+        (
+        n
+        )
+        ≥
+        k
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            k
+          
+          
+            n
+          
+        
+        
+          
+            
+              (
+            
+            
+              n
+              i
+            
+            
+              )
+            
+          
+        
+        
+          p
+          
+            i
+          
+        
+        (
+        1
+        −
+        p
+        
+          )
+          
+            n
+            −
+            i
+          
+        
+        ,
+      
+    
+    {\displaystyle \operatorname {P} (H(n)\geq k)=\sum _{i=k}^{n}{\binom {n}{i}}p^{i}(1-p)^{n-i},}
+  where H(n) is the number of heads in n coin tosses.
+When k = (p + ε)n for some ε > 0, Hoeffding's inequality bounds this probability by a term that is exponentially small in ε2n:
+
+  
+    
+      
+        P
+        ⁡
+        (
+        H
+        (
+        n
+        )
+        −
+        p
+        n
+        >
+        ε
+        n
+        )
+        ≤
+        exp
+        ⁡
+        
+          (
+          
+            −
+            2
+            
+              ε
+              
+                2
+              
+            
+            n
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \operatorname {P} (H(n)-pn>\varepsilon n)\leq \exp \left(-2\varepsilon ^{2}n\right).}
+  Since this bound holds on both sides of the mean, Hoeffding's inequality implies that the number of heads that we see is concentrated around its mean, with exponentially small tail.
+
+  
+    
+      
+        P
+        ⁡
+        
+          (
+          
+            
+              |
+            
+            H
+            (
+            n
+            )
+            −
+            p
+            n
+            
+              |
+            
+            >
+            ε
+            n
+          
+          )
+        
+        ≤
+        2
+        exp
+        ⁡
+        
+          (
+          
+            −
+            2
+            
+              ε
+              
+                2
+              
+            
+            n
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \operatorname {P} \left(|H(n)-pn|>\varepsilon n\right)\leq 2\exp \left(-2\varepsilon ^{2}n\right).}
+  Thinking of 
+  
+    
+      
+        
+          
+            X
+            ¯
+          
+        
+        =
+        
+          
+            1
+            n
+          
+        
+        H
+        (
+        n
+        )
+      
+    
+    {\displaystyle {\overline {X}}={\frac {1}{n}}H(n)}
+   as the "observed" mean, this probability can be interpreted as the level of significance 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   (probability of making an error) for a confidence interval around 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   of size 2ɛ:
+
+  
+    
+      
+        α
+        =
+        P
+        ⁡
+        (
+         
+        
+          
+            X
+            ¯
+          
+        
+        ∉
+        [
+        p
+        −
+        ε
+        ,
+        p
+        +
+        ε
+        ]
+        )
+        ≤
+        2
+        
+          e
+          
+            −
+            2
+            
+              ε
+              
+                2
+              
+            
+            n
+          
+        
+      
+    
+    {\displaystyle \alpha =\operatorname {P} (\ {\overline {X}}\notin [p-\varepsilon ,p+\varepsilon ])\leq 2e^{-2\varepsilon ^{2}n}}
+  Finding n for opposite inequality sign in the above, i.e. n that violates inequality but not equality above, gives us:
+
+  
+    
+      
+        n
+        ≥
+        
+          
+            
+              log
+              ⁡
+              (
+              2
+              
+                /
+              
+              α
+              )
+            
+            
+              2
+              
+                ε
+                
+                  2
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle n\geq {\frac {\log(2/\alpha )}{2\varepsilon ^{2}}}}
+  Therefore, we require at least 
+  
+    
+      
+        
+          
+            
+              
+                log
+                ⁡
+                (
+                2
+                
+                  /
+                
+                α
+                )
+              
+              
+                2
+                
+                  ε
+                  
+                    2
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle \textstyle {\frac {\log(2/\alpha )}{2\varepsilon ^{2}}}}
+   samples to acquire a 
+  
+    
+      
+        
+          (
+          1
+          −
+          α
+          )
+        
+      
+    
+    {\displaystyle \textstyle (1-\alpha )}
+  -confidence interval 
+  
+    
+      
+        
+          p
+          ±
+          ε
+        
+      
+    
+    {\displaystyle \textstyle p\pm \varepsilon }
+  .
+Hence, the cost of acquiring the confidence interval is sublinear in terms of confidence level and quadratic in terms of precision. Note that there are more efficient methods of estimating a confidence interval.
+
+See also
+Concentration inequality – a summary of tail-bounds on random variables.
+Hoeffding's lemma
+Bernstein inequalities (probability theory)
+
+Notes
+
+
+== References ==

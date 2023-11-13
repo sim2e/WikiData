@@ -1,0 +1,83 @@
+Econet was Acorn Computers's low-cost local area network system, intended for use by schools and small businesses. It was widely used in those areas, and was supported by a large number of different computer and server systems produced both by Acorn and by other companies.
+Econet software was later mostly superseded by Acorn Universal Networking (AUN), though some suppliers were still offering bridging kits to interconnect old and new networks. AUN was in turn superseded by the Acorn Access+ software.
+
+Implementation history
+Econet was specified in 1980, and first developed for the Acorn Atom and Acorn System 2/3/4 computers in 1981. Also in that year the BBC Micro was released, initially with provision for floppy disc and Econet interface ports, but without the necessary supporting ICs fitted, optionally to be added in a post sale upgrade.In 1982, the Tasmania Department of Education requested a tender for the supply of personal computers to their schools. Earlier that year Barson Computers, Acorn's Australian computer distributor, had released the BBC Microcomputer with floppy disc storage as part of a bundle. Acorn's Hermann Hauser and Chris Curry agreed to allow it to be also offered with Econet fitted, as they had previously done with the disc interface. As previously with the Disc Filing System, they stipulated that Barson would need to adapt the network filing system from the System 2 without assistance from Acorn. Barson's engineers applied a few modifications to fix bugs on the early BBC Micro motherboards, which were adopted by Acorn in later releases. With both floppy disc and networking available, the BBC Micro was approved for use in schools by all state and territory education authorities in Australia and New Zealand, and quickly overtook the Apple II as the computer of choice in private schools.
+With no other supporting documentation available, the head of Barson's Acorn division, Rob Napier, published Networking with the BBC Microcomputer, the first reference documentation for Econet.
+Econet was officially released for the BBC Micro in the UK in 1984, and it later became popular as a networking system for the Acorn Archimedes.  Econet was eventually officially supported on all post-Atom Acorn machines, apart from the Electron (except in Australia and New Zealand where Barson Computers built their own Econet daughter board), along with 3rd party ISA cards for the IBM PC. The "Ecolink" ISA interface card for IBM-compatible PCs was available. It used Microsoft's MS-NET Redirector for MS-DOS to provide file and printer sharing via the NET USE command.
+File, Print and Tape servers, for the architecture were also supplied by 3rd party vendors such as S J Research.Econet was supported by Acorn MOS, RISC OS, RISC iX, FreeBSD and Linux operating systems.Acorn once received an offer from Commodore International to license the technology, which it refused.
+
+Subsequent development
+With the falling prices and widespread adoption of IP networking in the early 1990s, Acorn Universal Networking (AUN), an implementation of Econet protocols and addressing over TCP/IP (in Acorn's words "an AUN network is a conformant TCP/IP network underneath the Econet-like veneer"), was developed to provide legacy support for Econet on Ethernet-connected machines.Support for the Econet protocol and AUN was removed from the Linux kernel in 2012 from version 3.5, due to lack of use and privilege escalation vulnerabilities.
+
+Supported systems
+Econet was supported by a large number of different computer and server systems, produced both by Acorn and by other companies. As well as Acorn's MOS and RISC OS these also used other operating systems such as CP/M, DR-DOS, Unix, Linux or Microsoft Windows.
+The Econet API includes an Econet_MachinePeek command, which can be used by software to determine if a machine is present on the network and its hardware platform. The machine-type codes which can be returned by that command
+are a useful indication of the range of hardware that offered Econet as their primary networking function or as an option:
+
+The manual includes an assembly language program to report a machine type, software version and release numbers.
+An update to the list in volume 5A of the PRM
+lists the following additions to the table above:
+
+Physical and data-link layers
+Econet is a five-wire bus network composed of one or more segments (up to 127), where each segment may be up to 500 m long. One pair of wires is used for the clock signal to synchronise devices on the network, one pair for data, and one wire as a common ground. In many but not all implementations, a dedicated external board is required to supply the clock signal known as the "clock box", usually positioned in the middle of the network. Some Econet devices have an internal capability to generate the clock signal. Signalling used the RS-422 5-volt differential standard, with one bit transferred per clock cycle. Unshielded cable was used for short lengths, and shielded cable for longer networks. The cable was terminated at each end to prevent reflections and to guarantee high logic levels when the bus was undriven.
+The original connectors were five-pin circular 180° DIN types. On later 32-bit machines (notably the A3020 and A4000), the Econet connection was made via five of the pins on their 15-pin D-type Network port, which could also accept MAUs (Media Attachment Units) to allow other types of network to be connected via the same socket. This port looks similar to an AUI port, but is not compatible. The Acorn A4 laptop used another implementation, in the form of a 5 pin mini-DIN.Each Econet interface was controlled by a Motorola MC68B54 Advanced Data Link Controller (ADLC) chip, which handled electrical transmission/reception, frame checksumming and collision detection.
+
+Network and transport layers
+Econet used a connectionless transmission model, similar to UDP, with no checksumming or error correction at this layer. Each packet had a four byte header consisting of:
+
+The destination station number
+The destination network number
+The source station number
+The source network numberA single data transmission consisted of four frames, each with a header as above:
+
+The sending station sends a scout packet with a port number and a flag byte
+The addressed receiving station returns a scout acknowledge to the sender
+The sending station sends the data
+The receiving station finishes with a final acknowledge, identical to the scout acknowledgeEach device on a network segment is identified by a "station ID" number which serves a similar purpose to a MAC address. The address is not set at time of manufacture but is set manually and a network administrator must ensure addresses do not collide when new machines are installed. In the BBC Micro the station ID is set using jumper pins on the motherboard. Conventionally a file server would be assigned station ID 254 but there is no specific requirement for this to be the case.
+There was provision for broadcast transmissions, a single frame sent with its destination station and network numbers set to 255.  There was also provision for promiscuous mode reception, termed wild receive
+in the PRM, requested by listening for station and network numbers both being zero.
+Technical details of packets and frames, the Econet API, and worked examples in ARM assembler and BBC BASIC
+are given in the RISC OS Programmer's Reference Manual.
+
+Network services
+At the time and in the markets for which Econet was developed, the main purpose of computer networking was to provide local area shared access to expensive hardware such as disc storage and printers.  Acorn provided software for the BBC Micro to implement a file server, and optionally a printer server also.  The original file server was very basic, essentially allowing limited access to a floppy disc over the network. The server software was further developed over many years, and Acorn and other manufacturers also produced dedicated Econet servers based on various technologies.  So the servers available fell into roughly three categories:
+The Acorn Fileserver, from Level 1 through Level 4, running on a standard computer (BBC, Master or Archimedes) and providing simple file and print services.
+The dedicated Acorn Filestore units, running on dedicated hardware with higher capacity and more facilities.
+Third party units (notably from SJ Research), again running on dedicated hardware and with their own implementations of the server software. These were compatible with the Acorn implementations, but with additional enhancements. (Notably, Oak Solutions collaborated with Acorn to develop the Level 4 Fileserver solution.)The machine type numbers listed in the "Supported systems" section above are an indication of the range of hardware that was available or planned.
+Additional services could be implemented, using the network API provided. Short utilities such as network chat programs were often published in magazines or distributed by sharing among users; these made use of the Econet protocols to work alongside the basic file and print services. Larger software packages (some of them commercial) were available that provided services such as Teletext and modem drivers.
+
+Filestore
+Acorn emphasised the Filestore in the late 1980s as a solution for small workgroups, offering a base unit with optional hard disk storage modules. The device was similar in concept to what is now termed Network Attached Storage, being a standalone unit dedicated to serving files over a network.
+The Filestore was a 65C102-based machine with 64 KB of RAM,  64 KB of ROM, Econet connectivity, two 3.5" floppy drives, a parallel printer interface, expansion bus, Econet clock and termination circuits, a real-time clock, and a quantity of battery-backed RAM. The battery-backed RAM was used to hold configuration and authentication details.Initially, hard disk expansion was offered in the form of the E20 module providing a 3.5" 20 MB Winchester disk drive (hard disk) for the E01 base unit; later expansions in the form of the E40S and E60S provided 40 MB and 60 MB storage respectively for the E01S base unit. The "S" suffix reportedly signifies that the units are "stacking".
+
+Fileserver
+Acorn also offered the Level 1, Level 2 and Level 3 Fileserver solutions running on sufficiently upgraded BBC Micro or BBC Master computers.The Level 1 product offered access to existing Acorn DFS discs via a BBC Model B with Econet, a disc interface and single or dual drives. Printer sharing was also possible. This was intended for small networks, typically in an educational setting, to solve a narrowly defined problem of sharing what were at the time expensive peripherals. An Econet upgrade originally cost significantly less than a disk drive. The only available access control mechanism was that files for each station (client) on the network could be isolated from each other but anyone with physical access to the relevant station could access the files. Typically each station would only be able to access a small number of files, with only 31 files being stored in total on a side of one floppy disk and split between all of the stations.
+Level 2 delivered significant enhancements over level 1 but elevated the system requirements for the file server host machine to necessitate a 6502 second processor unit with 64K RAM. Hierarchical directories were possible with the number of files limited only by the amount of storage available, enhanced access controls, random access to data files, and authentication support.Level 3 introduced Winchester hard drive support.With the release of the Level 4 Fileserver software providing a means to "extend the life of existing Acorn computers, such as the A310", allowing "any Archimedes computer to act as a fileserver", the emphasis had evidently shifted away from the Filestore and towards the Level 4 product at the start of the 1990s. A base Filestore E01S unit had a price inclusive of VAT of £1148.85 in February 1989, whereas an Archimedes 310 with 1 MB of RAM cost only £958.00 and an Econet module £56.35, illustrating the pricing considerations for potential buyers. By 1991, the Filestore was apparently no longer offered in Acorn's pricing (nor was the A310), but the Level 4 software was priced at £233.83 and an Archimedes 410/1 with 1 MB of RAM at £1049.33.
+
+Unix system services
+With the introduction of Acorn's Unix workstations running RISC iX, an envisaged application for Econet was the use of Master 128 computers acting as terminals to these Unix systems.: 4  Such systems also offered the capability to act as bridges between Econet and Ethernet networks, offering routing facilities to any Unix machines attached to the Econet,: 5  this being enabled by the IP-over-Econet support in RISC iX.
+
+X.25 network services
+An Econet X.25 gateway product was offered by Acorn, providing access to X.25 networks for computers on an Econet, with the X25 Terminal ROM and the existing Acorn DNFS ROM needing to be fitted to computers to enable access to X.25 services, with the Terminal ROM providing terminal emulation and file transfer functionality.The gateway hardware consisted of the core functionality of a BBC Micro, this being the network service module connected to the Econet, combined with a Z80 second processor connected via the Tube interface, this acting as the gateway module and having 16 KB ROM and 32 KB of private RAM, augmented by another board with a Z80 processor with 32 KB of private RAM, this being the X25 module accessing the X.25 line. The gateway and X25 modules communicated via 16 KB of dual-ported shared RAM. The X25 module was designed by Symicron and ran the "proven" Symicron Telematics Software (STS).Econet users would send network service requests to the gateway that would be forwarded by the STS functionality of the gateway to the X.25 network. Incoming X.25 calls would be forwarded by the STS functionality to the network service functionality and on to the Econet. Network service requests could employ X.25, Yellow Book Transport Service, and X.29 protocols.
+
+Comparison with modern systems
+While Econet was essentially specific to the Acorn range of computers, it does share common concepts with modern network file systems and protocols:
+
+Remote Procedure Call – Almost all network operations were performed via a primitive remote procedure call system, either by passing a command line direct to the file server, or by passing an operating system call parameter block. The logon command *I AM was processed by passing the whole command line and reading back the result code.
+Access Permissions – By the time of the Acorn Level 4 File Server and the SJ Research MDFS systems, Econet file servers had a full user name and password system with public and private attributes. These worked similar to Unix permissions without the group field. Files could be set to be readable and/or writable by everyone, just by the user, or both.
+Subnetting – A basic Econet would be a single network segment, which is usually assumed to be network 0. With the use of one or more bridges, it is possible to have up to 127 Econet segments with up to 254 hosts each, for a maximum of 32,258 possible machines.
+Broadcasting – By using host 255, an Econet host could send broadcast packets to all hosts on the network segment. Later implementations of the client software used this to automatically locate file and printer servers.
+Printer Spooling – Later versions of the Econet printer server software used printer spooling to locally cache print jobs before sending to the remote printer. This ensured whole print jobs were sent to the printer in one go.
+Ports – Because the various protocols (file and printer servers, bridge discovery, and so forth) used defined port numbers, it was possible to for additional services such as BroadcastLoader, AppFS, a teletext server, and a range of chat programs and multiplayer games to coexist within the Econet system.
+
+See also
+LocalTalk
+List of device bandwidths
+
+References
+External links
+The Econet Enthusiasts Area
+Chris' Acorns
+Econet documentation at 8-bit software
+RISC OS Programmer's Reference Manuals –  the latest versions as of May 2014

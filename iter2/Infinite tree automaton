@@ -1,0 +1,733 @@
+In computer science and mathematical logic, an infinite-tree automaton is a state machine that deals with infinite tree structures. It can be seen as an extension of top-down finite-tree automata to infinite trees or as an extension of infinite-word automata to infinite trees.
+A finite automaton which runs on an infinite tree was first used by Michael Rabin for proving decidability of  S2S, the  monadic second-order theory with two successors. It has been further observed that tree automata and logical theories are closely connected and it allows decision problems in logic to be reduced into decision problems for automata.
+
+Definition
+Infinite-tree automata work on 
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+  -labeled trees. There are many slightly different definitions; here is one. A (nondeterministic) infinite-tree automaton is a tuple 
+  
+    
+      
+        A
+        =
+        (
+        Σ
+        ,
+        D
+        ,
+        Q
+        ,
+        
+          q
+          
+            0
+          
+        
+        ,
+        δ
+        ,
+        F
+        )
+      
+    
+    {\displaystyle A=(\Sigma ,D,Q,q_{0},\delta ,F)}
+   with the following components.
+
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+   is an alphabet. This alphabet is used to label nodes of an input tree.
+
+  
+    
+      
+        D
+        ⊂
+        
+          N
+        
+      
+    
+    {\displaystyle D\subset \mathbb {N} }
+   is a finite set of allowed branching degrees in an input tree. For example, if 
+  
+    
+      
+        D
+        =
+        {
+        2
+        }
+      
+    
+    {\displaystyle D=\{2\}}
+  , an input tree has to be a binary tree, or if 
+  
+    
+      
+        D
+        =
+        {
+        1
+        ,
+        2
+        ,
+        3
+        }
+      
+    
+    {\displaystyle D=\{1,2,3\}}
+  , then each node has either 1, 2, or 3 children.
+
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+   is a finite set of states; 
+  
+    
+      
+        
+          q
+          
+            0
+          
+        
+      
+    
+    {\displaystyle q_{0}}
+   is initial.
+
+  
+    
+      
+        δ
+        :
+        Q
+        ×
+        Σ
+        ×
+        D
+        →
+        
+          2
+          
+            
+              Q
+              
+                ∗
+              
+            
+          
+        
+      
+    
+    {\displaystyle \delta :Q\times \Sigma \times D\rightarrow 2^{Q^{*}}}
+   is a transition relation that maps an automaton state 
+  
+    
+      
+        q
+        ∈
+        Q
+      
+    
+    {\displaystyle q\in Q}
+  , an input letter 
+  
+    
+      
+        σ
+        ∈
+        Σ
+      
+    
+    {\displaystyle \sigma \in \Sigma }
+  , and a degree 
+  
+    
+      
+        d
+        ∈
+        D
+      
+    
+    {\displaystyle d\in D}
+   to a set of 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+  -tuples of states.
+
+  
+    
+      
+        F
+        ⊆
+        
+          Q
+          
+            ω
+          
+        
+      
+    
+    {\displaystyle F\subseteq Q^{\omega }}
+   is an accepting condition.An infinite-tree automaton is deterministic if for every 
+  
+    
+      
+        q
+        ∈
+        Q
+      
+    
+    {\displaystyle q\in Q}
+  , 
+  
+    
+      
+        σ
+        ∈
+        Σ
+      
+    
+    {\displaystyle \sigma \in \Sigma }
+  , and 
+  
+    
+      
+        d
+        ∈
+        D
+      
+    
+    {\displaystyle d\in D}
+  , the transition relation 
+  
+    
+      
+        δ
+        (
+        q
+        ,
+        σ
+        ,
+        d
+        )
+      
+    
+    {\displaystyle \delta (q,\sigma ,d)}
+   has exactly one 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+  -tuple.
+
+Run
+Intuitively, a run of a tree automaton on an input tree assigns automaton states to the tree nodes in a way that satisfies the automaton transition relation.
+A bit more formally, a run of a tree automaton 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   over a 
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+  -labeled tree 
+  
+    
+      
+        (
+        T
+        ,
+        V
+        )
+      
+    
+    {\displaystyle (T,V)}
+   is a 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+  -labeled tree 
+  
+    
+      
+        (
+        
+          T
+          
+            r
+          
+        
+        ,
+        r
+        )
+      
+    
+    {\displaystyle (T_{r},r)}
+   as follows. Suppose that the automaton reached a node 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   of an input tree and is currently in state 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+  . Let the node 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   be labeled with 
+  
+    
+      
+        σ
+        ∈
+        Σ
+      
+    
+    {\displaystyle \sigma \in \Sigma }
+   and 
+  
+    
+      
+        d
+        (
+        t
+        )
+      
+    
+    {\displaystyle d(t)}
+   be its branching degree. Then, the automaton proceeds by selecting a tuple 
+  
+    
+      
+        (
+        
+          q
+          
+            1
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          q
+          
+            d
+            (
+            t
+            )
+          
+        
+        )
+      
+    
+    {\displaystyle (q_{1},...,q_{d(t)})}
+   from the set 
+  
+    
+      
+        δ
+        (
+        q
+        ,
+        σ
+        ,
+        d
+        (
+        t
+        )
+        )
+      
+    
+    {\displaystyle \delta (q,\sigma ,d(t))}
+   and cloning itself into 
+  
+    
+      
+        d
+        (
+        t
+        )
+      
+    
+    {\displaystyle d(t)}
+   copies. For each 
+  
+    
+      
+        0
+        <
+        i
+        ≤
+        d
+        (
+        t
+        )
+      
+    
+    {\displaystyle 0<i\leq d(t)}
+  , one copy of the automaton proceeds into node 
+  
+    
+      
+        t
+        .
+        i
+      
+    
+    {\displaystyle t.i}
+   and changes its state to 
+  
+    
+      
+        
+          q
+          
+            i
+          
+        
+      
+    
+    {\displaystyle q_{i}}
+  . This produces a run which is a 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+  -labeled tree. Formally, a run 
+  
+    
+      
+        (
+        
+          T
+          
+            r
+          
+        
+        ,
+        r
+        )
+      
+    
+    {\displaystyle (T_{r},r)}
+   on the input tree satisfies the following two conditions.
+
+  
+    
+      
+        r
+        (
+        ϵ
+        )
+        =
+        
+          q
+          
+            0
+          
+        
+      
+    
+    {\displaystyle r(\epsilon )=q_{0}}
+  .
+For every 
+  
+    
+      
+        t
+        ∈
+        
+          T
+          
+            r
+          
+        
+      
+    
+    {\displaystyle t\in T_{r}}
+   with 
+  
+    
+      
+        r
+        (
+        t
+        )
+        =
+        q
+      
+    
+    {\displaystyle r(t)=q}
+  , there exists a 
+  
+    
+      
+        (
+        
+          q
+          
+            1
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          q
+          
+            d
+            (
+            t
+            )
+          
+        
+        )
+        ∈
+        δ
+        (
+        q
+        ,
+        V
+        (
+        t
+        )
+        ,
+        d
+        (
+        t
+        )
+        )
+      
+    
+    {\displaystyle (q_{1},...,q_{d(t)})\in \delta (q,V(t),d(t))}
+   such that for every 
+  
+    
+      
+        0
+        <
+        i
+        ≤
+        d
+        (
+        t
+        )
+      
+    
+    {\displaystyle 0<i\leq d(t)}
+  , we have 
+  
+    
+      
+        t
+        .
+        i
+        ∈
+        
+          T
+          
+            r
+          
+        
+      
+    
+    {\displaystyle t.i\in T_{r}}
+   and 
+  
+    
+      
+        r
+        (
+        t
+        .
+        i
+        )
+        =
+        
+          q
+          
+            i
+          
+        
+      
+    
+    {\displaystyle r(t.i)=q_{i}}
+  .If the automaton is nondeterministic, there may be several different runs on the same input tree; for deterministic automata, the run is unique.
+
+Acceptance condition
+In a run 
+  
+    
+      
+        (
+        
+          T
+          
+            r
+          
+        
+        ,
+        r
+        )
+      
+    
+    {\displaystyle (T_{r},r)}
+  , an infinite path is labeled by a sequence of states. This sequence of states form an infinite word over states. If all these infinite words belong to accepting condition 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+  , then the run is accepting. Interesting accepting conditions are Büchi, Rabin, Streett, Muller, and parity. If for an input 
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+  -labeled tree  
+  
+    
+      
+        (
+        T
+        ,
+        V
+        )
+      
+    
+    {\displaystyle (T,V)}
+  , there exists an accepting run, then the input tree is accepted by the automaton. The set of all accepted 
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+  -labeled trees is called tree language 
+  
+    
+      
+        
+          
+            L
+          
+        
+        (
+        A
+        )
+      
+    
+    {\displaystyle {\mathcal {L}}(A)}
+   which is recognized by the tree automaton 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  .
+
+Expressive power of acceptance conditions
+Nondeterministic Muller, Rabin, Streett, and parity tree automata recognize the same set of tree languages, and thus have the same expressive power.
+But nondeterministic Büchi tree automata are strictly weaker, i.e., there exists a tree language that can be recognized by a Rabin tree automaton but cannot be recognized by any Büchi tree automaton. (For example, there is no Büchi tree automaton that recognizes the set of 
+  
+    
+      
+        {
+        a
+        ,
+        b
+        }
+      
+    
+    {\displaystyle \{a,b\}}
+  -labeled trees whose every path has only finitely many 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  s, see e.g. ).
+Furthermore, deterministic tree automata (Muller, Rabin, Streett, parity, Büchi, looping) are strictly less expressive than their nondeterministic variants.
+For example, there is no deterministic tree automaton that recognizes the language of binary trees whose root has its left or right child marked with 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  . 
+This is in sharp contrast to automata on infinite words, where nondeterministic Büchi ω-automata have the same expressive power as the others.
+The languages of nondeterministic Muller/Rabin/Streett/parity tree automata are closed under union, intersection, projection, and complementation.
+
+References
+
+Wolfgang Thomas (1990). "Automata on Infinite Objects". In Jan van Leeuwen (ed.). Formal Models and Semantics. Handbook of Theoretical Computer Science. Vol. B. Elsevier. pp. 133–191. In particular: Part II Automata on Infinite Trees, pp. 165-185.
+A. Saoudi and P. Bonizzoni (1992). "Automata on Infinite Trees and Rational Control". In Maurice Nivat and Andreas Podelski (ed.). Tree Automata and Languages. Studies in Computer Science and Artificial Intelligence. Vol. 10. Amsterdam: North-Holland. pp. 189–200.

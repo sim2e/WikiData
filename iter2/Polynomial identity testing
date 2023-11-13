@@ -1,0 +1,264 @@
+In mathematics, polynomial identity testing (PIT) is the problem of efficiently determining whether two multivariate polynomials are identical. More formally, a PIT algorithm is given an arithmetic circuit that computes a polynomial p in a field, and decides whether p is the zero polynomial. Determining the computational complexity required for polynomial identity testing, in particular finding deterministic algorithms for PIT, is one of the most important open problems in algebraic computing complexity.
+
+Description
+The question "Does 
+  
+    
+      
+        (
+        x
+        +
+        y
+        )
+        (
+        x
+        −
+        y
+        )
+      
+    
+    {\displaystyle (x+y)(x-y)}
+   equal 
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        −
+        
+          y
+          
+            2
+          
+        
+        
+        ?
+      
+    
+    {\displaystyle x^{2}-y^{2}\,?}
+  " is a question about whether two polynomials are identical. As with any polynomial identity testing question, it can be trivially transformed into the question "Is a certain polynomial equal to 0?"; in this case we can ask "Does 
+  
+    
+      
+        (
+        x
+        +
+        y
+        )
+        (
+        x
+        −
+        y
+        )
+        −
+        (
+        
+          x
+          
+            2
+          
+        
+        −
+        
+          y
+          
+            2
+          
+        
+        )
+        =
+        0
+      
+    
+    {\displaystyle (x+y)(x-y)-(x^{2}-y^{2})=0}
+  "? If we are given the polynomial as an algebraic expression (rather than as a black-box), we can confirm that the equality holds through brute-force multiplication and addition, but the time complexity of the brute-force approach grows as 
+  
+    
+      
+        
+          
+            
+              
+                (
+              
+              
+                
+                  n
+                  +
+                  d
+                
+                d
+              
+              
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\tbinom {n+d}{d}}}
+  , where 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is the number of variables (here, 
+  
+    
+      
+        n
+        =
+        2
+      
+    
+    {\displaystyle n=2}
+  : 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is the first and 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   is the second), and 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   is the degree of the polynomial (here, 
+  
+    
+      
+        d
+        =
+        2
+      
+    
+    {\displaystyle d=2}
+  ). If 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   and 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   are both large, 
+  
+    
+      
+        
+          
+            
+              
+                (
+              
+              
+                
+                  n
+                  +
+                  d
+                
+                d
+              
+              
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\tbinom {n+d}{d}}}
+   grows exponentially.PIT concerns whether a polynomial is identical to the zero polynomial, rather than whether the function implemented by the polynomial always evaluates to zero in the given domain. For example, the field with two elements, GF(2), contains only the elements 0 and 1. In GF(2), 
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        −
+        x
+      
+    
+    {\displaystyle x^{2}-x}
+   always evaluates to zero; despite this, PIT does not consider 
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        −
+        x
+      
+    
+    {\displaystyle x^{2}-x}
+   to be equal to the zero polynomial.Determining the computational complexity required for polynomial identity testing is one of the most important open problems in the mathematical subfield known as "algebraic computing complexity". The study of PIT is a building-block to many other areas of computational complexity, such as the proof that IP=PSPACE. In addition, PIT has applications to Tutte matrices and also to primality testing, where PIT techniques led to the AKS primality test, the first deterministic (though impractical) polynomial time algorithm for primality testing.
+
+Formal problem statement
+Given an arithmetic circuit that computes a polynomial in a field, determine whether the polynomial is equal to the zero polynomial (that is, the polynomial with no nonzero terms).
+
+Solutions
+In some cases, the specification of the arithmetic circuit is not given to the PIT solver, and the PIT solver can only input values into a "black box" that implements the circuit, and then analyze the output. Note that the solutions below assume that any operation (such as multiplication) in the given field takes constant time; further, all black-box algorithms below assume the size of the field is larger than the degree of the polynomial.
+The Schwartz–Zippel algorithm provides a practical probabilistic solution, by simply randomly testing inputs and checking whether the output is zero. It was the first randomized polynomial time PIT algorithm to be proven correct. The larger the domain the inputs are drawn from, the less likely Schwartz–Zippel is to fail. If random bits are in short supply, the Chen-Kao algorithm (over the rationals) or the Lewin-Vadhan algorithm (over any field) require fewer random bits at the cost of more required runtime.A sparse PIT has at most 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   nonzero monomial terms. A sparse PIT can be deterministically solved in polynomial time of the size of the circuit and the number 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   of monomials, see also.A low degree PIT has an upper bound on the degree of the polynomial. Any low degree PIT problem can be reduced in subexponential time of the size of the circuit to a PIT problem for depth-four circuits; therefore, PIT for circuits of depth-four (and below) is intensely studied.
+
+See also
+Applications of Schwartz–Zippel lemma
+
+External links
+Lecture notes on "Polynomial Identity Testing by the Schwartz-Zippel Lemma"
+Polynomial Identity Testing by Michael Forbes - MIT on YouTube
+Prize winner for Polynomial Identity Testing
+
+
+== References ==

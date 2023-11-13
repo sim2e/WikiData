@@ -1,0 +1,1826 @@
+In statistics, the projection matrix 
+  
+    
+      
+        (
+        
+          P
+        
+        )
+      
+    
+    {\displaystyle (\mathbf {P} )}
+  , sometimes also called the influence matrix or hat matrix 
+  
+    
+      
+        (
+        
+          H
+        
+        )
+      
+    
+    {\displaystyle (\mathbf {H} )}
+  , maps the vector of response values (dependent variable values) to the vector of fitted values (or predicted values). It describes the influence each response value has on each fitted value. The diagonal elements of the projection matrix are the leverages, which describe the influence each response value has on the fitted value for that same observation.
+
+Definition
+If the vector of response values is denoted by 
+  
+    
+      
+        
+          y
+        
+      
+    
+    {\displaystyle \mathbf {y} }
+   and the vector of fitted values by 
+  
+    
+      
+        
+          
+            
+              y
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {\hat {y}} }
+  ,
+
+  
+    
+      
+        
+          
+            
+              y
+              ^
+            
+          
+        
+        =
+        
+          P
+        
+        
+          y
+        
+        .
+      
+    
+    {\displaystyle \mathbf {\hat {y}} =\mathbf {P} \mathbf {y} .}
+  As 
+  
+    
+      
+        
+          
+            
+              y
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {\hat {y}} }
+   is usually pronounced "y-hat", the projection matrix 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbf {P} }
+   is also named hat matrix as it "puts a hat on 
+  
+    
+      
+        
+          y
+        
+      
+    
+    {\displaystyle \mathbf {y} }
+  ". 
+The element in the ith row and jth column of 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbf {P} }
+   is equal to the covariance between the jth response value and the ith fitted value, divided by the variance of the former:
+
+  
+    
+      
+        
+          p
+          
+            i
+            j
+          
+        
+        =
+        
+          
+            
+              Cov
+              ⁡
+              
+                [
+                
+                  
+                    
+                      
+                        
+                          y
+                          ^
+                        
+                      
+                    
+                    
+                      i
+                    
+                  
+                  ,
+                  
+                    y
+                    
+                      j
+                    
+                  
+                
+                ]
+              
+            
+            
+              Var
+              ⁡
+              
+                [
+                
+                  y
+                  
+                    j
+                  
+                
+                ]
+              
+            
+          
+        
+      
+    
+    {\displaystyle p_{ij}={\frac {\operatorname {Cov} \left[{\hat {y}}_{i},y_{j}\right]}{\operatorname {Var} \left[y_{j}\right]}}}
+
+Application for residuals
+The formula for the vector of residuals 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbf {r} }
+   can also be expressed compactly using the projection matrix:
+
+  
+    
+      
+        
+          r
+        
+        =
+        
+          y
+        
+        −
+        
+          
+            
+              y
+              ^
+            
+          
+        
+        =
+        
+          y
+        
+        −
+        
+          P
+        
+        
+          y
+        
+        =
+        
+          (
+          
+            
+              I
+            
+            −
+            
+              P
+            
+          
+          )
+        
+        
+          y
+        
+        .
+      
+    
+    {\displaystyle \mathbf {r} =\mathbf {y} -\mathbf {\hat {y}} =\mathbf {y} -\mathbf {P} \mathbf {y} =\left(\mathbf {I} -\mathbf {P} \right)\mathbf {y} .}
+  where 
+  
+    
+      
+        
+          I
+        
+      
+    
+    {\displaystyle \mathbf {I} }
+   is the identity matrix. The matrix 
+  
+    
+      
+        
+          M
+        
+        :=
+        
+          I
+        
+        −
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbf {M} :=\mathbf {I} -\mathbf {P} }
+   is sometimes referred to as the residual maker matrix or the annihilator matrix. 
+The covariance matrix of the residuals 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbf {r} }
+  , by error propagation, equals
+
+  
+    
+      
+        
+          
+            Σ
+          
+          
+            
+              r
+            
+          
+        
+        =
+        
+          
+            (
+            
+              
+                I
+              
+              −
+              
+                P
+              
+            
+            )
+          
+          
+            
+              T
+            
+          
+        
+        
+          Σ
+        
+        
+          (
+          
+            
+              I
+            
+            −
+            
+              P
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \mathbf {\Sigma } _{\mathbf {r} }=\left(\mathbf {I} -\mathbf {P} \right)^{\textsf {T}}\mathbf {\Sigma } \left(\mathbf {I} -\mathbf {P} \right)}
+  ,where 
+  
+    
+      
+        
+          Σ
+        
+      
+    
+    {\displaystyle \mathbf {\Sigma } }
+   is the covariance matrix of the error vector (and by extension, the response vector as well). For the case of linear models with independent and identically distributed errors in which 
+  
+    
+      
+        
+          Σ
+        
+        =
+        
+          σ
+          
+            2
+          
+        
+        
+          I
+        
+      
+    
+    {\displaystyle \mathbf {\Sigma } =\sigma ^{2}\mathbf {I} }
+  , this reduces to:
+
+  
+    
+      
+        
+          
+            Σ
+          
+          
+            
+              r
+            
+          
+        
+        =
+        
+          (
+          
+            
+              I
+            
+            −
+            
+              P
+            
+          
+          )
+        
+        
+          σ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \mathbf {\Sigma } _{\mathbf {r} }=\left(\mathbf {I} -\mathbf {P} \right)\sigma ^{2}}
+  .
+
+Intuition
+From the figure, it is clear that the closest point from the vector 
+  
+    
+      
+        
+          b
+        
+      
+    
+    {\displaystyle \mathbf {b} }
+   onto the column space of 
+  
+    
+      
+        
+          A
+        
+      
+    
+    {\displaystyle \mathbf {A} }
+  , is 
+  
+    
+      
+        
+          A
+          x
+        
+      
+    
+    {\displaystyle \mathbf {Ax} }
+  , and is one where we can draw a line orthogonal to the column space of 
+  
+    
+      
+        
+          A
+        
+      
+    
+    {\displaystyle \mathbf {A} }
+  . A vector that is orthogonal to the column space of a matrix is in the nullspace of the matrix transpose, so 
+
+  
+    
+      
+        
+          
+            A
+          
+          
+            
+              T
+            
+          
+        
+        (
+        
+          b
+        
+        −
+        
+          A
+          x
+        
+        )
+        =
+        0
+      
+    
+    {\displaystyle \mathbf {A} ^{\textsf {T}}(\mathbf {b} -\mathbf {Ax} )=0}
+  From there, one rearranges, so 
+
+  
+    
+      
+        
+          
+            
+              
+              
+              
+                
+                  
+                    A
+                  
+                  
+                    
+                      T
+                    
+                  
+                
+                
+                  b
+                
+              
+              
+                
+                −
+                
+                  
+                    A
+                  
+                  
+                    
+                      T
+                    
+                  
+                
+                
+                  A
+                  x
+                
+                =
+                0
+              
+            
+            
+              
+                ⇒
+              
+              
+              
+                
+                  
+                    A
+                  
+                  
+                    
+                      T
+                    
+                  
+                
+                
+                  b
+                
+              
+              
+                
+                =
+                
+                  
+                    A
+                  
+                  
+                    
+                      T
+                    
+                  
+                
+                
+                  A
+                  x
+                
+              
+            
+            
+              
+                ⇒
+              
+              
+              
+                
+                  x
+                
+              
+              
+                
+                =
+                
+                  
+                    (
+                    
+                      
+                        
+                          A
+                        
+                        
+                          
+                            T
+                          
+                        
+                      
+                      
+                        A
+                      
+                    
+                    )
+                  
+                  
+                    −
+                    1
+                  
+                
+                
+                  
+                    A
+                  
+                  
+                    
+                      T
+                    
+                  
+                
+                
+                  b
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}&&\mathbf {A} ^{\textsf {T}}\mathbf {b} &-\mathbf {A} ^{\textsf {T}}\mathbf {Ax} =0\\\Rightarrow &&\mathbf {A} ^{\textsf {T}}\mathbf {b} &=\mathbf {A} ^{\textsf {T}}\mathbf {Ax} \\\Rightarrow &&\mathbf {x} &=\left(\mathbf {A} ^{\textsf {T}}\mathbf {A} \right)^{-1}\mathbf {A} ^{\textsf {T}}\mathbf {b} \end{aligned}}}
+  Therefore, since 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+   is on the column space of 
+  
+    
+      
+        
+          A
+        
+      
+    
+    {\displaystyle \mathbf {A} }
+  , the projection matrix, which maps 
+  
+    
+      
+        
+          b
+        
+      
+    
+    {\displaystyle \mathbf {b} }
+   onto 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+   is just 
+  
+    
+      
+        
+          A
+        
+      
+    
+    {\displaystyle \mathbf {A} }
+  , or 
+  
+    
+      
+        
+          A
+        
+        
+          
+            (
+            
+              
+                
+                  A
+                
+                
+                  
+                    T
+                  
+                
+              
+              
+                A
+              
+            
+            )
+          
+          
+            −
+            1
+          
+        
+        
+          
+            A
+          
+          
+            
+              T
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {A} \left(\mathbf {A} ^{\textsf {T}}\mathbf {A} \right)^{-1}\mathbf {A} ^{\textsf {T}}}
+
+Linear model
+Suppose that we wish to estimate a linear model using linear least squares. The model can be written as
+
+  
+    
+      
+        
+          y
+        
+        =
+        
+          X
+        
+        
+          β
+        
+        +
+        
+          ε
+        
+        ,
+      
+    
+    {\displaystyle \mathbf {y} =\mathbf {X} {\boldsymbol {\beta }}+{\boldsymbol {\varepsilon }},}
+  where 
+  
+    
+      
+        
+          X
+        
+      
+    
+    {\displaystyle \mathbf {X} }
+   is a matrix of explanatory variables (the design matrix), β is a vector of unknown parameters to be estimated, and ε is the error vector.
+Many types of models and techniques are subject to this formulation. A few examples are linear least squares, smoothing splines, regression splines, local regression, kernel regression, and linear filtering.
+
+Ordinary least squares
+When the weights for each observation are identical and the errors are uncorrelated, the estimated parameters are
+
+  
+    
+      
+        
+          
+            
+              β
+              ^
+            
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  X
+                
+                
+                  
+                    T
+                  
+                
+              
+              
+                X
+              
+            
+            )
+          
+          
+            −
+            1
+          
+        
+        
+          
+            X
+          
+          
+            
+              T
+            
+          
+        
+        
+          y
+        
+        ,
+      
+    
+    {\displaystyle {\hat {\boldsymbol {\beta }}}=\left(\mathbf {X} ^{\textsf {T}}\mathbf {X} \right)^{-1}\mathbf {X} ^{\textsf {T}}\mathbf {y} ,}
+  so the fitted values are
+
+  
+    
+      
+        
+          
+            
+              
+                y
+              
+              ^
+            
+          
+        
+        =
+        
+          X
+        
+        
+          
+            
+              β
+              ^
+            
+          
+        
+        =
+        
+          X
+        
+        
+          
+            (
+            
+              
+                
+                  X
+                
+                
+                  
+                    T
+                  
+                
+              
+              
+                X
+              
+            
+            )
+          
+          
+            −
+            1
+          
+        
+        
+          
+            X
+          
+          
+            
+              T
+            
+          
+        
+        
+          y
+        
+        .
+      
+    
+    {\displaystyle {\hat {\mathbf {y} }}=\mathbf {X} {\hat {\boldsymbol {\beta }}}=\mathbf {X} \left(\mathbf {X} ^{\textsf {T}}\mathbf {X} \right)^{-1}\mathbf {X} ^{\textsf {T}}\mathbf {y} .}
+  Therefore, the projection matrix (and hat matrix) is given by
+
+  
+    
+      
+        
+          P
+        
+        :=
+        
+          X
+        
+        
+          
+            (
+            
+              
+                
+                  X
+                
+                
+                  
+                    T
+                  
+                
+              
+              
+                X
+              
+            
+            )
+          
+          
+            −
+            1
+          
+        
+        
+          
+            X
+          
+          
+            
+              T
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \mathbf {P} :=\mathbf {X} \left(\mathbf {X} ^{\textsf {T}}\mathbf {X} \right)^{-1}\mathbf {X} ^{\textsf {T}}.}
+
+Weighted and generalized least squares
+The above may be generalized to the cases where the weights are not identical and/or the errors are correlated.  Suppose that the covariance matrix of the errors is Σ.  Then since
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  β
+                
+                ^
+              
+            
+          
+          
+            GLS
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  X
+                
+                
+                  
+                    T
+                  
+                
+              
+              
+                
+                  Σ
+                
+                
+                  −
+                  1
+                
+              
+              
+                X
+              
+            
+            )
+          
+          
+            −
+            1
+          
+        
+        
+          
+            X
+          
+          
+            
+              T
+            
+          
+        
+        
+          
+            Σ
+          
+          
+            −
+            1
+          
+        
+        
+          y
+        
+      
+    
+    {\displaystyle {\hat {\mathbf {\beta } }}_{\text{GLS}}=\left(\mathbf {X} ^{\textsf {T}}\mathbf {\Sigma } ^{-1}\mathbf {X} \right)^{-1}\mathbf {X} ^{\textsf {T}}\mathbf {\Sigma } ^{-1}\mathbf {y} }
+  .the hat matrix is thus
+
+  
+    
+      
+        
+          H
+        
+        =
+        
+          X
+        
+        
+          
+            (
+            
+              
+                
+                  X
+                
+                
+                  
+                    T
+                  
+                
+              
+              
+                
+                  Σ
+                
+                
+                  −
+                  1
+                
+              
+              
+                X
+              
+            
+            )
+          
+          
+            −
+            1
+          
+        
+        
+          
+            X
+          
+          
+            
+              T
+            
+          
+        
+        
+          
+            Σ
+          
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle \mathbf {H} =\mathbf {X} \left(\mathbf {X} ^{\textsf {T}}\mathbf {\Sigma } ^{-1}\mathbf {X} \right)^{-1}\mathbf {X} ^{\textsf {T}}\mathbf {\Sigma } ^{-1}}
+  and again it may be seen that 
+  
+    
+      
+        
+          H
+          
+            2
+          
+        
+        =
+        H
+        ⋅
+        H
+        =
+        H
+      
+    
+    {\displaystyle H^{2}=H\cdot H=H}
+  , though now it is no longer symmetric.
+
+Properties
+The projection matrix has a number of useful algebraic properties. In the language of linear algebra, the projection matrix is the orthogonal projection onto the column space of the design matrix 
+  
+    
+      
+        
+          X
+        
+      
+    
+    {\displaystyle \mathbf {X} }
+  . (Note that 
+  
+    
+      
+        
+          
+            (
+            
+              
+                
+                  X
+                
+                
+                  
+                    T
+                  
+                
+              
+              
+                X
+              
+            
+            )
+          
+          
+            −
+            1
+          
+        
+        
+          
+            X
+          
+          
+            
+              T
+            
+          
+        
+      
+    
+    {\displaystyle \left(\mathbf {X} ^{\textsf {T}}\mathbf {X} \right)^{-1}\mathbf {X} ^{\textsf {T}}}
+   is the pseudoinverse of X.) Some facts of the projection matrix in this setting are summarized as follows:
+
+  
+    
+      
+        
+          u
+        
+        =
+        (
+        
+          I
+        
+        −
+        
+          P
+        
+        )
+        
+          y
+        
+        ,
+      
+    
+    {\displaystyle \mathbf {u} =(\mathbf {I} -\mathbf {P} )\mathbf {y} ,}
+   and 
+  
+    
+      
+        
+          u
+        
+        =
+        
+          y
+        
+        −
+        
+          P
+        
+        
+          y
+        
+        ⊥
+        
+          X
+        
+        .
+      
+    
+    {\displaystyle \mathbf {u} =\mathbf {y} -\mathbf {P} \mathbf {y} \perp \mathbf {X} .}
+  
+
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbf {P} }
+   is symmetric, and so is 
+  
+    
+      
+        
+          M
+        
+        :=
+        
+          I
+        
+        −
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbf {M} :=\mathbf {I} -\mathbf {P} }
+  .
+
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbf {P} }
+   is idempotent: 
+  
+    
+      
+        
+          
+            P
+          
+          
+            2
+          
+        
+        =
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbf {P} ^{2}=\mathbf {P} }
+  , and so is 
+  
+    
+      
+        
+          M
+        
+      
+    
+    {\displaystyle \mathbf {M} }
+  .
+If 
+  
+    
+      
+        
+          X
+        
+      
+    
+    {\displaystyle \mathbf {X} }
+   is an n × r matrix with 
+  
+    
+      
+        rank
+        ⁡
+        (
+        
+          X
+        
+        )
+        =
+        r
+      
+    
+    {\displaystyle \operatorname {rank} (\mathbf {X} )=r}
+  , then 
+  
+    
+      
+        rank
+        ⁡
+        (
+        
+          P
+        
+        )
+        =
+        r
+      
+    
+    {\displaystyle \operatorname {rank} (\mathbf {P} )=r}
+  
+The eigenvalues of 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbf {P} }
+   consist of r ones and n − r zeros, while the eigenvalues of 
+  
+    
+      
+        
+          M
+        
+      
+    
+    {\displaystyle \mathbf {M} }
+   consist of n − r ones and r zeros.
+
+  
+    
+      
+        
+          X
+        
+      
+    
+    {\displaystyle \mathbf {X} }
+   is invariant under 
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbf {P} }
+   : 
+  
+    
+      
+        
+          P
+          X
+        
+        =
+        
+          X
+        
+        ,
+      
+    
+    {\displaystyle \mathbf {PX} =\mathbf {X} ,}
+   hence 
+  
+    
+      
+        
+          (
+          
+            
+              I
+            
+            −
+            
+              P
+            
+          
+          )
+        
+        
+          X
+        
+        =
+        
+          0
+        
+      
+    
+    {\displaystyle \left(\mathbf {I} -\mathbf {P} \right)\mathbf {X} =\mathbf {0} }
+  .
+
+  
+    
+      
+        
+          (
+          
+            
+              I
+            
+            −
+            
+              P
+            
+          
+          )
+        
+        
+          P
+        
+        =
+        
+          P
+        
+        
+          (
+          
+            
+              I
+            
+            −
+            
+              P
+            
+          
+          )
+        
+        =
+        
+          0
+        
+        .
+      
+    
+    {\displaystyle \left(\mathbf {I} -\mathbf {P} \right)\mathbf {P} =\mathbf {P} \left(\mathbf {I} -\mathbf {P} \right)=\mathbf {0} .}
+  
+
+  
+    
+      
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbf {P} }
+   is unique for certain subspaces.The projection matrix corresponding to a linear model is symmetric and idempotent, that is, 
+  
+    
+      
+        
+          
+            P
+          
+          
+            2
+          
+        
+        =
+        
+          P
+        
+      
+    
+    {\displaystyle \mathbf {P} ^{2}=\mathbf {P} }
+  . However, this is not always the case; in locally weighted scatterplot smoothing (LOESS), for example, the hat matrix is in general neither symmetric nor idempotent.
+For linear models, the trace of the projection matrix is equal to the rank of 
+  
+    
+      
+        
+          X
+        
+      
+    
+    {\displaystyle \mathbf {X} }
+  , which is the number of independent parameters of the linear model. For other models such as LOESS that are still linear in the observations 
+  
+    
+      
+        
+          y
+        
+      
+    
+    {\displaystyle \mathbf {y} }
+  , the projection matrix can be used to define the effective degrees of freedom of the model.
+Practical applications of the projection matrix in regression analysis include leverage and Cook's distance, which are concerned with identifying influential observations, i.e. observations which have a large effect on the results of a regression.
+
+Blockwise formula
+Suppose the design matrix 
+  
+    
+      
+        
+          X
+        
+      
+    
+    {\displaystyle \mathbf {X} }
+   can be decomposed by columns as 
+  
+    
+      
+        
+          X
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    A
+                  
+                
+                
+                  
+                    B
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle \mathbf {X} ={\begin{bmatrix}\mathbf {A} &\mathbf {B} \end{bmatrix}}}
+  .
+Define the hat or projection operator as 
+  
+    
+      
+        
+          P
+        
+        [
+        
+          X
+        
+        ]
+        :=
+        
+          X
+        
+        
+          
+            (
+            
+              
+                
+                  X
+                
+                
+                  
+                    T
+                  
+                
+              
+              
+                X
+              
+            
+            )
+          
+          
+            −
+            1
+          
+        
+        
+          
+            X
+          
+          
+            
+              T
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {P} [\mathbf {X} ]:=\mathbf {X} \left(\mathbf {X} ^{\textsf {T}}\mathbf {X} \right)^{-1}\mathbf {X} ^{\textsf {T}}}
+  . Similarly, define the residual operator as 
+  
+    
+      
+        
+          M
+        
+        [
+        
+          X
+        
+        ]
+        :=
+        
+          I
+        
+        −
+        
+          P
+        
+        [
+        
+          X
+        
+        ]
+      
+    
+    {\displaystyle \mathbf {M} [\mathbf {X} ]:=\mathbf {I} -\mathbf {P} [\mathbf {X} ]}
+  .
+Then the projection matrix can be decomposed as follows:
+
+  
+    
+      
+        
+          P
+        
+        [
+        
+          X
+        
+        ]
+        =
+        
+          P
+        
+        [
+        
+          A
+        
+        ]
+        +
+        
+          P
+        
+        
+          
+            [
+          
+        
+        
+          M
+        
+        [
+        
+          A
+        
+        ]
+        
+          B
+        
+        
+          
+            ]
+          
+        
+        ,
+      
+    
+    {\displaystyle \mathbf {P} [\mathbf {X} ]=\mathbf {P} [\mathbf {A} ]+\mathbf {P} {\big [}\mathbf {M} [\mathbf {A} ]\mathbf {B} {\big ]},}
+  where, e.g., 
+  
+    
+      
+        
+          P
+        
+        [
+        
+          A
+        
+        ]
+        =
+        
+          A
+        
+        
+          
+            (
+            
+              
+                
+                  A
+                
+                
+                  
+                    T
+                  
+                
+              
+              
+                A
+              
+            
+            )
+          
+          
+            −
+            1
+          
+        
+        
+          
+            A
+          
+          
+            
+              T
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {P} [\mathbf {A} ]=\mathbf {A} \left(\mathbf {A} ^{\textsf {T}}\mathbf {A} \right)^{-1}\mathbf {A} ^{\textsf {T}}}
+   and 
+  
+    
+      
+        
+          M
+        
+        [
+        
+          A
+        
+        ]
+        =
+        
+          I
+        
+        −
+        
+          P
+        
+        [
+        
+          A
+        
+        ]
+      
+    
+    {\displaystyle \mathbf {M} [\mathbf {A} ]=\mathbf {I} -\mathbf {P} [\mathbf {A} ]}
+  .
+There are a number of applications of such a decomposition. In the classical application 
+  
+    
+      
+        
+          A
+        
+      
+    
+    {\displaystyle \mathbf {A} }
+   is a column of all ones, which allows one to analyze the effects of adding an intercept term to a regression. Another use is in the fixed effects model, where 
+  
+    
+      
+        
+          A
+        
+      
+    
+    {\displaystyle \mathbf {A} }
+   is a large sparse matrix of the dummy variables for the fixed effect terms. One can use this partition to compute the hat matrix of 
+  
+    
+      
+        
+          X
+        
+      
+    
+    {\displaystyle \mathbf {X} }
+   without explicitly forming the matrix 
+  
+    
+      
+        
+          X
+        
+      
+    
+    {\displaystyle \mathbf {X} }
+  , which might be too large to fit into computer memory.
+
+See also
+Projection (linear algebra)
+Studentized residuals
+Effective degrees of freedom
+Mean and predicted response
+
+
+== References ==

@@ -1,0 +1,20 @@
+In computational geometry, the smallest enclosing box problem is that of finding the oriented minimum bounding box enclosing a set of points. It is a type of bounding volume. "Smallest" may refer to volume, area, perimeter, etc. of the box.
+It is sufficient to find the smallest enclosing box for the convex hull of the objects in question. It is straightforward to find the smallest enclosing box that has sides parallel to the coordinate axes; the difficult part of the problem is to determine the orientation of the box.
+
+Two dimensions
+For the convex polygon, a linear time algorithm for the minimum-area enclosing rectangle is known.  It is based on the observation that a side of a minimum-area enclosing box must be collinear with a side of the convex polygon.  It is possible to enumerate boxes of this kind in linear time with the approach called rotating calipers by 
+Godfried Toussaint in 1983. The same approach is applicable for finding the minimum-perimeter enclosing rectangle. A C++ implementation of the algorithm that is robust against floating point errors is available.
+
+Three dimensions
+In 1985, Joseph O'Rourke published a cubic-time algorithm to find the minimum-volume enclosing box of a 3-dimensional point set. O'Rourke's approach uses a 3-dimensional rotating calipers technique, and is based on lemmas characterizing the minimum enclosing box:
+
+There must exist two neighbouring faces of the smallest-volume enclosing box which both contain an edge of the convex hull of the point set. This criterion is satisfied by a single convex hull edge collinear with an edge of the box, or by two distinct hull edges lying in adjacent box faces.
+The other four faces need only contain a point of the convex hull. Again, the points which they contain need not be distinct: a single hull point lying in the corner of the box already satisfies three of these four criteria.It follows in the most general case where no convex hull vertices lie in edges of the minimal enclosing box, that at least 8 convex hull points must lie within faces of the box: two endpoints of each of the two edges, and four more points, one for each of the remaining four box faces. Conversely, if the convex hull consists of 7 or fewer vertices, at least one of them must lie within an edge of the hull's minimal enclosing box.It is also possible to approximate the minimum bounding box volume, to within any constant factor greater than one, in linear time. The algorithm for doing this involves finding an approximation to the diameter of the point set, and using a box oriented towards this diameter as an initial approximation to the minimum volume bounding box. Then, this initial bounding box is partitioned into a grid of smaller cubes, and grid points near the boundary of the convex hull of the input are used as a coreset, a small set of points whose optimum bounding box approximates the optimum bounding box of the original input. Finally, O'Rourke's algorithm is applied to find the exact optimum bounding box of this coreset.A Matlab implementation of the algorithm is available.
+The minimal enclosing box of the regular tetrahedron is a cube, with side length 1/√2 that of the tetrahedron; for instance, a regular tetrahedron with side length √2 fits into a unit cube, with the tetrahedron's vertices lying at the vertices (0,0,0), (0,1,1), (1,0,1) and (1,1,0) of the unit cube.
+
+See also
+Smallest enclosing ball
+Minimum bounding rectangle
+
+
+== References ==

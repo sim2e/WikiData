@@ -1,0 +1,3680 @@
+In the foundations of mathematics, von Neumann–Bernays–Gödel set theory (NBG) is an axiomatic set theory that is a conservative extension of Zermelo–Fraenkel–choice set theory (ZFC). NBG introduces the notion of class, which is a collection of sets defined by a formula whose quantifiers range only over sets. NBG can define classes that are larger than sets, such as the class of all sets and the class of all ordinals. Morse–Kelley set theory (MK) allows classes to be defined by formulas whose quantifiers range over classes. NBG is finitely axiomatizable, while ZFC and MK are not.
+A key theorem of NBG is the class existence theorem, which states that for every formula whose quantifiers range only over sets, there is a class consisting of the sets satisfying the formula. This class is built by mirroring the step-by-step construction of the formula with classes. Since all set-theoretic formulas are constructed from two kinds of atomic formulas (membership and equality) and finitely many logical symbols, only finitely many axioms are needed to build the classes satisfying them. This is why NBG is finitely axiomatizable. Classes are also used for other constructions, for handling the set-theoretic paradoxes, and for stating the axiom of global choice, which is stronger than ZFC's axiom of choice.
+John von Neumann introduced classes into set theory in 1925. The primitive notions of his theory were function and argument. Using these notions, he defined class and set. Paul Bernays reformulated von Neumann's theory by taking class and set as primitive notions. Kurt Gödel simplified Bernays' theory for his relative consistency proof of the axiom of choice and the generalized continuum hypothesis.
+
+Classes in set theory
+The uses of classes
+Classes have several uses in NBG:
+
+They produce a finite axiomatization of set theory.
+They are used to state a "very strong form of the axiom of choice"—namely, the axiom of global choice: There exists a global choice function 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   defined on the class of all nonempty sets such that 
+  
+    
+      
+        G
+        (
+        x
+        )
+        ∈
+        x
+      
+    
+    {\displaystyle G(x)\in x}
+   for every nonempty set 
+  
+    
+      
+        x
+        .
+      
+    
+    {\displaystyle x.}
+   This is stronger than ZFC's axiom of choice: For every set 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   of nonempty sets, there exists a choice function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   defined on 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   such that 
+  
+    
+      
+        f
+        (
+        x
+        )
+        ∈
+        x
+      
+    
+    {\displaystyle f(x)\in x}
+   for all 
+  
+    
+      
+        x
+        ∈
+        s
+        .
+      
+    
+    {\displaystyle x\in s.}
+  
+The set-theoretic paradoxes are handled by recognizing that some classes cannot be sets. For example, assume that the class 
+  
+    
+      
+        O
+        r
+        d
+      
+    
+    {\displaystyle Ord}
+   of all ordinals is a set. Then 
+  
+    
+      
+        O
+        r
+        d
+      
+    
+    {\displaystyle Ord}
+   is a transitive set well-ordered by 
+  
+    
+      
+        ∈
+      
+    
+    {\displaystyle \in }
+  . So, by definition, 
+  
+    
+      
+        O
+        r
+        d
+      
+    
+    {\displaystyle Ord}
+   is an ordinal. Hence, 
+  
+    
+      
+        O
+        r
+        d
+        ∈
+        O
+        r
+        d
+      
+    
+    {\displaystyle Ord\in Ord}
+  , which contradicts 
+  
+    
+      
+        ∈
+      
+    
+    {\displaystyle \in }
+   being a well-ordering of 
+  
+    
+      
+        O
+        r
+        d
+        .
+      
+    
+    {\displaystyle Ord.}
+   Therefore, 
+  
+    
+      
+        O
+        r
+        d
+      
+    
+    {\displaystyle Ord}
+   is not a set. A class that is not a set is called a proper class, 
+  
+    
+      
+        O
+        r
+        d
+      
+    
+    {\displaystyle Ord}
+   is a proper class.
+ Proper classes are useful in constructions. In his proof of the relative consistency of the axiom of global choice and the generalized continuum hypothesis, Gödel used proper classes to build the constructible universe. He constructed a function on the class of all ordinals that, for each ordinal, builds a constructible set by applying a set-building operation to previously constructed sets. The constructible universe is the image of this function.
+
+Axiom schema versus class existence theorem
+Once classes are added to the language of ZFC, it is easy to transform ZFC into a set theory with classes. First, the axiom schema of class comprehension is added. This axiom schema states: For every formula 
+  
+    
+      
+        ϕ
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle \phi (x_{1},\ldots ,x_{n})}
+   that quantifies only over sets, there exists a class 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   consisting of the 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -tuples satisfying the formula—that is, 
+  
+    
+      
+        ∀
+        
+          x
+          
+            1
+          
+        
+        ⋯
+        
+        ∀
+        
+          x
+          
+            n
+          
+        
+        [
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+        ∈
+        A
+        
+        ⟺
+        
+        ϕ
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+        ]
+        .
+      
+    
+    {\displaystyle \forall x_{1}\cdots \,\forall x_{n}[(x_{1},\ldots ,x_{n})\in A\iff \phi (x_{1},\ldots ,x_{n})].}
+   Then the axiom schema of replacement is replaced by a single axiom that uses a class. Finally, ZFC's axiom of extensionality is modified to handle classes: If two classes have the same elements, then they are identical. The other axioms of ZFC are not modified.This theory is not finitely axiomatized. ZFC's replacement schema has been replaced by a single axiom, but the axiom schema of class comprehension has been introduced.
+To produce a theory with finitely many axioms, the axiom schema of class comprehension is first replaced with finitely many class existence axioms. Then these axioms are used to prove the class existence theorem, which implies every instance of the axiom schema. The proof of this theorem requires only seven class existence axioms, which are used to convert the construction of a formula into the construction of a class satisfying the formula.
+
+Axiomatization of NBG
+Classes and sets
+NBG has two types of objects: classes and sets. Intuitively, every set is also a class. There are two ways to axiomatize this. Bernays used many-sorted logic with two sorts: classes and sets. Gödel avoided sorts by introducing primitive predicates: 
+  
+    
+      
+        
+          
+            C
+            l
+            s
+          
+        
+        (
+        A
+        )
+      
+    
+    {\displaystyle {\mathfrak {Cls}}(A)}
+   for "
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is a class" and 
+  
+    
+      
+        
+          
+            M
+          
+        
+        (
+        A
+        )
+      
+    
+    {\displaystyle {\mathfrak {M}}(A)}
+   for "
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is a set" (in German, "set" is Menge). He also introduced axioms stating that every set is a class and that if class 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is a member of a class, then 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is a set. Using predicates is the standard way to eliminate sorts. Elliott Mendelson modified Gödel's approach by having everything be a class and defining the set predicate 
+  
+    
+      
+        M
+        (
+        A
+        )
+      
+    
+    {\displaystyle M(A)}
+   as 
+  
+    
+      
+        ∃
+        C
+        (
+        A
+        ∈
+        C
+        )
+        .
+      
+    
+    {\displaystyle \exists C(A\in C).}
+   This modification eliminates Gödel's class predicate and his two axioms.
+Bernays' two-sorted approach may appear more natural at first, but it creates a more complex theory. In Bernays' theory, every set has two representations: one as a set and the other as a class. Also, there are two membership relations: the first, denoted by "∈", is between two sets; the second, denoted by "η", is between a set and a class. This redundancy is required by many-sorted logic because variables of different sorts range over disjoint subdomains of the domain of discourse.
+The differences between these two approaches do not affect what can be proved, but they do affect how statements are written. In Gödel's approach, 
+  
+    
+      
+        A
+        ∈
+        C
+      
+    
+    {\displaystyle A\in C}
+   where 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   and 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   are classes is a valid statement. In Bernays' approach this statement has no meaning. However, if 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is a set, there is an equivalent statement: Define "set 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   represents class 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  " if they have the same sets as members—that is, 
+  
+    
+      
+        ∀
+        x
+        (
+        x
+        ∈
+        a
+        
+        ⟺
+        
+        x
+        
+        η
+        
+        A
+        )
+        .
+      
+    
+    {\displaystyle \forall x(x\in a\iff x\;\eta \;A).}
+   The statement 
+  
+    
+      
+        a
+        
+        η
+        
+        C
+      
+    
+    {\displaystyle a\;\eta \;C}
+   where set 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   represents class 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is equivalent to Gödel's 
+  
+    
+      
+        A
+        ∈
+        C
+        .
+      
+    
+    {\displaystyle A\in C.}
+  The approach adopted in this article is that of Gödel with Mendelson's modification. This means that NBG is an axiomatic system in first-order predicate logic with equality, and its only primitive notions are class and the membership relation.
+
+Definitions and axioms of extensionality and pairing
+A set is a class that belongs to at least one class: 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is a set if and only if 
+  
+    
+      
+        ∃
+        C
+        (
+        A
+        ∈
+        C
+        )
+      
+    
+    {\displaystyle \exists C(A\in C)}
+  .
+A class that is not a set is called a proper class: 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is a proper class if and only if 
+  
+    
+      
+        ∀
+        C
+        (
+        A
+        ∉
+        C
+        )
+      
+    
+    {\displaystyle \forall C(A\notin C)}
+  .
+Therefore, every class is either a set or a proper class, and no class is both.
+Gödel introduced the convention that uppercase variables range over classes, while lowercase variables range over sets. Gödel also used names that begin with an uppercase letter to denote particular classes, including functions and relations defined on the class of all sets. Gödel's convention is used in this article. It allows us to write:
+
+The following axioms and definitions are needed for the proof of the class existence theorem.
+Axiom of extensionality.  If two classes have the same elements, then they are identical.
+
+  
+    
+      
+        ∀
+        A
+        
+        ∀
+        B
+        
+        [
+        ∀
+        x
+        (
+        x
+        ∈
+        A
+        
+        ⟺
+        
+        x
+        ∈
+        B
+        )
+        
+        ⟹
+        
+        A
+        =
+        B
+        ]
+      
+    
+    {\displaystyle \forall A\,\forall B\,[\forall x(x\in A\iff x\in B)\implies A=B]}
+   This axiom generalizes ZFC's axiom of extensionality to classes.
+Axiom of pairing.  If 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   are sets, then there exists a set 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   whose only members are 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  .
+
+  
+    
+      
+        ∀
+        x
+        
+        ∀
+        y
+        
+        ∃
+        p
+        
+        ∀
+        z
+        
+        [
+        z
+        ∈
+        p
+        
+        ⟺
+        
+        (
+        z
+        =
+        x
+        
+        ∨
+        
+        z
+        =
+        y
+        )
+        ]
+      
+    
+    {\displaystyle \forall x\,\forall y\,\exists p\,\forall z\,[z\in p\iff (z=x\,\lor \,z=y)]}
+   As in ZFC, the axiom of extensionality implies the uniqueness of the set 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , which allows us to introduce the notation 
+  
+    
+      
+        {
+        x
+        ,
+        y
+        }
+        .
+      
+    
+    {\displaystyle \{x,y\}.}
+  
+Ordered pairs are defined by: 
+
+  
+    
+      
+        (
+        x
+        ,
+        y
+        )
+        =
+        {
+        {
+        x
+        }
+        ,
+        {
+        x
+        ,
+        y
+        }
+        }
+      
+    
+    {\displaystyle (x,y)=\{\{x\},\{x,y\}\}}
+  Tuples are defined inductively using ordered pairs:
+
+  
+    
+      
+        (
+        
+          x
+          
+            1
+          
+        
+        )
+        =
+        
+          x
+          
+            1
+          
+        
+        ,
+      
+    
+    {\displaystyle (x_{1})=x_{1},}
+  
+
+  
+    
+      
+        
+          For 
+        
+        n
+        >
+        1
+        
+        :
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+        =
+        (
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+        )
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle {\text{For }}n>1\!:(x_{1},\ldots ,x_{n-1},x_{n})=((x_{1},\ldots ,x_{n-1}),x_{n}).}
+
+Class existence axioms and axiom of regularity
+Class existence axioms will be used to prove the class existence theorem: For every formula in 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   free set variables that quantifies only over sets, there exists a class of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -tuples that satisfy it. The following example starts with two classes that are functions and builds a composite function. This example illustrates the techniques that are needed to prove the class existence theorem, which lead to the class existence axioms that are needed.
+
+The class existence axioms are divided into two groups: axioms handling language primitives and axioms handling tuples. There are four axioms in the first group and three axioms in the second group.Axioms for handling language primitives:
+Membership.  There exists a class 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   containing all the ordered pairs whose first component is a member of the second component.
+
+  
+    
+      
+        ∃
+        E
+        
+        ∀
+        x
+        
+        ∀
+        y
+        
+        [
+        (
+        x
+        ,
+        y
+        )
+        ∈
+        E
+        
+        ⟺
+        
+        x
+        ∈
+        y
+        ]
+        
+      
+    
+    {\displaystyle \exists E\,\forall x\,\forall y\,[(x,y)\in E\iff x\in y]\!}
+   Intersection (conjunction).  For any two classes 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   and 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+  , there is a class 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   consisting precisely of the sets that belong to both 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   and 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+  .
+
+  
+    
+      
+        ∀
+        A
+        
+        ∀
+        B
+        
+        ∃
+        C
+        
+        ∀
+        x
+        
+        [
+        x
+        ∈
+        C
+        
+        ⟺
+        
+        (
+        x
+        ∈
+        A
+        
+        ∧
+        
+        x
+        ∈
+        B
+        )
+        ]
+      
+    
+    {\displaystyle \forall A\,\forall B\,\exists C\,\forall x\,[x\in C\iff (x\in A\,\land \,x\in B)]}
+   Complement (negation).  For any class 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  , there is a class 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   consisting precisely of the sets not belonging to 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  .
+
+  
+    
+      
+        ∀
+        A
+        
+        ∃
+        B
+        
+        ∀
+        x
+        
+        [
+        x
+        ∈
+        B
+        
+        ⟺
+        
+        ¬
+        (
+        x
+        ∈
+        A
+        )
+        ]
+      
+    
+    {\displaystyle \forall A\,\exists B\,\forall x\,[x\in B\iff \neg (x\in A)]}
+   Domain (existential quantifier).  For any class 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  , there is a class 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   consisting precisely of the first components of the ordered pairs of 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  . 
+
+  
+    
+      
+        ∀
+        A
+        
+        ∃
+        B
+        
+        ∀
+        x
+        
+        [
+        x
+        ∈
+        B
+        
+        ⟺
+        
+        ∃
+        y
+        (
+        (
+        x
+        ,
+        y
+        )
+        ∈
+        A
+        )
+        ]
+      
+    
+    {\displaystyle \forall A\,\exists B\,\forall x\,[x\in B\iff \exists y((x,y)\in A)]}
+   By the axiom of extensionality, class 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   in the intersection axiom and class 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   in the complement and domain axioms are unique. They will be denoted by: 
+  
+    
+      
+        A
+        ∩
+        B
+        ,
+      
+    
+    {\displaystyle A\cap B,}
+   
+  
+    
+      
+        ∁
+        A
+        ,
+      
+    
+    {\displaystyle \complement A,}
+   and 
+  
+    
+      
+        D
+        o
+        m
+        (
+        A
+        )
+        ,
+      
+    
+    {\displaystyle Dom(A),}
+   respectively. On the other hand, extensionality is not applicable to 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   in the membership axiom since it specifies only those sets in 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   that are ordered pairs.
+The first three axioms imply the existence of the empty class and the class of all sets: The membership axiom implies the existence of a class 
+  
+    
+      
+        E
+        .
+      
+    
+    {\displaystyle E.}
+   The intersection and complement axioms imply the existence of 
+  
+    
+      
+        E
+        ∩
+        ∁
+        E
+      
+    
+    {\displaystyle E\cap \complement E}
+  , which is empty. By the axiom of extensionality, this class is unique; it is denoted by 
+  
+    
+      
+        ∅
+        .
+      
+    
+    {\displaystyle \emptyset .}
+   The complement of 
+  
+    
+      
+        ∅
+      
+    
+    {\displaystyle \emptyset }
+   is the class 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   of all sets, which is also unique by extensionality. The set predicate 
+  
+    
+      
+        M
+        (
+        A
+        )
+      
+    
+    {\displaystyle M(A)}
+  , which was defined as 
+  
+    
+      
+        ∃
+        C
+        (
+        A
+        ∈
+        C
+        )
+      
+    
+    {\displaystyle \exists C(A\in C)}
+  , is now redefined as 
+  
+    
+      
+        A
+        ∈
+        V
+      
+    
+    {\displaystyle A\in V}
+   to avoid quantifying over classes.
+Axioms for handling tuples:
+Product by 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  .  For any class 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  , there is a class 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   consisting of the ordered pairs whose first component belongs to 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  .  
+
+  
+    
+      
+        ∀
+        A
+        
+        ∃
+        B
+        
+        ∀
+        u
+        
+        [
+        u
+        ∈
+        B
+        
+        ⟺
+        
+        ∃
+        x
+        
+        ∃
+        y
+        
+        (
+        u
+        =
+        (
+        x
+        ,
+        y
+        )
+        ∧
+        x
+        ∈
+        A
+        )
+        ]
+      
+    
+    {\displaystyle \forall A\,\exists B\,\forall u\,[u\in B\iff \exists x\,\exists y\,(u=(x,y)\land x\in A)]}
+  Circular permutation.  For any class 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  , there is a class 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   whose 3‑tuples are obtained by applying the circular permutation 
+  
+    
+      
+        (
+        y
+        ,
+        z
+        ,
+        x
+        )
+        ↦
+        (
+        x
+        ,
+        y
+        ,
+        z
+        )
+      
+    
+    {\displaystyle (y,z,x)\mapsto (x,y,z)}
+   to the 3‑tuples of 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  .
+
+  
+    
+      
+        ∀
+        A
+        
+        ∃
+        B
+        
+        ∀
+        x
+        
+        ∀
+        y
+        
+        ∀
+        z
+        
+        [
+        (
+        x
+        ,
+        y
+        ,
+        z
+        )
+        ∈
+        B
+        
+        ⟺
+        
+        (
+        y
+        ,
+        z
+        ,
+        x
+        )
+        ∈
+        A
+        ]
+      
+    
+    {\displaystyle \forall A\,\exists B\,\forall x\,\forall y\,\forall z\,[(x,y,z)\in B\iff (y,z,x)\in A]}
+  Transposition.  For any class 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  , there is a class 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   whose 3‑tuples are obtained by transposing the last two components of the 3‑tuples of 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  .
+
+  
+    
+      
+        ∀
+        A
+        
+        ∃
+        B
+        
+        ∀
+        x
+        
+        ∀
+        y
+        
+        ∀
+        z
+        
+        [
+        (
+        x
+        ,
+        y
+        ,
+        z
+        )
+        ∈
+        B
+        
+        ⟺
+        
+        (
+        x
+        ,
+        z
+        ,
+        y
+        )
+        ∈
+        A
+        ]
+      
+    
+    {\displaystyle \forall A\,\exists B\,\forall x\,\forall y\,\forall z\,[(x,y,z)\in B\iff (x,z,y)\in A]}
+  By extensionality, the product by 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   axiom implies the existence of a unique class, which is denoted by 
+  
+    
+      
+        A
+        ×
+        V
+        .
+      
+    
+    {\displaystyle A\times V.}
+   This axiom is used to define the class 
+  
+    
+      
+        
+          V
+          
+            n
+          
+        
+      
+    
+    {\displaystyle V^{n}}
+   of all 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -tuples: 
+  
+    
+      
+        
+          V
+          
+            1
+          
+        
+        =
+        V
+      
+    
+    {\displaystyle V^{1}=V}
+   and 
+  
+    
+      
+        
+          V
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          V
+          
+            n
+          
+        
+        ×
+        V
+        .
+        
+      
+    
+    {\displaystyle V^{n+1}=V^{n}\times V.\,}
+   If 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is a class, extensionality implies that 
+  
+    
+      
+        A
+        ∩
+        
+          V
+          
+            n
+          
+        
+      
+    
+    {\displaystyle A\cap V^{n}}
+   is the unique class consisting of the 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -tuples of 
+  
+    
+      
+        A
+        .
+      
+    
+    {\displaystyle A.}
+   For example, the membership axiom produces a class 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   that may contain elements that are not ordered pairs, while the intersection 
+  
+    
+      
+        E
+        ∩
+        
+          V
+          
+            2
+          
+        
+      
+    
+    {\displaystyle E\cap V^{2}}
+   contains only the ordered pairs of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+  .
+The circular permutation and transposition axioms do not imply the existence of unique classes because they specify only the 3‑tuples of class 
+  
+    
+      
+        B
+        .
+      
+    
+    {\displaystyle B.}
+   By specifying the 3‑tuples, these axioms also specify the 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -tuples for 
+  
+    
+      
+        n
+        ≥
+        4
+      
+    
+    {\displaystyle n\geq 4}
+   since:  The axioms for handling tuples and the domain axiom imply the following lemma, which is used in the proof of the class existence theorem.
+
+One more axiom is needed to prove the class existence theorem: the axiom of regularity. Since the existence of the empty class has been proved, the usual statement of this axiom is given.Axiom of regularity.  Every nonempty set has at least one element with which it has no element in common.
+
+This axiom implies that a set cannot belong to itself: Assume that 
+  
+    
+      
+        x
+        ∈
+        x
+      
+    
+    {\displaystyle x\in x}
+   and let 
+  
+    
+      
+        a
+        =
+        {
+        x
+        }
+        .
+      
+    
+    {\displaystyle a=\{x\}.}
+   Then 
+  
+    
+      
+        x
+        ∩
+        a
+        ≠
+        ∅
+      
+    
+    {\displaystyle x\cap a\neq \emptyset }
+   since 
+  
+    
+      
+        x
+        ∈
+        x
+        ∩
+        a
+        .
+      
+    
+    {\displaystyle x\in x\cap a.}
+   This contradicts the axiom of regularity because 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is the only element in 
+  
+    
+      
+        a
+        .
+      
+    
+    {\displaystyle a.}
+   Therefore, 
+  
+    
+      
+        x
+        ∉
+        x
+        .
+      
+    
+    {\displaystyle x\notin x.}
+   The axiom of regularity also prohibits infinite descending membership sequences of sets: 
+Gödel stated regularity for classes rather than for sets in his 1940 monograph, which was based on lectures given in 1938. In 1939, he proved that regularity for sets implies regularity for classes.
+
+Class existence theorem
+The theorem's proof will be done in two steps:
+
+Transformation rules are used to transform the given formula 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   into an equivalent formula that simplifies the inductive part of the proof. For example, the only logical symbols in the transformed formula are 
+  
+    
+      
+        ¬
+      
+    
+    {\displaystyle \neg }
+  , 
+  
+    
+      
+        ∧
+      
+    
+    {\displaystyle \land }
+  , and 
+  
+    
+      
+        ∃
+      
+    
+    {\displaystyle \exists }
+  , so the induction handles logical symbols with just three cases.
+The class existence theorem is proved inductively for transformed formulas. Guided by the structure of the transformed formula, the class existence axioms are used to produce the unique class of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -tuples satisfying the formula.Transformation rules.  In rules 1 and 2 below, 
+  
+    
+      
+        Δ
+      
+    
+    {\displaystyle \Delta }
+   and 
+  
+    
+      
+        Γ
+      
+    
+    {\displaystyle \Gamma }
+   denote set or class variables. These two rules eliminate all occurrences of class variables before an 
+  
+    
+      
+        ∈
+      
+    
+    {\displaystyle \in }
+   and all occurrences of equality. Each time rule 1 or 2 is applied to a subformula, 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   is chosen so that 
+  
+    
+      
+        
+          z
+          
+            i
+          
+        
+      
+    
+    {\displaystyle z_{i}}
+   differs from the other variables in the current formula. The three rules are repeated until there are no subformulas to which they can be applied. This produces a formula that is built only with 
+  
+    
+      
+        ¬
+      
+    
+    {\displaystyle \neg }
+  , 
+  
+    
+      
+        ∧
+      
+    
+    {\displaystyle \land }
+  , 
+  
+    
+      
+        ∃
+      
+    
+    {\displaystyle \exists }
+  , 
+  
+    
+      
+        ∈
+      
+    
+    {\displaystyle \in }
+  , set variables, and class variables 
+  
+    
+      
+        
+          Y
+          
+            k
+          
+        
+      
+    
+    {\displaystyle Y_{k}}
+   where 
+  
+    
+      
+        
+          Y
+          
+            k
+          
+        
+      
+    
+    {\displaystyle Y_{k}}
+   does not appear before an 
+  
+    
+      
+        ∈
+      
+    
+    {\displaystyle \in }
+  .
+
+  
+    
+      
+        
+        
+          Y
+          
+            k
+          
+        
+        ∈
+        Γ
+      
+    
+    {\displaystyle \,Y_{k}\in \Gamma }
+   is transformed into 
+  
+    
+      
+        ∃
+        
+          z
+          
+            i
+          
+        
+        (
+        
+          z
+          
+            i
+          
+        
+        =
+        
+          Y
+          
+            k
+          
+        
+        
+        ∧
+        
+        
+          z
+          
+            i
+          
+        
+        ∈
+        Γ
+        )
+        .
+      
+    
+    {\displaystyle \exists z_{i}(z_{i}=Y_{k}\,\land \,z_{i}\in \Gamma ).}
+  
+Extensionality is used to transform 
+  
+    
+      
+        Δ
+        =
+        Γ
+      
+    
+    {\displaystyle \Delta =\Gamma }
+   into 
+  
+    
+      
+        ∀
+        
+          z
+          
+            i
+          
+        
+        (
+        
+          z
+          
+            i
+          
+        
+        ∈
+        Δ
+        
+        ⟺
+        
+        
+          z
+          
+            i
+          
+        
+        ∈
+        Γ
+        )
+        .
+      
+    
+    {\displaystyle \forall z_{i}(z_{i}\in \Delta \iff z_{i}\in \Gamma ).}
+  
+Logical identities are used to transform subformulas containing 
+  
+    
+      
+        ∨
+        ,
+        
+        ⟹
+        
+        ,
+        
+        ⟺
+        
+        ,
+      
+    
+    {\displaystyle \lor ,\implies ,\iff ,}
+   and 
+  
+    
+      
+        ∀
+      
+    
+    {\displaystyle \forall }
+   to subformulas that only use 
+  
+    
+      
+        ¬
+        ,
+        ∧
+        ,
+      
+    
+    {\displaystyle \neg ,\land ,}
+   and 
+  
+    
+      
+        ∃
+        .
+      
+    
+    {\displaystyle \exists .}
+  Transformation rules: bound variables.  Consider the composite function formula of example 1 with its free set variables replaced by 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle x_{1}}
+   and 
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+      
+    
+    {\displaystyle x_{2}}
+  : 
+  
+    
+      
+        ∃
+        t
+        [
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        t
+        )
+        ∈
+        F
+        
+        ∧
+        
+        (
+        t
+        ,
+        
+          x
+          
+            2
+          
+        
+        )
+        ∈
+        G
+        ]
+        .
+      
+    
+    {\displaystyle \exists t[(x_{1},t)\in F\,\land \,(t,x_{2})\in G].}
+   The inductive proof will remove 
+  
+    
+      
+        ∃
+        t
+      
+    
+    {\displaystyle \exists t}
+  , which produces the formula 
+  
+    
+      
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        t
+        )
+        ∈
+        F
+        ∧
+        (
+        t
+        ,
+        
+          x
+          
+            2
+          
+        
+        )
+        ∈
+        G
+        .
+      
+    
+    {\displaystyle (x_{1},t)\in F\land (t,x_{2})\in G.}
+   However, since the class existence theorem is stated for subscripted variables, this formula does not have the form expected by the induction hypothesis. This problem is solved by replacing the variable 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   with 
+  
+    
+      
+        
+          x
+          
+            3
+          
+        
+        .
+      
+    
+    {\displaystyle x_{3}.}
+   Bound variables within nested quantifiers are handled by increasing the subscript by one for each successive quantifier. This leads to rule 4, which must be applied after the other rules since rules 1 and 2 produce quantified variables.
+
+If a formula contains no free set variables other than 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        ,
+      
+    
+    {\displaystyle x_{1},\dots ,x_{n},}
+   then bound variables that are nested within 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   quantifiers are replaced with 
+  
+    
+      
+        
+          x
+          
+            n
+            +
+            q
+          
+        
+      
+    
+    {\displaystyle x_{n+q}}
+  . These variables have (quantifier) nesting depth 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+  .
+
+Proof of the class existence theorem.  The proof starts by applying the transformation rules to the given formula to produce a transformed formula. Since this formula is equivalent to the given formula, the proof is completed by proving the class existence theorem for transformed formulas.
+
+Gödel pointed out that the class existence theorem "is a metatheorem, that is, a theorem about the system [NBG], not in the system …" It is a theorem about NBG because it is proved in the metatheory by induction on NBG formulas. Also, its proof—instead of invoking finitely many NBG axioms—inductively describes how to use NBG axioms to construct a class satisfying a given formula. For every formula, this description can be turned into a constructive existence proof that is in NBG. Therefore, this metatheorem can generate the NBG proofs that replace
+uses of NBG's class existence theorem.
+A recursive computer program succinctly captures the construction of a class from a given formula. The definition of this program does not depend on the proof of the class existence theorem. However, the proof is needed to prove that the class constructed by the program satisfies the given formula and is built using the axioms. This program is written in pseudocode that uses a Pascal-style case statement.
+Let 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   be the formula of example 2. The function call 
+  
+    
+      
+        A
+        =
+        C
+        l
+        a
+        s
+        s
+        (
+        ϕ
+        ,
+        1
+        )
+      
+    
+    {\displaystyle A=Class(\phi ,1)}
+   generates the class 
+  
+    
+      
+        A
+        ,
+      
+    
+    {\displaystyle A,}
+   which is compared below with 
+  
+    
+      
+        ϕ
+        .
+      
+    
+    {\displaystyle \phi .}
+   This shows that the construction of the class 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   mirrors the construction of its defining formula 
+  
+    
+      
+        ϕ
+        .
+      
+    
+    {\displaystyle \phi .}
+
+Extending the class existence theorem
+Gödel extended the class existence theorem to formulas 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   containing relations over classes (such as 
+  
+    
+      
+        
+          Y
+          
+            1
+          
+        
+        ⊆
+        
+          Y
+          
+            2
+          
+        
+      
+    
+    {\displaystyle Y_{1}\subseteq Y_{2}}
+   and the unary relation 
+  
+    
+      
+        M
+        (
+        
+          Y
+          
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle M(Y_{1})}
+  ), special classes (such as 
+  
+    
+      
+        O
+        r
+        d
+      
+    
+    {\displaystyle Ord}
+   ), and operations (such as 
+  
+    
+      
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle (x_{1},x_{2})}
+   and 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ∩
+        
+          Y
+          
+            1
+          
+        
+      
+    
+    {\displaystyle x_{1}\cap Y_{1}}
+  ). To extend the class existence theorem, the formulas defining relations, special classes, and operations must quantify only over sets. Then 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   can be transformed into an equivalent formula satisfying the hypothesis of the class existence theorem.
+The following definitions specify how formulas define relations, special classes, and operations:
+
+A relation 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   is defined by: 
+  
+    
+      
+        R
+        (
+        
+          Z
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          Z
+          
+            k
+          
+        
+        )
+        
+        ⟺
+        
+        
+          ψ
+          
+            R
+          
+        
+        (
+        
+          Z
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          Z
+          
+            k
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle R(Z_{1},\dots ,Z_{k})\iff \psi _{R}(Z_{1},\dots ,Z_{k}).}
+  
+A special class 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   is defined by: 
+  
+    
+      
+        u
+        ∈
+        C
+        
+        ⟺
+        
+        
+          ψ
+          
+            C
+          
+        
+        (
+        u
+        )
+        .
+      
+    
+    {\displaystyle u\in C\iff \psi _{C}(u).}
+  
+An operation 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   is defined by: 
+  
+    
+      
+        u
+        ∈
+        P
+        (
+        
+          Z
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          Z
+          
+            k
+          
+        
+        )
+        
+        ⟺
+        
+        
+          ψ
+          
+            P
+          
+        
+        (
+        u
+        ,
+        
+          Z
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          Z
+          
+            k
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle u\in P(Z_{1},\dots ,Z_{k})\iff \psi _{P}(u,Z_{1},\dots ,Z_{k}).}
+  A term is defined by:
+
+Variables and special classes are terms.
+If 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   is an operation with 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   arguments and 
+  
+    
+      
+        
+          Γ
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          Γ
+          
+            k
+          
+        
+      
+    
+    {\displaystyle \Gamma _{1},\dots ,\Gamma _{k}}
+   are terms, then 
+  
+    
+      
+        P
+        (
+        
+          Γ
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          Γ
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle P(\Gamma _{1},\dots ,\Gamma _{k})}
+   is a term.The following transformation rules eliminate relations, special classes, and operations. Each time rule 2b, 3b, or 4 is applied to a subformula, 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   is chosen so that 
+  
+    
+      
+        
+          z
+          
+            i
+          
+        
+      
+    
+    {\displaystyle z_{i}}
+   differs from the other variables in the current formula. The rules are repeated until there are no subformulas to which they can be applied. 
+  
+    
+      
+        
+        
+          Γ
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          Γ
+          
+            k
+          
+        
+        ,
+        Γ
+        ,
+      
+    
+    {\displaystyle \,\Gamma _{1},\dots ,\Gamma _{k},\Gamma ,}
+   and 
+  
+    
+      
+        Δ
+      
+    
+    {\displaystyle \Delta }
+   denote terms.
+
+A relation 
+  
+    
+      
+        R
+        (
+        
+          Z
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          Z
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle R(Z_{1},\dots ,Z_{k})}
+   is replaced by its defining formula 
+  
+    
+      
+        
+          ψ
+          
+            R
+          
+        
+        (
+        
+          Z
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          Z
+          
+            k
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle \psi _{R}(Z_{1},\dots ,Z_{k}).}
+  
+Let 
+  
+    
+      
+        
+          ψ
+          
+            C
+          
+        
+        (
+        u
+        )
+      
+    
+    {\displaystyle \psi _{C}(u)}
+   be the defining formula for the special class 
+  
+    
+      
+        C
+        .
+      
+    
+    {\displaystyle C.}
+   
+Let 
+  
+    
+      
+        
+          ψ
+          
+            P
+          
+        
+        (
+        u
+        ,
+        
+          Z
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          Z
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle \psi _{P}(u,Z_{1},\dots ,Z_{k})}
+   be the defining formula for the operation 
+  
+    
+      
+        P
+        (
+        
+          Z
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          Z
+          
+            k
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle P(Z_{1},\dots ,Z_{k}).}
+   
+Extensionality is used to transform 
+  
+    
+      
+        Δ
+        =
+        Γ
+      
+    
+    {\displaystyle \Delta =\Gamma }
+   into 
+  
+    
+      
+        ∀
+        
+          z
+          
+            i
+          
+        
+        (
+        
+          z
+          
+            i
+          
+        
+        ∈
+        Δ
+        
+        ⟺
+        
+        
+          z
+          
+            i
+          
+        
+        ∈
+        Γ
+        )
+        .
+      
+    
+    {\displaystyle \forall z_{i}(z_{i}\in \Delta \iff z_{i}\in \Gamma ).}
+
+Set axioms
+The axioms of pairing and regularity, which were needed for the proof of the class existence theorem, have been given above. NBG contains four other set axioms. Three of these axioms deal with class operations being applied to sets.
+Definition.  
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+   is a function if 
+In set theory, the definition of a function does not require specifying the domain or codomain of the function (see Function (set theory)). NBG's definition of function generalizes ZFC's definition from a set of ordered pairs to a class of ordered pairs.
+ZFC's definitions of the set operations of image, union, and power set are also generalized to class operations. The image of class 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   under the function 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+   is 
+  
+    
+      
+        F
+        [
+        A
+        ]
+        =
+        {
+        y
+        :
+        ∃
+        x
+        (
+        x
+        ∈
+        A
+        
+        ∧
+        
+        (
+        x
+        ,
+        y
+        )
+        ∈
+        F
+        )
+        }
+        .
+      
+    
+    {\displaystyle F[A]=\{y:\exists x(x\in A\,\land \,(x,y)\in F)\}.}
+   This definition does not require that 
+  
+    
+      
+        A
+        ⊆
+        D
+        o
+        m
+        (
+        F
+        )
+        .
+      
+    
+    {\displaystyle A\subseteq Dom(F).}
+   The union of class 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is 
+  
+    
+      
+        ∪
+        A
+        =
+        {
+        x
+        :
+        ∃
+        y
+        (
+        x
+        ∈
+        y
+        
+        
+        ∧
+        
+        y
+        ∈
+        A
+        )
+        }
+        .
+      
+    
+    {\displaystyle \cup A=\{x:\exists y(x\in y\,\,\land \,y\in A)\}.}
+   The power class of 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is 
+  
+    
+      
+        
+          
+            P
+          
+        
+        (
+        A
+        )
+        =
+        {
+        x
+        :
+        x
+        ⊆
+        A
+        }
+        .
+      
+    
+    {\displaystyle {\mathcal {P}}(A)=\{x:x\subseteq A\}.}
+   The extended version of the class existence theorem implies the existence of these classes. The axioms of replacement, union, and power set imply that when these operations are applied to sets, they produce sets.Axiom of replacement.  If 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+   is a function and 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is a set, then 
+  
+    
+      
+        F
+        [
+        a
+        ]
+      
+    
+    {\displaystyle F[a]}
+  , the image of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   under 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+  , is a set.
+
+Not having the requirement 
+  
+    
+      
+        A
+        ⊆
+        D
+        o
+        m
+        (
+        F
+        )
+      
+    
+    {\displaystyle A\subseteq Dom(F)}
+   in the definition of 
+  
+    
+      
+        F
+        [
+        A
+        ]
+      
+    
+    {\displaystyle F[A]}
+   produces a stronger axiom of replacement, which is used in the following proof.
+
+Axiom of union.  If 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is a set, then there is a set containing 
+  
+    
+      
+        ∪
+        a
+        .
+      
+    
+    {\displaystyle \cup a.}
+  
+
+Axiom of power set.  If 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is a set, then there is a set containing 
+  
+    
+      
+        
+          
+            P
+          
+        
+        (
+        a
+        )
+        .
+      
+    
+    {\displaystyle {\mathcal {P}}(a).}
+  
+
+  
+    
+      
+        ∀
+        a
+        
+        ∃
+        b
+        
+        ∀
+        x
+        
+        (
+        x
+        ⊆
+        a
+        
+        ⟹
+        
+        x
+        ∈
+        b
+        )
+        .
+      
+    
+    {\displaystyle \forall a\,\exists b\,\forall x\,(x\subseteq a\implies x\in b).}
+  
+
+Axiom of infinity.  There exists a nonempty set 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   such that for all 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   in 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , there exists a 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   in 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   such that 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is a proper subset of 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  .
+
+The axioms of infinity and replacement prove the existence of the empty set. In the discussion of the class existence axioms, the existence of the empty class 
+  
+    
+      
+        ∅
+      
+    
+    {\displaystyle \emptyset }
+   was proved. We now prove that 
+  
+    
+      
+        ∅
+      
+    
+    {\displaystyle \emptyset }
+   is a set. Let function 
+  
+    
+      
+        F
+        =
+        ∅
+      
+    
+    {\displaystyle F=\emptyset }
+   and let 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   be the set given by the axiom of infinity. By replacement, the image of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   under 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+  , which equals 
+  
+    
+      
+        ∅
+      
+    
+    {\displaystyle \emptyset }
+  , is a set.
+NBG's axiom of infinity is implied by ZFC's axiom of infinity: 
+  
+    
+      
+        
+        ∃
+        a
+        
+        [
+        ∅
+        ∈
+        a
+        
+        ∧
+        
+        ∀
+        x
+        (
+        x
+        ∈
+        a
+        
+        ⟹
+        
+        x
+        ∪
+        {
+        x
+        }
+        ∈
+        a
+        )
+        ]
+        .
+        
+      
+    
+    {\displaystyle \,\exists a\,[\emptyset \in a\,\land \,\forall x(x\in a\implies x\cup \{x\}\in a)].\,}
+   The first conjunct of ZFC's axiom, 
+  
+    
+      
+        ∅
+        ∈
+        a
+      
+    
+    {\displaystyle \emptyset \in a}
+  , implies the first conjunct of NBG's axiom. The second conjunct of ZFC's axiom, 
+  
+    
+      
+        ∀
+        x
+        (
+        x
+        ∈
+        a
+        
+        ⟹
+        
+        x
+        ∪
+        {
+        x
+        }
+        ∈
+        a
+        )
+      
+    
+    {\displaystyle \forall x(x\in a\implies x\cup \{x\}\in a)}
+  , implies the second conjunct of NBG's axiom since 
+  
+    
+      
+        x
+        ⊂
+        x
+        ∪
+        {
+        x
+        }
+        .
+      
+    
+    {\displaystyle x\subset x\cup \{x\}.}
+   To prove ZFC's axiom of infinity from NBG's axiom of infinity requires some of the other NBG axioms (see Weak axiom of infinity).
+
+Axiom of global choice
+The class concept allows NBG to have a stronger axiom of choice than ZFC. A choice function is a function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   defined on a set 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   of nonempty sets such that 
+  
+    
+      
+        f
+        (
+        x
+        )
+        ∈
+        x
+      
+    
+    {\displaystyle f(x)\in x}
+   for all 
+  
+    
+      
+        x
+        ∈
+        s
+        .
+      
+    
+    {\displaystyle x\in s.}
+   ZFC's axiom of choice states that there exists a choice function for every set of nonempty sets. A global choice function is a function 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   defined on the class of all nonempty sets such that 
+  
+    
+      
+        G
+        (
+        x
+        )
+        ∈
+        x
+      
+    
+    {\displaystyle G(x)\in x}
+   for every nonempty set 
+  
+    
+      
+        x
+        .
+      
+    
+    {\displaystyle x.}
+   The axiom of global choice states that there exists a global choice function. This axiom implies ZFC's axiom of choice since for every set 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   of nonempty sets, 
+  
+    
+      
+        G
+        
+          |
+          
+            s
+          
+        
+      
+    
+    {\displaystyle G\vert _{s}}
+   (the restriction of 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   to 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  ) is a choice function for 
+  
+    
+      
+        s
+        .
+      
+    
+    {\displaystyle s.}
+   In 1964, William B. Easton proved that global choice is stronger than the axiom of choice by using forcing to construct a model that satisfies the axiom of choice and all the axioms of NBG except the axiom of global choice. The axiom of global choice is equivalent to every class having a well-ordering, while ZFC's axiom of choice is equivalent to every set having a well-ordering.Axiom of global choice.  There exists a function that chooses an element from every nonempty set.
+
+  
+    
+      
+        ∃
+        G
+        
+        [
+        G
+        
+           is a function
+        
+        
+        ∧
+        ∀
+        x
+        (
+        x
+        ≠
+        ∅
+        
+        ⟹
+        
+        ∃
+        y
+        (
+        y
+        ∈
+        x
+        ∧
+        (
+        x
+        ,
+        y
+        )
+        ∈
+        G
+        )
+        )
+        ]
+        .
+      
+    
+    {\displaystyle \exists G\,[G{\text{ is a function}}\,\land \forall x(x\neq \emptyset \implies \exists y(y\in x\land (x,y)\in G))].}
+
+History
+Von Neumann's 1925 axiom system
+Von Neumann published an introductory article on his axiom system in 1925. In 1928, he provided a detailed treatment of his system. Von Neumann based his axiom system on two domains of primitive objects: functions and arguments. These domains overlap—objects that are in both domains are called argument-functions. Functions correspond to classes in NBG, and argument-functions correspond to sets. Von Neumann's primitive operation is function application, denoted by [a, x] rather than a(x) where a is a function and x is an argument. This operation produces an argument. Von Neumann defined classes and sets using functions and argument-functions that take only two values, A and B. He defined x ∈ a if [a, x] ≠ A.Von Neumann's work in set theory was influenced by Georg Cantor's articles, Ernst Zermelo's 1908 axioms for set theory, and the 1922 critiques of Zermelo's set theory that were given independently by Abraham Fraenkel and Thoralf Skolem. Both Fraenkel and Skolem pointed out that Zermelo's axioms cannot prove the existence of the set {Z0, Z1, Z2, ...} where Z0 is the set of natural numbers and Zn+1 is the power set of Zn. They then introduced the axiom of replacement, which would guarantee the existence of such sets. However, they were reluctant to adopt this axiom: Fraenkel stated "that Replacement was too strong an axiom for 'general set theory'", while "Skolem only wrote that 'we could introduce' Replacement".Von Neumann worked on the problems of Zermelo set theory and provided solutions for some of them:
+
+A theory of ordinals
+Problem: Cantor's theory of ordinal numbers cannot be developed in Zermelo set theory because it lacks the axiom of replacement.
+Solution: Von Neumann recovered Cantor's theory by defining the ordinals using sets that are well-ordered by the ∈-relation, and by using the axiom of replacement to prove key theorems about the ordinals, such as every well-ordered set is order-isomorphic with an ordinal. In contrast to Fraenkel and Skolem, von Neumann emphasized how important the replacement axiom is for set theory: "In fact, I believe that no theory of ordinals is possible at all without this axiom."
+A criterion identifying classes that are too large to be sets
+Problem: Zermelo did not provide such a criterion. His set theory avoids the large classes that lead to the paradoxes, but it leaves out many sets, such as the one mentioned by Fraenkel and Skolem.
+Solution: Von Neumann introduced the criterion: A class is too large to be a set if and only if it can be mapped onto the class V of all sets. Von Neumann realized that the set-theoretic paradoxes could be avoided by not allowing such large classes to be members of any class. Combining this restriction with his criterion, he obtained his axiom of limitation of size: A class C is not a member of any class if and only if C can be mapped onto V.
+Finite axiomatization
+Problem: Zermelo had used the imprecise concept of "definite propositional function" in his axiom of separation.
+Solutions: Skolem introduced the axiom schema of separation that was later used in ZFC, and Fraenkel introduced an equivalent solution. However, Zermelo rejected both approaches "particularly because they implicitly involve the concept of natural number which, in Zermelo's view, should be based upon set theory." Von Neumann avoided axiom schemas by formalizing the concept of "definite propositional function" with his functions, whose construction requires only finitely many axioms. This led to his set theory having finitely many axioms. In 1961, Richard Montague proved that ZFC cannot be finitely axiomatized.
+The axiom of regularity
+Problem: Zermelo set theory starts with the empty set and an infinite set, and iterates the axioms of pairing, union, power set, separation, and choice to generate new sets. However, it does not restrict sets to these. For example, it allows sets that are not well-founded, such as a set x satisfying x ∈ x.
+Solutions: Fraenkel introduced an axiom to exclude these sets. Von Neumann analyzed Fraenkel's axiom and stated that it was not "precisely formulated", but it would approximately say: "Besides the sets ... whose existence is absolutely required by the axioms, there are no further sets." Von Neumann proposed the axiom of regularity as a way to exclude non-well-founded sets, but did not include it in his axiom system. In 1930, Zermelo became the first to publish an axiom system that included regularity.
+
+Von Neumann's 1929 axiom system
+In 1929, von Neumann published an article containing the axioms that would lead to NBG. This article was motivated by his concern about the consistency of the axiom of limitation of size. He stated that this axiom "does a lot, actually too much." Besides implying the axioms of separation and replacement, and the well-ordering theorem, it also implies that any class whose cardinality is less than that of V is a set. Von Neumann thought that this last implication went beyond Cantorian set theory and concluded: "We must therefore discuss whether its [the axiom's] consistency is not even more problematic than an axiomatization of set theory that does not go beyond the necessary Cantorian framework."Von Neumann started his consistency investigation by introducing his 1929 axiom system, which contains all the axioms of his 1925 axiom system except the axiom of limitation of size. He replaced this axiom with two of its consequences, the axiom of replacement and a choice axiom. Von Neumann's choice axiom states: "Every relation R has a subclass that is a function with the same domain as R."Let S be von Neumann's 1929 axiom system. Von Neumann introduced the axiom system S + Regularity (which consists of S and the axiom of regularity) to demonstrate that his 1925 system is consistent relative to S. He proved:
+
+If S is consistent, then S + Regularity is consistent.
+S + Regularity implies the axiom of limitation of size. Since this is the only axiom of his 1925 axiom system that S + Regularity does not have, S + Regularity implies all the axioms of his 1925 system.These results imply: If S is consistent, then von Neumann's 1925 axiom system is consistent. Proof: If S is consistent, then S + Regularity is consistent (result 1). Using proof by contradiction, assume that the 1925 axiom system is inconsistent, or equivalently: the 1925 axiom system implies a contradiction. Since S + Regularity implies the axioms of the 1925 system (result 2), S + Regularity also implies a contradiction. However, this contradicts the consistency of S + Regularity. Therefore, if S is consistent, then von Neumann's 1925 axiom system is consistent.
+Since S is his 1929 axiom system, von Neumann's 1925 axiom system is consistent relative to his 1929 axiom system, which is closer to Cantorian set theory. The major differences between Cantorian set theory and the 1929 axiom system are classes and von Neumann's choice axiom. The axiom system S + Regularity was modified by Bernays and Gödel to produce the equivalent NBG axiom system.
+
+Bernays' axiom system
+In 1929, Paul Bernays started modifying von Neumann's new axiom system by taking classes and sets as primitives. He published his work in a series of articles appearing from 1937 to 1954. Bernays stated that:
+
+The purpose of modifying the von Neumann system is to remain nearer to the structure of the original Zermelo system and to utilize at the same time some of the set-theoretic concepts of the Schröder logic and of Principia Mathematica which have become familiar to logicians. As will be seen, a considerable simplification results from this arrangement.
+Bernays handled sets and classes in a two-sorted logic and introduced two membership primitives: one for membership in sets and one for membership in classes. With these primitives, he rewrote and simplified von Neumann's 1929 axioms. Bernays also included the axiom of regularity in his axiom system.
+
+Gödel's axiom system (NBG)
+In 1931, Bernays sent a letter containing his set theory to Kurt Gödel. Gödel simplified Bernays' theory by making every set a class, which allowed him to use just one sort and one membership primitive. He also weakened some of Bernays' axioms and replaced von Neumann's choice axiom with the equivalent axiom of global choice. Gödel used his axioms in his 1940 monograph on the relative consistency of global choice and the generalized continuum hypothesis.Several reasons have been given for Gödel choosing NBG for his monograph:
+Gödel gave a mathematical reason—NBG's global choice produces a stronger consistency theorem: "This stronger form of the axiom [of choice], if consistent with the other axioms, implies, of course, that a weaker form is also consistent."
+Robert Solovay conjectured: "My guess is that he [Gödel] wished to avoid a discussion of the technicalities involved in developing the rudiments of model theory within axiomatic set theory."
+Kenneth Kunen gave a reason for Gödel avoiding this discussion: "There is also a much more combinatorial approach to L [the constructible universe], developed by ... [Gödel in his 1940 monograph] in an attempt to explain his work to non-logicians. ... This approach has the merit of removing all vestiges of logic from the treatment of L."
+Charles Parsons provided a philosophical reason for Gödel's choice: "This view [that 'property of set' is a primitive of set theory] may be reflected in Gödel's choice of a theory with class variables as the framework for ... [his monograph]."Gödel's achievement together with the details of his presentation led to the prominence that NBG would enjoy for the next two decades. In 1963, Paul Cohen proved his independence proofs for ZF with the help of some tools that Gödel had developed for his relative consistency proofs for NBG. Later, ZFC became more popular than NBG.  This was caused by several factors, including the extra work required to handle forcing in NBG, Cohen's 1966 presentation of forcing, which used ZF, and the proof that NBG is a conservative extension of ZFC.
+
+NBG, ZFC, and MK
+NBG is not logically equivalent to ZFC because its language is more expressive: it can make statements about classes, which cannot be made in ZFC. However, NBG and ZFC imply the same statements about sets. Therefore, NBG is a conservative extension of ZFC. NBG implies theorems that ZFC does not imply, but since NBG is a conservative extension, these theorems must involve proper classes. For example, it is a theorem of NBG that the global axiom of choice implies that the proper class V can be well-ordered and that every proper class can be put into one-to-one correspondence with V.One consequence of conservative extension is that ZFC and NBG are equiconsistent. Proving this uses the principle of explosion: from a contradiction, everything is provable. Assume that either ZFC or NBG is inconsistent. Then the inconsistent theory implies the contradictory statements ∅ = ∅ and ∅ ≠ ∅, which are statements about sets. By the conservative extension property, the other theory also implies these statements. Therefore, it is also inconsistent. So although NBG is more expressive, it is equiconsistent with ZFC. This result together with von Neumann's 1929 relative consistency proof implies that his 1925 axiom system with the axiom of limitation of size is equiconsistent with ZFC. This completely resolves von Neumann's concern about the relative consistency of this powerful axiom since ZFC is within the Cantorian framework.
+Even though NBG is a conservative extension of ZFC, a theorem may have a shorter and more elegant proof in NBG than in ZFC (or vice versa). For a survey of known results of this nature, see Pudlák 1998.
+Morse–Kelley set theory has an axiom schema of class comprehension that includes formulas whose quantifiers range over classes. MK is a stronger theory than NBG because MK proves the consistency of NBG, while Gödel's second incompleteness theorem implies that NBG cannot prove the consistency of NBG.
+For a discussion of some ontological and other philosophical issues posed by NBG, especially when contrasted with ZFC and MK, see Appendix C of Potter 2004.
+
+Models
+ZFC, NBG, and MK have models describable in terms of the cumulative hierarchy Vα  and the constructible hierarchy Lα . Let  V include an inaccessible cardinal κ, let X ⊆ Vκ, and let Def(X) denote the class of first-order definable subsets of X with parameters. In symbols where "
+  
+    
+      
+        (
+        X
+        ,
+        ∈
+        )
+      
+    
+    {\displaystyle (X,\in )}
+  " denotes the model with domain 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   and relation 
+  
+    
+      
+        ∈
+      
+    
+    {\displaystyle \in }
+  , and "
+  
+    
+      
+        ⊨
+      
+    
+    {\displaystyle \models }
+  " denotes the satisfaction relation:
+
+Then:
+
+(Vκ, ∈) and (Lκ, ∈) are models of ZFC.
+(Vκ, Vκ+1, ∈) is a model of MK where Vκ consists of the sets of the model and Vκ+1 consists of the classes of the model. Since a model of MK is a model of NBG, this model is also a model of NBG.
+(Vκ, Def(Vκ), ∈) is a model of Mendelson's version of NBG, which replaces NBG's axiom of global choice with ZFC's axiom of choice. The axioms of ZFC are true in this model because (Vκ, ∈) is a model of ZFC. In particular, ZFC's axiom of choice holds, but NBG's global choice may fail. NBG's class existence axioms are true in this model because the classes whose existence they assert can be defined by first-order definitions. For example, the membership axiom holds since the class 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   is defined by: 
+(Lκ, Lκ+, ∈), where κ+ is the successor cardinal of κ, is a model of NBG. NBG's class existence axioms are true in (Lκ, Lκ+, ∈). For example, the membership axiom holds since the class 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   is defined by:  So E ∈ 𝒫(Lκ). In his proof that GCH is true in L, Gödel proved that 𝒫(Lκ) ⊆ Lκ+. Therefore, E ∈ Lκ+, so the membership axiom is true in (Lκ, Lκ+, ∈). Likewise, the other class existence axioms are true. The axiom of global choice is true because Lκ is well-ordered by the restriction of Gödel's function (which maps the class of ordinals to the constructible sets) to the ordinals less than κ. Therefore, (Lκ, Lκ+, ∈) is a model of NBG.
+
+Category theory
+The ontology of NBG provides scaffolding for speaking about "large objects" without risking paradox. For instance, in some developments of category theory, a "large category" is defined as one whose objects and morphisms make up a proper class. On the other hand, a "small category" is one whose objects and morphisms are members of a set. Thus, we can speak of the "category of all sets" or "category of all small categories" without risking paradox since NBG supports large categories.
+However, NBG does not support a "category of all categories" since large categories would be members of it and NBG does not allow proper classes to be members of anything. An ontological extension that enables us to talk formally about such a "category" is the conglomerate, which is a collection of classes. Then the "category of all categories" is defined by its objects: the conglomerate of all categories; and its morphisms: the conglomerate of all morphisms from A to B where A and B are objects. On whether an ontology including classes as well as sets is adequate for category theory, see Muller 2001.
+
+Notes
+References
+Bibliography
+Adámek, Jiří; Herrlich, Horst; Strecker, George E. (1990), Abstract and Concrete Categories (The Joy of Cats) (1st ed.), New York: Wiley & Sons, ISBN 978-0-471-60922-3.
+Adámek, Jiří; Herrlich, Horst; Strecker, George E. (2004) [1990], Abstract and Concrete Categories (The Joy of Cats) (Dover ed.), New York: Dover Publications, ISBN 978-0-486-46934-8.
+Bernays, Paul (1937), "A System of Axiomatic Set Theory—Part I", The Journal of Symbolic Logic, 2 (1): 65–77, doi:10.2307/2268862, JSTOR 2268862.
+Bernays, Paul (1941), "A System of Axiomatic Set Theory—Part II", The Journal of Symbolic Logic, 6 (1): 1–17, doi:10.2307/2267281, JSTOR 2267281.
+Bernays, Paul (1991), Axiomatic Set Theory (2nd Revised ed.), Dover Publications, ISBN 978-0-486-66637-2.
+Bourbaki, Nicolas (2004), Elements of Mathematics: Theory of Sets, Springer, ISBN 978-3-540-22525-6.
+Chuaqui, Rolando (1981), Axiomatic Set Theory: Impredicative Theories of Classes, North-Holland, ISBN 0-444-86178-5.
+Cohen, Paul (1963), "The Independence of the Continuum Hypothesis", Proceedings of the National Academy of Sciences of the United States of America, 50 (6): 1143–1148, Bibcode:1963PNAS...50.1143C, doi:10.1073/pnas.50.6.1143, PMC 221287, PMID 16578557.
+Cohen, Paul (1966), Set Theory and the Continuum Hypothesis, W. A. Benjamin.
+Cohen, Paul (2008), Set Theory and the Continuum Hypothesis, Dover Publications, ISBN 978-0-486-46921-8.
+Dawson, John W. (1997), Logical dilemmas: The life and work of Kurt Gödel, Wellesley, MA: AK Peters.
+Easton, William B. (1964), Powers of Regular Cardinals (PhD thesis), Princeton University.
+Felgner, Ulrich (1971), "Comparison of the axioms of local and universal choice" (PDF), Fundamenta Mathematicae, 71: 43–62, doi:10.4064/fm-71-1-43-62.
+Ferreirós, José (2007), Labyrinth of Thought: A History of Set Theory and Its Role in Mathematical Thought (2nd revised ed.), Basel, Switzerland: Birkhäuser, ISBN 978-3-7643-8349-7.
+Gödel, Kurt (1940), The Consistency of the Axiom of Choice and of the Generalized Continuum Hypothesis with the Axioms of Set Theory (Revised ed.), Princeton University Press, ISBN 978-0-691-07927-1.
+Gödel, Kurt (2008), The Consistency of the Axiom of Choice and of the Generalized Continuum Hypothesis with the Axioms of Set Theory, with a foreword by Laver, Richard (Paperback ed.), Ishi Press, ISBN 978-0-923891-53-4.
+Gödel, Kurt (1986), Collected Works, Volume 1: Publications 1929–1936, Oxford University Press, ISBN 978-0-19-514720-9.
+Gödel, Kurt (1990), Collected Works, Volume 2: Publications 1938–1974, Oxford University Press, ISBN 978-0-19-514721-6.
+Gödel, Kurt (2003), Collected Works, Volume 4: Correspondence A–G, Oxford University Press, ISBN 978-0-19-850073-5.
+Gray, Robert (1991), "Computer programs and mathematical proofs", The Mathematical Intelligencer, 13 (4): 45–48, doi:10.1007/BF03028342, S2CID 121229549.
+Hallett, Michael (1984), Cantorian Set Theory and Limitation of Size (Hardcover ed.), Oxford: Clarendon Press, ISBN 978-0-19-853179-1.
+Hallett, Michael (1986), Cantorian Set Theory and Limitation of Size (Paperback ed.), Oxford: Clarendon Press, ISBN 978-0-19-853283-5.
+Kanamori, Akihiro (2009b), The Higher Infinite: Large Cardinals in Set Theory from Their Beginnings, Springer, ISBN 978-3-540-88867-3.
+Kanamori, Akihiro (2009), "Bernays and Set Theory" (PDF), Bulletin of Symbolic Logic, 15 (1): 43–69, doi:10.2178/bsl/1231081769, JSTOR 25470304, S2CID 15567244.
+Kanamori, Akihiro (2012), "In Praise of Replacement" (PDF), Bulletin of Symbolic Logic, 18 (1): 46–90, doi:10.2178/bsl/1327328439, JSTOR 41472440, S2CID 18951854.
+Kunen, Kenneth (1980), Set Theory: An Introduction to Independence Proofs (Hardcover ed.), North-Holland, ISBN 978-0-444-86839-8.
+Kunen, Kenneth (2012), Set Theory: An Introduction to Independence Proofs (Paperback ed.), North-Holland, ISBN 978-0-444-56402-3.
+Mendelson, Elliott (1997), An Introduction to Mathematical Logic (4th ed.), London: Chapman and Hall/CRC, ISBN 978-0-412-80830-2. - Pp. 225–86 contain the classic textbook treatment of NBG, showing how it does what we expect of set theory, by grounding relations, order theory, ordinal numbers, transfinite numbers, etc.
+Mirimanoff, Dmitry (1917), "Les antinomies de Russell et de Burali-Forti et le problème fondamental de la théorie des ensembles", L'Enseignement Mathématique, 19: 37–52.
+Montague, Richard (1961), "Semantic Closure and Non-Finite Axiomatizability I", in Buss, Samuel R. (ed.), Infinitistic Methods: Proceedings of the Symposium on Foundations of Mathematics, Pergamon Press, pp. 45–69.
+Mostowski, Andrzej (1950), "Some impredicative definitions in the axiomatic set theory" (PDF), Fundamenta Mathematicae, 37: 111–124, doi:10.4064/fm-37-1-111-124.
+Muller, F. A. (1 September 2001), "Sets, classes, and categories" (PDF), British Journal for the Philosophy of Science, 52 (3): 539–73, doi:10.1093/bjps/52.3.539.
+Müller, Gurt, ed. (1976), Sets and Classes: On the Work of Paul Bernays, Studies in Logic and the Foundations of Mathematics Volume 84, Amsterdam: North Holland, ISBN 978-0-7204-2284-9.
+Potter, Michael (2004), Set Theory and Its Philosophy: A Critical Introduction (Hardcover ed.), Oxford University Press, ISBN 978-0-19-926973-0.
+Potter, Michael (2004p), Set Theory and Its Philosophy: A Critical Introduction (Paperback ed.), Oxford University Press, ISBN 978-0-19-927041-5.
+Pudlák, Pavel (1998), "The Lengths of Proofs" (PDF), in Buss, Samuel R. (ed.), Handbook of Proof Theory, Elsevier, pp. 547–637, ISBN 978-0-444-89840-1.
+Smullyan, Raymond M.; Fitting, Melvin (2010) [Revised and corrected edition: first published in 1996 by Oxford University Press], Set Theory and the Continuum Problem, Dover, ISBN 978-0-486-47484-7.
+Solovay, Robert M. (1990), "Introductory note to 1938, 1939, 1939a and 1940", Kurt Gödel Collected Works, Volume 2: Publications 1938–1974, Oxford University Press, pp. 1–25, ISBN 978-0-19-514721-6.
+von Neumann, John (1923), "Zur Einführung der transfiniten Zahlen", Acta Litt. Acad. Sc. Szeged X., 1: 199–208.
+English translation: van Heijenoort, Jean (2002a) [1967], "On the introduction of transfinite numbers", From Frege to Gödel: A Source Book in Mathematical Logic, 1879-1931 (Fourth Printing ed.), Harvard University Press, pp. 346–354, ISBN 978-0-674-32449-7.
+English translation: van Heijenoort, Jean (2002b) [1967], "An axiomatization of set theory", From Frege to Gödel: A Source Book in Mathematical Logic, 1879-1931 (Fourth Printing ed.), Harvard University Press, pp. 393–413, ISBN 978-0-674-32449-7.
+von Neumann, John (1925), "Eine Axiomatisierung der Mengenlehre", Journal für die Reine und Angewandte Mathematik, 154: 219–240.
+von Neumann, John (1928), "Die Axiomatisierung der Mengenlehre", Mathematische Zeitschrift, 27: 669–752, doi:10.1007/bf01171122, S2CID 123492324.
+von Neumann, John (1929), "Über eine Widerspruchsfreiheitsfrage in der axiomatischen Mengenlehre", Journal für die Reine und Angewandte Mathematik, 160: 227–241.
+
+External links
+"von Neumann-Bernays-Gödel set theory". PlanetMath.
+Szudzik, Matthew. "von Neumann-Bernays-Gödel Set Theory". MathWorld.

@@ -1,0 +1,2268 @@
+In linear algebra, a matrix is in row echelon form if it can be obtained as the result of Gaussian elimination. Every matrix can be put in row echelon form by applying a sequence of elementary row operations. The term echelon comes from the French "échelon" ("level" or step of a ladder), and refers to the fact that the nonzero entries of a matrix in row echelon form look like an inverted staircase.
+For square matrices, an upper triangular matrix with nonzero entries on the diagonal is in row echelon form, and a matrix in row echelon form is (weakly) upper triangular. Thus, the row echelon form can be viewed as a generalization of upper triangular form for rectangular matrices.
+A matrix is in reduced row echelon form if it is in row echelon form, the first nonzero entry of each row is equal to 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+   and the ones above it within the same column equal 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+  . The reduced row echelon form of a matrix is unique and does not depend on the sequence of elementary row operations used to obtain it. The variant of Gaussian elimination that transforms a matrix to reduced row echelon form is sometimes called Gauss–Jordan elimination.
+A matrix is in column echelon form if its transpose is in row echelon form. So, all properties of column echelon forms can be easily  deduced from the corresponding properties of row echelon forms. Therefore, only row echelon forms are considered in the remainder of the article.
+
+(General) row echelon form
+A matrix is in row echelon form if
+
+All rows having only zero entries are at the bottom.
+The leading entry (that is, the left-most  nonzero entry) of every nonzero row, called the pivot, is on the right of the leading entry of every row above.Some texts add the condition that the leading coefficient must be 1 while others require this only in reduced row echelon form.
+These two conditions imply that all entries in a column below a leading coefficient are zeros.The following is an example of a 
+  
+    
+      
+        4
+        ×
+        5
+      
+    
+    {\displaystyle 4\times 5}
+   matrix in row echelon form, but not in reduced row echelon form (see below):
+
+  
+    
+      
+        
+          [
+          
+            
+              
+                
+                  1
+                
+                
+                  
+                    a
+                    
+                      0
+                    
+                  
+                
+                
+                  
+                    a
+                    
+                      1
+                    
+                  
+                
+                
+                  
+                    a
+                    
+                      2
+                    
+                  
+                
+                
+                  
+                    a
+                    
+                      3
+                    
+                  
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  2
+                
+                
+                  
+                    a
+                    
+                      4
+                    
+                  
+                
+                
+                  
+                    a
+                    
+                      5
+                    
+                  
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  1
+                
+                
+                  
+                    a
+                    
+                      6
+                    
+                  
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle \left[{\begin{array}{ccccc}1&a_{0}&a_{1}&a_{2}&a_{3}\\0&0&2&a_{4}&a_{5}\\0&0&0&1&a_{6}\\0&0&0&0&0\end{array}}\right]}
+  Many properties of matrices may be easily deduced from their row echelon form, such as the rank and the kernel.
+
+Reduced row echelon form
+A matrix is in reduced row echelon form (also called row canonical form) if it satisfies the following conditions:
+It is in row echelon form.
+The leading entry in each nonzero row is 1 (called a leading one).
+Each column containing a leading 1 has zeros in all its other entries.For a matrix in row echelon form, the last condition is equivalent to
+
+Each column containing a leading 1 has zeros in all entries above the leading 1.While a matrix may have several echelon forms, its reduced echelon  form is unique.
+Given a matrix in reduced row echelon form, if one permutes the columns in order to have the leading 1 of the ith row in the ith column, one gets a matrix of the form
+
+  
+    
+      
+        
+          
+            (
+            
+              
+                
+                  I
+                
+                
+                  X
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+              
+            
+            )
+          
+        
+        ,
+      
+    
+    {\displaystyle {\begin{pmatrix}I&X\\0&0\end{pmatrix}},}
+  where I is the identity matrix of dimension  
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   equal to the rank of the entire matrix, X is a matrix with 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   rows and 
+  
+    
+      
+        n
+        −
+        j
+      
+    
+    {\displaystyle n-j}
+   columns, and the two 0's are zero matrices of appropriate size. Since a permutation of columns is not a row operation, the resulting matrix is inequivalent under elementary row operations. In the Gaussian elimination method, this corresponds to a permutation of the unknowns in the original linear system that allows a linear parametrization of the row space, in which the first 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   coefficients are unconstrained, and the remaining 
+  
+    
+      
+        n
+        −
+        j
+      
+    
+    {\displaystyle n-j}
+   are determined as linear combinations of these.
+
+Systems of linear equations
+A system of linear equations is said to be in row echelon form if its augmented matrix is in row echelon form. Similarly, a system of linear equations is said to be in reduced row echelon form or in canonical form if its augmented matrix is in reduced row echelon form.
+The canonical form may be viewed as an explicit solution of the linear system. In fact, the system is inconsistent if and only if one of the equations of the canonical form is reduced to 0 = 1; that is if there is a leading 1 in the column of the constant terms Otherwise, regrouping in the right hand side all the terms of the equations but the leading ones, expresses the variables corresponding to the pivots as constants or linear functions of the other variables, if any.
+
+Transformation to row echelon form
+Gaussian elimination is the main algorithm for transforming every matrix into a matrix in row echelon form. A variant, sometimes called Gauss–Jordan elimination produces a reduced row echelon form. Both consist of a finite sequence of elementary row operations; the number of required elementary row operations is at most mn for an  m-by-n matrix.
+For a given matrix, despite the row echelon form not being unique, all row echelon forms, including the reduced row echelon form, have the same number of zero rows and the pivots are located in the same positions.This is an example of a matrix in reduced row echelon form, which shows that the left part of the matrix is not always an identity matrix:
+
+  
+    
+      
+        
+          [
+          
+            
+              
+                
+                  1
+                
+                
+                  0
+                
+                
+                  
+                    a
+                    
+                      1
+                    
+                  
+                
+                
+                  0
+                
+                
+                  
+                    b
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  0
+                
+                
+                  1
+                
+                
+                  
+                    a
+                    
+                      2
+                    
+                  
+                
+                
+                  0
+                
+                
+                  
+                    b
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  1
+                
+                
+                  
+                    b
+                    
+                      3
+                    
+                  
+                
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle \left[{\begin{array}{ccccc}1&0&a_{1}&0&b_{1}\\0&1&a_{2}&0&b_{2}\\0&0&0&1&b_{3}\end{array}}\right]}
+  For a matrix with integer coefficients, the Hermite normal form is a row echelon form that can be calculated without introducing any denominator, by using Euclidean division or Bézout's identity. The reduced echelon form of a matrix with integer coefficients generally contains non-integer coefficients, because of the need of dividing by its leading coefficient each row of arow  echelon form.
+The non-uniqueness of the row echelon form of a matrix follows from the fact that some elementary row operations transform a matrix in row echelon form into another (equivalent) matrix that is also in row echelon form. These elementary row operations include the multiplication of a row by a nonzero scalar and the addition of a scalar multiple of a row to one of the above rows. For example:
+
+  
+    
+      
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  3
+                
+                
+                  −
+                  1
+                
+              
+              
+                
+                  0
+                
+                
+                  1
+                
+                
+                  7
+                
+              
+            
+            ]
+          
+        
+        
+          
+            →
+            
+              add row 2 to row 1
+            
+          
+        
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  4
+                
+                
+                  6
+                
+              
+              
+                
+                  0
+                
+                
+                  1
+                
+                
+                  7
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle {\begin{bmatrix}1&3&-1\\0&1&7\\\end{bmatrix}}{\xrightarrow {\text{add row 2 to row 1}}}{\begin{bmatrix}1&4&6\\0&1&7\\\end{bmatrix}}.}
+  In this example, the unique reduced row echelon form can be obtained by subtracting three times the second row from the first row :
+
+  
+    
+      
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  3
+                
+                
+                  −
+                  1
+                
+              
+              
+                
+                  0
+                
+                
+                  1
+                
+                
+                  7
+                
+              
+            
+            ]
+          
+        
+        
+          →
+          
+            
+              subtract 3
+            
+            ×
+            
+              (row 2) from row 1
+            
+          
+        
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  0
+                
+                
+                  −
+                  22
+                
+              
+              
+                
+                  0
+                
+                
+                  1
+                
+                
+                  7
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle {\begin{bmatrix}1&3&-1\\0&1&7\\\end{bmatrix}}\xrightarrow {{\text{subtract 3}}\times {\text{(row 2) from row 1}}} {\begin{bmatrix}1&0&-22\\0&1&7\\\end{bmatrix}}.}
+
+Affine spaces of reduced echelon forms
+In this section and the following one, we denote the location of the columns containing the leading entries of the successive rows of a 
+  
+    
+      
+        k
+        ×
+        n
+      
+    
+    {\displaystyle k\times n}
+   matrix 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   in reduced row echelon form (the pivots) as 
+  
+    
+      
+        (
+        
+          L
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          L
+          
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle (L_{1},\dots ,L_{j})}
+  , with
+
+  
+    
+      
+        0
+        <
+        
+          L
+          
+            1
+          
+        
+        ⋯
+        <
+        
+          L
+          
+            j
+          
+        
+        ≤
+        n
+        ,
+      
+    
+    {\displaystyle 0<L_{1}\cdots <L_{j}\leq n,}
+  where 
+  
+    
+      
+        j
+        ≤
+        k
+      
+    
+    {\displaystyle j\leq k}
+   is the dimension of the row space of the matrix. The data 
+  
+    
+      
+        (
+        k
+        ,
+        n
+        ,
+        
+          L
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          L
+          
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle (k,n,L_{1},\ldots ,L_{j})}
+   will be called the shape of 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  , which has leading non-zero entries
+
+  
+    
+      
+        {
+        
+          A
+          
+            i
+            ,
+            
+              L
+              
+                i
+              
+            
+          
+        
+        =
+        1
+        
+          }
+          
+            i
+            =
+            1
+            ,
+            …
+            ,
+            j
+          
+        
+      
+    
+    {\displaystyle \{A_{i,L_{i}}=1\}_{i=1,\dots ,j}}
+  , the entries in the column 
+  
+    
+      
+        
+          L
+          
+            i
+          
+        
+      
+    
+    {\displaystyle L_{i}}
+   above and below it vanish, and so do all those to the left of it within the same row, as well as all entries in the 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  th row for 
+  
+    
+      
+        i
+        >
+        j
+      
+    
+    {\displaystyle i>j}
+  :
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  A
+                  
+                    i
+                    ,
+                    
+                      L
+                      
+                        i
+                      
+                    
+                  
+                
+                =
+                1
+                
+              
+              
+                
+                  for 
+                
+                i
+                =
+                1
+                ,
+                …
+                ,
+                j
+                ,
+              
+            
+            
+              
+                
+                  A
+                  
+                    l
+                    ,
+                    
+                      L
+                      
+                        i
+                      
+                    
+                  
+                
+                =
+                0
+                
+              
+              
+                
+                  for 
+                
+                l
+                ≠
+                i
+                ,
+              
+            
+            
+              
+                
+                  A
+                  
+                    i
+                    ,
+                    l
+                  
+                
+                =
+                0
+                
+              
+              
+                
+                  for 
+                
+                l
+                <
+                
+                  L
+                  
+                    i
+                  
+                
+                ,
+              
+            
+            
+              
+                
+                  A
+                  
+                    i
+                    ,
+                    l
+                  
+                
+                =
+                0
+                
+              
+              
+                
+                  for 
+                
+                i
+                >
+                j
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle {\begin{aligned}A_{i,L_{i}}=1\qquad &{\text{for }}i=1,\dots ,j,\\A_{l,L_{i}}=0\qquad &{\text{for }}l\neq i,\\A_{i,l}=0\qquad &{\text{for }}l<L_{i},\\A_{i,l}=0\qquad &{\text{for }}i>j\end{aligned}}.}
+  Since all other entries are arbitrary elements of the base field 
+  
+    
+      
+        K
+      
+    
+    {\displaystyle K}
+  , the set 
+  
+    
+      
+        A
+        (
+        k
+        ,
+        n
+        ,
+        
+          L
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          L
+          
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle A(k,n,L_{1},\ldots ,L_{j})}
+   of all reduced echelon form matrices with shape 
+  
+    
+      
+        (
+        k
+        ,
+        n
+        ,
+        
+          L
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          L
+          
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle (k,n,L_{1},\ldots ,L_{j})}
+   is a K-affine space of dimension
+
+  
+    
+      
+        
+          dim
+        
+        (
+        A
+        (
+        k
+        ,
+        n
+        ,
+        
+          L
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          L
+          
+            j
+          
+        
+        )
+        )
+        =
+        n
+        j
+        −
+        
+          
+            1
+            2
+          
+        
+        j
+        (
+        j
+        −
+        1
+        )
+        −
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            j
+          
+        
+        
+          L
+          
+            i
+          
+        
+        .
+      
+    
+    {\displaystyle {\text{dim}}(A(k,n,L_{1},\dots ,L_{j}))=nj-{\frac {1}{2}}j(j-1)-\sum _{i=1}^{j}L_{i}.}
+  To see this, note that, of the 
+  
+    
+      
+        n
+        j
+      
+    
+    {\displaystyle nj}
+   possible matrix entries within the first 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   rows, 
+  
+    
+      
+        
+          j
+          
+            2
+          
+        
+      
+    
+    {\displaystyle j^{2}}
+   are determined as 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+  's and 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+  's because they are in the columns 
+  
+    
+      
+        (
+        
+          L
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          L
+          
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle (L_{1},\dots ,L_{j})}
+   containing the pivots. A further  
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            j
+          
+        
+        (
+        
+          L
+          
+            i
+          
+        
+        −
+        1
+        )
+      
+    
+    {\displaystyle \sum _{i=1}^{j}(L_{i}-1)}
+   are also required to be 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+  , because they are to the left of the pivots, but of these, 
+
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            j
+            −
+            1
+          
+        
+        i
+        =
+        
+          
+            1
+            2
+          
+        
+        j
+        (
+        j
+        −
+        1
+        )
+      
+    
+    {\displaystyle \sum _{i=0}^{j-1}i={\frac {1}{2}}j(j-1)}
+  are also in the columns 
+  
+    
+      
+        (
+        
+          L
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          L
+          
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle (L_{1},\dots ,L_{j})}
+  . Therefore, the total number of entries that are not fixed to be equal to 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+   or 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+   is
+
+  
+    
+      
+        n
+        j
+        −
+        
+          j
+          
+            2
+          
+        
+        +
+        
+          
+            1
+            2
+          
+        
+        j
+        (
+        j
+        −
+        1
+        )
+        −
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            j
+          
+        
+        
+          L
+          
+            i
+          
+        
+        +
+        j
+        =
+        n
+        j
+        −
+        
+          
+            1
+            2
+          
+        
+        j
+        (
+        j
+        −
+        1
+        )
+        −
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            j
+          
+        
+        
+          L
+          
+            i
+          
+        
+        .
+      
+    
+    {\displaystyle nj-j^{2}+{\frac {1}{2}}j(j-1)-\sum _{i=1}^{j}L_{i}+j=nj-{\frac {1}{2}}j(j-1)-\sum _{i=1}^{j}L_{i}.}
+
+Maximal rank: Schubert cells
+The row echelon form can be used to give a concrete description of the Schubert cells associated with the Grassmannian of 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -dimensional subspaces of a vector space.
+If 
+  
+    
+      
+        j
+        =
+        k
+        ≤
+        n
+      
+    
+    {\displaystyle j=k\leq n}
+  , the matrices 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   in
+  
+    
+      
+        A
+        (
+        k
+        ,
+        n
+        ,
+        
+          L
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          L
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle A(k,n,L_{1},\dots ,L_{k})}
+   are of maximal rank 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  , and determine 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -dimensional subspaces 
+  
+    
+      
+        w
+        ⊂
+        V
+      
+    
+    {\displaystyle w\subset V}
+   of the free 
+  
+    
+      
+        K
+      
+    
+    {\displaystyle K}
+  -module 
+  
+    
+      
+        V
+        :=
+        
+          K
+          
+            n
+          
+        
+      
+    
+    {\displaystyle V:=K^{n}}
+  , as the span 
+
+  
+    
+      
+        w
+        =
+        
+          span
+        
+        {
+        
+          W
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          W
+          
+            k
+          
+        
+        }
+      
+    
+    {\displaystyle w={\text{span}}\{W_{1},\dots ,W_{k}\}}
+  of linear combinations
+
+  
+    
+      
+        
+          W
+          
+            i
+          
+        
+        :=
+        
+          ∑
+          
+            l
+            =
+            1
+          
+          
+            k
+          
+        
+        
+          A
+          
+            i
+            l
+          
+        
+        
+          e
+          
+            l
+          
+        
+        ,
+        
+        i
+        =
+        1
+        ,
+        …
+        ,
+        k
+      
+    
+    {\displaystyle W_{i}:=\sum _{l=1}^{k}A_{il}e_{l},\quad i=1,\dots ,k}
+  of the elementary basis vectors 
+  
+    
+      
+        (
+        
+          e
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          e
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle (e_{1},\dots ,e_{n})}
+  ,
+with coefficients equal to the row vectors. In this case, the affine space 
+  
+    
+      
+        A
+        (
+        k
+        ,
+        n
+        ,
+        
+          L
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          L
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle A(k,n,L_{1},\dots ,L_{k})}
+   is the Schubert cell
+  
+    
+      
+        
+          X
+          
+            λ
+          
+        
+        (
+        
+          
+            V
+          
+        
+        )
+      
+    
+    {\displaystyle X_{\lambda }({\mathcal {V}})}
+   of the Grassmannian 
+  
+    
+      
+        
+          
+            G
+            r
+          
+          
+            k
+          
+        
+        (
+        V
+        )
+      
+    
+    {\displaystyle \mathbf {Gr} _{k}(V)}
+  , consisting of 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -dimensional subspaces of 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   corresponding to the integer partition
+
+  
+    
+      
+        λ
+        =
+        (
+        
+          λ
+          
+            1
+          
+        
+        ≥
+        ⋯
+        ≥
+        
+          λ
+          
+            k
+          
+        
+        ≥
+        0
+        )
+      
+    
+    {\displaystyle \lambda =(\lambda _{1}\geq \cdots \geq \lambda _{k}\geq 0)}
+  with parts equal to
+
+  
+    
+      
+        
+          λ
+          
+            i
+          
+        
+        :=
+        n
+        −
+        k
+        −
+        
+          L
+          
+            i
+          
+        
+        +
+        i
+        ,
+        
+        1
+        ≤
+        j
+        ≤
+        k
+        ,
+      
+    
+    {\displaystyle \lambda _{i}:=n-k-L_{i}+i,\quad 1\leq j\leq k,}
+  relative to the complete flag
+
+  
+    
+      
+        
+          
+            V
+          
+        
+        =
+        (
+        
+          V
+          
+            1
+          
+        
+        ⊂
+        
+          V
+          
+            2
+          
+        
+        ⋯
+        ⊂
+        
+          V
+          
+            n
+          
+        
+        =
+        V
+        )
+        ,
+      
+    
+    {\displaystyle {\mathcal {V}}=(V_{1}\subset V_{2}\cdots \subset V_{n}=V),}
+  where 
+
+  
+    
+      
+        
+          V
+          
+            i
+          
+        
+        =
+        
+          span
+        
+        {
+        
+          e
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          e
+          
+            i
+          
+        
+        }
+        ,
+        
+        i
+        =
+        1
+        ,
+        …
+        n
+        .
+      
+    
+    {\displaystyle V_{i}={\text{span}}\{e_{1},\dots ,e_{i}\},\quad i=1,\dots n.}
+  This means that 
+  
+    
+      
+        
+          X
+          
+            λ
+          
+        
+        (
+        
+          
+            V
+          
+        
+        )
+        ⊂
+        
+          
+            G
+            r
+          
+          
+            k
+          
+        
+        (
+        V
+        )
+      
+    
+    {\displaystyle X_{\lambda }({\mathcal {V}})\subset \mathbf {Gr} _{k}(V)}
+   consists of those 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -dimensional subspaces 
+  
+    
+      
+        w
+        ⊂
+        V
+      
+    
+    {\displaystyle w\subset V}
+    whose intersections with the subspaces 
+  
+    
+      
+        {
+        
+          V
+          
+            j
+          
+        
+        
+          }
+          
+            j
+            =
+            1
+            ,
+            …
+            ,
+            n
+          
+        
+      
+    
+    {\displaystyle \{V_{j}\}_{j=1,\dots ,n}}
+   have dimensions
+
+  
+    
+      
+        
+          dim
+        
+        (
+        w
+        ∩
+        
+          V
+          
+            j
+          
+        
+        )
+        =
+        i
+        ,
+         
+        
+          for 
+        
+        n
+        −
+        k
+        −
+        
+          λ
+          
+            i
+          
+        
+        +
+        i
+        ≤
+        j
+        ≤
+        n
+        −
+        k
+        −
+        
+          λ
+          
+            i
+            +
+            1
+          
+        
+        +
+        i
+        ,
+        
+        i
+        =
+        1
+        ,
+        …
+        ,
+        k
+        .
+      
+    
+    {\displaystyle {\text{dim}}(w\cap V_{j})=i,\ {\text{for }}n-k-\lambda _{i}+i\leq j\leq n-k-\lambda _{i+1}+i,\quad i=1,\dots ,k.}
+  Its dimension is then equal to the weight 
+  
+    
+      
+        
+          |
+        
+        λ
+        
+          |
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            k
+          
+        
+        
+          λ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle |\lambda |=\sum _{i=1}^{k}\lambda _{i}}
+   of the partition
+
+  
+    
+      
+        dim
+        ⁡
+        (
+        
+          
+            X
+            
+              λ
+            
+          
+          (
+          
+            
+              V
+            
+          
+          )
+        
+        )
+        =
+        
+          |
+        
+        λ
+        
+          |
+        
+        .
+      
+    
+    {\displaystyle \dim({X_{\lambda }({\mathcal {V}})})=|\lambda |.}
+  An equivalent, but simpler characterization of the Schubert cell 
+  
+    
+      
+        
+          X
+          
+            λ
+          
+        
+        (
+        
+          
+            V
+          
+        
+        )
+      
+    
+    {\displaystyle X_{\lambda }({\mathcal {V}})}
+   may be given in terms of the  dual complete flag
+
+  
+    
+      
+        
+          
+            
+              
+                V
+              
+              ~
+            
+          
+        
+        =
+        (
+        
+          
+            
+              
+                V
+                ~
+              
+            
+          
+          
+            1
+          
+        
+        ⊂
+        
+          
+            
+              
+                V
+                ~
+              
+            
+          
+          
+            2
+          
+        
+        ⋯
+        ⊂
+        
+          
+            
+              
+                V
+                ~
+              
+            
+          
+          
+            n
+          
+        
+        =
+        V
+        )
+        ,
+      
+    
+    {\displaystyle {\tilde {\mathcal {V}}}=({\tilde {V}}_{1}\subset {\tilde {V}}_{2}\cdots \subset {\tilde {V}}_{n}=V),}
+  where 
+
+  
+    
+      
+        
+          
+            
+              
+                V
+                ~
+              
+            
+          
+          
+            i
+          
+        
+        =
+        
+          span
+        
+        {
+        
+          e
+          
+            n
+          
+        
+        ,
+        …
+        ,
+        
+          e
+          
+            n
+            −
+            i
+            +
+            1
+          
+        
+        }
+        ,
+        
+        i
+        =
+        1
+        ,
+        …
+        n
+        .
+      
+    
+    {\displaystyle {\tilde {V}}_{i}={\text{span}}\{e_{n},\dots ,e_{n-i+1}\},\quad i=1,\dots n.}
+  Then 
+  
+    
+      
+        
+          X
+          
+            λ
+          
+        
+        (
+        
+          
+            V
+          
+        
+        )
+        ⊂
+        
+          
+            G
+            r
+          
+          
+            k
+          
+        
+        (
+        V
+        )
+      
+    
+    {\displaystyle X_{\lambda }({\mathcal {V}})\subset \mathbf {Gr} _{k}(V)}
+   consists of those 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -dimensional subspaces 
+  
+    
+      
+        w
+        ⊂
+        V
+      
+    
+    {\displaystyle w\subset V}
+   that have a basis 
+  
+    
+      
+        (
+        
+          
+            
+              
+                W
+                ~
+              
+            
+          
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          
+            
+              
+                W
+                ~
+              
+            
+          
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle ({\tilde {W}}_{1},\dots ,{\tilde {W}}_{k})}
+  
+consisting of elements
+
+  
+    
+      
+        
+          
+            
+              
+                W
+                ~
+              
+            
+          
+          
+            i
+          
+        
+        ∈
+        
+          
+            
+              
+                V
+                ~
+              
+            
+          
+          
+            n
+            −
+            
+              L
+              
+                i
+              
+            
+            +
+            1
+          
+        
+        =
+        
+          
+            
+              
+                V
+                ~
+              
+            
+          
+          
+            k
+            +
+            
+              λ
+              
+                i
+              
+            
+            −
+            i
+            +
+            1
+          
+        
+        ,
+        
+        i
+        =
+        1
+        ,
+        …
+        ,
+        k
+      
+    
+    {\displaystyle {\tilde {W}}_{i}\in {\tilde {V}}_{n-L_{i}+1}={\tilde {V}}_{k+\lambda _{i}-i+1},\quad i=1,\dots ,k}
+  of the subspaces 
+  
+    
+      
+        {
+        
+          
+            
+              
+                V
+                ~
+              
+            
+          
+          
+            k
+            +
+            
+              λ
+              
+                i
+              
+            
+            −
+            i
+            +
+            1
+          
+        
+        
+          }
+          
+            i
+            =
+            1
+            ,
+            …
+            ,
+            k
+          
+        
+      
+    
+    {\displaystyle \{{\tilde {V}}_{k+\lambda _{i}-i+1}\}_{i=1,\dots ,k}}
+   which, relative to the standard basis, are the row vectors 
+  
+    
+      
+        (
+        
+          W
+          
+            k
+          
+        
+        ,
+        …
+        ,
+        
+          W
+          
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle (W_{k},\dots ,W_{1})}
+   of the row echelon form, written in reverse order.
+
+Notes
+References
+Leon, Steven J. (2010), Lynch, Deirdre; Hoffman, William; Celano, Caroline (eds.), Linear Algebra with Applications (8th ed.), Pearson, ISBN 978-0-13-600929-0, A matrix is said to be in row echelon form (i) If the first nonzero entry in each nonzero row is 1. (ii) If row k does not consist entirely of zeros, the number of leading zero entries in row 
+  
+    
+      
+        k
+        +
+        1
+      
+    
+    {\displaystyle k+1}
+   is greater than the number of leading zero entries in row k. (iii) If there are rows whose entries are all zero, they are below the rows having nonzero entries..
+Meyer, Carl D. (2000), Matrix Analysis and Applied Linear Algebra, SIAM, ISBN 978-0-89871-454-8.
+
+External links
+
+Interactive Row Echelon Form with rational output

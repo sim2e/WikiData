@@ -1,0 +1,1526 @@
+In complexity theory, the Karp–Lipton theorem states that if the Boolean satisfiability problem (SAT) can be solved by Boolean circuits with a polynomial number of logic gates, then 
+
+  
+    
+      
+        
+          Π
+          
+            2
+          
+        
+        =
+        
+          Σ
+          
+            2
+          
+        
+        
+      
+    
+    {\displaystyle \Pi _{2}=\Sigma _{2}\,}
+   and therefore 
+  
+    
+      
+        
+          
+            P
+            H
+          
+        
+        =
+        
+          Σ
+          
+            2
+          
+        
+        .
+        
+      
+    
+    {\displaystyle {\mathsf {PH}}=\Sigma _{2}.\,}
+  That is, if we assume that NP, the class of nondeterministic polynomial time problems, can be contained in the non-uniform polynomial time complexity class P/poly, then this assumption implies the collapse of the polynomial hierarchy at its second level. Such a collapse is believed unlikely, so the theorem is generally viewed by complexity theorists as evidence for the nonexistence of polynomial size circuits for SAT or for other NP-complete problems. A proof that such circuits do not exist would imply that P ≠ NP. As P/poly contains all problems solvable in randomized polynomial time (Adleman's theorem), the theorem is also evidence that the use of randomization does not lead to polynomial time algorithms for NP-complete problems.
+The Karp–Lipton theorem is named after Richard M. Karp and Richard J. Lipton, who first proved it in 1980. (Their original proof collapsed PH to 
+  
+    
+      
+        
+          Σ
+          
+            3
+          
+        
+      
+    
+    {\displaystyle \Sigma _{3}}
+  , but Michael Sipser improved it to 
+  
+    
+      
+        
+          Σ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Sigma _{2}}
+  .)
+Variants of the theorem state that, under the same assumption, MA = AM, and PH collapses to SP2 complexity class. There are stronger conclusions possible if PSPACE, or some other complexity classes are assumed to have polynomial-sized circuits; see P/poly. If NP is assumed to be a subset of BPP (which is a subset of P/poly), then the polynomial hierarchy collapses to BPP. If coNP is assumed to be subset of NP/poly, then the polynomial hierarchy collapses to its third level.
+
+Intuition
+Suppose that polynomial sized circuits for SAT not only exist, but also that they could be constructed by a polynomial time algorithm. Then this supposition implies that SAT itself could be solved by a polynomial time algorithm that constructs the circuit and then applies it. That is, efficiently constructible circuits for SAT would lead to a stronger collapse, P = NP.
+The assumption of the Karp–Lipton theorem, that these circuits exist, is weaker. But it is still possible for an algorithm in the complexity class 
+  
+    
+      
+        
+          Σ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Sigma _{2}}
+   to guess a correct circuit for SAT. The complexity class 
+  
+    
+      
+        
+          Σ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Sigma _{2}}
+   describes problems of the form
+
+  
+    
+      
+        ∃
+        x
+        ∀
+        y
+        
+        ψ
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle \exists x\forall y\;\psi (x,y)}
+  where 
+  
+    
+      
+        ψ
+      
+    
+    {\displaystyle \psi }
+   is any polynomial-time computable predicate. The existential power of the first quantifier in this predicate can be used to guess a correct circuit for SAT, and the universal power of the second quantifier can be used to verify that the circuit is correct. Once this circuit is guessed and verified, the algorithm in class 
+  
+    
+      
+        
+          Σ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Sigma _{2}}
+   can use it as a subroutine for solving other problems.
+
+Self-reducibility
+To understand the Karp–Lipton proof in more detail, we consider the problem of testing whether a circuit c is a correct circuit for solving SAT instances of a given size, and show that this circuit testing problem belongs to 
+  
+    
+      
+        
+          Π
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \Pi _{1}}
+  . That is, there exists a polynomial time computable predicate V such that c is a correct circuit if and only if, for all polynomially-bounded z, V(c,z) is true.
+The circuit c is a correct circuit for SAT if it satisfies two properties:
+
+For every pair (s,x) where s is an instance of SAT and x is a solution to the instance, c(s) must be true
+For every instance s of SAT for which c(s) is true, s must be solvable.The first of these two properties is already in the form of problems in class 
+  
+    
+      
+        
+          Π
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \Pi _{1}}
+  . To verify the second property, we use the self-reducibility property of SAT.
+Self-reducibility describes the phenomenon that, if we can quickly test whether a SAT instance is solvable, we can almost as quickly find an explicit solution to the instance. To find a solution to an instance s, choose one of the Boolean variables x that is input to s, and make two smaller instances s0 and s1 where si denotes the formula formed by replacing x with the constant i. Once these two smaller instances have been constructed, apply the test for solvability to each of them. If one of these two tests returns that the smaller instance is satisfiable, continue solving that instance until a complete solution has been derived.
+To use self-reducibility to check the second property of a correct circuit for SAT, we rewrite it as follows:
+
+For every instance s of SAT for which c(s) is true, the self-reduction procedure described above finds a valid solution to s.Thus, we can test in 
+  
+    
+      
+        
+          Π
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \Pi _{1}}
+   whether c is a valid circuit for solving SAT.
+see Random self-reducibility for more information
+
+Proof of Karp–Lipton theorem
+The Karp–Lipton theorem can be restated as a result about Boolean formulas with polynomially-bounded quantifiers. Problems in 
+  
+    
+      
+        
+          Π
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Pi _{2}}
+   are described by formulas of this type, with the syntax
+
+  
+    
+      
+        ϕ
+        =
+        ∀
+        x
+        ∃
+        y
+        
+        ψ
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle \phi =\forall x\exists y\;\psi (x,y)}
+  where 
+  
+    
+      
+        ψ
+      
+    
+    {\displaystyle \psi }
+   is a polynomial-time computable predicate. The Karp–Lipton theorem states that this type of formula can be transformed in polynomial time into an equivalent formula in which the quantifiers appear in the opposite order; such a formula belongs to 
+  
+    
+      
+        
+          Σ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Sigma _{2}}
+  . Note that the subformula
+
+  
+    
+      
+        s
+        (
+        x
+        )
+        =
+        ∃
+        y
+        
+        ψ
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle s(x)=\exists y\;\psi (x,y)}
+  is an instance of SAT. That is, if c is a valid circuit for SAT, then this subformula is equivalent to the unquantified formula c(s(x)). Therefore, the full formula for 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   is equivalent (under the assumption that a valid circuit c exists) to the formula
+
+  
+    
+      
+        ∃
+        c
+        ∀
+        (
+        x
+        ,
+        z
+        )
+        
+        V
+        (
+        c
+        ,
+        z
+        )
+        ∧
+        c
+        (
+        s
+        (
+        x
+        )
+        )
+        
+      
+    
+    {\displaystyle \exists c\forall (x,z)\;V(c,z)\wedge c(s(x))\,}
+  where V is the formula used to verify that c really is a valid circuit using self-reducibility, as described above. This equivalent formula has its quantifiers in the opposite order, as desired. Therefore, the Karp–Lipton assumption allows us to transpose the order of existential and universal quantifiers in formulas of this type, showing that 
+  
+    
+      
+        
+          Σ
+          
+            2
+          
+        
+        =
+        
+          Π
+          
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle \Sigma _{2}=\Pi _{2}.}
+   Repeating the transposition allows formulas with deeper nesting to be simplified to a form in which they have a single existential quantifier followed by a single universal quantifier, showing that 
+  
+    
+      
+        P
+        H
+        =
+        
+          Σ
+          
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle PH=\Sigma _{2}.}
+
+Another proof and SP2
+Assume 
+  
+    
+      
+        
+          
+            N
+            P
+          
+        
+        ⊆
+        
+          
+            P
+            
+              /
+            
+            p
+            o
+            l
+            y
+          
+        
+      
+    
+    {\displaystyle {\mathsf {NP}}\subseteq {\mathsf {P/poly}}}
+  . Therefore, there exists a family of circuits 
+  
+    
+      
+        
+          C
+          
+            n
+          
+        
+      
+    
+    {\displaystyle C_{n}}
+   that solves satisfiability on input of length n. Using self-reducibility, there exists a family of circuits 
+  
+    
+      
+        
+          D
+          
+            n
+          
+        
+      
+    
+    {\displaystyle D_{n}}
+   which outputs a satisfying assignment on true instances.
+Suppose L is a 
+  
+    
+      
+        
+          Π
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Pi _{2}}
+   set
+
+  
+    
+      
+        L
+        =
+        {
+        z
+        :
+        ∀
+        x
+        .
+        ∃
+        y
+        .
+        ϕ
+        (
+        x
+        ,
+        y
+        ,
+        z
+        )
+        }
+        
+      
+    
+    {\displaystyle L=\{z:\forall x.\exists y.\phi (x,y,z)\}\,}
+  Since 
+  
+    
+      
+        ∃
+        y
+        .
+        ϕ
+        (
+        x
+        ,
+        y
+        ,
+        z
+        )
+      
+    
+    {\displaystyle \exists y.\phi (x,y,z)}
+   can be considered an instance of SAT (by Cook-Levin theorem), there exists a circuit 
+  
+    
+      
+        
+          D
+          
+            n
+          
+        
+      
+    
+    {\displaystyle D_{n}}
+  , depending on 
+  
+    
+      
+        n
+        =
+        
+          |
+        
+        z
+        
+          |
+        
+      
+    
+    {\displaystyle n=|z|}
+  , such that the formula defining L is equivalent to
+
+Furthermore, the circuit can be guessed with existential quantification:
+
+Obviously (1) implies (2). If (1) is false, then 
+  
+    
+      
+        ¬
+        ∃
+        y
+        .
+        ϕ
+        (
+        x
+        ,
+        y
+        ,
+        z
+        )
+      
+    
+    {\displaystyle \neg \exists y.\phi (x,y,z)}
+  . In this case, no circuit D can output an assignment making 
+  
+    
+      
+        ϕ
+        (
+        x
+        ,
+        D
+        (
+        x
+        ,
+        z
+        )
+        ,
+        z
+        )
+        
+      
+    
+    {\displaystyle \phi (x,D(x,z),z)\;}
+   true.
+The proof has shown that a 
+  
+    
+      
+        
+          Π
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Pi _{2}}
+   set 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   is in 
+  
+    
+      
+        
+          Σ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Sigma _{2}}
+  .
+What's more, if the 
+  
+    
+      
+        
+          Π
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Pi _{2}}
+   formula is true, then the circuit D will work against any x. If the 
+  
+    
+      
+        
+          Π
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Pi _{2}}
+   formula is false, then x making the formula (1) false will work against any circuit. This property means a stronger collapse, namely to SP2 complexity class (i.e. 
+  
+    
+      
+        
+          Π
+          
+            2
+          
+        
+        ⊆
+        
+          
+            
+              S
+            
+          
+          
+            2
+          
+          
+            P
+          
+        
+        ⊆
+        
+          Σ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Pi _{2}\subseteq {\mathsf {S}}_{2}^{P}\subseteq \Sigma _{2}}
+  ). It was observed by Sengupta.
+
+AM = MA
+A modification of the above proof yields
+
+  
+    
+      
+        
+          
+            N
+            P
+          
+        
+        ⊆
+        
+          
+            P
+            
+              /
+            
+            p
+            o
+            l
+            y
+          
+        
+        
+        ⟹
+        
+        
+          
+            A
+            M
+          
+        
+        =
+        
+          
+            M
+            A
+          
+        
+      
+    
+    {\displaystyle {\mathsf {NP}}\subseteq {\mathsf {P/poly}}\implies {\mathsf {AM}}={\mathsf {MA}}}
+  (see Arthur–Merlin protocol).
+Suppose that L is in AM, i.e.:
+
+  
+    
+      
+        z
+        ∈
+        L
+        
+        ⟹
+        
+        
+          Pr
+          
+            x
+          
+        
+        [
+        ∃
+        y
+        .
+        ϕ
+        (
+        x
+        ,
+        y
+        ,
+        z
+        )
+        ]
+        ≥
+        
+          
+            
+              2
+              3
+            
+          
+        
+      
+    
+    {\displaystyle z\in L\implies \Pr \nolimits _{x}[\exists y.\phi (x,y,z)]\geq {\tfrac {2}{3}}}
+  
+
+  
+    
+      
+        z
+        ∉
+        L
+        
+        ⟹
+        
+        
+          Pr
+          
+            x
+          
+        
+        [
+        ∃
+        y
+        .
+        ϕ
+        (
+        x
+        ,
+        y
+        ,
+        z
+        )
+        ]
+        ≤
+        
+          
+            
+              1
+              3
+            
+          
+        
+      
+    
+    {\displaystyle z\notin L\implies \Pr \nolimits _{x}[\exists y.\phi (x,y,z)]\leq {\tfrac {1}{3}}}
+  and as previously rewrite 
+  
+    
+      
+        ∃
+        y
+        .
+        ϕ
+        (
+        x
+        ,
+        y
+        ,
+        z
+        )
+      
+    
+    {\displaystyle \exists y.\phi (x,y,z)}
+   using the circuit 
+  
+    
+      
+        
+          D
+          
+            n
+          
+        
+      
+    
+    {\displaystyle D_{n}}
+   that outputs a satisfying assignment if it exists:
+
+  
+    
+      
+        z
+        ∈
+        L
+        
+        ⟹
+        
+        
+          Pr
+          
+            x
+          
+        
+        [
+        ϕ
+        (
+        x
+        ,
+        
+          D
+          
+            n
+          
+        
+        (
+        x
+        ,
+        z
+        )
+        ,
+        z
+        )
+        ]
+        ≥
+        
+          
+            
+              2
+              3
+            
+          
+        
+      
+    
+    {\displaystyle z\in L\implies \Pr \nolimits _{x}[\phi (x,D_{n}(x,z),z)]\geq {\tfrac {2}{3}}}
+  
+
+  
+    
+      
+        z
+        ∉
+        L
+        
+        ⟹
+        
+        
+          Pr
+          
+            x
+          
+        
+        [
+        ϕ
+        (
+        x
+        ,
+        
+          D
+          
+            n
+          
+        
+        (
+        x
+        ,
+        z
+        )
+        ,
+        z
+        )
+        ]
+        ≤
+        
+          
+            
+              1
+              3
+            
+          
+        
+      
+    
+    {\displaystyle z\notin L\implies \Pr \nolimits _{x}[\phi (x,D_{n}(x,z),z)]\leq {\tfrac {1}{3}}}
+  Since 
+  
+    
+      
+        
+          D
+          
+            n
+          
+        
+      
+    
+    {\displaystyle D_{n}}
+   can be guessed:
+
+  
+    
+      
+        z
+        ∈
+        L
+        
+        ⟹
+        
+        ∃
+        D
+        .
+        
+          Pr
+          
+            x
+          
+        
+        [
+        ϕ
+        (
+        x
+        ,
+        D
+        (
+        x
+        ,
+        z
+        )
+        ,
+        z
+        )
+        ]
+        ≥
+        
+          
+            
+              2
+              3
+            
+          
+        
+      
+    
+    {\displaystyle z\in L\implies \exists D.\Pr \nolimits _{x}[\phi (x,D(x,z),z)]\geq {\tfrac {2}{3}}}
+  
+
+  
+    
+      
+        z
+        ∉
+        L
+        
+        ⟹
+        
+        ∀
+        D
+        .
+        
+          Pr
+          
+            x
+          
+        
+        [
+        ϕ
+        (
+        x
+        ,
+        D
+        (
+        x
+        ,
+        z
+        )
+        ,
+        z
+        )
+        ]
+        ≤
+        
+          
+            
+              1
+              3
+            
+          
+        
+      
+    
+    {\displaystyle z\notin L\implies \forall D.\Pr \nolimits _{x}[\phi (x,D(x,z),z)]\leq {\tfrac {1}{3}}}
+  which proves 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   is in the smaller class MA.
+
+Application to circuit lower bounds – Kannan's theorem
+Kannan's theorem states that for any fixed k there exists a language 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   in 
+  
+    
+      
+        
+          Σ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Sigma _{2}}
+  , which is not in SIZE(nk) (This is a different statement than 
+  
+    
+      
+        
+          Σ
+          
+            2
+          
+        
+        ⊈
+        
+          
+            P
+            
+              /
+            
+            p
+            o
+            l
+            y
+          
+        
+      
+    
+    {\displaystyle \Sigma _{2}\not \subseteq {\mathsf {P/poly}}}
+  , which is currently open and states that there exists a single language that is not in SIZE(nk) for any k). It is a simple circuit lower bound.
+Proof outline:
+There exists a language 
+  
+    
+      
+        L
+        ∈
+        
+          Σ
+          
+            4
+          
+        
+        −
+        
+          
+            S
+            I
+            Z
+            E
+          
+        
+        (
+        
+          n
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle L\in \Sigma _{4}-{\mathsf {SIZE}}(n^{k})}
+   (the proof uses diagonalization technique). Consider two cases:
+
+If 
+  
+    
+      
+        
+          
+            S
+            A
+            T
+          
+        
+        ∉
+        
+          
+            P
+            
+              /
+            
+            p
+            o
+            l
+            y
+          
+        
+      
+    
+    {\displaystyle {\mathsf {SAT}}\notin {\mathsf {P/poly}}}
+   then 
+  
+    
+      
+        
+          
+            S
+            A
+            T
+          
+        
+        ∉
+        
+          
+            S
+            I
+            Z
+            E
+          
+        
+        (
+        
+          n
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathsf {SAT}}\notin {\mathsf {SIZE}}(n^{k})}
+   and theorem is proved.
+If 
+  
+    
+      
+        
+          
+            S
+            A
+            T
+          
+        
+        ∈
+        
+          
+            P
+            
+              /
+            
+            p
+            o
+            l
+            y
+          
+        
+      
+    
+    {\displaystyle {\mathsf {SAT}}\in {\mathsf {P/poly}}}
+  , then by Karp–Lipton theorem, 
+  
+    
+      
+        
+          Σ
+          
+            4
+          
+        
+        =
+        
+          Σ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Sigma _{4}=\Sigma _{2}}
+   and therefore 
+  
+    
+      
+        L
+        ∈
+        
+          Σ
+          
+            2
+          
+        
+        −
+        
+          
+            S
+            I
+            Z
+            E
+          
+        
+        (
+        
+          n
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle L\in \Sigma _{2}-{\mathsf {SIZE}}(n^{k})}
+  .A stronger version of Karp–Lipton theorem strengthens Kannan's theorem to: for any k, there exists a language 
+  
+    
+      
+        L
+        ∈
+        
+          
+            
+              S
+            
+          
+          
+            2
+          
+          
+            P
+          
+        
+        −
+        
+          
+            S
+            I
+            Z
+            E
+          
+        
+        (
+        
+          n
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle L\in {\mathsf {S}}_{2}^{P}-{\mathsf {SIZE}}(n^{k})}
+  .
+It is also known that PP is not contained in 
+  
+    
+      
+        
+          
+            S
+            I
+            Z
+            E
+          
+        
+        (
+        
+          n
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathsf {SIZE}}(n^{k})}
+  , which was proved by Vinodchandran. Proof:
+If 
+  
+    
+      
+        
+          
+            P
+            P
+          
+        
+        ⊈
+        
+          
+            P
+            
+              /
+            
+            p
+            o
+            l
+            y
+          
+        
+      
+    
+    {\displaystyle {\mathsf {PP}}\not \subseteq {\mathsf {P/poly}}}
+   then 
+  
+    
+      
+        
+          
+            P
+            P
+          
+        
+        ⊈
+        
+          
+            S
+            I
+            Z
+            E
+          
+        
+        (
+        
+          n
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathsf {PP}}\not \subseteq {\mathsf {SIZE}}(n^{k})}
+  .
+Otherwise, 
+  
+    
+      
+        
+          
+            
+              P
+              
+                #
+                P
+              
+            
+          
+        
+        ⊆
+        
+          
+            P
+            
+              /
+            
+            p
+            o
+            l
+            y
+          
+        
+      
+    
+    {\displaystyle {\mathsf {P^{\#P}}}\subseteq {\mathsf {P/poly}}}
+  . Since
+  
+    
+      
+        
+          
+            
+              P
+              
+                #
+                P
+              
+            
+          
+        
+        ⊇
+        
+          
+            P
+            P
+          
+        
+        ⊇
+        
+          
+            M
+            A
+          
+        
+      
+    
+    {\displaystyle {\mathsf {P^{\#P}}}\supseteq {\mathsf {PP}}\supseteq {\mathsf {MA}}}
+   (by property of MA)
+
+  
+    
+      
+        
+          
+            
+              P
+              
+                #
+                P
+              
+            
+          
+        
+        ⊇
+        
+          
+            P
+            H
+          
+        
+        ⊇
+        
+          Σ
+          
+            2
+          
+        
+        ⊇
+        
+          
+            M
+            A
+          
+        
+      
+    
+    {\displaystyle {\mathsf {P^{\#P}}}\supseteq {\mathsf {PH}}\supseteq \Sigma _{2}\supseteq {\mathsf {MA}}}
+   (by Toda's theorem and property of MA)
+
+  
+    
+      
+        
+          
+            
+              P
+              
+                #
+                P
+              
+            
+          
+        
+        =
+        
+          
+            M
+            A
+          
+        
+      
+    
+    {\displaystyle {\mathsf {P^{\#P}}}={\mathsf {MA}}}
+   (follows from assumption using interactive protocol for permanent, see P/poly)the containments are equalities and we get 
+  
+    
+      
+        
+          
+            P
+            P
+          
+        
+        =
+        
+          Σ
+          
+            2
+          
+        
+        ⊈
+        
+          
+            S
+            I
+            Z
+            E
+          
+        
+        (
+        
+          n
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathsf {PP}}=\Sigma _{2}\not \subseteq {\mathsf {SIZE}}(n^{k})}
+   by Kannan's theorem.
+
+References
+
+Karp, R. M.; Lipton, R. J. (1980), "Some connections between nonuniform and uniform complexity classes", Proceedings of the Twelfth Annual ACM Symposium on Theory of Computing, pp. 302–309, doi:10.1145/800141.804678, S2CID 1458043.Karp, R. M.; Lipton, R. J. (1982), "Turing machines that take advice", L'Enseignement Mathématique, 28: 191–209, doi:10.5169/seals-52237.

@@ -1,0 +1,26 @@
+The ω-regular languages are a class of ω-languages that generalize the definition of regular languages to infinite words.
+
+Formal definition
+An ω-language L is ω-regular if it has the form
+
+Aω where A is a regular language not containing the empty string
+AB, the concatenation of a regular language A and an ω-regular language B (Note that BA is not well-defined)
+A ∪ B where A and B are ω-regular languages (this rule can only be applied finitely many times)The elements of Aω are obtained by concatenating  words from A infinitely many times.
+Note that if A is regular, Aω is not necessarily ω-regular, since A could be for example {ε}, the set containing only the empty string, in which case Aω=A, which is not an ω-language and therefore not an ω-regular language.
+It is a straightforward consequence of the definition that the ω-regular languages are precisely the ω-languages of the form A1B1ω ∪ ... ∪ AnBnω for some n, where the Ais and  Bis are regular languages and the Bis do not contain the empty string.
+
+Equivalence to Büchi automaton
+Theorem: An ω-language is recognized by a Büchi automaton if and only if it is an ω-regular language.
+Proof: Every ω-regular language is recognized by a nondeterministic Büchi automaton; the translation is constructive. Using the closure properties of Büchi automata and structural induction over the definition of ω-regular language, it can be easily shown that a Büchi automaton can be constructed for any given ω-regular language.
+Conversely, for a given Büchi automaton A = (Q, Σ, δ, I, F), we construct an ω-regular language and then we will show that this language is recognized by A. For an ω-word w = a1a2... let w(i,j) be the finite segment ai+1...aj-1aj of w.
+For every q, q' ∈ Q, we define a regular language Lq,q' that is accepted by the finite automaton (Q, Σ, δ, q, {q'}). 
+
+Lemma: We claim that the Büchi automaton A recognizes the language ⋃q∈I,q'∈F Lq,q' (Lq',q' − {ε} )ω.
+Proof: Let's suppose word w ∈ L(A) and q0,q1,q2,... is an accepting run of A on w. Therefore, q0 is in I and there must be a state q' in F such that q' occurs infinitely often in the accepting run. Let's pick the strictly increasing infinite sequence of indexes i0,i1,i2... such that, for all k≥0, qik is q'. Therefore, w(0,i0)∈Lq0,q' and, for all k≥0, w(ik,ik+1)∈Lq',q' . Therefore, w ∈ Lq0,q' (Lq',q' )ω.
+Conversely, suppose w ∈ Lq,q' (Lq',q' − {ε} )ω for some q∈I and q'∈F. Therefore, there is an infinite and strictly increasing sequence i0,i1,i2... such that w(0,i0) ∈ Lq,q' and, for all k≥0, w(ik,ik+1)∈Lq',q' . By definition of Lq,q', there is a finite run of A from q to q' on word w(0,i0). For all k≥0, there is a finite run of A from q' to q' on word w(ik,ik+1). By this construction, there is a run of A, which starts from q and in which q' occurs infinitely often. Hence, w ∈ L(A).
+
+Equivalence to Monadic second-order logic
+Büchi showed in 1962 that ω-regular languages are precisely the ones definable in a particular monadic second-order logic called S1S.
+
+Bibliography
+Wolfgang Thomas, "Automata on infinite objects." In Jan van Leeuwen, editor, Handbook of Theoretical Computer Science, volume B: Formal Models and Semantics, pages 133-192. Elsevier Science Publishers, Amsterdam, 1990.

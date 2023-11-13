@@ -1,0 +1,621 @@
+Hybrid functionals are a class of approximations to the exchange–correlation energy functional in density functional theory (DFT) that incorporate a portion of exact exchange from Hartree–Fock theory with the rest of the exchange–correlation energy from other sources (ab initio or empirical). The exact exchange energy functional is expressed in terms of the Kohn–Sham orbitals rather than the density, so is termed an implicit density functional.  One of the most commonly used versions is B3LYP, which stands for "Becke, 3-parameter, Lee–Yang–Parr".
+
+Origin
+The hybrid approach to constructing density functional approximations was introduced by Axel Becke in 1993.  Hybridization with Hartree–Fock (HF) exchange (also called exact exchange) provides a simple scheme for improving the calculation of many molecular properties, such as atomization energies, bond lengths and vibration frequencies, which tend to be poorly described with simple "ab initio" functionals.
+
+Method
+A hybrid exchange–correlation functional is usually constructed as a linear combination of the Hartree–Fock exact exchange functional
+
+  
+    
+      
+        
+          E
+          
+            x
+          
+          
+            HF
+          
+        
+        =
+        −
+        
+          
+            1
+            2
+          
+        
+        
+          ∑
+          
+            i
+            ,
+            j
+          
+        
+        ∬
+        
+          ψ
+          
+            i
+          
+          
+            ∗
+          
+        
+        (
+        
+          
+            r
+          
+          
+            1
+          
+        
+        )
+        
+          ψ
+          
+            j
+          
+          
+            ∗
+          
+        
+        (
+        
+          
+            r
+          
+          
+            2
+          
+        
+        )
+        
+          
+            1
+            
+              r
+              
+                12
+              
+            
+          
+        
+        
+          ψ
+          
+            j
+          
+        
+        (
+        
+          
+            r
+          
+          
+            1
+          
+        
+        )
+        
+          ψ
+          
+            i
+          
+        
+        (
+        
+          
+            r
+          
+          
+            2
+          
+        
+        )
+        
+        d
+        
+          
+            r
+          
+          
+            1
+          
+        
+        
+        d
+        
+          
+            r
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle E_{\text{x}}^{\text{HF}}=-{\frac {1}{2}}\sum _{i,j}\iint \psi _{i}^{*}(\mathbf {r} _{1})\psi _{j}^{*}(\mathbf {r} _{2}){\frac {1}{r_{12}}}\psi _{j}(\mathbf {r} _{1})\psi _{i}(\mathbf {r} _{2})\,d\mathbf {r} _{1}\,d\mathbf {r} _{2}}
+  and any number of exchange and correlation explicit density functionals. The parameters determining the weight of each individual functional are typically specified by fitting the functional's predictions to experimental or accurately calculated thermochemical data, although in the case of the "adiabatic connection functionals" the weights can be set a priori.
+
+B3LYP
+For example, the popular B3LYP (Becke, 3-parameter, Lee–Yang–Parr) exchange-correlation functional is
+
+  
+    
+      
+        
+          E
+          
+            xc
+          
+          
+            B3LYP
+          
+        
+        =
+        (
+        1
+        −
+        a
+        )
+        
+          E
+          
+            x
+          
+          
+            LSDA
+          
+        
+        +
+        a
+        
+          E
+          
+            x
+          
+          
+            HF
+          
+        
+        +
+        b
+        △
+        
+          E
+          
+            x
+          
+          
+            B
+          
+        
+        +
+        (
+        1
+        −
+        c
+        )
+        
+          E
+          
+            c
+          
+          
+            LSDA
+          
+        
+        +
+        c
+        
+          E
+          
+            c
+          
+          
+            LYP
+          
+        
+        ,
+      
+    
+    {\displaystyle E_{\text{xc}}^{\text{B3LYP}}=(1-a)E_{\text{x}}^{\text{LSDA}}+aE_{\text{x}}^{\text{HF}}+b\vartriangle E_{\text{x}}^{\text{B}}+(1-c)E_{\text{c}}^{\text{LSDA}}+cE_{\text{c}}^{\text{LYP}},}
+  where 
+  
+    
+      
+        a
+        =
+        0.20
+      
+    
+    {\displaystyle a=0.20}
+  , 
+  
+    
+      
+        b
+        =
+        0.72
+      
+    
+    {\displaystyle b=0.72}
+  , and 
+  
+    
+      
+        c
+        =
+        0.81
+      
+    
+    {\displaystyle c=0.81}
+  .  
+  
+    
+      
+        
+          E
+          
+            x
+          
+          
+            B
+          
+        
+      
+    
+    {\displaystyle E_{\text{x}}^{\text{B}}}
+   is a generalized gradient approximation: the Becke 88 exchange functional and the correlation functional of Lee, Yang and Parr for B3LYP, and 
+  
+    
+      
+        
+          E
+          
+            c
+          
+          
+            LSDA
+          
+        
+      
+    
+    {\displaystyle E_{\text{c}}^{\text{LSDA}}}
+   is the VWN local spin density approximation to the correlation functional.The three parameters defining B3LYP have been taken without modification from Becke's original fitting of the analogous B3PW91 functional to a set of atomization energies, ionization potentials, proton affinities, and total atomic energies.
+
+PBE0
+The PBE0 functional
+mixes the Perdew–Burke-Ernzerhof (PBE) exchange energy and Hartree–Fock exchange energy in a set 3:1 ratio, along with the full PBE correlation energy:
+
+  
+    
+      
+        
+          E
+          
+            xc
+          
+          
+            PBE0
+          
+        
+        =
+        
+          
+            1
+            4
+          
+        
+        
+          E
+          
+            x
+          
+          
+            HF
+          
+        
+        +
+        
+          
+            3
+            4
+          
+        
+        
+          E
+          
+            x
+          
+          
+            PBE
+          
+        
+        +
+        
+          E
+          
+            c
+          
+          
+            PBE
+          
+        
+        ,
+      
+    
+    {\displaystyle E_{\text{xc}}^{\text{PBE0}}={\frac {1}{4}}E_{\text{x}}^{\text{HF}}+{\frac {3}{4}}E_{\text{x}}^{\text{PBE}}+E_{\text{c}}^{\text{PBE}},}
+  where 
+  
+    
+      
+        
+          E
+          
+            x
+          
+          
+            HF
+          
+        
+      
+    
+    {\displaystyle E_{\text{x}}^{\text{HF}}}
+   is the Hartree–Fock exact exchange functional, 
+  
+    
+      
+        
+          E
+          
+            x
+          
+          
+            PBE
+          
+        
+      
+    
+    {\displaystyle E_{\text{x}}^{\text{PBE}}}
+   is the PBE exchange functional, and 
+  
+    
+      
+        
+          E
+          
+            c
+          
+          
+            PBE
+          
+        
+      
+    
+    {\displaystyle E_{\text{c}}^{\text{PBE}}}
+   is the PBE correlation functional.
+
+HSE
+The HSE (Heyd–Scuseria–Ernzerhof) exchange–correlation functional uses an error-function-screened Coulomb potential to calculate the exchange portion of the energy in order to improve computational efficiency, especially for metallic systems:
+
+  
+    
+      
+        
+          E
+          
+            xc
+          
+          
+            ω
+            
+              PBEh
+            
+          
+        
+        =
+        a
+        
+          E
+          
+            x
+          
+          
+            HF,SR
+          
+        
+        (
+        ω
+        )
+        +
+        (
+        1
+        −
+        a
+        )
+        
+          E
+          
+            x
+          
+          
+            PBE,SR
+          
+        
+        (
+        ω
+        )
+        +
+        
+          E
+          
+            x
+          
+          
+            PBE,LR
+          
+        
+        (
+        ω
+        )
+        +
+        
+          E
+          
+            c
+          
+          
+            PBE
+          
+        
+        ,
+      
+    
+    {\displaystyle E_{\text{xc}}^{\omega {\text{PBEh}}}=aE_{\text{x}}^{\text{HF,SR}}(\omega )+(1-a)E_{\text{x}}^{\text{PBE,SR}}(\omega )+E_{\text{x}}^{\text{PBE,LR}}(\omega )+E_{\text{c}}^{\text{PBE}},}
+  where 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is the mixing parameter, and 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+   is an adjustable parameter controlling the short-rangeness of the interaction. Standard values of 
+  
+    
+      
+        a
+        =
+        1
+        
+          /
+        
+        4
+      
+    
+    {\displaystyle a=1/4}
+   and 
+  
+    
+      
+        ω
+        =
+        0.2
+      
+    
+    {\displaystyle \omega =0.2}
+   (usually referred to as HSE06) have been shown to give good results for most systems. The HSE exchange–correlation functional degenerates to the PBE0 hybrid functional for 
+  
+    
+      
+        ω
+        =
+        0
+      
+    
+    {\displaystyle \omega =0}
+  .  
+  
+    
+      
+        
+          E
+          
+            x
+          
+          
+            HF,SR
+          
+        
+        (
+        ω
+        )
+      
+    
+    {\displaystyle E_{\text{x}}^{\text{HF,SR}}(\omega )}
+   is the short-range Hartree–Fock exact exchange functional, 
+  
+    
+      
+        
+          E
+          
+            x
+          
+          
+            PBE,SR
+          
+        
+        (
+        ω
+        )
+      
+    
+    {\displaystyle E_{\text{x}}^{\text{PBE,SR}}(\omega )}
+   and 
+  
+    
+      
+        
+          E
+          
+            x
+          
+          
+            PBE,LR
+          
+        
+        (
+        ω
+        )
+      
+    
+    {\displaystyle E_{\text{x}}^{\text{PBE,LR}}(\omega )}
+   are the short- and long-range components of the PBE exchange functional, and 
+  
+    
+      
+        
+          E
+          
+            c
+          
+          
+            PBE
+          
+        
+        (
+        ω
+        )
+      
+    
+    {\displaystyle E_{\text{c}}^{\text{PBE}}(\omega )}
+   is the PBE correlation functional.
+
+Meta-hybrid GGA
+
+The M06 suite of functionals is a set of four meta-hybrid GGA and meta-GGA DFT functionals. These functionals are constructed by empirically fitting their parameters, while being constrained to a uniform electron gas.
+The family includes the functionals M06-L, M06, M06-2X and M06-HF, with a different amount of exact exchange for each one. M06-L is fully local without HF exchange (thus it cannot be considered hybrid), M06 has 27% HF exchange, M06-2X 54% and M06-HF 100%.
+The advantages and usefulness of each functional are
+
+M06-L: Fast, good for transition metals, inorganic and organometallics.
+M06: For main group, organometallics, kinetics and non-covalent bonds.
+M06-2X: Main group, kinetics.
+M06-HF: Charge-transfer TD-DFT, systems where self-interaction is pathological.The suite gives good results for systems containing dispersion forces, one of the biggest deficiencies of standard DFT methods. 
+Medvedev, Perdew, et al. say: "Despite their excellent performance for energies and geometries, we must suspect that modern highly parameterized functionals need further guidance from exact constraints, or exact density, or both"
+
+
+== References ==

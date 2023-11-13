@@ -1,0 +1,19 @@
+In computer science, a problem is said to have overlapping subproblems if the problem can be broken down into subproblems which are reused several times or a recursive algorithm for the problem solves the same subproblem over and over rather than always generating new subproblems.For example, the problem of computing the Fibonacci sequence exhibits overlapping subproblems.  The problem of computing the nth Fibonacci number F(n), can be broken down into the subproblems of computing F(n − 1) and F(n − 2), and then adding the two.  The subproblem of computing F(n − 1) can itself be broken down into a subproblem that involves computing F(n − 2).  Therefore, the computation of F(n − 2) is reused, and the Fibonacci sequence thus exhibits overlapping subproblems.
+A naive recursive approach to such a problem generally fails due to an exponential complexity. If the problem also shares an optimal substructure property, dynamic programming is a good way to work it out.
+
+Fibonacci sequence example in C
+Consider the following C code:
+
+When executed, the fibonacci function computes the value of some of the numbers in the sequence many times over, following a pattern which can be visualized by this diagram:
+
+However, we can take advantage of memoization and change the fibonacci function to make use of fibMem like so:
+
+This is much more efficient because if the value r has already been calculated for a certain n and stored in fibMem[n - 1], the function can just return the stored value rather than making more recursive function calls. This results in a pattern which can be visualized by this diagram:
+
+The difference may not seem too significant with an N of 5, but as its value increases, the complexity of the original fibonacci function increases exponentially, whereas the revised version increases more linearly.
+
+See also
+Dynamic programming
+
+
+== References ==

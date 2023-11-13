@@ -1,0 +1,330 @@
+Coalescent theory is a model of how alleles sampled from a population may have originated from a common ancestor. In the simplest case, coalescent theory assumes no recombination, no natural selection, and no gene flow or population structure, meaning that each variant is equally likely to have been passed from one generation to the next. The model looks backward in time, merging alleles into a single ancestral copy according to a random process in coalescence events. Under this model, the expected time between successive coalescence events increases almost exponentially back in time (with wide variance). Variance in the model comes from both the random passing of alleles from one generation to the next, and the random occurrence of mutations in these alleles.
+The mathematical theory of the coalescent was developed independently by several groups in the early 1980s as a natural extension of classical population genetics theory and models,[1][2][3][4] but can be primarily attributed to John Kingman.[5] Advances in coalescent theory include recombination, selection, overlapping generations and virtually any arbitrarily complex evolutionary or demographic model in population genetic analysis.
+The model can be used to produce many theoretical genealogies, and then compare observed data to these simulations to test assumptions about the demographic history of a population. Coalescent theory can be used to make inferences about population genetic parameters, such as migration, population size and recombination.
+
+Theory
+Time to coalescence
+Consider a single gene locus sampled from two haploid individuals in a population.  The ancestry of this sample is traced backwards in time to the point where these two lineages coalesce in their most recent common ancestor (MRCA). Coalescent theory seeks to estimate the expectation of this time period and its variance.
+The probability that two lineages coalesce in the immediately preceding generation is the probability that they share a parental DNA sequence. In a population with a constant effective population size with 2Ne copies of each locus, there are 2Ne "potential parents" in the previous generation.  Under a random mating model, the probability that two alleles originate from the same parental copy is thus 1/(2Ne) and, correspondingly, the probability that they do not coalesce is 1 − 1/(2Ne).
+At each successive preceding generation, the probability of coalescence is geometrically distributed—that is, it is the probability of noncoalescence at the t − 1 preceding generations multiplied by the probability of coalescence at the generation of interest:
+
+  
+    
+      
+        
+          P
+          
+            c
+          
+        
+        (
+        t
+        )
+        =
+        
+          
+            (
+            
+              1
+              −
+              
+                
+                  1
+                  
+                    2
+                    
+                      N
+                      
+                        e
+                      
+                    
+                  
+                
+              
+            
+            )
+          
+          
+            t
+            −
+            1
+          
+        
+        
+          (
+          
+            
+              1
+              
+                2
+                
+                  N
+                  
+                    e
+                  
+                
+              
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle P_{c}(t)=\left(1-{\frac {1}{2N_{e}}}\right)^{t-1}\left({\frac {1}{2N_{e}}}\right).}
+  For sufficiently large values of Ne, this distribution is well approximated by the continuously defined exponential distribution
+
+  
+    
+      
+        
+          P
+          
+            c
+          
+        
+        (
+        t
+        )
+        =
+        
+          
+            1
+            
+              2
+              
+                N
+                
+                  e
+                
+              
+            
+          
+        
+        
+          e
+          
+            −
+            
+              
+                
+                  t
+                  −
+                  1
+                
+                
+                  2
+                  
+                    N
+                    
+                      e
+                    
+                  
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle P_{c}(t)={\frac {1}{2N_{e}}}e^{-{\frac {t-1}{2N_{e}}}}.}
+  This is mathematically convenient, as the standard exponential distribution has both the expected value and the standard deviation equal to 2Ne. Therefore, although the expected time to coalescence is 2Ne, actual coalescence times have a wide range of variation. Note that coalescent time is the number of preceding generations where the coalescence took place and not calendar time, though an estimation of the latter can be made multiplying 2Ne with the average time between generations. The above calculations apply equally to a diploid population of effective size Ne (in other words, for a non-recombining segment of DNA, each chromosome can be treated as equivalent to an independent haploid individual; in the absence of inbreeding, sister chromosomes in a single individual are no more closely related than two chromosomes randomly sampled from the population). Some effectively haploid DNA elements, such as mitochondrial DNA, however, are only passed on by one sex, and therefore have one quarter the effective size of the equivalent diploid population (Ne/2)
+
+Neutral variation
+Coalescent theory can also be used to model the amount of variation in DNA sequences expected from genetic drift and mutation. This value is termed the mean heterozygosity, represented as 
+  
+    
+      
+        
+          
+            
+              H
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {H}}}
+  . Mean heterozygosity is calculated as the probability of a mutation occurring at a given generation divided by the probability of any "event" at that generation (either a mutation or a coalescence). The probability that the event is a mutation is the probability of a mutation in either of the two lineages: 
+  
+    
+      
+        2
+        μ
+      
+    
+    {\displaystyle 2\mu }
+  . Thus the mean heterozygosity is equal to
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    
+                      H
+                      ¯
+                    
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    
+                      2
+                      μ
+                    
+                    
+                      2
+                      μ
+                      +
+                      
+                        
+                          1
+                          
+                            2
+                            
+                              N
+                              
+                                e
+                              
+                            
+                          
+                        
+                      
+                    
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  
+                    
+                      4
+                      
+                        N
+                        
+                          e
+                        
+                      
+                      μ
+                    
+                    
+                      1
+                      +
+                      4
+                      
+                        N
+                        
+                          e
+                        
+                      
+                      μ
+                    
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  
+                    θ
+                    
+                      1
+                      +
+                      θ
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\bar {H}}&={\frac {2\mu }{2\mu +{\frac {1}{2N_{e}}}}}\\[6pt]&={\frac {4N_{e}\mu }{1+4N_{e}\mu }}\\[6pt]&={\frac {\theta }{1+\theta }}\end{aligned}}}
+  For 
+  
+    
+      
+        4
+        
+          N
+          
+            e
+          
+        
+        μ
+        ≫
+        1
+      
+    
+    {\displaystyle 4N_{e}\mu \gg 1}
+  , the vast majority of allele pairs have at least one difference in nucleotide sequence.
+
+Extensions
+There are numerous extensions to the coalescent model, such as the Λ-coalescent which allows for the possibility of multifurcations[6].
+
+Graphical representation
+Coalescents can be visualised using dendrograms which show the relationship of branches of the population to each other.  The point where two branches meet indicates a coalescent event.
+
+Applications
+Disease gene mapping
+The utility of coalescent theory in the mapping of disease is slowly gaining more appreciation; although the application of the theory is still in its infancy, there are a number of researchers who are actively developing algorithms for the analysis of human genetic data that utilise coalescent theory.[7][8][9]A considerable number of human diseases can be attributed to genetics, from simple Mendelian diseases like sickle-cell anemia and cystic fibrosis, to more complicated maladies like cancers and mental illnesses. The latter are polygenic diseases, controlled by multiple genes that may occur on different chromosomes, but diseases that are precipitated by a single abnormality are relatively simple to pinpoint and trace – although not so simple that this has been achieved for all diseases. It is immensely useful in understanding these diseases and their processes to know where they are located on chromosomes, and how they have been inherited through generations of a family, as can be accomplished through coalescent analysis.Genetic diseases are passed from one generation to another just like other genes. While any gene may be shuffled from one chromosome to another during homologous recombination, it is unlikely that one gene alone will be shifted. Thus, other genes that are close enough to the disease gene to be linked to it can be used to trace it.Polygenic diseases  have a genetic basis even though they don't follow Mendelian inheritance models, and these may have relatively high occurrence in populations, and have severe health effects. Such diseases may have incomplete penetrance, and tend to be polygenic, complicating their study. These traits may arise due to many small mutations, which together have a severe and deleterious effect on the health of the individual.Linkage mapping methods, including Coalescent theory can be put to work on these diseases, since they use family pedigrees to figure out which markers accompany a disease, and how it is inherited. At the very least, this method helps narrow down the portion, or portions, of the genome on which the deleterious mutations may occur. Complications in these approaches include epistatic effects, the polygenic nature of the mutations, and environmental factors. That said, genes whose effects are additive carry a fixed risk of developing the disease, and when they exist in a disease genotype, they can be used to predict risk and map the gene. Both regular the coalescent and the shattered coalescent (which allows that multiple mutations may have occurred in the founding event, and that the disease may occasionally be triggered by environmental factors) have been put to work in understanding disease genes.Studies have been carried out correlating disease occurrence in fraternal and identical twins, and the results of these studies can be used to inform coalescent modeling. Since identical twins share all of their genome, but fraternal twins only share half their genome, the difference in correlation between the identical and fraternal twins can be used to work out if a disease is heritable, and if so how strongly.
+
+The genomic distribution of heterozygosity
+The human single-nucleotide polymorphism (SNP) map has revealed large regional variations in heterozygosity, more so than can be explained on the basis of (Poisson-distributed) random chance.[10]  In part, these variations could be explained on the basis of assessment methods, the availability of genomic sequences, and possibly the standard coalescent population genetic model.  Population genetic influences could have a major influence on this variation: some loci presumably would have comparatively recent common ancestors, others might have much older genealogies, and so the regional accumulation of SNPs over time could be quite different. The local density of SNPs along chromosomes appears to cluster in accordance with a variance to mean power law and to obey the Tweedie compound Poisson distribution.[11] In this model the regional variations in the SNP map would be explained by the accumulation of multiple small genomic segments through recombination, where the mean number of SNPs per segment would be gamma distributed in proportion to a gamma distributed time to the most recent common ancestor for each segment.[12]
+
+History
+Coalescent theory is a natural extension of the more classical population genetics concept of neutral evolution and is an approximation to the Fisher–Wright (or Wright–Fisher) model for large populations.  It was discovered independently by several researchers in the 1980s.[13][14][15][16]
+
+Software
+A large body of software exists for both simulating data sets under the coalescent process as well as inferring parameters such as population size and migration rates from genetic data.
+
+BEAST and BEAST 2 – Bayesian inference package via MCMC with a wide range of coalescent models including the use of temporally sampled sequences.[17]
+BPP – software package for inferring phylogeny and divergence times among populations under a multispecies coalescent process.
+CoaSim – software for simulating genetic data under the coalescent model.
+DIYABC – a user-friendly approach to ABC for inference on population history using molecular markers.[18]
+DendroPy – a Python library for phylogenetic computing, with classes and methods for simulating pure (unconstrained) coalescent trees as well as constrained coalescent trees under the multispecies coalescent model (i.e., "gene trees in species trees").
+GeneRecon – software for the fine-scale mapping of linkage disequilibrium mapping of disease genes using coalescent theory based on a Bayesian MCMC framework.
+genetree software for estimation of population genetics parameters using coalescent theory and simulation (the R package "popgen"). See also Oxford Mathematical Genetics and Bioinformatics Group
+GENOME – rapid coalescent-based whole-genome simulation[19]
+IBDSim – a computer package for the simulation of genotypic data under general isolation by distance models.[20]
+IMa – IMa implements the same Isolation with Migration model, but does so using a new method that provides estimates of the joint posterior probability density of the model parameters. IMa also allows log likelihood ratio tests of nested demographic models.  IMa is based on a method described in Hey and Nielsen (2007 PNAS 104:2785–2790).   IMa is faster and better than IM (i.e. by virtue of providing access to the joint posterior density function), and it can be used for most (but not all) of the situations and options that IM can be used for.
+Lamarc – software for estimation of rates of population growth, migration, and recombination.
+Migraine – a program which implements coalescent algorithms for a maximum likelihood analysis (using Importance Sampling algorithms) of genetic data with a focus on spatially structured populations.[21]
+Migrate – maximum likelihood and Bayesian inference of migration rates under the n-coalescent.  The inference is implemented using MCMC
+MaCS – Markovian Coalescent Simulator – simulates genealogies spatially across chromosomes as a Markovian process. Similar to the SMC algorithm of McVean and Cardin, and supports all demographic scenarios found in Hudson's ms.
+ms & msHOT – Richard Hudson's original program for generating samples under neutral models[22] and an extension which allows recombination hotspots.[23]
+msms – an extended version of ms that includes selective sweeps.[24]
+msprime – a fast and scalable ms-compatible simulator, allowing demographic simulations, producing compact output files for thousands or millions of genomes.
+Recodon and NetRecodon – software to simulate coding sequences with inter/intracodon recombination, migration, growth rate and longitudinal sampling.[25][26]
+CoalEvol and SGWE – software to simulate nucleotide, coding and amino acid sequences under the coalescent with demographics, recombination, population structure with migration and longitudinal sampling.[27]
+SARG – structure Ancestral Recombination Graph by Magnus Nordborg
+simcoal2 – software to simulate genetic data under the coalescent model with complex demography and recombination
+TreesimJ – forward simulation software allowing sampling of genealogies and data sets under diverse selective and demographic models.
+
+References
+Sources
+Articles
+Books
+External links
+EvoMath 3: Genetic Drift and Coalescence, Briefly — overview, with probability equations for genetic drift, and simulation graphs

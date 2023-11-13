@@ -1,0 +1,509 @@
+A non-integer representation uses non-integer numbers as the radix, or base, of a positional numeral system. For a non-integer radix β > 1, the value of
+
+  
+    
+      
+        x
+        =
+        
+          d
+          
+            n
+          
+        
+        …
+        
+          d
+          
+            2
+          
+        
+        
+          d
+          
+            1
+          
+        
+        
+          d
+          
+            0
+          
+        
+        .
+        
+          d
+          
+            −
+            1
+          
+        
+        
+          d
+          
+            −
+            2
+          
+        
+        …
+        
+          d
+          
+            −
+            m
+          
+        
+      
+    
+    {\displaystyle x=d_{n}\dots d_{2}d_{1}d_{0}.d_{-1}d_{-2}\dots d_{-m}}
+  is
+
+  
+    
+      
+        
+          
+            
+              
+                x
+              
+              
+                
+                =
+                
+                  β
+                  
+                    n
+                  
+                
+                
+                  d
+                  
+                    n
+                  
+                
+                +
+                ⋯
+                +
+                
+                  β
+                  
+                    2
+                  
+                
+                
+                  d
+                  
+                    2
+                  
+                
+                +
+                β
+                
+                  d
+                  
+                    1
+                  
+                
+                +
+                
+                  d
+                  
+                    0
+                  
+                
+              
+            
+            
+              
+              
+                
+                
+                +
+                
+                  β
+                  
+                    −
+                    1
+                  
+                
+                
+                  d
+                  
+                    −
+                    1
+                  
+                
+                +
+                
+                  β
+                  
+                    −
+                    2
+                  
+                
+                
+                  d
+                  
+                    −
+                    2
+                  
+                
+                +
+                ⋯
+                +
+                
+                  β
+                  
+                    −
+                    m
+                  
+                
+                
+                  d
+                  
+                    −
+                    m
+                  
+                
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}x&=\beta ^{n}d_{n}+\cdots +\beta ^{2}d_{2}+\beta d_{1}+d_{0}\\&\qquad +\beta ^{-1}d_{-1}+\beta ^{-2}d_{-2}+\cdots +\beta ^{-m}d_{-m}.\end{aligned}}}
+  The numbers di are non-negative integers less than β.  This is also known as a β-expansion, a notion introduced by Rényi (1957) and first studied in detail by Parry (1960).  Every real number has at least one (possibly infinite) β-expansion. The set of all β-expansions that have a finite representation is a subset of the ring Z[β, β−1].
+There are applications of β-expansions in coding theory (Kautz 1965) and models of quasicrystals (Burdik et al. 1998; Thurston 1989).
+
+Construction
+β-expansions are a generalization of decimal expansions. While infinite decimal expansions are not unique (for example, 1.000... = 0.999...), all finite decimal expansions are unique. However, even finite β-expansions are not necessarily unique, for example φ + 1 = φ2 for β = φ, the golden ratio. A canonical choice for the β-expansion of a given real number can be determined by the following greedy algorithm, essentially due to Rényi (1957) and formulated as given here by Frougny (1992).
+Let β > 1 be the base and x a non-negative real number.  Denote by ⌊x⌋ the floor function of x (that is, the greatest integer less than or equal to x) and let {x} = x − ⌊x⌋ be the fractional part of x. There exists an integer k such that βk ≤ x < βk+1. Set
+
+  
+    
+      
+        
+          d
+          
+            k
+          
+        
+        =
+        ⌊
+        x
+        
+          /
+        
+        
+          β
+          
+            k
+          
+        
+        ⌋
+      
+    
+    {\displaystyle d_{k}=\lfloor x/\beta ^{k}\rfloor }
+  and
+
+  
+    
+      
+        
+          r
+          
+            k
+          
+        
+        =
+        {
+        x
+        
+          /
+        
+        
+          β
+          
+            k
+          
+        
+        }
+        .
+        
+      
+    
+    {\displaystyle r_{k}=\{x/\beta ^{k}\}.\,}
+  For k − 1 ≥  j > −∞, put
+
+  
+    
+      
+        
+          d
+          
+            j
+          
+        
+        =
+        ⌊
+        β
+        
+          r
+          
+            j
+            +
+            1
+          
+        
+        ⌋
+        ,
+        
+        
+          r
+          
+            j
+          
+        
+        =
+        {
+        β
+        
+          r
+          
+            j
+            +
+            1
+          
+        
+        }
+        .
+      
+    
+    {\displaystyle d_{j}=\lfloor \beta r_{j+1}\rfloor ,\quad r_{j}=\{\beta r_{j+1}\}.}
+  In other words, the canonical β-expansion of x is defined by choosing the largest dk such that βkdk ≤ x, then choosing the largest dk−1 such that βkdk + βk−1dk−1 ≤ x, and so on. Thus it chooses the lexicographically largest string representing x.
+With an integer base, this defines the usual radix expansion for the number x.  This construction extends the usual algorithm to possibly non-integer values of β.
+
+Conversion
+Following the steps above, we can create a β-expansion for a real number 
+  
+    
+      
+        n
+        ≥
+        0
+      
+    
+    {\displaystyle n\geq 0}
+   (the steps are identical for an 
+  
+    
+      
+        n
+        <
+        0
+      
+    
+    {\displaystyle n<0}
+  , although n must first be multiplied by −1 to make it positive, then the result must be multiplied by −1 to make it negative again).
+First, we must define our k value (the exponent of the nearest power of β greater than n, as well as the amount of digits in 
+  
+    
+      
+        ⌊
+        
+          n
+          
+            β
+          
+        
+        ⌋
+      
+    
+    {\displaystyle \lfloor n_{\beta }\rfloor }
+  , where 
+  
+    
+      
+        
+          n
+          
+            β
+          
+        
+      
+    
+    {\displaystyle n_{\beta }}
+   is n written in base β). The k value for n and β can be written as:
+
+  
+    
+      
+        k
+        =
+        ⌊
+        
+          log
+          
+            β
+          
+        
+        ⁡
+        (
+        n
+        )
+        ⌋
+        +
+        1
+      
+    
+    {\displaystyle k=\lfloor \log _{\beta }(n)\rfloor +1}
+  After a k value is found, 
+  
+    
+      
+        
+          n
+          
+            β
+          
+        
+      
+    
+    {\displaystyle n_{\beta }}
+   can be written as d, where
+
+  
+    
+      
+        
+          d
+          
+            j
+          
+        
+        =
+        ⌊
+        (
+        n
+        
+          /
+        
+        
+          β
+          
+            j
+          
+        
+        )
+        
+          mod
+          
+            β
+          
+        
+        ⌋
+        ,
+        
+        n
+        =
+        n
+        −
+        
+          d
+          
+            j
+          
+        
+        ∗
+        
+          β
+          
+            j
+          
+        
+      
+    
+    {\displaystyle d_{j}=\lfloor (n/\beta ^{j}){\bmod {\beta }}\rfloor ,\quad n=n-d_{j}*\beta ^{j}}
+  for k − 1 ≥  j > −∞. The first k values of d appear to the left of the decimal place.
+This can also be written in the following pseudocode: 
+
+Note that the above code is only valid for 
+  
+    
+      
+        1
+        <
+        β
+        ≤
+        10
+      
+    
+    {\displaystyle 1<\beta \leq 10}
+   and 
+  
+    
+      
+        n
+        ≥
+        0
+      
+    
+    {\displaystyle n\geq 0}
+  , as it does not convert each digits to their correct symbols or correct negative numbers. For example, if a digit's value is 10, it will be represented as 10 instead of A.
+
+Example implementation code
+To base π
+JavaScript:
+
+From base π
+JavaScript:
+
+Examples
+Base √2
+Base √2 behaves in a very similar way to base 2 as all one has to do to convert a number from binary into base √2 is put a zero digit in between every binary digit; for example, 191110 = 111011101112 becomes 101010001010100010101√2 and 511810 = 10011111111102 becomes 1000001010101010101010100√2. This means that every integer can be expressed in base √2 without the need of a decimal point. The base can also be used to show the relationship between the side of a square to its diagonal as a square with a side length of 1√2 will have a diagonal of 10√2 and a square with a side length of 10√2 will have a diagonal of 100√2. Another use of the base is to show the silver ratio as its representation in base √2 is simply 11√2. In addition, the area of a regular octagon with side length 1√2 is 1100√2, the area of a regular octagon with side length 10√2 is 110000√2, the area of a regular octagon with side length 100√2 is 11000000√2, etc…
+
+Golden base
+In the golden base, some numbers have more than one decimal base equivalent: they are ambiguous. For example:
+11φ = 100φ.
+
+Base ψ
+There are also some numbers in base ψ are also ambiguous. For example, 101ψ = 1000ψ.
+
+Base e
+With base e the natural logarithm behaves like the common logarithm as ln(1e) = 0, ln(10e) = 1, ln(100e) = 2 and ln(1000e) = 3.
+The base e is the most economical choice of radix β > 1 (Hayes 2001), where the radix economy is measured as the product of the radix and the length of the string of symbols needed to express a given range of values.
+
+Base π
+Base π can be used to more easily show the relationship between the diameter of a circle to its circumference, which  corresponds to its perimeter; since circumference = diameter × π, a circle with a diameter 1π will have a circumference of 10π, a circle with a diameter 10π will have a circumference of 100π, etc. Furthermore, since the area = π × radius2, a circle with a radius of 1π will have an area of 10π, a circle with a radius of 10π will have an area of 1000π and a circle with a radius of 100π will have an area of 100000π.
+
+Properties
+In no positional number system can every number be expressed uniquely.  For example, in base ten, the number 1 has two representations: 1.000... and 0.999....  The set of numbers with two different representations is dense in the reals (Petkovšek 1990), but the question of classifying real numbers with unique β-expansions is considerably more subtle than that of integer bases (Glendinning & Sidorov 2001).
+Another problem is to classify the real numbers whose β-expansions are periodic.  Let β > 1, and Q(β) be the smallest field extension of the rationals containing β.  Then any real number in [0,1) having a periodic β-expansion must lie in Q(β).  On the other hand, the converse need not be true.  The converse does hold if β is a Pisot number (Schmidt 1980), although necessary and sufficient conditions are not known.
+
+See also
+Beta encoder
+Non-standard positional numeral systems
+Decimal expansion
+Power series
+Ostrowski numeration
+
+References
+Bugeaud, Yann (2012), Distribution modulo one and Diophantine approximation, Cambridge Tracts in Mathematics, vol. 193, Cambridge: Cambridge University Press, ISBN 978-0-521-11169-0, Zbl 1260.11001
+Burdik, Č.; Frougny, Ch.; Gazeau, J. P.; Krejcar, R. (1998), "Beta-integers as natural counting systems for quasicrystals", Journal of Physics A: Mathematical and General, 31 (30): 6449–6472, Bibcode:1998JPhA...31.6449B, CiteSeerX 10.1.1.30.5106, doi:10.1088/0305-4470/31/30/011, ISSN 0305-4470, MR 1644115.
+Frougny, Christiane (1992), "How to write integers in non-integer base", LATIN '92, Lecture Notes in Computer Science, vol. 583/1992, Springer Berlin / Heidelberg, pp. 154–164, doi:10.1007/BFb0023826, ISBN 978-3-540-55284-0, ISSN 0302-9743.
+Glendinning, Paul; Sidorov, Nikita (2001), "Unique representations of real numbers in non-integer bases", Mathematical Research Letters, 8 (4): 535–543, doi:10.4310/mrl.2001.v8.n4.a12, ISSN 1073-2780, MR 1851269.
+Hayes, Brian (2001), "Third base", American Scientist, 89 (6): 490–494, doi:10.1511/2001.40.3268, archived from the original on 2016-03-24.
+Kautz, William H. (1965), "Fibonacci codes for synchronization control", Institute of Electrical and Electronics Engineers. Transactions on Information Theory, IT-11 (2): 284–292, doi:10.1109/TIT.1965.1053772, ISSN 0018-9448, MR 0191744.
+Parry, W. (1960), "On the β-expansions of real numbers", Acta Mathematica Academiae Scientiarum Hungaricae, 11 (3–4): 401–416, doi:10.1007/bf02020954, hdl:10338.dmlcz/120535, ISSN 0001-5954, MR 0142719, S2CID 116417864.
+Petkovšek, Marko (1990), "Ambiguous numbers are dense", The American Mathematical Monthly, 97 (5): 408–411, doi:10.2307/2324393, ISSN 0002-9890, JSTOR 2324393, MR 1048915.
+Rényi, Alfréd (1957), "Representations for real numbers and their ergodic properties", Acta Mathematica Academiae Scientiarum Hungaricae, 8 (3–4): 477–493, doi:10.1007/BF02020331, hdl:10338.dmlcz/102491, ISSN 0001-5954, MR 0097374, S2CID 122635654.
+Schmidt, Klaus (1980), "On periodic expansions of Pisot numbers and Salem numbers", The Bulletin of the London Mathematical Society, 12 (4): 269–278, doi:10.1112/blms/12.4.269, hdl:10338.dmlcz/141479, ISSN 0024-6093, MR 0576976.
+Thurston, W.P. (1989), "Groups, tilings and finite state automata", AMS Colloquium Lectures
+
+Further reading
+Sidorov, Nikita (2003), "Arithmetic dynamics", in Bezuglyi, Sergey; Kolyada, Sergiy (eds.), Topics in dynamics and ergodic theory. Survey papers and mini-courses presented at the international conference and US-Ukrainian workshop on dynamical systems and ergodic theory, Katsiveli, Ukraine, August 21–30, 2000, Lond. Math. Soc. Lect. Note Ser., vol. 310, Cambridge: Cambridge University Press, pp. 145–189, ISBN 978-0-521-53365-2, Zbl 1051.37007
+
+External links
+Weisstein, Eric W. "Base". MathWorld.

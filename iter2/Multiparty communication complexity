@@ -1,0 +1,987 @@
+In theoretical computer science, multiparty communication complexity is the study of communication complexity in the setting where there are more than 2 players.
+In the traditional two–party communication game, introduced by Yao (1979), two players, P1 and P2 attempt to compute a Boolean function 
+
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        )
+        :
+        {
+        0
+        ,
+        1
+        
+          }
+          
+            n
+          
+        
+        →
+        {
+        0
+        ,
+        1
+        }
+        ,
+         
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ∈
+        {
+        0
+        ,
+        1
+        
+          }
+          
+            
+              n
+              ′
+            
+          
+        
+        ,
+         
+        2
+        
+          n
+          ′
+        
+        =
+        n
+      
+    
+    {\displaystyle f(x_{1},x_{2}):\{0,1\}^{n}\to \{0,1\},\ x_{1},x_{2}\in \{0,1\}^{n'},\ 2n'=n}
+  Player P1 knows the value of x2, P2 knows the value of x1, but Pi does not know the value of xi, for i = 1, 2. 
+In other words, the players know the other's variables, but not their own. The minimum number of bits that must be communicated by the players to compute f is the communication complexity of f, denoted by κ(f).
+The multiparty communication game, defined in 1983, is a powerful generalization of the 2–party case: Here the players know all the others' input, except their own. Because of this property, sometimes this model is called "numbers on the forehead" model, since if the players were seated around a round table, each wearing their own input on the forehead, then every player would see all the others' input, except their own.
+The formal definition is as follows: 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   players: 
+  
+    
+      
+        
+          P
+          
+            1
+          
+        
+        ,
+        
+          P
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          P
+          
+            k
+          
+        
+      
+    
+    {\displaystyle P_{1},P_{2},...,P_{k}}
+   intend to compute a Boolean function 
+
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+        :
+        {
+        0
+        ,
+        1
+        
+          }
+          
+            n
+          
+        
+        →
+        {
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle f(x_{1},x_{2},\ldots ,x_{n}):\{0,1\}^{n}\to \{0,1\}}
+  On set 
+  
+    
+      
+        S
+        =
+        {
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          x
+          
+            n
+          
+        
+        }
+      
+    
+    {\displaystyle S=\{x_{1},x_{2},...,x_{n}\}}
+   of variables there is a fixed partition 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   of 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   classes 
+  
+    
+      
+        
+          A
+          
+            1
+          
+        
+        ,
+        
+          A
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          A
+          
+            k
+          
+        
+      
+    
+    {\displaystyle A_{1},A_{2},...,A_{k}}
+  , and player 
+  
+    
+      
+        
+          P
+          
+            1
+          
+        
+      
+    
+    {\displaystyle P_{1}}
+   knows every variable, except those in 
+  
+    
+      
+        
+          A
+          
+            i
+          
+        
+      
+    
+    {\displaystyle A_{i}}
+  , for 
+  
+    
+      
+        i
+        =
+        1
+        ,
+        2
+        ,
+        .
+        .
+        .
+        ,
+        k
+      
+    
+    {\displaystyle i=1,2,...,k}
+  . The players have unlimited computational power, and they  communicate with the help of a blackboard, viewed by all players.
+The aim is to compute 
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle f(x_{1},x_{2},...,x_{n}}
+  ), such  that at the end of the computation, every player knows this value. The cost of the computation is the number of bits written onto the blackboard for the given input  
+  
+    
+      
+        x
+        =
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle x=(x_{1},x_{2},...,x_{n})}
+   and partition 
+  
+    
+      
+        A
+        =
+        (
+        
+          A
+          
+            1
+          
+        
+        ,
+        
+          A
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        A
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle A=(A_{1},A_{2},...,Ax_{n})}
+  . The cost of a multiparty protocol is the maximum number of bits communicated for any 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   from the set {0,1}n and the given partition 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  . The 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -party communication complexity, 
+  
+    
+      
+        
+          C
+          
+            A
+          
+          
+            (
+            k
+            )
+          
+        
+        (
+        f
+        )
+      
+    
+    {\displaystyle C_{A}^{(k)}(f)}
+   of a function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  , with respect to partition 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  , is the minimum of costs of those 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -party protocols which compute 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  . The 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -party symmetric communication complexity of 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is defined as 
+
+  
+    
+      
+        
+          C
+          
+            (
+            k
+            )
+          
+        
+        (
+        f
+        )
+        =
+        
+          max
+          
+            A
+          
+        
+        
+          C
+          
+            A
+          
+          
+            (
+            k
+            )
+          
+        
+        (
+        f
+        )
+      
+    
+    {\displaystyle C^{(k)}(f)=\max _{A}C_{A}^{(k)}(f)}
+  where the maximum is taken over all k-partitions of set 
+  
+    
+      
+        x
+        =
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle x=(x_{1},x_{2},...,x_{n})}
+  .
+
+Upper and lower bounds
+For a general upper bound both for two and more players, let us suppose that A1 is one of the smallest classes  of the partition A1,A2,...,Ak. Then P1 can compute any Boolean function of S with |A1| + 1 bits of communication: P2 writes down the |A1| bits of A1 on the blackboard, P1 reads it, and computes and announces the value 
+  
+    
+      
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle f(x)}
+  . So, the following can be written:
+
+  
+    
+      
+        
+          C
+          
+            (
+            k
+            )
+          
+        
+        (
+        f
+        )
+        ≤
+        
+          
+            ⌊
+          
+        
+        
+          
+            n
+            k
+          
+        
+        
+          
+            ⌋
+          
+        
+        +
+        1.
+      
+    
+    {\displaystyle C^{(k)}(f)\leq {\bigg \lfloor }{n \over k}{\bigg \rfloor }+1.}
+  The Generalized Inner Product function (GIP) is defined as follows:
+Let 
+  
+    
+      
+        
+          y
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          y
+          
+            k
+          
+        
+      
+    
+    {\displaystyle y_{1},y_{2},...,y_{k}}
+   be 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -bit vectors, and let 
+  
+    
+      
+        Y
+      
+    
+    {\displaystyle Y}
+   be the 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   times 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   matrix, with 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   columns as the 
+  
+    
+      
+        
+          y
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          y
+          
+            k
+          
+        
+      
+    
+    {\displaystyle y_{1},y_{2},...,y_{k}}
+   vectors. Then 
+  
+    
+      
+        G
+        I
+        P
+        (
+        
+          y
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          y
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle GIP(y_{1},y_{2},...,y_{k})}
+   is the number of the all-1 rows of matrix 
+  
+    
+      
+        Y
+      
+    
+    {\displaystyle Y}
+  , taken modulo 2. In other words, if the vectors 
+  
+    
+      
+        
+          y
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          y
+          
+            k
+          
+        
+      
+    
+    {\displaystyle y_{1},y_{2},...,y_{k}}
+   correspond to the characteristic vectors of 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   subsets of an 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   element base-set, then GIP corresponds to the parity of the intersection of these 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   subsets.
+It was shown that
+
+  
+    
+      
+        
+          C
+          
+            (
+            k
+            )
+          
+        
+        (
+        G
+        I
+        P
+        )
+        ≥
+        c
+        
+          
+            n
+            
+              4
+              
+                k
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle C^{(k)}(GIP)\geq c{n \over 4^{k}},}
+  with a constant c > 0.
+An upper bound on the multiparty communication complexity of GIP shows that
+
+  
+    
+      
+        
+          C
+          
+            (
+            k
+            )
+          
+        
+        (
+        G
+        I
+        P
+        )
+        ≤
+        c
+        
+          
+            n
+            
+              2
+              
+                k
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle C^{(k)}(GIP)\leq c{n \over 2^{k}},}
+  with a constant c > 0.
+For a general Boolean function f, one can bound the multiparty communication complexity of f by using its L1 norm as follows:
+
+  
+    
+      
+        
+          C
+          
+            (
+            k
+            )
+          
+        
+        (
+        f
+        )
+        =
+        O
+        
+          
+            (
+          
+        
+        
+          k
+          
+            2
+          
+        
+        log
+        ⁡
+        (
+        n
+        
+          L
+          
+            1
+          
+        
+        (
+        f
+        )
+        )
+        
+          
+            ⌈
+          
+        
+        
+          
+            
+              n
+              
+                L
+                
+                  1
+                
+                
+                  2
+                
+              
+              (
+              f
+              )
+            
+            
+              2
+              
+                k
+              
+            
+          
+        
+        
+          
+            ⌉
+          
+        
+        
+          
+            )
+          
+        
+      
+    
+    {\displaystyle C^{(k)}(f)=O{\Bigg (}k^{2}\log(nL_{1}(f)){\Bigg \lceil }{nL_{1}^{2}(f) \over 2^{k}}{\Bigg \rceil }{\Bigg )}}
+
+Multiparty communication complexity and pseudorandom generators
+A construction of a pseudorandom number generator was based on the BNS lower bound for the GIP function.

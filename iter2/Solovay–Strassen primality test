@@ -1,0 +1,708 @@
+The Solovay–Strassen primality test, developed by Robert M. Solovay and Volker Strassen in 1977, is a probabilistic test to determine if a number is composite or probably prime. The idea behind the test was discovered by M. M. Artjuhov in 1967  
+(see Theorem E in the paper). This test has been largely superseded by the Baillie–PSW primality test and the Miller–Rabin primality test, but has great historical importance in showing the practical feasibility of the RSA cryptosystem. The Solovay–Strassen test is essentially an Euler–Jacobi probable prime test.
+
+Concepts
+Euler proved that for any odd prime number p and any integer a,
+
+  
+    
+      
+        
+          a
+          
+            (
+            p
+            −
+            1
+            )
+            
+              /
+            
+            2
+          
+        
+        ≡
+        
+          (
+          
+            
+              a
+              p
+            
+          
+          )
+        
+        
+          
+          (
+          mod
+          
+          p
+          )
+        
+      
+    
+    {\displaystyle a^{(p-1)/2}\equiv \left({\frac {a}{p}}\right){\pmod {p}}}
+  where 
+  
+    
+      
+        
+          (
+          
+            
+              
+                a
+                p
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \left({\tfrac {a}{p}}\right)}
+   is the Legendre symbol. The Jacobi symbol is a generalisation of the Legendre symbol to 
+  
+    
+      
+        
+          (
+          
+            
+              
+                a
+                n
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \left({\tfrac {a}{n}}\right)}
+  , where n can be any odd integer. The Jacobi symbol can be computed in time O((log n)²) using Jacobi's generalization of the
+law of quadratic reciprocity.
+Given an odd number n we can contemplate whether or not the congruence
+
+  
+    
+      
+        
+          a
+          
+            (
+            n
+            −
+            1
+            )
+            
+              /
+            
+            2
+          
+        
+        ≡
+        
+          (
+          
+            
+              a
+              n
+            
+          
+          )
+        
+        
+          
+          (
+          mod
+          
+          n
+          )
+        
+      
+    
+    {\displaystyle a^{(n-1)/2}\equiv \left({\frac {a}{n}}\right){\pmod {n}}}
+  holds for various values of the "base" a, given that a is relatively prime to n.  If n is prime then this congruence is true for all a.  So if we pick values of a at random and test the congruence, then 
+as soon as we find an a which doesn't fit the congruence we know that n is not prime (but this does not tell us a nontrivial factorization of n). This base a is called an Euler witness for n; it is a witness for the compositeness of n. The base a is called an Euler liar for n if the congruence is true while n is composite.
+For every composite odd n, at least half of all bases
+
+  
+    
+      
+        a
+        ∈
+        (
+        
+          Z
+        
+        
+          /
+        
+        n
+        
+          Z
+        
+        
+          )
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle a\in (\mathbb {Z} /n\mathbb {Z} )^{*}}
+  are (Euler) witnesses as the set of Euler liars is a proper subgroup of 
+  
+    
+      
+        (
+        
+          Z
+        
+        
+          /
+        
+        n
+        
+          Z
+        
+        
+          )
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle (\mathbb {Z} /n\mathbb {Z} )^{*}}
+  . For example, for 
+  
+    
+      
+        n
+        =
+        65
+      
+    
+    {\displaystyle n=65}
+  , the set of Euler liars has order 8 and 
+  
+    
+      
+        =
+        {
+        1
+        ,
+        8
+        ,
+        14
+        ,
+        18
+        ,
+        47
+        ,
+        51
+        ,
+        57
+        ,
+        64
+        }
+      
+    
+    {\displaystyle =\{1,8,14,18,47,51,57,64\}}
+  , and 
+  
+    
+      
+        (
+        
+          Z
+        
+        
+          /
+        
+        n
+        
+          Z
+        
+        
+          )
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle (\mathbb {Z} /n\mathbb {Z} )^{*}}
+   has order 48.
+This contrasts with the Fermat primality test, for which the proportion of witnesses may be much smaller.  Therefore, there are no (odd) composite n without many witnesses, unlike the case of Carmichael numbers for Fermat's test.
+
+Example
+Suppose we wish to determine if n = 221 is prime. We write (n−1)/2=110.
+We randomly select an a (greater than 1 and smaller than n): 47.
+Using an efficient method for raising a number to a power (mod n) such as binary exponentiation, we compute:
+
+a(n−1)/2 mod n  =  47110 mod 221  =  −1 mod 221
+
+  
+    
+      
+        (
+        
+          
+            
+              a
+              n
+            
+          
+        
+        )
+      
+    
+    {\displaystyle ({\tfrac {a}{n}})}
+   mod n  =  
+  
+    
+      
+        (
+        
+          
+            
+              47
+              221
+            
+          
+        
+        )
+      
+    
+    {\displaystyle ({\tfrac {47}{221}})}
+   mod 221  =  −1 mod 221.This gives that, either 221 is prime, or 47 is an Euler liar for 221. We try another random a, this time choosing a = 2:
+
+a(n−1)/2 mod n  =  2110 mod 221  =  30 mod 221
+
+  
+    
+      
+        (
+        
+          
+            
+              a
+              n
+            
+          
+        
+        )
+      
+    
+    {\displaystyle ({\tfrac {a}{n}})}
+   mod n  =  
+  
+    
+      
+        (
+        
+          
+            
+              2
+              221
+            
+          
+        
+        )
+      
+    
+    {\displaystyle ({\tfrac {2}{221}})}
+   mod 221  =  −1 mod 221.Hence 2 is an Euler witness for the compositeness of 221, and 47 was in fact an Euler liar. Note that this tells us nothing about the prime factors of 221, which are actually 13 and 17.
+
+Algorithm and running time
+The algorithm can be written in pseudocode as follows:
+
+inputs: n, a value to test for primality
+        k, a parameter that determines the accuracy of the test
+output: composite if n is composite, otherwise probably prime
+
+repeat k times:
+    choose a randomly in the range [2,n − 1]
+    
+  
+    
+      
+        x
+        ←
+        
+          (
+          
+            
+              
+                a
+                n
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle x\gets \left({\tfrac {a}{n}}\right)}
+  
+    if x = 0 or 
+  
+    
+      
+        
+          a
+          
+            (
+            n
+            −
+            1
+            )
+            
+              /
+            
+            2
+          
+        
+        ≢
+        x
+        
+          
+          (
+          mod
+          
+          n
+          )
+        
+      
+    
+    {\displaystyle a^{(n-1)/2}\not \equiv x{\pmod {n}}}
+   then 
+        return composite
+return probably prime
+
+Using fast algorithms for modular exponentiation, the running time of this algorithm is O(k·log3 n), where k is the number of different values of a we test.
+
+Accuracy of the test
+It is possible for the algorithm to return an incorrect answer. If the input n is indeed prime, then the output will always correctly be probably prime.  However, if the input n is composite then it is possible for the output to be incorrectly probably prime. The number n is then called an Euler–Jacobi pseudoprime.
+When n is odd and composite, at least half of all a with gcd(a,n) = 1 are Euler witnesses. We can prove this as follows: let {a1, a2, ..., am} be the Euler liars and a an Euler witness. Then, for i = 1,2,...,m:
+
+  
+    
+      
+        (
+        a
+        ⋅
+        
+          a
+          
+            i
+          
+        
+        
+          )
+          
+            (
+            n
+            −
+            1
+            )
+            
+              /
+            
+            2
+          
+        
+        =
+        
+          a
+          
+            (
+            n
+            −
+            1
+            )
+            
+              /
+            
+            2
+          
+        
+        ⋅
+        
+          a
+          
+            i
+          
+          
+            (
+            n
+            −
+            1
+            )
+            
+              /
+            
+            2
+          
+        
+        =
+        
+          a
+          
+            (
+            n
+            −
+            1
+            )
+            
+              /
+            
+            2
+          
+        
+        ⋅
+        
+          (
+          
+            
+              
+                a
+                
+                  i
+                
+              
+              n
+            
+          
+          )
+        
+        ≢
+        
+          (
+          
+            
+              a
+              n
+            
+          
+          )
+        
+        
+          (
+          
+            
+              
+                a
+                
+                  i
+                
+              
+              n
+            
+          
+          )
+        
+        
+          
+          (
+          mod
+          
+          n
+          )
+        
+        .
+      
+    
+    {\displaystyle (a\cdot a_{i})^{(n-1)/2}=a^{(n-1)/2}\cdot a_{i}^{(n-1)/2}=a^{(n-1)/2}\cdot \left({\frac {a_{i}}{n}}\right)\not \equiv \left({\frac {a}{n}}\right)\left({\frac {a_{i}}{n}}\right){\pmod {n}}.}
+  Because the following holds:
+
+  
+    
+      
+        
+          (
+          
+            
+              a
+              n
+            
+          
+          )
+        
+        
+          (
+          
+            
+              
+                a
+                
+                  i
+                
+              
+              n
+            
+          
+          )
+        
+        =
+        
+          (
+          
+            
+              
+                a
+                ⋅
+                
+                  a
+                  
+                    i
+                  
+                
+              
+              n
+            
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle \left({\frac {a}{n}}\right)\left({\frac {a_{i}}{n}}\right)=\left({\frac {a\cdot a_{i}}{n}}\right),}
+  now we know that
+
+  
+    
+      
+        (
+        a
+        ⋅
+        
+          a
+          
+            i
+          
+        
+        
+          )
+          
+            (
+            n
+            −
+            1
+            )
+            
+              /
+            
+            2
+          
+        
+        ≢
+        
+          (
+          
+            
+              
+                a
+                ⋅
+                
+                  a
+                  
+                    i
+                  
+                
+              
+              n
+            
+          
+          )
+        
+        
+          
+          (
+          mod
+          
+          n
+          )
+        
+        .
+      
+    
+    {\displaystyle (a\cdot a_{i})^{(n-1)/2}\not \equiv \left({\frac {a\cdot a_{i}}{n}}\right){\pmod {n}}.}
+  This gives that each ai gives a number a·ai, which is also an Euler witness.  
+So each Euler liar gives an Euler witness and so the number of Euler witnesses is larger or equal to the number of Euler liars. Therefore, when n is composite, at least half of all a with gcd(a,n) = 1 is an Euler witness.
+Hence, the probability of failure is at most 2−k (compare this with the probability of failure for the Miller–Rabin primality test, which is at most 4−k).
+For purposes of cryptography the more bases a we test, i.e. if we pick a sufficiently large value of k, the better the accuracy of test. Hence the chance of the algorithm failing in this way is so small that the (pseudo) prime is used in practice in cryptographic applications, but for applications for which it is important to have a prime, a test like ECPP or the Pocklington primality test should be used which proves primality.
+
+Average-case behaviour
+The bound 1/2 on the error probability of a single round of the Solovay–Strassen test holds for any input n, but those numbers n for which the bound is (approximately) attained are extremely rare. On the average, the error probability of the algorithm is significantly smaller: it is less than
+
+  
+    
+      
+        
+          2
+          
+            −
+            k
+          
+        
+        exp
+        ⁡
+        
+          (
+          
+            −
+            (
+            1
+            +
+            o
+            (
+            1
+            )
+            )
+            
+              
+                
+                  log
+                  ⁡
+                  x
+                  
+                  log
+                  ⁡
+                  log
+                  ⁡
+                  log
+                  ⁡
+                  x
+                
+                
+                  log
+                  ⁡
+                  log
+                  ⁡
+                  x
+                
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle 2^{-k}\exp \left(-(1+o(1)){\frac {\log x\,\log \log \log x}{\log \log x}}\right)}
+  for k rounds of the test, applied to uniformly random n ≤ x. The same bound also applies to the related problem of what is the conditional probability of n being composite for a random number n ≤ x which has been declared prime in k rounds of the test.
+
+Complexity
+The Solovay–Strassen algorithm shows that the decision problem COMPOSITE is in the complexity class  RP.
+
+References
+Further reading
+Solovay, Robert M.; Strassen, Volker (1977). "A fast Monte-Carlo test for primality". SIAM Journal on Computing. 6 (1): 84–85. doi:10.1137/0206006. See also Solovay, Robert M.; Strassen, Volker (1978). "Erratum: A fast Monte-Carlo test for primality". SIAM Journal on Computing. 7 (1): 118. doi:10.1137/0207009.
+Dietzfelbinger, Martin (2004-06-29). "Primality Testing in Polynomial Time, From Randomized Algorithms to "PRIMES Is in P"". Lecture Notes in Computer Science. Vol. 3000. Springer. ISBN 978-3-540-40344-9.
+
+External links
+Solovay-Strassen Implementation of the Solovay–Strassen primality test in Maple

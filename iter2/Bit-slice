@@ -1,0 +1,61 @@
+Bit slicing is a technique for constructing a processor from modules of processors of smaller bit width, for the purpose of increasing the word length; in theory to make an arbitrary n-bit central processing unit (CPU). Each of these component modules processes one bit field or "slice" of an operand. The grouped processing components would then have the capability to process the chosen full word-length of a given software design.
+Bit slicing more or less died out due to the advent of the microprocessor. Recently it has been used in arithmetic logic units (ALUs) for quantum computers and as a software technique, e.g. for cryptography in x86 CPUs.
+
+Operational details
+Bit-slice processors (BSPs) usually include 1-, 2-, 4-, 8- or 16-bit arithmetic logic unit (ALU) and control lines (including carry or overflow signals that are internal to the processor in non-bitsliced CPU designs).
+For example, two 4-bit ALU chips could be arranged side by side, with control lines between them, to form an 8-bit ALU (result need not be power of two, e.g. three 1-bit units can make a 3-bit ALU, thus 3-bit (or n-bit) CPU, while 3-bit, or any CPU with higher odd number of bits, hasn't been manufactured and sold in volume). Four 4-bit ALU chips could be used to build a 16-bit ALU. It would take eight chips to build a 32-bit word ALU. The designer could add as many slices as required to manipulate longer word lengths.
+A microsequencer or control ROM would be used to execute logic to provide data and control signals to regulate function of the component ALUs.
+Known bit-slice microprocessors:
+
+2-bit slice:
+Intel 3000 family (1974, now discontinued), e.g. Intel 3002 with Intel 3001, second-sourced by Signetics and Intersil
+Signetics 8X02 family (1977, now discontinued)
+4-bit slice:
+National IMP family, consisting primarily of the IMP-00A/520 RALU (also known as MM5750) and various masked ROM microcode and control chips (CROMs, also known as MM5751)
+National GPC/P / IMP-4 (1973), second-sourced by Rockwell
+National IMP-8, an 8-bit processor based on the IMP chipset, using two RALU chips and one CROM chip
+National IMP-16, a 16-bit processor based on the IMP chipset, e.g. four RALU chips with one each IMP16A/521D and IMP16A/522D CROM chips (additional optional CROM chips could provide instruction set additionis)
+AMD Am2900 family (1975), e.g. AM2901, AM2901A, AM2903
+Monolithic Memories 5700/6700 family (1974) e.g. MMI 5701 / MMI 6701, second-sourced by ITT Semiconductors
+Texas Instruments SBP0400 (1975) and SBP0401, cascadable up to 16 bits
+Texas Instruments SN74181 (1970)
+Texas Instruments SN74S281 with SN74S282
+Texas Instruments SN74S481 with SN74S482 (1976)
+Fairchild 33705
+Fairchild 9400 (MACROLOGIC), 4700
+Motorola M10800 family (1979), e.g. MC10800
+Raytheon RP-16, a 16-bit processor consisting of seven integrated circuits, using four RALU chips and three CROM chips.
+8-bit slice:
+Four-Phase Systems AL1 (1969, considered to be the first microprocessor used in a commercial product, now discontinued)
+Texas Instruments SN54AS888 / SN74AS888
+Fairchild 100K
+ZMD U830C (1978/1981), cascadable up to 32 bit
+16-bit slice:
+AMD Am29100 family
+Synopsys 49C402
+ZFT Robotron/ZFTM Dresden U840 (1979/1982), unreleased
+
+Historical necessity
+Bit slicing, although not called that at the time, was also used in computers before large-scale integrated circuits (LSI, the predecessor to today's VLSI, or very-large-scale integration circuits). The first bit-sliced machine was EDSAC 2, built at the University of Cambridge Mathematical Laboratory in 1956–1958.
+Prior to the mid-1970s and late 1980s there was some debate over how much bus width was necessary in a given computer system to make it function. Silicon chip technology and parts were much more expensive than today. Using multiple simpler, and thus less expensive, ALUs was seen as a way to increase computing power in a cost-effective manner. While 32-bit microprocessors were being discussed at the time, few were in production.
+The UNIVAC 1100 series mainframes (one of the oldest series, originating in the 1950s) has a 36-bit architecture, and the 1100/60 introduced in 1979 used nine Motorola MC10800 4-bit ALU chips to implement the needed word width while using modern integrated circuits.At the time 16-bit processors were common but expensive, and 8-bit processors, such as the Z80, were widely used in the nascent home-computer market.
+Combining components to produce bit-slice products allowed engineers and students to create more powerful and complex computers at a more reasonable cost, using off-the-shelf components that could be custom-configured. The complexities of creating a new computer architecture were greatly reduced when the details of the ALU were already specified (and debugged).
+The main advantage was that bit slicing made it economically possible in smaller processors to use bipolar transistors, which switch much faster than NMOS or CMOS transistors. This allowed much higher clock rates, where speed was needed –  for example, for DSP functions or matrix transformation –  or, as in the Xerox Alto, the combination of flexibility and speed, before discrete CPUs were able to deliver that.
+
+Modern use
+Software use on non-bit-slice hardware
+In more recent times, the term bit slicing was reused by Matthew Kwan to refer to the technique of using a general-purpose CPU to implement multiple parallel simple virtual machines using general logic instructions to perform single-instruction multiple-data (SIMD) operations. This technique is also known as SIMD within a register (SWAR).
+This was initially in reference to Eli Biham's 1997 article A Fast New DES Implementation in Software, which achieved significant gains in performance of DES by using this method.
+
+Bit-sliced quantum computers
+To simplify the circuit structure and reduce the hardware cost of quantum computers (proposed to run the MIPS32 instruction set) a 50 GHz superconducting "4-bit bit-slice arithmetic logic unit (ALU) for 32-bit rapid single-flux-quantum microprocessors was demonstrated".
+
+See also
+Bit-serial architecture
+
+References
+Further reading
+Mick, John; Brick, James (1980). Bit-Slice Microprocessor Design (PDF). McGraw-Hill. ISBN 0-07-041781-4.
+
+External links
+"Untwisted: Bit-sliced TEA time". Archived from the original on 2013-10-21. –  a bitslicing primer presenting a pedagogical bitsliced implementation of the Tiny Encryption Algorithm (TEA), a block cipher

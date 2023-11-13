@@ -1,0 +1,900 @@
+In category theory, a category is Cartesian closed if, roughly speaking, any morphism defined on a product of two objects can be naturally identified with a morphism defined on one of the factors. These categories are particularly important in mathematical logic and the theory of programming, in that their internal language is the simply typed lambda calculus. They are generalized by closed monoidal categories, whose internal language, linear type systems, are suitable for both quantum and classical computation.
+
+Etymology
+Named after René Descartes (1596–1650), French philosopher, mathematician, and scientist, whose formulation of analytic geometry gave rise to the concept of Cartesian product, which was later generalized to the notion of categorical product.
+
+Definition
+The category C is called Cartesian closed if and only if it satisfies the following three properties:
+
+It has a terminal object.
+Any two objects X and Y of C have a product X ×Y in C.
+Any two objects Y and Z of C have an exponential ZY in C.The first two conditions can be combined to the single requirement that any finite (possibly empty) family of objects of C admit a product in C, because of the natural associativity of the categorical product and because the empty product in a category is the terminal object of that category.
+The third condition is equivalent to the requirement that the functor – ×Y (i.e. the functor from C to C that maps objects X to X ×Y and morphisms φ to φ × idY) has a right adjoint, usually denoted –Y, for all objects Y in C. 
+For locally small categories, this can be expressed by the existence of a bijection between the hom-sets
+
+  
+    
+      
+        
+          H
+          o
+          m
+        
+        (
+        X
+        ×
+        Y
+        ,
+        Z
+        )
+        ≅
+        
+          H
+          o
+          m
+        
+        (
+        X
+        ,
+        
+          Z
+          
+            Y
+          
+        
+        )
+      
+    
+    {\displaystyle \mathrm {Hom} (X\times Y,Z)\cong \mathrm {Hom} (X,Z^{Y})}
+  which is natural in X, Y, and Z.Take care to note that a Cartesian closed category need not have finite limits; only finite products are guaranteed.
+If a category has the property that all its slice categories are Cartesian closed, then it is called locally cartesian closed. Note that if C is locally Cartesian closed, it need not actually be Cartesian closed; that happens if and only if C has a terminal object.
+
+Basic constructions
+Evaluation
+For each object Y, the counit of the exponential adjunction is a natural transformation 
+
+  
+    
+      
+        
+          
+            e
+            v
+          
+          
+            Y
+            ,
+            Z
+          
+        
+        :
+        
+          Z
+          
+            Y
+          
+        
+        ×
+        Y
+        →
+        Z
+      
+    
+    {\displaystyle \mathrm {ev} _{Y,Z}:Z^{Y}\times Y\to Z}
+  called the (internal) evaluation map. More generally, we can construct the partial application map as the composite
+
+  
+    
+      
+        
+          
+            p
+            a
+            p
+            p
+            l
+            y
+          
+          
+            X
+            ,
+            Y
+            ,
+            Z
+          
+        
+        :
+        
+          Z
+          
+            X
+            ×
+            Y
+          
+        
+        ×
+        X
+        ≅
+        (
+        
+          Z
+          
+            Y
+          
+        
+        
+          )
+          
+            X
+          
+        
+        ×
+        X
+        
+          
+            →
+            
+              
+                
+                  e
+                  v
+                
+                
+                  X
+                  ,
+                  
+                    Z
+                    
+                      Y
+                    
+                  
+                
+              
+            
+          
+        
+        
+          Z
+          
+            Y
+          
+        
+        .
+      
+    
+    {\displaystyle \mathrm {papply} _{X,Y,Z}:Z^{X\times Y}\times X\cong (Z^{Y})^{X}\times X{\xrightarrow {\mathrm {ev} _{X,Z^{Y}}}}Z^{Y}.}
+  In the particular case of the category Set, these reduce to the ordinary operations:
+
+  
+    
+      
+        
+          
+            e
+            v
+          
+          
+            Y
+            ,
+            Z
+          
+        
+        (
+        f
+        ,
+        y
+        )
+        =
+        f
+        (
+        y
+        )
+        .
+      
+    
+    {\displaystyle \mathrm {ev} _{Y,Z}(f,y)=f(y).}
+
+Composition
+Evaluating the exponential in one argument at a morphism p : X → Y gives morphisms
+
+  
+    
+      
+        
+          p
+          
+            Z
+          
+        
+        :
+        
+          X
+          
+            Z
+          
+        
+        →
+        
+          Y
+          
+            Z
+          
+        
+        ,
+      
+    
+    {\displaystyle p^{Z}:X^{Z}\to Y^{Z},}
+  
+
+  
+    
+      
+        
+          Z
+          
+            p
+          
+        
+        :
+        
+          Z
+          
+            Y
+          
+        
+        →
+        
+          Z
+          
+            X
+          
+        
+        ,
+      
+    
+    {\displaystyle Z^{p}:Z^{Y}\to Z^{X},}
+  corresponding to the operation of composition with p. Alternate notations for the operation pZ include p* and p∘-. Alternate notations for the operation Zp include p* and -∘p.
+Evaluation maps can be chained as
+
+  
+    
+      
+        
+          Z
+          
+            Y
+          
+        
+        ×
+        
+          Y
+          
+            X
+          
+        
+        ×
+        X
+        
+          
+            →
+            
+              
+                i
+                d
+              
+              ×
+              
+                
+                  e
+                  v
+                
+                
+                  X
+                  ,
+                  Y
+                
+              
+            
+          
+        
+        
+          Z
+          
+            Y
+          
+        
+        ×
+        Y
+        
+          
+            →
+            
+              
+                
+                  e
+                  v
+                
+                
+                  Y
+                  ,
+                  Z
+                
+              
+            
+          
+        
+        Z
+      
+    
+    {\displaystyle Z^{Y}\times Y^{X}\times X{\xrightarrow {\mathrm {id} \times \mathrm {ev} _{X,Y}}}Z^{Y}\times Y{\xrightarrow {\mathrm {ev} _{Y,Z}}}Z}
+  the corresponding arrow under the exponential adjunction 
+
+  
+    
+      
+        
+          c
+          
+            X
+            ,
+            Y
+            ,
+            Z
+          
+        
+        :
+        
+          Z
+          
+            Y
+          
+        
+        ×
+        
+          Y
+          
+            X
+          
+        
+        →
+        
+          Z
+          
+            X
+          
+        
+      
+    
+    {\displaystyle c_{X,Y,Z}:Z^{Y}\times Y^{X}\to Z^{X}}
+  is called the (internal) composition map.
+In the particular case of the category Set, this is the ordinary composition operation:
+
+  
+    
+      
+        
+          c
+          
+            X
+            ,
+            Y
+            ,
+            Z
+          
+        
+        (
+        g
+        ,
+        f
+        )
+        =
+        g
+        ∘
+        f
+        .
+      
+    
+    {\displaystyle c_{X,Y,Z}(g,f)=g\circ f.}
+
+Sections
+For a morphism p:X  → Y, suppose the following pullback square exists, which defines the subobject of XY corresponding to maps whose composite with p is the identity:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  Γ
+                  
+                    Y
+                  
+                
+                (
+                p
+                )
+              
+              
+                →
+              
+              
+                
+                  X
+                  
+                    Y
+                  
+                
+              
+            
+            
+              
+                ↓
+              
+              
+              
+                ↓
+              
+            
+            
+              
+                1
+              
+              
+                →
+              
+              
+                
+                  Y
+                  
+                    Y
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{ccc}\Gamma _{Y}(p)&\to &X^{Y}\\\downarrow &&\downarrow \\1&\to &Y^{Y}\end{array}}}
+  where the arrow on the right is pY and the arrow on the bottom corresponds to the identity on Y. Then ΓY(p) is called the object of sections of p. It is often abbreviated as ΓY(X).
+If ΓY(p) exists for every morphism p with codomain Y, then it can be assembled into a functor ΓY : C/Y → C on the slice category, which is right adjoint to a variant of the product functor:
+
+  
+    
+      
+        
+          hom
+          
+            C
+            
+              /
+            
+            Y
+          
+        
+        ⁡
+        (
+        X
+        ×
+        Y
+        
+          
+            →
+            
+              
+                π
+                
+                  2
+                
+              
+            
+          
+        
+        Y
+        ,
+        Z
+        
+          
+            →
+            
+              p
+            
+          
+        
+        Y
+        )
+        ≅
+        
+          hom
+          
+            C
+          
+        
+        ⁡
+        (
+        X
+        ,
+        
+          Γ
+          
+            Y
+          
+        
+        (
+        p
+        )
+        )
+        .
+      
+    
+    {\displaystyle \hom _{C/Y}(X\times Y{\xrightarrow {\pi _{2}}}Y,Z{\xrightarrow {p}}Y)\cong \hom _{C}(X,\Gamma _{Y}(p)).}
+  The exponential by Y can be expressed in terms of sections:
+
+  
+    
+      
+        
+          Z
+          
+            Y
+          
+        
+        ≅
+        
+          Γ
+          
+            Y
+          
+        
+        (
+        Z
+        ×
+        Y
+        
+          
+            →
+            
+              
+                π
+                
+                  2
+                
+              
+            
+          
+        
+        Y
+        )
+        .
+      
+    
+    {\displaystyle Z^{Y}\cong \Gamma _{Y}(Z\times Y{\xrightarrow {\pi _{2}}}Y).}
+
+Examples
+Examples of Cartesian closed categories include:
+
+The category Set of all sets, with functions as morphisms, is Cartesian closed. The product X×Y is the Cartesian product of X and Y, and ZY is the set of all functions from Y to Z. The adjointness is expressed by the following fact: the function f : X×Y → Z is naturally identified with the curried function g : X → ZY defined by g(x)(y) = f(x,y) for all x in X and y in Y.
+The category of finite sets, with functions as morphisms, is Cartesian closed for the same reason.
+If G is a group, then the category of all G-sets is Cartesian closed. If Y and Z are two G-sets, then ZY is the set of all functions from Y to Z with G action defined by (g.F)(y) = g.F(g−1.y) for all g in G, F:Y → Z and y in Y.
+The category of finite G-sets is also Cartesian closed.
+The category Cat of all small categories (with functors as morphisms) is Cartesian closed; the exponential CD is given by the functor category consisting of all functors from D to C, with natural transformations as morphisms.
+If C is a small category, then the functor category SetC consisting of all covariant functors from C into the category of sets, with natural transformations as morphisms, is Cartesian closed. If F and G are two functors from C to Set, then the exponential FG is the functor whose value on the object X of C is given by the set of all natural transformations from (X,−) × G to F.
+The earlier example of G-sets can be seen as a special case of functor categories: every group can be considered as a one-object category, and G-sets are nothing but functors from this category to Set
+The category of all directed graphs is Cartesian closed; this is a functor category as explained under functor category.
+In particular, the category of simplicial sets (which are functors X : Δop → Set) is Cartesian closed.
+Even more generally, every elementary topos is Cartesian closed.
+In algebraic topology, Cartesian closed categories are particularly easy to work with.  Neither the category of topological spaces with continuous maps nor the category of smooth manifolds with smooth maps is Cartesian closed. Substitute categories have therefore been considered: the category of compactly generated Hausdorff spaces is Cartesian closed, as is the category of Frölicher spaces.
+In order theory, complete partial orders (cpos) have a natural topology, the Scott topology, whose continuous maps do form a Cartesian closed category (that is, the objects are the cpos, and the morphisms are the Scott continuous maps). Both currying and apply are continuous functions in the Scott topology, and currying, together with apply, provide the adjoint.
+A Heyting algebra is a Cartesian closed (bounded) lattice. An important example arises from topological spaces. If X is a topological space, then the open sets in X form the objects of a category O(X) for which there is a unique morphism from U to V if U is a subset of V and no morphism otherwise. This poset is a Cartesian closed category: the "product" of U and V is the intersection of U and V and the exponential UV is the interior of U∪(X\V).
+A category with a zero object is  Cartesian closed if and only if it is equivalent to a category with only one object and one identity morphism. Indeed, if 0 is an initial object and 1 is a final object and we have 
+  
+    
+      
+        0
+        ≅
+        1
+      
+    
+    {\displaystyle 0\cong 1}
+  , then 
+  
+    
+      
+        
+          H
+          o
+          m
+        
+        (
+        X
+        ,
+        Y
+        )
+        ≅
+        
+          H
+          o
+          m
+        
+        (
+        1
+        ,
+        
+          Y
+          
+            X
+          
+        
+        )
+        ≅
+        
+          H
+          o
+          m
+        
+        (
+        0
+        ,
+        
+          Y
+          
+            X
+          
+        
+        )
+        ≅
+        1
+      
+    
+    {\displaystyle \mathrm {Hom} (X,Y)\cong \mathrm {Hom} (1,Y^{X})\cong \mathrm {Hom} (0,Y^{X})\cong 1}
+   which has only one element.In particular, any non-trivial category with a zero object, such as an abelian category, is not Cartesian closed. So the category of modules over a ring is not Cartesian closed. However, the functor tensor product 
+  
+    
+      
+        −
+        ⊗
+        M
+      
+    
+    {\displaystyle -\otimes M}
+   with a fixed module does have a right adjoint. The tensor product is not a categorical product, so this does not contradict the above. We obtain instead that the category of modules is monoidal closed.Examples of locally Cartesian closed categories include:
+
+Every elementary topos is locally Cartesian closed. This example includes Set, FinSet, G-sets for a group G, as well as SetC for small categories C.
+The category LH whose objects are topological spaces and whose morphisms are local homeomorphisms is locally Cartesian closed, since LH/X is equivalent to the category of sheaves 
+  
+    
+      
+        S
+        h
+        (
+        X
+        )
+      
+    
+    {\displaystyle Sh(X)}
+  .  However, LH does not have a terminal object, and thus is not Cartesian closed.
+If C has pullbacks and for every arrow p : X → Y, the functor p*  : C/Y → C/X given by taking pullbacks has a right adjoint, then C is locally Cartesian closed.
+If C is locally Cartesian closed, then all of its slice categories C/X are also locally Cartesian closed.Non-examples of locally Cartesian closed categories include:
+
+Cat is not locally Cartesian closed.
+
+Applications
+In Cartesian closed categories, a "function of two variables" (a morphism f : X×Y → Z) can always be represented as a "function of one variable" (the morphism λf : X → ZY). In computer science applications, this is known as currying; it has led to the realization that simply-typed lambda calculus can be interpreted in any Cartesian closed category.
+The Curry–Howard–Lambek correspondence provides a deep isomorphism between intuitionistic logic, simply-typed lambda calculus and Cartesian closed categories.
+Certain Cartesian closed categories, the topoi, have been proposed as a general setting for mathematics, instead of traditional set theory.
+Computer scientist John Backus has advocated a variable-free notation, or Function-level programming, which in retrospect bears some similarity to the internal language of Cartesian closed categories. CAML is more consciously modelled on Cartesian closed categories.
+
+Dependent sum and product
+Let C be a locally Cartesian closed category. Then C has all pullbacks, because the pullback of two arrows with codomain Z is given by the product in C/Z.
+For every arrow p : X → Y, let P denote the corresponding object of C/Y. Taking pullbacks along p gives a functor p* : C/Y → C/X which has both a left and a right adjoint.
+The left adjoint 
+  
+    
+      
+        
+          Σ
+          
+            p
+          
+        
+        :
+        C
+        
+          /
+        
+        X
+        →
+        C
+        
+          /
+        
+        Y
+      
+    
+    {\displaystyle \Sigma _{p}:C/X\to C/Y}
+   is called the dependent sum and is given by composition 
+  
+    
+      
+        p
+        ∘
+        (
+        −
+        )
+      
+    
+    {\displaystyle p\circ (-)}
+  .
+The right adjoint 
+  
+    
+      
+        
+          Π
+          
+            p
+          
+        
+        :
+        C
+        
+          /
+        
+        X
+        →
+        C
+        
+          /
+        
+        Y
+      
+    
+    {\displaystyle \Pi _{p}:C/X\to C/Y}
+   is called the dependent product.
+The exponential by P in C/Y can be expressed in terms of the dependent product by the formula 
+  
+    
+      
+        
+          Q
+          
+            P
+          
+        
+        ≅
+        
+          Π
+          
+            p
+          
+        
+        (
+        
+          p
+          
+            ∗
+          
+        
+        (
+        Q
+        )
+        )
+      
+    
+    {\displaystyle Q^{P}\cong \Pi _{p}(p^{*}(Q))}
+  .
+The reason for these names is because, when interpreting P as a dependent type 
+  
+    
+      
+        y
+        :
+        Y
+        ⊢
+        P
+        (
+        y
+        )
+        :
+        
+          T
+          y
+          p
+          e
+        
+      
+    
+    {\displaystyle y:Y\vdash P(y):\mathrm {Type} }
+  , the functors 
+  
+    
+      
+        
+          Σ
+          
+            p
+          
+        
+      
+    
+    {\displaystyle \Sigma _{p}}
+   and 
+  
+    
+      
+        
+          Π
+          
+            p
+          
+        
+      
+    
+    {\displaystyle \Pi _{p}}
+   correspond to the type formations 
+  
+    
+      
+        
+          Σ
+          
+            x
+            :
+            P
+            (
+            y
+            )
+          
+        
+      
+    
+    {\displaystyle \Sigma _{x:P(y)}}
+   and 
+  
+    
+      
+        
+          Π
+          
+            x
+            :
+            P
+            (
+            y
+            )
+          
+        
+      
+    
+    {\displaystyle \Pi _{x:P(y)}}
+   respectively.
+
+Equational theory
+In every Cartesian closed category (using exponential notation), (XY)Z and (XZ)Y are isomorphic for all objects X, Y and Z. We write this as the "equation"
+
+(xy)z = (xz)y.One may ask what other such equations are valid in all Cartesian closed categories. It turns out that all of them follow logically from the following axioms:
+x×(y×z) = (x×y)×z
+x×y = y×x
+x×1 = x (here 1 denotes the terminal object of C)
+1x = 1
+x1 = x
+(x×y)z = xz×yz
+(xy)z = x(y×z)
+
+Bicartesian closed categories
+Bicartesian closed categories extend Cartesian closed categories with binary coproducts and an initial object, with products distributing over coproducts.  Their equational theory is extended with the following axioms, yielding something similar to Tarski's high school axioms but with a zero:
+
+x + y = y + x
+(x + y) + z = x + (y + z)
+x×(y + z) = x×y + x×z
+x(y + z) = xy×xz
+0 + x = x
+x×0 = 0
+x0 = 1Note however that the above list is not complete; type isomorphism in the free BCCC is not finitely axiomatizable, and its decidability is still an open problem.
+
+References
+External links
+Cartesian closed category at the nLab
+Baez, John (2006). "CCCs and the λ-calculus". The n-Category Café: A group blog on math, physics and philosophy. University of Texas.

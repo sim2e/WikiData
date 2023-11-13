@@ -1,0 +1,33 @@
+In computer science, a local variable is a variable that is given local scope.  A local variable reference in the function or block in which it is declared overrides the same variable name in the larger scope. In programming languages with only two levels of visibility, local variables are contrasted with global variables. On the other hand, many ALGOL-derived languages allow any number of nested levels of visibility, with private variables, functions, constants and types hidden within them, either by nested blocks or nested functions. Local variables are fundamental to procedural programming, and more generally modular programming: variables of local scope are used to avoid issues with side-effects that can occur with global variables.
+
+Scope
+Local variables may have a lexical or dynamic scope, though lexical (static) scoping is far more common.  In lexical scoping (or lexical scope; also called static scoping or static scope), if a variable name's scope is a certain block, then its scope is the program text of the block definition: within that block's text, the variable name exists, and is bound to the variable's value, but outside that block's text, the variable name does not exist. By contrast, in dynamic scoping (or dynamic scope), if a variable name's scope is a certain block, then its scope is that block and all functions transitively called by that block (except when overridden again by another declaration); after the block ends, the variable name does not exist.  Some languages, like Perl and Common Lisp, allow the programmer to choose static or dynamic scoping when defining or redefining a variable. Examples of languages that use dynamic scoping include Logo, Emacs lisp, and the shell languages bash, dash, and the MirBSD Korn shell (mksh)'s "local" declaration.  Most other languages provide lexically scoped local variables.
+In most languages, local variables are automatic variables stored on the call stack directly. This means that when a recursive function calls itself, local variables in each instance of the function are given distinct addresses. Hence variables of this scope can be declared, written to, and read, without any risk of side-effects to functions outside of the block in which they are declared.
+Programming languages that employ call by value semantics provide a called subroutine with its own local copy of the arguments passed to it. In most languages, these local parameters are treated the same as other local variables within the subroutine. In contrast, call by reference and call by name semantics allow the parameters to act as aliases of the values passed as arguments, allowing the subroutine to modify variables outside its own scope.
+
+Static local variables
+A special type of local variable, called a static local, is available in many mainstream languages (including C/C++, Visual Basic, VB.NET and PHP) which allows a value to be retained from one call of the function to another – it is a static variable with local scope. In this case, recursive calls to the function also have access to the (single, statically allocated) variable. In all of the above languages, static variables are declared as such with a special storage class keyword (e.g., static).
+Static locals in global functions have the same lifetime as static global variables, because their value remains in memory for the life of the program, but have function scope (not global scope), as with automatic local variables.
+This is distinct from other usages of the static keyword, which has several different meanings in various languages.
+
+Local variables in Perl
+Perl supports both dynamic and lexically-scoped local variables.  The keyword local is used to define local dynamically-scoped variables, while my is used for local lexically-scoped variables.  Since dynamic scoping is less common today, the Perl documentation warns that "local isn't what most people think of as “local”.".  Instead, the local keyword gives a temporary, dynamically-scoped value to a global (package) variable, which lasts until the end of the enclosing block. However, the variable is visible to any function called from within the block.  To create lexically-scoped local variables, use the my operator instead.To understand how it works consider the following code:
+
+this will output:
+
+1
+2
+1
+
+This happens since the global variable $a is modified to a new temporary (local) meaning inside f(), but the global value is restored upon leaving the scope of f().
+Using my in this case instead of local would have printed 1 three times since in that case the $a variable would be limited to the static scope of the function f() and not seen by g().  Randal L. Schwartz and Tom Phoenix argue that the operator local should have had a different name like save.
+
+Local variables in Ruby
+Ruby as a language was inspired also by Perl, but in this case, the notation was made simpler: a global variable name must be preceded by a $ sign, like $variable_name, while a local variable has simply no $ sign in front of its name, like variable_name (while in perl all scalar values have a $ in front).  Note that Ruby only provides built-in support for statically-scoped local variables like Perl's my, not dynamically-scoped local variables like Perl's local.  There is at least one library for Ruby that provides dynamically-scoped variables.
+
+See also
+Global variable
+Non-local variable
+
+
+== References ==

@@ -1,0 +1,61 @@
+Power optimization is the use of electronic design automation tools to optimize (reduce) the power consumption of a digital design, such as that of an integrated circuit, while preserving the functionality.
+
+Introduction and history
+The increasing speed and complexity of today’s designs implies a significant increase in the power consumption of very-large-scale integration (VLSI) chips. To meet this challenge, researchers have developed many different design techniques to reduce power. The complexity of today’s ICs, with over 100 million
+transistors, clocked at over 1 GHz, means manual power optimization would be hopelessly slow and all too likely to contain errors.  Computer-aided design (CAD) tools and methodologies are mandatory.
+One of the key features that led to the success of complementary metal-oxide semiconductor, or CMOS,  technology was its intrinsic low-power consumption. This meant that circuit designers and electronic design automation (EDA) tools could afford to concentrate on maximizing circuit performance and minimizing circuit area. Another interesting feature of CMOS technology is its nice scaling properties, which has permitted a steady decrease in the feature size (see Moore's law), allowing for more and more complex systems on a single chip, working at higher clock frequencies.
+Power consumption concerns came into play with the appearance of the first portable electronic systems in the late 1980s. In this market, battery lifetime is a decisive factor for the commercial success of the product. Another fact that became apparent at about the same time was that the increasing integration of more active elements per die area would lead to prohibitively large-energy consumption of an integrated circuit. A high absolute level of power is not only undesirable for economic and environmental
+reasons, but it also creates the problem of heat dissipation. In order to keep the device working at acceptable temperature levels, excessive heat may require expensive heat removal systems.
+These factors have contributed to the rise of power as a major design parameter on par with performance and die size. In fact, power consumption is regarded as the limiting factor in the continuing scaling of CMOS technology.  To respond to this challenge, in the last decade or so, intensive research has been put into developing computed-aided design (CAD) tools that address the problem of power optimization. Initial efforts were directed to circuit and logic-level tools because at this level CAD tools were more mature and there was a better handle on the issues. Today, most of the research for CAD tools targets system or architectural level optimization, which potentially have a higher overall impact, given the breadth of their application.
+Together with optimization tools, efficient techniques for power estimation are required, both as an absolute indicator that the circuit’s consumption meets some target value and as a relative indicator of the power merits of different alternatives during design space exploration.
+
+Power analysis of CMOS circuits
+The power consumption of digital CMOS circuits is generally considered in terms of three components:
+
+The dynamic power component, related to the charging and discharging of the load capacitance at the gate output.
+The short-circuit power component.  During the transition of the output line (of a CMOS gate) from one voltage level to the other, there is a period of time when both the PMOS and the NMOS transistors are on, thus creating a path from VDD to ground.
+The static power component, due to leakage, that is present even when the circuit is not switching. This, in turn, is composed of two components - gate to source leakage, which is leakage directly through the gate insulator, mostly by tunnelling, and source-drain leakage attributed to both tunnelling and sub-threshold conduction. The contribution of the static power component to the total power number is growing very rapidly in the current era of Deep Sub-Micrometre (DSM) Design.Power can be estimated at a number of levels of detail.  The higher levels of abstraction are faster and handle larger circuits, but are less accurate.  The main levels include:
+
+Circuit Level Power Estimation, using a circuit simulator such as SPICE
+Static Power Estimation does not use the input vectors, but may use the input statistics.  Analogous to static timing analysis.
+Logic-Level Power Estimation, often linked to logic simulation.
+Analysis at the Register-Transfer Level.  Fast and high capacity, but not as accurate.
+
+Circuit-level power optimization
+Many different techniques are used to reduce power consumption at the circuit level.  Some of the main ones are:
+
+Transistor sizing: adjusting the size of each gate or transistor for minimum power.
+Voltage scaling: lower supply voltages use less power, but go slower.
+Voltage islands:  Different blocks can be run at different voltages, saving power. This design practice may require the use of level-shifters when two blocks with different supply voltages communicate with each other.
+Variable VDD: The voltage for a single block can be varied during operation - high voltage (and high power) when the block needs to go fast, low voltage when slow operation is acceptable.
+Multiple threshold voltages: Modern processes can build transistors with different thresholds. Power can be saved by using a mixture of CMOS transistors with two or more different threshold voltages.  In the simplest form there are two different thresholds available, common called High-Vt and Low-Vt, where Vt stands for threshold voltage.  High threshold transistors are slower but leak less, and can be used in non-critical circuits.
+Power gating: This technique uses high Vt sleep transistors which cut-off a circuit block when the block is not switching. The sleep transistor sizing is an important design parameter. This technique, also known as MTCMOS, or Multi-Threshold CMOS reduces stand-by or leakage power, and also enables Iddq testing.
+Long-Channel transistors:  Transistors of more than minimum length leak less, but are bigger and slower.
+Stacking and parking states:  Logic gates may leak differently during logically equivalent input states (say 10 on a NAND gate, as opposed to 01).  State machines may have less leakage in certain states.
+Logic styles:  dynamic and static logic, for example, have different speed/power tradeoffs.
+
+Logic synthesis for low power
+Logic synthesis can also be optimized in many ways to keep power consumption under control.  Details of the following steps can have a significant impact on power optimization:
+
+Clock gating
+Logic Factorization
+Path Balancing
+Technology Mapping
+State Encoding
+Finite-State Machine Decomposition
+Retiming
+
+Power Aware EDA Support
+There are file formats that can be used to write design files specifying the Power intent and implementation of a design. The information in these files allow the EDA tools to automatically insert power control features and to check that the result matches the intent. The IEEE DASC provides a home for developing this format in the form of the IEEE P1801 working group. During 2006 and the first two months of 2007, both Unified Power Format and Common Power Format were developed to support various tools. The IEEE P1801 working groups operates with the goal of providing for convergence of these two standards.
+Several EDA tools have been developed for supporting architectural level power estimation including McPAT, Wattch, and Simplepower.
+
+See also
+Data organization for low power
+
+References
+
+Electronic Design Automation For Integrated Circuits Handbook, by Lavagno, Martin, and Scheffer, ISBN 0-8493-3096-3 A survey of the field, from which the above summary was derived, with permission.
+Jan M. Rabaey, Anantha Chandrakasan, and Borivoje Nikolic, Digital Integrated Circuits, 2nd Edition[1], ISBN 0-13-090996-3 , Publisher: Prentice Hall
+
+
+== Further reading/External links ==

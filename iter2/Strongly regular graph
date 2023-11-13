@@ -1,0 +1,2021 @@
+In graph theory, a strongly regular graph  (SRG) is a regular graph G = (V, E) with v vertices and degree k such that for some given integers 
+  
+    
+      
+        λ
+        ,
+        μ
+        ≥
+        0
+      
+    
+    {\displaystyle \lambda ,\mu \geq 0}
+  
+
+every two adjacent vertices have λ common neighbours, and
+every two non-adjacent vertices have μ common neighbours.Such a strongly regular graph is denoted srg(v, k, λ, μ). Its complement is also strongly regular: srg(v, v − k − 1, v − 2 − 2k + μ, v − 2k + λ).
+A strongly regular graph is a distance-regular graph with diameter 2 whenever μ is non-zero. It is a locally linear graph whenever λ = 1.
+
+Etymology
+A strongly regular graph is denoted an srg(v, k, λ, μ) in the literature. By convention, graphs which satisfy the definition trivially are excluded from detailed studies and lists of strongly regular graphs. These include the disjoint union of one or more equal-sized complete graphs, and their complements, the complete multipartite graphs with equal-sized independent sets.
+Andries Brouwer and Hendrik van Maldeghem (see #References) use an alternate but fully equivalent definition of a strongly regular graph based on spectral graph theory: a strongly regular graph is a finite regular graph that has exactly three eigenvalues, only one of which is equal to the degree k, of multiplicity 1. This automatically rules out fully connected graphs (which have only two distinct eigenvalues, not three) and disconnected graphs (whose multiplicity of the degree k is equal to the number of different connected components, which would therefore exceed one). Much of the literature, including Brouwer, refer to the larger eigenvalue as r (with multiplicity f) and the smaller one as s (with multiplicity g).
+
+History
+Strongly regular graphs were introduced by R.C. Bose in 1963. They built upon earlier work in the 1950s in the then-new field of spectral graph theory.
+
+Examples
+The cycle of length 5 is an srg(5, 2, 0, 1).
+The Petersen graph is an srg(10, 3, 0, 1).
+The Clebsch graph is an srg(16, 5, 0, 2).
+The Shrikhande graph is an srg(16, 6, 2, 2) which is not a distance-transitive graph.
+The n × n square rook's graph, i.e., the line graph of a balanced complete bipartite graph Kn,n, is an srg(n2, 2n − 2, n − 2, 2).  The parameters for n = 4 coincide with those of the Shrikhande graph, but the two graphs are not isomorphic.
+The line graph of a complete graph Kn is an 
+  
+    
+      
+        srg
+        ⁡
+        
+          (
+          
+            
+              
+                
+                  (
+                
+                
+                  n
+                  2
+                
+                
+                  )
+                
+              
+            
+            ,
+            2
+            (
+            n
+            −
+            2
+            )
+            ,
+            n
+            −
+            2
+            ,
+            4
+          
+          )
+        
+      
+    
+    {\textstyle \operatorname {srg} \left({\binom {n}{2}},2(n-2),n-2,4\right)}
+  .
+The Chang graphs are srg(28, 12, 6, 4), the same as the line graph of K8, but these four graphs are not isomorphic.
+Every generalized quadrangle of order (s, t) gives an srg((s + 1)(st + 1), s(t + 1), s − 1, t + 1) as its line graph. For example, GQ(2, 4) gives srg(27, 10, 1, 5) as its line graph.
+The Schläfli graph is an srg(27, 16, 10, 8).
+The Hoffman–Singleton graph is an srg(50, 7, 0, 1).
+The Sims-Gewirtz graph is an (56, 10, 0, 2).
+The M22 graph aka the Mesner graph is an srg(77, 16, 0, 4).
+The Brouwer–Haemers graph is an srg(81, 20, 1, 6).
+The Higman–Sims graph is an srg(100, 22, 0, 6).
+The Local McLaughlin graph is an srg(162, 56, 10, 24).
+The Cameron graph is an srg(231, 30, 9, 3).
+The Berlekamp–van Lint–Seidel graph is an srg(243, 22, 1, 2).
+The McLaughlin graph is an srg(275, 112, 30, 56).
+The Paley graph of order q is an srg(q, (q − 1)/2, (q − 5)/4, (q − 1)/4).  The smallest Paley graph, with q = 5, is the 5-cycle (above).
+self-complementary arc-transitive graphs are strongly regular.A strongly regular graph is called primitive if both the graph and its complement are connected. All the above graphs are primitive, as otherwise μ = 0 or λ = k.
+Conway's 99-graph problem asks for the construction of an srg(99, 14, 1, 2). It is unknown whether a graph with these parameters exists, and John Horton Conway offered a $1000 prize for the solution to this problem.
+
+Triangle-free graphs
+The strongly regular graphs with λ = 0 are triangle free. Apart from the complete graphs on fewer than 3 vertices and all complete bipartite graphs, the seven listed earlier (pentagon, Petersen, Clebsch, Hoffman-Singleton, Gewirtz, Mesner-M22, and Higman-Sims) are the only known ones.
+
+Geodetic graphs
+Every strongly regular graph with 
+  
+    
+      
+        μ
+        =
+        1
+      
+    
+    {\displaystyle \mu =1}
+   is a geodetic graph, a graph in which every two vertices have a unique unweighted shortest path. The only known strongly regular graphs with 
+  
+    
+      
+        μ
+        =
+        1
+      
+    
+    {\displaystyle \mu =1}
+   are those where 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   is 0, therefore triangle-free as well. These are called the Moore graphs and are explored below in more detail. Other combinations of parameters such as (400, 21, 2, 1) have not yet been ruled out. Despite ongoing research on the properties that a strongly regular graph with 
+  
+    
+      
+        μ
+        =
+        1
+      
+    
+    {\displaystyle \mu =1}
+   would have, it is not known whether any more exist or even whether their number is finite. Only the elementary result is known, that 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   cannot be 1 for such a graph.
+
+Algebraic properties of strongly regular graphs
+Basic relationship between parameters
+The four parameters in an srg(v, k, λ, μ) are not independent. They must obey the following relation:
+
+  
+    
+      
+        (
+        v
+        −
+        k
+        −
+        1
+        )
+        μ
+        =
+        k
+        (
+        k
+        −
+        λ
+        −
+        1
+        )
+      
+    
+    {\displaystyle (v-k-1)\mu =k(k-\lambda -1)}
+  The above relation is derived through a counting argument as follows:
+
+Imagine the vertices of the graph to lie in three levels. Pick any vertex as the root, in Level 0. Then its k neighbors lie in Level 1, and all other vertices lie in Level 2.
+Vertices in Level 1 are directly connected to the root, hence they must have λ other neighbors in common with the root, and these common neighbors must also be in Level 1. Since each vertex has degree k, there are 
+  
+    
+      
+        k
+        −
+        λ
+        −
+        1
+      
+    
+    {\displaystyle k-\lambda -1}
+   edges remaining for each Level 1 node to connect to vertices in Level 2. Therefore, there are 
+  
+    
+      
+        k
+        (
+        k
+        −
+        λ
+        −
+        1
+        )
+      
+    
+    {\displaystyle k(k-\lambda -1)}
+   edges between Level 1 and Level 2.
+Vertices in Level 2 are not directly connected to the root, hence they must have μ common neighbors with the root, and these common neighbors must all be in Level 1. There are 
+  
+    
+      
+        (
+        v
+        −
+        k
+        −
+        1
+        )
+      
+    
+    {\displaystyle (v-k-1)}
+   vertices in Level 2, and each is connected to μ vertices in Level 1. Therefore the number of edges between Level 1 and Level 2 is 
+  
+    
+      
+        (
+        v
+        −
+        k
+        −
+        1
+        )
+        μ
+      
+    
+    {\displaystyle (v-k-1)\mu }
+  .
+Equating the two expressions for the edges between Level 1 and Level 2, the relation follows.
+
+Adjacency matrix equations
+Let I denote the identity matrix and let J denote the matrix of ones, both matrices of order v.  The adjacency matrix A of a strongly regular graph satisfies two equations.
+First:
+
+  
+    
+      
+        A
+        J
+        =
+        J
+        A
+        =
+        k
+        J
+        ,
+      
+    
+    {\displaystyle AJ=JA=kJ,}
+  which is a restatement of the regularity requirement. This shows that k is an eigenvalue of the adjacency matrix with the all-ones eigenvector.
+Second:
+
+  
+    
+      
+        
+          A
+          
+            2
+          
+        
+        =
+        k
+        I
+        +
+        λ
+        
+          A
+        
+        +
+        μ
+        (
+        J
+        −
+        I
+        −
+        A
+        )
+      
+    
+    {\displaystyle A^{2}=kI+\lambda {A}+\mu (J-I-A)}
+  which expresses strong regularity. The ij-th element of the left hand side gives the number of two-step paths from i to j. The first term of the right hand side gives the number of two-step paths from i back to i, namely k edges out and back in. The second term gives the number of two-step paths when i and j are directly connected. The third term gives the corresponding value when i and j are not connected. Since the three cases are mutually exclusive and collectively exhaustive, the simple additive equality follows.
+Conversely, a graph whose adjacency matrix satisfies both of the above conditions and which is not a complete or null graph is a strongly regular graph.
+
+Eigenvalues and graph spectrum
+Since the adjacency matrix A is symmetric, it follows that its eigenvectors are orthogonal. We already observed one eigenvector above which is made of all ones, corresponding to the eigenvalue k. Therefore the other eigenvectors x must all satisfy 
+  
+    
+      
+        J
+        x
+        =
+        0
+      
+    
+    {\displaystyle Jx=0}
+   where J is the all-ones matrix as before. Take the previously established equation:
+
+  
+    
+      
+        
+          A
+          
+            2
+          
+        
+        =
+        k
+        I
+        +
+        λ
+        
+          A
+        
+        +
+        μ
+        (
+        J
+        −
+        I
+        −
+        A
+        )
+      
+    
+    {\displaystyle A^{2}=kI+\lambda {A}+\mu (J-I-A)}
+  and multiply the above equation by eigenvector x:
+
+  
+    
+      
+        
+          A
+          
+            2
+          
+        
+        x
+        =
+        k
+        I
+        x
+        +
+        λ
+        
+          A
+        
+        x
+        +
+        μ
+        (
+        J
+        −
+        I
+        −
+        A
+        )
+        x
+      
+    
+    {\displaystyle A^{2}x=kIx+\lambda {A}x+\mu (J-I-A)x}
+  Call the corresponding eigenvalue p (not to be confused with 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   the graph parameter) and substitute 
+  
+    
+      
+        A
+        x
+        =
+        p
+        x
+      
+    
+    {\displaystyle Ax=px}
+  , 
+  
+    
+      
+        J
+        x
+        =
+        0
+      
+    
+    {\displaystyle Jx=0}
+   and 
+  
+    
+      
+        I
+        x
+        =
+        x
+      
+    
+    {\displaystyle Ix=x}
+  :
+
+  
+    
+      
+        
+          p
+          
+            2
+          
+        
+        x
+        =
+        k
+        x
+        +
+        λ
+        p
+        x
+        −
+        μ
+        x
+        −
+        μ
+        p
+        x
+      
+    
+    {\displaystyle p^{2}x=kx+\lambda px-\mu x-\mu px}
+  Eliminate x and rearrange to get a quadratic:
+
+  
+    
+      
+        
+          p
+          
+            2
+          
+        
+        +
+        (
+        μ
+        −
+        λ
+        )
+        p
+        −
+        (
+        k
+        −
+        μ
+        )
+        =
+        0
+      
+    
+    {\displaystyle p^{2}+(\mu -\lambda )p-(k-\mu )=0}
+  This gives the two additional eigenvalues 
+  
+    
+      
+        
+          
+            1
+            2
+          
+        
+        
+          [
+          
+            (
+            λ
+            −
+            μ
+            )
+            ±
+            
+              
+                (
+                λ
+                −
+                μ
+                
+                  )
+                  
+                    2
+                  
+                
+                +
+                4
+                (
+                k
+                −
+                μ
+                )
+              
+            
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle {\frac {1}{2}}\left[(\lambda -\mu )\pm {\sqrt {(\lambda -\mu )^{2}+4(k-\mu )}}\,\right]}
+  . There are thus exactly three eigenvalues for a strongly regular matrix.
+Conversely, a connected regular graph with only three eigenvalues is strongly regular.Following the terminology in much of the strongly regular graph literature, the larger eigenvalue is called r with multiplicity f and the smaller one is called s with multiplicity g.
+Since the sum of all the eigenvalues is the trace of the adjacency matrix, which is zero in this case, the respective multiplicities f and g can be calculated:
+
+Eigenvalue k has multiplicity 1.
+Eigenvalue 
+  
+    
+      
+        r
+        =
+        
+          
+            1
+            2
+          
+        
+        
+          [
+          
+            (
+            λ
+            −
+            μ
+            )
+            +
+            
+              
+                (
+                λ
+                −
+                μ
+                
+                  )
+                  
+                    2
+                  
+                
+                +
+                4
+                (
+                k
+                −
+                μ
+                )
+              
+            
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle r={\frac {1}{2}}\left[(\lambda -\mu )+{\sqrt {(\lambda -\mu )^{2}+4(k-\mu )}}\,\right]}
+   has multiplicity 
+  
+    
+      
+        f
+        =
+        
+          
+            1
+            2
+          
+        
+        
+          [
+          
+            (
+            v
+            −
+            1
+            )
+            −
+            
+              
+                
+                  2
+                  k
+                  +
+                  (
+                  v
+                  −
+                  1
+                  )
+                  (
+                  λ
+                  −
+                  μ
+                  )
+                
+                
+                  (
+                  λ
+                  −
+                  μ
+                  
+                    )
+                    
+                      2
+                    
+                  
+                  +
+                  4
+                  (
+                  k
+                  −
+                  μ
+                  )
+                
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle f={\frac {1}{2}}\left[(v-1)-{\frac {2k+(v-1)(\lambda -\mu )}{\sqrt {(\lambda -\mu )^{2}+4(k-\mu )}}}\right]}
+  .
+Eigenvalue 
+  
+    
+      
+        s
+        =
+        
+          
+            1
+            2
+          
+        
+        
+          [
+          
+            (
+            λ
+            −
+            μ
+            )
+            −
+            
+              
+                (
+                λ
+                −
+                μ
+                
+                  )
+                  
+                    2
+                  
+                
+                +
+                4
+                (
+                k
+                −
+                μ
+                )
+              
+            
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle s={\frac {1}{2}}\left[(\lambda -\mu )-{\sqrt {(\lambda -\mu )^{2}+4(k-\mu )}}\,\right]}
+   has multiplicity 
+  
+    
+      
+        g
+        =
+        
+          
+            1
+            2
+          
+        
+        
+          [
+          
+            (
+            v
+            −
+            1
+            )
+            +
+            
+              
+                
+                  2
+                  k
+                  +
+                  (
+                  v
+                  −
+                  1
+                  )
+                  (
+                  λ
+                  −
+                  μ
+                  )
+                
+                
+                  (
+                  λ
+                  −
+                  μ
+                  
+                    )
+                    
+                      2
+                    
+                  
+                  +
+                  4
+                  (
+                  k
+                  −
+                  μ
+                  )
+                
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle g={\frac {1}{2}}\left[(v-1)+{\frac {2k+(v-1)(\lambda -\mu )}{\sqrt {(\lambda -\mu )^{2}+4(k-\mu )}}}\right]}
+  .As the multiplicities must be integers, their expressions provide further constraints on the values of v, k, μ, and λ.
+Strongly regular graphs for which 
+  
+    
+      
+        2
+        k
+        +
+        (
+        v
+        −
+        1
+        )
+        (
+        λ
+        −
+        μ
+        )
+        ≠
+        0
+      
+    
+    {\displaystyle 2k+(v-1)(\lambda -\mu )\neq 0}
+   have integer eigenvalues with unequal multiplicities.
+Strongly regular graphs for which 
+  
+    
+      
+        2
+        k
+        +
+        (
+        v
+        −
+        1
+        )
+        (
+        λ
+        −
+        μ
+        )
+        =
+        0
+      
+    
+    {\displaystyle 2k+(v-1)(\lambda -\mu )=0}
+   are called conference graphs because of their connection with symmetric conference matrices. Their parameters reduce to
+
+  
+    
+      
+        srg
+        ⁡
+        
+          (
+          
+            v
+            ,
+            
+              
+                1
+                2
+              
+            
+            (
+            v
+            −
+            1
+            )
+            ,
+            
+              
+                1
+                4
+              
+            
+            (
+            v
+            −
+            5
+            )
+            ,
+            
+              
+                1
+                4
+              
+            
+            (
+            v
+            −
+            1
+            )
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \operatorname {srg} \left(v,{\frac {1}{2}}(v-1),{\frac {1}{4}}(v-5),{\frac {1}{4}}(v-1)\right).}
+  Their eigenvalues are 
+  
+    
+      
+        r
+        =
+        
+          
+            
+              −
+              1
+              +
+              
+                
+                  v
+                
+              
+            
+            2
+          
+        
+      
+    
+    {\displaystyle r={\frac {-1+{\sqrt {v}}}{2}}}
+   and 
+  
+    
+      
+        s
+        =
+        
+          
+            
+              −
+              1
+              −
+              
+                
+                  v
+                
+              
+            
+            2
+          
+        
+      
+    
+    {\displaystyle s={\frac {-1-{\sqrt {v}}}{2}}}
+  , both of whose multiplicities are equal to 
+  
+    
+      
+        
+          
+            
+              v
+              −
+              1
+            
+            2
+          
+        
+      
+    
+    {\displaystyle {\frac {v-1}{2}}}
+  . Further, in this case, v must equal the sum of two squares, related to the Bruck–Ryser–Chowla theorem.
+Further properties of the eigenvalues and their multiplicities are:
+
+  
+    
+      
+        (
+        A
+        −
+        r
+        I
+        )
+        ×
+        (
+        A
+        −
+        s
+        I
+        )
+        =
+        μ
+        .
+        J
+      
+    
+    {\displaystyle (A-rI)\times (A-sI)=\mu .J}
+  , therefore 
+  
+    
+      
+        (
+        k
+        −
+        r
+        )
+        .
+        (
+        k
+        −
+        s
+        )
+        =
+        μ
+        v
+      
+    
+    {\displaystyle (k-r).(k-s)=\mu v}
+  
+
+  
+    
+      
+        λ
+        −
+        μ
+        =
+        r
+        +
+        s
+      
+    
+    {\displaystyle \lambda -\mu =r+s}
+  
+
+  
+    
+      
+        k
+        −
+        μ
+        =
+        −
+        r
+        ×
+        s
+      
+    
+    {\displaystyle k-\mu =-r\times s}
+  
+
+  
+    
+      
+        k
+        ≥
+        r
+      
+    
+    {\displaystyle k\geq r}
+  
+Given an srg(v, k, λ, μ) with eigenvalues r and s, its complement srg(v, v − k − 1, v − 2 − 2k + μ, v − 2k + λ) has eigenvalues -1-s and -1-r.
+Alternate equations for the multiplicities are 
+  
+    
+      
+        f
+        =
+        
+          
+            
+              (
+              s
+              +
+              1
+              )
+              k
+              (
+              k
+              −
+              s
+              )
+            
+            
+              μ
+              (
+              s
+              −
+              r
+              )
+            
+          
+        
+      
+    
+    {\displaystyle f={\frac {(s+1)k(k-s)}{\mu (s-r)}}}
+   and 
+  
+    
+      
+        g
+        =
+        
+          
+            
+              (
+              r
+              +
+              1
+              )
+              k
+              (
+              k
+              −
+              r
+              )
+            
+            
+              μ
+              (
+              r
+              −
+              s
+              )
+            
+          
+        
+      
+    
+    {\displaystyle g={\frac {(r+1)k(k-r)}{\mu (r-s)}}}
+  
+The frame quotient condition: 
+  
+    
+      
+        v
+        k
+        (
+        v
+        −
+        k
+        −
+        1
+        )
+        =
+        f
+        g
+        (
+        r
+        −
+        s
+        
+          )
+          
+            2
+          
+        
+      
+    
+    {\displaystyle vk(v-k-1)=fg(r-s)^{2}}
+  . As a corollary, 
+  
+    
+      
+        v
+        =
+        (
+        r
+        −
+        s
+        
+          )
+          
+            2
+          
+        
+      
+    
+    {\displaystyle v=(r-s)^{2}}
+   if and only if 
+  
+    
+      
+        
+          f
+          ,
+          g
+        
+        =
+        
+          k
+          ,
+          v
+          −
+          k
+          −
+          1
+        
+      
+    
+    {\displaystyle {f,g}={k,v-k-1}}
+   in some order.
+Krein conditions: 
+  
+    
+      
+        (
+        v
+        −
+        k
+        −
+        1
+        
+          )
+          
+            2
+          
+        
+        (
+        
+          k
+          
+            2
+          
+        
+        +
+        
+          r
+          
+            3
+          
+        
+        )
+        ≥
+        (
+        r
+        +
+        1
+        
+          )
+          
+            3
+          
+        
+        
+          k
+          
+            2
+          
+        
+      
+    
+    {\displaystyle (v-k-1)^{2}(k^{2}+r^{3})\geq (r+1)^{3}k^{2}}
+   and 
+  
+    
+      
+        (
+        v
+        −
+        k
+        −
+        1
+        
+          )
+          
+            2
+          
+        
+        (
+        
+          k
+          
+            2
+          
+        
+        +
+        
+          s
+          
+            3
+          
+        
+        )
+        ≥
+        (
+        s
+        +
+        1
+        
+          )
+          
+            3
+          
+        
+        
+          k
+          
+            2
+          
+        
+      
+    
+    {\displaystyle (v-k-1)^{2}(k^{2}+s^{3})\geq (s+1)^{3}k^{2}}
+  
+Absolute bound: 
+  
+    
+      
+        v
+        ≤
+        
+          
+            
+              f
+              (
+              f
+              +
+              3
+              )
+            
+            2
+          
+        
+      
+    
+    {\displaystyle v\leq {\frac {f(f+3)}{2}}}
+   and 
+  
+    
+      
+        v
+        ≤
+        
+          
+            
+              g
+              (
+              g
+              +
+              3
+              )
+            
+            2
+          
+        
+      
+    
+    {\displaystyle v\leq {\frac {g(g+3)}{2}}}
+  .
+Claw bound: if 
+  
+    
+      
+        r
+        +
+        1
+        >
+        
+          
+            
+              s
+              (
+              s
+              +
+              1
+              )
+              (
+              μ
+              +
+              1
+              )
+            
+            2
+          
+        
+      
+    
+    {\displaystyle r+1>{\frac {s(s+1)(\mu +1)}{2}}}
+  , then 
+  
+    
+      
+        μ
+        =
+        
+          s
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \mu =s^{2}}
+   or 
+  
+    
+      
+        μ
+        =
+        s
+        (
+        s
+        +
+        1
+        )
+      
+    
+    {\displaystyle \mu =s(s+1)}
+  .If the above condition(s) are violated for any set of parameters, then there exists no strongly regular graph for those parameters. Brouwer has compiled such lists of existence or non-existence here with reasons for non-existence if any.
+
+The Hoffman–Singleton theorem
+As noted above, the multiplicities of the eigenvalues are given by 
+
+  
+    
+      
+        
+          M
+          
+            ±
+          
+        
+        =
+        
+          
+            1
+            2
+          
+        
+        
+          [
+          
+            (
+            v
+            −
+            1
+            )
+            ±
+            
+              
+                
+                  2
+                  k
+                  +
+                  (
+                  v
+                  −
+                  1
+                  )
+                  (
+                  λ
+                  −
+                  μ
+                  )
+                
+                
+                  (
+                  λ
+                  −
+                  μ
+                  
+                    )
+                    
+                      2
+                    
+                  
+                  +
+                  4
+                  (
+                  k
+                  −
+                  μ
+                  )
+                
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle M_{\pm }={\frac {1}{2}}\left[(v-1)\pm {\frac {2k+(v-1)(\lambda -\mu )}{\sqrt {(\lambda -\mu )^{2}+4(k-\mu )}}}\right]}
+  which must be integers.
+In 1960, Alan Hoffman and Robert Singleton examined those expressions when applied on Moore graphs that have λ = 0 and μ = 1. Such graphs are free of triangles (otherwise λ would exceed zero) and quadrilaterals (otherwise μ would exceed 1), hence they have a girth (smallest cycle length) of 5. Substituting the values of λ and μ in the equation 
+  
+    
+      
+        (
+        v
+        −
+        k
+        −
+        1
+        )
+        μ
+        =
+        k
+        (
+        k
+        −
+        λ
+        −
+        1
+        )
+      
+    
+    {\displaystyle (v-k-1)\mu =k(k-\lambda -1)}
+  , it can be seen that 
+  
+    
+      
+        v
+        =
+        
+          k
+          
+            2
+          
+        
+        +
+        1
+      
+    
+    {\displaystyle v=k^{2}+1}
+  , and the eigenvalue multiplicities reduce to
+
+  
+    
+      
+        
+          M
+          
+            ±
+          
+        
+        =
+        
+          
+            1
+            2
+          
+        
+        
+          [
+          
+            
+              k
+              
+                2
+              
+            
+            ±
+            
+              
+                
+                  2
+                  k
+                  −
+                  
+                    k
+                    
+                      2
+                    
+                  
+                
+                
+                  4
+                  k
+                  −
+                  3
+                
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle M_{\pm }={\frac {1}{2}}\left[k^{2}\pm {\frac {2k-k^{2}}{\sqrt {4k-3}}}\right]}
+  For the multiplicities to be integers, the quantity 
+  
+    
+      
+        
+          
+            
+              2
+              k
+              −
+              
+                k
+                
+                  2
+                
+              
+            
+            
+              4
+              k
+              −
+              3
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {2k-k^{2}}{\sqrt {4k-3}}}}
+   must be rational, therefore either the numerator 
+  
+    
+      
+        2
+        k
+        −
+        
+          k
+          
+            2
+          
+        
+      
+    
+    {\displaystyle 2k-k^{2}}
+   is zero or the denominator 
+  
+    
+      
+        
+          
+            4
+            k
+            −
+            3
+          
+        
+      
+    
+    {\displaystyle {\sqrt {4k-3}}}
+   is an integer.
+If the numerator 
+  
+    
+      
+        2
+        k
+        −
+        
+          k
+          
+            2
+          
+        
+      
+    
+    {\displaystyle 2k-k^{2}}
+   is zero, the possibilities are:
+
+k = 0 and v = 1 yields a trivial graph with one vertex and no edges, and
+k = 2 and v = 5 yields the 5-vertex cycle graph 
+  
+    
+      
+        
+          C
+          
+            5
+          
+        
+      
+    
+    {\displaystyle C_{5}}
+  , usually drawn as a regular pentagon.If the denominator 
+  
+    
+      
+        
+          
+            4
+            k
+            −
+            3
+          
+        
+      
+    
+    {\displaystyle {\sqrt {4k-3}}}
+   is an integer t, then 
+  
+    
+      
+        4
+        k
+        −
+        3
+      
+    
+    {\displaystyle 4k-3}
+   is a perfect square 
+  
+    
+      
+        
+          t
+          
+            2
+          
+        
+      
+    
+    {\displaystyle t^{2}}
+  , so 
+  
+    
+      
+        k
+        =
+        
+          
+            
+              
+                t
+                
+                  2
+                
+              
+              +
+              3
+            
+            4
+          
+        
+      
+    
+    {\displaystyle k={\frac {t^{2}+3}{4}}}
+  . Substituting:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  M
+                  
+                    ±
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    1
+                    2
+                  
+                
+                
+                  [
+                  
+                    
+                      
+                        (
+                        
+                          
+                            
+                              
+                                t
+                                
+                                  2
+                                
+                              
+                              +
+                              3
+                            
+                            4
+                          
+                        
+                        )
+                      
+                      
+                        2
+                      
+                    
+                    ±
+                    
+                      
+                        
+                          
+                            
+                              
+                                
+                                  t
+                                  
+                                    2
+                                  
+                                
+                                +
+                                3
+                              
+                              2
+                            
+                          
+                          −
+                          
+                            
+                              (
+                              
+                                
+                                  
+                                    
+                                      t
+                                      
+                                        2
+                                      
+                                    
+                                    +
+                                    3
+                                  
+                                  4
+                                
+                              
+                              )
+                            
+                            
+                              2
+                            
+                          
+                        
+                        t
+                      
+                    
+                  
+                  ]
+                
+              
+            
+            
+              
+                32
+                
+                  M
+                  
+                    ±
+                  
+                
+              
+              
+                
+                =
+                (
+                
+                  t
+                  
+                    2
+                  
+                
+                +
+                3
+                
+                  )
+                  
+                    2
+                  
+                
+                ±
+                
+                  
+                    
+                      8
+                      (
+                      
+                        t
+                        
+                          2
+                        
+                      
+                      +
+                      3
+                      )
+                      −
+                      (
+                      
+                        t
+                        
+                          2
+                        
+                      
+                      +
+                      3
+                      
+                        )
+                        
+                          2
+                        
+                      
+                    
+                    t
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  t
+                  
+                    4
+                  
+                
+                +
+                6
+                
+                  t
+                  
+                    2
+                  
+                
+                +
+                9
+                ±
+                
+                  
+                    
+                      −
+                      
+                        t
+                        
+                          4
+                        
+                      
+                      +
+                      2
+                      
+                        t
+                        
+                          2
+                        
+                      
+                      +
+                      15
+                    
+                    t
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  t
+                  
+                    4
+                  
+                
+                +
+                6
+                
+                  t
+                  
+                    2
+                  
+                
+                +
+                9
+                ±
+                
+                  (
+                  
+                    −
+                    
+                      t
+                      
+                        3
+                      
+                    
+                    +
+                    2
+                    t
+                    +
+                    
+                      
+                        15
+                        t
+                      
+                    
+                  
+                  )
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}M_{\pm }&={\frac {1}{2}}\left[\left({\frac {t^{2}+3}{4}}\right)^{2}\pm {\frac {{\frac {t^{2}+3}{2}}-\left({\frac {t^{2}+3}{4}}\right)^{2}}{t}}\right]\\32M_{\pm }&=(t^{2}+3)^{2}\pm {\frac {8(t^{2}+3)-(t^{2}+3)^{2}}{t}}\\&=t^{4}+6t^{2}+9\pm {\frac {-t^{4}+2t^{2}+15}{t}}\\&=t^{4}+6t^{2}+9\pm \left(-t^{3}+2t+{\frac {15}{t}}\right)\end{aligned}}}
+  Since both sides are integers, 
+  
+    
+      
+        
+          
+            15
+            t
+          
+        
+      
+    
+    {\displaystyle {\frac {15}{t}}}
+   must be an integer, therefore t is a factor of 15, namely 
+  
+    
+      
+        t
+        ∈
+        {
+        ±
+        1
+        ,
+        ±
+        3
+        ,
+        ±
+        5
+        ,
+        ±
+        15
+        }
+      
+    
+    {\displaystyle t\in \{\pm 1,\pm 3,\pm 5,\pm 15\}}
+  , therefore 
+  
+    
+      
+        k
+        ∈
+        {
+        1
+        ,
+        3
+        ,
+        7
+        ,
+        57
+        }
+      
+    
+    {\displaystyle k\in \{1,3,7,57\}}
+  . In turn:
+
+k = 1 and v = 2 yields a trivial graph of two vertices joined by an edge,
+k = 3 and v = 10 yields the Petersen graph,
+k = 7 and v = 50 yields the Hoffman–Singleton graph, discovered by Hoffman and Singleton in the course of this analysis, and
+k = 57 and v = 3250 predicts a famous graph that has neither been discovered since 1960, nor has its existence been disproven.The Hoffman-Singleton theorem states that there are no strongly regular girth-5 Moore graphs except the ones listed above.
+
+See also
+Partial geometry
+Seidel adjacency matrix
+Two-graph
+
+Notes
+References
+Andries Brouwer and Hendrik van Maldeghem (2022), Strongly Regular Graphs. Cambridge: Cambridge University Press. ISBN 1316512037. ISBN 978-1316512036
+A.E. Brouwer, A.M. Cohen, and A. Neumaier (1989), Distance Regular Graphs.  Berlin, New York: Springer-Verlag.  ISBN 3-540-50619-5, ISBN 0-387-50619-5
+Chris Godsil and Gordon Royle (2004), Algebraic Graph Theory.  New York: Springer-Verlag.  ISBN 0-387-95241-1
+
+External links
+Eric W. Weisstein, Mathworld article with numerous examples.
+Gordon Royle, List of larger graphs and families.
+Andries E. Brouwer, Parameters of Strongly Regular Graphs.
+Brendan McKay, Some collections of graphs.
+Ted Spence, Strongly regular graphs on at most 64 vertices.

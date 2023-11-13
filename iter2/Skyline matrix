@@ -1,0 +1,12 @@
+In scientific computing, skyline matrix storage, or SKS, or a variable band matrix storage, or envelope storage scheme is a form of a sparse matrix storage format matrix that reduces the storage requirement of a matrix more than banded storage. In banded storage, all entries within a fixed distance from the diagonal (called half-bandwidth) are stored. In column-oriented skyline storage, only the entries from the first nonzero entry to the last nonzero entry in each column are stored. There is also row oriented skyline storage, and, for symmetric matrices, only one triangle is usually stored.
+Skyline storage has become very popular in the finite element codes for structural mechanics, because the skyline is preserved by Cholesky decomposition (a method of solving systems of linear equations with a symmetric, positive-definite matrix; all fill-in falls within the skyline), and systems of equations from finite elements have a relatively small skyline. In addition, the effort of coding skyline Cholesky is about same as for Cholesky for banded matrices (available for banded matrices, e.g. in LAPACK; for a prototype skyline code, see ). 
+Before storing a matrix in skyline format, the rows and columns are typically renumbered to reduce the size of the skyline (the number of nonzero entries stored) and to decrease the number of operations in the skyline Cholesky algorithm. The same heuristic renumbering algorithm that reduce the bandwidth are also used to reduce the skyline. The basic and one of the earliest algorithms to do that is reverse Cuthill–McKee algorithm. 
+However, skyline storage is not as popular for very large systems (many millions of equations) because skyline Cholesky is not so easily adapted for massively parallel computing, and general sparse methods, which store only the nonzero entries of the matrix, become more efficient for very large problems due to much less fill-in.
+
+See also
+Sparse matrix
+Band matrix
+Frontal solver
+
+
+== References ==

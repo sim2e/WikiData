@@ -1,0 +1,276 @@
+In numerical analysis, Romberg's method is used to estimate the definite integral  by applying Richardson extrapolation repeatedly on the trapezium rule or the rectangle rule (midpoint rule). The estimates generate a triangular array.  Romberg's method is a Newton–Cotes formula – it evaluates the integrand at equally spaced points.
+The integrand must have continuous derivatives, though fairly good results
+may be obtained if only a few derivatives exist.
+If it is possible to evaluate the integrand at unequally spaced points, then other methods such as Gaussian quadrature and Clenshaw–Curtis quadrature are generally more accurate.
+The method is named after Werner Romberg (1909–2003), who published the method in 1955.
+
+Method
+Using 
+  
+    
+      
+        
+          h
+          
+            n
+          
+        
+        =
+        
+          
+            
+              (
+              b
+              −
+              a
+              )
+            
+            
+              2
+              
+                n
+              
+            
+          
+        
+      
+    
+    {\textstyle h_{n}={\frac {(b-a)}{2^{n}}}}
+  , the method can be inductively defined by
+
+where 
+  
+    
+      
+        n
+        ≥
+        m
+      
+    
+    {\displaystyle n\geq m}
+   and 
+  
+    
+      
+        m
+        ≥
+        1
+        
+      
+    
+    {\displaystyle m\geq 1\,}
+  . 
+In big O notation, the error for R(n, m) is: 
+  
+    
+      
+        O
+        
+          (
+          
+            h
+            
+              n
+            
+            
+              2
+              m
+              +
+              2
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle O\left(h_{n}^{2m+2}\right).}
+  
+The zeroeth extrapolation, R(n, 0), is equivalent to the trapezoidal rule with 2n + 1 points; the first extrapolation, R(n, 1), is equivalent to Simpson's rule with 2n + 1 points. The second extrapolation, R(n, 2), is equivalent to Boole's rule with 2n + 1 points. The further extrapolations differ from Newton-Cotes formulas. In particular further Romberg extrapolations expand on Boole's rule in very slight ways, modifying weights into ratios similar as in Boole's rule. In contrast, further Newton-Cotes methods produce increasingly differing weights, eventually leading to large positive and negative weights. This is indicative of how large degree interpolating polynomial Newton-Cotes methods fail to converge for many integrals, while Romberg integration is more stable.
+By labelling our 
+  
+    
+      
+        O
+        (
+        
+          h
+          
+            2
+          
+        
+        )
+      
+    
+    {\textstyle O(h^{2})}
+   approximations as 
+  
+    
+      
+        
+          A
+          
+            0
+          
+        
+        
+          
+            (
+          
+        
+        
+          
+            h
+            
+              2
+              
+                n
+              
+            
+          
+        
+        
+          
+            )
+          
+        
+      
+    
+    {\textstyle A_{0}{\big (}{\frac {h}{2^{n}}}{\big )}}
+   instead of 
+  
+    
+      
+        R
+        (
+        n
+        ,
+        0
+        )
+      
+    
+    {\textstyle R(n,0)}
+  , we can perform Richardson extrapolation with the error formula defined below:
+
+Once we have obtained our 
+  
+    
+      
+        O
+        (
+        
+          h
+          
+            2
+            (
+            m
+            +
+            1
+            )
+          
+        
+        )
+      
+    
+    {\textstyle O(h^{2(m+1)})}
+   approximations 
+  
+    
+      
+        
+          A
+          
+            m
+          
+        
+        
+          
+            (
+          
+        
+        
+          
+            h
+            
+              2
+              
+                n
+              
+            
+          
+        
+        
+          
+            )
+          
+        
+      
+    
+    {\textstyle A_{m}{\big (}{\frac {h}{2^{n}}}{\big )}}
+  , we can label them as 
+  
+    
+      
+        R
+        (
+        n
+        ,
+        m
+        )
+      
+    
+    {\textstyle R(n,m)}
+  .
+When function evaluations are expensive, it may be preferable to replace the polynomial interpolation of Richardson with the rational interpolation proposed by Bulirsch & Stoer (1967).
+
+A geometric example
+To estimate the area under a curve the trapezoid rule is applied first to one-piece, then two, then four, and so on.
+
+After trapezoid rule estimates are obtained, Richardson extrapolation is applied.
+
+For the first iteration the two piece and one piece estimates are used in the formula (4 × (more accurate) − (less accurate))/3 The same formula is then used to compare the four piece and the two piece estimate, and likewise for the higher estimates
+For the second iteration the values of the first iteration are used in the formula (16(more accurate) − less accurate))/15
+The third iteration uses the next power of 4: (64 (more accurate) − less accurate))/63 on the values derived by the second iteration.
+The pattern is continued until there is one estimate.MA stands for more accurate, LA stands for less accurate
+
+Example
+As an example, the Gaussian function is integrated from 0 to 1, i.e. the error function erf(1) ≈ 0.842700792949715.  The triangular array is calculated row by row and calculation is terminated if the two last entries in the last row differ less than 10−8.
+
+0.77174333
+0.82526296  0.84310283
+0.83836778  0.84273605  0.84271160
+0.84161922  0.84270304  0.84270083  0.84270066
+0.84243051  0.84270093  0.84270079  0.84270079  0.84270079
+
+The result in the lower right corner of the triangular array is accurate to the digits shown.
+It is remarkable that this result is derived from the less accurate approximations
+obtained by the trapezium rule in the first column of the triangular array.
+
+Implementation
+Here is an example of a computer implementation of the Romberg method (in the C programming language):
+
+Here is an example of a computer implementation of the Romberg method in the Javascript programming language.
+
+References
+Citations
+Bibliography
+External links
+ROMBINT – code for MATLAB (author: Martin Kacenak)
+Free online integration tool using Romberg, Fox–Romberg, Gauss–Legendre and other numerical methods
+SciPy implementation of Romberg's method
+Romberg.jl — Julia implementation (supporting arbitrary factorizations, not just 
+  
+    
+      
+        
+          2
+          
+            n
+          
+        
+        +
+        1
+      
+    
+    {\displaystyle 2^{n}+1}
+   points)

@@ -1,0 +1,85 @@
+In computer science and formal methods, a SAT solver is a computer program which aims to solve the Boolean satisfiability problem. On input a formula over Boolean variables, such as "(x or y) and (x or not y)", a SAT solver outputs whether the formula is satisfiable, meaning that there are possible values of x and y which make the formula true, or unsatisfiable, meaning that there are no such values of x and y. In this case, the formula is satisfiable when x is true, so the solver should return "satisfiable". Since the introduction of algorithms for SAT in the 1960s, modern SAT solvers have grown into complex software artifacts involving a large number of heuristics and program optimizations to work efficiently.
+By a result known as the Cook–Levin theorem, Boolean satisfiability is an NP-complete problem in general. As a result, only algorithms with exponential worst-case complexity are known. In spite of this, efficient and scalable algorithms for SAT were developed during the 2000s, which have contributed to dramatic advances in the ability to automatically solve problem instances involving tens of thousands of variables and millions of constraints.SAT solvers often begin by converting a formula to conjunctive normal form. They are often based on core algorithms such as the DPLL algorithm, but incorporate a number of extensions and features. Most SAT solvers include time-outs, so they will terminate in reasonable time even if they cannot find a solution with an output such as "unknown". Often, SAT solvers do not just provide an answer, but can provide further information including an example assignment (values for x, y, etc.) in case the formula is satisfiable or minimal set of unsatisfiable clauses if the formula is unsatisfiable.
+Modern SAT solvers have had a significant impact on fields including software verification, program analysis, constraint solving, artificial intelligence, electronic design automation, and operations research. Powerful solvers are readily available as free and open-source software and are built into some programming languages such as exposing SAT solvers as constraints in constraint logic programming.
+
+Overview
+A Boolean formula is any expression that can be written using Boolean (propositional) variables x, y, z, ... and the Boolean operations AND, OR, and NOT. For example,
+
+(x AND y) OR (x AND (NOT z))An assignment consists of choosing, for each variable, an assignment TRUE or FALSE. For any assignment v, the Boolean formula can be evaluated, and evalutes to true or false.
+The formula is satisfiable if there exists an assignment (called a satisfying assignment) for which the formula evaluates to true.
+The Boolean satisfiability problem is the decision problem which asks, on input a Boolean formula, to determine whether the formula is satisfiable or not. This problem is NP-complete.
+
+DPLL solvers
+A DPLL SAT solver employs a systematic backtracking search procedure to explore the (exponentially sized) space of variable assignments looking for satisfying assignments. The basic search procedure was proposed in two seminal papers in the early 1960s (see references below) and is now commonly referred to as the Davis–Putnam–Logemann–Loveland algorithm ("DPLL" or "DLL"). Many modern approaches to practical SAT solving are derived from the DPLL algorithm and share the same structure. Often they only improve the efficiency of certain classes of SAT problems such as instances that appear in industrial applications or randomly generated instances. Theoretically, exponential lower bounds have been proved for the DPLL family of algorithms.Algorithms that are not part of the DPLL family include stochastic local search algorithms. One example is WalkSAT. Stochastic methods try to find a satisfying interpretation but cannot deduce that a SAT instance is unsatisfiable, as opposed to complete algorithms, such as DPLL.In contrast, randomized algorithms like the PPSZ algorithm by Paturi, Pudlak, Saks, and Zane set variables in a random order according to some heuristics, for example bounded-width resolution. If the heuristic can't find the correct setting, the variable is assigned randomly. The PPSZ algorithm has a runtime of 
+  
+    
+      
+        O
+        (
+        
+          1.308
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle O(1.308^{n})}
+   for 3-SAT. This was the best-known runtime for this problem until 2019, when  Hansen, Kaplan, Zamir and Zwick published a modification of that algorithm with a runtime of 
+  
+    
+      
+        O
+        (
+        
+          1.307
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle O(1.307^{n})}
+   for 3-SAT. The latter is currently the fastest known algorithm for k-SAT at all values of k. In the setting with many satisfying assignments the randomized algorithm by Schöning has a better bound.
+
+CDCL solvers
+Modern SAT solvers (developed in the 2000s) come in two flavors: "conflict-driven" and "look-ahead". Both approaches descend from DPLL. Conflict-driven solvers, such as conflict-driven clause learning (CDCL), augment the basic DPLL search algorithm with efficient conflict analysis, clause learning, backjumping, a "two-watched-literals" form of unit propagation, adaptive branching, and random restarts. These "extras" to the basic systematic search have been empirically shown to be essential for handling the large SAT instances that arise in electronic design automation (EDA). Well known implementations include Chaff and GRASP. Look-ahead solvers have especially strengthened reductions (going beyond unit-clause propagation) and the heuristics, and they are generally stronger than conflict-driven solvers on hard instances (while conflict-driven solvers can be much better on large instances which actually have an easy instance inside).
+The conflict-driven MiniSAT, which was relatively successful at the 2005 SAT competition, only has about 600 lines of code. A modern Parallel SAT solver is ManySAT. It can achieve super linear speed-ups on important classes of problems. An example for look-ahead solvers is march_dl, which won a prize at the 2007 SAT competition. Google's CP-SAT solver, part of OR-Tools, won gold medals at the Minizinc constraint programming competitions in 2018, 2019, 2020, and 2021.
+Certain types of large random satisfiable instances of SAT can be solved by survey propagation (SP). Particularly in hardware design and verification applications, satisfiability and other logical properties of a given propositional formula are sometimes decided based on a representation of the formula as a binary decision diagram (BDD).
+Different SAT solvers will find different instances easy or hard, and some excel at proving unsatisfiability, and others at finding solutions.
+All of these behaviors can be seen in the SAT solving contests.
+
+Other Techniques
+Parallel SAT-solving
+Parallel SAT solvers come in three categories: portfolio, divide-and-conquer and parallel local search algorithms. With parallel portfolios, multiple different SAT solvers run concurrently. Each of them solves a copy of the SAT instance, whereas divide-and-conquer algorithms divide the problem between the processors. Different approaches exist to parallelize local search algorithms.
+The International SAT Solver Competition has a parallel track reflecting recent advances in parallel SAT solving. In 2016, 2017 and 2018, the benchmarks were run on a shared-memory system with 24 processing cores, therefore solvers intended for distributed memory or manycore processors might have fallen short.
+
+Portfolios
+In general there is no SAT solver that performs better than all other solvers on all SAT problems. An algorithm might perform well for problem instances others struggle with, but will do worse with other instances. Furthermore, given a SAT instance, there is no reliable way to predict which algorithm will solve this instance particularly fast. These limitations motivate the parallel portfolio approach. A portfolio is a set of different algorithms or different configurations of the same algorithm. All solvers in a parallel portfolio run on different processors to solve of the same problem. If one solver terminates, the portfolio solver reports the problem to be satisfiable or unsatisfiable according to this one solver. All other solvers are terminated. Diversifying portfolios by including a variety of solvers, each performing well on a different set of problems, increases the robustness of the solver.Many solvers internally use a random number generator. Diversifying their seeds is a simple way to diversify a portfolio. Other diversification strategies involve enabling, disabling or diversifying certain heuristics in the sequential solver.One drawback of parallel portfolios is the amount of duplicate work. If clause learning is used in the sequential solvers, sharing learned clauses between parallel running solvers can reduce duplicate work and increase performance. Yet, even merely running a portfolio of the best solvers in parallel makes a competitive parallel solver. An example of such a solver is PPfolio. It was designed to find a lower bound for the performance a parallel SAT solver should be able to deliver. Despite the large amount of duplicate work due to lack of optimizations, it performed well on a shared memory machine. HordeSat is a parallel portfolio solver for large clusters of computing nodes. It uses differently configured instances of the same sequential solver at its core. Particularly for hard SAT instances HordeSat can produce linear speedups and therefore reduce runtime significantly.
+In recent years parallel portfolio SAT solvers have dominated the parallel track of the International SAT Solver Competitions. Notable examples of such solvers include Plingeling and painless-mcomsps.
+
+Divide-and-conquer
+In contrast to parallel portfolios, parallel divide-and-conquer tries to split the search space between the processing elements. Divide-and-conquer algorithms, such as the sequential DPLL, already apply the technique of splitting the search space, hence their extension towards a parallel algorithm is straight forward. However, due to techniques like unit propagation, following a division, the partial problems may differ significantly in complexity. Thus the DPLL algorithm typically does not process each part of the search space in the same amount of time, yielding a challenging load balancing problem. Due to non-chronological backtracking, parallelization of conflict-driven clause learning is more difficult. One way to overcome this is the Cube-and-Conquer paradigm. It suggests solving in two phases. In the "cube" phase the Problem is divided into many thousands, up to millions, of sections. This is done by a look-ahead solver, that finds a set of partial configurations called "cubes". A cube can also be seen as a conjunction of a subset of variables of the original formula. In conjunction with the formula, each of the cubes forms a new formula. These formulas can be solved independently and concurrently by conflict-driven solvers. As the disjunction of these formulas is equivalent to the original formula, the problem is reported to be satisfiable, if one of the formulas is satisfiable. The look-ahead solver is favorable for small but hard problems, so it is used to gradually divide the problem into multiple sub-problems. These sub-problems are easier but still large which is the ideal form for a conflict-driven solver. Furthermore look-ahead solvers consider the entire problem whereas conflict-driven solvers make decisions based on information that is much more local. There are three heuristics involved in the cube phase. The variables in the cubes are chosen by the decision heuristic. The direction heuristic decides which variable assignment (true or false) to explore first. In satisfiable problem instances, choosing a satisfiable branch first is beneficial. The cutoff heuristic decides when to stop expanding a cube and instead forward it to a sequential conflict-driven solver. Preferably the cubes are similarly complex to solve.Treengeling is an example for a parallel solver that applies the Cube-and-Conquer paradigm. Since its introduction in 2012 it has had multiple successes at the International SAT Solver Competition. Cube-and-Conquer was used to solve the Boolean Pythagorean triples problem.Cube-and-Conquer is a modification or a generalization of the DPLL-based Divide-and-conquer approach used to compute the Van der Waerden numbers w(2;3,17) and w(2;3,18) in 2010  where both the phases (splitting and solving the partial problems) were performed using DPLL.
+
+Local search
+One strategy towards a parallel local search algorithm for SAT solving is trying multiple variable flips concurrently on different processing units. Another is to apply the aforementioned portfolio approach, however clause sharing is not possible since local search solvers do not produce clauses. Alternatively, it is possible to share the configurations that are produced locally. These configurations can be used to guide the production of a new initial configuration when a local solver decides to restart its search.
+
+Applications
+In mathematics
+SAT solvers have been used to assist in proving mathematical theorems through computer-assisted proof. In Ramsey theory, Several previously unknown Van der Waerden numbers were computed with the help of specialized SAT solvers running on FPGAs. In 2016, Marijn Heule, Oliver Kullmann, and Victor Marek solved the Boolean Pythagorean triples problem by using a SAT solver to show that there is no way to color the integers up to 7825 in the required fashion. Small values of the Schur numbers were also computed by Heule using SAT solvers.
+
+In software verification
+SAT solvers are used in formal verification of hardware and software. In model checking (in particular, bounded model checking), SAT solvers are used to check whether a finite-state system satisfies a specification of its intended behavior.SAT solvers are the core component on which satisfiability modulo theories (SMT) solvers are built, which are used for problems such as job scheduling, symbolic execution, program model checking, program verification based on hoare logic, and other applications. These techniques are also closely related to constraint programming and logic programming.
+
+In other areas
+In operations research, SAT solvers have been applied to solve optimization and scheduling problems.In social choice theory, SAT solvers have been used to prove impossibility theorems. Tang and Lin used SAT solvers to prove Arrow’s theorem and other classic impossibility theorems. Geist and Endriss used it to find new impossibilities related to set extensions. Brandt and Geist used this approach to prove an impossibility about strategyproof tournament solutions. Other authors used this technology to prove new impossibilities about the no-show paradox, half-way monotonicity, and probabilistic voting rules. Brandl, Brandt, Peters and Stricker used it to prove the impossibility of a strategyproof, efficient and fair rule for fractional social choice.
+
+See also
+Category:SAT solvers
+Computer-assisted proof
+Satisfiability modulo theories
+
+
+== References ==

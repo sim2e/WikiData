@@ -1,0 +1,30 @@
+V8 is a free and open-source JavaScript and WebAssembly engine developed by the Chromium Project for Chromium and Google Chrome web browsers. The project's creator is Lars Bak. The first version of the V8 engine was released at the same time as the first version of Chrome: 2 September 2008. It has also been used on the server side, for example in Couchbase, Deno and Node.js.
+
+History
+The V8 assembler is based on the Strongtalk assembler. On 7 December 2010, a new compiling infrastructure named Crankshaft was released, with speed improvements. In version 41 of Chrome in 2015, project TurboFan was added to provide more performance improvements with previously challenging workloads such as asm.js. Much of V8's development is strongly inspired by the Java HotSpot Virtual Machine developed by Sun Microsystems, with the newer execution pipelines being very similar to those of HotSpot's.
+In 2016, the Ignition interpreter was added to V8 with the design goal of reducing the memory usage on small memory Android phones in comparison with TurboFan and Crankshaft. Ignition is a register based machine and shares a similar (albeit not the exact same) design to the templating interpreter utilized by HotSpot.
+In 2017, V8 shipped a brand-new compiler pipeline, consisting of Ignition (the interpreter) and TurboFan (the optimizing compiler). Starting with V8 version 5.9, Full-codegen (the early baseline compiler) and Crankshaft are no longer used in V8 for JavaScript execution, since the team believed they were no longer able to keep pace with new JavaScript language features and the optimizations those features required.In 2021, a new tiered compilation pipeline was introduced with the release of the SparkPlug compiler, which supplements the existing TurboFan compiler within V8, in a direct parallel to the profiling C1 Compiler used by HotSpot.
+
+Design
+V8 first generates an abstract syntax tree with its own parser. Then, Ignition generates bytecode from this syntax tree using the internal V8 bytecode format. TurboFan compiles this bytecode into machine code. In other words, V8 compiles ECMAScript directly to native machine code using just-in-time compilation before executing it. The compiled code is additionally optimized (and re-optimized) dynamically at runtime, based on heuristics of the code's execution profile. Optimization techniques used include inlining, elision of expensive runtime properties, and inline caching. The garbage collector is a generational incremental collector.
+
+Usage
+V8 can compile to x86, ARM or MIPS instruction set architectures in both their 32-bit and 64-bit editions; it has additionally been ported to PowerPC and IBM ESA/390 for use in servers.V8 can be used in a browser or integrated into independent projects. V8 is used in the following software:
+
+Chromium-based web browsers - Google Chrome, Brave, Opera, Vivaldi and Microsoft Edge.
+Firefox - parts of V8 ported to the browser for regular expressions parsing
+Couchbase database server
+Deno runtime environment
+Electron desktop application framework, used by the Atom and Visual Studio Code text editors
+MarkLogic database server
+NativeScript mobile application framework
+Node.js runtime environment
+Qt Quick runtime environment
+
+See also
+Blink, the Chromium browser engine
+
+References
+External links
+
+Official website

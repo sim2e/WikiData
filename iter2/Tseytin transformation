@@ -1,0 +1,966 @@
+The Tseytin transformation, alternatively written Tseitin transformation, takes as input an arbitrary combinatorial logic circuit and produces an equisatisfiable boolean formula in conjunctive normal form (CNF).  The length of the formula is linear in the size of the circuit.  Input vectors that make the circuit output "true" are in 1-to-1 correspondence with assignments that satisfy the formula. This reduces the problem of circuit satisfiability on any circuit (including any formula) to the satisfiability problem on 3-CNF formulas. It was discovered by the Russian scientist Grigori Tseitin.
+
+Motivation
+The naive approach is to write the circuit as a Boolean expression, and use De Morgan's law and the distributive property to convert it to CNF. However, this can result in an exponential increase in equation size. The Tseytin transformation outputs a formula whose size grows linearly relative to the input circuit's.
+
+Approach
+The output equation is the constant 1 set equal to an expression. This expression is a conjunction of sub-expressions, where the satisfaction of each sub-expression enforces the proper operation of a single gate in the input circuit. The satisfaction of the entire output expression thus enforces that the entire input circuit is operating properly.
+For each gate, a new variable representing its output is introduced. A small pre-calculated CNF expression that relates the inputs and outputs is appended (via the "and" operation) to the output expression. Note that inputs to these gates can be either the original literals or the introduced variables representing outputs of sub-gates.
+Though the output expression contains more variables than the input, it remains equisatisfiable, meaning that it is satisfiable if, and only if, the original input equation is satisfiable. When a satisfying assignment of variables is found, those assignments for the introduced variables can simply be discarded.
+A final clause is appended with a single literal: the final gate's output variable. If this literal is complemented, then the satisfaction of this clause enforces the output expression's to false; otherwise the expression is forced true.
+
+Examples
+Consider the following formula 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   .
+
+  
+    
+      
+        ϕ
+        :=
+        (
+        (
+        p
+        ∨
+        q
+        )
+        ∧
+        r
+        )
+        →
+        (
+        ¬
+        s
+        )
+      
+    
+    {\displaystyle \phi :=((p\lor q)\land r)\to (\neg s)}
+  Consider all subformulas (excluding simple variables):
+
+  
+    
+      
+        
+          
+            
+              
+              
+                ¬
+                s
+              
+            
+            
+              
+              
+                p
+                ∨
+                q
+              
+            
+            
+              
+              
+                
+                (
+                p
+                ∨
+                q
+                )
+                ∧
+                r
+              
+            
+            
+              
+              
+                
+                (
+                (
+                p
+                ∨
+                q
+                )
+                ∧
+                r
+                )
+                →
+                (
+                ¬
+                s
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}&\neg s\\&p\lor q\\&(p\lor q)\land r\\&((p\lor q)\land r)\to (\neg s)\end{aligned}}}
+  Introduce a new variable for each subformula:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  x
+                  
+                    1
+                  
+                
+              
+              
+                
+                ↔
+                ¬
+                s
+              
+            
+            
+              
+                
+                  x
+                  
+                    2
+                  
+                
+              
+              
+                
+                ↔
+                p
+                ∨
+                q
+              
+            
+            
+              
+                
+                  x
+                  
+                    3
+                  
+                
+              
+              
+                
+                ↔
+                
+                  x
+                  
+                    2
+                  
+                
+                ∧
+                r
+              
+            
+            
+              
+                
+                  x
+                  
+                    4
+                  
+                
+              
+              
+                
+                ↔
+                
+                  x
+                  
+                    3
+                  
+                
+                →
+                
+                  x
+                  
+                    1
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}x_{1}&\leftrightarrow \neg s\\x_{2}&\leftrightarrow p\lor q\\x_{3}&\leftrightarrow x_{2}\land r\\x_{4}&\leftrightarrow x_{3}\to x_{1}\end{aligned}}}
+  Conjunct all substitutions and the substitution for 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+  :
+
+  
+    
+      
+        T
+        (
+        ϕ
+        )
+        :=
+        
+          x
+          
+            4
+          
+        
+        ∧
+        (
+        
+          x
+          
+            4
+          
+        
+        ↔
+        
+          x
+          
+            3
+          
+        
+        →
+        
+          x
+          
+            1
+          
+        
+        )
+        ∧
+        (
+        
+          x
+          
+            3
+          
+        
+        ↔
+        
+          x
+          
+            2
+          
+        
+        ∧
+        r
+        )
+        ∧
+        (
+        
+          x
+          
+            2
+          
+        
+        ↔
+        p
+        ∨
+        q
+        )
+        ∧
+        (
+        
+          x
+          
+            1
+          
+        
+        ↔
+        ¬
+        s
+        )
+      
+    
+    {\displaystyle T(\phi ):=x_{4}\land (x_{4}\leftrightarrow x_{3}\to x_{1})\land (x_{3}\leftrightarrow x_{2}\land r)\land (x_{2}\leftrightarrow p\lor q)\land (x_{1}\leftrightarrow \neg s)}
+  All substitutions can be transformed into CNF, e.g.
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  x
+                  
+                    2
+                  
+                
+                ↔
+                p
+                ∨
+                q
+              
+              
+                
+                ≡
+                (
+                
+                  x
+                  
+                    2
+                  
+                
+                →
+                (
+                p
+                ∨
+                q
+                )
+                )
+                ∧
+                (
+                (
+                p
+                ∨
+                q
+                )
+                →
+                
+                  x
+                  
+                    2
+                  
+                
+                )
+              
+            
+            
+              
+              
+                
+                ≡
+                (
+                ¬
+                
+                  x
+                  
+                    2
+                  
+                
+                ∨
+                p
+                ∨
+                q
+                )
+                ∧
+                (
+                ¬
+                (
+                p
+                ∨
+                q
+                )
+                ∨
+                
+                  x
+                  
+                    2
+                  
+                
+                )
+              
+            
+            
+              
+              
+                
+                ≡
+                (
+                ¬
+                
+                  x
+                  
+                    2
+                  
+                
+                ∨
+                p
+                ∨
+                q
+                )
+                ∧
+                (
+                (
+                ¬
+                p
+                ∧
+                ¬
+                q
+                )
+                ∨
+                
+                  x
+                  
+                    2
+                  
+                
+                )
+              
+            
+            
+              
+              
+                
+                ≡
+                (
+                ¬
+                
+                  x
+                  
+                    2
+                  
+                
+                ∨
+                p
+                ∨
+                q
+                )
+                ∧
+                (
+                ¬
+                p
+                ∨
+                
+                  x
+                  
+                    2
+                  
+                
+                )
+                ∧
+                (
+                ¬
+                q
+                ∨
+                
+                  x
+                  
+                    2
+                  
+                
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}x_{2}\leftrightarrow p\lor q&\equiv (x_{2}\to (p\lor q))\land ((p\lor q)\to x_{2})\\&\equiv (\neg x_{2}\lor p\lor q)\land (\neg (p\lor q)\lor x_{2})\\&\equiv (\neg x_{2}\lor p\lor q)\land ((\neg p\land \neg q)\lor x_{2})\\&\equiv (\neg x_{2}\lor p\lor q)\land (\neg p\lor x_{2})\land (\neg q\lor x_{2})\end{aligned}}}
+
+Gate sub-expressions
+Listed are some of the possible sub-expressions that can be created for various logic gates. In an operation expression, C acts as an output; in a CNF sub-expression, C acts as a new Boolean variable. For each operation, the CNF sub-expression is true if and only if C adheres to the contract of the Boolean operation for all possible input values.
+
+Simple combinatorial logic
+The following circuit returns true when at least some of its inputs are true, but not more than two at a time. It implements the equation y = x1  · x2 + x1  · x2 + x2  · x3. A variable is introduced for each gate's output; here each is marked in red:
+
+Notice that the output of the inverter with x2 as an input has two variables introduced. While this is redundant, it does not affect the equisatisfiability of the resulting equation. Now substitute each gate with its appropriate CNF sub-expression:
+
+The final output variable is gate8 so to enforce that the output of this circuit be true, one final simple clause is appended: 
+(gate8). Combining these equations results in the final instance of SAT:
+
+(gate1  ∨ x1)  ∧ (gate1  ∨ x1)  ∧ (gate2  ∨ gate1)  ∧ (gate2  ∨ x2)  ∧
+(x2  ∨ gate2  ∨ gate1)  ∧ (gate3  ∨ x2)  ∧ (gate3  ∨ x2)  ∧ (gate4  ∨ x1)  ∧
+(gate4  ∨ gate3)  ∧ (gate3  ∨ gate4  ∨ x1)  ∧ (gate5  ∨ x2)  ∧
+(gate5  ∨ x2)  ∧ (gate6  ∨ gate5)  ∧ (gate6  ∨ x3)  ∧
+(x3  ∨ gate6  ∨ gate5)  ∧ (gate7  ∨ gate2)  ∧ (gate7  ∨ gate4)  ∧
+(gate2  ∨ gate7  ∨ gate4)  ∧ (gate8  ∨ gate6)  ∧ (gate8  ∨ gate7)  ∧
+(gate6  ∨ gate8  ∨ gate7)  ∧ (gate8) = 1One possible satisfying assignment of these variables is:
+
+The values of the introduced variables are usually discarded, but they can be used to trace the logic path in the original circuit. Here, 
+  
+    
+      
+        (
+        x
+        1
+        ,
+        x
+        2
+        ,
+        x
+        3
+        )
+        =
+        (
+        0
+        ,
+        0
+        ,
+        1
+        )
+      
+    
+    {\displaystyle (x1,x2,x3)=(0,0,1)}
+   indeed meets the criteria for the original circuit to output true. To find a different answer, the clause (x1  ∨ x2  ∨ x3) can be appended and the SAT solver executed again.
+
+Derivation
+Presented is one possible derivation of the CNF sub-expression for some chosen gates:
+
+OR Gate
+An OR gate with two inputs A and B and one output C is satisfies the following conditions:
+
+if the output C is true, then at least one of its inputs A or B is true,
+if the output C is false, then both its inputs A and B are false.We can express these two conditions as the conjunction of two implications:
+
+  
+    
+      
+        (
+        C
+        →
+        (
+        A
+        ∨
+        B
+        )
+        )
+        ∧
+        (
+        
+          
+            C
+            ¯
+          
+        
+        →
+        (
+        
+          
+            A
+            ¯
+          
+        
+        ∧
+        
+          
+            B
+            ¯
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle (C\rightarrow (A\vee B))\wedge ({\overline {C}}\rightarrow ({\overline {A}}\wedge {\overline {B}}))}
+  Replacing the implications with equivalent expressions involving only conjunctions, disjunctions, and negations yields
+
+  
+    
+      
+        (
+        
+          
+            C
+            ¯
+          
+        
+        ∨
+        (
+        A
+        ∨
+        B
+        )
+        )
+        ∧
+        (
+        C
+        ∨
+        (
+        
+          
+            A
+            ¯
+          
+        
+        ∧
+        
+          
+            B
+            ¯
+          
+        
+        )
+        )
+        ,
+      
+    
+    {\displaystyle ({\overline {C}}\vee (A\vee B))\wedge (C\vee ({\overline {A}}\wedge {\overline {B}})),}
+  which is nearly in conjunctive normal form already. Distributing the rightmost clause twice yields
+
+  
+    
+      
+        (
+        
+          
+            C
+            ¯
+          
+        
+        ∨
+        A
+        ∨
+        B
+        )
+        ∧
+        (
+        (
+        C
+        ∨
+        
+          
+            A
+            ¯
+          
+        
+        )
+        ∧
+        (
+        C
+        ∨
+        
+          
+            B
+            ¯
+          
+        
+        )
+        )
+        ,
+      
+    
+    {\displaystyle ({\overline {C}}\vee A\vee B)\wedge ((C\vee {\overline {A}})\wedge (C\vee {\overline {B}})),}
+  and applying the associativity of conjunction gives the CNF formula
+
+  
+    
+      
+        (
+        
+          
+            C
+            ¯
+          
+        
+        ∨
+        A
+        ∨
+        B
+        )
+        ∧
+        (
+        C
+        ∨
+        
+          
+            A
+            ¯
+          
+        
+        )
+        ∧
+        (
+        C
+        ∨
+        
+          
+            B
+            ¯
+          
+        
+        )
+      
+    
+    {\displaystyle ({\overline {C}}\vee A\vee B)\wedge (C\vee {\overline {A}})\wedge (C\vee {\overline {B}})}
+
+NOT Gate
+The NOT gate is operating properly when its input and output oppose each other. That is:
+
+if the output C is true, the input A is false
+if the output C is false, the input A is trueexpress these conditions as an expression that must be satisfied:
+
+  
+    
+      
+        (
+        C
+        →
+        
+          
+            A
+            ¯
+          
+        
+        )
+        ∧
+        (
+        
+          
+            C
+            ¯
+          
+        
+        →
+        A
+        )
+      
+    
+    {\displaystyle (C\rightarrow {\overline {A}})\wedge ({\overline {C}}\rightarrow A)}
+  , 
+  
+    
+      
+        (
+        
+          
+            C
+            ¯
+          
+        
+        ∨
+        
+          
+            A
+            ¯
+          
+        
+        )
+        ∧
+        (
+        C
+        ∨
+        A
+        )
+      
+    
+    {\displaystyle ({\overline {C}}\vee {\overline {A}})\wedge (C\vee A)}
+
+NOR Gate
+The NOR gate is operating properly when the following conditions hold: 
+
+if the output C is true, then neither A or B are true
+if the output C is false, then at least one of A and B were trueexpress these conditions as an expression that must be satisfied:
+
+  
+    
+      
+        (
+        C
+        →
+        
+          
+            
+              (
+              A
+              ∨
+              B
+              )
+            
+            ¯
+          
+        
+        )
+        ∧
+        (
+        
+          
+            C
+            ¯
+          
+        
+        →
+        (
+        A
+        ∨
+        B
+        )
+        )
+      
+    
+    {\displaystyle (C\rightarrow {\overline {(A\vee B)}})\wedge ({\overline {C}}\rightarrow (A\vee B))}
+  , 
+  
+    
+      
+        
+          
+            
+              
+                (
+                
+                  
+                    C
+                    ¯
+                  
+                
+                ∨
+                (
+                
+                  
+                    A
+                    ¯
+                  
+                
+                ∧
+                
+                  
+                    B
+                    ¯
+                  
+                
+                )
+                )
+              
+              ¯
+            
+            ¯
+          
+        
+        ∧
+        (
+        C
+        ∨
+        A
+        ∨
+        B
+        )
+        )
+      
+    
+    {\displaystyle {\overline {\overline {({\overline {C}}\vee ({\overline {A}}\wedge {\overline {B}}))}}}\wedge (C\vee A\vee B))}
+  , 
+  
+    
+      
+        
+          
+            
+              (
+              C
+              ∧
+              (
+              A
+              ∨
+              B
+              )
+              )
+            
+            ¯
+          
+        
+        ∧
+        (
+        C
+        ∨
+        A
+        ∨
+        B
+        )
+        )
+      
+    
+    {\displaystyle {\overline {(C\wedge (A\vee B))}}\wedge (C\vee A\vee B))}
+  , 
+  
+    
+      
+        
+          
+            
+              (
+              A
+              ∧
+              C
+              )
+              ∨
+              (
+              B
+              ∧
+              C
+              )
+            
+            ¯
+          
+        
+        ∧
+        (
+        C
+        ∨
+        A
+        ∨
+        B
+        )
+        )
+      
+    
+    {\displaystyle {\overline {(A\wedge C)\vee (B\wedge C)}}\wedge (C\vee A\vee B))}
+  , 
+  
+    
+      
+        (
+        
+          
+            A
+            ¯
+          
+        
+        ∨
+        
+          
+            C
+            ¯
+          
+        
+        )
+        ∧
+        (
+        
+          
+            B
+            ¯
+          
+        
+        ∨
+        
+          
+            C
+            ¯
+          
+        
+        )
+        ∧
+        (
+        C
+        ∨
+        A
+        ∨
+        B
+        )
+        )
+      
+    
+    {\displaystyle ({\overline {A}}\vee {\overline {C}})\wedge ({\overline {B}}\vee {\overline {C}})\wedge (C\vee A\vee B))}
+
+References
+G.S. Tseytin: On the complexity of derivation in propositional calculus. In: Slisenko, A.O. (ed.) Studies in Constructive Mathematics and Mathematical Logic, Part II, Seminars in Mathematics, pp. 115–125. Steklov Mathematical Institute (1970). Translated from Russian: Zapiski Nauchnykh Seminarov LOMI 8 (1968), pp. 234–259.
+G.S. Tseytin: On the complexity of derivation in propositional calculus. Presented at the Leningrad Seminar on Mathematical Logic held in September 1966.

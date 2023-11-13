@@ -1,0 +1,69 @@
+A bit field is a data structure that consists of one or more adjacent bits which have been allocated for specific purposes, so that any single bit or group of bits within the structure can be set or inspected. A bit field is most commonly used to represent integral types of known, fixed bit-width, such as single-bit Booleans.
+The meaning of the individual bits within the field is determined by the programmer; for example, the first bit in a bit field (located at the field's base address) is sometimes used to determine the state of a particular attribute associated with the bit field.Within CPUs and other logic devices, collections of bit fields called flags are commonly used to control or to indicate the outcome of particular operations. Processors have a status register that is composed of flags. For example, if the result of an addition cannot be represented in the destination an arithmetic overflow is set. The flags can be used to decide subsequent operations, such as conditional jump instructions. For example, a JE ... (Jump if Equal) instruction in the x86 assembly language will result in a jump if the Z (zero) flag was set by some previous operation.
+A bit field is distinguished from a bit array in that the latter is used to store a large set of bits indexed by integers and is often wider than any integral type supported by the language. Bit fields, on the other hand, typically fit within a machine word, and the denotation of bits is independent of their numerical index.
+
+Implementation
+Bit fields can be used to reduce memory consumption when a program requires a number of integer variables which always will have low values. For example, in many systems storing an integer value requires two bytes (16-bits) of memory; sometimes the values to be stored actually need only one or two bits. Having a number of these tiny variables share a bit field allows efficient packaging of data in the memory.In C and C++, native implementation-defined bit fields can be created using unsigned int, signed int, or (in C99) _Bool. In this case, the programmer can declare a structure for a bit field which labels and determines the width of several subfields. Adjacently declared bit fields of the same type can then be packed by the compiler into a reduced number of words, compared with the memory used if each 'field' were to be declared separately.
+For languages lacking native bit fields, or where the programmer wants control over the resulting bit representation, it is possible to manually manipulate bits within a larger word type. In this case, the programmer can set, test, and change the bits in the field using combinations of masking and bitwise operations.
+
+Examples
+C programming language
+Declaring a bit field in C and C++:
+
+The layout of bit fields in a C struct is implementation-defined. For behavior that remains predictable across compilers, it may be preferable to emulate bit fields with a primitive and bit operators:
+
+Processor status register
+The status register of a processor is a bit field consisting of several flag bits. Each flag bit describes information about the processor's current state. As an example, the status register of the 6502 processor is shown below:
+
+These bits are set by the processor following the result of an operation. Certain bits (such as the Carry, Interrupt-disable, and Decimal flags) may be explicitly controlled using set and clear instructions. Additionally, branching instructions are also defined to alter execution based on the current state of a flag.
+For an instance, after an ADC (Add with Carry) instruction, the BVS (Branch on oVerflow Set) instruction may be used to jump based on whether the overflow flag was set by the processor following the result of the addition instruction.
+
+Extracting bits from flag words
+A subset of flags in a flag field may be extracted by ANDing with a mask. A large number of languages support the shift operator (<<) where 1 << n aligns a single bit to the nth position. Most also support the use of the AND operator (&) to isolate the value of one or more bits.
+If the status-byte from a device is 0x67 and the 5th flag bit indicates data-ready. The mask-byte is 
+  
+    
+      
+        
+          2
+          
+            5
+          
+        
+        =
+        0
+        x
+        20
+      
+    
+    {\displaystyle 2^{5}=0x20}
+  . ANDing the status-byte 0x67 (0110 0111 in binary) with the mask-byte 0x20(0010 0000 in binary) evaluates to 0x20. This means the flag bit is set i.e., the device has data ready. If the flag-bit had not been set, this would have evaluated to 0 i.e., there is no data available from the device.
+To check the nth bit from a variable v, perform the operation:
+
+bool nth_is_set = (v & (1 << n)) != 0;
+bool nth_is_set = (v >> n) & 1;
+
+Changing bits in flag words
+Writing, reading or toggling bits in flags can be done only using the OR, AND and NOT operations – operations which can be performed quickly in the processor. To set a bit, OR the status byte with a mask byte. Any bits set in the mask byte or the status byte will be set in the result.
+To toggle a bit, XOR the status byte and the mask byte. This will set a bit if it is cleared or clear a bit if it is set.
+
+See also
+Binary code
+Bit-band
+Bitboard, used in chess and similar games
+Bit array (or bit string)
+Flag (programming)
+Word (computer architecture)
+Mask (computing)
+Program status word
+Status register
+FLAGS register (computing)
+Control register
+
+References
+External links
+Explanation from a book
+Description from another wiki
+Use case in a C++ guide
+C++ libbit bit library (alternative URL)
+Bit Twiddling Hacks: Several snippets of C code manipulating bit fields

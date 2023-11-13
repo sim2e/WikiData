@@ -1,0 +1,1614 @@
+In theoretical computer science, the computational complexity of matrix multiplication dictates how quickly the operation of matrix multiplication can be performed. Matrix multiplication algorithms are a central subroutine in theoretical and numerical algorithms for numerical linear algebra and optimization, so finding the fastest algorithm for matrix multiplication is of major practical relevance.
+Directly applying the mathematical definition of matrix multiplication gives an algorithm that requires n3 field operations to multiply two n × n matrices over that field (Θ(n3) in big O notation). Surprisingly, algorithms exist that provide better running times than this straightforward "schoolbook algorithm". The first to be discovered was Strassen's algorithm, devised by Volker Strassen in 1969 and often referred to as "fast matrix multiplication". The optimal number of field operations needed to multiply two square n × n matrices up to constant factors is still unknown. This is a major open question in theoretical computer science.
+As of July 2023, the best announced bound on the asymptotic complexity of a matrix multiplication algorithm is O(n2.371552) time, given by Williams, Xu, Xu, and Zhou, announced in a preprint. This improves on the bound of O(n2.371866) given by a preprint of Duan, Wu and Zhou. However, this and similar improvements to Strassen are not used in practice, because they are galactic algorithms: the constant coefficient hidden by the Big O notation is so large that they are only worthwhile for matrices that are too large to handle on present-day computers.
+The best time-bound confirmed by peer review is O(n2.3728596).
+
+Simple algorithms
+If A, B are n × n matrices over a field, then their product AB is also an n × n matrix over that field, defined entrywise as
+
+  
+    
+      
+        (
+        A
+        B
+        
+          )
+          
+            i
+            j
+          
+        
+        =
+        
+          ∑
+          
+            k
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          A
+          
+            i
+            k
+          
+        
+        
+          B
+          
+            k
+            j
+          
+        
+        .
+      
+    
+    {\displaystyle (AB)_{ij}=\sum _{k=1}^{n}A_{ik}B_{kj}.}
+
+Schoolbook algorithm
+The simplest approach to computing the product of two n × n matrices A and B is to compute the arithmetic expressions coming from the definition of matrix multiplication. In pseudocode:
+
+input A and B, both n by n matrices
+initialize C to be an n by n matrix of all zeros
+for i from 1 to n:
+    for j from 1 to n:
+        for k from 1 to n:
+            C[i][j] = C[i][j] + A[i][k]*B[k][j]
+output C (as A*B)
+
+This algorithm requires, in the worst case, 
+  
+    
+      
+        
+          n
+          
+            3
+          
+        
+      
+    
+    {\displaystyle n^{3}}
+   multiplications of scalars and 
+  
+    
+      
+        
+          n
+          
+            3
+          
+        
+        −
+        
+          n
+          
+            2
+          
+        
+      
+    
+    {\displaystyle n^{3}-n^{2}}
+   additions for computing the product of two square n×n matrices. Its computational complexity is therefore 
+  
+    
+      
+        O
+        (
+        
+          n
+          
+            3
+          
+        
+        )
+      
+    
+    {\displaystyle O(n^{3})}
+  , in a model of computation where field operations (addition and multiplication) take constant time (in practice, this is the case for floating point numbers, but not necessarily for integers).
+
+Strassen's algorithm
+Strassen's algorithm improves on naive matrix multiplication through a divide-and-conquer approach. The key observation is that multiplying two 2 × 2 matrices can be done with only 7 multiplications, instead of the usual 8 (at the expense of 11 additional addition and subtraction operations). This means that, treating the input n×n matrices as block 2 × 2 matrices, the task of multiplying n×n matrices can be reduced to 7 subproblems of multiplying n/2×n/2 matrices. Applying this recursively gives an algorithm needing 
+  
+    
+      
+        O
+        (
+        
+          n
+          
+            
+              log
+              
+                2
+              
+            
+            ⁡
+            7
+          
+        
+        )
+        ≈
+        O
+        (
+        
+          n
+          
+            2.807
+          
+        
+        )
+      
+    
+    {\displaystyle O(n^{\log _{2}7})\approx O(n^{2.807})}
+   field operations.
+Unlike algorithms with faster asymptotic complexity, Strassen's algorithm is used in practice. The numerical stability is reduced compared to the naive algorithm, but it is faster in cases where n > 100 or so and appears in several libraries, such as BLAS. Fast matrix multiplication algorithms cannot achieve component-wise stability, but some can be shown to exhibit norm-wise stability. It is very useful for large matrices over exact domains such as finite fields, where numerical stability is not an issue.
+
+Matrix multiplication exponent
+The matrix multiplication exponent, usually denoted ω, is the smallest real number for which any two 
+  
+    
+      
+        n
+        ×
+        n
+      
+    
+    {\displaystyle n\times n}
+   matrices over a field can be multiplied together using 
+  
+    
+      
+        
+          n
+          
+            ω
+            +
+            o
+            (
+            1
+            )
+          
+        
+      
+    
+    {\displaystyle n^{\omega +o(1)}}
+   field operations. This notation is commonly used in algorithms research, so that algorithms using matrix multiplication as a subroutine have bounds on running time that can update as bounds on ω improve.
+Using a naive lower bound and schoolbook matrix multiplication for the upper bound, one can straightforwardly conclude that 2 ≤ ω ≤ 3. Whether ω = 2 is a major open question in theoretical computer science, and there is a line of research developing matrix multiplication algorithms to get improved bounds on ω.
+All recent algorithms in this line of research use the laser method, a generalization of the Coppersmith–Winograd algorithm, which was given by Don Coppersmith and Shmuel Winograd in 1990 and was the best matrix multiplication algorithm until 2010. The conceptual idea of these algorithms is similar to Strassen's algorithm: a way is devised for multiplying two k × k-matrices with fewer than k3 multiplications, and this technique is applied recursively. The laser method has limitations to its power, and cannot be used to show that ω < 2.3725. Duan, Wu and Zhou identify a source of potential optimization in the laser method termed combination loss. They find a way to exploit this to devise a variant of the laser method which they use to show ω < 2.37188, breaking the barrier for any conventional laser method algorithm. With this newer approach another bound applies according to Duan, Wu and Zhou and showing ω < 2.3078 will not be possible only addressing combination loss in the laser method.
+
+Group theory reformulation of matrix multiplication algorithms
+Henry Cohn, Robert Kleinberg, Balázs Szegedy and Chris Umans put methods such as the Strassen and Coppersmith–Winograd algorithms in an entirely different group-theoretic context, by utilising triples of subsets of finite groups which satisfy a disjointness property called the triple product property (TPP). They also give conjectures that, if true, would imply that there are matrix multiplication algorithms with essentially quadratic complexity. This implies that the optimal exponent of matrix multiplication is 2, which most researchers believe is indeed the case. One such conjecture is that families of wreath products of Abelian groups with symmetric groups realise families of subset triples with a simultaneous version of the TPP. Several of their conjectures have since been disproven by Blasiak, Cohn, Church, Grochow, Naslund, Sawin, and Umans using the Slice Rank method. Further, Alon, Shpilka and Chris Umans have recently shown that some of these conjectures implying fast matrix multiplication are incompatible with another plausible conjecture, the sunflower conjecture, which in turn is related to the cap set problem.
+
+Lower bounds for ω
+There is a trivial lower bound of 
+  
+    
+      
+        ω
+        ≥
+        2
+      
+    
+    {\displaystyle \omega \geq 2}
+  . Since any algorithm for multiplying two n × n-matrices has to process all 2n2 entries, there is a trivial asymptotic lower bound of Ω(n2) operations for any matrix multiplication algorithm. Thus 
+  
+    
+      
+        2
+        ≤
+        ω
+        <
+        2.37188
+      
+    
+    {\displaystyle 2\leq \omega <2.37188}
+  . It is unknown whether 
+  
+    
+      
+        ω
+        >
+        2
+      
+    
+    {\displaystyle \omega >2}
+  . The best known lower bound for matrix-multiplication complexity is Ω(n2 log(n)), for bounded coefficient arithmetic circuits over the real or complex numbers, and is due to Ran Raz.The exponent ω is defined to be a limit point, in that it is the infimum of the exponent over all matrix multiplication algorithm. It is known that this limit point is not achieved. In other words, under the model of computation typically studied, there is no matrix multiplication algorithm that uses precisely O(nω) operations; there must be an additional factor of no(1).
+
+Rectangular matrix multiplication
+Similar techniques also apply to rectangular matrix multiplication. The central object of study is 
+  
+    
+      
+        ω
+        (
+        k
+        )
+      
+    
+    {\displaystyle \omega (k)}
+  , which is the smallest 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   such that one can multiply a matrix of size 
+  
+    
+      
+        n
+        ×
+        ⌈
+        
+          n
+          
+            k
+          
+        
+        ⌉
+      
+    
+    {\displaystyle n\times \lceil n^{k}\rceil }
+   with a matrix of size 
+  
+    
+      
+        ⌈
+        
+          n
+          
+            k
+          
+        
+        ⌉
+        ×
+        n
+      
+    
+    {\displaystyle \lceil n^{k}\rceil \times n}
+   with 
+  
+    
+      
+        O
+        (
+        
+          n
+          
+            c
+            +
+            o
+            (
+            1
+            )
+          
+        
+        )
+      
+    
+    {\displaystyle O(n^{c+o(1)})}
+   arithmetic operations. A result in algebraic complexity states that multiplying matrices of size 
+  
+    
+      
+        n
+        ×
+        ⌈
+        
+          n
+          
+            k
+          
+        
+        ⌉
+      
+    
+    {\displaystyle n\times \lceil n^{k}\rceil }
+   and 
+  
+    
+      
+        ⌈
+        
+          n
+          
+            k
+          
+        
+        ⌉
+        ×
+        n
+      
+    
+    {\displaystyle \lceil n^{k}\rceil \times n}
+   requires the same number of arithmetic operations as multiplying matrices of size 
+  
+    
+      
+        n
+        ×
+        ⌈
+        
+          n
+          
+            k
+          
+        
+        ⌉
+      
+    
+    {\displaystyle n\times \lceil n^{k}\rceil }
+   and 
+  
+    
+      
+        n
+        ×
+        n
+      
+    
+    {\displaystyle n\times n}
+   and of size 
+  
+    
+      
+        n
+        ×
+        n
+      
+    
+    {\displaystyle n\times n}
+   and 
+  
+    
+      
+        n
+        ×
+        ⌈
+        
+          n
+          
+            k
+          
+        
+        ⌉
+      
+    
+    {\displaystyle n\times \lceil n^{k}\rceil }
+  , so this encompasses the complexity of rectangular matrix multiplication. This generalizes the square matrix multiplication exponent, since 
+  
+    
+      
+        ω
+        (
+        1
+        )
+        =
+        ω
+      
+    
+    {\displaystyle \omega (1)=\omega }
+  .
+Since the output of the matrix multiplication problem is size 
+  
+    
+      
+        
+          n
+          
+            2
+          
+        
+      
+    
+    {\displaystyle n^{2}}
+  , we have 
+  
+    
+      
+        ω
+        (
+        k
+        )
+        ≥
+        2
+      
+    
+    {\displaystyle \omega (k)\geq 2}
+   for all values of 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  . If one can prove for some values of 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   between 0 and 1 that 
+  
+    
+      
+        ω
+        (
+        k
+        )
+        ≤
+        2
+      
+    
+    {\displaystyle \omega (k)\leq 2}
+  , then such a result shows that 
+  
+    
+      
+        ω
+        (
+        k
+        )
+        =
+        2
+      
+    
+    {\displaystyle \omega (k)=2}
+   for those 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  . The largest k such that 
+  
+    
+      
+        ω
+        (
+        k
+        )
+        =
+        2
+      
+    
+    {\displaystyle \omega (k)=2}
+   is known as the dual matrix multiplication exponent, usually denoted α. α is referred to as the "dual" because showing that 
+  
+    
+      
+        α
+        =
+        1
+      
+    
+    {\displaystyle \alpha =1}
+   is equivalent to showing that 
+  
+    
+      
+        ω
+        =
+        2
+      
+    
+    {\displaystyle \omega =2}
+  . Like the matrix multiplication exponent, the dual matrix multiplication exponent sometimes appears in the complexity of algorithms in numerical linear algebra and optimization.The first bound on α is by Coppersmith in 1982, who showed that 
+  
+    
+      
+        α
+        >
+        0.17227
+      
+    
+    {\displaystyle \alpha >0.17227}
+  . The current best peer-reviewed bound on α is 
+  
+    
+      
+        α
+        >
+        0.31389
+      
+    
+    {\displaystyle \alpha >0.31389}
+  , given by Le Gall and Urrutia. This paper also contains bounds on 
+  
+    
+      
+        ω
+        (
+        k
+        )
+      
+    
+    {\displaystyle \omega (k)}
+  . In July 2023 Williams, Xu, Xu, and Zhou claim to show 
+  
+    
+      
+        α
+        ≥
+        0.321334
+      
+    
+    {\displaystyle \alpha \geq 0.321334}
+   in a preprint.
+
+Related problems
+Problems that have the same asymptotic complexity as matrix multiplication include determinant, matrix inversion, Gaussian elimination (see next section). Problems with complexity that is expressible in terms of 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+   include characteristic polynomial, eigenvalues (but not eigenvectors), Hermite normal form, and Smith normal form.
+
+Matrix inversion, determinant and Gaussian elimination
+In his 1969 paper, where he proved the complexity 
+  
+    
+      
+        O
+        (
+        
+          n
+          
+            
+              log
+              
+                2
+              
+            
+            ⁡
+            7
+          
+        
+        )
+        ≈
+        O
+        (
+        
+          n
+          
+            2.807
+          
+        
+        )
+      
+    
+    {\displaystyle O(n^{\log _{2}7})\approx O(n^{2.807})}
+   for matrix computation, Strassen proved also that matrix inversion, determinant and Gaussian elimination have, up to a multiplicative constant, the same computational complexity as matrix multiplication. The proof does not make any assumptions on matrix multiplication that is used, except that its complexity is 
+  
+    
+      
+        O
+        (
+        
+          n
+          
+            ω
+          
+        
+        )
+      
+    
+    {\displaystyle O(n^{\omega })}
+   for some 
+  
+    
+      
+        ω
+        ≥
+        2
+      
+    
+    {\displaystyle \omega \geq 2}
+  
+The starting point of Strassen's proof is using block matrix multiplication. Specifically, a matrix of even dimension 2n×2n may be partitioned in four n×n blocks
+
+  
+    
+      
+        
+          
+            [
+            
+              
+                
+                  
+                    A
+                  
+                
+                
+                  
+                    B
+                  
+                
+              
+              
+                
+                  
+                    C
+                  
+                
+                
+                  
+                    D
+                  
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle {\begin{bmatrix}{A}&{B}\\{C}&{D}\end{bmatrix}}.}
+  Under this form, its inverse is 
+
+  
+    
+      
+        
+          
+            
+              [
+              
+                
+                  
+                    
+                      A
+                    
+                  
+                  
+                    
+                      B
+                    
+                  
+                
+                
+                  
+                    
+                      C
+                    
+                  
+                  
+                    
+                      D
+                    
+                  
+                
+              
+              ]
+            
+          
+          
+            −
+            1
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    
+                      A
+                    
+                    
+                      −
+                      1
+                    
+                  
+                  +
+                  
+                    
+                      A
+                    
+                    
+                      −
+                      1
+                    
+                  
+                  
+                    B
+                  
+                  (
+                  
+                    D
+                  
+                  −
+                  
+                    
+                      C
+                      A
+                    
+                    
+                      −
+                      1
+                    
+                  
+                  
+                    B
+                  
+                  
+                    )
+                    
+                      −
+                      1
+                    
+                  
+                  
+                    
+                      C
+                      A
+                    
+                    
+                      −
+                      1
+                    
+                  
+                
+                
+                  −
+                  
+                    
+                      A
+                    
+                    
+                      −
+                      1
+                    
+                  
+                  
+                    B
+                  
+                  (
+                  
+                    D
+                  
+                  −
+                  
+                    
+                      C
+                      A
+                    
+                    
+                      −
+                      1
+                    
+                  
+                  
+                    B
+                  
+                  
+                    )
+                    
+                      −
+                      1
+                    
+                  
+                
+              
+              
+                
+                  −
+                  (
+                  
+                    D
+                  
+                  −
+                  
+                    
+                      C
+                      A
+                    
+                    
+                      −
+                      1
+                    
+                  
+                  
+                    B
+                  
+                  
+                    )
+                    
+                      −
+                      1
+                    
+                  
+                  
+                    
+                      C
+                      A
+                    
+                    
+                      −
+                      1
+                    
+                  
+                
+                
+                  (
+                  
+                    D
+                  
+                  −
+                  
+                    
+                      C
+                      A
+                    
+                    
+                      −
+                      1
+                    
+                  
+                  
+                    B
+                  
+                  
+                    )
+                    
+                      −
+                      1
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        ,
+      
+    
+    {\displaystyle {\begin{bmatrix}{A}&{B}\\{C}&{D}\end{bmatrix}}^{-1}={\begin{bmatrix}{A}^{-1}+{A}^{-1}{B}({D}-{CA}^{-1}{B})^{-1}{CA}^{-1}&-{A}^{-1}{B}({D}-{CA}^{-1}{B})^{-1}\\-({D}-{CA}^{-1}{B})^{-1}{CA}^{-1}&({D}-{CA}^{-1}{B})^{-1}\end{bmatrix}},}
+  provided that A and 
+  
+    
+      
+        
+          D
+        
+        −
+        
+          
+            C
+            A
+          
+          
+            −
+            1
+          
+        
+        
+          B
+        
+      
+    
+    {\displaystyle {D}-{CA}^{-1}{B}}
+   are invertible.
+Thus, the inverse of a 2n×2n matrix may be computed with two inversions, six multiplications and four additions or additive inverses of n×n matrices. It follows that, denoting respectively by I(n), M(n) and A(n) = n2 the number of operations needed for inverting, multiplying and adding n×n matrices, one has 
+
+  
+    
+      
+        I
+        (
+        2
+        n
+        )
+        ≤
+        2
+        I
+        (
+        n
+        )
+        +
+        6
+        M
+        (
+        n
+        )
+        +
+        4
+        A
+        (
+        n
+        )
+        .
+      
+    
+    {\displaystyle I(2n)\leq 2I(n)+6M(n)+4A(n).}
+  If 
+  
+    
+      
+        n
+        =
+        
+          2
+          
+            k
+          
+        
+        ,
+      
+    
+    {\displaystyle n=2^{k},}
+   one may apply this formula recursively:
+
+  
+    
+      
+        
+          
+            
+              
+                I
+                (
+                
+                  2
+                  
+                    k
+                  
+                
+                )
+              
+              
+                
+                ≤
+                2
+                I
+                (
+                
+                  2
+                  
+                    k
+                    −
+                    1
+                  
+                
+                )
+                +
+                6
+                M
+                (
+                
+                  2
+                  
+                    k
+                    −
+                    1
+                  
+                
+                )
+                +
+                4
+                A
+                (
+                
+                  2
+                  
+                    k
+                    −
+                    1
+                  
+                
+                )
+              
+            
+            
+              
+              
+                
+                ≤
+                
+                  2
+                  
+                    2
+                  
+                
+                I
+                (
+                
+                  2
+                  
+                    k
+                    −
+                    2
+                  
+                
+                )
+                +
+                6
+                (
+                M
+                (
+                
+                  2
+                  
+                    k
+                    −
+                    1
+                  
+                
+                )
+                +
+                2
+                M
+                (
+                
+                  2
+                  
+                    k
+                    −
+                    2
+                  
+                
+                )
+                )
+                +
+                4
+                (
+                A
+                (
+                
+                  2
+                  
+                    k
+                    −
+                    1
+                  
+                
+                )
+                +
+                2
+                A
+                (
+                
+                  2
+                  
+                    k
+                    −
+                    2
+                  
+                
+                )
+                )
+              
+            
+            
+              
+              
+                
+                
+                
+                
+                ⋮
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}I(2^{k})&\leq 2I(2^{k-1})+6M(2^{k-1})+4A(2^{k-1})\\&\leq 2^{2}I(2^{k-2})+6(M(2^{k-1})+2M(2^{k-2}))+4(A(2^{k-1})+2A(2^{k-2}))\\&\,\,\,\vdots \end{aligned}}}
+  If 
+  
+    
+      
+        M
+        (
+        n
+        )
+        ≤
+        c
+        
+          n
+          
+            ω
+          
+        
+        ,
+      
+    
+    {\displaystyle M(n)\leq cn^{\omega },}
+   and 
+  
+    
+      
+        α
+        =
+        
+          2
+          
+            ω
+          
+        
+        ≥
+        4
+        ,
+      
+    
+    {\displaystyle \alpha =2^{\omega }\geq 4,}
+   one gets eventually 
+
+  
+    
+      
+        
+          
+            
+              
+                I
+                (
+                
+                  2
+                  
+                    k
+                  
+                
+                )
+              
+              
+                
+                ≤
+                
+                  2
+                  
+                    k
+                  
+                
+                I
+                (
+                1
+                )
+                +
+                6
+                c
+                (
+                
+                  α
+                  
+                    k
+                    −
+                    1
+                  
+                
+                +
+                2
+                
+                  α
+                  
+                    k
+                    −
+                    2
+                  
+                
+                +
+                ⋯
+                +
+                
+                  2
+                  
+                    k
+                    −
+                    1
+                  
+                
+                
+                  α
+                  
+                    0
+                  
+                
+                )
+                +
+                k
+                
+                  2
+                  
+                    k
+                    +
+                    1
+                  
+                
+              
+            
+            
+              
+              
+                
+                ≤
+                
+                  2
+                  
+                    k
+                  
+                
+                +
+                6
+                c
+                
+                  
+                    
+                      
+                        α
+                        
+                          k
+                        
+                      
+                      −
+                      
+                        2
+                        
+                          k
+                        
+                      
+                    
+                    
+                      α
+                      −
+                      2
+                    
+                  
+                
+                +
+                k
+                
+                  2
+                  
+                    k
+                    +
+                    1
+                  
+                
+              
+            
+            
+              
+              
+                
+                ≤
+                d
+                (
+                
+                  2
+                  
+                    k
+                  
+                
+                
+                  )
+                  
+                    ω
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}I(2^{k})&\leq 2^{k}I(1)+6c(\alpha ^{k-1}+2\alpha ^{k-2}+\cdots +2^{k-1}\alpha ^{0})+k2^{k+1}\\&\leq 2^{k}+6c{\frac {\alpha ^{k}-2^{k}}{\alpha -2}}+k2^{k+1}\\&\leq d(2^{k})^{\omega }\end{aligned}}}
+  for some constant d.
+For matrices whose dimension is not a power of two, the same complexity is reached by increasing the dimension of the matrix to a power of two, by padding the matrix with rows and columns whose entries are 1 on the diagonal and 0 elsewhere.
+This proves the asserted complexity for matrices such that all submatrices that have to be inverted are indeed invertible. This complexity is thus proved for almost all matrices, as a matrix with randomly chosen entries is invertible with probability one.
+The same argument applies to LU decomposition, as, if the matrix A is invertible, the equality
+
+  
+    
+      
+        
+          
+            [
+            
+              
+                
+                  
+                    A
+                  
+                
+                
+                  
+                    B
+                  
+                
+              
+              
+                
+                  
+                    C
+                  
+                
+                
+                  
+                    D
+                  
+                
+              
+            
+            ]
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  I
+                
+                
+                  0
+                
+              
+              
+                
+                  C
+                  
+                    A
+                    
+                      −
+                      1
+                    
+                  
+                
+                
+                  I
+                
+              
+            
+            ]
+          
+        
+        
+        
+          
+            [
+            
+              
+                
+                  A
+                
+                
+                  B
+                
+              
+              
+                
+                  0
+                
+                
+                  D
+                  −
+                  C
+                  
+                    A
+                    
+                      −
+                      1
+                    
+                  
+                  B
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle {\begin{bmatrix}{A}&{B}\\{C}&{D}\end{bmatrix}}={\begin{bmatrix}I&0\\CA^{-1}&I\end{bmatrix}}\,{\begin{bmatrix}A&B\\0&D-CA^{-1}B\end{bmatrix}}}
+  defines a block LU decomposition that may be applied recursively to 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   and 
+  
+    
+      
+        D
+        −
+        C
+        
+          A
+          
+            −
+            1
+          
+        
+        B
+        ,
+      
+    
+    {\displaystyle D-CA^{-1}B,}
+   for getting eventually a true LU decomposition of the original matrix.
+The argument applies also for the determinant, since it results from the block LU decomposition that 
+
+  
+    
+      
+        det
+        
+          
+            [
+            
+              
+                
+                  
+                    A
+                  
+                
+                
+                  
+                    B
+                  
+                
+              
+              
+                
+                  
+                    C
+                  
+                
+                
+                  
+                    D
+                  
+                
+              
+            
+            ]
+          
+        
+        =
+        det
+        (
+        A
+        )
+        det
+        (
+        D
+        −
+        C
+        
+          A
+          
+            −
+            1
+          
+        
+        B
+        )
+        .
+      
+    
+    {\displaystyle \det {\begin{bmatrix}{A}&{B}\\{C}&{D}\end{bmatrix}}=\det(A)\det(D-CA^{-1}B).}
+
+Minimizing number of multiplications
+Related to the problem of minimizing the number of arithmetic operations is minimizing the number of multiplications, which is typically a more costly operation than addition. A 
+  
+    
+      
+        O
+        (
+        
+          n
+          
+            ω
+          
+        
+        )
+      
+    
+    {\displaystyle O(n^{\omega })}
+   algorithm for matrix multiplication must necessarily only use 
+  
+    
+      
+        O
+        (
+        
+          n
+          
+            ω
+          
+        
+        )
+      
+    
+    {\displaystyle O(n^{\omega })}
+   multiplication operations, but these algorithms are impractical. Improving from the naive 
+  
+    
+      
+        
+          n
+          
+            3
+          
+        
+      
+    
+    {\displaystyle n^{3}}
+   multiplications for schoolbook multiplication, 
+  
+    
+      
+        4
+        ×
+        4
+      
+    
+    {\displaystyle 4\times 4}
+   matrices in 
+  
+    
+      
+        
+          Z
+        
+        
+          /
+        
+        2
+        
+          Z
+        
+      
+    
+    {\displaystyle \mathbb {Z} /2\mathbb {Z} }
+   can be done with 47 multiplications, 
+  
+    
+      
+        3
+        ×
+        3
+      
+    
+    {\displaystyle 3\times 3}
+   matrix multiplication over a commutative ring can be done in 21 multiplications  (23 if non-commutative). The lower bound of multiplications needed is 2mn+2n−m−2 (multiplication of n×m-matrices with m×n-matrices using the substitution method, m⩾n⩾3), which means n=3 case requires at least 19 multiplications and n=4 at least 34. For n=2 optimal 7 multiplications 15 additions are minimal, compared to only 4 additions for 8 multiplications.
+
+See also
+Computational complexity of mathematical operations
+CYK algorithm, §Valiant's algorithm
+Freivalds' algorithm, a simple Monte Carlo algorithm that, given matrices A, B and C, verifies in Θ(n2) time if AB = C.
+Matrix chain multiplication
+Matrix multiplication, for abstract definitions
+Matrix multiplication algorithm, for practical implementation details
+Sparse matrix–vector multiplication
+
+References
+External links
+Yet another catalogue of fast matrix multiplication algorithms
+Fawzi, A.; Balog, M.; Huang, A.; Hubert, T.; Romera-Paredes, B.; Barekatain, M.; Novikov, A.; Ruiz, F.J.R.; Schrittwieser, J.; Swirszcz, G.; Silver, D.; Hassabis, D.; Kohli, P. (2022). "Discovering faster matrix multiplication algorithms with reinforcement learning". Nature. 610 (7930): 47–53. Bibcode:2022Natur.610...47F. doi:10.1038/s41586-022-05172-4. PMC 9534758. PMID 36198780.

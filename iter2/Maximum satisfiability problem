@@ -1,0 +1,188 @@
+In computational complexity theory, the maximum satisfiability problem (MAX-SAT) is the problem of determining the maximum number of clauses, of a given Boolean formula in conjunctive normal form, that can be made true by an assignment of truth values to the variables of the formula. It is a generalization of the Boolean satisfiability problem, which asks whether there exists a truth assignment that makes all clauses true.
+
+Example
+The conjunctive normal form formula
+
+  
+    
+      
+        (
+        
+          x
+          
+            0
+          
+        
+        ∨
+        
+          x
+          
+            1
+          
+        
+        )
+        ∧
+        (
+        
+          x
+          
+            0
+          
+        
+        ∨
+        ¬
+        
+          x
+          
+            1
+          
+        
+        )
+        ∧
+        (
+        ¬
+        
+          x
+          
+            0
+          
+        
+        ∨
+        
+          x
+          
+            1
+          
+        
+        )
+        ∧
+        (
+        ¬
+        
+          x
+          
+            0
+          
+        
+        ∨
+        ¬
+        
+          x
+          
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle (x_{0}\lor x_{1})\land (x_{0}\lor \lnot x_{1})\land (\lnot x_{0}\lor x_{1})\land (\lnot x_{0}\lor \lnot x_{1})}
+  is not satisfiable: no matter which truth values are assigned to its two variables, at least one of its four clauses will be false.
+However, it is possible to assign truth values in such a way as to make three out of four clauses true; indeed, every truth assignment will do this.
+Therefore, if this formula is given as an instance of the MAX-SAT problem, the solution to the problem is the number three.
+
+Hardness
+The MAX-SAT problem is OptP-complete, and thus NP-hard, since its solution easily leads to the solution of the boolean satisfiability problem, which is NP-complete.
+It is also difficult to find an approximate solution of the problem, that satisfies a number of clauses within a guaranteed approximation ratio of the optimal solution. More precisely, the problem is APX-complete, and thus does not admit a polynomial-time approximation scheme unless P = NP.
+
+Weighted MAX-SAT
+More generally, one can define a weighted version of MAX-SAT as follows: given a conjunctive normal form formula with non-negative weights assigned to each clause, find truth values for its variables that maximize the combined weight of the satisfied clauses. The MAX-SAT problem is an instance of weighted MAX-SAT where all weights are 1.
+
+Approximation algorithms
+1/2-approximation
+Randomly assigning each variable to be true with probability 1/2 gives an expected 2-approximation. More precisely, if each clause has at least k variables, then this yields a (1 − 2−k)-approximation. This algorithm can be derandomized using the method of conditional probabilities.
+
+(1-1/e)-approximation
+MAX-SAT can also be expressed using an integer linear program (ILP). Fix a conjunctive normal form formula F with variables x1, x2, ..., xn, and let C denote the clauses of F. For each clause c in C, let S+c and S−c denote the sets of variables which are not negated in c, and those that are negated in c, respectively. The variables yx of the ILP will correspond to the variables of the formula F, whereas the variables zc will correspond to the clauses. The ILP is as follows: 
+
+The above program can be relaxed to the following linear program L:
+
+The following algorithm using that relaxation is an expected (1-1/e)-approximation:
+Solve the linear program L and obtain a solution O
+Set variable x to be true with probability yx where yx is the value given in O.This algorithm can also be derandomized using the method of conditional probabilities.
+
+3/4-approximation
+The 1/2-approximation algorithm does better when clauses are large whereas the (1-1/e)-approximation  does better when clauses are small. They can be combined as follows:
+
+Run the (derandomized) 1/2-approximation algorithm to get a truth assignment X.
+Run the (derandomized) (1-1/e)-approximation to get a truth assignment Y.
+Output whichever of X or Y maximizes the weight of the satisfied clauses.This is a deterministic factor (3/4)-approximation.
+
+Example
+On the formula
+
+where 
+  
+    
+      
+        ϵ
+        >
+        0
+      
+    
+    {\displaystyle \epsilon >0}
+  , the (1-1/e)-approximation will set each variable to True with probability 1/2, and so will behave identically to the 1/2-approximation. Assuming that the assignment of x is chosen first during derandomization, the derandomized algorithms will pick a solution with total weight 
+  
+    
+      
+        3
+        +
+        ϵ
+      
+    
+    {\displaystyle 3+\epsilon }
+  , whereas the optimal solution has weight 
+  
+    
+      
+        4
+        +
+        ϵ
+      
+    
+    {\displaystyle 4+\epsilon }
+  .
+
+Solvers
+Many exact solvers for MAX-SAT have been developed during recent years, and many of them were presented in the well-known conference on the boolean satisfiability problem and related problems, the SAT Conference. In 2006 the SAT Conference hosted the first MAX-SAT evaluation comparing performance of practical solvers for MAX-SAT, as it has done in the past for the pseudo-boolean satisfiability problem and the quantified boolean formula problem.
+Because of its NP-hardness, large-size MAX-SAT instances cannot in general be solved exactly, and one must often resort to approximation algorithms
+and heuristicsThere are several solvers submitted to the last Max-SAT Evaluations:
+
+Branch and Bound based: Clone, MaxSatz (based on Satz), IncMaxSatz, IUT_MaxSatz, WBO, GIDSHSat.
+Satisfiability based: SAT4J, QMaxSat.
+Unsatisfiability based: msuncore, WPM1, PM2.
+
+Special cases
+MAX-SAT is one of the optimization extensions of the boolean satisfiability problem, which is the problem of determining whether the variables of a given Boolean formula can be assigned in such a way as to make the formula evaluate to TRUE. If the clauses are restricted to have at most 2 literals, as in 2-satisfiability, we get the MAX-2SAT problem. If they are restricted to at most 3 literals per clause, as in 3-satisfiability, we get the MAX-3SAT problem.
+
+Related problems
+There are many problems related to the satisfiability of conjunctive normal form Boolean formulas.
+
+Decision problems:
+2SAT
+3SAT
+Optimization problems, where the goal is to maximize the number of clauses satisfied:
+MAX-SAT, and the corresponded weighted version Weighted MAX-SAT
+MAX-kSAT, where each clause has exactly k variables:
+MAX-2SAT
+MAX-3SAT
+MAXEkSAT
+The partial maximum satisfiability problem (PMAX-SAT) asks for the maximum number of clauses which can be satisfied by any assignment of a given subset of clauses. The rest of the clauses must be satisfied.
+The soft satisfiability problem (soft-SAT), given a set of SAT problems, asks for the maximum number of those problems which can be satisfied by any assignment.
+The minimum satisfiability problem.
+The MAX-SAT problem can be extended to the case where the variables of the constraint satisfaction problem belong to the set of reals. The problem amounts to finding the smallest q such that the q-relaxed intersection of the constraints is not empty.
+
+See also
+Boolean Satisfiability Problem
+Constraint satisfaction
+Satisfiability modulo theories
+
+External links
+http://www.satisfiability.org/
+https://web.archive.org/web/20060324162911/http://www.iiia.csic.es/~maxsat06/
+http://www.maxsat.udl.cat
+Weighted Max-2-SAT Benchmarks with Hidden Optimum Solutions
+Lecture Notes on MAX-SAT Approximation
+
+References
+
+Vazirani, Vijay V. (2001), Approximation Algorithms (PDF), Springer-Verlag, ISBN 978-3-540-65367-7

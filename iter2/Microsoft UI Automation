@@ -1,0 +1,81 @@
+Microsoft UI Automation (UIA) is an application programming interface (API) that allows one to access, identify, and manipulate the user interface (UI) elements of another application.UIA is targeted at providing UI accessibility and it is a successor to Microsoft Active Accessibility. It also facilitates GUI test automation, and it is the engine upon which many test automation tools are based. RPA tools also use it to automate applications in business processes. 
+UIA's property providers support both Win32 and .NET programs.
+The latest specification of UIA is found as part of the Microsoft UI Automation Community Promise Specification. Microsoft claims that portability to platforms other than Microsoft Windows was one of its design goals. It has since been ported to Mono.
+
+History
+In 2005, Microsoft released UIA as a successor to MSAA framework.
+Managed UI Automation API was released as a part of .NET Framework 3.0.
+The native UI Automation API (provider) is included as part of the Windows Vista and Windows Server 2008 SDK and is also distributed with the .NET Framework.
+UIA is available out of the box in Windows 7 as a part of Windows Automation API 3.0 and as a separate download for Windows XP, Windows Vista, and Windows Server 2003 and 2008.
+
+Motivation and goals
+As a successor to MSAA, UIA aims to address the following goals:
+
+Enable efficient client performance without forcing clients to hook into a target application’s process.
+Expose more information about the UI.
+Co-exist with and use MSAA, but do not inherit problems that exist in MSAA.
+Provide an alternative to MSAA that is simple to implement.
+
+Technical overview
+At client side, UIA provides a .NET interface in UIAutomationClient.dll assembly and a COM interface implemented directly in UIAutomationCore.dll.
+At server side, UIAutomationCore.dll is injected into all or selected processes on the current desktop to perform data retrieval on behalf of a client. The DLL can also load UIA plugins (called providers) into its host process to extract data using different techniques.
+
+UIA has four main provider and client components, as shown in the following table.
+
+Elements
+UIA exposes every piece of the UI to client applications as an Automation Element. Elements are contained in a tree structure, with the desktop as the root element.
+Automation Element objects expose common properties of the UI elements they represent. One of these properties is the control type, which defines its basic appearance and functionality as a single recognizable entity (e.g., a button or check box).
+In addition, elements expose control patterns that provide properties specific to their control types. Control patterns also expose methods that enable clients to get further information about the element and to provide input.
+Clients can filter the raw view of the tree as a control view or a content view. Applications can also create custom views.
+
+Tree
+Within the UIA tree there is a root element that represents the current desktop and whose child elements represent application windows. Each of these child elements may contain elements representing pieces of UI such as menus, buttons, toolbars, and list boxes. These elements, in turn, can contain other elements, such as list items.
+The UIA tree is not a fixed structure and is seldom seen in its totality because it might contain thousands of elements. Parts of the tree are built as they are needed, and the tree can undergo changes as elements are added, moved, or removed.
+
+Control types
+UIA control types are well-known identifiers that can be used to indicate what kind of control a particular element represents, such as a combo box or a button.
+Having a well-known identifier allows assistive technology (AT) devices to more easily determine what types of controls are available in the user interface (UI) and how to interact with the controls. A human-readable representation of the UIA control type information is available as a LocalizedControlType property, which can be customizable by control or application developers.
+
+Control patterns
+Control patterns provide a way to categorize and expose a control's functionality independent of the control type or the appearance of the control.
+UIA uses control patterns to represent common control behaviors. For example, the Invoke control pattern is used for controls that can be invoked (such as buttons) and the Scroll control pattern is used for controls that are scrollable viewports (such as list boxes, list views, or combo boxes). Because each control pattern represents a separate functionality, they can be combined to describe the full set of functionality supported by a particular control.
+
+Properties
+UIA providers expose properties on UIA elements and the control patterns. These properties enable UIA client applications to discover information about pieces of the user interface (UI), especially controls, including both static and dynamic data.
+
+Events
+UIA event notification is a key feature for assistive technologies (AT) such as screen readers and screen magnifiers. These UIA clients track events that are raised by UIA providers that occur within the UIA, and use the information to notify end users.
+Efficiency is improved by allowing provider applications to raise events selectively, depending on whether any clients are subscribed to those events, or not at all, if no clients are listening for any events.
+
+TextPattern
+UIA exposes the textual content, including format and style attributes, of text controls in UIA-supported platforms. These controls include, but are not limited to, the Microsoft .NET Framework  TextBox and RichTextBox as well as their Win32 equivalents.
+Exposing the textual content of a control is accomplished through the use of the TextPattern control pattern, which represents the contents of a text container as a text stream. In turn,  TextPattern requires the support of the TextPatternRange class to expose format and style attributes. TextPatternRange supports TextPattern by representing a contiguous text span in a text container with the Start and End endpoints. Multiple or disjoint text spans can be represented by more than one TextPatternRange objects. TextPatternRange supports functionality such as clone, selection, comparison, retrieval and traversal.
+
+UI Automation for automated testing
+UIA can also be useful as a framework for programmatic access in automated testing scenarios. In addition to providing more refined solutions for accessibility, it is also specifically designed to provide robust functionality for automated testing.
+Programmatic access provides the ability to imitate, through code, any interaction and experience exposed by traditional user interactions. UIA enables programmatic access through five components:
+
+The UIA tree facilitates navigation through the logical structure of the UI for accessibility and automation.
+UI Automation Elements are individual components in the UI.
+UI Automation Properties provide specific information about UI elements or the Control Pattern.
+UI Automation Control Patterns define a particular aspect of a control's functionality or feature; they can consist of property, method, event, and structure information.
+UI Automation Events provide a trigger to respond to changes and notifications in UIA information.
+
+Availability
+UIA was initially available on Windows Vista and Windows Server 2008, and it was also made available to Windows XP and Windows Server 2003 as part of .NET Framework 3.0. It has been integrated with all subsequent Windows versions, up to and including Windows 7.Besides Windows platforms, the Olive project (which is a set of add-on libraries for the Mono core aiming for the .NET Framework support) includes a subset of WPF (PresentationFramework and WindowsBase) and UI Automation.Novell's Mono Accessibility project is an implementation of the UIA Provider and Client specifications targeted for the Mono framework. Additionally, the project provides a bridge to the Accessibility Toolkit (ATK) for Linux assistive technologies (ATs). Novell is also working on a bridge for UIA-based ATs to interact with applications that implement ATK.
+
+Related technology and interoperability
+Microsoft Active Accessibility (MSAA): UIA is the successor to MSAA. However, since there are still MSAA based applications in existence, bridges are used to allow communication between UIA and MSAA applications. So information can be shared between the two APIs, an MSAA-to-UIA Proxy and UIA-to-MSAA Bridge were developed. The former is a component that consumes MSAA information and makes it available through the UIA client API. The latter enables client applications using MSAA access applications that implement UIA.
+Accessible Rich Internet Applications (ARIA): The UIA AriaRole and AriaProperties properties can provide access to the ARIA attribute values corresponding to an HTML element (which can be exposed as an automation element by web browsers). General mapping from ARIA attributes to UIA is also available.
+Windows Automation API: Starting with Windows 7, Microsoft is packaging its accessibility technologies under a framework called Windows Automation API. Both MSAA and UIA will be part of this framework. For older versions of Windows see KB971513.
+Mono Accessibility Project: On November 7, 2007, Microsoft and Novell Inc., after completion of a year of their interoperability agreement, announced that they would be extending their agreement to include accessibility. Specifically, it was announced that Novell would develop an open source adapter allowing the UIA framework to work with existing Linux accessibility projects such as the Linux Accessibility Toolkit (ATK), which ships with SUSE Linux Enterprise Desktop, Red Hat Enterprise Linux and Ubuntu Linux. This would eventually make UIA cross-platform.
+
+Notes
+References
+UI Automation Control Types
+UI Automation Control Patterns
+UI Automation Control Properties
+UI Automation Events
+
+External links
+FlaUI

@@ -1,0 +1,375 @@
+In mathematical optimization, the firefly algorithm is a metaheuristic proposed by Xin-She Yang and inspired by the flashing behavior of fireflies.
+
+Algorithm
+In pseudocode the algorithm can be stated as:
+
+Begin
+    1) Objective function: 
+  
+    
+      
+        f
+        (
+        
+          x
+        
+        )
+        ,
+        
+        
+          x
+        
+        =
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          x
+          
+            d
+          
+        
+        )
+      
+    
+    {\displaystyle f(\mathbf {x} ),\quad \mathbf {x} =(x_{1},x_{2},...,x_{d})}
+  ;
+    2) Generate an initial population of fireflies 
+  
+    
+      
+        
+          
+            x
+          
+          
+            i
+          
+        
+        
+        (
+        i
+        =
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        n
+        )
+      
+    
+    {\displaystyle \mathbf {x} _{i}\quad (i=1,2,\dots ,n)}
+  ;.
+    3) Formulate light intensity I so that it is associated with 
+  
+    
+      
+        f
+        (
+        
+          x
+        
+        )
+      
+    
+    {\displaystyle f(\mathbf {x} )}
+  
+       (for example, for maximization problems, 
+  
+    
+      
+        I
+        ∝
+        f
+        (
+        
+          x
+        
+        )
+      
+    
+    {\displaystyle I\propto f(\mathbf {x} )}
+   or simply 
+  
+    
+      
+        I
+        =
+        f
+        (
+        
+          x
+        
+        )
+      
+    
+    {\displaystyle I=f(\mathbf {x} )}
+  ;)
+    4) Define absorption coefficient γ
+
+    while (t < MaxGeneration)
+        for i = 1 : n (all n fireflies)
+            for j = 1 : i (n fireflies)
+                if (
+  
+    
+      
+        
+          I
+          
+            j
+          
+        
+        >
+        
+          I
+          
+            i
+          
+        
+      
+    
+    {\displaystyle I_{j}>I_{i}}
+  ),
+                    Vary attractiveness with distance r via 
+  
+    
+      
+        exp
+        ⁡
+        (
+        −
+        γ
+        
+        r
+        )
+      
+    
+    {\displaystyle \exp(-\gamma \;r)}
+  ;
+                    move firefly i towards j;                
+                    Evaluate new solutions and update light intensity;
+                end if 
+            end for j
+        end for i
+        Rank fireflies and find the current best;
+    end while
+end
+
+Note that the number of objective function evaluations per loop is one evaluation per firefly, even though the above pseudocode suggests it is n×n. (Based on Yang's MATLAB code.) Thus the total number of objective function evaluations is (number of generations) × (number of fireflies).
+The main update formula for any pair of two fireflies 
+  
+    
+      
+        
+          
+            x
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} _{i}}
+   and 
+  
+    
+      
+        
+          
+            x
+          
+          
+            j
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} _{j}}
+   is
+
+  
+    
+      
+        
+          
+            x
+          
+          
+            i
+          
+          
+            t
+            +
+            1
+          
+        
+        =
+        
+          
+            x
+          
+          
+            i
+          
+          
+            t
+          
+        
+        +
+        β
+        exp
+        ⁡
+        [
+        −
+        γ
+        
+          r
+          
+            i
+            j
+          
+          
+            2
+          
+        
+        ]
+        (
+        
+          
+            x
+          
+          
+            j
+          
+          
+            t
+          
+        
+        −
+        
+          
+            x
+          
+          
+            i
+          
+          
+            t
+          
+        
+        )
+        +
+        
+          α
+          
+            t
+          
+        
+        
+          
+            ϵ
+          
+          
+            t
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} _{i}^{t+1}=\mathbf {x} _{i}^{t}+\beta \exp[-\gamma r_{ij}^{2}](\mathbf {x} _{j}^{t}-\mathbf {x} _{i}^{t})+\alpha _{t}{\boldsymbol {\epsilon }}_{t}}
+  where 
+  
+    
+      
+        
+          α
+          
+            t
+          
+        
+      
+    
+    {\displaystyle \alpha _{t}}
+   is a parameter controlling the step size, while 
+  
+    
+      
+        
+          
+            ϵ
+          
+          
+            t
+          
+        
+      
+    
+    {\displaystyle {\boldsymbol {\epsilon }}_{t}}
+   is a vector drawn from a Gaussian or other
+distribution.zae
+It can be shown that the limiting case 
+  
+    
+      
+        γ
+        →
+        0
+      
+    
+    {\displaystyle \gamma \rightarrow 0}
+   corresponds to the standard Particle Swarm Optimization (PSO). In fact, if the inner loop (for j) is removed and the brightness 
+  
+    
+      
+        
+          I
+          
+            j
+          
+        
+      
+    
+    {\displaystyle I_{j}}
+   is replaced by the current global best 
+  
+    
+      
+        
+          g
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle g^{*}}
+  , then FA essentially becomes the standard PSO.
+
+Criticism
+Nature-inspired metaheuristics in general have attracted criticism in the research community for hiding their lack of novelty behind metaphors.  The firefly algorithm has been criticized as differing from the well-established particle swarm optimization only in a negligible way.
+
+See also
+Swarm intelligence
+
+References
+External links
+[1] Files of the Matlab programs included in the book: Xin-She Yang, Nature-Inspired Metaheuristic Algorithms, Second Edition, Luniver Press, (2010).

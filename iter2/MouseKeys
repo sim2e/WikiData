@@ -1,0 +1,128 @@
+Mouse keys is a feature of some graphical user interfaces that uses the keyboard (especially numeric keypad) as a pointing device (usually replacing a mouse). Its roots lie in the earliest days of visual editors when line and column navigation was controlled with arrow keys.
+Today, mouse keys usually refers to the numeric keypad layout standardized with the introduction of the X Window System in 1984.
+
+Layout
+History
+Historically, MouseKeys supported GUI programs when many terminals had no dedicated pointing device. As pointing devices became ubiquitous, the use of mouse keys narrowed to situations where a pointing device was missing, unusable, or inconvenient. Such situations may arise from the following:
+
+precision requirements (e.g., technical drawing)
+disabled user or ergonomics issues
+environmental limits (e.g., vibration in car or plane)
+broken/missing/unavailable equipmentIn 1987, Macintosh Operating System 4.2 Easy Access, provided MouseKeys support to all applications. Easy access was (de)activated by clicking the shift key 5 times.
+By the early 2020s, with graphics tablets becoming more common, a configuration change may be required before enabling MouseKeys.
+
+MouseKeysAccel
+The X Window System MouseKeysAccel control applies action (usually cursor movement) repeatedly while a direction key {1,2,3,4,6,7,8,9} remains depressed. When the key is depressed, an action_delta is immediately applied.  If the key remains depressed, longer than mk_delay milliseconds, some action is applied every mk_interval milliseconds until the key is released. If the key remains depressed, after more than mk_time_to_max actions have been applied, action_delta magnified mk_max_speed times, is applied every mk_interval milliseconds.
+The first mk_time_to_max actions increase smoothly according to an exponential.
+
+  
+    
+      
+        
+          a
+          c
+          t
+          i
+          o
+          n
+          _
+          d
+          e
+          l
+          t
+          a
+        
+        ×
+        
+          m
+          k
+          _
+          m
+          a
+          x
+          _
+          s
+          p
+          e
+          e
+          d
+        
+        ×
+        
+          
+            (
+            
+              
+                i
+                
+                  m
+                  k
+                  _
+                  t
+                  i
+                  m
+                  e
+                  _
+                  t
+                  o
+                  _
+                  m
+                  a
+                  x
+                
+              
+            
+            )
+          
+          
+            
+              
+                1000
+                +
+                
+                  m
+                  k
+                  _
+                  c
+                  u
+                  r
+                  v
+                  e
+                
+              
+              1000
+            
+          
+        
+      
+    
+    {\displaystyle \mathrm {action\_delta} \times \mathrm {mk\_max\_speed} \times \left({\frac {i}{\mathrm {mk\_time\_to\_max} }}\right)^{\frac {1000+\mathrm {mk\_curve} }{1000}}}
+  
+
+These five parameters are configurable.
+
+Enabling
+Under the X Window Systems X.Org and XFree86 used on Unix-like systems such as Linux, BSD, and AIX, MouseKeys (and MouseKeysAccel), when available, is nominally (de)activated by Alt+⇧ Shift+Num Lock. MouseKeys without acceleration (also known as plot mode) is sometimes available with ⇧ Shift+Num Lock. This is nominally independent of the window manager in use, but may be overridden, or even made unavailable by a configuration file.
+Before enabling, it may be necessary to change system configuration. The setxkbmap utility can be used to change the configuration under Xorg:setxkbmap -option keypad:pointerkeys
+There are also various utilities to allow more precise control via user-configurable key bindings, such as xmousekeys and xdotool.
+Since KDE 5, MouseKeys is enabled and configured by systemsetting5 (Hardware → Input Devices → Mouse → Keyboard Navigation)
+MouseKeys for Apple Inc.'s macOS is enabled and configured via the Accessibility ([apple] → System Preferences → Accessibility → Mouse & Trackpad).
+Microsoft changed the method of enabling between Windows 2000, Windows XP (added diagonal cursor movement and MouseKeysAccel), and Windows Vista.
+
+Common usage
+Replacing the mouse keys
+Replacing the mouse keys by the numeric keypad is as follows:
+Typing 5 (with the numeric keypad) is equivalent to clicking the selected button. By default, the selected button is the primary button (nominally under index finger, left button for most right-handed people and right button for most left-handed people). Typing - (with the numeric keypad) selects the alternate button (nominally under ring finger, right button for most right-handed people and left button for most left-handed people). Typing * (with the numeric keypad) selects the modifier button (nominally under the middle finger, middle button of a 3-button mouse). Typing / (with the numeric keypad) selects the primary button. The selection remains in effect until a different button is selected.
+Assignment of left/middle/right button to primary/modifier/alternate, alternate/modifier/primary, or something else is settable by many means. Some mice have a switch, that swaps assignment of right and left keys. Many laptop bioses have a setting for mouse button assignment. Many window managers have a setting that permutes the assignment. Within the X Window System core protocol, permutation can be applied by xmodmap.
+
+Moving the pointer by keys
+Other than 5, all other numeric keys from the numeric keypad are used to move the pointer on the screen. For example, 8 will move the pointer upwards, while 1 will move it diagonally downwards to the left.
+
+See also
+FilterKeys
+Sticky keys
+ToggleKeys
+Virtual keyboard
+
+
+== References ==

@@ -1,0 +1,281 @@
+Exponential backoff is an algorithm that uses feedback to multiplicatively decrease the rate of some process, in order to gradually find an acceptable rate. These algorithms find usage in a wide range of systems and processes, with radio networks and computer networks being particularly notable.
+
+Exponential backoff algorithm
+An exponential backoff algorithm is a form of closed-loop control system that reduces the rate of a controlled process in response to adverse events. For example, if a smartphone app fails to connect to its server, it might try again 1 second later, then if it fails again, 2 seconds later, then 4, etc. Each time the pause is multiplied by a fixed amount (in this case 2). In this case, the adverse event is failing to connect to the server. Other examples of adverse events include collisions of network traffic, an error response from a service, or an explicit request to reduce the rate (i.e. "back off").
+The rate reduction can be modelled as an exponential function:
+
+  
+    
+      
+        t
+        =
+        
+          b
+          
+            c
+          
+        
+      
+    
+    {\displaystyle t=b^{c}}
+  or 
+
+  
+    
+      
+        f
+        =
+        
+          
+            1
+            
+              b
+              
+                c
+              
+            
+          
+        
+      
+    
+    {\displaystyle f={\frac {1}{b^{c}}}}
+  Here, t is the time delay applied between actions, b is the multiplicative factor or "base", c is the number of adverse events observed, and f is the frequency (or rate) of the process (i.e. number of actions per unit of time). The value of c is incremented each time an adverse event is observed, leading to an exponential rise in delay and, therefore, an inversely proportionate rate. An exponential backoff algorithm where b = 2 is referred to as a binary exponential backoff algorithm.
+When the rate has been reduced in response to an adverse event, it usually does not remain at that reduced level forever. If no adverse events are observed for some period of time, often referred to as the recovery time or cooling-off period, the rate may be increased again. The time period that must elapse before attempting to increase the rate again may, itself, be determined by an exponential backoff algorithm. Typically, recovery of the rate occurs more slowly than reduction of the rate due to backoff, and often requires careful tuning to avoid oscillation of the rate. The exact recovery behaviour is implementation-specific and may be informed by any number of environmental factors.
+The mechanism by which rate reduction is practically achieved in a system may be more complex than a simple time delay. In some cases the value t may refer to an upper bound to the time delay, rather than a specific time delay value. The name "expontential backoff" refers to the exponential growth characteristic of the backoff, rather than an exact numeric relationship between adverse event counts and delay times.
+
+Rate limiting
+Exponential backoff is commonly utilised as part of rate limiting mechanisms in computer systems such as web services, to help enforce fair distribution of access to resources and prevent network congestion. Each time a service informs a client that it is sending requests too frequently, the client reduces its rate by some predetermined factor, until the client's request rate reaches an acceptable equilibrium. The service may enforce rate limiting by refusing to respond to requests when the client is sending them too frequently, so that misbehaving clients are not allowed to exceed their allotted resources.
+A benefit of utilising an exponential backoff algorithm, over of a fixed rate limit, is that rate limits can be achieved dynamically without providing any prior information to the client. In the event that resources are unexpectedly constrained, e.g. due to heavy load or a service disruption, backoff requests and error responses from the service can automatically decrease the request rate from clients. This can help maintain some level of availability rather than overloading the service. In addition, quality of service can be prioritised to certain clients based on their individual importance, e.g. by reducing the backoff for emergency calls on a telephone network during periods of high load.
+In a simple version of the algorithm, messages are delayed by predetermined (non-random) time. For example, in SIP protocol over unreliable transport (such as UDP) the client retransmits requests at an interval that starts at T1 seconds (usually, 500 ms, which is the estimate of the round-trip time) and doubles after every retransmission until it reaches T2 seconds (which defaults to 4 s). This results in retransmission intervals of 500 ms, 1 s, 2 s, 4 s, 4 s, 4 s, etc.
+
+Collision avoidance
+Exponential backoff algorithms can be used to avoid network collisions. In a point-to-multipoint or multiplexed network, multiple senders communicate over a single shared channel. If two senders attempt to transmit a message at the same time, or "talk over" each other, a collision occurs and the messages are damaged or lost. Each sender can then back off before attempting to retransmit the same message again.
+A deterministic exponential backoff algorithm is unsuitable for this use case, since each sender would back off for the same time period, leading them to retransmit simultaneously and cause another collision. Instead, for purposes of collision avoidance, the time between retransmissions is randomized and the exponential backoff algorithm sets the range of delay values that are possible. The time delay is usually measured in slots, which are fixed-length periods (or "slices") of time on the network. In a binary exponential backoff algorithm (i.e. one where b = 2), after c collisions, each retransmission is delayed by a random number of slot times between 0 and 2c − 1. After the first collision, each sender will wait 0 or 1 slot times. After the second collision, the senders will wait anywhere from 0 to 3 slot times (inclusive).  After the third collision, the senders will wait anywhere from 0 to 7 slot times (inclusive), and so forth. As the number of retransmission attempts increases, the number of possibilities for delay increases exponentially. This decreases the probability of a collision, but increases the average latency.
+Exponential backoff is utilised during retransmission of frames in carrier-sense multiple access with collision avoidance (CSMA/CA) and carrier-sense multiple access with collision detection (CSMA/CD) networks, where this algorithm is part of the channel access method used to send data on these networks. In Ethernet networks, the algorithm is commonly used to schedule retransmissions after collisions. The retransmission is delayed by an amount of time derived from the slot time (for example, the time it takes to send 512 bits; i.e., 512 bit-times) and the number of attempts to retransmit.
+
+Example
+This example is from the Ethernet protocol, where a sending host is able to know when a collision has occurred (that is, another host has tried to transmit), when it is sending a frame. If both hosts attempted to re-transmit as soon as a collision occurred, there would be yet another collision — and the pattern would continue forever. The hosts must choose a random value within an acceptable range to ensure that this situation doesn't happen. An exponential backoff algorithm is therefore used. The value 51.2 μs is used as an example here because it is the slot time for a 10 Mbit/s Ethernet line. However, 51.2 μs could be replaced by any positive value, in practice.
+
+When a collision first occurs, send a "jamming signal" to prevent further data from being sent.
+Resend a frame after either 0 seconds or 51.2 μs, chosen at random.
+If that fails, resend the frame after either 0 s, 51.2 μs, 102.4 μs, or 153.6 μs.
+If that still fails, resend the frame after k · 51.2 μs, where k is a random integer between 0 and 23 − 1.
+For further failures, after the cth failed attempt, resend the frame after k · 51.2 μs, where k is a random integer between 0 and 2c − 1.
+
+Truncated exponential backoff
+The 'truncated' variant of the algorithm introduces a limit on c. This simply means that after a certain number of increases, the exponentiation stops. Without a limit on c, the delay between transmissions may become undesirably long if a sender repeatedly observes adverse events, e.g. due to a degradation in network service. In a randomized system this may occur by chance, leading to unpredictable latency; longer delays due to unbounded increases in c are exponentially less probable, but they are effectively inevitable on a busy network due to the law of large numbers. Limiting c helps to reduce the possibility of unexpectedly long transmission latencies and improve recovery times after a transient outage.
+For example, if the ceiling is set at i = 10 in a truncated binary exponential backoff algorithm, (as it is in the IEEE 802.3 CSMA/CD standard), then the maximum delay is 1023 slot times, i.e. 210 − 1.
+Selecting an appropriate backoff limit for a system involves striking a balance between collision probability and latency. By increasing the ceiling there is an exponential reduction in probability of collision on each transmission attempt. At the same time, increasing the limit also exponentially increases the range of possible latency times for a transmission, leading to less deterministic performance and an increase in the average latency. The optimal limit value for a system is specific to both the implementation and environment.
+
+Expected backoff
+Given a uniform distribution of backoff times, the expected backoff time is the mean of the possibilities. After c collisions in a binary exponential backoff algorithm, the delay is randomly chosen from [0, 1, ..., N] slots, where N = 2c − 1, and the expected backoff time (in slots) is
+
+  
+    
+      
+        E
+        ⁡
+        (
+        c
+        )
+        =
+        
+          
+            1
+            
+              N
+              +
+              1
+            
+          
+        
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            N
+          
+        
+        i
+        =
+        
+          
+            1
+            
+              N
+              +
+              1
+            
+          
+        
+        
+          
+            
+              N
+              (
+              N
+              +
+              1
+              )
+            
+            2
+          
+        
+        =
+        
+          
+            N
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle \operatorname {E} (c)={\frac {1}{N+1}}\sum _{i=0}^{N}i={\frac {1}{N+1}}{\frac {N(N+1)}{2}}={\frac {N}{2}}.}
+  For example, the expected backoff time for the third (c = 3) collision, one could first calculate the maximum backoff time, N:
+
+  
+    
+      
+        N
+        =
+        
+          2
+          
+            c
+          
+        
+        −
+        1
+      
+    
+    {\displaystyle N=2^{c}-1}
+  
+
+  
+    
+      
+        N
+        =
+        
+          2
+          
+            3
+          
+        
+        −
+        1
+        =
+        8
+        −
+        1
+      
+    
+    {\displaystyle N=2^{3}-1=8-1}
+  
+
+  
+    
+      
+        N
+        =
+        7
+        ,
+      
+    
+    {\displaystyle N=7,}
+  and then calculate the mean of the backoff time possibilities:
+
+  
+    
+      
+        E
+        ⁡
+        (
+        c
+        )
+        =
+        
+          
+            1
+            
+              N
+              +
+              1
+            
+          
+        
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            N
+          
+        
+        i
+        =
+        
+          
+            1
+            
+              N
+              +
+              1
+            
+          
+        
+        
+          
+            
+              N
+              (
+              N
+              +
+              1
+              )
+            
+            2
+          
+        
+        =
+        
+          
+            N
+            2
+          
+        
+        =
+        
+          
+            
+              
+                2
+                
+                  c
+                
+              
+              −
+              1
+            
+            2
+          
+        
+      
+    
+    {\displaystyle \operatorname {E} (c)={\frac {1}{N+1}}\sum _{i=0}^{N}i={\frac {1}{N+1}}{\frac {N(N+1)}{2}}={\frac {N}{2}}={\frac {2^{c}-1}{2}}}
+  .which is, for the example, E(3) = 3.5 slots.
+
+See also
+Control theory
+
+References
+Bibliography
+Tanenbaum, Andrew; Wetherall, David (2010). Computer Networks (5th ed.). Pearson. ISBN 978-0132126953. This article incorporates public domain material from Federal Standard 1037C. General Services Administration. Archived from the original on 22 January 2022.

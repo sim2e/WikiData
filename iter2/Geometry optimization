@@ -1,0 +1,430 @@
+In the field of computational chemistry, energy minimization (also called energy optimization, geometry minimization, or geometry optimization) is the process of finding an arrangement in space of a collection of atoms where, according to some computational model of chemical bonding, the net inter-atomic force on each atom is acceptably close to zero and the position on the potential energy surface (PES) is a stationary point (described later). The collection of atoms might be a single molecule, an ion, a condensed phase, a transition state or even a collection of any of these. The computational model of chemical bonding might, for example, be quantum mechanics.
+As an example, when optimizing the geometry of a water molecule, one aims to obtain the hydrogen-oxygen bond lengths and the hydrogen-oxygen-hydrogen bond angle which minimize the forces that would otherwise be pulling atoms together or pushing them apart.
+The motivation for performing a geometry optimization is the physical significance of the obtained structure: optimized structures often correspond to a substance as it is found in nature and the geometry of such a structure can be used in a variety of experimental and theoretical investigations in the fields of chemical structure, thermodynamics, chemical kinetics, spectroscopy and others.
+Typically, but not always, the process seeks to find the geometry of a particular arrangement of the atoms that represents a local or global energy minimum. Instead of searching for global energy minimum, it might be desirable to optimize to a transition state, that is, a saddle point on the potential energy surface. Additionally, certain coordinates (such as a chemical bond length) might be fixed during the optimization.
+
+Molecular geometry and mathematical interpretation
+The geometry of a set of atoms can be described by a vector of the atoms' positions. This could be the set of the Cartesian coordinates of the atoms or, when considering molecules, might be so called internal coordinates formed from a set of bond lengths, bond angles and dihedral angles.
+Given a set of atoms and a vector,  r, describing the atoms' positions, one can introduce the concept of the energy as a function of the positions,  E(r). Geometry optimization is then a mathematical optimization problem, in which it is desired to find the value of  r for which  E(r) is at a local minimum, that is, the derivative of the energy with respect to the position of the atoms,  ∂E/∂r, is the zero vector and the second derivative matrix of the system, 
+  
+    
+      
+        
+          
+            
+              (
+              
+                
+                  
+                    
+                      
+                        
+                          
+                            ∂
+                            
+                              2
+                            
+                          
+                          E
+                        
+                        
+                          ∂
+                          
+                            r
+                            
+                              i
+                            
+                          
+                          
+                          ∂
+                          
+                            r
+                            
+                              j
+                            
+                          
+                        
+                      
+                    
+                  
+                
+              
+              )
+            
+          
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle {\begin{pmatrix}{\frac {\partial ^{2}E}{\partial r_{i}\,\partial r_{j}}}\end{pmatrix}}_{ij}}
+  , also known as the Hessian matrix, which describes the curvature of the PES at  r, has all positive eigenvalues (is positive definite).
+A special case of a geometry optimization is a search for the geometry of a transition state; this is discussed below.
+The computational model that provides an approximate  E(r) could be based on quantum mechanics (using either density functional theory or semi-empirical methods), force fields, or a combination of those in case of QM/MM. Using this computational model and an initial guess (or ansatz) of the correct geometry, an iterative optimization procedure is followed, for example:
+
+calculate the force on each atom (that is,  -∂E/∂r)
+if the force is less than some threshold, finish
+otherwise, move the atoms by some computed step ∆r that is predicted to reduce the force
+repeat from the start
+
+Practical aspects of optimization
+As described above, some method such as quantum mechanics can be used to calculate the energy,  E(r) , the gradient of the PES, that is, the derivative of the energy with respect to the position of the atoms,  ∂E/∂r and the second derivative matrix of the system,  ∂∂E/∂ri∂rj, also known as the Hessian matrix, which describes the curvature of the PES at  r.
+An optimization algorithm can use some or all of  E(r) ,  ∂E/∂r and  ∂∂E/∂ri∂rj to try to minimize the forces and this could in theory be any method such as gradient descent, conjugate gradient or Newton's method, but in practice, algorithms which use knowledge of the PES curvature, that is the Hessian matrix, are found to be superior. For most systems of practical interest, however, it may be prohibitively expensive to compute the second derivative matrix, and it is estimated from successive values of the gradient, as is typical in a Quasi-Newton optimization.
+The choice of the coordinate system can be crucial for performing a successful optimization. Cartesian coordinates, for example, are redundant since a non-linear molecule with  N atoms has 3N–6 vibrational degrees of freedom whereas the set of Cartesian coordinates has 3N dimensions. Additionally, Cartesian coordinates are highly correlated, that is, the Hessian matrix has many non-diagonal terms that are not close to zero. This can lead to numerical problems in the optimization, because, for example, it is difficult to obtain a good approximation to the Hessian matrix and calculating it precisely is too computationally expensive. However, in case that energy is expressed with standard force fields, computationally efficient methods have been developed  able to derive analytically the Hessian matrix in Cartesian coordinates while preserving a computational complexity of the same order to that of gradient computations. Internal coordinates tend to be less correlated but are more difficult to set-up and it can be difficult to describe some systems, such as ones with symmetry or large condensed phases. Many modern computational chemistry software packages contain automatic procedures for the automatic generation of reasonable coordinate systems for optimization.
+
+Degree of freedom restriction
+Some degrees of freedom can be eliminated from an optimization, for example, positions of atoms or bond lengths and angles can be given fixed values. Sometimes these are referred to as being frozen degrees of freedom.
+Figure 1 depicts a geometry optimization of the atoms in a carbon nanotube in the presence of an external electrostatic field. In this optimization, the atoms on the left have their positions frozen. Their interaction with the other atoms in the system are still calculated, but alteration the atoms' position during the optimization is prevented.
+
+Transition state optimization
+Transition state structures can be determined by searching for saddle points on the PES of the chemical species of interest. A first-order saddle point is a position on the PES corresponding to a minimum in all directions except one; a second-order saddle point is a minimum in all directions except two, and so on. Defined mathematically, an nth order saddle point is characterized by the following:  ∂E/∂r = 0 and the Hessian matrix,  ∂∂E/∂ri∂rj, has exactly n negative eigenvalues.
+Algorithms to locate transition state geometries fall into two main categories: local methods and semi-global methods. Local methods are suitable when the starting point for the optimization is very close to the true transition state (very close will be defined shortly) and semi-global methods find application when it is sought to locate the transition state with very little a priori knowledge of its geometry. Some methods, such as the Dimer method (see below), fall into both categories.
+
+Local searches
+A so-called local optimization requires an initial guess of the transition state that is very close to the true transition state. Very close typically means that the initial guess must have a  corresponding Hessian matrix with one negative eigenvalue, or, the negative eigenvalue corresponding to the reaction coordinate must be greater in magnitude than the other negative eigenvalues. Further, the eigenvector with the most negative eigenvalue must correspond to the reaction coordinate, that is, it must represent the geometric transformation relating to the process whose transition state is sought.
+Given the above pre-requisites, a local optimization algorithm can then move "uphill" along the eigenvector with the most negative eigenvalue and "downhill" along all other degrees of freedom, using something similar to a quasi-Newton method.
+
+Dimer method
+The dimer method can be used to find possible transition states without knowledge of the final structure or to refine a good guess of a transition structure. The “dimer” is formed by two images very close to each other on the PES. The method works by moving the dimer uphill from the starting position whilst rotating the dimer to find the direction of lowest curvature (ultimately negative).
+
+Activation Relaxation Technique (ART)
+The Activation Relaxation Technique (ART) is also an open-ended method to find new transition states or to refine known saddle points on the PES. The method follows the direction of lowest negative curvature (computed using the Lanczos algorithm) on the PES to reach the saddle point, relaxing in the perpendicular hyperplane between each "jump" (activation) in this direction.
+
+Chain-of-state methods
+Chain-of-state methods can be used to find the approximate geometry of the transition state based on the geometries of the reactant and product. The generated approximate geometry can then serve as a starting point for refinement via a local search, which was described above.
+Chain-of-state methods use a series of vectors, that is points on the PES, connecting the reactant and product of the reaction of interest,  rreactant and  rproduct, thus discretizing the reaction pathway. Very commonly, these points are referred to as beads due to an analogy of a set of beads connected by strings or springs, which connect the reactant and products. The series of beads is often initially created by interpolating between  rreactant and  rproduct, for example, for a series of N + 1 beads, bead i might be given by
+
+  
+    
+      
+        
+          
+            r
+          
+          
+            i
+          
+        
+        =
+        
+          
+            i
+            N
+          
+        
+        
+          
+            r
+          
+          
+            
+              p
+              r
+              o
+              d
+              u
+              c
+              t
+            
+          
+        
+        +
+        
+          (
+          
+            1
+            −
+            
+              
+                i
+                N
+              
+            
+          
+          )
+        
+        
+          
+            r
+          
+          
+            
+              r
+              e
+              a
+              c
+              t
+              a
+              n
+              t
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {r} _{i}={\frac {i}{N}}\mathbf {r} _{\mathrm {product} }+\left(1-{\frac {i}{N}}\right)\mathbf {r} _{\mathrm {reactant} }}
+  
+where i ∈ 0, 1, ..., N. Each of the beads ri has an energy,  E(ri), and forces, -∂E/∂ri and these are treated with a constrained optimization process that seeks to get an as accurate as possible representation of the reaction pathway. For this to be achieved, spacing constraints must be applied so that each bead ri does not simply get optimized to the reactant and product geometry.
+Often this constraint is achieved by projecting out components of the force on each bead ri, or alternatively the movement of each bead during optimization, that are tangential to the reaction path. For example, if for convenience, it is defined that gi = ∂E/∂ri, then the energy gradient at each bead minus the component of the energy gradient that is tangential to the reaction pathway is given by
+
+  
+    
+      
+        
+          
+            g
+          
+          
+            i
+          
+          
+            ⊥
+          
+        
+        =
+        
+          
+            g
+          
+          
+            i
+          
+        
+        −
+        
+          
+            τ
+          
+          
+            i
+          
+        
+        (
+        
+          
+            τ
+          
+          
+            i
+          
+        
+        ⋅
+        
+          
+            g
+          
+          
+            i
+          
+        
+        )
+        =
+        
+          (
+          
+            I
+            −
+            
+              
+                τ
+              
+              
+                i
+              
+            
+            
+              
+                τ
+              
+              
+                i
+              
+              
+                T
+              
+            
+          
+          )
+        
+        
+          
+            g
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \mathbf {g} _{i}^{\perp }=\mathbf {g} _{i}-\mathbf {\tau } _{i}(\mathbf {\tau } _{i}\cdot \mathbf {g} _{i})=\left(I-\mathbf {\tau } _{i}\mathbf {\tau } _{i}^{T}\right)\mathbf {g} _{i}}
+  
+where I is the identity matrix and τi is a unit vector representing the reaction path tangent at ri. By projecting out components of the energy gradient  or the optimization step that are parallel to the reaction path, an optimization algorithm significantly reduces the tendency of each of the beads to be optimized directly to a minimum.
+
+Synchronous transit
+The simplest chain-of-state method is the linear synchronous transit (LST) method. It operates by taking interpolated points between the reactant and product geometries and choosing the one with the highest energy for subsequent refinement via a local search. The quadratic synchronous transit (QST) method extends LST by allowing a parabolic reaction path, with optimization of the highest energy point orthogonally to the parabola.
+
+Nudged elastic band
+In Nudged elastic band (NEB) method, the beads along the reaction pathway have simulated spring forces in addition to the chemical forces, -∂E/∂ri, to cause the optimizer to maintain the spacing constraint. Specifically, the force fi on each point i is given by
+
+  
+    
+      
+        
+          
+            f
+          
+          
+            i
+          
+        
+        =
+        
+          
+            f
+          
+          
+            i
+          
+          
+            ∥
+          
+        
+        −
+        
+          
+            g
+          
+          
+            i
+          
+          
+            ⊥
+          
+        
+      
+    
+    {\displaystyle \mathbf {f} _{i}=\mathbf {f} _{i}^{\parallel }-\mathbf {g} _{i}^{\perp }}
+  
+where
+
+  
+    
+      
+        
+          
+            f
+          
+          
+            i
+          
+          
+            ∥
+          
+        
+        =
+        k
+        
+          [
+          
+            
+              (
+              
+                
+                  (
+                  
+                    
+                      
+                        r
+                      
+                      
+                        i
+                        +
+                        1
+                      
+                    
+                    −
+                    
+                      
+                        r
+                      
+                      
+                        i
+                      
+                    
+                  
+                  )
+                
+                −
+                
+                  (
+                  
+                    
+                      
+                        r
+                      
+                      
+                        i
+                      
+                    
+                    −
+                    
+                      
+                        r
+                      
+                      
+                        i
+                        −
+                        1
+                      
+                    
+                  
+                  )
+                
+              
+              )
+            
+            ⋅
+            
+              τ
+              
+                i
+              
+            
+          
+          ]
+        
+        
+          τ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \mathbf {f} _{i}^{\parallel }=k\left[\left(\left(\mathbf {r} _{i+1}-\mathbf {r} _{i}\right)-\left(\mathbf {r} _{i}-\mathbf {r} _{i-1}\right)\right)\cdot \tau _{i}\right]\tau _{i}}
+  
+is the spring force parallel to the pathway at each point ri (k is a spring constant and τi, as before, is a unit vector representing the reaction path tangent at ri).
+In a traditional implementation, the point with the highest energy is used for subsequent refinement in a local search. There are many variations on the NEB method, such including the climbing image NEB, in which the point with the highest energy is pushed upwards during the optimization procedure so as to (hopefully) give a geometry which is even closer to that of the transition state. There have also been extensions to include Gaussian process regression for reducing the number of evaluations. For systems with non-Euclidean  (R^2) geometry, like magnetic systems, the method is modified to the geodesic nudged elastic band approach.
+
+String method
+The string method uses splines connecting the points, ri, to measure and enforce distance constraints between the points and to calculate the tangent at each point. In each step of an optimization procedure, the points might be moved according to the force acting on them perpendicular to the path, and then, if the equidistance constraint between the points is no-longer satisfied, the points can be redistributed, using the spline representation of the path to generate new vectors with the required spacing.
+Variations on the string method include the growing string method, in which the guess of the pathway is grown in from the end points (that is the reactant and products) as the optimization progresses.
+
+Comparison with other techniques
+Geometry optimization is fundamentally different from a molecular dynamics simulation. The latter simulates the motion of molecules with respect to time, subject to temperature, chemical forces, initial velocities, Brownian motion of a solvent, and so on, via the application of Newton's laws of Motion. This means that the trajectories of the atoms which get computed, have some physical meaning. Geometry optimization, by contrast, does not produce a "trajectory" with any physical meaning – it is concerned with minimization of the forces acting on each atom in a collection of atoms, and the pathway via which it achieves this lacks meaning. Different optimization algorithms could give the same result for the minimum energy structure, but arrive at it via a different pathway.
+
+See also
+Constraint composite graph
+Graph cuts in computer vision – apparatus for solving computer vision problems that can be formulated in terms of energy minimization
+Energy principles in structural mechanics
+
+References
+External links
+Numerical Recipes in Fortran 77
+
+Additional references
+Payne et al., "Iterative minimization techniques for ab initio total-energy calculations: Molecular dynamics and conjugate gradients", Reviews of Modern Physics 64 (4), pp. 1045–1097. (1992) (abstract)
+Stich et al., "Conjugate gradient minimization of the energy functional: A new method for electronic structure calculation", Physical Review B 39 (8), pp. 4997–5004, (1989)
+Chadi, "Energy-minimization approach to the atomic geometry of semiconductor surfaces", Physical Review Letters 41 (15), pp. 1062–1065 (1978)

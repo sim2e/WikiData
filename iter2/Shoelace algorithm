@@ -1,0 +1,1249 @@
+The shoelace formula, also known as Gauss's area formula and the surveyor's formula, is a mathematical algorithm to determine the area of a simple polygon whose vertices are described by their Cartesian coordinates in the plane. It is called the shoelace formula because of the constant cross-multiplying for the coordinates making up the polygon, like threading shoelaces. It has applications in surveying and forestry, among other areas.
+The formula was described by Albrecht Ludwig Friedrich Meister (1724–1788) in 1769 and is based on the trapezoid formula which was described by Carl Friedrich Gauss and C.G.J. Jacobi. The triangle form of the area formula can be considered to be a special case of Green's theorem.
+The area formula can also be applied to self-overlapping polygons since the meaning of area is still clear even though self-overlapping polygons are not generally simple. Furthermore, a self-overlapping polygon can have multiple "interpretations" but the Shoelace formula can be used to show that the polygon's area is the same regardless of the interpretation.
+
+The polygon area formulas
+Given: A  planar simple polygon with a positively oriented (counter clock wise) sequence of points 
+  
+    
+      
+        
+          P
+          
+            i
+          
+        
+        =
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          y
+          
+            i
+          
+        
+        )
+        ,
+        i
+        =
+        1
+        ,
+        …
+        ,
+        n
+      
+    
+    {\displaystyle P_{i}=(x_{i},y_{i}),i=1,\dots ,n}
+   in a Cartesian coordinate system. 
+For the simplicity of the formulas below it is convenient to set 
+  
+    
+      
+        
+          P
+          
+            0
+          
+        
+        =
+        
+          P
+          
+            n
+          
+        
+        ,
+        
+          P
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          P
+          
+            1
+          
+        
+      
+    
+    {\displaystyle P_{0}=P_{n},P_{n+1}=P_{1}}
+  .
+The formulas:
+The area of the given polygon can be expressed by a variety of formulas, which are connected by simple operations (see below):
+If the polygon is negatively oriented, then the result 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   of the formulas is negative. In any case 
+  
+    
+      
+        
+          |
+        
+        A
+        
+          |
+        
+      
+    
+    {\displaystyle |A|}
+   is the sought area of the polygon.
+
+Trapezoid formula
+The trapezoid formula sums up a sequence of oriented areas 
+  
+    
+      
+        
+          A
+          
+            i
+          
+        
+        =
+        
+          
+            
+              1
+              2
+            
+          
+        
+        (
+        
+          y
+          
+            i
+          
+        
+        +
+        
+          y
+          
+            i
+            +
+            1
+          
+        
+        )
+        (
+        
+          x
+          
+            i
+          
+        
+        −
+        
+          x
+          
+            i
+            +
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle A_{i}={\tfrac {1}{2}}(y_{i}+y_{i+1})(x_{i}-x_{i+1})}
+   of trapezoids with 
+  
+    
+      
+        
+          P
+          
+            i
+          
+        
+        
+          P
+          
+            i
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle P_{i}P_{i+1}}
+   as one of its four edges (see below):
+
+Triangle formula
+The triangle formula sums up the oriented areas 
+  
+    
+      
+        
+          A
+          
+            i
+          
+        
+      
+    
+    {\displaystyle A_{i}}
+   of triangles 
+  
+    
+      
+        O
+        
+          P
+          
+            i
+          
+        
+        
+          P
+          
+            i
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle OP_{i}P_{i+1}}
+  :
+
+Shoelace formula
+The triangle formula is the base of the popular shoelace formula, which is a scheme that optimizes the calculation of the sum of the 2×2-Determinants by hand:
+
+Other formulas
+A particularly concise statement of the formula can be given in terms of the exterior algebra. If 
+  
+    
+      
+        
+          v
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          v
+          
+            n
+          
+        
+      
+    
+    {\displaystyle v_{1},\dots ,v_{n}}
+   are the 
+consecutive vertices of the polygon (regarded as vectors in 
+the Cartesian plane) then
+
+Example
+For the area of the pentagon with
+
+one gets 
+
+The advantage of the shoelace form: Only 6 columns have to be written for calculating the 5 determinants with 10 columns.
+
+Deriving the formulas
+Trapezoid formula
+The edge 
+  
+    
+      
+        
+          P
+          
+            i
+          
+        
+        ,
+        
+          P
+          
+            i
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle P_{i},P_{i+1}}
+   determines the trapezoid 
+  
+    
+      
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          y
+          
+            i
+          
+        
+        )
+        ,
+        (
+        
+          x
+          
+            i
+            +
+            1
+          
+        
+        ,
+        
+          y
+          
+            i
+            +
+            1
+          
+        
+        )
+        ,
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        0
+        )
+        ,
+        (
+        
+          x
+          
+            i
+            +
+            1
+          
+        
+        ,
+        0
+        )
+      
+    
+    {\displaystyle (x_{i},y_{i}),(x_{i+1},y_{i+1}),(x_{i},0),(x_{i+1},0)}
+   with its oriented area
+
+In case of 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+        <
+        
+          x
+          
+            i
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle x_{i}<x_{i+1}}
+   the number 
+  
+    
+      
+        
+          A
+          
+            i
+          
+        
+      
+    
+    {\displaystyle A_{i}}
+   is negative, otherwise positive or 
+  
+    
+      
+        
+          A
+          
+            i
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle A_{i}=0}
+   if 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+        =
+        
+          x
+          
+            i
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle x_{i}=x_{i+1}}
+  . In the diagram the orientation  of an edge is shown by an arrow. The color shows the sign of 
+  
+    
+      
+        
+          A
+          
+            i
+          
+        
+      
+    
+    {\displaystyle A_{i}}
+  : red means 
+  
+    
+      
+        
+          A
+          
+            i
+          
+        
+        <
+        0
+      
+    
+    {\displaystyle A_{i}<0}
+  , green indicates 
+  
+    
+      
+        
+          A
+          
+            i
+          
+        
+        >
+        0
+      
+    
+    {\displaystyle A_{i}>0}
+  . In the first case the trapezoid is called negative in the second case positive. The negative trapezoids delete those parts of positive trapezoids, which are outside the polygon. In case of a convex polygon (in the diagram the upper example) this is obvious: The polygon area is the sum of the areas of the positive trapezoids (green edges) minus the  areas of the negative trapezoids (red edges). In the non convex case one has to consider the situation more 
+carefully (see diagram). In any case the result is
+
+Triangle form, determinant form
+Eliminating the brackets and using 
+
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          x
+          
+            i
+          
+        
+        
+          y
+          
+            i
+          
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          x
+          
+            i
+            +
+            1
+          
+        
+        
+          y
+          
+            i
+            +
+            1
+          
+        
+      
+    
+    {\textstyle \sum _{i=1}^{n}x_{i}y_{i}=\sum _{i=1}^{n}x_{i+1}y_{i+1}}
+   (see convention  
+  
+    
+      
+        
+          P
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          P
+          
+            1
+          
+        
+      
+    
+    {\displaystyle P_{n+1}=P_{1}}
+   above), one gets the determinant form of the area formula:
+
+Because one half of the i-th determinant is the oriented area of the triangle 
+  
+    
+      
+        O
+        ,
+        
+          P
+          
+            i
+          
+        
+        ,
+        
+          P
+          
+            i
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle O,P_{i},P_{i+1}}
+   this version of the area formula is called triangle form.
+
+Other formulas
+With 
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          x
+          
+            i
+          
+        
+        
+          y
+          
+            i
+            +
+            1
+          
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          x
+          
+            i
+            −
+            1
+          
+        
+        
+          y
+          
+            i
+          
+        
+         
+      
+    
+    {\textstyle \sum _{i=1}^{n}x_{i}y_{i+1}=\sum _{i=1}^{n}x_{i-1}y_{i}\ }
+   (see convention  
+  
+    
+      
+        
+          P
+          
+            0
+          
+        
+        =
+        
+          P
+          
+            n
+          
+        
+        ,
+        
+          P
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          P
+          
+            1
+          
+        
+      
+    
+    {\displaystyle P_{0}=P_{n},P_{n+1}=P_{1}}
+   above) one gets
+
+Combining both sums and excluding 
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}}
+   leads to 
+
+With the identity 
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          x
+          
+            i
+            +
+            1
+          
+        
+        
+          y
+          
+            i
+          
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          x
+          
+            i
+          
+        
+        
+          y
+          
+            i
+            −
+            1
+          
+        
+      
+    
+    {\textstyle \sum _{i=1}^{n}x_{i+1}y_{i}=\sum _{i=1}^{n}x_{i}y_{i-1}}
+   one gets
+
+Alternatively, this is a special case of Green's theorem with one function set to 0 and the other set to x, such that the area is the integral of xdy along the boundary.
+
+Manipulations of a polygon
+A
+        (
+        
+          P
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          P
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle A(P_{1},\dots ,P_{n})}
+   indicates the oriented area of the simple polygon 
+  
+    
+      
+        
+          P
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          P
+          
+            n
+          
+        
+      
+    
+    {\displaystyle P_{1},\dots ,P_{n}}
+   with 
+  
+    
+      
+        n
+        ≥
+        4
+      
+    
+    {\displaystyle n\geq 4}
+   (see above). 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is positive/negative if the orientation of the polygon is positive/negative. From the triangle form of the area formula or the diagram below one observes for 
+  
+    
+      
+        1
+        <
+        k
+        <
+        n
+      
+    
+    {\displaystyle 1<k<n}
+  :
+
+In case of 
+  
+    
+      
+        k
+        =
+        1
+        
+        
+          or
+        
+        
+        n
+      
+    
+    {\displaystyle k=1\;{\text{or}}\;n}
+   one should first shift the indices.
+Hence:
+
+Moving 
+  
+    
+      
+        
+          P
+          
+            k
+          
+        
+      
+    
+    {\displaystyle P_{k}}
+   affects only 
+  
+    
+      
+        A
+        (
+        
+          P
+          
+            k
+            −
+            1
+          
+        
+        ,
+        
+          P
+          
+            k
+          
+        
+        ,
+        
+          P
+          
+            k
+            +
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle A(P_{k-1},P_{k},P_{k+1})}
+   and leaves 
+  
+    
+      
+        A
+        (
+        
+          P
+          
+            1
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          P
+          
+            k
+            −
+            1
+          
+        
+        ,
+        
+          P
+          
+            k
+            +
+            1
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          P
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle A(P_{1},...,P_{k-1},P_{k+1},...,P_{n})}
+   unchanged. There is no change of the area if 
+  
+    
+      
+        
+          P
+          
+            k
+          
+        
+      
+    
+    {\displaystyle P_{k}}
+   is moved parallel to 
+  
+    
+      
+        
+          
+            
+              
+                P
+                
+                  k
+                  −
+                  1
+                
+              
+              
+                P
+                
+                  k
+                  +
+                  1
+                
+              
+            
+            ¯
+          
+        
+      
+    
+    {\displaystyle {\overline {P_{k-1}P_{k+1}}}}
+  .
+Purging 
+  
+    
+      
+        
+          P
+          
+            k
+          
+        
+      
+    
+    {\displaystyle P_{k}}
+   changes the total area by 
+  
+    
+      
+        A
+        (
+        
+          P
+          
+            k
+            −
+            1
+          
+        
+        ,
+        
+          P
+          
+            k
+          
+        
+        ,
+        
+          P
+          
+            k
+            +
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle A(P_{k-1},P_{k},P_{k+1})}
+  , which can be positive or negative.
+Inserting point 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+   between 
+  
+    
+      
+        
+          P
+          
+            k
+          
+        
+        ,
+        
+          P
+          
+            k
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle P_{k},P_{k+1}}
+   changes the total area by 
+  
+    
+      
+        A
+        (
+        
+          P
+          
+            k
+          
+        
+        ,
+        Q
+        ,
+        
+          P
+          
+            k
+            +
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle A(P_{k},Q,P_{k+1})}
+  , which can be positive or negative.Example: 
+
+  
+    
+      
+        
+          P
+          
+            1
+          
+        
+        =
+        (
+        3
+        ,
+        1
+        )
+        ,
+        
+          P
+          
+            2
+          
+        
+        =
+        (
+        7
+        ,
+        2
+        )
+        ,
+        
+          P
+          
+            3
+          
+        
+        =
+        (
+        4
+        ,
+        4
+        )
+        ,
+      
+    
+    {\displaystyle P_{1}=(3,1),P_{2}=(7,2),P_{3}=(4,4),}
+  
+
+  
+    
+      
+        
+          P
+          
+            4
+          
+        
+        =
+        (
+        8
+        ,
+        6
+        )
+        ,
+        
+          P
+          
+            5
+          
+        
+        =
+        (
+        1
+        ,
+        7
+        )
+        ,
+         
+        Q
+        =
+        (
+        4
+        ,
+        3
+        )
+      
+    
+    {\displaystyle P_{4}=(8,6),P_{5}=(1,7),\ Q=(4,3)}
+  With the above notation of the shoelace scheme one gets for the oriented area of the 
+
+blue polygon: 
+green triangle: 
+red triangle: 
+blue polygon minus point 
+  
+    
+      
+        
+          P
+          
+            3
+          
+        
+      
+    
+    {\displaystyle P_{3}}
+  : 
+blue polygon plus point 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+   between 
+  
+    
+      
+        
+          P
+          
+            1
+          
+        
+        ,
+        
+          P
+          
+            2
+          
+        
+      
+    
+    {\displaystyle P_{1},P_{2}}
+  : One checks, that the following equations hold:
+
+Generalization
+In higher dimensions the area of a polygon can be calculated from its vertices using the exterior algebra form of the Shoelace formula (e.g. in 3d, the sum of successive cross products):(when the vertices are not coplanar this computes the vector area enclosed by the loop, i.e. the projected area or "shadow" in the plane in which it is greatest).
+This formulation can also be generalized to calculate the volume of an n-dimensional polytope from the coordinates of its vertices, or more accurately, from its hypersurface mesh. For example, the volume of a 3-dimensional polyhedron can be found by triangulating its surface mesh and summing the signed volumes of the tetrahedra formed by each surface triangle and the origin:where the sum is over the faces and care has to be taken to order the vertices consistently (all clockwise or anticlockwise viewed from outside the polyhedron). Alternatively, an expression in terms of the face areas and surface normals may be derived using the divergence theorem (see Polyhedron § Volume).
+
+See also
+Planimeter
+Polygon area
+Pick's theorem
+Heron's formula
+
+External links
+Mathologer video about Gauss' shoelace formula
+
+
+== References ==

@@ -1,0 +1,323 @@
+Network congestion in data networking and queueing theory is the reduced quality of service that occurs when a network node or link is carrying more data than it can handle. Typical effects include queueing delay, packet loss or the blocking of new connections. A consequence of congestion is that an incremental increase in offered load leads either only to a small increase or even a decrease in network throughput.Network protocols that use aggressive retransmissions to compensate for packet loss due to congestion can increase congestion, even after the initial load has been reduced to a level that would not normally have induced network congestion. Such networks exhibit two stable states under the same level of load. The stable state with low throughput is known as congestive collapse.
+Networks use congestion control and congestion avoidance techniques to try to avoid collapse. These include: exponential backoff in protocols such as CSMA/CA in 802.11 and the similar CSMA/CD in the original Ethernet, window reduction in TCP, and fair queueing in devices such as routers and network switches. Other techniques that address congestion include priority schemes which transmit some packets with higher priority ahead of others and the explicit allocation of network resources to specific flows through the use of admission control.
+
+Network capacity
+Network resources are limited, including router processing time and link throughput. Resource contention may occur on networks in several common circumstances. A wireless LAN is easily filled by a single personal computer. Even on fast computer networks, the backbone can easily be congested by a few servers and client PCs. Denial-of-service attacks by botnets are capable of filling even the largest Internet backbone network links, generating large-scale network congestion. In telephone networks, a mass call event can overwhelm digital telephone circuits, in what can otherwise be defined as a denial-of-service attack.
+
+Congestive collapse
+Congestive collapse (or congestion collapse) is the condition in which congestion prevents or limits useful communication. Congestion collapse generally occurs at choke points in the network, where incoming traffic exceeds outgoing bandwidth. Connection points between a local area network and a wide area network are common choke points. When a network is in this condition, it settles into a stable state where traffic demand is high but little useful throughput is available, during which packet delay and loss occur and quality of service is extremely poor.
+Congestive collapse was identified as a possible problem by 1984. It was first observed on the early Internet in October 1986, when the NSFNET phase-I backbone dropped three orders of magnitude from its capacity of 32 kbit/s to 40 bit/s, which continued until end nodes started implementing Van Jacobson and Sally Floyd's congestion control between 1987 and 1988. When more packets were sent than could be handled by intermediate routers, the intermediate routers discarded many packets, expecting the end points of the network to retransmit the information. However, early TCP implementations had poor retransmission behavior. When this packet loss occurred, the endpoints sent extra packets that repeated the information lost, doubling the incoming rate.
+
+Congestion control
+Congestion control modulates traffic entry into a telecommunications network in order to avoid congestive collapse resulting from oversubscription. This is typically accomplished by reducing the rate of packets. Whereas congestion control prevents senders from overwhelming the network, flow control prevents the sender from overwhelming the receiver.
+
+Theory of congestion control
+The theory of congestion control was pioneered by Frank Kelly, who applied microeconomic theory and convex optimization theory to describe how individuals controlling their own rates can interact to achieve an optimal network-wide rate allocation. Examples of optimal rate allocation are max-min fair allocation and Kelly's suggestion of proportionally fair allocation, although many others are possible.
+Let 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+   be the rate of flow 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  , 
+  
+    
+      
+        
+          c
+          
+            l
+          
+        
+      
+    
+    {\displaystyle c_{l}}
+   be the capacity of link 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+  , and 
+  
+    
+      
+        
+          r
+          
+            l
+            i
+          
+        
+      
+    
+    {\displaystyle r_{li}}
+   be 1 if flow 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   uses link 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   and 0 otherwise. Let 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  , 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   and 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   be the corresponding vectors and matrix. Let 
+  
+    
+      
+        U
+        (
+        x
+        )
+      
+    
+    {\displaystyle U(x)}
+   be an increasing, strictly concave function, called the utility, which measures how much benefit a user obtains by transmitting at rate 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  . The optimal rate allocation then satisfies
+
+  
+    
+      
+        
+          max
+          
+            x
+          
+        
+        
+          ∑
+          
+            i
+          
+        
+        U
+        (
+        
+          x
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle \max \limits _{x}\sum _{i}U(x_{i})}
+  such that 
+  
+    
+      
+        R
+        x
+        ≤
+        c
+      
+    
+    {\displaystyle Rx\leq c}
+  The Lagrange dual of this problem decouples so that each flow sets its own rate, based only on a price signaled by the network. Each link capacity imposes a constraint, which gives rise to a Lagrange multiplier, 
+  
+    
+      
+        
+          p
+          
+            l
+          
+        
+      
+    
+    {\displaystyle p_{l}}
+  . The sum of these multipliers, 
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        =
+        
+          ∑
+          
+            l
+          
+        
+        
+          p
+          
+            l
+          
+        
+        
+          r
+          
+            l
+            i
+          
+        
+        ,
+      
+    
+    {\displaystyle y_{i}=\sum _{l}p_{l}r_{li},}
+   is the price to which the flow responds.
+Congestion control then becomes a distributed optimization algorithm. Many current congestion control algorithms can be modelled in this framework, with 
+  
+    
+      
+        
+          p
+          
+            l
+          
+        
+      
+    
+    {\displaystyle p_{l}}
+   being either the loss probability or the queueing delay at link 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+  . A major weakness is that it assigns the same price to all flows, while sliding window flow control causes burstiness that causes different flows to observe different loss or delay at a given link.
+
+Classification of congestion control algorithms
+Among the ways to classify congestion control algorithms are:
+
+By type and amount of feedback received from the network: Loss; delay; single-bit or multi-bit explicit signals
+By incremental deployability: Only sender needs modification; sender and receiver need modification; only router needs modification; sender, receiver and routers need modification.
+By performance aspect: high bandwidth-delay product networks; lossy links; fairness; advantage to short flows; variable-rate links
+By fairness criterion: Max-min fairness; proportionally fair; controlled delay
+
+Mitigation
+Mechanisms have been invented to prevent network congestion or to deal with a network collapse:
+
+Network scheduler –  active queue management which reorders or selectively drops network packets in the presence of congestion
+Explicit Congestion Notification –  an extension to IP and TCP communications protocols that adds a flow control mechanism
+TCP congestion control –  various implementations of efforts to deal with network congestionThe correct endpoint behavior is usually to repeat dropped information, but progressively slow the repetition rate. Provided all endpoints do this, the congestion lifts and the network resumes normal behavior. Other strategies such as slow start ensure that new connections don't overwhelm the router before congestion detection initiates.
+Common router congestion avoidance mechanisms include fair queuing and other scheduling algorithms, and random early detection (RED) where packets are randomly dropped as congestion is detected. This proactively triggers the endpoints to slow transmission before congestion collapse occurs.
+Some end-to-end protocols are designed to behave well under congested conditions; TCP is a well known example. The first TCP implementations to handle congestion were described in 1984, but Van Jacobson's inclusion of an open source solution in the Berkeley Standard Distribution UNIX ("BSD") in 1988 first provided good behavior.
+UDP does not control congestion. Protocols built atop UDP must handle congestion independently. Protocols that transmit at a fixed rate, independent of congestion, can be problematic. Real-time streaming protocols, including many Voice over IP protocols, have this property. Thus, special measures, such as quality of service, must be taken to keep packets from being dropped in the presence of congestion.
+
+Practical network congestion avoidance
+Connection-oriented protocols, such as the widely used TCP protocol watch for packet loss, or queuing delay to adjust their transmission rate. Various network congestion avoidance processes support different trade-offs.
+
+TCP/IP congestion avoidance
+The TCP congestion avoidance algorithm is the primary basis for congestion control on the Internet.Problems occur when concurrent TCP flows experience tail-drops, especially when bufferbloat is present. This delayed packet loss interferes with TCP's automatic congestion avoidance. All flows that experience this packet loss begin a TCP retrain at the same moment – this is called TCP global synchronization.
+
+Active queue management
+Active queue management (AQM) is the reordering or dropping of network packets inside a transmit buffer that is associated with a network interface controller (NIC). This task is performed by the network scheduler.
+
+Random early detection
+One solution is to use random early detection (RED) on the network equipment's egress queue. On networking hardware ports with more than one egress queue, weighted random early detection (WRED) can be used.
+RED indirectly signals TCP sender and receiver by dropping some packets, e.g. when the average queue length is more than a threshold (e.g. 50%) and deletes linearly or cubically more packets, up to e.g. 100%, as the queue fills further.
+
+Robust random early detection
+The robust random early detection (RRED) algorithm was proposed to improve the TCP throughput against denial-of-service (DoS) attacks, particularly low-rate denial-of-service (LDoS) attacks. Experiments confirmed that RED-like algorithms were vulnerable under LDoS attacks due to the oscillating TCP queue size caused by the attacks.
+
+Flow-based WRED
+Some network equipment is equipped with ports that can follow and measure each flow and are thereby able to signal a too big bandwidth flow according to some quality of service policy. A policy could then divide the bandwidth among all flows by some criteria.
+
+Explicit Congestion Notification
+Another approach is to use Explicit Congestion Notification (ECN). ECN is used only when two hosts signal that they want to use it. With this method, a protocol bit is used to signal explicit congestion. This is better than the indirect congestion notification signaled by packet loss by the RED/WRED algorithms, but it requires support by both hosts.When a router receives a packet marked as ECN-capable and the router anticipates congestion, it sets the ECN flag, notifying the sender of congestion. The sender should respond by decreasing its transmission bandwidth, e.g., by decreasing its sending rate by reducing the TCP window size or by other means.
+
+TCP window shaping
+Congestion avoidance can be achieved efficiently by reducing traffic. When an application requests a large file, graphic or web page, it usually advertises a window of between 32K and 64K. This results in the server sending a full window of data (assuming the file is larger than the window). When many applications simultaneously request downloads, this data can create a congestion point at an upstream provider. By reducing the window advertisement, the remote servers send less data, thus reducing the congestion.
+
+Backward ECN
+Backward ECN (BECN) is another proposed congestion notification mechanism. It uses ICMP source quench messages as an IP signaling mechanism to implement a basic ECN mechanism for IP networks, keeping congestion notifications at the IP level and requiring no negotiation between network endpoints. Effective congestion notifications can be propagated to transport layer protocols, such as TCP and UDP, for the appropriate adjustments.
+
+Side effects of congestive collapse avoidance
+Radio links
+The protocols that avoid congestive collapse generally assume that data loss is caused by congestion. On wired networks, errors during transmission are rare. WiFi, 3G and other networks with a radio layer are susceptible to data loss due to interference and may experience poor throughput in some cases. The TCP connections running over a radio-based physical layer see the data loss and tend to erroneously believe that congestion is occurring.
+
+Short-lived connections
+The slow-start protocol performs badly for short connections. Older web browsers created many short-lived connections and opened and closed the connection for each file. This kept most connections in the slow start mode. Initial performance can be poor, and many connections never get out of the slow-start regime, significantly increasing latency. To avoid this problem, modern browsers either open multiple connections simultaneously or reuse one connection for all files requested from a particular server.
+
+Admission control
+Admission control is any system that requires devices to receive permission before establishing new network connections. If the new connection risks creating congestion, permission can be denied. Examples include Contention-Free Transmission Opportunities (CFTXOPs) in the ITU-T G.hn standard for home networking over legacy wiring, Resource Reservation Protocol for IP networks and Stream Reservation Protocol for Ethernet.
+
+See also
+Bandwidth management – Capacity control on a communications network
+Cascading failure – Systemic risk of failure
+Choke exchange – Telephone exchange designed to handle many simultaneous call attempts
+Erlang (unit) – Load measure in telecommunications
+Sorcerer's Apprentice Syndrome – Network protocol flaw in the original versions of TFTP
+Teletraffic engineering – Application of traffic engineering theory to telecommunications
+Thrashing – Constant exchange between memory and storage
+Traffic shaping – Communication bandwidth management technique
+Reliability (computer networking) – Protocol acknowledgement capability
+
+References
+External links
+Floyd, S. and K. Fall, Promoting the Use of End-to-End Congestion Control in the Internet (IEEE/ACM Transactions on Networking, August 1999)
+Sally Floyd, On the Evolution of End-to-end Congestion Control in the Internet: An Idiosyncratic View (IMA Workshop on Scaling Phenomena in Communication Networks, October 1999) (pdf format)
+Linktionary term: Queuing Archived 2003-03-08 at the Wayback Machine
+Pierre-Francois Quet, Sriram Chellappan, Arjan Durresi, Mukundan Sridharan, Hitay Ozbay, Raj Jain, "Guidelines for optimizing Multi-Level ECN, using fluid flow based TCP model"
+Sally Floyd, Ratul Mahajan, David Wetherall: RED-PD: RED with Preferential Dropping Archived 2003-04-02 at the Wayback Machine
+A Generic Simple RED Simulator for educational purposes by Mehmet Suzen
+Approaches to Congestion Control in Packet Networks
+Papers in Congestion Control
+Random Early Detection Homepage
+Explicit Congestion Notification Homepage
+TFRC Homepage
+AIMD-FC Homepage
+Recent Publications in low-rate denial-of-service (DoS) attacks

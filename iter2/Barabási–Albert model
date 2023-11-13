@@ -1,0 +1,1099 @@
+The Barabási–Albert (BA) model is an algorithm for generating random scale-free networks using a preferential attachment mechanism. Several natural and human-made systems, including the Internet, the World Wide Web, citation networks, and some social networks are thought to be approximately scale-free and certainly contain few nodes (called hubs) with unusually high degree as compared to the other nodes of the network. The BA model tries to explain the existence of such nodes in real networks. The algorithm is named for its inventors Albert-László Barabási and Réka Albert.
+
+Concepts
+Many observed networks (at least approximately) fall into the class of scale-free networks, meaning that they have power-law (or scale-free) degree distributions, while random graph models such as the Erdős–Rényi (ER) model and the Watts–Strogatz (WS) model do not exhibit power laws. The Barabási–Albert model is one of several proposed models that generate scale-free networks.  It incorporates two important general concepts: growth and preferential attachment. Both growth and preferential attachment exist widely in real networks.
+Growth means that the number of nodes in the network increases over time.
+Preferential attachment means that the more connected a node is, the more likely it is to receive new links. Nodes with a higher degree have a stronger ability to grab links added to the network. Intuitively, the preferential attachment can be understood if we think in terms of social networks connecting people. Here a link from A to B means that person A "knows" or "is acquainted with" person B. Heavily linked nodes represent well-known people with lots of relations. When a newcomer enters the community, they are more likely to become acquainted with one of those more visible people rather than with a relative unknown. The BA model was proposed by assuming that in the World Wide Web, new pages link preferentially to hubs, i.e. very well known sites such as Google, rather than to pages that hardly anyone knows. If someone selects a new page to link to by randomly choosing an existing link, the probability of selecting a particular page would be proportional to its degree. The BA model claims that this explains the preferential attachment probability rule.
+Later, the Bianconi–Barabási model works to address this issue by introducing a "fitness" parameter. 
+Preferential attachment is an example of a positive feedback cycle where initially random variations (one node initially having more links or having started accumulating links earlier than another) are automatically reinforced, thus greatly magnifying differences. This is also sometimes called the Matthew effect, "the rich get richer". See also autocatalysis.
+
+Algorithm
+The only parameter in the BA model is 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  , a positive integer. The network initializes with a network of 
+  
+    
+      
+        
+          m
+          
+            0
+          
+        
+        ≥
+        m
+      
+    
+    {\displaystyle m_{0}\geq m}
+   nodes.
+At each step, add one new node, then sample 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   existing vertices from the network, with a probability that is proportional to the number of links that the existing nodes already have (The original papers did not specify how to handle cases where the same existing node is chosen multiple times.). Formally, the probability 
+  
+    
+      
+        
+          p
+          
+            i
+          
+        
+      
+    
+    {\displaystyle p_{i}}
+   that the new node is connected to node 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   is
+
+  
+    
+      
+        
+          p
+          
+            i
+          
+        
+        =
+        
+          
+            
+              k
+              
+                i
+              
+            
+            
+              
+                ∑
+                
+                  j
+                
+              
+              
+                k
+                
+                  j
+                
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle p_{i}={\frac {k_{i}}{\sum _{j}k_{j}}},}
+  where 
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+      
+    
+    {\displaystyle k_{i}}
+   is the degree of node 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   and the sum is made over all pre-existing nodes 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   (i.e. the denominator results in twice the current number of edges in the network). This step can be performed by first uniformly sampling one edge, then sampling one of the two vertices on the edge.
+Heavily linked nodes ("hubs") tend to quickly accumulate even more links, while nodes with only a few links are unlikely to be chosen as the destination for a new link. The new nodes have a "preference" to attach themselves to the already heavily linked nodes.
+
+Properties
+Degree distribution
+The degree distribution resulting from the BA model is scale free, in particular, it is a power law of the form
+
+  
+    
+      
+        P
+        (
+        k
+        )
+        ∼
+        
+          k
+          
+            −
+            3
+          
+        
+        
+      
+    
+    {\displaystyle P(k)\sim k^{-3}\,}
+
+Hirsch index distribution
+The h-index or Hirsch index distribution was shown to also be scale free and was proposed as the lobby index, to be used as a centrality measure
+
+  
+    
+      
+        H
+        (
+        k
+        )
+        ∼
+        
+          k
+          
+            −
+            6
+          
+        
+        
+      
+    
+    {\displaystyle H(k)\sim k^{-6}\,}
+  Furthermore, an analytic result for the density of nodes with h-index 1 can be obtained in the case where 
+  
+    
+      
+        
+          m
+          
+            0
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle m_{0}=1}
+  
+
+  
+    
+      
+        H
+        (
+        1
+        )
+        
+          
+            
+              |
+            
+          
+          
+            
+              m
+              
+                0
+              
+            
+            =
+            1
+          
+        
+        =
+        4
+        −
+        π
+        
+      
+    
+    {\displaystyle H(1){\Big |}_{m_{0}=1}=4-\pi \,}
+
+Node degree correlations
+Correlations between the degrees of connected nodes develop spontaneously in the BA model because of the way the network evolves. The probability, 
+  
+    
+      
+        
+          n
+          
+            k
+            ℓ
+          
+        
+      
+    
+    {\displaystyle n_{k\ell }}
+  , of finding a link that connects a node of degree  
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   to an ancestor node of degree  
+  
+    
+      
+        ℓ
+      
+    
+    {\displaystyle \ell }
+   in the BA model for the special case of 
+  
+    
+      
+        m
+        =
+        1
+      
+    
+    {\displaystyle m=1}
+   (BA tree) is given by
+
+  
+    
+      
+        
+          n
+          
+            k
+            ℓ
+          
+        
+        =
+        
+          
+            
+              4
+              
+                (
+                
+                  ℓ
+                  −
+                  1
+                
+                )
+              
+            
+            
+              k
+              
+                (
+                
+                  k
+                  +
+                  1
+                
+                )
+              
+              
+                (
+                
+                  k
+                  +
+                  ℓ
+                
+                )
+              
+              
+                (
+                
+                  k
+                  +
+                  ℓ
+                  +
+                  1
+                
+                )
+              
+              
+                (
+                
+                  k
+                  +
+                  ℓ
+                  +
+                  2
+                
+                )
+              
+            
+          
+        
+        +
+        
+          
+            
+              12
+              
+                (
+                
+                  ℓ
+                  −
+                  1
+                
+                )
+              
+            
+            
+              k
+              
+                (
+                
+                  k
+                  +
+                  ℓ
+                  −
+                  1
+                
+                )
+              
+              
+                (
+                
+                  k
+                  +
+                  ℓ
+                
+                )
+              
+              
+                (
+                
+                  k
+                  +
+                  ℓ
+                  +
+                  1
+                
+                )
+              
+              
+                (
+                
+                  k
+                  +
+                  ℓ
+                  +
+                  2
+                
+                )
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle n_{k\ell }={\frac {4\left(\ell -1\right)}{k\left(k+1\right)\left(k+\ell \right)\left(k+\ell +1\right)\left(k+\ell +2\right)}}+{\frac {12\left(\ell -1\right)}{k\left(k+\ell -1\right)\left(k+\ell \right)\left(k+\ell +1\right)\left(k+\ell +2\right)}}.}
+  This confirms the existence of degree correlations, because if the distributions were uncorrelated, we would get 
+  
+    
+      
+        
+          n
+          
+            k
+            ℓ
+          
+        
+        =
+        
+          k
+          
+            −
+            3
+          
+        
+        
+          ℓ
+          
+            −
+            3
+          
+        
+      
+    
+    {\displaystyle n_{k\ell }=k^{-3}\ell ^{-3}}
+  .For general 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  , the fraction of links who connect a node of degree 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+     to a node of degree  
+  
+    
+      
+        ℓ
+      
+    
+    {\displaystyle \ell }
+   is
+
+  
+    
+      
+        p
+        (
+        k
+        ,
+        ℓ
+        )
+        =
+        
+          
+            
+              2
+              m
+              (
+              m
+              +
+              1
+              )
+            
+            
+              k
+              (
+              k
+              +
+              1
+              )
+              ℓ
+              (
+              ℓ
+              +
+              1
+              )
+            
+          
+        
+        
+          [
+          
+            1
+            −
+            
+              
+                
+                  
+                    
+                      
+                        (
+                      
+                      
+                        
+                          2
+                          m
+                          +
+                          2
+                        
+                        
+                          m
+                          +
+                          1
+                        
+                      
+                      
+                        )
+                      
+                    
+                  
+                  
+                    
+                      
+                        (
+                      
+                      
+                        
+                          k
+                          +
+                          ℓ
+                          −
+                          2
+                          m
+                        
+                        
+                          ℓ
+                          −
+                          m
+                        
+                      
+                      
+                        )
+                      
+                    
+                  
+                
+                
+                  
+                    (
+                  
+                  
+                    
+                      k
+                      +
+                      ℓ
+                      +
+                      2
+                    
+                    
+                      ℓ
+                      +
+                      1
+                    
+                  
+                  
+                    )
+                  
+                
+              
+            
+          
+          ]
+        
+        .
+      
+    
+    {\displaystyle p(k,\ell )={\frac {2m(m+1)}{k(k+1)\ell (\ell +1)}}\left[1-{\frac {{\binom {2m+2}{m+1}}{\binom {k+\ell -2m}{\ell -m}}}{\binom {k+\ell +2}{\ell +1}}}\right].}
+  Also, the nearest-neighbor degree distribution 
+  
+    
+      
+        p
+        (
+        ℓ
+        ∣
+        k
+        )
+      
+    
+    {\displaystyle p(\ell \mid k)}
+  , that is, the degree distribution of the neighbors of a node with degree 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  , is given by
+
+  
+    
+      
+        p
+        (
+        ℓ
+        ∣
+        k
+        )
+        =
+        
+          
+            
+              m
+              (
+              k
+              +
+              2
+              )
+            
+            
+              k
+              ℓ
+              (
+              ℓ
+              +
+              1
+              )
+            
+          
+        
+        
+          [
+          
+            1
+            −
+            
+              
+                
+                  
+                    
+                      
+                        (
+                      
+                      
+                        
+                          2
+                          m
+                          +
+                          2
+                        
+                        
+                          m
+                          +
+                          1
+                        
+                      
+                      
+                        )
+                      
+                    
+                  
+                  
+                    
+                      
+                        (
+                      
+                      
+                        
+                          k
+                          +
+                          ℓ
+                          −
+                          2
+                          m
+                        
+                        
+                          ℓ
+                          −
+                          m
+                        
+                      
+                      
+                        )
+                      
+                    
+                  
+                
+                
+                  
+                    (
+                  
+                  
+                    
+                      k
+                      +
+                      ℓ
+                      +
+                      2
+                    
+                    
+                      ℓ
+                      +
+                      1
+                    
+                  
+                  
+                    )
+                  
+                
+              
+            
+          
+          ]
+        
+        .
+      
+    
+    {\displaystyle p(\ell \mid k)={\frac {m(k+2)}{k\ell (\ell +1)}}\left[1-{\frac {{\binom {2m+2}{m+1}}{\binom {k+\ell -2m}{\ell -m}}}{\binom {k+\ell +2}{\ell +1}}}\right].}
+  In other words, if we select a node with degree   
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  , and then select one of its neighbors randomly, the probability that this randomly selected neighbor will have degree 
+  
+    
+      
+        ℓ
+      
+    
+    {\displaystyle \ell }
+   is given by the expression 
+  
+    
+      
+        p
+        (
+        ℓ
+        
+          |
+        
+        k
+        )
+      
+    
+    {\displaystyle p(\ell |k)}
+   above.
+
+Clustering coefficient
+An analytical result for the clustering coefficient of the BA model was obtained by Klemm and Eguíluz and proven by Bollobás. A mean-field approach to study the clustering coefficient was applied by Fronczak, Fronczak and Holyst.This behavior is still distinct from the behavior of small-world networks where clustering is independent of system size.
+In the case of hierarchical networks, clustering as a function of node degree also follows a power-law,
+
+  
+    
+      
+        C
+        (
+        k
+        )
+        =
+        
+          k
+          
+            −
+            1
+          
+        
+        .
+        
+      
+    
+    {\displaystyle C(k)=k^{-1}.\,}
+  This result was obtained analytically by  Dorogovtsev, Goltsev and Mendes.
+
+Spectral properties
+The spectral density of BA model has a different shape from the semicircular spectral density of random graph. It has a triangle-like shape with the top lying well above the semicircle and edges decaying as a power law. In  (Section 5.1), it was proved that the shape of this spectral density is not an exact triangular function by analyzing the moments of the spectral density as a function of the power-law exponent.
+
+Dynamic scaling
+By definition, the BA model describes a time developing phenomenon and hence, besides its scale-free property, one could also look for its dynamic scaling property.
+In the BA network nodes can also be characterized by generalized degree 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+  , the product
+of the square root of the birth time of each node and their corresponding degree 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  , instead
+of the degree 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   alone since the time of birth matters in the BA network. We find that the
+generalized degree distribution 
+  
+    
+      
+        F
+        (
+        q
+        ,
+        t
+        )
+      
+    
+    {\displaystyle F(q,t)}
+   has some non-trivial features and exhibits dynamic scaling
+
+  
+    
+      
+        F
+        (
+        q
+        ,
+        t
+        )
+        ∼
+        
+          t
+          
+            −
+            1
+            
+              /
+            
+            2
+          
+        
+        ϕ
+        (
+        q
+        
+          /
+        
+        
+          t
+          
+            1
+            
+              /
+            
+            2
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle F(q,t)\sim t^{-1/2}\phi (q/t^{1/2}).}
+  It implies that the distinct plots of 
+  
+    
+      
+        F
+        (
+        q
+        ,
+        t
+        )
+      
+    
+    {\displaystyle F(q,t)}
+   vs 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   would collapse into a universal curve if we plot 
+  
+    
+      
+        F
+        (
+        q
+        ,
+        t
+        )
+        
+          t
+          
+            1
+            
+              /
+            
+            2
+          
+        
+      
+    
+    {\displaystyle F(q,t)t^{1/2}}
+   vs 
+  
+    
+      
+        q
+        
+          /
+        
+        
+          t
+          
+            1
+            
+              /
+            
+            2
+          
+        
+      
+    
+    {\displaystyle q/t^{1/2}}
+  .
+
+Limiting cases
+Model A
+Model A retains growth but does not include preferential attachment.  The probability of a new node connecting to any pre-existing node is equal. The resulting degree distribution in this limit is geometric, indicating that growth alone is not sufficient to produce a scale-free structure.
+
+Model B
+Model B retains preferential attachment but eliminates growth. The model begins with a fixed number of disconnected nodes and adds links, preferentially choosing high degree nodes as link destinations. Though the degree distribution early in the simulation looks scale-free, the distribution is not stable, and it eventually becomes nearly Gaussian as the network nears saturation.  So preferential attachment alone is not sufficient to produce a scale-free structure.
+The failure of models A and B to lead to a scale-free distribution indicates that growth and preferential attachment are needed simultaneously to reproduce the stationary power-law distribution observed in real networks.
+
+Non-linear preferential attachment
+The BA model can be thought of as a specific case of the more general non-linear preferential attachment (NLPA) model. The NLPA algorithm is identical to the BA model with the attachment probability replaced by the more general form
+
+  
+    
+      
+        
+          p
+          
+            i
+          
+        
+        =
+        
+          
+            
+              k
+              
+                i
+              
+              
+                α
+              
+            
+            
+              
+                ∑
+                
+                  j
+                
+              
+              
+                k
+                
+                  j
+                
+                
+                  α
+                
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle p_{i}={\frac {k_{i}^{\alpha }}{\sum _{j}k_{j}^{\alpha }}},}
+  where 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   is a constant positive exponent. If 
+  
+    
+      
+        α
+        =
+        1
+      
+    
+    {\displaystyle \alpha =1}
+  , NLPA reduces to the BA model and is referred to as "linear". If 
+  
+    
+      
+        0
+        <
+        α
+        <
+        1
+      
+    
+    {\displaystyle 0<\alpha <1}
+  , NLPA is referred to as "sub-linear" and the degree distribution of the network tends to a stretched exponential distribution. If 
+  
+    
+      
+        α
+        >
+        1
+      
+    
+    {\displaystyle \alpha >1}
+  , NLPA is referred to as "super-linear" and a small number of nodes connect to almost all other nodes in the network. For both 
+  
+    
+      
+        α
+        <
+        1
+      
+    
+    {\displaystyle \alpha <1}
+   and 
+  
+    
+      
+        α
+        >
+        1
+      
+    
+    {\displaystyle \alpha >1}
+  , the scale-free property of the network is broken in the limit of infinite system size. However, if 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   is only slightly larger than 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+  , NLPA may result in degree distributions which appear to be transiently scale free.
+
+History
+Preferential attachment made its first appearance in 1923 in the celebrated urn model of the Hungarian mathematician György Pólya in 1923.  The master equation method, which yields a more transparent derivation, was applied to the problem by Herbert A. Simon in 1955 in the course of studies of the sizes of cities and other phenomena. It was first applied to explain citation frequencies by Derek de Solla Price in 1976. Price was interested in the acumulation of citations of scientific papers and the Price model used "cumulative advantage" (his name for preferential attachment) to generate a fat tailed distribution. In the language of modern citations network, Price's model produces a directed network, i.e. the version of the  Barabási-Albert model. The name "preferential attachment" and the present popularity of scale-free network models is due to the work of Albert-László Barabási and Réka Albert, who discovered that a similar process is present in real networks, and applied in 1999 preferential attachment to explain the numerically observed degree distributions on the web.
+
+See also
+Bianconi–Barabási model
+Chinese restaurant process
+Complex networks
+Erdős–Rényi (ER) model
+Price's model
+Percolation theory
+Scale-free network
+Small-world network
+Watts and Strogatz model
+
+References
+External links
+"This Man Could Rule the World"
+"A Java Implementation for Barabási–Albert"
+"Generating Barabási–Albert Model Graphs in Code"

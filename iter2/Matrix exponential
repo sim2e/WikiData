@@ -1,0 +1,1307 @@
+In mathematics, the matrix exponential is a matrix function on square matrices analogous to the ordinary exponential function. It is used to solve systems of linear differential equations. In the theory of Lie groups, the matrix exponential gives the exponential map between a matrix Lie algebra and the corresponding Lie group.
+Let X  be an n×n real or complex matrix. The exponential of X, denoted by eX or exp(X), is the n×n matrix given by the power series
+
+where 
+  
+    
+      
+        
+          X
+          
+            0
+          
+        
+      
+    
+    {\displaystyle X^{0}}
+   is defined to be the identity matrix 
+  
+    
+      
+        I
+      
+    
+    {\displaystyle I}
+   with the same dimensions as 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+  . The series always converges, so the exponential of X is well-defined.
+Equivalently,
+
+where I is the n×n identity matrix. 
+If X is a 1×1 matrix the matrix exponential of X is a 1×1 matrix whose single element is the ordinary exponential of the single element of X.
+
+Properties
+Elementary properties
+Let X and Y  be n×n complex matrices and let a and b be arbitrary complex numbers. We denote the n×n identity matrix by I and the zero matrix by 0. The matrix exponential satisfies the following properties.We begin with the properties that are immediate consequences of the definition as a power series:
+
+e0 = I
+exp(XT) = (exp X)T, where XT denotes the transpose of X.
+exp(X∗) = (exp X)∗, where X∗ denotes the conjugate transpose of X.
+If Y is invertible then eYXY−1 = YeXY−1.The next key result is this one:
+
+If 
+  
+    
+      
+        X
+        Y
+        =
+        Y
+        X
+      
+    
+    {\displaystyle XY=YX}
+   then 
+  
+    
+      
+        
+          e
+          
+            X
+          
+        
+        
+          e
+          
+            Y
+          
+        
+        =
+        
+          e
+          
+            X
+            +
+            Y
+          
+        
+      
+    
+    {\displaystyle e^{X}e^{Y}=e^{X+Y}}
+  .The proof of this identity is the same as the standard power-series argument for the corresponding identity for the exponential of real numbers. That is to say, as long as 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   and 
+  
+    
+      
+        Y
+      
+    
+    {\displaystyle Y}
+   commute, it makes no difference to the argument whether 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   and 
+  
+    
+      
+        Y
+      
+    
+    {\displaystyle Y}
+   are numbers or matrices. It is important to note that this identity typically does not hold if 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   and 
+  
+    
+      
+        Y
+      
+    
+    {\displaystyle Y}
+   do not commute (see Golden-Thompson inequality below).
+Consequences of the preceding identity are the following:
+
+eaXebX = e(a + b)X
+eXe−X = IUsing the above results, we can easily verify the following claims. If X is symmetric then eX is also symmetric, and if X is skew-symmetric then eX is orthogonal. If X is Hermitian then eX is also Hermitian, and if X is skew-Hermitian then eX is unitary.
+Finally, a Laplace transform of matrix exponentials amounts to the resolvent,
+
+for all sufficiently large positive values of s.
+
+Linear differential equation systems
+One of the reasons for the importance of the matrix exponential is that it can be used to solve systems of linear ordinary differential equations. The solution of
+
+where A is a constant matrix, is given by
+
+The matrix exponential can also be used to solve the inhomogeneous equation
+
+See the section on applications below for examples.
+There is no closed-form solution for differential equations of the form
+
+where A is not constant, but the Magnus series gives the solution as an infinite sum.
+
+The determinant of the matrix exponential
+By Jacobi's formula, for any complex square matrix the following trace identity holds:
+
+In addition to providing a computational tool, this formula demonstrates that a matrix exponential is always an invertible matrix. This follows from the fact that the right hand side of the above equation is always non-zero, and so det(eA) ≠ 0, which implies that eA must be invertible.
+In the real-valued case, the formula also exhibits the map
+
+to not be surjective, in contrast to the complex case mentioned earlier. This follows from the fact that, for real-valued matrices, the right-hand side of the formula is always positive, while there exist invertible matrices with a negative determinant.
+
+Real symmetric matrices
+The matrix exponential of a real symmetric matrix is positive definite. Let 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   be an n×n real symmetric matrix and 
+  
+    
+      
+        x
+        ∈
+        
+          
+            R
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x\in \mathbb {R} ^{n}}
+   a column vector. Using the elementary properties of the matrix exponential and of symmetric matrices, we have:
+
+Since 
+  
+    
+      
+        
+          e
+          
+            S
+            
+              /
+            
+            2
+          
+        
+      
+    
+    {\displaystyle e^{S/2}}
+   is invertible, the equality only holds for 
+  
+    
+      
+        x
+        =
+        0
+      
+    
+    {\displaystyle x=0}
+  , and we have 
+  
+    
+      
+        
+          x
+          
+            T
+          
+        
+        
+          e
+          
+            S
+          
+        
+        x
+        >
+        0
+      
+    
+    {\displaystyle x^{T}e^{S}x>0}
+   for all non-zero 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  . Hence 
+  
+    
+      
+        
+          e
+          
+            S
+          
+        
+      
+    
+    {\displaystyle e^{S}}
+   is positive definite.
+
+The exponential of sums
+For any real numbers (scalars) x and y we know that the exponential function satisfies ex+y = ex ey. The same is true for commuting matrices.  If matrices X and Y commute (meaning that XY = YX), then,
+
+However, for matrices that do not commute the above equality does not necessarily hold.
+
+The Lie product formula
+Even if X and Y do not commute, the exponential eX + Y can be computed by the Lie product formula
+Using a large finite k to approximate the above is basis of the Suzuki-Trotter expansion, often used in numerical time evolution.
+
+The Baker–Campbell–Hausdorff formula
+In the other direction, if X and Y are sufficiently small (but not necessarily commuting) matrices, we have
+
+where Z may be computed as a series in commutators of X and Y by means of the Baker–Campbell–Hausdorff formula:
+where the remaining terms are all iterated commutators involving X and Y. If X and Y commute, then all the commutators are zero and we have simply Z = X + Y.
+
+Inequalities for exponentials of Hermitian matrices
+For Hermitian matrices there is a notable theorem related to the trace of matrix exponentials.
+If A and B are Hermitian matrices, then
+There is no requirement of commutativity.  There are counterexamples to show that the Golden–Thompson inequality cannot be extended to three matrices – and, in any event, tr(exp(A)exp(B)exp(C)) is not guaranteed to be real for Hermitian A, B, C.  However, Lieb proved that it can be generalized to three matrices if we modify the expression as follows
+
+The exponential map
+The exponential of a matrix is always an invertible matrix. The inverse matrix of eX is given by e−X. This is analogous to the fact that the exponential of a complex number is always nonzero. The matrix exponential then gives us a map
+
+from the space of all n×n matrices to the general linear group of degree n, i.e. the group of all n×n invertible matrices. In fact, this map is surjective which means that every invertible matrix can be written as the exponential of some other matrix (for this, it is essential to consider the field C of complex numbers and not R).
+For any two matrices X and Y,
+
+where ‖ · ‖ denotes an arbitrary matrix norm. It follows that the exponential map is continuous and Lipschitz continuous on compact subsets of Mn(C).
+The map
+
+defines a smooth curve in the general linear group which passes through the identity element at t = 0.
+In fact, this gives a one-parameter subgroup of the general linear group since
+
+The derivative of this curve (or tangent vector) at a point t is given by
+
+The derivative at t = 0 is just the matrix X, which is to say that X generates this one-parameter subgroup.
+More generally, for a generic t-dependent exponent, X(t),
+
+Taking the above expression eX(t) outside the integral sign and expanding the integrand with the help of the Hadamard lemma one can obtain the following useful expression for the derivative of the matrix exponent,
+The coefficients in the expression above are different from what appears in the exponential. For a closed form, see derivative of the exponential map.
+
+Directional derivatives when restricted to Hermitian matrices
+Let 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   be a 
+  
+    
+      
+        n
+        ×
+        n
+      
+    
+    {\displaystyle n\times n}
+   Hermitian matrix with distinct eigenvalues. Let 
+  
+    
+      
+        X
+        =
+        E
+        
+          
+            diag
+          
+        
+        (
+        Λ
+        )
+        
+          E
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle X=E{\textrm {diag}}(\Lambda )E^{*}}
+   be its eigen-decomposition where 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   is a unitary matrix whose columns are the eigenvectors of 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+  , 
+  
+    
+      
+        
+          E
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle E^{*}}
+   is its conjugate transpose, and 
+  
+    
+      
+        Λ
+        =
+        
+          (
+          
+            
+              λ
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              λ
+              
+                n
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \Lambda =\left(\lambda _{1},\ldots ,\lambda _{n}\right)}
+   the vector of corresponding eigenvalues. Then, for any 
+  
+    
+      
+        n
+        ×
+        n
+      
+    
+    {\displaystyle n\times n}
+   Hermitian matrix 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  , the directional derivative of 
+  
+    
+      
+        exp
+        :
+        X
+        →
+        
+          e
+          
+            X
+          
+        
+      
+    
+    {\displaystyle \exp :X\to e^{X}}
+   at 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   in the direction 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   is
+
+where 
+  
+    
+      
+        
+          
+            
+              V
+              ¯
+            
+          
+        
+        =
+        
+          E
+          
+            ∗
+          
+        
+        V
+        E
+      
+    
+    {\displaystyle {\bar {V}}=E^{*}VE}
+  , the operator 
+  
+    
+      
+        ⊙
+      
+    
+    {\displaystyle \odot }
+   denotes the Hadamard product, and, for all 
+  
+    
+      
+        1
+        ≤
+        i
+        ,
+        j
+        ≤
+        n
+      
+    
+    {\displaystyle 1\leq i,j\leq n}
+  , the matrix 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   is defined as
+
+In addition, for any 
+  
+    
+      
+        n
+        ×
+        n
+      
+    
+    {\displaystyle n\times n}
+   Hermitian matrix 
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+  , the second directional derivative in directions  
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+   and 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   is
+where the matrix-valued function 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+   is defined, for all 
+  
+    
+      
+        1
+        ≤
+        i
+        ,
+        j
+        ≤
+        n
+      
+    
+    {\displaystyle 1\leq i,j\leq n}
+  , as
+
+with
+
+Computing the matrix exponential
+Finding reliable and accurate methods to compute the matrix exponential is difficult, and this is still a topic of considerable current research in mathematics and numerical analysis. Matlab, GNU Octave, R, and SciPy all use the Padé approximant. In this section, we discuss methods that are applicable in principle to any matrix, and which can be carried out explicitly for small matrices. Subsequent sections describe methods suitable for numerical evaluation on large matrices.
+
+Diagonalizable case
+If a matrix is diagonal:
+
+then its exponential can be obtained by exponentiating each entry on the main diagonal:
+
+This result also allows one to exponentiate diagonalizable matrices. If
+
+and D is diagonal, then
+
+Application of Sylvester's formula yields the same result.  (To see this, note that addition and multiplication, hence also exponentiation, of diagonal matrices is equivalent to element-wise addition and multiplication, and hence exponentiation; in particular, the "one-dimensional" exponentiation is felt element-wise for the diagonal case.)
+
+Example : Diagonalizable
+For example, the matrix
+
+can be diagonalized as
+
+Thus,
+
+Nilpotent case
+A matrix N is nilpotent if Nq = 0 for some integer q. In this case, the matrix exponential eN can be computed directly from the series expansion, as the series terminates after a finite number of terms:
+
+Since the series has a finite number of steps, it is a matrix polynomial, which can be computed efficiently.
+
+General case
+Using the Jordan–Chevalley decomposition
+By the Jordan–Chevalley decomposition, any 
+  
+    
+      
+        n
+        ×
+        n
+      
+    
+    {\displaystyle n\times n}
+   matrix X with complex entries can be expressed as
+
+where
+
+A is diagonalizable
+N is nilpotent
+A commutes with NThis means that we can compute the exponential of X by reducing to the previous two cases:
+
+Note that we need the commutativity of A and N for the last step to work.
+
+Using the Jordan canonical form
+A closely related method is, if the field is algebraically closed, to work with the Jordan form of X. Suppose that X = PJP−1 where J is the Jordan form of X. Then
+
+Also, since
+
+Therefore, we need only know how to compute the matrix exponential of a Jordan block. But each Jordan block is of the form
+
+where N is a special nilpotent matrix. The matrix exponential of J is then given by
+
+Projection case
+If P is a projection matrix (i.e. is idempotent: P2 = P), its matrix exponential is:
+
+Deriving this by expansion of the exponential function, each power of P reduces to P which becomes a common factor of the sum:
+
+Rotation case
+For a simple rotation in which the perpendicular unit vectors a and b specify a plane, the rotation matrix R can be expressed in terms of a similar exponential function involving a generator G and angle θ.
+
+The formula for the exponential results from reducing the powers of G in the series expansion and identifying the respective series coefficients of G2 and G with −cos(θ) and sin(θ) respectively. The second expression here for eGθ is the same as the expression for R(θ) in the article containing the derivation of the generator, R(θ) = eGθ.
+In two dimensions, if 
+  
+    
+      
+        a
+        =
+        
+          [
+          
+            
+              
+                
+                  
+                    1
+                  
+                
+                
+                  
+                    0
+                  
+                
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle a=\left[{\begin{smallmatrix}1\\0\end{smallmatrix}}\right]}
+   and 
+  
+    
+      
+        b
+        =
+        
+          [
+          
+            
+              
+                
+                  
+                    0
+                  
+                
+                
+                  
+                    1
+                  
+                
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle b=\left[{\begin{smallmatrix}0\\1\end{smallmatrix}}\right]}
+  , then 
+  
+    
+      
+        G
+        =
+        
+          [
+          
+            
+              
+                
+                  
+                    0
+                  
+                  
+                    −
+                    1
+                  
+                
+                
+                  
+                    1
+                  
+                  
+                    0
+                  
+                
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle G=\left[{\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}}\right]}
+  , 
+  
+    
+      
+        
+          G
+          
+            2
+          
+        
+        =
+        
+          [
+          
+            
+              
+                
+                  
+                    −
+                    1
+                  
+                  
+                    0
+                  
+                
+                
+                  
+                    0
+                  
+                  
+                    −
+                    1
+                  
+                
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle G^{2}=\left[{\begin{smallmatrix}-1&0\\0&-1\end{smallmatrix}}\right]}
+  , and
+
+reduces to the standard matrix for a plane rotation.
+The matrix P = −G2 projects a vector onto the ab-plane and the rotation only affects this part of the vector. An example illustrating this is a rotation of 30° = π/6 in the plane spanned by a and b,
+
+Let N = I - P, so N2 = N and its products with P and G are zero. This will allow us to evaluate powers of R.
+
+Evaluation by Laurent series
+By virtue of the Cayley–Hamilton theorem the matrix exponential is expressible as a polynomial of order n−1.
+If P and Qt are nonzero polynomials in one variable, such that P(A) = 0, and if the meromorphic function
+
+is entire, then
+
+To prove this, multiply the first of the two above equalities by P(z) and replace z by A.
+Such a polynomial Qt(z) can be found as follows−see Sylvester's formula. Letting a be a root of P, Qa,t(z) is solved from the product of P by the principal part of the Laurent series of f at a: It is proportional to the relevant Frobenius covariant. Then the sum St of the Qa,t, where a runs over all the roots of P, can be taken as a particular Qt. All the other Qt will be obtained by adding a multiple of P to St(z). In particular, St(z), the Lagrange-Sylvester polynomial, is the only Qt whose degree is less than that of P.
+Example: Consider the case of an arbitrary 2×2 matrix,
+
+The exponential matrix etA, by virtue of the Cayley–Hamilton theorem, must be of the form
+
+(For any complex number z and any C-algebra B, we denote again by z the product of z by the unit of B.)
+Let α and β be the roots of the characteristic polynomial of A,
+
+Then we have
+
+hence
+
+if α ≠ β; while, if α = β,
+
+so that
+
+Defining
+
+we have
+
+where sin(qt)/q is 0 if t = 0, and t if q = 0.
+Thus,
+
+Thus, as indicated above, the matrix A having decomposed into the sum of two mutually commuting pieces, the traceful piece and the traceless piece,
+
+the matrix exponential reduces to a plain product of the exponentials of the two respective pieces. This is a formula often used in physics, as it amounts to the analog of Euler's formula for Pauli spin matrices, that is rotations of the doublet representation of the group SU(2).
+The polynomial St can also be given the following "interpolation" characterization. Define et(z) ≡ etz, and n ≡ deg P. Then St(z) is the unique degree < n polynomial which satisfies St(k)(a) = et(k)(a) whenever k is less than the multiplicity of a as a root of P. We assume, as we obviously can, that P is the minimal polynomial of A. We further assume that A is a diagonalizable matrix. In particular, the roots of P are simple, and the "interpolation" characterization indicates that St is given by the Lagrange interpolation formula, so it is the Lagrange−Sylvester polynomial.
+At the other extreme, if P = (z - a)n, then
+
+The simplest case not covered by the above observations is when 
+  
+    
+      
+        P
+        =
+        (
+        z
+        −
+        a
+        
+          )
+          
+            2
+          
+        
+        
+        (
+        z
+        −
+        b
+        )
+      
+    
+    {\displaystyle P=(z-a)^{2}\,(z-b)}
+   with a ≠ b, which yields
+
+Evaluation by implementation of Sylvester's formula
+A practical, expedited computation of the above reduces to the following rapid steps. Recall from above that an n×n matrix exp(tA) amounts to a linear combination of the first n−1 powers of A by the Cayley–Hamilton theorem. For diagonalizable matrices, as illustrated above, e.g. in the 2×2 case, Sylvester's formula yields exp(tA) = Bα exp(tα) + Bβ exp(tβ), where the Bs are the Frobenius covariants of A.
+It is easiest, however, to simply solve for these Bs directly, by evaluating this expression and its first derivative at t = 0, in terms of A and I, to find the same answer as above.
+But this simple procedure also works for defective matrices, in a generalization due to Buchheim. This is illustrated here for a 4×4 example of a matrix which is not diagonalizable, and the Bs are not projection matrices.
+Consider
+
+with eigenvalues λ1 = 3/4 and λ2 = 1, each with a multiplicity of two.
+Consider the exponential of each eigenvalue multiplied by t, exp(λit). Multiply each exponentiated eigenvalue by the corresponding undetermined coefficient matrix Bi.  If the eigenvalues have an algebraic multiplicity greater than 1, then repeat the process, but now multiplying by an extra factor of t for each repetition, to ensure linear independence.
+(If one eigenvalue had a multiplicity of three, then there would be the three terms: 
+  
+    
+      
+        
+          B
+          
+            
+              i
+              
+                1
+              
+            
+          
+        
+        
+          e
+          
+            
+              λ
+              
+                i
+              
+            
+            t
+          
+        
+        ,
+         
+        
+          B
+          
+            
+              i
+              
+                2
+              
+            
+          
+        
+        t
+        
+          e
+          
+            
+              λ
+              
+                i
+              
+            
+            t
+          
+        
+        ,
+         
+        
+          B
+          
+            
+              i
+              
+                3
+              
+            
+          
+        
+        
+          t
+          
+            2
+          
+        
+        
+          e
+          
+            
+              λ
+              
+                i
+              
+            
+            t
+          
+        
+      
+    
+    {\displaystyle B_{i_{1}}e^{\lambda _{i}t},~B_{i_{2}}te^{\lambda _{i}t},~B_{i_{3}}t^{2}e^{\lambda _{i}t}}
+  . By contrast, when all eigenvalues are distinct, the Bs are just the Frobenius covariants, and solving for them as below just amounts to the inversion of the Vandermonde matrix of these 4 eigenvalues.)
+Sum all such terms, here four such,
+
+To solve for all of the unknown matrices B in terms of the first three powers of A and the identity, one needs four equations, the above one providing one such at t = 0. Further, differentiate it with respect to t,
+
+and again,
+
+and once more,
+
+(In the general case, n−1 derivatives need be taken.)
+Setting t = 0 in these four equations, the four coefficient matrices Bs may now be solved for,
+
+to yield
+
+Substituting with the value for A yields the coefficient matrices
+
+so the final answer is
+
+The procedure is much shorter than Putzer's algorithm sometimes utilized in such cases.
+
+Illustrations
+Suppose that we want to compute the exponential of
+
+Its Jordan form is
+
+where the matrix P is given by
+
+Let us first calculate exp(J). We have
+
+The exponential of a 1×1 matrix is just the exponential of the one entry of the matrix, so exp(J1(4)) = [e4]. The exponential of J2(16) can be calculated by the formula e(λI + N) = eλ eN mentioned above; this yields
+Therefore, the exponential of the original matrix B is
+
+Applications
+Linear differential equations
+The matrix exponential has applications to systems of linear differential equations.  (See also matrix differential equation.)  Recall from earlier in this article that a homogeneous differential equation of the form
+
+has solution eAt y(0).
+If we consider the vector
+
+we can express a system of inhomogeneous coupled linear differential equations as
+
+Making an ansatz to use an integrating factor of e−At and multiplying throughout, yields
+
+The second step is possible due to the fact that, if AB = BA, then eAtB = BeAt. So, calculating eAt leads to the solution to the system, by simply integrating the third step with respect to t.
+A solution to this can be obtained by integrating and multiplying by 
+  
+    
+      
+        
+          e
+          
+            
+              
+                A
+              
+            
+            t
+          
+        
+      
+    
+    {\displaystyle e^{{\textbf {A}}t}}
+   to eliminate the exponent in the LHS. Notice that while 
+  
+    
+      
+        
+          e
+          
+            
+              
+                A
+              
+            
+            t
+          
+        
+      
+    
+    {\displaystyle e^{{\textbf {A}}t}}
+   is a matrix, given that it is a matrix exponential, we can say that 
+  
+    
+      
+        
+          e
+          
+            
+              
+                A
+              
+            
+            t
+          
+        
+        
+          e
+          
+            −
+            
+              
+                A
+              
+            
+            t
+          
+        
+        =
+        I
+      
+    
+    {\displaystyle e^{{\textbf {A}}t}e^{-{\textbf {A}}t}=I}
+  . In other words, 
+  
+    
+      
+        exp
+        ⁡
+        
+          
+            
+              A
+            
+          
+          t
+        
+        =
+        exp
+        ⁡
+        
+          
+            
+              (
+              −
+              
+                
+                  A
+                
+              
+              t
+              )
+            
+            
+              −
+              1
+            
+          
+        
+      
+    
+    {\displaystyle \exp {{\textbf {A}}t}=\exp {{(-{\textbf {A}}t)}^{-1}}}
+  .
+
+Example (homogeneous)
+Consider the system
+
+The associated defective matrix is
+
+The matrix exponential is
+
+so that the general solution of the homogeneous system is
+
+amounting to
+
+Example (inhomogeneous)
+Consider now the inhomogeneous system
+
+We again have
+
+and
+
+From before, we already have the general solution to the homogeneous equation. Since the sum of the homogeneous and particular solutions give the general solution to the inhomogeneous problem, we now only need find the particular solution.
+We have, by above,
+
+which could be further simplified to get the requisite particular solution determined through variation of parameters.
+Note c = yp(0). For more rigor, see the following generalization.
+
+Inhomogeneous case generalization:  variation of parameters
+For the inhomogeneous case, we can use integrating factors (a method akin to variation of parameters). We seek a particular solution of the form yp(t) = exp(tA) z(t),
+
+For yp to be a solution,
+
+Thus,
+
+where c is determined by the initial conditions of the problem.
+More precisely, consider the equation
+
+with the initial condition Y(t0) = Y0, where
+
+A is an n by n complex matrix,
+F is a continuous function from some open interval I to Cn,
+
+  
+    
+      
+        
+          t
+          
+            0
+          
+        
+      
+    
+    {\displaystyle t_{0}}
+   is a point of I, and
+
+  
+    
+      
+        
+          Y
+          
+            0
+          
+        
+      
+    
+    {\displaystyle Y_{0}}
+   is a vector of Cn.Left-multiplying the above displayed equality by e−tA yields
+
+We claim that the solution to the equation
+
+with the initial conditions 
+  
+    
+      
+        
+          y
+          
+            (
+            k
+            )
+          
+        
+        (
+        
+          t
+          
+            0
+          
+        
+        )
+        =
+        
+          y
+          
+            k
+          
+        
+      
+    
+    {\displaystyle y^{(k)}(t_{0})=y_{k}}
+   for 0 ≤ k < n is
+
+where the notation is as follows:
+
+  
+    
+      
+        P
+        ∈
+        
+          C
+        
+        [
+        X
+        ]
+      
+    
+    {\displaystyle P\in \mathbb {C} [X]}
+   is a monic polynomial of degree n > 0,
+f is a continuous complex valued function defined on some open interval I,
+
+  
+    
+      
+        
+          t
+          
+            0
+          
+        
+      
+    
+    {\displaystyle t_{0}}
+   is a point of I,
+
+  
+    
+      
+        
+          y
+          
+            k
+          
+        
+      
+    
+    {\displaystyle y_{k}}
+   is a complex number, andsk(t)  is the coefficient of 
+  
+    
+      
+        
+          X
+          
+            k
+          
+        
+      
+    
+    {\displaystyle X^{k}}
+   in the polynomial denoted by 
+  
+    
+      
+        
+          S
+          
+            t
+          
+        
+        ∈
+        
+          C
+        
+        [
+        X
+        ]
+      
+    
+    {\displaystyle S_{t}\in \mathbb {C} [X]}
+   in Subsection Evaluation by Laurent series above.
+To justify this claim, we transform our order n scalar equation into an order one vector equation by the usual reduction to a first order system. Our vector equation takes the form
+
+where A is the transpose companion matrix of P. We solve this equation as explained above, computing the matrix exponentials by the observation made in Subsection Evaluation by implementation of Sylvester's formula above.
+In the case n = 2 we get the following statement. The solution to
+
+is
+
+where the functions s0  and s1 are as in Subsection Evaluation by Laurent series above.
+
+Matrix-matrix exponentials
+The matrix exponential of another matrix (matrix-matrix exponential), is defined as
+
+for any normal and non-singular n×n matrix X, and any complex n×n matrix Y.
+For matrix-matrix exponentials, there is a distinction between the left exponential YX and the right exponential XY, because the multiplication operator for matrix-to-matrix is not commutative. Moreover,
+
+If X is normal and non-singular, then XY and YX have the same set of eigenvalues.
+If X is normal and non-singular, Y is normal, and XY = YX, then XY = YX.
+If X is normal and non-singular, and X, Y, Z commute with each other, then XY+Z = XY·XZ and Y+ZX = YX·ZX.
+
+See also
+References
+Hall, Brian C. (2015), Lie groups, Lie algebras, and representations: An elementary introduction, Graduate Texts in Mathematics, vol. 222 (2nd ed.), Springer, ISBN 978-3-319-13466-6
+Horn, Roger A.; Johnson, Charles R. (1991). Topics in Matrix Analysis. Cambridge University Press. ISBN 978-0-521-46713-1..
+Moler, Cleve; Van Loan, Charles F. (2003). "Nineteen Dubious Ways to Compute the Exponential of a Matrix, Twenty-Five Years Later" (PDF). SIAM Review. 45 (1): 3–49. Bibcode:2003SIAMR..45....3M. CiteSeerX 10.1.1.129.9283. doi:10.1137/S00361445024180. ISSN 1095-7200..
+Suzuki, Masuo (1985). "Decomposition formulas of exponential operators and Lie exponentials with some applications to quantum mechanics and statistical physics". Journal of Mathematical Physics. 26 (4): 601–612. Bibcode:1985JMP....26..601S. doi:10.1063/1.526596.
+Curtright, T L; Fairlie, D B; Zachos, C K (2014). "A compact formula for rotations as spin matrix polynomials". Symmetry, Integrability and Geometry: Methods and Applications. 10: 084. arXiv:1402.3541. Bibcode:2014SIGMA..10..084C. doi:10.3842/SIGMA.2014.084. S2CID 18776942.
+Householder, Alston S. (2006). The Theory of Matrices in Numerical Analysis. Dover Books on Mathematics. ISBN 978-0-486-44972-2.
+Van Kortryk, T. S. (2016). "Matrix exponentials, SU(N) group elements, and real polynomial roots". Journal of Mathematical Physics. 57 (2): 021701. arXiv:1508.05859. Bibcode:2016JMP....57b1701V. doi:10.1063/1.4938418. S2CID 119647937.
+
+External links
+Weisstein, Eric W. "Matrix Exponential". MathWorld.

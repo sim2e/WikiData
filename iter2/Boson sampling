@@ -1,0 +1,1806 @@
+Boson sampling is a restricted model of non-universal quantum computation introduced by Scott Aaronson and Alex Arkhipov after the original work of Lidror Troyansky and Naftali Tishby, that explored possible usage of boson scattering to evaluate expectation values of permanents of matrices. The model consists of sampling from the probability distribution of identical bosons scattered by a linear interferometer. Although the problem is well defined for any bosonic particles, its photonic version is currently considered as the most promising platform for a scalable implementation of a boson sampling device, which makes it a non-universal approach to linear optical quantum computing. Moreover, while not universal, the boson sampling scheme is strongly believed to implement computing tasks which are hard to implement with classical computers by using far fewer physical resources than a full linear-optical quantum computing setup. This advantage makes it an ideal candidate for demonstrating the power of quantum computation in the near term.
+
+Description
+Consider a multimode linear-optical circuit of N modes that is injected with M indistinguishable single photons (N>M). Then, the photonic implementation of the boson sampling task consists of generating a sample from the probability distribution of single-photon measurements at the output of the circuit. Specifically, this requires reliable sources of single photons (currently the most widely used ones are parametric down-conversion crystals), as well as a linear interferometer. The latter can be fabricated, e.g., with fused-fiber beam splitters, through silica-on-silicon or laser-written integrated interferometers, or electrically and optically interfaced optical chips.
+Finally, the scheme also necessitates high efficiency single photon-counting detectors, such as those based on  current-biased superconducting nanowires, which perform the measurements at the output of the circuit. Therefore, based on these three ingredients, the boson sampling setup does not require any ancillas, adaptive measurements or entangling operations, as does e.g. the universal optical scheme by Knill, Laflamme and Milburn (the KLM scheme). This makes it a non-universal model of quantum computation, and reduces the amount of physical resources needed for its practical realization.
+Specifically, suppose the linear interferometer is described by an N×N unitary matrix 
+  
+    
+      
+        U
+        ,
+      
+    
+    {\displaystyle U,}
+   which performs a linear transformation of the creation (annihilation) operators 
+  
+    
+      
+        
+          a
+          
+            i
+          
+          
+            †
+          
+        
+      
+    
+    {\displaystyle a_{i}^{\dagger }}
+   
+  
+    
+      
+        (
+        
+          a
+          
+            i
+          
+          
+
+          
+        
+        )
+      
+    
+    {\displaystyle (a_{i}^{})}
+   of the circuit's input modes:
+
+  
+    
+      
+        
+          b
+          
+            j
+          
+          
+            †
+          
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            N
+          
+        
+        
+          U
+          
+            j
+            i
+          
+        
+        
+          a
+          
+            i
+          
+          
+            †
+          
+        
+        
+        
+        (
+        
+          b
+          
+            j
+          
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            N
+          
+        
+        
+          U
+          
+            j
+            i
+          
+          
+            ∗
+          
+        
+        
+          a
+          
+            i
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle b_{j}^{\dagger }=\sum _{i=1}^{N}U_{ji}a_{i}^{\dagger }\;\;(b_{j}=\sum _{i=1}^{N}U_{ji}^{*}a_{i}).}
+  Here i (j) labels the input (output) modes, and 
+  
+    
+      
+        
+          b
+          
+            j
+          
+          
+            †
+          
+        
+      
+    
+    {\displaystyle b_{j}^{\dagger }}
+   
+  
+    
+      
+        (
+        
+          b
+          
+            j
+          
+          
+
+          
+        
+        )
+      
+    
+    {\displaystyle (b_{j}^{})}
+   denotes the creation (annihilation) operators of the output modes (i,j=1,..., N). An interferometer characterized by some unitary 
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+   naturally induces a unitary evolution 
+  
+    
+      
+        
+          φ
+          
+            M
+          
+        
+        (
+        U
+        )
+      
+    
+    {\displaystyle \varphi _{M}(U)}
+   on 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  -photon states. Moreover, the map 
+  
+    
+      
+        
+          φ
+          
+            M
+          
+        
+      
+    
+    {\displaystyle \varphi _{M}}
+   is a homomorphism between 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+  -dimensional unitary matrices, and unitaries acting on the exponentially large Hilbert space of the system: simple counting arguments show that the size of the Hilbert space corresponding to a system of M indistinguishable photons distributed among N modes is given by the binomial coefficient 
+  
+    
+      
+        
+          
+            
+              
+                (
+              
+              
+                
+                  M
+                  +
+                  N
+                  −
+                  1
+                
+                M
+              
+              
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\tbinom {M+N-1}{M}}}
+   (notice that since this homomorphism exists, not all values of 
+  
+    
+      
+        W
+      
+    
+    {\displaystyle W}
+   are possible).
+Suppose the interferometer is injected with an input state of single photons 
+  
+    
+      
+        
+          |
+        
+        
+          ψ
+          
+            in
+          
+        
+        ⟩
+        =
+      
+    
+    {\displaystyle |\psi _{\text{in}}\rangle =}
+  
+  
+    
+      
+        
+          |
+        
+        
+          s
+          
+            1
+          
+        
+        ,
+        
+          s
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          s
+          
+            N
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |s_{1},s_{2},...,s_{N}\rangle }
+   with 
+  
+    
+      
+        
+          ∑
+          
+            k
+            =
+            1
+          
+          
+            N
+          
+        
+        
+          s
+          
+            k
+          
+        
+        =
+        M
+      
+    
+    {\displaystyle \sum _{k=1}^{N}s_{k}=M}
+   
+  
+    
+      
+        (
+        
+          s
+          
+            k
+          
+        
+      
+    
+    {\displaystyle (s_{k}}
+   is the number of photons injected into the kth mode). Then, the state 
+  
+    
+      
+        
+          |
+        
+        
+          ψ
+          
+            out
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\psi _{\text{out}}\rangle }
+   at
+the output of the circuit can be written down as 
+  
+    
+      
+        
+          |
+        
+        
+          ψ
+          
+            out
+          
+        
+        ⟩
+        =
+        
+          φ
+          
+            M
+          
+        
+        (
+        U
+        )
+        
+          |
+        
+        
+          s
+          
+            1
+          
+        
+        ,
+        
+          s
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          s
+          
+            N
+          
+        
+        ⟩
+        .
+      
+    
+    {\displaystyle |\psi _{\text{out}}\rangle =\varphi _{M}(U)|s_{1},s_{2},...,s_{N}\rangle .}
+   A simple way to understand the homomorphism between 
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+   and 
+  
+    
+      
+        
+          φ
+          
+            M
+          
+        
+        (
+        U
+        )
+      
+    
+    {\displaystyle \varphi _{M}(U)}
+   is the following :
+We define the isomorphism for the basis states: 
+  
+    
+      
+        
+          P
+          
+            
+              |
+            
+            
+              s
+              
+                1
+              
+            
+            ,
+            
+              s
+              
+                2
+              
+            
+            ,
+            .
+            .
+            .
+            ,
+            
+              s
+              
+                N
+              
+            
+            ⟩
+          
+        
+        (
+      
+    
+    {\displaystyle P_{|s_{1},s_{2},...,s_{N}\rangle }(}
+  x
+  
+    
+      
+        )
+        ≡
+        
+          x
+          
+            1
+          
+          
+            
+              s
+              
+                1
+              
+            
+          
+        
+        
+          ⋅
+        
+        
+          x
+          
+            2
+          
+          
+            
+              s
+              
+                2
+              
+            
+          
+        
+        
+          ⋅
+          ⋅
+          ⋅
+        
+        
+          x
+          
+            N
+          
+          
+            
+              s
+              
+                N
+              
+            
+          
+        
+      
+    
+    {\displaystyle )\equiv x_{1}^{s_{1}}{\cdot }x_{2}^{s_{2}}{\cdot \cdot \cdot }x_{N}^{s_{N}}}
+  ,
+and get the following result : 
+  
+    
+      
+        
+          P
+          
+            
+              φ
+              (
+              U
+              )
+            
+            
+              |
+            
+            
+              s
+              
+                1
+              
+            
+            ,
+            
+              s
+              
+                2
+              
+            
+            ,
+            .
+            .
+            .
+            ,
+            
+              s
+              
+                N
+              
+            
+            ⟩
+          
+        
+        (
+      
+    
+    {\displaystyle P_{{\varphi (U)}|s_{1},s_{2},...,s_{N}\rangle }(}
+  x
+  
+    
+      
+        )
+        =
+        
+          P
+          
+            
+              |
+            
+            
+              s
+              
+                1
+              
+            
+            ,
+            
+              s
+              
+                2
+              
+            
+            ,
+            .
+            .
+            .
+            ,
+            
+              s
+              
+                N
+              
+            
+            ⟩
+          
+        
+        (
+        U
+      
+    
+    {\displaystyle )=P_{|s_{1},s_{2},...,s_{N}\rangle }(U}
+  x
+  
+    
+      
+        )
+      
+    
+    {\displaystyle )}
+  
+Consequently, the probability  
+  
+    
+      
+        p
+        (
+        
+          t
+          
+            1
+          
+        
+        ,
+        
+          t
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          t
+          
+            N
+          
+        
+        )
+      
+    
+    {\displaystyle p(t_{1},t_{2},...,t_{N})}
+   of detecting 
+  
+    
+      
+        
+          t
+          
+            k
+          
+        
+      
+    
+    {\displaystyle t_{k}}
+   photons at the kth output mode is given as
+
+  
+    
+      
+        p
+        (
+        
+          t
+          
+            1
+          
+        
+        ,
+        
+          t
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          t
+          
+            N
+          
+        
+        )
+        =
+        
+          |
+        
+        ⟨
+        
+          t
+          
+            1
+          
+        
+        ,
+        
+          t
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          t
+          
+            N
+          
+        
+        
+          |
+        
+        
+          ψ
+          
+            out
+          
+        
+        ⟩
+        
+          
+            |
+          
+          
+            2
+          
+        
+        =
+        
+          
+            
+              
+                |
+              
+              
+                Perm
+              
+              
+              
+                U
+                
+                  S
+                  ,
+                  T
+                
+              
+              
+                
+                  |
+                
+                
+                  2
+                
+              
+            
+            
+              
+                t
+                
+                  1
+                
+              
+              !
+              ⋅
+              ⋅
+              ⋅
+              
+                t
+                
+                  N
+                
+              
+              !
+              
+                s
+                
+                  1
+                
+              
+              !
+              ⋅
+              ⋅
+              ⋅
+              
+                s
+                
+                  N
+                
+              
+              !
+            
+          
+        
+        .
+      
+    
+    {\displaystyle p(t_{1},t_{2},...,t_{N})=|\langle t_{1},t_{2},...,t_{N}|\psi _{\text{out}}\rangle |^{2}={\frac {|{\text{Perm}}\,U_{S,T}|^{2}}{t_{1}!\cdot \cdot \cdot t_{N}!s_{1}!\cdot \cdot \cdot s_{N}!}}.}
+  In the above expression 
+  
+    
+      
+        
+          Perm
+        
+        
+        
+          U
+          
+            S
+            ,
+            T
+          
+        
+      
+    
+    {\displaystyle {\text{Perm}}\,U_{S,T}}
+   stands for the permanent of the matrix 
+  
+    
+      
+        
+          U
+          
+            S
+            ,
+            T
+          
+        
+        ,
+      
+    
+    {\displaystyle U_{S,T},}
+   which is obtained from the unitary 
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+   by repeating 
+  
+    
+      
+        
+          s
+          
+            i
+          
+        
+      
+    
+    {\displaystyle s_{i}}
+   times its ith column and 
+  
+    
+      
+        
+          t
+          
+            j
+          
+        
+      
+    
+    {\displaystyle t_{j}}
+   times its jth row. Usually, in the context of the boson sampling problem the input state is taken of a standard form, denoted as 
+  
+    
+      
+        
+          |
+        
+        
+          1
+          
+            M
+          
+        
+        ⟩
+        ,
+      
+    
+    {\displaystyle |1_{M}\rangle ,}
+   for which each of the first M modes of the interferometer is injected with a single photon. In this case the above expression reads:
+
+  
+    
+      
+        p
+        (
+        
+          t
+          
+            1
+          
+        
+        ,
+        
+          t
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          t
+          
+            N
+          
+        
+        )
+        =
+        
+          |
+        
+        ⟨
+        
+          t
+          
+            1
+          
+        
+        ,
+        
+          t
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          t
+          
+            N
+          
+        
+        
+          |
+        
+        
+          φ
+          
+            M
+          
+        
+        (
+        U
+        )
+        
+          |
+        
+        
+          1
+          
+            M
+          
+        
+        ⟩
+        
+          
+            |
+          
+          
+            2
+          
+        
+        =
+        
+          
+            
+              
+                |
+              
+              
+                Perm
+              
+              
+              
+                U
+                
+                  T
+                
+              
+              
+                
+                  |
+                
+                
+                  2
+                
+              
+            
+            
+              
+                t
+                
+                  1
+                
+              
+              !
+              ⋅
+              ⋅
+              ⋅
+              
+                t
+                
+                  N
+                
+              
+              !
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle p(t_{1},t_{2},...,t_{N})=|\langle t_{1},t_{2},...,t_{N}|\varphi _{M}(U)|1_{M}\rangle |^{2}={\frac {|{\text{Perm}}\,U_{T}|^{2}}{t_{1}!\cdot \cdot \cdot t_{N}!}},}
+  where the matrix 
+  
+    
+      
+        
+          U
+          
+            T
+          
+        
+      
+    
+    {\displaystyle U_{T}}
+   is obtained from 
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+   by keeping its first M columns and repeating 
+  
+    
+      
+        
+          t
+          
+            j
+          
+        
+      
+    
+    {\displaystyle t_{j}}
+   times its jth row. Subsequently, the task of boson sampling is to sample either exactly or approximately from the above output distribution, given the unitary 
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+   describing the linear-optical circuit as input. As detailed below, the appearance of the permanent in the corresponding statistics of single-photon measurements contributes to the hardness of the boson sampling problem.
+
+Complexity of the problem
+The main reason of the growing interest towards the model of boson sampling is that despite being non-universal it is strongly believed to perform a computational task that is intractable for a classical computer. One of the main reasons behind this is that the probability distribution, which the boson sampling device has to sample from, is related to the permanent of complex matrices. The computation of the permanent is in the general case an extremely hard task: it falls in the #P-hard complexity class. Moreover, its approximation to within multiplicative error is a #P-hard problem as well.
+All current proofs of the hardness of simulating boson sampling on a classical computer rely on the strong computational consequences that its efficient simulation by a classical algorithm would have. Namely, these proofs show that an efficient classical simulation would imply the collapse of the polynomial hierarchy to its third level, a possibility that is considered very unlikely by the computer science community, due to its strong computational implications (in line with the strong implications of P=NP problem).
+
+Exact sampling
+The hardness proof of the exact boson sampling problem can be achieved following two distinct paths. Specifically, the first one uses the tools of the computational complexity theory and combines the following two facts:
+
+Approximating the probability 
+  
+    
+      
+        p
+        (
+        
+          t
+          
+            1
+          
+        
+        ,
+        
+          t
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          t
+          
+            N
+          
+        
+        )
+      
+    
+    {\displaystyle p(t_{1},t_{2},...,t_{N})}
+   of a specific measurement outcome at the output of a linear interferometer to within a multiplicative constant is a #P-hard problem (due to the complexity of the permanent)
+If a polynomial-time classical algorithm for exact boson sampling existed, then the above probability 
+  
+    
+      
+        p
+        (
+        
+          t
+          
+            1
+          
+        
+        ,
+        
+          t
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          t
+          
+            N
+          
+        
+        )
+      
+    
+    {\displaystyle p(t_{1},t_{2},...,t_{N})}
+   could have been approximated to within a multiplicative constant in the BPPNPcomplexity class, i.e. within the third level of the polynomial hierarchyWhen combined these two facts along with Toda's theorem result in the collapse of the polynomial hierarchy, which as mentioned above is highly unlikely to occur. This leads to the conclusion that there is no classical polynomial-time algorithm for the exact boson sampling problem.
+On the other hand, the alternative proof is inspired by a similar result for another restricted model of quantum computation – the model of instantaneous quantum computing.
+Namely, the proof uses the KLM scheme, which says that linear optics with adaptive measurements is universal for the class BQP. It also relies on the following facts:
+
+Linear optics with postselected measurements is universal for PostBQP, i.e. quantum polynomial-time class with postselection (a straightforward corollary of the KLM construction)
+The class PostBQP is equivalent to PP (i.e. the probabilistic polynomial-time class): PostBQP = PP
+The existence of a classical boson sampling algorithm implies the simulability  of postselected linear optics in the PostBPP class (that is, classical polynomial-time with postselection, known also as the class BPPpath)Again, the combination of these three results, as in the previous case, results in the collapse of the polynomial hierarchy. This makes the existence of a classical polynomial-time algorithm for the exact boson sampling problem highly unlikely.
+The best proposed classical algorithm for exact boson sampling runs in time 
+  
+    
+      
+        O
+        (
+        n
+        
+          2
+          
+            n
+          
+        
+        +
+        m
+        
+          n
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle O(n2^{n}+mn^{2})}
+   for a system with n photons and m output modes. This algorithm leads to an estimate of 50 photons required to demonstrate quantum supremacy with boson sampling. There is also an open-source implementation in R.
+
+Approximate sampling
+The above hardness proofs are not applicable to the realistic implementation of a boson sampling device, due to the imperfection of any experimental setup (including the presence of noise, decoherence, photon losses, etc.). Therefore, for practical needs one necessitates the hardness proof for the corresponding approximate task. The latter consists of sampling from a probability distribution that is 
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+   close to the one given by 
+  
+    
+      
+        p
+        (
+        
+          t
+          
+            1
+          
+        
+        ,
+        
+          t
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          t
+          
+            N
+          
+        
+        )
+      
+    
+    {\displaystyle p(t_{1},t_{2},...,t_{N})}
+  , in terms of the total variation distance. The understanding of the complexity of this problem relies then on several additional assumptions, as well as on two yet unproven conjectures.
+Specifically, the proofs of the exact boson sampling problem cannot be directly applied here, since they are based on the #P-hardness of estimating the exponentially-small probability 
+  
+    
+      
+        p
+        (
+        
+          t
+          
+            1
+          
+        
+        ,
+        
+          t
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          t
+          
+            N
+          
+        
+        )
+      
+    
+    {\displaystyle p(t_{1},t_{2},...,t_{N})}
+   of a specific measurement outcome. Thus, if a sampler "knew" which 
+  
+    
+      
+        p
+        (
+        
+          t
+          
+            1
+          
+        
+        ,
+        
+          t
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          t
+          
+            N
+          
+        
+        )
+      
+    
+    {\displaystyle p(t_{1},t_{2},...,t_{N})}
+   we wanted to estimate, then it could adversarially choose to corrupt it (as long as the task is approximate). That is why, the idea is to "hide" the above probability 
+  
+    
+      
+        p
+        (
+        
+          t
+          
+            1
+          
+        
+        ,
+        
+          t
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          t
+          
+            N
+          
+        
+        )
+      
+    
+    {\displaystyle p(t_{1},t_{2},...,t_{N})}
+   into an N×N random unitary matrix. This can be done knowing that any M×M submatrix of a unitary 
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+  , randomly chosen according to the Haar measure, is close in variation distance to a matrix of i.i.d. complex random Gaussian variables, provided that M ≤ N1/6 (Haar random matrices can be directly implemented in optical circuits by mapping independent probability density functions for their parameters, to optical circuit components, i.e., beam splitters and phase shifters). Therefore, if the linear optical circuit implements a Haar random unitary matrix, the adversarial sampler will not be able to detect which of the exponentially
+many probabilities 
+  
+    
+      
+        p
+        (
+        
+          t
+          
+            1
+          
+        
+        ,
+        
+          t
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          t
+          
+            N
+          
+        
+        )
+      
+    
+    {\displaystyle p(t_{1},t_{2},...,t_{N})}
+   we care about, and thus will not be able to avoid its estimation. In this case 
+  
+    
+      
+        p
+        (
+        
+          t
+          
+            1
+          
+        
+        ,
+        
+          t
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          t
+          
+            N
+          
+        
+        )
+      
+    
+    {\displaystyle p(t_{1},t_{2},...,t_{N})}
+   is proportional to the squared absolute value of the permanent of the M×M matrix 
+  
+    
+      
+        X
+        ∼
+        
+          
+            N
+          
+        
+        (
+        0
+        ,
+        1
+        
+          )
+          
+            
+              C
+            
+          
+          
+            M
+            ×
+            M
+          
+        
+      
+    
+    {\displaystyle X\sim {\mathcal {N}}(0,1)_{\mathcal {C}}^{M\times M}}
+   of i.i.d. Gaussians, smuggled inside 
+  
+    
+      
+        U
+        .
+      
+    
+    {\displaystyle U.}
+   These arguments bring us to the first conjecture of the hardness proof of approximate boson sampling problem – the permanent-of-Gaussians conjecture:
+
+Approximating the permanent of a matrix 
+  
+    
+      
+        X
+        ∼
+        
+          
+            N
+          
+        
+        (
+        0
+        ,
+        1
+        
+          )
+          
+            
+              C
+            
+          
+          
+            M
+            ×
+            M
+          
+        
+      
+    
+    {\displaystyle X\sim {\mathcal {N}}(0,1)_{\mathcal {C}}^{M\times M}}
+   of i.i.d. Gaussians to within multiplicative error is a #P-hard task.Moreover, the above conjecture can be linked to the estimation of 
+  
+    
+      
+        
+          |
+        
+        
+          Perm
+        
+        
+        X
+        
+          
+            |
+          
+          
+            2
+          
+        
+        ,
+      
+    
+    {\displaystyle |{\text{Perm}}\,X|^{2},}
+   which the given probability of a specific measurement outcome is proportional to. However to establish this link one has to rely on another conjecture – the permanent anticoncentration conjecture:
+
+There exists a polynomial Q such that for any M and δ>0 the probability over M×M matrices 
+  
+    
+      
+        X
+        ∼
+        
+          
+            N
+          
+        
+        (
+        0
+        ,
+        1
+        
+          )
+          
+            
+              C
+            
+          
+          
+            M
+            ×
+            M
+          
+        
+      
+    
+    {\displaystyle X\sim {\mathcal {N}}(0,1)_{\mathcal {C}}^{M\times M}}
+   of the following inequality to hold is smaller than δ: 
+  
+    
+      
+        
+          |
+        
+        
+        
+          Perm
+        
+        
+        X
+        
+          |
+        
+        <
+        
+          
+            
+              M
+              !
+            
+            
+              Q
+              (
+              M
+              ,
+              1
+              
+                /
+              
+              δ
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle |\,{\text{Perm}}\,X|<{\frac {\sqrt {M!}}{Q(M,1/\delta )}}.}
+  By making use of the above two conjectures (which have several evidences of being true), the final proof eventually states that the existence of a classical polynomial-time algorithm for the approximate boson sampling task implies the collapse of the polynomial hierarchy. It is also worth mentioning another fact important to the proof of this statement, namely the so-called bosonic birthday paradox (in analogy with the well-known birthday paradox). The latter states that if M identical bosons are scattered among N≫M2 modes of a linear interferometer with no two bosons in the same mode, then with high probability two bosons will not be found in the same output mode either. This property has been experimentally observed with two and three photons in integrated interferometers of up to 16 modes. On the one hand this feature facilitates the implementation of a restricted boson sampling device. Namely, if the probability of having more than one photon at the output of a linear optical circuit is negligible, one does not require photon-number-resolving detectors anymore: on-off detectors will be sufficient for the realization of the setup.
+Although the probability 
+  
+    
+      
+        p
+        (
+        
+          t
+          
+            1
+          
+        
+        ,
+        
+          t
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          t
+          
+            N
+          
+        
+        )
+      
+    
+    {\displaystyle p(t_{1},t_{2},...,t_{N})}
+   of a specific measurement outcome at the output of the interferometer is related to the permanent of submatrices of a unitary matrix, a boson sampling machine does not allow its estimation. The main reason behind is that the corresponding detection probability is usually exponentially small. Thus, in order to collect enough statistics to approximate its value, one has to run the quantum experiment for exponentially long time. Therefore, the estimate obtained from a boson sampler is not more efficient that running the classical polynomial-time algorithm by Gurvits for approximating the permanent of any matrix to within additive error.
+
+Variants
+Scattershot boson sampling
+As already mentioned above, for the implementation of a boson sampling machine one necessitates a reliable source of many indistinguishable photons, and this requirement currently remains one of the main difficulties in scaling up the complexity of the device. Namely, despite recent advances in photon generation techniques using atoms, molecules, quantum dots and color centers in diamonds, the most widely used method remains the parametric down-conversion (PDC) mechanism. The main advantages of PDC sources are the high photon indistinguishability, collection efficiency and relatively simple experimental setups. However, one of the drawbacks of this approach is its non-deterministic (heralded) nature. Specifically, suppose the probability of generating a single photon by means of a PDC crystal is ε. Then, the probability of generating simultaneously M single photons is εM, which decreases exponentially with M. In other words, in order to generate the input state for the boson sampling machine, one would have to wait for exponentially long time, which would kill the advantage of the quantum setup over a classical machine. Subsequently, this characteristic restricted the use of PDC sources to proof-of-principle demonstrations of a boson sampling device.
+Recently, however, a new scheme has been proposed to make the best use of PDC sources for the needs of boson sampling, greatly enhancing the rate of M-photon events. This approach has been named scattershot boson sampling, which consists of connecting N (N>M) heralded single-photon sources to different input ports of the linear interferometer. Then, by pumping all N PDC crystals with simultaneous laser pulses, the probability of generating M photons will be given as 
+  
+    
+      
+        
+          
+            
+              
+                (
+              
+              
+                N
+                M
+              
+              
+                )
+              
+            
+          
+        
+        
+          ε
+          
+            M
+          
+        
+        .
+      
+    
+    {\displaystyle {\tbinom {N}{M}}\varepsilon ^{M}.}
+   Therefore, for  N≫M, this results in an exponential improvement in the single photon generation rate with respect to the usual, fixed-input boson sampling with M sources. This setting can also be seen as a problem of sampling N two-mode squeezed vacuum states generated from N PDC sources.
+Scattershot boson sampling is still intractable for a classical computer: in the conventional setup we fixed the columns that defined our M×M submatrix and only varied the rows, whereas now we vary the columns too, depending on which M out of N PDC crystals generated single photons. Therefore, the proof can be constructed here similar to the original one. Furthermore, scattershot boson sampling has been also recently implemented with six photon-pair sources coupled to integrated photonic circuits of nine and thirteen modes, being an important leap towards a convincing experimental demonstration of the quantum computational supremacy. The scattershot boson sampling model can be further generalized to the case where both legs of PDC sources are subject to linear optical transformations (in the original scattershot case, one of the arms is used for heralding, i.e., it goes through the identity channel). Such a twofold scattershot boson sampling model is also computationally hard, as proven by making use of the symmetry of quantum mechanics under time reversal.
+
+Gaussian boson sampling
+Another photonic implementation of boson sampling concerns Gaussian input states, i.e. states whose quasiprobability Wigner distribution function is a Gaussian one. The hardness of the corresponding sampling task can be linked to that of scattershot boson sampling. Namely, the latter can be embedded into the conventional boson sampling setup with Gaussian inputs. For this, one has to generate two-mode entangled Gaussian states and apply a Haar-random unitary 
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+   to their "right halves", while doing nothing to the others. Then we can measure the "left halves" to find out which of the input states contained a photon before we applied 
+  
+    
+      
+        U
+        .
+      
+    
+    {\displaystyle U.}
+   This is precisely equivalent to scattershot boson sampling, except for the fact that our measurement of the herald photons has been deferred till the end of the experiment, instead of happening at the beginning. Therefore, approximate Gaussian boson sampling can be argued to be hard under precisely the same complexity assumption as can approximate ordinary or scattershot boson sampling. Gaussian resources can be employed at the measurement stage, as well. Namely, one can define a boson sampling model, where a linear optical evolution of input single-photon states is concluded by Gaussian measurements (more specifically, by eight-port homodyne detection that projects each output mode onto a squeezed coherent state). Such a model deals with continuous-variable measurement outcome, which, under certain conditions, is a computationally hard task. Finally, a linear optics platform for implementing a boson sampling experiment where input single-photons undergo an active (non-linear) Gaussian transformation is also available. This setting makes use of a set of two-mode squeezed vacuum states as a prior resource, with no need of single-photon sources or in-line nonlinear amplification medium. This variant uses the Hafnian, a generalization of the permanent.
+
+Classically simulable boson sampling tasks
+The above results state that the existence of a polynomial-time classical algorithm for the original boson sampling scheme with indistinguishable single photons (in the exact and approximate cases), for scattershot, as well as for the general Gaussian boson sampling problems is highly unlikely. Nevertheless, there are some non-trivial realizations of the boson sampling problem that allow for its efficient classical simulation. One such example is when the optical circuit is injected with distinguishable single photons. In this case, instead of summing the probability amplitudes corresponding to photonic many-particle paths, one has to sum the corresponding probabilities (i.e. the squared absolute values of the amplitudes). Consequently, the detection probability 
+  
+    
+      
+        p
+        (
+        
+          t
+          
+            1
+          
+        
+        ,
+        
+          t
+          
+            2
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          t
+          
+            N
+          
+        
+        )
+      
+    
+    {\displaystyle p(t_{1},t_{2},...,t_{N})}
+   will be proportional to the permanent of submatrices of (component-wise) squared absolute value of the unitary 
+  
+    
+      
+        U
+        .
+      
+    
+    {\displaystyle U.}
+   The latter is now a non-negative matrix. Therefore, although the exact computation of the corresponding permanent is a #P-complete problem, its approximation can be performed efficiently on a classical computer, due to the seminal algorithm by Jerrum, Sinclaire and Vigoda.
+In other words, approximate boson sampling with distinguishable photons is efficiently classically simulable.
+Another instance of classically simulable boson sampling setups consists of sampling from the probability distribution of coherent states injected into the linear interferometer. The reason is that at the output of a linear optical circuit coherent states remain such, and do not create any quantum entanglement among the modes. More precisely, only their amplitudes are transformed, and the transformation can be efficiently calculated on a classical computer (the computation comprises matrix multiplication). This fact can be used to perform corresponding sampling tasks from another set of states: so-called classical states, whose Glauber-Sudarshan P function is a well-defined probability distribution. These states can be represented as a mixture of coherent states due to the optical equivalence theorem. Therefore, picking random coherent states distributed according to the corresponding P function, one can perform efficient classical simulation of boson sampling from this set of classical states.
+
+Experimental implementations
+The above requirements for the photonic boson sampling machine allow for its small-scale construction by means of existing technologies. Consequently, shortly after the theoretical model was introduced, four different groups
+simultaneously reported its realization.
+Specifically, this included the implementation of boson sampling with:
+
+two and three photons scattered by a six-mode linear unitary transformation (represented by two orthogonal polarizations in 3×3 spatial modes of a fused-fiber beam splitter) by a collaboration between the University of Queensland and MIT
+three photons in different modes of a six-mode silica-on-silicon waveguide circuit, by a collaboration between Universities of Oxford, Shanghai, London and Southampton
+three photons in a femtosecond laser-written five-mode interferometer, by a collaboration between universities of Vienna and Jena
+three photons in a femtosecond laser-written five-mode interferometer implementing a Haar-random unitary transformation, by a collaboration between Milan's Institute of Photonics and Nanotechnology, Universidade Federal Fluminense and Sapienza University of Rome.Later on, more complex boson sampling experiments have been performed, increasing the number of spatial modes of random interferometers up to 13 and 9 modes, and realizing a 6-mode fully reconfigurable integrated circuit.
+These experiments altogether constitute the proof-of-principle demonstrations of an operational boson sampling device, and route towards its larger-scale implementations.
+
+Implementation of scattershot boson sampling
+A first scattershot boson sampling experiment has been recently implemented using six photon-pair sources coupled to integrated photonic circuits with 13 modes. The 6 photon-pair sources were obtained via type-II PDC processes in 3 different nonlinear crystals (exploiting the polarization degree of freedom). This allowed to sample simultaneously between 8 different input states. The 13-mode interferometer was realized by femtosecond laser-writing technique on alumino-borosilicate glas.
+This experimental implementation represents a leap towards an experimental demonstration of the quantum computational supremacy.
+
+Proposals with alternative photonic platform
+There are several other proposals for the implementation of photonic boson sampling. This includes, e.g., the scheme for arbitrarily scalable boson sampling using two nested fiber loops. In this case, the architecture employs time-bin encoding, whereby the incident photons form a pulse train entering the loops. Meanwhile, dynamically controlled loop coupling ratios allow the construction of arbitrary linear interferometers. Moreover, the architecture employs only a single point of interference and may thus be easier to stabilize than other implementations.Another approach relies on the realization of unitary transformations on temporal modes based on dispersion and pulse shaping. Namely, passing consecutively heralded photons through time-independent dispersion and measuring the output time of the photons is equivalent to a boson sampling experiment. With time-dependent dispersion, it is also possible to implement arbitrary single-particle unitaries. This scheme requires a much smaller number of sources and detectors and do not necessitate a large system of beam splitters.
+
+Certification
+The output of a universal quantum computer running, for example, Shor's factoring algorithm, can be efficiently verified classically, as is the case for all problems in
+the non-deterministic polynomial-time (NP) complexity class. It is however not clear that a similar structure
+exists for the boson sampling scheme. Namely, as the latter is related to the problem of estimating matrix permanents (falling into #P-hard complexity class), it is not understood how to verify correct operation for large versions of the setup. Specifically, the naive verification of the output of a boson sampler by computing the corresponding measurement probabilities represents a problem intractable for a classical computer.
+A first relevant question is whether it is possible or not to distinguish between uniform and boson-sampling distributions by performing a polynomial number of measurements. The initial argument introduced in Ref. stated that as long as one makes use of symmetric measurement settings the above is impossible (roughly speaking a symmetric measurement scheme does not allow for labeling the output modes of the optical circuit). However, within current technologies the assumption of a symmetric setting is not justified (the tracking of the measurement statistics is fully accessible), and therefore the above argument does not apply. It is then possible to define a rigorous and efficient test to discriminate the boson sampling statistics from an unbiased probability distribution. The corresponding discriminator is correlated to the permanent of the submatrix associated with a given measurement pattern, but can be efficiently calculated. This test has been applied experimentally to distinguish between a boson sampling and a uniform distribution in the 3-photon regime with integrated circuits of 5, 7, 9 and 13 modes.The test above does not distinguish between more complex distributions, such as quantum and classical, or between fermionic and bosonic statistics. A physically motivated scenario to be addressed is the unwanted introduction of distinguishability between photons, which destroys quantum interference (this regime is readily accessible experimentally, for example by introducing temporal delay between photons). The opportunity then exists to tune between ideally indistinguishable (quantum) and perfectly distinguishable (classical) data and measure the change in a suitably constructed metric. This scenario can be addressed by a statistical test which performs a one-on-one likelihood comparison of the output probabilities. This test requires the calculation of a small number of permanents, but does not need the calculation of the full expected probability distribution. Experimental implementation of the test has been successfully reported in integrated laser-written circuits for both the standard boson sampling (3 photons in 7-, 9- and 13-mode interferometers) and the scattershot version (3 photons in 9- and 13-mode interferometers with different input states). Another possibility is based on the bunching property of indinguishable photons. One can analyze the probability to find a k-fold coincidence measurement outcomes (without any multiply populated input mode), which is significantly higher for distinguishable particles than for bosons due to the bunching tendency of the latters. Finally, leaving the space of random matrices one may focus on specific multimode setups with certain features. In particular, the analysis of the effect of bosonic clouding (the tendency for bosons to favor events with all particles in the same half of the output array of a continuous-time many-particle quantum walk) has been proven to discriminate the behavior of distinguishable and indistinguishable particles in this specific platform.A different approach to confirm that the boson sampling machine behaves as the theory predicts is to make use of fully reconfigurable optical circuits. With large-scale single-photon and multiphoton interference verified with predictable multimode correlations in a fully characterized circuit, a reasonable assumption is that the system maintains correct operation as the circuit is continuously reconfigured to implement a random unitary operation. To this end, one can exploit quantum suppression laws (the probability of specific input-output combinations is suppressed when the linear interferometer is described by a Fourier matrix or other matrices with relevant symmetries). These suppression laws can be classically predicted in efficient ways. This approach allows also to exclude other physical models, such as mean-field states, which mimic some collective multiparticle properties (including bosonic clouding). The implementation of a Fourier matrix circuit in a fully reconfigurable 6-mode device has been reported, and experimental observations of the suppression law have been shown for 2 photons in 4- and 8-mode Fourier matrices.
+
+Alternative implementations and applications
+Apart from the photonic realization of the boson sampling task, several other setups have been proposed. This includes, e.g., the encoding of bosons into the local transverse phonon modes of trapped ions. The scheme allows deterministic preparation and high-efficiency readout of the corresponding phonon Fock states and universal manipulation of the phonon modes through a combination of inherent Coulomb interaction and individual phase shifts. This scheme is scalable and relies on the recent advances in ion trapping techniques (several dozens of ions can be successfully trapped, for example, in linear Paul traps by making use of anharmonic axial potentials).
+Another platform for implementing the boson sampling setup is a system of interacting spins: recent observation show that boson sampling with M particles in N modes is equivalent to the short-time evolution with M excitations in the XY model of 2N spins. One necessitates several additional assumptions here, including small boson bunching probability and efficient error postselection. This scalable scheme, however, is rather promising, in the light of considerable development in the construction and manipulation of coupled  superconducting qubits and specifically the D-Wave machine.
+The task of boson sampling shares peculiar similarities with the problem of determining molecular vibronic spectra: a feasible modification of the boson sampling scheme results in a setup that can be used for the reconstruction of a molecule's Franck–Condon profiles (for which no efficient classical algorithm is currently known). Specifically, the task now is to input specific squeezed coherent states into a linear interferometer that is determined by the properties of the molecule of interest. Therefore, this prominent observation makes the interest towards the implementation of the boson sampling task to get spread well beyond the fundamental basis.
+It has also been suggested to use a superconducting resonator network Boson Sampling device as an interferometer. This application is assumed to be practical, as small changes in the couplings between the resonators will change the sampling results. Sensing of variation in the parameters capable of altering the couplings is thus achieved, when comparing the sampling results to an unaltered reference.Variants of the boson sampling model have been used to construct classical computational algorithms, aimed, e.g., at the estimation of certain matrix permanents (for instance, permanents of positive-semidefinite matrices related to the corresponding open problem in computer science) by combining tools proper to quantum optics and computational complexity.Coarse-grained boson sampling has been proposed as a resource of decision and function problems that are computationally hard, and may thus have cryptographic applications. The first related proof-of-principle experiment was performed with a photonic boson-sampling machine (fabricated by a  direct femtosecond laser-writing technique), and confirmed many of the theoretical predictions.
+Gaussian boson sampling has been analyzed as a search component for computing binding propensity between molecules of pharmacological interest as well.
+
+See also
+Linear optical quantum computing
+KLM protocol
+Cross-entropy benchmarking
+
+References
+External links
+QUCHIP project
+Quantum Information Lab – Sapienza: video on boson sampling
+Quantum Information Lab – Sapienza: video on scattershot boson sampling
+The Qubit Lab – Boson Sampling

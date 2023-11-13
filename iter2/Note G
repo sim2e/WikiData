@@ -1,0 +1,1119 @@
+Note G was a computer algorithm written by Ada Lovelace, and was designed to calculate Bernoulli numbers using the hypothetical analytical engine. Note G is generally agreed to be the first algorithm specifically for a computer, and Lovelace is considered as the first computer programmer as a result. The algorithm was the last note in a series labelled A to G, which she employed as visual aids to accompany her English translation of Luigi Menabrea's 1842 French transcription of Charles Babbage's lecture on the analytical engine at the University of Turin, "Notions sur la machine analytique de Charles Babbage" ("Elements of Charles Babbage’s Analytical Machine"). Lovelace's Note G was never tested, as the engine was never built. Her notes, along with her translation, were published in 1843.In the modern era, thanks to more readily available computing equipment and programming resources, Lovelace's algorithm has since been tested, after being "translated" into modern programming languages. These tests have independently concluded that there was a bug in the script, due to a minor typographical error, rendering the algorithm in its original state unusable.
+
+Origin
+In 1840, Charles Babbage was invited to give a seminar in Turin on his analytical engine, the only public explanation he ever gave on the engine. During Babbage's lecture, mathematician Luigi Menabrea wrote an account of the engine in French. A friend of Babbage's, Charles Wheatstone, suggested that in order to contribute, Lovelace should translate Menabrea's account. Babbage suggested that she augment the account with appendices, which she compiled at the end of her translation as a series of seven "notes" labelled A-G. Her translation was published in August 1843, in Taylor's Scientific Memoirs, wherein Lovelace's name was signed "A.A.L". In these notes, Lovelace described the capabilities of Babbage's analytical engine if it were to be used for computing, laying out a more ambitious plan for the engine than even Babbage himself had.Lovelace's notes for the article were three times longer than the article itself. In the first notes, she explores beyond the numerical ambitions that Babbage had for the machine, and suggests the machine could take advantage of computation in order to deal with the realms of music, graphics, and language.
+Again, it might act upon other things besides number, were objects found whose mutual fundamental relations could be expressed by those of the abstract science of operations, and which should be also susceptible of adaptations to the action of the operating notation and mechanism of the engine. Supposing, for instance, that the fundamental relations of pitched sounds in the science of harmony and of musical composition were susceptible of such expression and adaptations, the engine might compose elaborate and scientific pieces of music of any degree of complexity or extent.
+She explains to readers how the analytical engine was separate from Babbage's earlier difference engine, and likens its function to the Jacquard machine, in that it used binary punch cards to denote machine language. In note C, this point is furthered by the fact that simultaneous and iterated actions can be made by the machine, ensuring that any card or collection of cards can be used several times in the solution of a single problem, essentially anticipating modern methods of control flow and looping. These ideas were brought to a head in the final note, G, where Lovelace sought to demonstrate an example of computation.
+Note G only made use of only the four arithmetical operations: addition, subtraction, multiplication and division, the implementation of Babbage's vision:
+
+Under the impossibility of my here explaining the process through which this end is attained, we must limit ourselves to admitting that the first four operations of arithmetic, that is addition, subtraction, multiplication and division, can be performed in a direct manner through the intervention of the machine. This granted, the machine is thence capable of performing every species of numerical calculation, for all such calculations ultimately resolve themselves into the four operations we have just named.It also uses Babbage's idea of storing information in columns of discs, each denoted by 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   (for variable) and a subscript number denoting which column is being referred to.
+
+Function
+Lovelace used a recursive equation to calculate Bernoulli numbers, wherein she used the previous values in an equation to generate the next one. her method ran thus:
+
+  
+    
+      
+        
+          B
+          
+            n
+          
+        
+        =
+        −
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          
+            
+              n
+              !
+            
+            
+              (
+              n
+              +
+              1
+              −
+              k
+              )
+              !
+              ⋅
+              k
+              !
+            
+          
+        
+      
+    
+    {\displaystyle B_{n}=-\sum _{k=0}^{n-1}{\frac {n!}{(n+1-k)!\cdot k!}}}
+  
+  
+    
+      
+        
+          B
+          
+            k
+          
+        
+        =
+        −
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          
+            
+              (
+            
+            
+              n
+              k
+            
+            
+              )
+            
+          
+        
+        
+          
+            
+              B
+              
+                k
+              
+            
+            
+              n
+              +
+              1
+              −
+              k
+            
+          
+        
+      
+    
+    {\displaystyle B_{k}=-\sum _{k=0}^{n-1}{\binom {n}{k}}{\frac {B_{k}}{n+1-k}}}
+  where 
+  
+    
+      
+        
+          
+            
+              (
+            
+            
+              n
+              k
+            
+            
+              )
+            
+          
+        
+      
+    
+    {\displaystyle {\binom {n}{k}}}
+   is a binomial coefficient, 
+
+  
+    
+      
+        
+          
+            
+              
+                (
+              
+              
+                n
+                k
+              
+              
+                )
+              
+            
+          
+          =
+          
+            
+              
+                n
+                !
+              
+              
+                k
+                !
+                (
+                n
+                −
+                k
+                )
+                !
+              
+            
+          
+        
+      
+    
+    {\displaystyle \displaystyle {\binom {n}{k}}={\frac {n!}{k!(n-k)!}}}
+  .Bernoulli numbers can be calculated in many ways, but Lovelace deliberately chose an elaborate method in order to demonstrate the power of the engine. In Note G, she states: "We will terminate these Notes by following up in detail the steps through which the engine could compute the Numbers of Bernoulli, this being (in the form in which we shall deduce it) a rather complicated example of its powers." The particular algorithm used by Lovelace in Note G generates the eighth Bernoulli number (labelled as 
+  
+    
+      
+        
+          B
+          
+            7
+          
+        
+      
+    
+    {\displaystyle B_{7}}
+  , as she started with 
+  
+    
+      
+        
+          B
+          
+            0
+          
+        
+      
+    
+    {\displaystyle B_{0}}
+  .)
+
+Notation
+The table of the algorithm organises each command in order. Each command denotes one operation being made on two terms. The second column states only the operator being used. Variables are notated as "
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  ", where the superscript before it represents the amount of different values the variable has been assigned to, and the subscript after it represents the ordinal assignment of the variable, that is which variable it is. (For example, 
+  
+    
+      
+        
+          
+          
+            2
+          
+        
+        
+          V
+          
+            4
+          
+        
+      
+    
+    {\displaystyle ^{2}V_{4}}
+   refers to the second assignment of variable number 4. Any variables hitherto undefined have a superscript of 0.) The variables are numbered starting from 
+  
+    
+      
+        
+          V
+          
+            0
+          
+        
+      
+    
+    {\displaystyle V_{0}}
+  . The third column tells the computer exactly what command is taking place, (For example, on line 1, the command performed is "
+  
+    
+      
+        
+          
+          
+            1
+          
+        
+        
+          V
+          
+            2
+          
+        
+        
+          ×
+          
+            1
+          
+        
+        
+          V
+          
+            3
+          
+        
+      
+    
+    {\displaystyle ^{1}V_{2}\times ^{1}V_{3}}
+  " - the first iteration of variable 2 is multiplied by the first iteration of variable 3.) and only incorporates one operation between two terms per line. Column 4 - "Variables receiving results" takes note of where the result of the operation in column 3 should be stored. In this way, any variables in this column have their superscript number incremented by one each time. (e.g. on line 1, the result of 
+  
+    
+      
+        
+          
+          
+            1
+          
+        
+        
+          V
+          
+            2
+          
+        
+        
+          ×
+          
+            1
+          
+        
+        
+          V
+          
+            3
+          
+        
+      
+    
+    {\displaystyle ^{1}V_{2}\times ^{1}V_{3}}
+   is assigned to variables 
+  
+    
+      
+        
+          V
+          
+            4
+          
+        
+      
+    
+    {\displaystyle V_{4}}
+  , 
+  
+    
+      
+        
+          V
+          
+            5
+          
+        
+      
+    
+    {\displaystyle V_{5}}
+  , and 
+  
+    
+      
+        
+          V
+          
+            6
+          
+        
+      
+    
+    {\displaystyle V_{6}}
+  .)
+Column 5 states whether either of the variables used in the operation of the command has been changed. Enclosed in curly braces, two rows per command put the original variable on the left side of an equals sign, and the new variable on the other side - that is, if the variable has been changed, its superscript is incremented by one, and if not, it remains the same. (e.g. line three assigns the result of 
+  
+    
+      
+        
+          
+          
+            1
+          
+        
+        
+          V
+          
+            5
+          
+        
+        
+          +
+          
+            1
+          
+        
+        
+          V
+          
+            1
+          
+        
+      
+    
+    {\displaystyle ^{1}V_{5}+^{1}V_{1}}
+   to the second iteration of the variable 
+  
+    
+      
+        
+          V
+          
+            5
+          
+        
+      
+    
+    {\displaystyle V_{5}}
+  , and the fifth column reflects this by noting;
+
+  
+    
+      
+        
+          
+            {
+            
+              
+                
+                  
+                    
+                    
+                      1
+                    
+                  
+                  
+                    V
+                    
+                      5
+                    
+                  
+                  
+                    =
+                    
+                      2
+                    
+                  
+                  
+                    V
+                    
+                      5
+                    
+                  
+                
+              
+              
+                
+                  
+                    
+                    
+                      1
+                    
+                  
+                  
+                    V
+                    
+                      1
+                    
+                  
+                  
+                    =
+                    
+                      1
+                    
+                  
+                  
+                    V
+                    
+                      1
+                    
+                  
+                
+              
+            
+            }
+          
+        
+      
+    
+    {\displaystyle {\begin{Bmatrix}^{1}V_{5}=^{2}V_{5}\\^{1}V_{1}=^{1}V_{1}\end{Bmatrix}}}
+  
+  
+    
+      
+        
+          V
+          
+            5
+          
+        
+      
+    
+    {\displaystyle V_{5}}
+   has changed, but 
+  
+    
+      
+        
+          V
+          
+            1
+          
+        
+      
+    
+    {\displaystyle V_{1}}
+   hasn't.
+In column 6, "Statement of Results", the result assigned to the variable in column 4 is shown in its exact value based on the values of the two terms previously assigned. (e.g. on line 1 - 
+  
+    
+      
+        
+          
+          
+            1
+          
+        
+        
+          V
+          
+            2
+          
+        
+        
+          ×
+          
+            1
+          
+        
+        
+          V
+          
+            3
+          
+        
+      
+    
+    {\displaystyle ^{1}V_{2}\times ^{1}V_{3}}
+   - 
+  
+    
+      
+        
+          V
+          
+            2
+          
+        
+      
+    
+    {\displaystyle V_{2}}
+   was set at the beginning to be 
+  
+    
+      
+        2
+      
+    
+    {\displaystyle 2}
+  , and 
+  
+    
+      
+        
+          V
+          
+            3
+          
+        
+      
+    
+    {\displaystyle V_{3}}
+   was set to be the variable 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  . Therefore, 
+  
+    
+      
+        
+          
+          
+            1
+          
+        
+        
+          V
+          
+            2
+          
+        
+        
+          ×
+          
+            1
+          
+        
+        
+          V
+          
+            3
+          
+        
+        =
+        2
+        n
+      
+    
+    {\displaystyle ^{1}V_{2}\times ^{1}V_{3}=2n}
+  , in mathematical notation.) This column is ostensibly not computed by the engine, and appears to be more to aid clarity and the reader's ability to follow the steps of the program. (For example, line 5 has a fraction being divided by two, which is notated as it being multiplied by a half, probably for coherence and the typographical complexity of a nested fraction.) It also makes use of separate variable notation outside of the program, the 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   and 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   variables, which are multiplied successively to find the final value, 
+  
+    
+      
+        
+          B
+          
+            7
+          
+        
+      
+    
+    {\displaystyle B_{7}}
+  , thus:
+
+  
+    
+      
+        
+          B
+          
+            7
+          
+        
+        =
+        −
+        1
+        (
+        
+          A
+          
+            0
+          
+        
+        +
+        
+          B
+          
+            1
+          
+        
+        
+          A
+          
+            1
+          
+        
+        +
+        
+          B
+          
+            3
+          
+        
+        
+          A
+          
+            3
+          
+        
+        +
+        
+          B
+          
+            5
+          
+        
+        
+          A
+          
+            5
+          
+        
+        )
+      
+    
+    {\displaystyle B_{7}=-1(A_{0}+B_{1}A_{1}+B_{3}A_{3}+B_{5}A_{5})}
+  Beyond this, each successive column shows the values of a given variable over time. Each time a variable either changes, or has its value become relevant by token of its presence as one of the terms in the current command, its value is stated or restated in its respective column. Otherwise, it is marked with an ellipsis to denote its irrelevancy. This presumably mimics the computer's need for only relevant information, thereby tracking the value of a variable as the program parses.
+
+Method
+The program sought to calculate what is known by modern convention as the eighth Bernoulli number, listed as 
+  
+    
+      
+        
+          B
+          
+            7
+          
+        
+      
+    
+    {\displaystyle B_{7}}
+  , as Lovelace begins counting from 
+  
+    
+      
+        
+          B
+          
+            0
+          
+        
+      
+    
+    {\displaystyle B_{0}}
+  .
+
+Error
+In operation 4, the division supposedly taking place is "
+  
+    
+      
+        
+          
+          
+            2
+          
+        
+        
+          V
+          
+            5
+          
+        
+        
+          ÷
+          
+            2
+          
+        
+        
+          V
+          
+            4
+          
+        
+      
+    
+    {\displaystyle ^{2}V_{5}\div ^{2}V_{4}}
+  ", to be stored in variable 
+  
+    
+      
+        
+          
+          
+            1
+          
+        
+        
+          V
+          
+            11
+          
+        
+      
+    
+    {\displaystyle ^{1}V_{11}}
+  . However, the "Statement of results" says that the division should be:
+
+  
+    
+      
+        
+          
+            
+              2
+              n
+              −
+              1
+            
+            
+              2
+              n
+              +
+              1
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {2n-1}{2n+1}}}
+  As a matter of fact, the division is the wrong way round; 
+  
+    
+      
+        2
+        n
+        −
+        1
+      
+    
+    {\displaystyle 2n-1}
+   is the second iteration of 
+  
+    
+      
+        
+          V
+          
+            4
+          
+        
+      
+    
+    {\displaystyle V_{4}}
+  , as can be seen in operation 2. Likewise, 
+  
+    
+      
+        2
+        n
+        +
+        1
+      
+    
+    {\displaystyle 2n+1}
+   is the second iteration of 
+  
+    
+      
+        
+          V
+          
+            5
+          
+        
+      
+    
+    {\displaystyle V_{5}}
+  , as can be seen in operation 3. Thus, operation 4 should not be 
+  
+    
+      
+        
+          
+          
+            2
+          
+        
+        
+          V
+          
+            5
+          
+        
+        
+          ÷
+          
+            2
+          
+        
+        
+          V
+          
+            4
+          
+        
+      
+    
+    {\displaystyle ^{2}V_{5}\div ^{2}V_{4}}
+  , but rather 
+  
+    
+      
+        
+          
+          
+            2
+          
+        
+        
+          V
+          
+            4
+          
+        
+        
+          ÷
+          
+            2
+          
+        
+        
+          V
+          
+            5
+          
+        
+      
+    
+    {\displaystyle ^{2}V_{4}\div ^{2}V_{5}}
+  . This bug means that if the engine were ever to run this algorithm in this state, it would fail to generate Bernoulli numbers correctly, and would find its final goal value (the eighth Bernoulli number, 
+  
+    
+      
+        −
+        
+          
+            
+              1
+              30
+            
+          
+        
+      
+    
+    {\displaystyle -{\tfrac {1}{30}}}
+  ) to be 
+  
+    
+      
+        −
+        
+          
+            
+              25621
+              630
+            
+          
+        
+      
+    
+    {\displaystyle -{\tfrac {25621}{630}}}
+  .
+
+Modern implementations
+Lovelace's program can be implemented in a modern programming language, though due to the above stated error, if transcribed exactly it would return an incorrect final value for 
+  
+    
+      
+        
+          B
+          
+            7
+          
+        
+      
+    
+    {\displaystyle B_{7}}
+  . The original program generalised in pseudocode follows as thus:
+
+V[1] = 1
+V[2] = 2
+V[3] = n (n = 4 in Lovelace's program.)
+
+V[4] = V[4] - V[1]
+V[5] = V[5] + V[1]
+V[11] = V[5] / V[4]
+V[11] = V[11] / V[2]
+V[13] = V[13] - V[11]
+V[10] = V[3] - V[1]
+V[7] = V[2] + V[7]
+V[11] = V[6] / V[7]
+V[12] = V[21] * V[11]
+V[13] = V[12] + V[13]
+V[10] = V[10] - V[1]
+V[6] = V[6] - V[1]
+V[7]= V[1] + V[7]
+//Finish Later
+
+The implementation in psuedocode highlights the fact that computer languages define variables on a stack, which obviates the need for tracking and specifying the current iteration of a variable. In addition, Lovelace's program only allowed for variables to be defined by performing addition, subtraction, multiplication or division on two terms that were previously defined variables. Modern syntax would be capable of performing each calculation more concisely. This restriction becomes apparent in a few places, for example on command 6 (
+  
+    
+      
+        
+          V
+          
+            13
+          
+        
+        =
+        
+          V
+          
+            13
+          
+        
+        −
+        
+          V
+          
+            11
+          
+        
+      
+    
+    {\displaystyle V_{13}=V_{13}-V_{11}}
+  ). Here Lovelace defines a hitherto undefined variable (
+  
+    
+      
+        
+          V
+          
+            13
+          
+        
+      
+    
+    {\displaystyle V_{13}}
+  ) by itself, thereby assuming that all undefined variables are automatically equal to 0, where most modern programming languages would return an error or list the variable as null. What she intended was "
+  
+    
+      
+        0
+        −
+        
+          V
+          
+            11
+          
+        
+      
+    
+    {\displaystyle 0-V_{11}}
+  ", but had constrained herself to only using variables as terms. Likewise, in command 8 (
+  
+    
+      
+        
+          V
+          
+            7
+          
+        
+        =
+        
+          V
+          
+            2
+          
+        
+        +
+        
+          V
+          
+            7
+          
+        
+      
+    
+    {\displaystyle V_{7}=V_{2}+V_{7}}
+  ), the strict notation of two-term arithmetic becomes cumbersome, as in order to define 
+  
+    
+      
+        
+          V
+          
+            7
+          
+        
+      
+    
+    {\displaystyle V_{7}}
+   as 2, Lovelace assigns its value (0) to itself plus 
+  
+    
+      
+        
+          V
+          
+            2
+          
+        
+      
+    
+    {\displaystyle V_{2}}
+   (2). It is due to this restrictive notation that 
+  
+    
+      
+        
+          V
+          
+            7
+          
+        
+      
+    
+    {\displaystyle V_{7}}
+   is defined thus.
+
+Notes
+References
+
+
+== Sources ==

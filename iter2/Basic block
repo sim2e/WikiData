@@ -1,0 +1,46 @@
+In compiler construction, a basic block is a straight-line code sequence with no branches in except to the entry and no branches out except at the exit. This restricted form makes a basic block highly amenable to analysis. Compilers usually decompose programs into their basic blocks as a first step in the analysis process. Basic blocks form the vertices or nodes in a control-flow graph.
+
+Definition
+The code in a basic block has:
+
+One entry point, meaning that no code within it is the destination of a jump instruction anywhere in the program.
+One exit point, meaning that only the last instruction can cause the program to begin executing code in a different basic block.Under these circumstances, whenever the first instruction in a basic block is executed, the rest of the instructions are necessarily executed exactly once and in order.The code may be source code, assembly code, or some other sequence of instructions.
+More formally, a sequence of instructions forms a basic block if:
+
+The instruction in each position dominates (always executes before) all those in later positions.
+No other instruction executes between two instructions in the sequence.This definition is more general than the intuitive one in some ways. For example, it allows unconditional jumps to labels not targeted by other jumps. This definition embodies the properties that make basic blocks easy to work with when constructing an algorithm.
+The blocks to which control may transfer after reaching the end of a block are called that block's successors, while the blocks from which control may have come when entering a block are called that block's predecessors. The start of a basic block may be jumped to from more than one location.
+
+Creation algorithm
+The algorithm for generating basic blocks from a listing of code is simple: the analyser scans over the code, marking block boundaries, which are instructions that may either begin or end a block because they either transfer control or accept control from another point. Then, the listing is simply "cut" at each of these points, and basic blocks remain.
+Note that this method does not always generate maximal basic blocks, by the formal definition, but they are usually sufficient (maximal basic blocks are basic blocks that cannot be extended by including adjacent blocks without violating the definition of a basic block).
+Input: A sequence of instructions (mostly three-address code).Output: A list of basic blocks with each three-address instruction in exactly one block.
+
+Identify the leaders in the code. Leaders are instructions that come under any of the following 3 categories:
+It is the first instruction. The first instruction is a leader.
+The target of a conditional or an unconditional goto/jump instruction is a leader.
+The instruction that immediately follows a conditional or an unconditional goto/jump instruction is a leader.
+Starting from a leader, the set of all following instructions until and not including the next leader is the basic block corresponding to the starting leader. Thus every basic block has a leader.Instructions that end a basic block include the following:
+
+unconditional and conditional branches, both direct and indirect;
+returns to a calling procedure;
+instructions that may throw an exception;
+function calls can be at the end of a basic block if they can not return, such as functions that throw exceptions or special calls like C's longjmp and exit.Instructions that begin a new basic block include the following:
+
+procedure and function entry points;
+targets of jumps or branches;
+"fall-through" instructions following some conditional branches;
+instructions following ones that throw exceptions;
+exception handlers.Note that, because control can never pass through the end of a basic block, some instructions may have to be modified to find the basic blocks. In particular, fall-through conditional branches must be changed to two-way branches, and function calls throwing exceptions must have unconditional jumps added after them. Doing these may require adding labels to the beginning of other blocks.
+
+See also
+Block (programming)
+Control-flow graph
+Decision-to-decision path
+Extended basic block
+Linear code sequence and jump
+
+References
+External links
+Basic Blocks - GNU Compiler Collection
+Extended Basic Block - Wiktionary

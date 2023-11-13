@@ -1,0 +1,3921 @@
+In probability theory, a Chernoff bound is an exponentially decreasing upper bound on the tail of a random variable based on its moment generating function. The minimum of all such exponential bounds forms the Chernoff or Chernoff-Cramér bound, which may decay faster than exponential (e.g. sub-Gaussian). It is especially useful for sums of independent random variables, such as sums of Bernoulli random variables.The bound is commonly named after Herman Chernoff who described the method in a 1952 paper, though Chernoff himself attributed it to Herman Rubin. In 1938 Harald Cramér had published an almost identical concept now known as Cramér's theorem.
+It is a sharper bound than the first- or second-moment-based tail bounds such as Markov's inequality or Chebyshev's inequality, which only yield power-law bounds on tail decay. However, when applied to sums the Chernoff bound requires the random variables to be independent, a condition that is not required by either Markov's inequality or Chebyshev's inequality (although Chebyshev's inequality does require the random variables to be pairwise independent).
+The Chernoff bound is related to the Bernstein inequalities. It is also used to prove Hoeffding's inequality, Bennett's inequality, and McDiarmid's inequality.
+
+Generic Chernoff bounds
+The generic Chernoff bound for a random variable 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   is attained by applying Markov's inequality to 
+  
+    
+      
+        
+          e
+          
+            t
+            X
+          
+        
+      
+    
+    {\displaystyle e^{tX}}
+   (which is why it sometimes called the exponential Markov or exponential moments bound). For positive 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   this gives a bound on the right tail of 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   in terms of its moment-generating function 
+  
+    
+      
+        M
+        (
+        t
+        )
+        =
+        E
+        ⁡
+        (
+        
+          e
+          
+            t
+            X
+          
+        
+        )
+      
+    
+    {\displaystyle M(t)=\operatorname {E} (e^{tX})}
+  :
+
+  
+    
+      
+        P
+        ⁡
+        
+          (
+          
+            X
+            ≥
+            a
+          
+          )
+        
+        =
+        P
+        ⁡
+        
+          (
+          
+            
+              e
+              
+                t
+                X
+              
+            
+            ≥
+            
+              e
+              
+                t
+                a
+              
+            
+          
+          )
+        
+        ≤
+        M
+        (
+        t
+        )
+        
+          e
+          
+            −
+            t
+            a
+          
+        
+        
+        (
+        t
+        >
+        0
+        )
+      
+    
+    {\displaystyle \operatorname {P} \left(X\geq a\right)=\operatorname {P} \left(e^{tX}\geq e^{ta}\right)\leq M(t)e^{-ta}\qquad (t>0)}
+  Since this bound holds for every positive 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  , we may take the infimum:
+
+  
+    
+      
+        P
+        ⁡
+        
+          (
+          
+            X
+            ≥
+            a
+          
+          )
+        
+        ≤
+        
+          inf
+          
+            t
+            >
+            0
+          
+        
+        M
+        (
+        t
+        )
+        
+          e
+          
+            −
+            t
+            a
+          
+        
+      
+    
+    {\displaystyle \operatorname {P} \left(X\geq a\right)\leq \inf _{t>0}M(t)e^{-ta}}
+  Performing the same analysis with negative 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   we get a similar bound on the left tail:
+
+  
+    
+      
+        P
+        ⁡
+        
+          (
+          
+            X
+            ≤
+            a
+          
+          )
+        
+        =
+        P
+        ⁡
+        
+          (
+          
+            
+              e
+              
+                t
+                X
+              
+            
+            ≥
+            
+              e
+              
+                t
+                a
+              
+            
+          
+          )
+        
+        ≤
+        M
+        (
+        t
+        )
+        
+          e
+          
+            −
+            t
+            a
+          
+        
+        
+        (
+        t
+        <
+        0
+        )
+      
+    
+    {\displaystyle \operatorname {P} \left(X\leq a\right)=\operatorname {P} \left(e^{tX}\geq e^{ta}\right)\leq M(t)e^{-ta}\qquad (t<0)}
+  and
+
+  
+    
+      
+        P
+        ⁡
+        
+          (
+          
+            X
+            ≤
+            a
+          
+          )
+        
+        ≤
+        
+          inf
+          
+            t
+            <
+            0
+          
+        
+        M
+        (
+        t
+        )
+        
+          e
+          
+            −
+            t
+            a
+          
+        
+      
+    
+    {\displaystyle \operatorname {P} \left(X\leq a\right)\leq \inf _{t<0}M(t)e^{-ta}}
+  The quantity 
+  
+    
+      
+        M
+        (
+        t
+        )
+        
+          e
+          
+            −
+            t
+            a
+          
+        
+      
+    
+    {\displaystyle M(t)e^{-ta}}
+   can be expressed as the expectation value 
+  
+    
+      
+        E
+        ⁡
+        (
+        
+          e
+          
+            t
+            X
+          
+        
+        )
+        
+          e
+          
+            −
+            t
+            a
+          
+        
+      
+    
+    {\displaystyle \operatorname {E} (e^{tX})e^{-ta}}
+  , or equivalently 
+  
+    
+      
+        E
+        ⁡
+        (
+        
+          e
+          
+            t
+            (
+            X
+            −
+            a
+            )
+          
+        
+        )
+      
+    
+    {\displaystyle \operatorname {E} (e^{t(X-a)})}
+  .
+
+Properties
+The exponential function is convex, so by Jensen's inequality 
+  
+    
+      
+        E
+        ⁡
+        (
+        
+          e
+          
+            t
+            X
+          
+        
+        )
+        ≥
+        
+          e
+          
+            t
+            E
+            ⁡
+            (
+            X
+            )
+          
+        
+      
+    
+    {\displaystyle \operatorname {E} (e^{tX})\geq e^{t\operatorname {E} (X)}}
+  . It follows that the bound on the right tail is greater or equal to one when 
+  
+    
+      
+        a
+        ≤
+        E
+        ⁡
+        (
+        X
+        )
+      
+    
+    {\displaystyle a\leq \operatorname {E} (X)}
+  , and therefore trivial; similarly, the left bound is trivial for 
+  
+    
+      
+        a
+        ≥
+        E
+        ⁡
+        (
+        X
+        )
+      
+    
+    {\displaystyle a\geq \operatorname {E} (X)}
+  . We may therefore combine the two infima and define the two-sided Chernoff bound:which provides an upper bound on the folded cumulative distribution function of 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   (folded at the mean, not the median). 
+The logarithm of the two-sided Chernoff bound is known as the rate function (or Cramér transform) 
+  
+    
+      
+        I
+        =
+        −
+        log
+        ⁡
+        C
+      
+    
+    {\displaystyle I=-\log C}
+  . It is equivalent to the Legendre–Fenchel transform or convex conjugate of the cumulant generating function 
+  
+    
+      
+        K
+        =
+        log
+        ⁡
+        M
+      
+    
+    {\displaystyle K=\log M}
+  , defined as: The moment generating function is log-convex, so by a property of the convex conjugate, the Chernoff bound must be log-concave. The Chernoff bound attains its maximum at the mean, 
+  
+    
+      
+        C
+        (
+        E
+        ⁡
+        (
+        X
+        )
+        )
+        =
+        1
+      
+    
+    {\displaystyle C(\operatorname {E} (X))=1}
+  , and is invariant under translation: 
+  
+    
+      
+        
+          C
+          
+            X
+            +
+            k
+          
+        
+        (
+        a
+        )
+        =
+        
+          C
+          
+            X
+          
+        
+        (
+        a
+        −
+        k
+        )
+      
+    
+    {\textstyle C_{X+k}(a)=C_{X}(a-k)}
+  .
+The Chernoff bound is exact if and only if 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   is a single concentrated mass (degenerate distribution). The bound is tight only at or beyond the extremes of a bounded random variable, where the infima are attained for infinite 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  . For unbounded random variables the bound is nowhere tight, though it is asymptotically tight up to sub-exponential factors ("exponentially tight"). Individual moments can provide tighter bounds, at the cost of greater analytical complexity.In practice, the exact Chernoff bound may be unwieldy or difficult to evaluate analytically, in which case a suitable upper bound on the moment (or cumulant) generating function may be used instead (e.g. a sub-parabolic CGF giving a sub-Gaussian Chernoff bound).
+
+Lower bounds from the MGF
+Using only the moment generating function, a lower bound on the tail probabilities can be obtained by applying the Paley-Zygmund inequality to 
+  
+    
+      
+        
+          e
+          
+            t
+            X
+          
+        
+      
+    
+    {\displaystyle e^{tX}}
+  , yielding: (a bound on the left tail is obtained for negative 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  ). Unlike the Chernoff bound however, this result is not exponentially tight.
+Theodosopoulos constructed a tight(er) MGF-based lower bound using an exponential tilting procedure.
+For particular distributions (such as the binomial) lower bounds of the same exponential order as the Chernoff bound are often available.
+
+Sums of independent random variables
+When X is the sum of n independent random variables X1, ..., Xn, the moment generating function of X is the product of the individual moment generating functions, giving that:
+
+and:
+
+  
+    
+      
+        Pr
+        (
+        X
+        ≤
+        a
+        )
+        ≤
+        
+          inf
+          
+            t
+            <
+            0
+          
+        
+        
+          e
+          
+            −
+            t
+            a
+          
+        
+        
+          ∏
+          
+            i
+          
+        
+        E
+        ⁡
+        
+          [
+          
+            e
+            
+              t
+              
+                X
+                
+                  i
+                
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle \Pr(X\leq a)\leq \inf _{t<0}e^{-ta}\prod _{i}\operatorname {E} \left[e^{tX_{i}}\right]}
+  Specific Chernoff bounds are attained by calculating the moment-generating function 
+  
+    
+      
+        E
+        ⁡
+        
+          [
+          
+            e
+            
+              −
+              t
+              ⋅
+              
+                X
+                
+                  i
+                
+              
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle \operatorname {E} \left[e^{-t\cdot X_{i}}\right]}
+   for specific instances of the random variables 
+  
+    
+      
+        
+          X
+          
+            i
+          
+        
+      
+    
+    {\displaystyle X_{i}}
+  . 
+When the random variables are also identically distributed (iid), the Chernoff bound for the sum reduces to a simple rescaling of the single-variable Chernoff bound. That is, the Chernoff bound for the average of n iid variables is equivalent to the nth power of the Chernoff bound on a single variable (see Cramér's theorem).
+
+Sums of independent bounded random variables
+Chernoff bounds may also be applied to general sums of independent, bounded random variables, regardless of their distribution; this is known as Hoeffding's inequality. The proof follows a similar approach to the other Chernoff bounds, but applying Hoeffding's lemma to bound the moment generating functions (see Hoeffding's inequality).  
+
+Hoeffding's inequality. Suppose X1, ..., Xn are independent random variables taking values in [a,b]. Let X denote their sum and let μ = E[X] denote the sum's expected value. Then for any 
+  
+    
+      
+        t
+        >
+        0
+      
+    
+    {\displaystyle t>0}
+  ,
+
+  
+    
+      
+        Pr
+        (
+        X
+        ≤
+        μ
+        −
+        t
+        )
+        <
+        
+          e
+          
+            −
+            2
+            
+              t
+              
+                2
+              
+            
+            
+              /
+            
+            (
+            n
+            (
+            b
+            −
+            a
+            
+              )
+              
+                2
+              
+            
+            )
+          
+        
+        ,
+      
+    
+    {\displaystyle \Pr(X\leq \mu -t)<e^{-2t^{2}/(n(b-a)^{2})},}
+  
+
+  
+    
+      
+        Pr
+        (
+        X
+        ≥
+        μ
+        +
+        t
+        )
+        <
+        
+          e
+          
+            −
+            2
+            
+              t
+              
+                2
+              
+            
+            
+              /
+            
+            (
+            n
+            (
+            b
+            −
+            a
+            
+              )
+              
+                2
+              
+            
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle \Pr(X\geq \mu +t)<e^{-2t^{2}/(n(b-a)^{2})}.}
+
+Sums of independent Bernoulli random variables
+The bounds in the following sections for Bernoulli random variables are derived by using that, for a Bernoulli random variable 
+  
+    
+      
+        
+          X
+          
+            i
+          
+        
+      
+    
+    {\displaystyle X_{i}}
+   with probability p of being equal to 1,
+
+  
+    
+      
+        E
+        ⁡
+        
+          [
+          
+            e
+            
+              t
+              ⋅
+              
+                X
+                
+                  i
+                
+              
+            
+          
+          ]
+        
+        =
+        (
+        1
+        −
+        p
+        )
+        
+          e
+          
+            0
+          
+        
+        +
+        p
+        
+          e
+          
+            t
+          
+        
+        =
+        1
+        +
+        p
+        (
+        
+          e
+          
+            t
+          
+        
+        −
+        1
+        )
+        ≤
+        
+          e
+          
+            p
+            (
+            
+              e
+              
+                t
+              
+            
+            −
+            1
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle \operatorname {E} \left[e^{t\cdot X_{i}}\right]=(1-p)e^{0}+pe^{t}=1+p(e^{t}-1)\leq e^{p(e^{t}-1)}.}
+  One can encounter many flavors of Chernoff bounds: the original additive form (which gives a bound on the absolute error) or the more practical multiplicative form (which bounds the error relative to the mean).
+
+Multiplicative form (relative error)
+Multiplicative Chernoff bound. Suppose X1, ..., Xn are independent random variables taking values in {0, 1}. Let X denote their sum and let μ = E[X] denote the sum's expected value. Then for any δ > 0,
+
+  
+    
+      
+        Pr
+        (
+        X
+        ≥
+        (
+        1
+        +
+        δ
+        )
+        μ
+        )
+        ≤
+        
+          
+            (
+            
+              
+                
+                  e
+                  
+                    δ
+                  
+                
+                
+                  (
+                  1
+                  +
+                  δ
+                  
+                    )
+                    
+                      1
+                      +
+                      δ
+                    
+                  
+                
+              
+            
+            )
+          
+          
+            μ
+          
+        
+        .
+      
+    
+    {\displaystyle \Pr(X\geq (1+\delta )\mu )\leq \left({\frac {e^{\delta }}{(1+\delta )^{1+\delta }}}\right)^{\mu }.}
+  A similar proof strategy can be used to show that for 0 < δ < 1
+
+  
+    
+      
+        Pr
+        (
+        X
+        ≤
+        (
+        1
+        −
+        δ
+        )
+        μ
+        )
+        ≤
+        
+          
+            (
+            
+              
+                
+                  e
+                  
+                    −
+                    δ
+                  
+                
+                
+                  (
+                  1
+                  −
+                  δ
+                  
+                    )
+                    
+                      1
+                      −
+                      δ
+                    
+                  
+                
+              
+            
+            )
+          
+          
+            μ
+          
+        
+        .
+      
+    
+    {\displaystyle \Pr(X\leq (1-\delta )\mu )\leq \left({\frac {e^{-\delta }}{(1-\delta )^{1-\delta }}}\right)^{\mu }.}
+  The above formula is often unwieldy in practice, so the following looser but more convenient bounds are often used, which follow from the inequality 
+  
+    
+      
+        
+          
+            
+              
+                2
+                δ
+              
+              
+                2
+                +
+                δ
+              
+            
+          
+          ≤
+          log
+          ⁡
+          (
+          1
+          +
+          δ
+          )
+        
+      
+    
+    {\displaystyle \textstyle {\frac {2\delta }{2+\delta }}\leq \log(1+\delta )}
+   from the list of logarithmic inequalities:
+
+  
+    
+      
+        Pr
+        (
+        X
+        ≥
+        (
+        1
+        +
+        δ
+        )
+        μ
+        )
+        ≤
+        
+          e
+          
+            −
+            
+              δ
+              
+                2
+              
+            
+            μ
+            
+              /
+            
+            (
+            2
+            +
+            δ
+            )
+          
+        
+        ,
+        
+        0
+        ≤
+        δ
+        ,
+      
+    
+    {\displaystyle \Pr(X\geq (1+\delta )\mu )\leq e^{-\delta ^{2}\mu /(2+\delta )},\qquad 0\leq \delta ,}
+  
+
+  
+    
+      
+        Pr
+        (
+        X
+        ≤
+        (
+        1
+        −
+        δ
+        )
+        μ
+        )
+        ≤
+        
+          e
+          
+            −
+            
+              δ
+              
+                2
+              
+            
+            μ
+            
+              /
+            
+            2
+          
+        
+        ,
+        
+        0
+        <
+        δ
+        <
+        1
+        ,
+      
+    
+    {\displaystyle \Pr(X\leq (1-\delta )\mu )\leq e^{-\delta ^{2}\mu /2},\qquad 0<\delta <1,}
+  
+
+  
+    
+      
+        Pr
+        (
+        
+          |
+        
+        X
+        −
+        μ
+        
+          |
+        
+        ≥
+        δ
+        μ
+        )
+        ≤
+        2
+        
+          e
+          
+            −
+            
+              δ
+              
+                2
+              
+            
+            μ
+            
+              /
+            
+            3
+          
+        
+        ,
+        
+        0
+        <
+        δ
+        <
+        1.
+      
+    
+    {\displaystyle \Pr(|X-\mu |\geq \delta \mu )\leq 2e^{-\delta ^{2}\mu /3},\qquad 0<\delta <1.}
+  Notice that the bounds are trivial for 
+  
+    
+      
+        δ
+        =
+        0
+      
+    
+    {\displaystyle \delta =0}
+  .
+
+Additive form (absolute error)
+The following theorem is due to Wassily Hoeffding and hence is called the Chernoff–Hoeffding theorem.
+
+Chernoff–Hoeffding theorem. Suppose X1, ..., Xn are i.i.d. random variables, taking values in {0, 1}. Let p = E[X1] and ε > 0.
+  
+    
+      
+        
+          
+            
+              
+                Pr
+                
+                  (
+                  
+                    
+                      
+                        1
+                        n
+                      
+                    
+                    ∑
+                    
+                      X
+                      
+                        i
+                      
+                    
+                    ≥
+                    p
+                    +
+                    ε
+                  
+                  )
+                
+                ≤
+                
+                  
+                    (
+                    
+                      
+                        
+                          (
+                          
+                            
+                              p
+                              
+                                p
+                                +
+                                ε
+                              
+                            
+                          
+                          )
+                        
+                        
+                          p
+                          +
+                          ε
+                        
+                      
+                      
+                        
+                          
+                            (
+                            
+                              
+                                
+                                  1
+                                  −
+                                  p
+                                
+                                
+                                  1
+                                  −
+                                  p
+                                  −
+                                  ε
+                                
+                              
+                            
+                            )
+                          
+                        
+                        
+                          1
+                          −
+                          p
+                          −
+                          ε
+                        
+                      
+                    
+                    )
+                  
+                  
+                    n
+                  
+                
+              
+              
+                
+                =
+                
+                  e
+                  
+                    −
+                    D
+                    (
+                    p
+                    +
+                    ε
+                    ∥
+                    p
+                    )
+                    n
+                  
+                
+              
+            
+            
+              
+                Pr
+                
+                  (
+                  
+                    
+                      
+                        1
+                        n
+                      
+                    
+                    ∑
+                    
+                      X
+                      
+                        i
+                      
+                    
+                    ≤
+                    p
+                    −
+                    ε
+                  
+                  )
+                
+                ≤
+                
+                  
+                    (
+                    
+                      
+                        
+                          (
+                          
+                            
+                              p
+                              
+                                p
+                                −
+                                ε
+                              
+                            
+                          
+                          )
+                        
+                        
+                          p
+                          −
+                          ε
+                        
+                      
+                      
+                        
+                          
+                            (
+                            
+                              
+                                
+                                  1
+                                  −
+                                  p
+                                
+                                
+                                  1
+                                  −
+                                  p
+                                  +
+                                  ε
+                                
+                              
+                            
+                            )
+                          
+                        
+                        
+                          1
+                          −
+                          p
+                          +
+                          ε
+                        
+                      
+                    
+                    )
+                  
+                  
+                    n
+                  
+                
+              
+              
+                
+                =
+                
+                  e
+                  
+                    −
+                    D
+                    (
+                    p
+                    −
+                    ε
+                    ∥
+                    p
+                    )
+                    n
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\Pr \left({\frac {1}{n}}\sum X_{i}\geq p+\varepsilon \right)\leq \left(\left({\frac {p}{p+\varepsilon }}\right)^{p+\varepsilon }{\left({\frac {1-p}{1-p-\varepsilon }}\right)}^{1-p-\varepsilon }\right)^{n}&=e^{-D(p+\varepsilon \parallel p)n}\\\Pr \left({\frac {1}{n}}\sum X_{i}\leq p-\varepsilon \right)\leq \left(\left({\frac {p}{p-\varepsilon }}\right)^{p-\varepsilon }{\left({\frac {1-p}{1-p+\varepsilon }}\right)}^{1-p+\varepsilon }\right)^{n}&=e^{-D(p-\varepsilon \parallel p)n}\end{aligned}}}
+  
+where
+
+  
+    
+      
+        D
+        (
+        x
+        ∥
+        y
+        )
+        =
+        x
+        ln
+        ⁡
+        
+          
+            x
+            y
+          
+        
+        +
+        (
+        1
+        −
+        x
+        )
+        ln
+        ⁡
+        
+          (
+          
+            
+              
+                1
+                −
+                x
+              
+              
+                1
+                −
+                y
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle D(x\parallel y)=x\ln {\frac {x}{y}}+(1-x)\ln \left({\frac {1-x}{1-y}}\right)}
+  
+is the Kullback–Leibler divergence between Bernoulli distributed random variables with parameters x and y respectively. If p ≥ 1/2, then 
+  
+    
+      
+        D
+        (
+        p
+        +
+        ε
+        ∥
+        p
+        )
+        ≥
+        
+          
+            
+              
+                ε
+                
+                  2
+                
+              
+              
+                2
+                p
+                (
+                1
+                −
+                p
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle D(p+\varepsilon \parallel p)\geq {\tfrac {\varepsilon ^{2}}{2p(1-p)}}}
+   which means
+  
+    
+      
+        Pr
+        
+          (
+          
+            
+              
+                1
+                n
+              
+            
+            ∑
+            
+              X
+              
+                i
+              
+            
+            >
+            p
+            +
+            x
+          
+          )
+        
+        ≤
+        exp
+        ⁡
+        
+          (
+          
+            −
+            
+              
+                
+                  
+                    x
+                    
+                      2
+                    
+                  
+                  n
+                
+                
+                  2
+                  p
+                  (
+                  1
+                  −
+                  p
+                  )
+                
+              
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \Pr \left({\frac {1}{n}}\sum X_{i}>p+x\right)\leq \exp \left(-{\frac {x^{2}n}{2p(1-p)}}\right).}
+  A simpler bound follows by relaxing the theorem using D(p + ε || p) ≥ 2ε2, which follows from the convexity of D(p + ε || p) and the fact that
+
+  
+    
+      
+        
+          
+            
+              d
+              
+                2
+              
+            
+            
+              d
+              
+                ε
+                
+                  2
+                
+              
+            
+          
+        
+        D
+        (
+        p
+        +
+        ε
+        ∥
+        p
+        )
+        =
+        
+          
+            1
+            
+              (
+              p
+              +
+              ε
+              )
+              (
+              1
+              −
+              p
+              −
+              ε
+              )
+            
+          
+        
+        ≥
+        4
+        =
+        
+          
+            
+              d
+              
+                2
+              
+            
+            
+              d
+              
+                ε
+                
+                  2
+                
+              
+            
+          
+        
+        (
+        2
+        
+          ε
+          
+            2
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle {\frac {d^{2}}{d\varepsilon ^{2}}}D(p+\varepsilon \parallel p)={\frac {1}{(p+\varepsilon )(1-p-\varepsilon )}}\geq 4={\frac {d^{2}}{d\varepsilon ^{2}}}(2\varepsilon ^{2}).}
+  This result is a special case of Hoeffding's inequality. Sometimes, the bounds
+
+  
+    
+      
+        
+          
+            
+              
+                D
+                (
+                (
+                1
+                +
+                x
+                )
+                p
+                ∥
+                p
+                )
+                ≥
+                
+                  
+                    1
+                    4
+                  
+                
+                
+                  x
+                  
+                    2
+                  
+                
+                p
+                ,
+              
+              
+              
+              
+                
+                  −
+                  
+                    
+                      
+                        1
+                        2
+                      
+                    
+                  
+                
+                ≤
+                x
+                ≤
+                
+                  
+                    
+                      1
+                      2
+                    
+                  
+                
+                ,
+              
+            
+            
+              
+                D
+                (
+                x
+                ∥
+                y
+                )
+                ≥
+                
+                  
+                    
+                      3
+                      (
+                      x
+                      −
+                      y
+                      
+                        )
+                        
+                          2
+                        
+                      
+                    
+                    
+                      2
+                      (
+                      2
+                      y
+                      +
+                      x
+                      )
+                    
+                  
+                
+                ,
+              
+            
+            
+              
+                D
+                (
+                x
+                ∥
+                y
+                )
+                ≥
+                
+                  
+                    
+                      (
+                      x
+                      −
+                      y
+                      
+                        )
+                        
+                          2
+                        
+                      
+                    
+                    
+                      2
+                      y
+                    
+                  
+                
+                ,
+              
+              
+              
+              
+                x
+                ≤
+                y
+                ,
+              
+            
+            
+              
+                D
+                (
+                x
+                ∥
+                y
+                )
+                ≥
+                
+                  
+                    
+                      (
+                      x
+                      −
+                      y
+                      
+                        )
+                        
+                          2
+                        
+                      
+                    
+                    
+                      2
+                      x
+                    
+                  
+                
+                ,
+              
+              
+              
+              
+                x
+                ≥
+                y
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}D((1+x)p\parallel p)\geq {\frac {1}{4}}x^{2}p,&&&{-{\tfrac {1}{2}}}\leq x\leq {\tfrac {1}{2}},\\[6pt]D(x\parallel y)\geq {\frac {3(x-y)^{2}}{2(2y+x)}},\\[6pt]D(x\parallel y)\geq {\frac {(x-y)^{2}}{2y}},&&&x\leq y,\\[6pt]D(x\parallel y)\geq {\frac {(x-y)^{2}}{2x}},&&&x\geq y\end{aligned}}}
+  which are stronger for p < 1/8, are also used.
+
+Applications
+Chernoff bounds have very useful applications in set balancing and packet routing in sparse networks.
+The set balancing problem arises while designing statistical experiments. Typically while designing a statistical experiment, given the features of each participant in the experiment, we need to know how to divide the participants into 2 disjoint groups such that each feature is roughly as balanced as possible between the two groups.Chernoff bounds are also used to obtain tight bounds for permutation routing problems which reduce network congestion while routing packets in sparse networks.Chernoff bounds are used in computational learning theory to prove that a learning algorithm is probably approximately correct, i.e. with high probability the algorithm has small error on a sufficiently large training data set.Chernoff bounds can be effectively used to evaluate the "robustness level" of an application/algorithm by exploring its perturbation space with randomization.
+The use of the Chernoff bound permits one to abandon the strong—and mostly unrealistic—small perturbation hypothesis (the perturbation magnitude is small). The robustness level can be, in turn, used either to validate or reject a specific algorithmic choice, a hardware implementation or the appropriateness of a solution whose structural parameters are affected by uncertainties.
+A simple and common use of Chernoff bounds is for "boosting" of randomized algorithms. If one has an algorithm that outputs a guess that is the desired answer with probability p > 1/2, then one can get a higher success rate by running the algorithm 
+  
+    
+      
+        n
+        =
+        log
+        ⁡
+        (
+        1
+        
+          /
+        
+        δ
+        )
+        2
+        p
+        
+          /
+        
+        (
+        p
+        −
+        1
+        
+          /
+        
+        2
+        
+          )
+          
+            2
+          
+        
+      
+    
+    {\displaystyle n=\log(1/\delta )2p/(p-1/2)^{2}}
+   times and outputting a guess that is output by more than n/2 runs of the algorithm. (There cannot be more than one such guess.) Assuming that these algorithm runs are independent, the probability that more than n/2 of the guesses is correct is equal to the probability that the sum of independent Bernoulli random variables Xk that are 1 with probability p is more than n/2. This can be shown to be at least 
+  
+    
+      
+        1
+        −
+        δ
+      
+    
+    {\displaystyle 1-\delta }
+   via the multiplicative Chernoff bound (Corollary 13.3 in Sinclair's class notes, μ = np).:
+
+  
+    
+      
+        Pr
+        
+          [
+          
+            X
+            >
+            
+              
+                n
+                2
+              
+            
+          
+          ]
+        
+        ≥
+        1
+        −
+        
+          e
+          
+            −
+            n
+            
+              
+                (
+                
+                  p
+                  −
+                  1
+                  
+                    /
+                  
+                  2
+                
+                )
+              
+              
+                2
+              
+            
+            
+              /
+            
+            (
+            2
+            p
+            )
+          
+        
+        ≥
+        1
+        −
+        δ
+      
+    
+    {\displaystyle \Pr \left[X>{n \over 2}\right]\geq 1-e^{-n\left(p-1/2\right)^{2}/(2p)}\geq 1-\delta }
+
+Matrix Chernoff bound
+Rudolf Ahlswede and Andreas Winter introduced a Chernoff bound for matrix-valued random variables. The following version of the inequality can be found in the work of Tropp.Let M1, ..., Mt be independent matrix valued random variables such that 
+  
+    
+      
+        
+          M
+          
+            i
+          
+        
+        ∈
+        
+          
+            C
+          
+          
+            
+              d
+              
+                1
+              
+            
+            ×
+            
+              d
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle M_{i}\in \mathbb {C} ^{d_{1}\times d_{2}}}
+   and 
+  
+    
+      
+        
+          E
+        
+        [
+        
+          M
+          
+            i
+          
+        
+        ]
+        =
+        0
+      
+    
+    {\displaystyle \mathbb {E} [M_{i}]=0}
+  .
+Let us denote by 
+  
+    
+      
+        ‖
+        M
+        ‖
+      
+    
+    {\displaystyle \lVert M\rVert }
+   the operator norm of the matrix 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  . If 
+  
+    
+      
+        ‖
+        
+          M
+          
+            i
+          
+        
+        ‖
+        ≤
+        γ
+      
+    
+    {\displaystyle \lVert M_{i}\rVert \leq \gamma }
+   holds almost surely for all 
+  
+    
+      
+        i
+        ∈
+        {
+        1
+        ,
+        …
+        ,
+        t
+        }
+      
+    
+    {\displaystyle i\in \{1,\ldots ,t\}}
+  , then for every ε > 0
+
+  
+    
+      
+        Pr
+        
+          (
+          
+            
+              ‖
+              
+                
+                  
+                    1
+                    t
+                  
+                
+                
+                  ∑
+                  
+                    i
+                    =
+                    1
+                  
+                  
+                    t
+                  
+                
+                
+                  M
+                  
+                    i
+                  
+                
+              
+              ‖
+            
+            >
+            ε
+          
+          )
+        
+        ≤
+        (
+        
+          d
+          
+            1
+          
+        
+        +
+        
+          d
+          
+            2
+          
+        
+        )
+        exp
+        ⁡
+        
+          (
+          
+            −
+            
+              
+                
+                  3
+                  
+                    ε
+                    
+                      2
+                    
+                  
+                  t
+                
+                
+                  8
+                  
+                    γ
+                    
+                      2
+                    
+                  
+                
+              
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \Pr \left(\left\|{\frac {1}{t}}\sum _{i=1}^{t}M_{i}\right\|>\varepsilon \right)\leq (d_{1}+d_{2})\exp \left(-{\frac {3\varepsilon ^{2}t}{8\gamma ^{2}}}\right).}
+  Notice that in order to conclude that the deviation from 0 is bounded by ε with high probability, we need to choose a number of samples 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   proportional to the logarithm of 
+  
+    
+      
+        
+          d
+          
+            1
+          
+        
+        +
+        
+          d
+          
+            2
+          
+        
+      
+    
+    {\displaystyle d_{1}+d_{2}}
+  . In general, unfortunately, a dependence on  
+  
+    
+      
+        log
+        ⁡
+        (
+        min
+        (
+        
+          d
+          
+            1
+          
+        
+        ,
+        
+          d
+          
+            2
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle \log(\min(d_{1},d_{2}))}
+   is inevitable: take for example a diagonal random sign matrix of dimension 
+  
+    
+      
+        d
+        ×
+        d
+      
+    
+    {\displaystyle d\times d}
+  . The operator norm of the sum of t independent samples is precisely the maximum deviation among d independent random walks of length t. In order to achieve a fixed bound on the maximum deviation with constant probability, it is easy to see that t should grow logarithmically with d in this scenario.The following theorem can be obtained by assuming M has low rank, in order to avoid the dependency on the dimensions.
+
+Theorem without the dependency on the dimensions
+Let 0 < ε < 1 and M be a random symmetric real matrix with 
+  
+    
+      
+        ‖
+        E
+        ⁡
+        [
+        M
+        ]
+        ‖
+        ≤
+        1
+      
+    
+    {\displaystyle \|\operatorname {E} [M]\|\leq 1}
+   and 
+  
+    
+      
+        ‖
+        M
+        ‖
+        ≤
+        γ
+      
+    
+    {\displaystyle \|M\|\leq \gamma }
+   almost surely. Assume that each element on the support of M has at most rank r. Set 
+
+  
+    
+      
+        t
+        =
+        Ω
+        
+          (
+          
+            
+              
+                γ
+                log
+                ⁡
+                (
+                γ
+                
+                  /
+                
+                
+                  ε
+                  
+                    2
+                  
+                
+                )
+              
+              
+                ε
+                
+                  2
+                
+              
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle t=\Omega \left({\frac {\gamma \log(\gamma /\varepsilon ^{2})}{\varepsilon ^{2}}}\right).}
+  If 
+  
+    
+      
+        r
+        ≤
+        t
+      
+    
+    {\displaystyle r\leq t}
+   holds almost surely, then
+
+  
+    
+      
+        Pr
+        
+          (
+          
+            
+              ‖
+              
+                
+                  
+                    1
+                    t
+                  
+                
+                
+                  ∑
+                  
+                    i
+                    =
+                    1
+                  
+                  
+                    t
+                  
+                
+                
+                  M
+                  
+                    i
+                  
+                
+                −
+                E
+                ⁡
+                [
+                M
+                ]
+              
+              ‖
+            
+            >
+            ε
+          
+          )
+        
+        ≤
+        
+          
+            1
+            
+              
+                p
+                o
+                l
+                y
+              
+              (
+              t
+              )
+            
+          
+        
+      
+    
+    {\displaystyle \Pr \left(\left\|{\frac {1}{t}}\sum _{i=1}^{t}M_{i}-\operatorname {E} [M]\right\|>\varepsilon \right)\leq {\frac {1}{\mathbf {poly} (t)}}}
+  where M1, ..., Mt are i.i.d. copies of M.
+
+Sampling variant
+The following variant of Chernoff's bound can be used to bound the probability that a majority in a population will become a minority in a sample, or vice versa.Suppose there is a general population A and a sub-population B ⊆ A. Mark the relative size of the sub-population (|B|/|A|) by r.
+Suppose we pick an integer k and a random sample S ⊂ A of size k. Mark the relative size of the sub-population in the sample (|B∩S|/|S|) by rS.
+Then, for every fraction d ∈ [0,1]:
+
+  
+    
+      
+        Pr
+        
+          (
+          
+            
+              r
+              
+                S
+              
+            
+            <
+            (
+            1
+            −
+            d
+            )
+            ⋅
+            r
+          
+          )
+        
+        <
+        exp
+        ⁡
+        
+          (
+          
+            −
+            r
+            ⋅
+            
+              d
+              
+                2
+              
+            
+            ⋅
+            
+              
+                k
+                2
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \Pr \left(r_{S}<(1-d)\cdot r\right)<\exp \left(-r\cdot d^{2}\cdot {\frac {k}{2}}\right)}
+  In particular, if B is a majority in A (i.e. r > 0.5) we can bound the probability that B will remain majority in S(rS > 0.5) by taking: d = 1 − 1/(2r):
+
+  
+    
+      
+        Pr
+        
+          (
+          
+            
+              r
+              
+                S
+              
+            
+            >
+            0.5
+          
+          )
+        
+        >
+        1
+        −
+        exp
+        ⁡
+        
+          (
+          
+            −
+            r
+            ⋅
+            
+              
+                (
+                
+                  1
+                  −
+                  
+                    
+                      1
+                      
+                        2
+                        r
+                      
+                    
+                  
+                
+                )
+              
+              
+                2
+              
+            
+            ⋅
+            
+              
+                k
+                2
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \Pr \left(r_{S}>0.5\right)>1-\exp \left(-r\cdot \left(1-{\frac {1}{2r}}\right)^{2}\cdot {\frac {k}{2}}\right)}
+  This bound is of course not tight at all. For example, when r = 0.5 we get a trivial bound Prob > 0.
+
+Proofs
+Multiplicative form
+Following the conditions of the multiplicative Chernoff bound, let X1, ..., Xn be independent Bernoulli random variables, whose sum is X, each having probability pi of being equal to 1. For a Bernoulli variable:
+
+  
+    
+      
+        E
+        ⁡
+        
+          [
+          
+            e
+            
+              t
+              ⋅
+              
+                X
+                
+                  i
+                
+              
+            
+          
+          ]
+        
+        =
+        (
+        1
+        −
+        
+          p
+          
+            i
+          
+        
+        )
+        
+          e
+          
+            0
+          
+        
+        +
+        
+          p
+          
+            i
+          
+        
+        
+          e
+          
+            t
+          
+        
+        =
+        1
+        +
+        
+          p
+          
+            i
+          
+        
+        (
+        
+          e
+          
+            t
+          
+        
+        −
+        1
+        )
+        ≤
+        
+          e
+          
+            
+              p
+              
+                i
+              
+            
+            (
+            
+              e
+              
+                t
+              
+            
+            −
+            1
+            )
+          
+        
+      
+    
+    {\displaystyle \operatorname {E} \left[e^{t\cdot X_{i}}\right]=(1-p_{i})e^{0}+p_{i}e^{t}=1+p_{i}(e^{t}-1)\leq e^{p_{i}(e^{t}-1)}}
+  So, using (1) with 
+  
+    
+      
+        a
+        =
+        (
+        1
+        +
+        δ
+        )
+        μ
+      
+    
+    {\displaystyle a=(1+\delta )\mu }
+   for any 
+  
+    
+      
+        δ
+        >
+        0
+      
+    
+    {\displaystyle \delta >0}
+   and where 
+  
+    
+      
+        μ
+        =
+        E
+        ⁡
+        [
+        X
+        ]
+        =
+        
+          
+            ∑
+            
+              i
+              =
+              1
+            
+            
+              n
+            
+          
+          
+            p
+            
+              i
+            
+          
+        
+      
+    
+    {\displaystyle \mu =\operatorname {E} [X]=\textstyle \sum _{i=1}^{n}p_{i}}
+  ,
+
+  
+    
+      
+        
+          
+            
+              
+                Pr
+                (
+                X
+                >
+                (
+                1
+                +
+                δ
+                )
+                μ
+                )
+              
+              
+                
+                ≤
+                
+                  inf
+                  
+                    t
+                    ≥
+                    0
+                  
+                
+                exp
+                ⁡
+                (
+                −
+                t
+                (
+                1
+                +
+                δ
+                )
+                μ
+                )
+                
+                  ∏
+                  
+                    i
+                    =
+                    1
+                  
+                  
+                    n
+                  
+                
+                E
+                ⁡
+                [
+                exp
+                ⁡
+                (
+                t
+                
+                  X
+                  
+                    i
+                  
+                
+                )
+                ]
+              
+            
+            
+              
+              
+                
+                ≤
+                
+                  inf
+                  
+                    t
+                    ≥
+                    0
+                  
+                
+                exp
+                ⁡
+                
+                  
+                    (
+                  
+                
+                −
+                t
+                (
+                1
+                +
+                δ
+                )
+                μ
+                +
+                
+                  ∑
+                  
+                    i
+                    =
+                    1
+                  
+                  
+                    n
+                  
+                
+                
+                  p
+                  
+                    i
+                  
+                
+                (
+                
+                  e
+                  
+                    t
+                  
+                
+                −
+                1
+                )
+                
+                  
+                    )
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  inf
+                  
+                    t
+                    ≥
+                    0
+                  
+                
+                exp
+                ⁡
+                
+                  
+                    (
+                  
+                
+                −
+                t
+                (
+                1
+                +
+                δ
+                )
+                μ
+                +
+                (
+                
+                  e
+                  
+                    t
+                  
+                
+                −
+                1
+                )
+                μ
+                
+                  
+                    )
+                  
+                
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\Pr(X>(1+\delta )\mu )&\leq \inf _{t\geq 0}\exp(-t(1+\delta )\mu )\prod _{i=1}^{n}\operatorname {E} [\exp(tX_{i})]\\[4pt]&\leq \inf _{t\geq 0}\exp {\Big (}-t(1+\delta )\mu +\sum _{i=1}^{n}p_{i}(e^{t}-1){\Big )}\\[4pt]&=\inf _{t\geq 0}\exp {\Big (}-t(1+\delta )\mu +(e^{t}-1)\mu {\Big )}.\end{aligned}}}
+  If we simply set t = log(1 + δ) so that t > 0 for δ > 0, we can substitute and find
+
+  
+    
+      
+        exp
+        ⁡
+        
+          
+            (
+          
+        
+        −
+        t
+        (
+        1
+        +
+        δ
+        )
+        μ
+        +
+        (
+        
+          e
+          
+            t
+          
+        
+        −
+        1
+        )
+        μ
+        
+          
+            )
+          
+        
+        =
+        
+          
+            
+              exp
+              ⁡
+              (
+              (
+              1
+              +
+              δ
+              −
+              1
+              )
+              μ
+              )
+            
+            
+              (
+              1
+              +
+              δ
+              
+                )
+                
+                  (
+                  1
+                  +
+                  δ
+                  )
+                  μ
+                
+              
+            
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  e
+                  
+                    δ
+                  
+                
+                
+                  (
+                  1
+                  +
+                  δ
+                  
+                    )
+                    
+                      (
+                      1
+                      +
+                      δ
+                      )
+                    
+                  
+                
+              
+            
+            ]
+          
+          
+            μ
+          
+        
+        .
+      
+    
+    {\displaystyle \exp {\Big (}-t(1+\delta )\mu +(e^{t}-1)\mu {\Big )}={\frac {\exp((1+\delta -1)\mu )}{(1+\delta )^{(1+\delta )\mu }}}=\left[{\frac {e^{\delta }}{(1+\delta )^{(1+\delta )}}}\right]^{\mu }.}
+  This proves the result desired.
+
+Chernoff–Hoeffding theorem (additive form)
+Let q = p + ε. Taking a = nq in (1), we obtain:
+
+  
+    
+      
+        Pr
+        
+          (
+          
+            
+              
+                1
+                n
+              
+            
+            ∑
+            
+              X
+              
+                i
+              
+            
+            ≥
+            q
+          
+          )
+        
+        ≤
+        
+          inf
+          
+            t
+            >
+            0
+          
+        
+        
+          
+            
+              E
+              
+                [
+                
+                  ∏
+                  
+                    e
+                    
+                      t
+                      
+                        X
+                        
+                          i
+                        
+                      
+                    
+                  
+                
+                ]
+              
+            
+            
+              e
+              
+                t
+                n
+                q
+              
+            
+          
+        
+        =
+        
+          inf
+          
+            t
+            >
+            0
+          
+        
+        
+          
+            (
+            
+              
+                
+                  E
+                  
+                    [
+                    
+                      e
+                      
+                        t
+                        
+                          X
+                          
+                            i
+                          
+                        
+                      
+                    
+                    ]
+                  
+                
+                
+                  e
+                  
+                    t
+                    q
+                  
+                
+              
+            
+            )
+          
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle \Pr \left({\frac {1}{n}}\sum X_{i}\geq q\right)\leq \inf _{t>0}{\frac {E\left[\prod e^{tX_{i}}\right]}{e^{tnq}}}=\inf _{t>0}\left({\frac {E\left[e^{tX_{i}}\right]}{e^{tq}}}\right)^{n}.}
+  Now, knowing that Pr(Xi = 1) = p, Pr(Xi = 0) = 1 − p, we have
+
+  
+    
+      
+        
+          
+            (
+            
+              
+                
+                  E
+                  ⁡
+                  
+                    [
+                    
+                      e
+                      
+                        t
+                        
+                          X
+                          
+                            i
+                          
+                        
+                      
+                    
+                    ]
+                  
+                
+                
+                  e
+                  
+                    t
+                    q
+                  
+                
+              
+            
+            )
+          
+          
+            n
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  p
+                  
+                    e
+                    
+                      t
+                    
+                  
+                  +
+                  (
+                  1
+                  −
+                  p
+                  )
+                
+                
+                  e
+                  
+                    t
+                    q
+                  
+                
+              
+            
+            )
+          
+          
+            n
+          
+        
+        =
+        
+          
+            (
+            
+              p
+              
+                e
+                
+                  (
+                  1
+                  −
+                  q
+                  )
+                  t
+                
+              
+              +
+              (
+              1
+              −
+              p
+              )
+              
+                e
+                
+                  −
+                  q
+                  t
+                
+              
+            
+            )
+          
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle \left({\frac {\operatorname {E} \left[e^{tX_{i}}\right]}{e^{tq}}}\right)^{n}=\left({\frac {pe^{t}+(1-p)}{e^{tq}}}\right)^{n}=\left(pe^{(1-q)t}+(1-p)e^{-qt}\right)^{n}.}
+  Therefore, we can easily compute the infimum, using calculus:
+
+  
+    
+      
+        
+          
+            d
+            
+              d
+              t
+            
+          
+        
+        
+          (
+          
+            p
+            
+              e
+              
+                (
+                1
+                −
+                q
+                )
+                t
+              
+            
+            +
+            (
+            1
+            −
+            p
+            )
+            
+              e
+              
+                −
+                q
+                t
+              
+            
+          
+          )
+        
+        =
+        (
+        1
+        −
+        q
+        )
+        p
+        
+          e
+          
+            (
+            1
+            −
+            q
+            )
+            t
+          
+        
+        −
+        q
+        (
+        1
+        −
+        p
+        )
+        
+          e
+          
+            −
+            q
+            t
+          
+        
+      
+    
+    {\displaystyle {\frac {d}{dt}}\left(pe^{(1-q)t}+(1-p)e^{-qt}\right)=(1-q)pe^{(1-q)t}-q(1-p)e^{-qt}}
+  Setting the equation to zero and solving, we have
+
+  
+    
+      
+        
+          
+            
+              
+                (
+                1
+                −
+                q
+                )
+                p
+                
+                  e
+                  
+                    (
+                    1
+                    −
+                    q
+                    )
+                    t
+                  
+                
+              
+              
+                
+                =
+                q
+                (
+                1
+                −
+                p
+                )
+                
+                  e
+                  
+                    −
+                    q
+                    t
+                  
+                
+              
+            
+            
+              
+                (
+                1
+                −
+                q
+                )
+                p
+                
+                  e
+                  
+                    t
+                  
+                
+              
+              
+                
+                =
+                q
+                (
+                1
+                −
+                p
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}(1-q)pe^{(1-q)t}&=q(1-p)e^{-qt}\\(1-q)pe^{t}&=q(1-p)\end{aligned}}}
+  so that
+
+  
+    
+      
+        
+          e
+          
+            t
+          
+        
+        =
+        
+          
+            
+              (
+              1
+              −
+              p
+              )
+              q
+            
+            
+              (
+              1
+              −
+              q
+              )
+              p
+            
+          
+        
+        .
+      
+    
+    {\displaystyle e^{t}={\frac {(1-p)q}{(1-q)p}}.}
+  Thus,
+
+  
+    
+      
+        t
+        =
+        log
+        ⁡
+        
+          (
+          
+            
+              
+                (
+                1
+                −
+                p
+                )
+                q
+              
+              
+                (
+                1
+                −
+                q
+                )
+                p
+              
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle t=\log \left({\frac {(1-p)q}{(1-q)p}}\right).}
+  As q = p + ε > p, we see that t > 0, so our bound is satisfied on t. Having solved for t, we can plug back into the equations above to find that
+
+  
+    
+      
+        
+          
+            
+              
+                log
+                ⁡
+                
+                  (
+                  
+                    p
+                    
+                      e
+                      
+                        (
+                        1
+                        −
+                        q
+                        )
+                        t
+                      
+                    
+                    +
+                    (
+                    1
+                    −
+                    p
+                    )
+                    
+                      e
+                      
+                        −
+                        q
+                        t
+                      
+                    
+                  
+                  )
+                
+              
+              
+                
+                =
+                log
+                ⁡
+                
+                  (
+                  
+                    
+                      e
+                      
+                        −
+                        q
+                        t
+                      
+                    
+                    (
+                    1
+                    −
+                    p
+                    +
+                    p
+                    
+                      e
+                      
+                        t
+                      
+                    
+                    )
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                log
+                ⁡
+                
+                  (
+                  
+                    e
+                    
+                      −
+                      q
+                      log
+                      ⁡
+                      
+                        (
+                        
+                          
+                            
+                              (
+                              1
+                              −
+                              p
+                              )
+                              q
+                            
+                            
+                              (
+                              1
+                              −
+                              q
+                              )
+                              p
+                            
+                          
+                        
+                        )
+                      
+                    
+                  
+                  )
+                
+                +
+                log
+                ⁡
+                
+                  (
+                  
+                    1
+                    −
+                    p
+                    +
+                    p
+                    
+                      e
+                      
+                        log
+                        ⁡
+                        
+                          (
+                          
+                            
+                              
+                                1
+                                −
+                                p
+                              
+                              
+                                1
+                                −
+                                q
+                              
+                            
+                          
+                          )
+                        
+                      
+                    
+                    
+                      e
+                      
+                        log
+                        ⁡
+                        
+                          
+                            q
+                            p
+                          
+                        
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                −
+                q
+                log
+                ⁡
+                
+                  
+                    
+                      1
+                      −
+                      p
+                    
+                    
+                      1
+                      −
+                      q
+                    
+                  
+                
+                −
+                q
+                log
+                ⁡
+                
+                  
+                    q
+                    p
+                  
+                
+                +
+                log
+                ⁡
+                
+                  (
+                  
+                    1
+                    −
+                    p
+                    +
+                    p
+                    
+                      (
+                      
+                        
+                          
+                            1
+                            −
+                            p
+                          
+                          
+                            1
+                            −
+                            q
+                          
+                        
+                      
+                      )
+                    
+                    
+                      
+                        q
+                        p
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                −
+                q
+                log
+                ⁡
+                
+                  
+                    
+                      1
+                      −
+                      p
+                    
+                    
+                      1
+                      −
+                      q
+                    
+                  
+                
+                −
+                q
+                log
+                ⁡
+                
+                  
+                    q
+                    p
+                  
+                
+                +
+                log
+                ⁡
+                
+                  (
+                  
+                    
+                      
+                        
+                          (
+                          1
+                          −
+                          p
+                          )
+                          (
+                          1
+                          −
+                          q
+                          )
+                        
+                        
+                          1
+                          −
+                          q
+                        
+                      
+                    
+                    +
+                    
+                      
+                        
+                          (
+                          1
+                          −
+                          p
+                          )
+                          q
+                        
+                        
+                          1
+                          −
+                          q
+                        
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                −
+                q
+                log
+                ⁡
+                
+                  
+                    q
+                    p
+                  
+                
+                +
+                
+                  (
+                  
+                    −
+                    q
+                    log
+                    ⁡
+                    
+                      
+                        
+                          1
+                          −
+                          p
+                        
+                        
+                          1
+                          −
+                          q
+                        
+                      
+                    
+                    +
+                    log
+                    ⁡
+                    
+                      
+                        
+                          1
+                          −
+                          p
+                        
+                        
+                          1
+                          −
+                          q
+                        
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+              
+                
+                =
+                −
+                q
+                log
+                ⁡
+                
+                  
+                    q
+                    p
+                  
+                
+                +
+                (
+                1
+                −
+                q
+                )
+                log
+                ⁡
+                
+                  
+                    
+                      1
+                      −
+                      p
+                    
+                    
+                      1
+                      −
+                      q
+                    
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                −
+                D
+                (
+                q
+                ∥
+                p
+                )
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\log \left(pe^{(1-q)t}+(1-p)e^{-qt}\right)&=\log \left(e^{-qt}(1-p+pe^{t})\right)\\&=\log \left(e^{-q\log \left({\frac {(1-p)q}{(1-q)p}}\right)}\right)+\log \left(1-p+pe^{\log \left({\frac {1-p}{1-q}}\right)}e^{\log {\frac {q}{p}}}\right)\\&=-q\log {\frac {1-p}{1-q}}-q\log {\frac {q}{p}}+\log \left(1-p+p\left({\frac {1-p}{1-q}}\right){\frac {q}{p}}\right)\\&=-q\log {\frac {1-p}{1-q}}-q\log {\frac {q}{p}}+\log \left({\frac {(1-p)(1-q)}{1-q}}+{\frac {(1-p)q}{1-q}}\right)\\&=-q\log {\frac {q}{p}}+\left(-q\log {\frac {1-p}{1-q}}+\log {\frac {1-p}{1-q}}\right)\\&=-q\log {\frac {q}{p}}+(1-q)\log {\frac {1-p}{1-q}}\\&=-D(q\parallel p).\end{aligned}}}
+  We now have our desired result, that
+
+  
+    
+      
+        Pr
+        
+          (
+          
+            
+              
+                
+                  1
+                  n
+                
+              
+            
+            ∑
+            
+              X
+              
+                i
+              
+            
+            ≥
+            p
+            +
+            ε
+          
+          )
+        
+        ≤
+        
+          e
+          
+            −
+            D
+            (
+            p
+            +
+            ε
+            ∥
+            p
+            )
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle \Pr \left({\tfrac {1}{n}}\sum X_{i}\geq p+\varepsilon \right)\leq e^{-D(p+\varepsilon \parallel p)n}.}
+  To complete the proof for the symmetric case, we simply define the random variable Yi = 1 − Xi, apply the same proof, and plug it into our bound.
+
+See also
+Bernstein inequalities
+Concentration inequality − a summary of tail-bounds on random variables.
+Cramér's theorem
+Entropic value at risk
+Hoeffding's inequality
+Matrix Chernoff bound
+Moment generating function
+
+References
+Further reading
+Chernoff, H. (1952). "A Measure of Asymptotic Efficiency for Tests of a Hypothesis Based on the sum of Observations". Annals of Mathematical Statistics. 23 (4): 493–507. doi:10.1214/aoms/1177729330. JSTOR 2236576. MR 0057518. Zbl 0048.11804.
+Chernoff, H. (1981). "A Note on an Inequality Involving the Normal Distribution". Annals of Probability. 9 (3): 533–535. doi:10.1214/aop/1176994428. JSTOR 2243541. MR 0614640. Zbl 0457.60014.
+Hagerup, T.; Rüb, C. (1990). "A guided tour of Chernoff bounds". Information Processing Letters. 33 (6): 305. doi:10.1016/0020-0190(90)90214-I.
+Nielsen, F. (2011). "An Information-Geometric Characterization of Chernoff Information". IEEE Signal Processing Letters. 20 (3): 269–272. arXiv:1102.2684. doi:10.1109/LSP.2013.2243726. S2CID 15034953.

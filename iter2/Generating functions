@@ -1,0 +1,613 @@
+In mathematics, a generating function is a way of encoding an infinite sequence of numbers (an) by treating them as the coefficients of a formal power series. This series is called the generating function of the sequence. Unlike an ordinary series, the formal power series is not required to converge: in fact, the generating function is not actually regarded as a function, and the "variable" remains an indeterminate. Generating functions were first introduced by Abraham de Moivre in 1730, in order to solve the general linear recurrence problem. One can generalize to formal power series in more than one indeterminate, to encode information about infinite multi-dimensional arrays of numbers.
+There are various types of generating functions, including ordinary generating functions, exponential generating functions, Lambert series, Bell series, and Dirichlet series; definitions and examples are given below. Every sequence in principle has a generating function of each type (except that Lambert and Dirichlet series require indices to start at 1 rather than 0), but the ease with which they can be handled may differ considerably. The particular generating function, if any, that is most useful in a given context will depend upon the nature of the sequence and the details of the problem being addressed.
+Generating functions are often expressed in closed form (rather than as a series), by some expression involving operations defined for formal series. These expressions in terms of the indeterminate x may involve arithmetic operations, differentiation with respect to x and composition with (i.e., substitution into) other generating functions; since these operations are also defined for functions, the result looks like a function of x. Indeed, the closed form expression can often be interpreted as a function that can be evaluated at (sufficiently small) concrete values of x, and which has the formal series as its series expansion; this explains the designation "generating functions". However such interpretation is not required to be possible, because formal series are not required to give a convergent series when a nonzero numeric value is substituted for x. Also, not all expressions that are meaningful as functions of x are meaningful as expressions designating formal series; for example, negative and fractional powers of x are examples of functions that do not have a corresponding formal power series.
+Generating functions are not functions in the formal sense of a mapping from a domain to a codomain. Generating functions are sometimes called generating series, in that a series of terms can be said to be the generator of its sequence of term coefficients.
+
+Definitions
+A generating function is a device somewhat similar to a bag. Instead of carrying many little objects detachedly, which could be embarrassing, we put them all in a bag, and then we have only one object to carry, the bag.
+A generating function is a clothesline on which we hang up a sequence of numbers for display.
+
+Ordinary generating function (OGF)
+The ordinary generating function of a sequence an is
+
+When the term generating function is used without qualification, it is usually taken to mean an ordinary generating function.
+If an is the probability mass function of a discrete random variable, then its ordinary generating function is called a probability-generating function.
+The ordinary generating function can be generalized to arrays with multiple indices. For example, the ordinary generating function of a two-dimensional array am,n (where n and m are natural numbers) is
+
+Exponential generating function (EGF)
+The exponential generating function of a sequence an is
+
+Exponential generating functions are generally more convenient than ordinary generating functions for combinatorial enumeration problems that involve labelled objects.Another benefit of exponential generating functions is that they are useful in transferring linear recurrence relations to the realm of differential equations. For example, take the Fibonacci sequence {fn} that satisfies the linear recurrence relation fn+2 = fn+1 + fn. The corresponding exponential generating function has the form
+
+and its derivatives can readily be shown to satisfy the differential equation EF″(x) = EF′(x) + EF(x) as a direct analogue with the recurrence relation above. In this view, the factorial term n! is merely a counter-term to normalise the derivative operator acting on xn.
+
+Poisson generating function
+The Poisson generating function of a sequence an is
+
+Lambert series
+The Lambert series of a sequence an is
+
+The Lambert series coefficients in the power series expansions
+
+for integers n ≥ 1 are related by the divisor sum
+
+The main article provides several more classical, or at least well-known examples related to special arithmetic functions in number theory.
+In a Lambert series the index n starts at 1, not at 0, as the first term would otherwise be undefined.
+
+Bell series
+The Bell series of a sequence an is an expression in terms of both an indeterminate x and a prime p and is given by
+
+Dirichlet series generating functions (DGFs)
+Formal Dirichlet series are often classified as generating functions, although they are not strictly formal power series. The Dirichlet series generating function of a sequence an is
+The Dirichlet series generating function is especially useful when an is a multiplicative function, in which case it has an Euler product expression in terms of the function's Bell series
+
+If an is a Dirichlet character then its Dirichlet series generating function is called a Dirichlet L-series. We also have a relation between the pair of coefficients in the Lambert series expansions above and their DGFs. Namely, we can prove that
+
+if and only if
+
+where ζ(s) is the Riemann zeta function.
+
+Polynomial sequence generating functions
+The idea of generating functions can be extended to sequences of other objects. Thus, for example, polynomial sequences of binomial type are generated by
+
+where pn(x) is a sequence of polynomials and f(t) is a function of a certain form. Sheffer sequences are generated in a similar way. See the main article generalized Appell polynomials for more information.
+
+Ordinary generating functions
+Examples of generating functions for simple sequences
+Polynomials are a special case of ordinary generating functions, corresponding to finite sequences, or equivalently sequences that vanish after a certain point. These are important in that many finite sequences can usefully be interpreted as generating functions, such as the Poincaré polynomial and others.
+A fundamental generating function is that of the constant sequence 1, 1, 1, 1, 1, 1, 1, 1, 1, ..., whose ordinary generating function is the geometric series
+
+The left-hand side is the Maclaurin series expansion of the right-hand side. Alternatively, the equality can be justified by multiplying the power series on the left by 1 − x, and checking that the result is the constant power series 1 (in other words, that all coefficients except the one of x0 are equal to 0). Moreover, there can be no other power series with this property. The left-hand side therefore designates the multiplicative inverse of 1 − x in the ring of power series.
+Expressions for the ordinary generating function of other sequences are easily derived from this one. For instance, the substitution x → ax gives the generating function for the geometric sequence 1, a, a2, a3, ... for any constant a:
+
+(The equality also follows directly from the fact that the left-hand side is the Maclaurin series expansion of the right-hand side.) In particular,
+
+One can also introduce regular gaps in the sequence by replacing x by some power of x, so for instance for the sequence 1, 0, 1, 0, 1, 0, 1, 0, ... (which skips over x, x3, x5, ...) one gets the generating function
+
+By squaring the initial generating function, or by finding the derivative of both sides with respect to x and making a change of running variable n → n + 1, one sees that the coefficients form the sequence 1, 2, 3, 4, 5, ..., so one has
+
+and the third power has as coefficients the triangular numbers 1, 3, 6, 10, 15, 21, ... whose term n is the binomial coefficient (n + 22), so that
+
+More generally, for any non-negative integer k and non-zero real value a, it is true that
+
+Since
+
+one can find the ordinary generating function for the sequence 0, 1, 4, 9, 16, ... of square numbers by linear combination of binomial-coefficient generating sequences:
+
+We may also expand alternately to generate this same sequence of squares as a sum of derivatives of the geometric series in the following form:
+
+By induction, we can similarly show for positive integers m ≥ 1 that
+where {nk} denote the Stirling numbers of the second kind and where the generating function
+
+so that we can form the analogous generating functions over the integral mth powers generalizing the result in the square case above. In particular, since we can write
+
+we can apply a well-known finite sum identity involving the Stirling numbers to obtain that
+
+Rational functions
+The ordinary generating function of a sequence can be expressed as a rational function (the ratio of two finite-degree polynomials) if and only if the sequence is a linear recursive sequence with constant coefficients; this generalizes the examples above. Conversely, every sequence generated by a fraction of polynomials satisfies a linear recurrence with constant coefficients; these coefficients are identical to the coefficients of the fraction denominator polynomial (so they can be directly read off). This observation shows it is easy to solve for generating functions of sequences defined by a linear finite difference equation with constant coefficients, and then hence, for explicit closed-form formulas for the coefficients of these generating functions. The prototypical example here is to derive Binet's formula for the Fibonacci numbers via generating function techniques.
+We also notice that the class of rational generating functions precisely corresponds to the generating functions that enumerate quasi-polynomial sequences of the form 
+where the reciprocal roots, 
+  
+    
+      
+        
+          ρ
+          
+            i
+          
+        
+        ∈
+        
+          C
+        
+      
+    
+    {\displaystyle \rho _{i}\in \mathbb {C} }
+  , are fixed scalars and where pi(n) is a polynomial in n for all 1 ≤ i ≤ ℓ.
+In general, Hadamard products of rational functions produce rational generating functions. Similarly, if
+
+is a bivariate rational generating function, then its corresponding diagonal generating function,
+
+is algebraic. For example, if we let
+then this generating function's diagonal coefficient generating function is given by the well-known OGF formula
+
+This result is computed in many ways, including Cauchy's integral formula or contour integration, taking complex residues, or by direct manipulations of formal power series in two variables.
+
+Operations on generating functions
+Multiplication yields convolution
+Multiplication of ordinary generating functions yields a discrete convolution (the Cauchy product) of the sequences. For example, the sequence of cumulative sums (compare to the slightly more general Euler–Maclaurin formula)
+
+of a sequence with ordinary generating function G(an; x) has the generating function
+
+because 1/1 − x is the ordinary generating function for the sequence (1, 1, ...). See also the section on convolutions in the applications section of this article below for further examples of problem solving with convolutions of generating functions and interpretations.
+
+Shifting sequence indices
+For integers m ≥ 1, we have the following two analogous identities for the modified generating functions enumerating the shifted sequence variants of ⟨ gn − m ⟩ and ⟨ gn + m ⟩, respectively:
+
+Differentiation and integration of generating functions
+We have the following respective power series expansions for the first derivative of a generating function and its integral:
+
+The differentiation–multiplication operation of the second identity can be repeated k times to multiply the sequence by nk, but that requires alternating between differentiation and multiplication. If instead doing k differentiations in sequence, the effect is to multiply by the kth falling factorial:
+
+Using the Stirling numbers of the second kind, that can be turned into another formula for multiplying by 
+  
+    
+      
+        
+          n
+          
+            k
+          
+        
+      
+    
+    {\displaystyle n^{k}}
+   as follows (see the main article on generating function transformations):
+
+A negative-order reversal of this sequence powers formula corresponding to the operation of repeated integration is defined by the zeta series transformation and its generalizations defined as a derivative-based transformation of generating functions, or alternately termwise by and performing an integral transformation on the sequence generating function. Related operations of performing fractional integration on a sequence generating function are discussed here.
+
+Enumerating arithmetic progressions of sequences
+In this section we give formulas for generating functions enumerating the sequence {fan + b} given an ordinary generating function F(z), where a ≥ 2, 0 ≤ b < a, and a and b are integers (see the main article on transformations). For a = 2, this is simply the familiar decomposition of a function into even and odd parts (i.e., even and odd powers):
+
+More generally, suppose that a ≥ 3 and that ωa = exp 2πi/a denotes the ath primitive root of unity. Then, as an application of the discrete Fourier transform, we have the formula
+For integers m ≥ 1, another useful formula providing somewhat reversed floored arithmetic progressions — effectively repeating each coefficient m times — are generated by the identity
+
+P-recursive sequences and holonomic generating functions
+Definitions
+A formal power series (or function) F(z) is said to be holonomic if it satisfies a linear differential equation of the form
+where the coefficients ci(z) are in the field of rational functions, 
+  
+    
+      
+        
+          C
+        
+        (
+        z
+        )
+      
+    
+    {\displaystyle \mathbb {C} (z)}
+  . Equivalently, 
+  
+    
+      
+        F
+        (
+        z
+        )
+      
+    
+    {\displaystyle F(z)}
+   is holonomic if the vector space over 
+  
+    
+      
+        
+          C
+        
+        (
+        z
+        )
+      
+    
+    {\displaystyle \mathbb {C} (z)}
+   spanned by the set of all of its derivatives is finite dimensional.
+Since we can clear denominators if need be in the previous equation, we may assume that the functions, ci(z) are polynomials in z. Thus we can see an equivalent condition that a generating function is holonomic if its coefficients satisfy a P-recurrence of the form
+
+for all large enough n ≥ n0 and where the ĉi(n) are fixed finite-degree polynomials in n. In other words, the properties that a sequence be P-recursive and have a holonomic generating function are equivalent. Holonomic functions are closed under the Hadamard product operation ⊙ on generating functions.
+
+Examples
+The functions ez, log z, cos z, arcsin z, 
+  
+    
+      
+        
+          
+            1
+            +
+            z
+          
+        
+      
+    
+    {\displaystyle {\sqrt {1+z}}}
+  , the dilogarithm function Li2(z), the generalized hypergeometric functions pFq(...; ...; z) and the functions defined by the power series
+
+and the non-convergent
+
+are all holonomic.
+Examples of P-recursive sequences with holonomic generating functions include fn ≔ 1/n + 1 (2nn) and fn ≔ 2n/n2 + 1, where sequences such as 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\sqrt {n}}}
+   and log n are not P-recursive due to the nature of singularities in their corresponding generating functions. Similarly, functions with infinitely many singularities such as tan z, sec z, and Γ(z) are not holonomic functions.
+
+Software for working with P-recursive sequences and holonomic generating functions
+Tools for processing and working with P-recursive sequences in Mathematica include the software packages provided for non-commercial use on the RISC Combinatorics Group algorithmic combinatorics software site. Despite being mostly closed-source, particularly powerful tools in this software suite are provided by the Guess package for guessing P-recurrences for arbitrary input sequences (useful for experimental mathematics and exploration) and the Sigma package which is able to find P-recurrences for many sums and solve for closed-form solutions to P-recurrences involving generalized harmonic numbers. Other packages listed on this particular RISC site are targeted at working with holonomic generating functions specifically.
+
+Relation to discrete-time Fourier transform
+When the series converges absolutely,
+
+is the discrete-time Fourier transform of the sequence a0, a1, ....
+
+Asymptotic growth of a sequence
+In calculus, often the growth rate of the coefficients of a power series can be used to deduce a radius of convergence for the power series. The reverse can also hold; often the radius of convergence for a generating function can be used to deduce the asymptotic growth of the underlying sequence.
+For instance, if an ordinary generating function G(an; x) that has a finite radius of convergence of r can be written as
+
+where each of A(x) and B(x) is a function that is analytic to a radius of convergence greater than r (or is entire), and where B(r) ≠ 0 then
+
+using the gamma function, a binomial coefficient, or a multiset coefficient.
+Often this approach can be iterated to generate several terms in an asymptotic series for an. In particular,
+
+The asymptotic growth of the coefficients of this generating function can then be sought via the finding of A, B, α, β, and r to describe the generating function, as above.
+Similar asymptotic analysis is possible for exponential generating functions; with an exponential generating function, it is an/n! that grows according to these asymptotic formulae. Generally, if the generating function of one sequence minus the generating function of a second sequence has a radius of convergence that is larger than the radius of convergence of the individual generating functions then the two sequences have the same asymptotic growth.
+
+Asymptotic growth of the sequence of squares
+As derived above, the ordinary generating function for the sequence of squares is
+
+With r = 1, α = −1, β = 3, A(x) = 0, and B(x) = x + 1, we can verify that the squares grow as expected, like the squares:
+
+Asymptotic growth of the Catalan numbers
+The ordinary generating function for the Catalan numbers is
+
+With r = 1/4, α = 1, β = −1/2, A(x) = 1/2, and B(x) = −1/2, we can conclude that, for the Catalan numbers,
+
+Bivariate and multivariate generating functions
+One can define generating functions in several variables for arrays with several indices. These are called multivariate generating functions or, sometimes, super generating functions. For two variables, these are often called bivariate generating functions.
+For instance, since (1 + x)n is the ordinary generating function for binomial coefficients for a fixed n, one may ask for a bivariate generating function that generates the binomial coefficients (nk) for all k and n. To do this, consider (1 + x)n itself as a sequence in n, and find the generating function in y that has these sequence values as coefficients. Since the generating function for an is
+
+the generating function for the binomial coefficients is:
+
+Representation by continued fractions (Jacobi-type J-fractions)
+Definitions
+Expansions of (formal) Jacobi-type and Stieltjes-type continued fractions (J-fractions and S-fractions, respectively) whose hth rational convergents represent 2h-order accurate power series are another way to express the typically divergent ordinary generating functions for many special one and two-variate sequences. The particular form of the Jacobi-type continued fractions (J-fractions) are expanded as in the following equation and have the next corresponding power series expansions with respect to z for some specific, application-dependent component sequences, {abi} and {ci}, where z ≠ 0 denotes the formal variable in the second power series expansion given below:
+The coefficients of 
+  
+    
+      
+        
+          z
+          
+            n
+          
+        
+      
+    
+    {\displaystyle z^{n}}
+  , denoted in shorthand by jn ≔ [zn] J[∞](z), in the previous equations correspond to matrix solutions of the equations
+
+where j0 ≡ k0,0 = 1, jn = k0,n for n ≥ 1, kr,s = 0 if r > s, and where for all integers p, q ≥ 0, we have an addition formula relation given by
+
+Properties of the hth convergent functions
+For h ≥ 0 (though in practice when h ≥ 2), we can define the rational hth convergents to the infinite J-fraction, J[∞](z), expanded by
+
+component-wise through the sequences, Ph(z) and Qh(z), defined recursively by
+
+Moreover, the rationality of the convergent function Convh(z) for all h ≥ 2 implies additional finite difference equations and congruence properties satisfied by the sequence of jn, and for Mh ≔ ab2 ⋯ abh + 1 if h ‖  Mh then we have the congruence
+
+for non-symbolic, determinate choices of the parameter sequences {abi} and {ci} when h ≥ 2, that is, when these sequences do not implicitly depend on an auxiliary parameter such as q, x, or R as in the examples contained in the table below.
+
+Examples
+The next table provides examples of closed-form formulas for the component sequences found computationally (and subsequently proved correct in the cited references)
+in several special cases of the prescribed sequences, jn, generated by the general expansions of the J-fractions defined in the first subsection. Here we define 0 < |a|, |b|, |q| < 1 and the parameters 
+  
+    
+      
+        R
+        ,
+        α
+        ∈
+        
+          
+            Z
+          
+          
+            +
+          
+        
+      
+    
+    {\displaystyle R,\alpha \in \mathbb {Z} ^{+}}
+   and x to be indeterminates with respect to these expansions, where the prescribed sequences enumerated by the expansions of these J-fractions are defined in terms of the q-Pochhammer symbol, Pochhammer symbol, and the binomial coefficients.
+
+The radii of convergence of these series corresponding to the definition of the Jacobi-type J-fractions given above are in general different from that of the corresponding power series expansions defining the ordinary generating functions of these sequences.
+
+Examples
+Generating functions for the sequence of square numbers an = n2 are:
+
+Ordinary generating function
+Exponential generating function
+Lambert series
+As an example of a Lambert series identity not given in the main article, we can show that for |x|, |xq| < 1 we have that 
+where we have the special case identity for the generating function of the divisor function, d(n) ≡ σ0(n), given by
+
+Bell series
+Dirichlet series generating function
+using the Riemann zeta function.
+The sequence ak generated by a Dirichlet series generating function (DGF) corresponding to:
+
+where ζ(s) is the Riemann zeta function, has the ordinary generating function:
+
+Multivariate generating functions
+Multivariate generating functions arise in practice when calculating the number of contingency tables of non-negative integers with specified row and column totals. Suppose the table has r rows and c columns; the row sums are t1, t2 ... tr and the column sums are s1, s2 ... sc. Then, according to I. J. Good, the number of such tables is the coefficient of
+
+in
+
+In the bivariate case, non-polynomial double sum examples of so-termed "double" or "super" generating functions of the form
+
+include the following two-variable generating functions for the binomial coefficients, the Stirling numbers, and the Eulerian numbers:
+
+Applications
+Various techniques: Evaluating sums and tackling other problems with generating functions
+Example 1: A formula for sums of harmonic numbers
+Generating functions give us several methods to manipulate sums and to establish identities between sums.
+The simplest case occurs when sn = Σnk = 0 ak. We then know that S(z) = A(z)/1 − z for the corresponding ordinary generating functions.
+For example, we can manipulate
+
+where Hk = 1 + 1/2 + ⋯ + 1/k are the harmonic numbers. Let
+
+be the ordinary generating function of the harmonic numbers. Then
+
+and thus
+
+Using
+
+convolution with the numerator yields
+
+which can also be written as
+
+Example 2: Modified binomial coefficient sums and the binomial transform
+As another example of using generating functions to relate sequences and manipulate sums, for an arbitrary sequence ⟨ fn ⟩ we define the two sequences of sums
+
+for all n ≥ 0, and seek to express the second sums in terms of the first. We suggest an approach by generating functions.
+First, we use the binomial transform to write the generating function for the first sum as
+
+Since the generating function for the sequence ⟨ (n + 1)(n + 2)(n + 3) fn ⟩ is given by
+
+we may write the generating function for the second sum defined above in the form
+
+In particular, we may write this modified sum generating function in the form of
+
+for a(z) = 6(1 − 3z)3, b(z) = 18(1 − 3z)3, c(z) = 9(1 − 3z)3, and d(z) = (1 − 3z)3, where (1 − 3z)3 = 1 − 9z + 27z2 − 27z3.
+Finally, it follows that we may express the second sums through the first sums in the following form:
+
+Example 3: Generating functions for mutually recursive sequences
+In this example, we reformulate a generating function example given in Section 7.3 of Concrete Mathematics (see also Section 7.1 of the same reference for pretty pictures of generating function series). In particular, suppose that we seek the total number of ways (denoted Un) to tile a 3-by-n rectangle with unmarked 2-by-1 domino pieces. Let the auxiliary sequence, Vn, be defined as the number of ways to cover a 3-by-n rectangle-minus-corner section of the full rectangle. We seek to use these definitions to give a closed form formula for Un without breaking down this definition further to handle the cases of vertical versus horizontal dominoes. Notice that the ordinary generating functions for our two sequences correspond to the series
+
+If we consider the possible configurations that can be given starting from the left edge of the 3-by-n rectangle, we are able to express the following mutually dependent, or mutually recursive, recurrence relations for our two sequences when n ≥ 2 defined as above where U0 = 1, U1 = 0, V0 = 0, and V1 = 1:
+
+Since we have that for all integers m ≥ 0, the index-shifted generating functions satisfy
+we can use the initial conditions specified above and the previous two recurrence relations to see that we have the next two equations relating the generating functions for these sequences given by
+
+which then implies by solving the system of equations (and this is the particular trick to our method here) that
+
+Thus by performing algebraic simplifications to the sequence resulting from the second partial fractions expansions of the generating function in the previous equation, we find that U2n + 1 ≡ 0 and that
+
+for all integers n ≥ 0. We also note that the same shifted generating function technique applied to the second-order recurrence for the Fibonacci numbers is the prototypical example of using generating functions to solve recurrence relations in one variable already covered, or at least hinted at, in the subsection on rational functions given above.
+
+Convolution (Cauchy products)
+A discrete convolution of the terms in two formal power series turns a product of generating functions into a generating function enumerating a convolved sum of the original sequence terms (see Cauchy product).
+
+Consider A(z) and B(z) are ordinary generating functions. 
+Consider A(z) and B(z) are exponential generating functions. 
+Consider the triply convolved sequence resulting from the product of three ordinary generating functions 
+Consider the m-fold convolution of a sequence with itself for some positive integer m ≥ 1 (see the example below for an application) Multiplication of generating functions, or convolution of their underlying sequences, can correspond to a notion of independent events in certain counting and probability scenarios. For example, if we adopt the notational convention that the probability generating function, or pgf, of a random variable Z is denoted by GZ(z), then we can show that for any two random variables 
+if X and Y are independent. Similarly, the number of ways to pay n ≥ 0 cents in coin denominations of values in the set {1, 5, 10, 25, 50} (i.e., in pennies, nickels, dimes, quarters, and half dollars, respectively) is generated by the product
+
+and moreover, if we allow the n cents to be paid in coins of any positive integer denomination, we arrive at the generating for the number of such combinations of change being generated by the partition function generating function expanded by the infinite q-Pochhammer symbol product of
+
+Example: The generating function for the Catalan numbers
+An example where convolutions of generating functions are useful allows us to solve for a specific closed-form function representing the ordinary generating function for the Catalan numbers, Cn. In particular, this sequence has the combinatorial interpretation as being the number of ways to insert parentheses into the product x0 · x1 ·⋯· xn so that the order of multiplication is completely specified. For example, C2 = 2 which corresponds to the two expressions x0 · (x1 · x2) and (x0 · x1) · x2. It follows that the sequence satisfies a recurrence relation given by
+
+and so has a corresponding convolved generating function, C(z), satisfying
+
+Since C(0) = 1 ≠ ∞, we then arrive at a formula for this generating function given by
+
+Note that the first equation implicitly defining C(z) above implies that
+
+which then leads to another "simple" (of form) continued fraction expansion of this generating function.
+
+Example: Spanning trees of fans and convolutions of convolutions
+A fan of order n is defined to be a graph on the vertices {0, 1, ..., n} with 2n − 1 edges connected according to the following rules: Vertex 0 is connected by a single edge to each of the other n vertices, and vertex 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   is connected by a single edge to the next vertex k + 1 for all 1 ≤ k < n. There is one fan of order one, three fans of order two, eight fans of order three, and so on. A spanning tree is a subgraph of a graph which contains all of the original vertices and which contains enough edges to make this subgraph connected, but not so many edges that there is a cycle in the subgraph. We ask how many spanning trees fn of a fan of order n are possible for each n ≥ 1.
+As an observation, we may approach the question by counting the number of ways to join adjacent sets of vertices. For example, when n = 4, we have that f4 = 4 + 3 · 1 + 2 · 2 + 1 · 3 + 2 · 1 · 1 + 1 · 2 · 1 + 1 · 1 · 2 + 1 · 1 · 1 · 1 = 21, which is a sum over the m-fold convolutions of the sequence gn = n = [zn] z/(1 − z)2 for m ≔ 1, 2, 3, 4. More generally, we may write a formula for this sequence as
+
+from which we see that the ordinary generating function for this sequence is given by the next sum of convolutions as
+
+from which we are able to extract an exact formula for the sequence by taking the partial fraction expansion of the last generating function.
+
+Implicit generating functions and the Lagrange inversion formula
+Introducing a free parameter (snake oil method)
+Sometimes the sum sn is complicated, and it is not always easy to evaluate. The "Free Parameter" method is another method (called "snake oil" by H. Wilf) to evaluate these sums.
+Both methods discussed so far have n as limit in the summation. When n does not appear explicitly in the summation, we may consider n as a "free" parameter and treat sn as a coefficient of F(z) = Σ sn zn, change the order of the summations on n and k, and try to compute the inner sum.
+For example, if we want to compute
+
+we can treat n as a "free" parameter, and set
+
+Interchanging summation ("snake oil") gives
+
+Now the inner sum is zm + 2k/(1 − z)m + 2k + 1. Thus
+
+Then we obtain
+
+It is instructive to use the same method again for the sum, but this time take m as the free parameter instead of n. We thus set
+
+Interchanging summation ("snake oil") gives
+
+Now the inner sum is (1 + z)n + k. Thus
+
+Thus we obtain
+
+for m ≥ 1 as before.
+
+Generating functions prove congruences
+We say that two generating functions (power series) are congruent modulo m, written A(z) ≡ B(z) (mod m) if their coefficients are congruent modulo m for all n ≥ 0, i.e., an ≡ bn (mod m) for all relevant cases of the integers n (note that we need not assume that m is an integer here—it may very well be polynomial-valued in some indeterminate x, for example). If the "simpler" right-hand-side generating function, B(z), is a rational function of z, then the form of this sequence suggests that the sequence is eventually periodic modulo fixed particular cases of integer-valued m ≥ 2. For example, we can prove that the Euler numbers,
+
+satisfy the following congruence modulo 3:
+One of the most useful, if not downright powerful, methods of obtaining congruences for sequences enumerated by special generating functions modulo any integers (i.e., not only prime powers pk) is given in the section on continued fraction representations of (even non-convergent) ordinary generating functions by J-fractions above. We cite one particular result related to generating series expanded through a representation by continued fraction from Lando's Lectures on Generating Functions as follows:
+
+Generating functions also have other uses in proving congruences for their coefficients. We cite the next two specific examples deriving special case congruences for the Stirling numbers of the first kind and for the partition function p(n) which show the versatility of generating functions in tackling problems involving integer sequences.
+
+The Stirling numbers modulo small integers
+The main article on the Stirling numbers generated by the finite products
+
+provides an overview of the congruences for these numbers derived strictly from properties of their generating function as in Section 4.6 of Wilf's stock reference Generatingfunctionology.
+We repeat the basic argument and notice that when reduces modulo 2, these finite product generating functions each satisfy
+
+which implies that the parity of these Stirling numbers matches that of the binomial coefficient
+
+and consequently shows that [nk] is even whenever k < ⌊ n/2 ⌋.
+Similarly, we can reduce the right-hand-side products defining the Stirling number generating functions modulo 3 to obtain slightly more complicated expressions providing that
+
+Congruences for the partition function
+In this example, we pull in some of the machinery of infinite products whose power series expansions generate the expansions of many special functions and enumerate partition functions. In particular, we recall that the partition function p(n) is generated by the reciprocal infinite q-Pochhammer symbol product (or z-Pochhammer product as the case may be) given by
+
+This partition function satisfies many known congruence properties, which notably include the following results though there are still many open questions about the forms of related integer congruences for the function:
+We show how to use generating functions and manipulations of congruences for formal power series to give a highly elementary proof of the first of these congruences listed above.
+First, we observe that in the binomial coefficient generating function
+
+all of the coefficients are divisible by 5 except for those which correspond to the powers 1, z5, z10, ... and moreover in those cases the remainder of the coefficient is 1 modulo 5.  Thus, 
+ 
+or equivalently
+
+It follows that
+
+Using the infinite product expansions of 
+
+it can be shown that the coefficient of z5m + 5 in z · ((1 − z)(1 − z2)⋯)4 is divisible by 5 for all m. Finally, since
+
+we may equate the coefficients of z5m + 5 in the previous equations to prove our desired congruence result, namely that p(5m + 4) ≡ 0 (mod 5) for all m ≥ 0.
+
+Transformations of generating functions
+There are a number of transformations of generating functions that provide other applications (see the main article). A transformation of a sequence's ordinary generating function (OGF) provides a method of converting the generating function for one sequence into a generating function enumerating another. These transformations typically involve integral formulas involving a sequence OGF (see integral transformations) or weighted sums over the higher-order derivatives of these functions (see derivative transformations).
+Generating function transformations can come into play when we seek to express a generating function for the sums
+
+in the form of S(z) = g(z) A(f(z)) involving the original sequence generating function. For example, if the sums are
+
+then the generating function for the modified sum expressions is given by
+(see also the binomial transform and the Stirling transform).
+There are also integral formulas for converting between a sequence's OGF, F(z), and its exponential generating function, or EGF, F̂(z), and vice versa given by
+
+provided that these integrals converge for appropriate values of z.
+
+Other applications
+Generating functions are used to:
+
+Find a closed formula for a sequence given in a recurrence relation. For example, consider Fibonacci numbers.
+Find recurrence relations for sequences—the form of a generating function may suggest a recurrence formula.
+Find relationships between sequences—if the generating functions of two sequences have a similar form, then the sequences themselves may be related.
+Explore the asymptotic behaviour of sequences.
+Prove identities involving sequences.
+Solve enumeration problems in combinatorics and encoding their solutions. Rook polynomials are an example of an application in combinatorics.
+Evaluate infinite sums.
+
+Other generating functions
+Examples
+Examples of polynomial sequences generated by more complex generating functions include:
+
+Appell polynomials
+Chebyshev polynomials
+Difference polynomials
+Generalized Appell polynomials
+q-difference polynomialsOther sequences generated by more complex generating functions:
+
+Double exponential generating functions. For example: Aitken's Array: Triangle of Numbers
+Hadamard products of generating functions and diagonal generating functions, and their corresponding integral transformations
+
+Convolution polynomials
+Knuth's article titled "Convolution Polynomials" defines a generalized class of convolution polynomial sequences by their special generating functions of the form
+
+for some analytic function F with a power series expansion such that F(0) = 1.
+We say that a family of polynomials, f0, f1, f2, ..., forms a convolution family if deg fn ≤ n and if the following convolution condition holds for all x, y and for all n ≥ 0:
+
+We see that for non-identically zero convolution families, this definition is equivalent to requiring that the sequence have an ordinary generating function of the first form given above.
+A sequence of convolution polynomials defined in the notation above has the following properties:
+
+The sequence n! · fn(x) is of binomial type
+Special values of the sequence include fn(1) = [zn] F(z) and fn(0) = δn,0, and
+For arbitrary (fixed) 
+  
+    
+      
+        x
+        ,
+        y
+        ,
+        t
+        ∈
+        
+          C
+        
+      
+    
+    {\displaystyle x,y,t\in \mathbb {C} }
+  , these polynomials satisfy convolution formulas of the form
+For a fixed non-zero parameter 
+  
+    
+      
+        t
+        ∈
+        
+          C
+        
+      
+    
+    {\displaystyle t\in \mathbb {C} }
+  , we have modified generating functions for these convolution polynomial sequences given by
+
+where 𝓕t(z) is implicitly defined by a functional equation of the form 𝓕t(z) = F(x𝓕t(z)t). Moreover, we can use matrix methods (as in the reference) to prove that given two convolution polynomial sequences, ⟨ fn(x) ⟩ and ⟨ gn(x) ⟩, with respective corresponding generating functions, F(z)x and G(z)x, then for arbitrary t we have the identity
+
+Examples of convolution polynomial sequences include the binomial power series, 𝓑t(z) = 1 + z𝓑t(z)t, so-termed tree polynomials, the Bell numbers, B(n), the Laguerre polynomials, and the Stirling convolution polynomials.
+
+Tables of special generating functions
+An initial listing of special mathematical series is found here. A number of useful and special sequence generating functions are found in Section 5.4 and 7.4 of Concrete Mathematics and in Section 2.5 of Wilf's Generatingfunctionology. Other special generating functions of note include the entries in the next table, which is by no means complete.
+
+History
+George Pólya writes in Mathematics and plausible reasoning:
+
+The name "generating function" is due to Laplace. Yet, without giving it a name, Euler used the device of generating functions long before Laplace [..]. He applied this mathematical tool to several problems in Combinatory Analysis and the Theory of Numbers.
+
+See also
+Moment-generating function
+Probability-generating function
+Generating function transformation
+Stanley's reciprocity theorem
+Applications to Partition (number theory)
+Combinatorial principles
+Cyclic sieving
+Z-transform
+Umbral calculus
+
+Notes
+References
+Citations
+Aigner, Martin (2007). A Course in Enumeration. Graduate Texts in Mathematics. Vol. 238. Springer. ISBN 978-3-540-39035-0.
+Doubilet, Peter; Rota, Gian-Carlo; Stanley, Richard (1972). "On the foundations of combinatorial theory. VI. The idea of generating function". Proceedings of the Sixth Berkeley Symposium on Mathematical Statistics and Probability. 2: 267–318. Zbl 0267.05002. Reprinted in Rota, Gian-Carlo (1975). "3. The idea of generating function". Finite Operator Calculus. With the collaboration of P. Doubilet, C. Greene, D. Kahaner, A. Odlyzko and R. Stanley. Academic Press. pp. 83–134. ISBN 0-12-596650-4. Zbl 0328.05007.
+Flajolet, Philippe; Sedgewick, Robert (2009). Analytic Combinatorics. Cambridge University Press. ISBN 978-0-521-89806-5. Zbl 1165.05001.
+Goulden, Ian P.; Jackson, David M. (2004). Combinatorial Enumeration. Dover Publications. ISBN 978-0486435978.
+Graham, Ronald L.; Knuth, Donald E.; Patashnik, Oren (1994). "Chapter 7: Generating Functions". Concrete Mathematics. A foundation for computer science (2nd ed.). Addison-Wesley. pp. 320–380. ISBN 0-201-55802-5. Zbl 0836.00001.
+Lando, Sergei K. (2003). Lectures on Generating Functions. American Mathematical Society. ISBN 978-0-8218-3481-7.
+Wilf, Herbert S. (1994). Generatingfunctionology (2nd ed.). Academic Press. ISBN 0-12-751956-4. Zbl 0831.05001.
+
+External links
+"Introduction To Ordinary Generating Functions" by Mike Zabrocki, York University, Mathematics and Statistics
+"Generating function", Encyclopedia of Mathematics, EMS Press, 2001 [1994]
+Generating Functions, Power Indices and Coin Change at cut-the-knot
+"Generating Functions" by Ed Pegg Jr., Wolfram Demonstrations Project, 2007.

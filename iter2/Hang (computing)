@@ -1,0 +1,35 @@
+In computing, a hang or freeze occurs when either a process or system ceases to respond to inputs. A typical example is when computer's graphical user interface (such as Microsoft Windows) no longer responds to the user typing on the keyboard or moving the mouse. The term covers a wide range of behaviors in both clients and servers, and is not limited to graphical user interface issues.
+Hangs have varied causes and symptoms, including software or hardware defects, such as an infinite loop or long-running uninterruptible computation, resource exhaustion (thrashing), under-performing hardware (throttling), external events such as a slow computer network, misconfiguration, and compatibility problems. The fundamental reason is typically resource exhaustion: resources necessary for some part of the system to run are not available, due to being in use by other processes or simply insufficient. Often the cause is an interaction of multiple factors, making "hang" a loose umbrella term rather than a technical one.
+A hang may be temporary if caused by a condition that resolves itself, such as slow hardware, or it may be permanent and require manual intervention, as in the case of a hardware or software logic error. Many modern operating systems provide the user with a means to forcibly terminate a hung program without rebooting or logging out; some operating systems, such as those designed for mobile devices, may even do this automatically. In more severe hangs affecting the whole system, the only solution might be to reboot the machine, usually by power cycling with an off/on or reset button.
+A hang differs from a crash, in which the failure is immediate and unrelated to the responsiveness of inputs.
+
+Multitasking
+In a multitasking operating system, it is possible for an individual process or thread to get stuck, such as blocking on a resource or getting into an infinite loop, though the effect on the overall system varies significantly. In a cooperative multitasking system, any thread that gets stuck without yielding will hang the system, as it will wedge itself as the running thread and prevent other threads from running.
+By contrast, modern operating systems primarily use pre-emptive multitasking, such as Windows 2000 and its successors, as well as Linux and Apple Inc.'s macOS.  In these cases, a single thread getting stuck will not necessarily hang the system, as the operating system will preempt it when its time slice expires, allowing another thread to run. If a thread does hang, the scheduler may switch to another group of interdependent tasks so that all processes will not hang. However, a stuck thread will still consume resources: at least an entry in scheduling, and if it is running (for instance, stuck in an infinite loop), it will consume processor cycles and power when it is scheduled, slowing the system though it does not hang it.
+However, even with preemptive multitasking, a system can hang, and a misbehaved or malicious task can hang the system, primarily by monopolizing some other resource, such as IO or memory, even though processor time cannot be monopolized. For example, a process that blocks the file system will often hang the system.
+Moving around a window on top of a hanging program during a hang may cause a window trail from redrawing.
+
+Causes
+Hardware can cause a computer to hang, either because it is intermittent or because it is mismatched with other hardware in the computer (this can occur when one makes an upgrade). Hardware can also become defective over time due to dirt or heat damage.
+A hang can also occur due to the fact that the programmer has incorrect termination conditions for a loop, or, in a co-operative multitasking operating system, forgetting to yield to other tasks. Said differently, many software-related hangs are caused by threads waiting for an event to occur which will never occur. This is also known as an infinite loop.
+Another cause of hangs is a race condition in communication between processes. One process may send a signal to a second process then stop execution until it receives a response. If the second process is busy the signal will be forced to wait until the process can get to it. However, if the second process was busy sending a signal to the first process then both processes would wait forever for the other to respond to signals and never see the other’s signal (this event is known as a deadlock). If the processes are uninterruptible they will hang and have to be shut down. If at least one of the processes is a critical kernel process the whole system may hang and have to be restarted.
+A computer may seem to hang when in fact it is simply processing very slowly. This can be caused by too many programs running at once, not enough memory (RAM), or memory fragmentation, slow hardware access (especially to remote devices), slow system APIs, etc. It can also be caused by hidden programs which were installed surreptitiously, such as spyware.
+
+Solutions
+In many cases programs may appear to be hung, but are making slow progress, and waiting a few minutes will allow the task to complete.
+Modern operating systems provide a mechanism for terminating hung processes, for instance, with the Unix kill command, or through a graphical means such as the Task Manager's "end task" button in Windows (select the particular process in the list and press "end task").  Older systems, such as those running MS-DOS, early versions of Windows, or Classic Mac OS often needed to be completely restarted in the event of a hang.
+On embedded devices where human interaction is limited, a watchdog timer can reboot the computer in the event of a hang.
+
+Notes
+See also
+Abort (computing)
+Blue screen of death
+Crash (computing)
+Deadlock
+Livelock
+Software bug
+Infinite loop
+Uninterruptible sleep
+
+
+== References ==

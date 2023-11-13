@@ -1,0 +1,738 @@
+This page describes the error messages reported by the Citation Style 1 and Citation Style 2 citations, what they mean, and how editors might resolve the errors. Category:CS1 errors is the general errors category and Category:CS1 maintenance is the general maintenance category.
+Errors issued by Wikipedia's <ref> system, in which citation templates are typically embedded, can be found at Help:Cite errors.
+
+Preview messages
+When editors preview an article, MediaWiki displays a preview message box under the Preview header.  When Citation Style 1 and Citation Style 2 templates have error or maintenance messages, Module:Citation/CS1 summarizes those messages in the preview message box.  Such a message box might look something like this:
+
+The summary messages have three components:
+
+'Script warning:' – this prefix is provided by MediaWiki;
+a colored (green maintenance or red error) message that identifies the type of template that has a message with a link to that template's documentation; wrapper templates with messages will show the name of the wrapped template, and;
+'messages may be hidden' – the message suffix with a help link to this page.Preview messages in the preview message box cannot be hidden.  The preview message suffix 'messages may be hidden' means that the template's message(s) may not be visible.  To learn how to show or hide template messages, see § Error and maintenance messages.
+
+Error and maintenance messages
+By default, Citation Style 1 and Citation Style 2 error messages are visible to all readers and maintenance messages are hidden from all readers.
+To display maintenance messages in the rendered article, include the following text in your common CSS page (common.css) or your specific skin's CSS page and (skin.css).
+(Note to new editors: those CSS pages are specific to you, and control your view of pages, by adding to your user account's CSS code. If you have not yet created such a page, then clicking one of the .css links above will yield a page that starts "Wikipedia does not have a user page with this exact name." Click the "Start the User:username/filename page" link, paste the text below, save the page, follow the instructions at the bottom of the new page on bypassing your browser's cache, and finally, in order to see the previously hidden maintenance messages, refresh the page you were editing earlier.)
+
+To display hidden-by-default error messages:
+
+Even with this CSS installed, older pages in Wikipedia's cache may not have been updated to show these error messages even though the page is listed in one of the tracking categories. A null edit will resolve that issue.
+To hide normally-displayed error messages:
+
+You can personalize the display of these messages (such as changing the color), but you will need to ask someone who knows CSS or at the technical village pump if you do not understand how.
+Nota bene: these css rules are not obeyed by Navigation popups. They also do not hide script warning messages in the Preview box that begins with "This is only a preview; your changes have not yet been saved".
+
+Properties category highlighting
+Module:Citation/CS1 adds properties categories to some CS1|2 citations.  Unlike errors or maintenance needs, there is no message when a properties category is added.  Properties categories may be temporary or may be perpetual.  Editors can use CSS to add special styling to CS1|2 template renderings that will highlight a citation that added a properties category.  For example, this template uses a long volume name:
+
+{{cite book |title=Title |date=May–Jun 2021 |volume = 1: Long volume}}
+Title. Vol. 1: Long volume. May–Jun 2021.If you add this to your CSS that citation will render with a pale yellow background:
+
+Add one or more of these (with appropriate styling) to your CSS to highlight template renderings when those templates add the associated properties category:
+
+.cs1-prop-foreign-lang-source {} – subcategories of Category:CS1 foreign language sources
+.cs1-prop-foreign-lang-source-2 {} – Category:CS1 foreign language sources (ISO 639-2)
+.cs1-prop-jul-greg-uncertainty {} – Category:CS1: Julian–Gregorian uncertainty
+.cs1-prop-location-test {} – Category:CS1 location test‎
+.cs1-prop-long-vol {} – Category:CS1: long volume value
+.cs1-prop-script {} – subcategories of Category:CS1 uses foreign language script‎
+.cs1-prop-tracked-param {} – subcategories of Category:CS1 tracked parameters
+.cs1-prop-year-range-abbreviated {} – Category:CS1: abbreviated year range‎
+
+#Cite <template> requires |<param>=, ~48k pages
+#<periodical>= ignored, ~35k pages
+#Cite uses generic name, ~30k pages
+#Citation without a title of any form, ~25k pages
+#Bare URL without a title, ~15k pages
+
+|access-date= requires |url=
+The |access-date= is the date that the online resource addressed by |url= was added to the article. If |access-date= has been included in the citation without |url= then this message appears. If the citation does not use a web link, then |access-date= is redundant and should be removed.
+When the online resource has a publication or other fixed date associated with it, |access-date= is of limited value though may be useful in identifying an appropriate archived version of the resource. Without |url=, |access-date= is not considered useful.
+To resolve this error, provide a value for |url= or remove |access-date=. Editors should try to determine why the citation has |access-date= without |url=. For example, the citation may never have had a |url=, or |url= may have been removed because it links to a site that violates the creator's copyright (see WP:COPYLINK), or because |url= was deemed to be dead. If the citation never had |url= or it was removed for copyright violations, remove |access-date=. When a dead |url= has been removed, restore the |url= and if possible repair it (see WP:LINKROT).
+Pages with this error are automatically placed in Category:CS1 errors: access-date without URL (6 pages).
+
+|archive-date= / |archive-url= timestamp mismatch
+Archive.org and Archive.today URLs have a 14-digit snapshot timestamp.  This error message is displayed when the archive snapshot date is not the same as the date stated in |archive-date=.
+To resolve this error, make sure that |archive-url= and |archive-date= refer to the same snapshot.  This could mean that values assigned to either or both parameters need to be updated. To get the correct |archive-date= value, view the archived page's source, looking for a line near the bottom that starts with "FILE ARCHIVED ON". The archive date should appear on that line.
+Pages with this error are automatically placed in Category:CS1 errors: archive-url (181 pages).Pages with this error in the tracking category can be fixed by the bot WP:WAYBACKMEDIC. Requests to run the bot can be made at WP:URLREQ.
+
+|archive-date= requires |archive-url=
+|archive-date=, identifies the date that the web resource was archived.  Without a matching |archive-url= parameter, |archive-date= is meaningless.
+To resolve this error, provide a value for |archive-url= or remove |archive-date=
+Pages with this error are automatically placed in Category:CS1 errors: archive-url (181 pages).
+
+|archive-url= is malformed: <reason>
+Archive.org allows a variety of URLs to access snapshots of an archived page.  Some of these are:
+
+https://web.archive.org/web/YYYYMMDDhhmmss/http://www.example.com – a single snapshot; this is the preferred form for use with |archive-url=
+https://web.archive.org/web/*/http://www.example.com – a wildcard search results page; useful for locating an appropriate snapshot but not appropriate in a citation
+https://web.archive.org/web/201603/http://www.example.com – incomplete timestamp; archive.org returns the most recent snapshot
+https://web.archive.org/save/http://www.example.com – saves a new snapshot of the current target; do not use this formThere are two forms of the basic URL:
+
+https://web.archive.org/<timestamp>/... – the old form
+https://web.archive.org/web/<timestamp><flags>/... – the new formThe error message identifies the reason for the message.  The reasons are:
+
+ – the archive.org URL is the save command
+ – web/ was expected but something else was found
+ – the timestamp portion of the URL path is not 14 digits
+ – the flag portion of the URL path (if present; new form URLs only) is not 2 lowercase letters followed by an underscore: 'id_'
+ – liveweb.archive.org is a deprecated form of the domain nameWhen the archive.org URL has any of these errors, Module:Citation/CS1 does not link to archive.org in normal article view and emits an appropriate error message.
+However, in article preview mode, the module creates a modified link to archive.org that uses a partial timestamp with * wildcard suffix. This new URL links to an archive.org calendar view so that editors may more easily select a suitable archived snapshot from those available at archive.org to fix the malformed |archive-url= link. (If no snapshots have been archived at archive.org, and the cited page is still live, this link also allows editors to save the first snapshot of the page at archive.org.)
+To resolve this error, choose the URL of an appropriate snapshot from those held at archive.org. Search for the target URL at archive.org.
+Pages with this error are automatically placed in Category:CS1 errors: archive-url (181 pages).
+
+|archive-url= requires |archive-date=
+|archive-date=, identifies the date that the web resource was archived.
+To resolve this error, provide a value for |archive-date= (see acceptable date formats in MOS:DATEFORMAT). For web resources archived at archive.org, the archival date can be found in the |archive-url=; for resources archived at webcitation.org, the cache date is included in the archive header.
+Pages with this error are automatically placed in Category:CS1 errors: archive-url (181 pages).
+
+|archive-url= requires |url=
+A properly formatted citation that includes |archive-url= and |archive-date= requires |url=. When the citation includes |url-status=live, the ordering of elements in the rendered citation is changed to put the original URL first.
+To resolve this error, provide a value for |url=. For web resources archived at archive.org, the original URL can be found in the |archive-url= value; for resources archived at webcitation.org, the original URL is included in the archive header.
+Pages with this error are automatically placed in Category:CS1 errors: archive-url (181 pages).
+
+|arxiv= required
+{{cite arXiv}} requires one, but not both, of the identifier parameters |arxiv= or |eprint= to specify an arXiv identifier.
+To resolve this error, ensure that the template has |arxiv= or |eprint= with a properly constructed value.
+Pages with this error are automatically placed in Category:CS1 errors: arXiv (0 pages).
+
+|asin-tld= requires |asin=
+When |asin-tld= is used in a CS1|2 template, |asin= (with value) must also be present.
+To resolve this error, either add the missing ASIN or remove the 'broken' parameter.
+Pages with this error are automatically placed in Category:CS1 errors: ASIN TLD (0 pages).
+
+|biorxiv= required
+{{cite bioRxiv}} requires the identifier parameter |biorxiv=.
+To resolve this error, ensure that the template has |biorxiv= with a properly constructed value.
+Pages with this error are automatically placed in Category:CS1 errors: bioRxiv (0 pages).
+
+|chapter= ignored
+Citation Style 1 templates {{cite web}}, {{cite news}}, {{cite journal}}, {{cite magazine}}, {{cite press release}}, {{cite podcast}}, {{cite newsgroup}}, as well as template {{citation}} when it uses |work= or any of its aliases, do not support |chapter= and its components |trans-chapter=, |script-chapter=, |chapter-url=, and |chapter-format=.  The alias parameters |contribution=, |entry=, |article=, |section=, and their components, are similarly not supported.
+To resolve this error:
+
+use a more appropriate citation template, or
+place the content of the |chapter= parameter in |title=, or
+for {{cite news}}, |department= can be used to give the name of the newspaper's section, such as "Obituaries", or
+for {{citation}}, remove |work= or its aliases such as |website= and place their content in |title= if appropriate
+move the content of the |chapter= parameter out of the template, before the closing </ref>Pages with this error are automatically placed in Category:CS1 errors: chapter ignored (0 pages).
+
+<char> character in |<param>= at position n
+This error is reported for citations with parameter values that contain invisible or non-printable characters known as control characters; the error includes the position at which the character can be found.  Module:Citation/CS1 detects parameter values that contain any of these characters:
+
+non-breaking space, U+00A0
+soft hyphen, U+00AD
+replacement character, U+FFFD
+hair space, U+200A
+zero-width space, U+200B
+zero-width joiner, U+200D (note that these are permitted as part of emoji modifiers; see note below)
+horizontal tab, U+0009 (HT)
+line feed, U+0010 (LF)
+carriage return, U+0013 (CR)
+delete character, U+007F (DEL)
+C0 control, U+0000–U+001F (NULL–US)
+C1 control, U+0080–U+009F (XXX–APC)To resolve invisible-character errors, remove or replace the identified character. Most intentional white-space characters should be replaced with a normal space character (i.e. press your keyboard's space bar). See MOS:NBSP for guidance on insertion of intentional non-breaking spaces.  
+Because these characters are mostly invisible, the error message identifies the character's position in the parameter value counted from the left. Space characters between the assignment operator (the '=' sign) and the parameter value are not counted. If you move through the citation with the arrow keys then the cursor may stand still once at an invisible character, which can be removed with Delete or ← Backspace. If you copy-paste a string to the "Characters" field at https://r12a.github.io/app-conversion/ and click "View in UniView" then the position and name of all characters is shown.
+Zero-width joiner characters (U+200D) are used as a valid part of emoji modification (for example, adding a skull emoji to a flag emoji to create a pirate flag emoji). When new modifiers are added to the emoji character set, which happens one or two times per year, those modifiers need to be added to the Citation Style 1 "Configuration" module. Editors can request this addition at Help talk:Citation Style 1. 
+<name> stripmarker in |<param>= at position n
+Strip markers are special sequences of characters that MediaWiki inserts as a place-holder for certain XML-like tags.  These tags include <gallery>...</gallery>, <math>...</math>, <nowiki>...</nowiki>, <pre>...</pre>, and <ref>...</ref>.  The strip markers are replaced with content before the final page rendering.  The module ignores math and nowiki strip markers.
+To resolve strip marker errors, remove or replace the identified tag.  The error message identifies the strip marker's position in the parameter value counted from the left.  Space characters between the assignment operator (the '=' sign) and the parameter value are not counted when calculating the position.
+Strip marker errors can also be caused by unsupported additional text or templates in parameter values—for example, {{ISBN}} in |title=. Resolve the problem by moving the extraneous text outside the citation template, or by removing the extraneous text or template markup, as appropriate.
+Pages with this error are automatically placed in Category:CS1 errors: invisible characters (0 pages).
+
+Check |arxiv= value
+When Citation Style 1 and Citation Style 2 templates contain |arxiv=, a test is done to see if the arXiv identifier conforms with the arXiv identifier scheme. The identifier is checked for a valid number of digits in the article id; valid year and month values; and properly-placed hyphens, slashes, and dots.
+To resolve this error, ensure that the |arxiv= value is correct.
+Pages with this error are automatically placed in Category:CS1 errors: arXiv (0 pages).
+
+Check |asin= value
+When Citation Style 1 and Citation Style 2 templates contain |asin=, a test is done to see if the ASIN identifier contains ten upper-case alphanumeric characters without punctuation or spaces and that if the first character is numeric, that the ASIN conforms to the rules for a ten-digit ISBN.  
+To resolve this error, ensure that the |asin= value is correct.
+If the |asin= value is correct and all-numeric, use |isbn= instead and delete any |asin-tld= parameters.  
+Pages with this error are automatically placed in Category:CS1 errors: ASIN (0 pages).
+
+Check |asin-tld= value
+Citation Style 1 and Citation Style 2 templates contain a test for known |asin-tld= values to specify the top-level domain (TLD) of a given ASIN identifier link. The list of currently supported values is:
+ae, au, br, ca, cn, de, es, fr, in, it, jp, mx, nl, pl, sa, se, sg, tr, uk
+It is not necessary to provide |asin-tld= to specify the default (United States). If you want to specify this condition explicitly, a pseudo-value of us can be given to denote this.
+All these values are automatically resolved to the correct TLD following one of the schemes nn, com.nn, co.nn, z.nn, and com.
+If an unsupported value is encountered, the template will issue this error message.
+To resolve this error, ensure that the |asin-tld= value is correct.
+If the value is correct, please report this at Help talk:Citation Style 1, so that it can be added to the list of supported values.
+Pages with this error are automatically placed in Category:CS1 errors: ASIN TLD (0 pages).
+
+Check |bibcode= <message>
+When Citation Style 1 and Citation Style 2 templates contain |bibcode=, a test is done to see if the bibcode identifier has the proper format.  Bibcodes are expected to match these requirements:
+
+length must be 19 characters (<message> = '')
+characters in position(s): (except as specified otherwise, violations produce '' in the <message> portion of the error message):
+1–4 must be digits and must represent a year in the range of 1000 – next year (<message> = '')
+5 must be a letter
+6–8 must be a letter, ampersand, or dot (ampersand cannot directly precede a dot; &. (<message> = ''))
+9 must be a letter or dot
+10–18 must be a letter, digit, or dot
+19 must be a letter or dotTo resolve this error, ensure that the |bibcode= value is correct.
+Pages with this error are automatically placed in Category:CS1 errors: bibcode (0 pages).
+
+Check |biorxiv= value
+When Citation Style 1 and Citation Style 2 templates contain |biorxiv=, a test is done to see if the bioRxiv identifier has the proper form.  There are two valid forms, each beginning with bioRxiv's doi directory indicator and registrant code (10.1101) and followed by:
+
+six numeric characters without punctuation or spaces:
+|biorxiv=10.1101/######
+###### – 6-digit bioRxiv identifier
+ymd format date prefix followed by six numeric characters without punctuation or spaces followed by optional version:
+|biorxiv=10.1101/yyyy.mm.dd.######v# where:
+yyyy.mm.dd. – represents a date no earlier than 11 December 2019 (2019.12.11.) and no later than tomorrow's date; date must be a valid date
+###### – 6-digit bioRxiv identifier
+v# – optional version indicatorA common error is to include the bioRxiv URL (https://dx.doi.org/10.1101/######}}).
+To resolve this error, ensure that the |biorxiv= value is correct.
+Pages with this error are automatically placed in Category:CS1 errors: bioRxiv (0 pages).
+
+Check |citeseerx= value
+When Citation Style 1 and Citation Style 2 templates contain |citeseerx=, a test is done to see if the CiteSeerX identifier has the proper format.
+The expected identifier is the value assigned to the ?doi= query key in the URL of a CiteSeerX document. (This query key should not be confused with a Digital Object Identifier: it should not be input as |doi=.)
+For instance, if you want to link to http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.220.7880, use |citeseerx=10.1.1.220.7880.
+Pages with this error are automatically placed in Category:CS1 errors: citeseerx (0 pages).
+
+When Citation Style 1 and Citation Style 2 templates contain date-holding parameters, an automated test is done to see if the dates are real dates that comply with a subset of the date rules in  Wikipedia's Manual of Style, specifically checking for violations of MOS:DATEFORMAT.
+To resolve this error, ensure that the date is an actual date and that the date format follows the Wikipedia Manual of Style's guidance on dates in the named parameter. See examples of unacceptable dates and how to fix them, below.  Or, some conceptual issues to look for:
+
+impossible dates, such as 29 February 2011 (2011 was not a leap year)
+|access-date= must specify a day, not just a month or year
+|archive-date= must specify a whole date
+misplaced, incorrect, or extraneous punctuation
+misplaced, incorrect, or extraneous spacing
+extraneous text
+hyphens or slashes instead of en dashes in date ranges (en dashes are required)
+misspelling or improper capitalization (see MOS:ALLCAPS for more detail that is not in Wikipedia Manual of Style's guidance on dates)
+other unacceptable date formats listed in MOS:BADDATEFORMAT
+more than one date in a date-holding parameter
+days of the week (such as Monday, June 6 instead of June 6)
+years before 100 AD, including BCE/BC dates. Try using parameter |orig-date= instead.See Help: Citation Style 1 for information about limitations in the CS1 citation templates' handling of date formats. The MOS section on date ranges describes how to separate dates in a date range. Do not use &nbsp;, &ndash;, or {{spaced ndash}} as these corrupt the metadata. To add an en dash, use the CharInsert edit tool or see Wikipedia:How to make dashes. You may also copy and paste this one: –. A bot is often able to correct the separator, provided the overall format is unambiguous.
+Future dates in |date= in CS1|2 citations are limited to current year + 1; that is, for 2023, citation dates in 2024 are acceptable but citation dates in 2025 and beyond are not.
+Dates prior to 1582 are treated as Julian calendar dates. Dates from 1582 onward are treated as Gregorian calendar dates. The Julian calendar was used in some places until approximately 1923. Three Julian calendar dates in the overlap period, 29 February in the years 1700, 1800, and 1900, will cause this error message because those years are not leap years in the Gregorian calendar.
+The access date (in |access-date=) is checked to ensure that it contains a full date (day, month, and year) and is between 15 January 2001 (the founding date of Wikipedia) and today's date plus one day, because it represents the date that an editor viewed a web-based source to verify a statement on Wikipedia. Because editors may be in time zones that are one day ahead of the UTC date, one extra day is accepted.
+Pages with this error are automatically placed in Category:CS1 errors: dates (6 pages).
+
+Check |doi= value
+When Citation Style 1 and Citation Style 2 templates contain |doi=, a test is done to see if the prefix portion of the DOI value is correctly formatted and has what appears to be a valid registrant code.  A proper DOI prefix begins with the 10. directory indicator.  The remaining portion of the prefix is a string of digits and the dot character which form the registrant code.  When the directory indicator is 10., the CS1|2 templates test for a valid registrant code.  Valid registrant codes:
+
+must be composed of digits
+must be in the range:
+1000–9999
+10000–49999
+may have one or more subcodes that begin with a dot followed by digits (1000.10)
+must not be 5555 (invalid/temporary/test)Additionally, the |doi= value is checked to make sure that it does not contain spaces, en dashes, does not end with punctuation. Further validation of the DOI is not performed.
+Do not include the https://doi.org/ scheme and domain name from a URL. A proper |doi= value looks like |doi=10.1103/PhysRevLett.80.904.
+To resolve this error, ensure that the |doi= value is correct.
+In very rare cases, publishers have released works with a DOI deviating from the standard form. If you are certain that such a non-conforming DOI truly corresponds to the published work, then you can add accept-this-as-written markup around the identifier to suppress the error message. (Do not use this markup for DOIs, which are inactive rather than non-conforming. Instead, use |doi-broken-date= for them.)
+Pages with this error are automatically placed in Category:CS1 errors: DOI (0 pages).
+
+Check |hdl= value
+When Citation Style 1 and Citation Style 2 templates contain |hdl=, a test is done to see if the hdl value looks like a properly defined value. The |hdl= value is checked to make sure that it does not contain spaces or en dashes and does not end with punctuation. Further validation of the hdl is not performed.
+To resolve this error, ensure that the |hdl= value is correct.
+Pages with this error are automatically placed in Category:CS1 errors: HDL (0 pages).
+
+Check |isbn= value: <type>
+Citation Style 1 and Citation Style 2 templates that contain |isbn= are checked to ensure that the ISBN is the proper length (ten or thirteen digits), that the ISBN uses the correct optional separators (simple space or hyphen), and that the final check digit is correct according to the ISBN specification. Only one ISBN is allowed in this field because the whole |isbn= value is included in the citation's COinS metadata. See also Wikipedia:COinS. More than one ISBN, or characters that are not part of the ISBN, corrupt the COinS metadata and may also corrupt the link to Special:BookSources. (If relevant, they can be specified using |id={{ISBN|...}} instead.)
+The error message <type> indicator can be:
+
+ – ISBN is not 10 or 13 digits
+ – ISBN has one or more incorrect digits; look for typos and transposition
+ – ISBN has one or more 'digits' that is not in the allowed set appropriate to ISBN length
+ – 13-digit ISBNs must begin with '978' or '979'
+ – 10-digit ISBNs with the mis-positioned 'X' character
+ – 13-digit ISBN begins with '9790'; this prefix / group ID combination is reserved to ISMNTo resolve this error, ensure that the |isbn= value is correct, that only one ISBN is used, that the proper optional separators are used, and that no other text is included. Use the ISBN printed on the work rather than one retrieved from third-party sources. If both are available, use the 13-digit ISBN.. When a 10-digit ISBN is used, if the check digit is a lowercase 'x', change it to an uppercase 'X'.
+
+Do not try to resolve the error by simply recalculating the check digit.  The check digit is there to check whether the main part of the number is correct.  If the ISBN is failing to validate, it is likely that there is a typo in the main part of the number.  In this case, recalculating the check digit results in an apparently valid ISBN that leads to the wrong source (or to nowhere).
+If you only have a 10-digit ISBN, do use the number as-is, do not try to convert it to the 13-digit form.
+If the ISBN as printed in your source is refusing to validate, do check both the front matter and the book cover for ISBNs.  It is not uncommon for the ISBN to be misprinted in the front matter but correct on the cover.
+Do preview your edit and check that the new ISBN does now link to the correct source.In very rare cases, publishers have released books with malformed ISBNs. If you are certain that a non-conforming ISBN truly corresponds to the published work, then you can add accept-this-as-written markup around the identifier to suppress the error message. In many cases, books may have been reissued with a corrected ISBN. Use a corrected ISBN when possible.
+Sometimes there are numbers assigned to |isbn= that appear to be legitimate – length is right, check digit is correct – but that aren't true ISBN numbers.  This tool may be helpful.
+See also Wikipedia:ISBN.
+Pages with this error are automatically placed in Category:CS1 errors: ISBN (115 pages).
+
+Check |ismn= value
+Citation Style 1 and Citation Style 2 templates that contain |ismn= are checked to ensure that the ISMN is the proper length (thirteen digits), that the ISMN uses the correct optional separators (simple space or hyphen), and that the final check digit is correct according to the ISMN specification. Only one ISMN is allowed in this field because the whole |ismn= value is included in the citation's COinS metadata. See also Wikipedia:COinS. More than one ISMN, or characters that are not part of the ISMN, corrupt the COinS metadata. (If relevant, they can be specified using |id={{ISMN|...}} instead.)
+To resolve this error, ensure that the |ismn= value is correct, that only one ISMN is used, that the proper optional separators are used, and that no other text is included. Make sure that the ISMN contains exactly 13 digits.
+Pages with this error are automatically placed in Category:CS1 errors: ISMN (0 pages).
+
+Citation Style 1 and Citation Style 2 templates that contain |issn= and/or |eissn= are checked to ensure that the ISSN is the proper length (eight digits) and that the final check digit validates according to the ISSN specification. Only one each of ISSN and eISSN is allowed in this field because the whole |issn= and |eissn= values are included in the citation's COinS metadata. See also Wikipedia:COinS. (If relevant, they can be specified using |id={{ISSN|...}} {{EISSN|...}} instead.)
+The ISSN and eISSN are always rendered as two four-digit numbers separated with a hyphen.
+To resolve this error, ensure that the |issn= and |eissn= values are correct, that only one value per parameter is used, and that no other text is included (allowable characters are 0–9, X, and -). If the check-digit is a lowercase 'x', change it to an uppercase 'X'. It may also be worth checking an actual hyphen (-) has been used, and not a hyphen-like character like an endash (–).
+In very rare cases, publishers have released works with a malformed identifier. If you are certain that a non-conforming identifier truly corresponds to the published work, then you can add accept-this-as-written markup around the identifier to suppress the error message. In some cases, works may have been reissued with a corrected identifier. Use the corrected one when possible.
+Pages with this error are automatically placed in Category:CS1 errors: ISSN (0 pages).
+
+Check |jfm= value
+When Citation Style 1 and Citation Style 2 templates contain |jfm=, a test is done to see if the JFM identifier value looks like a properly defined value. The |jfm= identifier is checked to make sure that it has the form: nn.nnnn.nn where n is any digit 0–9. Further validation of the JFM identifier is not performed.
+To resolve this error, ensure that the |jfm= value is correct.
+Pages with this error are automatically placed in Category:CS1 errors: JFM (0 pages).
+
+Check |jstor= value
+When Citation Style 1 and Citation Style 2 templates contain |jstor=, a test is done to see if the JSTOR identifier value looks like a properly defined value.  Error messages are emitted when the assigned value has some form of the string 'jstor' (case-agnostic), or has a URI scheme (http:// or https://), or has any space characters.
+To resolve this error, ensure that the |jstor= value is correct.
+Pages with this error are automatically placed in Category:CS1 errors: JSTOR (0 pages).
+
+Check |lccn= value
+The |lccn= parameter is for the Library of Congress Control Number identifier. It is checked to ensure that the identifier is the proper length and has the correct initial digits.
+LCCN is a character string 8–12 characters long. The length of the LCCN dictates the character type of the initial 1–3 characters; the rightmost eight are always digits.
+Further validation is not performed.
+To resolve this error, ensure that the |lccn= value is correct and that there are no other letters, punctuation, or other characters. 
+When receiving this error, be on the lookout for publishers who omitted leading zeros in the LCCN following the two or four digit year. For example, an LCCN that is properly 92-035427 could be shortened in the printed work to 92-35247. When experimenting with inserting omitted zeroes, cross-check the finished number against the LCCN permalinks online.
+Pages with this error are automatically placed in Category:CS1 errors: LCCN (0 pages).
+
+Check |medrxiv= value
+When Citation Style 1 and Citation Style 2 templates contain |medrxiv=, a test is done to see if the medRxiv identifier has the proper form.  The medRxiv identifier begins with medRxiv's doi directory indicator and registrant code (10.1101) and followed by:
+
+ymd format date prefix followed by eight numeric characters without punctuation or spaces followed by optional version:
+|medrxiv=10.1101/yyyy.mm.dd.########v# where:
+yyyy.mm.dd. – represents a date no earlier than 1 January 2020 (2020.01.01.) and no later than tomorrow's date; date must be a valid date
+######## – 8-digit medRxiv identifier
+v# – optional version indicatorA common error is to include the medRxiv URL (https://dx.doi.org/10.1101/yyyy.mm.dd.########}}).
+To resolve this error, ensure that the |medrxiv= value is correct.
+Pages with this error are automatically placed in Category:CS1 errors: medRxiv (0 pages).
+
+Check |message-id= value
+The |message-id= parameter holds the unique identifier associated with a netnews message.  The value in |message-id= is checked to make sure that it contains @ between left and right identifiers. |message-id= is also checked to make sure that the first character is not < and the last character is not >. Module:Citation/CS1 adds the URI scheme news: to the value in |message-id=.  If the value in |message-id= is wrapped in <...> characters, the link created fails.
+Further validation is not performed.
+To resolve this error, ensure that the |message-id= value is correct, that it contains @ and is not wrapped in <...> characters.
+Pages with this error are automatically placed in Category:CS1 errors: message-id (0 pages).
+
+Check |mr= value
+When Citation Style 1 and Citation Style 2 templates contain |mr=, a test is done to see if the MR identifier value looks like a properly defined value. The |mr= identifier is checked to make sure that it contains only digits and that it is no more than seven digits in length. Further validation of the MR identifier is not performed.
+To resolve this error, ensure that the |mr= value is correct.
+Pages with this error are automatically placed in Category:CS1 errors: MR (0 pages).
+
+Check |oclc= value
+The |oclc= parameter is for the OCLC identifier. Only a single OCLC identifier is allowed. (If relevant, multiple OCLCs can be specified using |id={{OCLC|...}} instead.)
+The identifier must be in one of these forms:
+
+prefix ocm followed by 8 digits
+prefix ocn followed by 9 digits
+prefix on followed by 10 (or more) digits
+prefix (OCoLC) followed by a variable number of digits without leading zeros
+1 to 10 (or more) digits without prefixFurther validation is not performed.
+To resolve this error, ensure that the |oclc= value is correct.
+If the value is correct and larger than the currently configured limit of 10030000000, please report this at Help talk:Citation Style 1, so that the limit can be updated.
+A tip for fixing this error: Editors sometimes place valid ISBN, LCCN, ASIN, or other identifiers in |oclc=. 
+Pages with this error are automatically placed in Category:CS1 errors: OCLC (0 pages).
+
+Check |ol= value
+The |ol= parameter is for the Open Library identifier. The identifier is one or more digits followed by a last character that is either A (authors), M (books), or W (works). Further validation is not performed.
+To resolve this error, ensure that the |ol= value is correct. Do not include "OL" in the value.
+Pages with this error are automatically placed in Category:CS1 errors: OL (0 pages).
+
+Check |osti= value
+The |osti= parameter is for the Office of Scientific and Technical Information (OSTI) identifier. OSTIs are checked to ensure that the identifier is a simple number without punctuation or spaces with a value between 1018 and 23010000. Further validation is not performed.
+A common error is to include the OSTI URL (https://dx.doi.org/10.2172/<OSTI>), or the OSTI DOI (10.2172/<OSTI>).
+To resolve this error, ensure that the |osti= value is correct.
+If the value is correct and lower than 1018 or larger than the currently configured limit of 23010000, please report this at Help talk:Citation Style 1, so that the limit can be updated.
+Pages with this error are automatically placed in Category:CS1 errors: OSTI (0 pages).
+
+These link-holding parameters and their matching title-/name-holding parameters are combined to create a working wikilink to a related article.
+
+This error occurs when any of these |<param>-link= parameters contain a wikilink or a URL, or they contain any of the characters not permitted in Wikipedia article titles per WP:TITLESPECIALCHARACTERS (except _ (underscore), used as a replacement for spaces, and #, used as a fragment identifier when linking to article sections).  The prohibited characters are: < > [ ] | { }.
+The |<param>-link= parameter value should contain only the title of a Wikipedia article or a link to a section of a Wikipedia article. Module:Citation/CS1 checks the |<param>-link= parameter values for wikimarkup and for a URI scheme (http://, https://, the protocol relative scheme //, etc.).  Interlanguage links in any of the |<param>-link= parameters require a leading colon:
+
+:fr:Période d'exil de CaravageWhile primarily intended to catch the errors mentioned above, Module:Citation/CS1 will also catch malformed interlanguage wikilinks wherever they occur.  Interlanguage wikilinks that have the form:
+
+[[fr:Période d'exil de Caravage]]do not create visible clickable links in the article text.  Instead, these links appear in the left pane in the languages list.  Module:Citation/CS1 disables interlanguage links in this form and emits an error message.  The correct form is:
+
+[[:fr:Période d'exil de Caravage]]This error can also be caused when:
+
+there is a |<param>-link= value and the matching |<param>= parameter contains a wikilink.
+|first= and |<param>-first= (and enumerated forms) contain a wikilinkTo resolve this error, do one of the following:
+
+Ensure that the |<param>-link= value is the full name of a Wikipedia article (without brackets) or a section of an article, and not a link to an external web site.
+Make sure that there are no wikilinks in the matching |<param>= parameters.
+If you want to link to a URL outside of Wikipedia, move the link to |url= or a similar parameter, if one is available in the template you are using.Pages with this error are automatically placed in Category:CS1 errors: parameter link (0 pages).
+
+Check |pmc= value
+The |pmc= parameter is for the PubMed Central identifier. PMCs are sequential numbers beginning at 1 and counting up. Module:Citation/CS1 checks the PMC identifier to make sure that the value is a number greater than zero and less than 10700000 and that the identifier contains only digits. Further validation is not performed.
+To resolve this error, ensure that the |pmc= value is correct, and that there are no letters, punctuation, or other characters. Do not include "PMC" in the value. 
+If the value is correct and larger than the currently configured limit of 10700000, please report this at Help talk:Citation Style 1, so that the limit can be updated.
+Pages with this error are automatically placed in Category:CS1 errors: PMC (0 pages).
+
+Check |pmid= value
+The |pmid= parameter is for the PubMed identifier. PMIDs are checked to ensure that the identifier is a simple number without punctuation or spaces with a value between 1 and 38400000. Further validation is not performed.
+To resolve this error, ensure that the |pmid= value is correct. If you find something that looks like a PMID and begins with "PMC", use |pmc= instead of |pmid=.
+If the value is correct and larger than the currently configured limit of 38400000, please report this at Help talk:Citation Style 1, so that the limit can be updated.
+Pages with this error are automatically placed in Category:CS1 errors: PMID (1 page).
+
+Check |rfc= value
+The |rfc= parameter is for the Internet Engineering Task Force (IETF) RFC identifier (unrelated to Wikipedia's internal RfCs). IETF RFCs are checked to ensure that the identifier is a simple number without punctuation or spaces with a value between 1 and 9300. Further validation is not performed.
+To resolve this error, ensure that the |rfc= value is correct.
+If the value is correct and larger than the currently configured limit of 9300, please report this at Help talk:Citation Style 1, so that the limit can be updated.
+Pages with this error are automatically placed in Category:CS1 errors: RFC (0 pages).
+
+Check |sbn= value: <type>
+Citation Style 1 and Citation Style 2 templates that contain |sbn= are checked to ensure that the SBN is the proper length (nine digits), that the SBN uses the correct optional separators (simple space or hyphen), and that the final check digit is correct according to the SBN specification. Only one SBN is allowed in this field because the whole |sbn= value is included in the citation's COinS metadata. See also Wikipedia:COinS. More than one SBN, or characters that are not part of the SBN, corrupt the COinS metadata and may also corrupt the link to Special:BookSources.
+The error message <type> indicator can be:
+
+ – SBN is not 9 digits
+ – SBN has one or more incorrect digits; look for typos and transposition
+ – SBN has one or more 'digits' that is not in the allowed set
+ – mis-positioned 'X' check digitTo resolve this error, ensure that the |sbn= value is correct, that only one SBN is used, that the proper optional separators are used, and that no other text is included. If the check digit is a lowercase 'x', change it to an uppercase 'X'.
+
+Do not try to resolve the error by simply recalculating the check digit.  The check digit is there to check whether the main part of the number is correct.  If the SBN is failing to validate, it is likely that there is a typo in the main part of the number.  In this case, recalculating the check digit results in an apparently valid ISBN that leads to the wrong source (or to nowhere).
+If the SBN as printed in your source is refusing to validate, do check both the front matter and the book cover for SBNs.  It is not uncommon for the SBN to be misprinted in the front matter but correct on the cover.
+Do preview your edit and check that the new SBN does now link to the correct source.In very rare cases, publishers have released books with malformed SBNs. If you are certain that a non-conforming SBN truly corresponds to the published work, then you can add accept-this-as-written markup around the identifier to suppress the error message. In many cases, books may have been reissued with a corrected SBN. Use a corrected SBN when possible.
+Pages with this error are automatically placed in Category:CS1 errors: SBN (0 pages).
+
+Check |ssrn= value
+The |ssrn= parameter is for the Social Science Research Network identifier. SSRNs are checked to ensure that the identifier is a simple number without punctuation or spaces with a value between 100 and 4600000. Further validation is not performed.
+To resolve this error, ensure that the |ssrn= value is correct.
+If the value is correct and larger than the currently configured limit of 4600000, please report this at Help talk:Citation Style 1, so that the limit can be updated.
+Pages with this error are automatically placed in Category:CS1 errors: SSRN (0 pages).
+
+Check |s2cid= value
+The |s2cid= parameter is for the Semantic Scholar corpus identifier. S2CIDs are checked to ensure that the identifier is a simple number without punctuation or spaces with a value between 1 and 266000000. Further validation is not performed.
+To resolve this error, ensure that the |s2cid= value is correct.
+If the value is correct and larger than the currently configured limit of 266000000, please report this at Help talk:Citation Style 1, so that the limit can be updated.
+Pages with this error are automatically placed in Category:CS1 errors: S2CID (0 pages).
+
+External links in Citation Style 1 and Citation Style 2 templates are made from two parts: the title (|title=, |chapter=, etc.) and the URL (|url=, |archive-url=, |chapter-url=, etc.). The |url= parameter and other URL parameters must begin with a supported URI scheme. The URI schemes http://, https://, and the protocol relative scheme // are most commonly used; irc://, ircs://, ftp://, news:, mailto: and gopher:// are also supported.
+The URL scheme and host are checked to ensure that they contain only Latin characters, certain (required) punctuation, and do not contain spaces.  The URL may be protocol relative (begins with //).  If there are no spaces and the URL is not protocol relative, then the scheme must comply with RFC 3986.Some URL domains are written with non-Latin characters.  cs1|2 does not accept those kinds of URLs so they must be 'internationalized'.  Online tools are available to internationalize URLs that are written in non-Latin scripts:
+
+"IDN Conversion Tool". Verisign.Top- and second-level domain names are checked for proper form.  Generally, top-level domain names must be two or more letters; second-level domain names must be two or more letters, digits, or hyphens (first and last character must be a letter or digit).  Single-letter second-level domains are supported for:
+
+all cc TLDs (the country code is not validated)
+the .org TLD
+certain letters of the .com TLD (q, x, z)
+certain letters of the .net TLD (i, q)
+certain other TLDs (.cash, .company, .foundation, .org, .today)Third- and subsequent-level domain names are not checked.  The path portion of the URL is not checked.
+There is an additional test for |archive-url=.  The cs1|2 templates expect that |archive-url= will hold a unique URL for an archived snapshot of the source identified by |url= or |chapter-url= (or any of its aliases).  This error message is emitted when the value assigned to |archive-url= is the same as the matching title or chapter URL.  
+To resolve this error, ensure that:
+
+|url= and other URL parameters contain valid URLs
+URLs copy-pasted from elsewhere include the URI scheme
+that the domain name uses only Latin charactersPages with this error are automatically placed in Category:CS1 errors: URL (5,421 pages).
+
+Check |zbl= value
+When Citation Style 1 and Citation Style 2 templates contain |zbl=, a test is done to see if the Zbl identifier value looks like a properly defined value. The |zbl= identifier is checked to make sure that it has the form: nnnn.nnnnn where n is any digit 0–9. Up to three leading zeros in the first quartet may be omitted.  Further validation of the Zbl identifier is not performed.
+To resolve this error, ensure that the |zbl= value is correct.
+Pages with this error are automatically placed in Category:CS1 errors: Zbl (0 pages).
+
+This error message highlights CS1|2 templates that hold empty parameters with names that are not known to a given CS1|2 template.  This error message is a companion to Unknown parameter |xxxx= ignored.
+Empty positional parameters, which typically look like two adjacent pipes in a template, | |, or a pipe and then the end of the template, |}}, are identified as numbered parameters: .  Similarly, a pipe followed by an HTML comment that encloses everything before the next pipe or closing brace, | <!--<param name/value pair>--> | will be identified as an empty numbered parameter. Parameters that have both a pipe and an equal sign but do not have a name are identified as empty-string parameters: |= or | = → .  Various templates that wrap CS1|2 templates may cause this error when they use constructs like this: |{{#if:{{{2|}}}|title}}={{{2|}}}.  When {{{2|}}} does not have a value, the template creates |=.
+To resolve this error: 
+
+remove the extra pipe,
+correct the parameter name,
+remove the parameter from the CS1|2 template, or
+change the citation to use a more appropriate template (e.g. change {{Cite document}} to {{Cite web}})Pages with this error are automatically placed in Category:CS1 errors: empty unknown parameters (2 pages).
+
+Cite document requires |publisher=
+This error message is displayed when {{Cite document}} does not have |publisher=.  Usually, there is a more appropriate template that can be used in place of {{cite document}}.  When {{cite document}} is used, it  accepts a limited subset of the cs1|2 parameter suite but requires |publisher=.
+To resolve this error, use a more appropriate template (preferred solution) or provide |publisher=.
+Pages with this error are automatically placed in Category:CS1 errors: missing publisher (364 pages).
+
+Cite <template> requires |<param>=
+This error message is hidden.  To show this error message see Controlling error message display.
+These CS1 periodical templates require a periodical parameter. The periodical templates are:
+
+{{cite journal}}
+{{cite magazine}}The error message suggests a periodical parameter that matches the template, but there is no requirement to use the suggested parameter; any one of these periodical parameters may be used:
+
+|journal=
+|magazine=
+|newspaper=
+|periodical=
+|website=
+|work=In some cases, an incorrect template has been used (e.g. {{cite journal}} for a web page, book, or standalone document). The appropriate resolution in these cases is to change the incorrect template to {{cite web}}, {{cite book}}, {{cite document}}, or a different, more appropriate template.
+Pages with this error are automatically placed in Category:CS1 errors: missing periodical (47,869 pages).
+
+Cite uses deprecated parameter |<param>=
+Over time, some parameters have become obsolete or unnecessary. When this happens, the parameters are identified as deprecated. Editors are encouraged to use other parameters that accomplish the same purpose as those that have been deprecated. The CS1|2 deprecated parameters are listed in the following table, along with recommended replacement parameters. Parameter names are case-sensitive. Editors should expect that support for deprecated parameters will soon be withdrawn.
+To resolve this error, use a supported parameter.
+Pages with this error are automatically placed in Category:CS1 errors: deprecated parameters (0 pages).
+
+|<param>= has generic name
+Articles are listed in this category when Module:Citation/CS1 identifies template author or editor name parameters that use place-holder names.  Such names may have been provided by bots or other tools that are unable to identify the source's correct names.  Pages in this category should only be added by Module:Citation/CS1.
+CS1|2 maintains a short list of 'names' that are typically not the correct names for the cited source.  Some examples are:
+
+If you are aware of other common place-holder names, please report them at Help talk:Citation Style 1, so that they can be added to the list.
+To resolve this error, replace the place-holder name with the source's actual author or editor name, or use a more appropriate parameter. 
+Example fixes:
+
+Replace |author=Smith, Jane, editor with |editor=Smith, Jane
+Replace |author=[[Jane Smith (author)|Jane Smith]] with |first=Jane |last=Smith |author-link=Jane Smith (author) (preferably) or |author=Jane Smith |author-link=Jane Smith (author)False positives are possible. When the name is valid, wrap the parameter value in the accept-this-as-written markup:
+
+|author=((Super User))Please do not use this markup when it is not appropriate.
+Pages with this error are automatically placed in Category:CS1 errors: generic name (28,012 pages).See also the error category Category:CS1 errors: generic title.
+
+Cite uses generic title
+Articles are listed in this category when Module:Citation/CS1 identifies template |title= parameters that use place-holder titles.  Such titles may have been provided by bots or other tools that are unable to identify the source's correct title.  Pages in this category should only be added by Module:Citation/CS1.
+CS1|2 maintains a short list of 'titles' that are typically not the title of the cited source.  Some examples are:
+
+If you are aware of other common place-holder titles, please report them at Help talk:Citation Style 1, so that they can be added to the list.
+To resolve this error, replace the place-holder title with the source's actual title.
+False positives are possible. When the name is valid, wrap the parameter value in the accept-this-as-written markup:
+
+|title=((404th Fighter Aviation Regiment))Please do not use this markup when it is not appropriate.
+Pages with this error are automatically placed in Category:CS1 errors: generic title (3,186 pages).See also the maintenance category Category:CS1 maint: archived copy as title and the similar error category Category:CS1 errors: generic name.
+
+|citeseerx= required
+{{cite citeseerx}} requires the identifier parameter |citeseerx=.
+To resolve this error, ensure that the template has |citeseerx= with a properly constructed value.
+Pages with this error are automatically placed in Category:CS1 errors: citeseerx (0 pages).
+
+|class= ignored
+Only used in {{cite arXiv}} templates, |class= is only appropriate when the template uses |arxiv=YYMM.NNNN or |arxiv=YYMM.NNNNN identifier formats; see Cite arXiv §Usage.
+To resolve this error, remove |class=.
+Pages with this error are automatically placed in Category:CS1 errors: class (0 pages).
+
+|contributor= ignored
+Only used in book citations, |contributor= identifies the author of a contribution, typically an afterword, foreword, introduction, preface, etc., to another (primary) author's work.  This error occurs when |contributor= is used in a template that is not {{cite book}} or {{citation}} or is one of these two templates and one of the |work= parameter aliases is set.  
+To resolve this error, consider the |others= parameter, choose a more appropriate CS1 or CS2 template or remove |contributor=.
+Pages with this error are automatically placed in Category:CS1 errors: contributor (0 pages).
+
+Only used in book citations, |contributor= identifies the author of a contribution, typically an afterword, foreword, introduction, preface, etc., to another (primary) author's work.  As such, the primary author is required (|author= or appropriate alias) as is the title of the contribution (|contribution=).  
+To resolve this error, include the book's primary author in |author1=, or |last1=, |first1=, or |vauthors= and include the contribution title in |contribution=; or consider the |others= parameter or remove |contributor=.
+Pages with this error are automatically placed in Category:CS1 errors: contributor (0 pages).
+
+|doi-broken-date= requires |doi=
+When |doi-broken-date= is used in a CS1|2 template, |doi= (with value) must also be present.
+To resolve this error, either add the missing DOI or remove the 'broken' parameter.
+Pages with this error are automatically placed in Category:CS1 errors: DOI (0 pages).
+
+|edition= has extra text
+The templates are responsible for static text rendered in the citation.  When |edition= is used in a template, cs1|2 adds the abbreviation 'ed.' to the value in the parameter so:
+
+|edition=1strenders as:
+
+1st ed.The templates emit this error message when various forms of ed, edn, or edition are found in the value assigned to |edition=.
+To resolve this error, remove the extraneous text from the parameter value.
+Pages with this error are automatically placed in Category:CS1 errors: extra text: edition (0 pages).
+
+Empty citation
+A Citation Style 1 or Citation Style 2 template marked as "Empty" contains no recognizable parameter identifiers. For example, this citation is marked as "empty" even though it contains usable information:
+
+{{cite web |http://www.foobar.com |The Foobar News}}The citation is "empty" because it does not contain the necessary parameter identifiers (in this case |url= and |title=) that tell {{cite web}} how to use the information that the citation contains.
+A citation is also marked as "empty" when it contains only parameters that it doesn't recognize:
+
+{{cite book |titolo=The Bazquux Uprising |anno=2015}}This citation is "empty" because the Italian-language parameters |titolo= and |anno= are not recognized as valid parameter names on the English Wikipedia.
+"Empty citation" may also mean that an editor meant to use another template entirely. Perhaps the editor used {{citation}} when the intent was to use {{citation needed}} or {{quote}}.
+To resolve this error, add appropriate parameter identifiers, translate foreign language parameter names to their English equivalents, or replace the CS1/CS2 template with a more appropriate template.
+Pages with this error are automatically placed in Category:CS1 errors: empty citation (2 pages).
+
+Explicit use of et al. in: |<param>=
+This error occurs where a Citation Style 1 or Citation Style 2 template detects that one of the names parameters contains some form of "et al." either as a separate name parameter (|author6=et al.) or as a suffix added to a name list (|author=Smith, A.B. et al.) or first name (|first=John, et al.).
+This error can occur in any of the author, editor, interviewer, translator, or contributor parameters.
+Use the |display-authors= parameter instead (or other applicable |display-<names>= parameter), as documented at Help:Citation Style 1#Display options.
+Pages with this error are automatically placed in Category:CS1 errors: explicit use of et al. (0 pages).
+
+External link in |<param>=
+This error occurs when a URL is found in any parameter that is not one of these URL-holding parameters:
+
+or any of these insource locator parameters:
+
+To resolve this error, remove the external link from the identified parameter.  Consider placing the external link in a more appropriate parameter:
+
+for |chapter=, the URL may belong in |chapter-url=.
+for other parameters, it may belong in |url=.Pages with this error are automatically placed in Category:CS1 errors: external links (7,304 pages).
+
+|<first>n= missing |<last>n=
+Citation Style 1 and Citation Style 2 templates requires a |<last>n= parameter for each |<first>n= parameter in a citation. Author, contributor, editor, interviewer, and translator lists are checked for proper last/first pairing.  CS1|2 will emit this error message for the first mismatch it detects.  If there are more last/first mismatches in a citation, subsequent mismatches are not detected.
+There is no requirement that each |<last>n= have a matching |<first>n=.
+To resolve this error, ensure that each |<first>n= has a corresponding |<last>n=. 
+Pages with this error are automatically placed in Category:CS1 errors: missing name (191 pages).
+
+These errors occur when Citation Style 1 and Citation Style 2 templates use |format= or |...-format= without also providing a corresponding URL for |url= or |...-url=, respectively. The |format= and |...-format= parameters are used to specify the file format of a web resource, such as PDF, DOC, or XLS. In some cases an editor may have intended to use |type= to specify a kind of document, such as hard cover, paperback, or pamphlet. The |format= and |...-format= value is always displayed.
+The list of |...-format= parameters is:
+
+|archive-format=, |article-format=, |chapter-format=, |conference-format=, |contribution-format=, |entry-format=, |event-format=, |lay-format=, |map-format=, |section-format=, |transcript-format=(Citations that relied on the pre-2014, somewhat odd use of |url= and |format= may need adjustment in regard to |chapter-format=.)
+To resolve this error, remove |format= or |chapter-format=; define |url= or |chapter-url=; or change |format= to |type= (or to |chapter-format= if |chapter-url= is used without |url=.
+Pages with this error are automatically placed in Category:CS1 errors: format without URL (0 pages).
+
+Invalid |<names>=<value>
+These error messages are emitted when Module:Citation/CS1 identifies citations that use one or more of the |display-<names>= parameters with an invalid assigned <value>.  An invalid assigned <value> is a number that is greater than or equal to the number of <names> in the associated name-list or it is non-numeric text that Module:Citation/CS1 cannot recognize as a form of the keyword etal.
+To resolve this error, do one of the following:
+
+Remove the |display-<names>= parameter from the citation (typically because "et al." is not appropriate in the citation)
+Change the <value> of the |display-<names>= parameter such that it is less than the number of <names> in the name-list (thereby truncating the displayed list to the number)
+Change the <value> of the |display-<names>= parameter to etal, which will cause "et al" to display after the last <name>.Pages with this error are automatically placed in Category:CS1 errors: display-names (0 pages).
+
+Invalid |<param>=<value>
+To function properly, some parameters are limited to a certain set of acceptable values.  This error message indicates that a parameter has been assigned a value that is not a member of the parameter's defined set of acceptable values. 
+Letters in values must all be in lower case, as shown below.
+
+To resolve this error for the parameters in the table, use an appropriate value.
+Support for |ref=harv is withdrawn because cs1|2 templates now automatically create the CITEREF anchor value that |ref=harv controlled.  To resolve this error, remove |ref=harv.
+Pages with this error are automatically placed in Category:CS1 errors: invalid parameter value (0 pages).
+
+Invalid |script-<param>=: <type>
+The various |script-<param>= parameters are checked for proper form.  When an error is detected, the error message briefly identifies the type of the error:
+
+ – the |script-<param>= parameter has a language-code prefix but is otherwise empty
+ – the |script-<param>= parameter has text but is missing the required language-code prefix; the prefix has the form xx: or xxx: where xx or xxx is a valid ISO 639-1 or ISO 639-3 language code known to CS1|2 as a language that uses a non-Latin script; the colon (:) is required
+ – the |script-<param>= parameter has a (possibly valid) language code that CS1|2 does not recognize as a language using a non-Latin scriptLanguage codes known to CS1|2 for languages that do not use a Latin script are:
+
+Pages with this error are automatically placed in Category:CS1 errors: script parameters (0 pages).
+
+|issue= has extra text|number= has extra text
+The templates are responsible for static text rendered in the citation. When |issue= or |number= is used in a template, cs1|2 formats the issue number according to the style corresponding with the publication type associated with the used citation template.
+The templates emit this error message when various forms of issue or number prefixes (like Iss. or No.) are found in the value assigned to |issue= or |number=.
+To resolve this error, remove the extraneous text from the parameter value. If the extraneous text removed is related to issues, please use the |issue= parameter rather than |number= for this, and vice versa. At present, the output is the same for both parameters, but this may not hold true in future versions, therefore it is important that issues and number values are used with the proper parameter as per what nomenclature is used in the actual publication.
+Pages with this error are automatically placed in Category:CS1 errors: extra text: issue (0 pages).
+
+Italic or bold markup not allowed in: |<param>n=
+Italic ('') or bold (''') wikimarkup is not allowed in publisher and periodical parameters.  These parameters include:
+
+|publisher=
+|journal=
+|magazine=
+|newspaper=
+|periodical=
+|website=
+|work=To resolve this error, remove wiki markup from the named parameter's value and ensure that the template is using the correct parameters; when citing a newspaper, use |newspaper= for the newspaper's name, not |publisher=, etc.
+Pages with this error are automatically placed in Category:CS1 errors: markup (0 pages).
+
+|medrxiv= required
+{{cite medRxiv}} requires the identifier parameter |medrxiv=.
+To resolve this error, ensure that the template has |medrxiv= with a properly constructed value.
+Pages with this error are automatically placed in Category:CS1 errors: medRxiv (0 pages).
+
+Missing |<name>n=
+So that all names are listed in a rendered citation, Citation Style 1 and Citation Style 2 templates require n in |<last>n= (and its aliases) to increment by 1 for each name in the list (author, contributor, editor, interviewer, translator).  This error message is emitted when there is a 'hole' in the numbering (an author list made up of |author1= and |author3= but without |author2= for example).
+The test will not detect a 'hole' that is larger than 1.  It is presumed that when |authorn= and |authorn+1= are both not present, then the test has reached the end of the list.
+To resolve this error, ensure that the numbering of the |<last>n= parameters increments properly. 
+Pages with this error are automatically placed in Category:CS1 errors: missing name (191 pages).
+
+There are two slightly different error conditions that can arise when CS1 citations lack appropriate titles. In each case, CS1 reports this error message. The necessary resolution may vary depending on the cause of the error. The error message links to the appropriate description below.
+
+Bare URL without a title
+|<param>= missing title
+All Citation Style 1 and Citation Style 2 templates report this error when one of the URL-containing parameters cannot be paired with an associated title. This error may also occur when |title= cannot be linked with |url= because the citation also contains a conflicting |title-link= parameter.
+
+A unique case exists for {{cite journal}}: if |pmc= or |doi= has a value, |url= is omitted or empty, and |title-link= does not point to an article, then |title= is automatically linked with the same URL as the PMC or DOI. This default behaviour can be overridden using |title-link=none/pmc/doi.
+Because URLs are ugly and generally uninformative, it is expected that editors should provide a meaningful title for each URL. In most cases this can be accomplished by using the |title= parameter.
+To resolve this error, provide an appropriate title for the URL-containing parameter. In the case where |url= and |title-link= are contending for |title= you must choose which one to keep. Consider moving |url= or |title-link= to a more suitable parameter.
+Pages with this error are automatically placed in Category:CS1 errors: bare URL (14,152 pages).
+
+Citation without a title of any form
+
+This error occurs for Citation Style 1 and Citation Style 2 templates when all of |title=, |trans-title=, and |script-title= are omitted or left blank.  At least one of these title parameters must be provided for each citation.
+{{cite episode}} will show this error if |series= is omitted or left blank (even if a |title= is provided).
+{{cite encyclopedia}} will show this error if |encyclopedia= has a value but |entry= (or another |chapter= alias) is omitted or left blank.
+Sometimes this error occurs because an editor has used a CS1|2 citation as a shortened footnote when {{sfn}} or one of the {{harv}} family of templates would have been more appropriate. This error also occurs when an editor used {{citation}} but intended to use {{citation needed}}.
+To resolve this error, provide a value for |title=, |trans-title=, and/or |script-title= or replace the CS1|2 template with a more appropriate template. If you are listing a periodical or an issue of a periodical in a bibliography rather than within <ref>...</ref> tags, {{List journal}} may be more appropriate.
+Pages with this error are automatically placed in Category:CS1 errors: missing title (23,435 pages).
+
+Missing or empty |url=
+This error message is reported by {{cite web}}, {{cite podcast}}, and {{cite mailing list}} when the template parameters |url= and |archive-url= are both missing, blank or not properly entered. Note that |website= or |work= is the name of the site, not the URL.
+To resolve this error, provide a value for |url= or use a more appropriate template such as {{cite book}}, {{cite journal}} or other Citation Style 1 or Citation Style 2 template.
+Pages with this error are automatically placed in Category:CS1 errors: requires URL (5,697 pages).
+
+Missing pipe in: |<param>=
+Citation Style 1 and Citation Style 2 templates report this error when one parameter has text that looks like it is a parameter missing a pipe (|). This error occurs when a template parameter value contains characters and digits followed by an equal sign.  If the alphanumeric text immediately preceding the equal sign is a valid CS1|2 parameter name, the module assumes that the template is missing a pipe and emits this error message.
+Some legitimate titles will contain a CS1|2 parameter name followed by an equal sign. In that case, enclose the equal sign in nowiki tags, like this: <nowiki>=</nowiki>.  For most other cases, simply add the missing pipe.
+Pages with this error are automatically placed in Category:CS1 errors: missing pipe (0 pages).
+
+More than one of |<param1>=, |<param2>=, and |<param3>= specified
+This error occurs when a Citation Style 1 or Citation Style 2 template includes more than one parameter that maps to the same meaning. For example, |author=, |last=, and |last1= are all synonyms of each other, so no more than one of these parameters should ever be used in a single template.
+To resolve this error, remove or modify the redundant parameter(s).
+
+This error occurs when a CS1 or CS2 template uses more than one type of author or editor name-list style.  There are three kinds of incompatible author-name-list styles: 
+
+|authorn= and |lastn= / |firstn= (and their various aliases), |vauthors=, and |authors=and similarly, three editor-name-list styles:
+
+|editorn= and |editor-lastn= / |editor-firstn= (and their various aliases) as well as |veditors=To resolve this error, choose one name-list-style.  Use the chosen style for both of the author and editor name-lists.
+Pages with these errors are automatically placed in Category:CS1 errors: redundant parameter (0 pages).
+
+|<param>= has extra text
+The templates are responsible for static text rendered in the citation.  When |page=/|p=, |pages=/|pp=, |quote-page= or |quote-pages= is used in a template, cs1|2 inserts the appropriate pagination prefix 'p.' or 'pp.' ahead of the value in the parameter so:
+
+|page=123renders as:
+
+p. 123and:
+
+|page=123–125renders as:
+
+pp. 123–125The templates emit this error message when various forms of p, pp, pg, pgs, page, or pages are found in the value assigned to |page=/|p=, |pages=/|pp=, |quote-page= or |quote-pages=.
+To resolve this error, remove the extraneous text from the parameter value.
+Pages with this error are automatically placed in Category:CS1 errors: extra text: pages (0 pages).
+
+|<param>-access= requires |<param>=
+This error is reported when an access level has been specified for some external link, but the corresponding required parameter is missing or empty.
+The parameter can be one of
+
+To resolve this error, either provide a value for the parameter, or remove the access level specification.
+Pages with this error are automatically placed in Category:CS1 errors: param-access (0 pages).
+
+|periodical= ignored
+Citation Style 1 templates {{cite book}} and {{cite encyclopedia}} do not support |periodical= (and aliases |journal=, |magazine=, |newspaper=, |website=, |work=) and associated |script-periodical= and |trans-periodical= (and their aliases).
+To resolve this error:
+
+use a more appropriate citation template, or
+most common: change |title= to |chapter= (or appropriate alias) and then change |periodical= to |title=, or
+change |work= to |series= if |title= is the actual title of the book and |work= contains the name of a book series, or
+change |work= to another appropriate parameter (it has been used to hold values for |publisher=, |editor=, |via=, and more), or
+move the content of the |periodical= parameter out of the template, before the closing </ref>, or
+delete the |periodical= parameterPages with this error are automatically placed in Category:CS1 errors: periodical ignored (33,518 pages).
+
+|pmc-embargo-date= requires |pmc=
+When |pmc-embargo-date= is used in a CS1|2 template, |pmc= (with value) must also be present.
+To resolve this error, either add the missing PMC or remove the 'broken' parameter.
+Pages with this error are automatically placed in Category:CS1 errors: PMC embargo (0 pages).
+
+|ssrn= required
+{{cite SSRN}} requires the identifier parameter |ssrn=.
+To resolve this error, ensure that the template has |ssrn= with a properly constructed value.
+Pages with this error are automatically placed in Category:CS1 errors: SSRN (0 pages).
+
+Text "????" ignored
+Unlike many Wikipedia templates, the Citation Style 1 and Citation Style 2 templates do not use unnamed or positional parameters. When a citation contains text between vertical bars and that text does not contain an equal sign (=), CS1|2 ignores the text and reports the error. This is true even when the text is the name of a valid parameter.
+This error can also be caused by vertical bars (pipe characters) that are part of URLs or titles. When vertical bars occur in URLs, replace each vertical bar with %7C. When vertical bars occur in parameter values that are not URLs, replace each vertical bar with &#124; or {{!}}.
+To resolve this error, remove the extraneous text, add '=', add an appropriate parameter name from the template you're using to complete the parameter, or properly encode vertical bars in URLs and titles.
+Pages with this error are automatically placed in Category:CS1 errors: unrecognized parameter (10 pages).
+
+|trans-<param>= requires |<param>= or |script-<param>=
+Citation Style 1 and Citation Style 2 templates report this error when the citation has an English translation of the title in |trans-title= or chapter title in |trans-chapter= but does not have the original-language title in |title= or original-language chapter title in |chapter=.
+To resolve this error, provide the original language title for |title= or chapter title for |chapter=. Consider adding |language= if not already part of the citation.
+Pages with this error are automatically placed in Category:CS1 errors: translated title (0 pages).
+
+Citation Style 1 and Citation Style 2 templates report this error when the name portion of a parameter's |name=value pair is not recognized as a valid name. Typically, this is caused by spelling or capitalization errors or when a page is reverted to a version where the citation template did support the parameter. It can also be caused by the use of parameters that are valid in some, but not all, CS1|2 templates. For example, {{cite book}} citations are sometimes erroneously created using |title= and |work= when they should use |chapter= and |title= instead.
+The CS1|2 engine does not ignore unrecognized parameters. The purpose of the citation is to properly identify the source, not to act as a repository of notes and ancillary information.
+CS1|2 template parameters are lower case. CS1|2 will report this error when the parameter's name contains uppercase letters (Xxxx, xxXx, XXXX) but the parameter's name is defined as lowercase (xxxx). Some identifier parameters, like |isbn=, |pmc=, |doi=, etc., can be either lower case or upper case, but not of mixed case (|isbn= or |ISBN= but not |Isbn=). For common parameter misspellings, like |pubisher= instead of |publisher= and some former template parameters, CS1|2 will suggest a valid parameter name. The list of deprecated and recently removed parameters may contain additional information as well.
+Reported unknown parameters following a |DUPLICATE_<param>= scheme are created by Citation Bot when it finds duplicate parameters |<param>= in a template.
+To resolve this error, replace the erroneous parameter name with a correct one, possibly using the suggested name. Ensure that the parameter's name is correctly spelled and that there are no characters except spaces between the parameter's name and the leading vertical bar (|) or trailing equals sign (=). A list of valid parameters can be found by consulting Help:Citation Style 1 or visiting the description page of the specific template being used, such as {{cite web}}, {{cite book}}, {{cite journal}}, etc. Consider moving information associated with the unknown parameter into an appropriate parameter or to a section of the article's talk page for preservation.
+Pages with this error are automatically placed in Category:CS1 errors: unsupported parameter (5 pages).
+
+URL–wikilink conflict
+External links in a rendered citation are a combination of url-holding parameters, |url=, |chapter-url=, etc., with title-holding parameters, |title=, |chapter=, etc. Title-holding parameters may be wikilinked to another Wikipedia article but not when there is a matching url-holding parameter in the citation. When this condition occurs, the wikilink is suppressed, the wiki markup ignored, and the rendered citation links to the external site.
+With {{cite journal}}, auto-linking of the |pmc= or |doi= parameter value can cause this condition to occur implicitly without a specific url-holding parameter.
+Some templates will also cause this error if they are part of a title-holding parameter. The error occurs when the template produces wikilinked content. For example, {{lang}} templates output a wikilinked category. Templates in title-holding parameters may also corrupt the citation's COinS metadata. As a general rule, avoid using templates in title-holding parameters unless you know that the template's effects are entirely visual ({{!}} and the like).
+This type of error may also occur in identifier-based templates ({{cite doi}}, etc.). When this happens, the error message is shown in the article but the error is actually located in the identifier-based citation template.
+To resolve this error, remove wikilinks from title-holding parameters that are intended to be externally linked or remove the external URL, which will allow the internal wikilinks to work as expected. If the conflict is implicitly caused through auto-linking (see above), this can be disabled using |title-link=none. If wikilink-producing templates are important to the citation, move them out of the CS1 template but leave them inside the citation's <ref>...</ref> tags. Some of the functionality provided by templates may also be available through CS1 parameters.
+To resolve errors in identifier-based citation templates, the template must be edited to correct the error. Exercise caution when editing these templates because identifier-based citation templates are often used in multiple articles.
+Pages with this error are automatically placed in Category:CS1 errors: URL–wikilink conflict (0 pages).
+
+Vancouver style error: <type> in name <number>
+This error is reported for citations that use |vauthors=, |veditors=, |name-list-style=vanc.
+Vancouver style restricts author or editor names to the Latin alphabet. For the purposes of this test, Module:Citation/CS1 defines the Latin alphabet as the letters defined in the Unicode Latin character sets:
+
+C0 Controls and Basic Latin (0041–005A, 0061–007A)
+C1 Controls and Latin-1 Supplement (00C0–00D6, 00D8–00F6, 00F8–00FF)
+Latin Extended-A (0100–017F)
+Latin Extended-B (0180–01BF, 01C4–024F)This error is also reported when more than two initials are used: in case of more than two initials, list only the first two.
+This error is also reported when a corporate or institutional author is listed in |vauthors= without proper delimiters.  Corporate authors should be listed this way:
+
+|vauthors=First Surname FM, Surname AB, ((Corporate or institutional Author)), Last Surname XYWhile normally correct, sometimes the names listed on a PMID page contain errors when the author surname has a lowercase nobiliary particle.  For example, PMID 17726700 lists Magnus von Knebel Doeberitz as Doeberitz Mv which is not correct.  This author's name should be listed as |vauthors=von Knebel Doeberitz M.Certain punctuation will be flagged as an error.  For example, Unicode U+2019, right single quotation mark, causes an error because it is not a member of the Latin character sets identified above: |vauthors=Van’t Veer M.  Replace this character with the straight (or typewriter) apostrophe: |vauthors=Van't Veer M.
+To resolve this error, Romanize author and editor names.  Romanizing can result in two-letter initials, for example, the Greek letter 'Θ' Romanizes to 'Th'. When author names have this kind of initial, Module:Citation/CS1 can't know if this kind of initial is a typo or a legitimate Romanized character so it will emit the Vancouver error.  To suppress the error after determining that the two-character initial is correct and not a typo, treat the name as if it were a corporate name by wrapping it in doubled parentheses: |vauthors=...,  Tatarinov IuS, ... → |vauthors=...,  ((Tatarinov IuS)), ...
+Similarly, Chinese hyphenated given names may appear in PubMed listings.  For example: 'Wang Hsien-yu' may be listed on PubMed as 'Wang Hy' which will result in a Vancouver error.  When this occurs, and upon verification that such names are correct, wrap them in doubled parentheses.
+Specific rules for names:
+Surnames with hyphens and other punctuation in them
+Other surname rules
+Given names containing punctuation, a prefix, a preposition, or particle
+Degrees, titles, and honors before or after a personal name
+Designations of rank within a family, such as Jr and III
+Names appearing in non-roman alphabets (Cyrillic, Greek, Arabic, Hebrew, Korean) or character-based languages (Chinese, Japanese)
+Organizations as author
+CS1|2 does not obey the semicolon-as-separator rule.  Separate corporate and organizational names from each other and from individual names with a comma; wrap corporate and organizational names in doubled parentheses as described above.Pages with this error are automatically placed in Category:CS1 errors: Vancouver style (0 pages).
+
+|volume= has extra text
+The templates are responsible for static text rendered in the citation. When |volume= is used in a template, cs1|2 formats the volume value according to the style corresponding with the publication type associated with the used citation template.
+The templates emit this error message when some form of the word "volume" ("volume", "vol.") is found in the value assigned to |volume=.
+To resolve this error, remove the extraneous text from the parameter value.
+Pages with this error are automatically placed in Category:CS1 errors: extra text: volume (0 pages).

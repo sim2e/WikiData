@@ -1,0 +1,269 @@
+In computation theory, the Blum–Shub–Smale machine, or BSS machine, is a model of computation introduced by Lenore Blum, Michael Shub and Stephen Smale, intended to describe computations over the real numbers. Essentially, a BSS machine is a Random Access Machine with registers that can store arbitrary real numbers and that can compute rational functions over reals in a single time step. It is closely related to the Real RAM model. 
+BSS machines are more powerful than Turing machines, because the latter are by definition restricted to a finite set of symbols. A Turing machine can represent a countable set (such as the rational numbers) by strings of symbols, but this does not extend to the uncountable real numbers.
+
+Definition
+A BSS machine M is given by a list 
+  
+    
+      
+        I
+      
+    
+    {\displaystyle I}
+  of 
+  
+    
+      
+        N
+        +
+        1
+      
+    
+    {\displaystyle N+1}
+   instructions (to be described below), indexed 
+  
+    
+      
+        0
+        ,
+        1
+        ,
+        …
+        ,
+        N
+      
+    
+    {\displaystyle 0,1,\dots ,N}
+  . A configuration of M is a tuple 
+  
+    
+      
+        (
+        k
+        ,
+        r
+        ,
+        w
+        ,
+        x
+        )
+      
+    
+    {\displaystyle (k,r,w,x)}
+  , where k is the index of the instruction to be executed next, r and w are registers holding non-negative integers, and 
+  
+    
+      
+        x
+        =
+        (
+        
+          x
+          
+            0
+          
+        
+        ,
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        )
+      
+    
+    {\displaystyle x=(x_{0},x_{1},\ldots )}
+   is a list of real numbers, with all but finitely many being zero. The list 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is thought of as holding the contents of all registers of M. The computation begins with configuration 
+  
+    
+      
+        (
+        0
+        ,
+        0
+        ,
+        0
+        ,
+        x
+        )
+      
+    
+    {\displaystyle (0,0,0,x)}
+   and ends whenever 
+  
+    
+      
+        k
+        =
+        N
+      
+    
+    {\displaystyle k=N}
+  ; the final content of x is said to be the output of the machine.
+The instructions of M can be of the following types:
+
+Computation: a substitution 
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        :=
+        
+          g
+          
+            k
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle x_{0}:=g_{k}(x)}
+   is performed, where 
+  
+    
+      
+        
+          g
+          
+            k
+          
+        
+      
+    
+    {\displaystyle g_{k}}
+   is an arbitrary rational function (a quotient of two polynomial functions with arbitrary real coefficients); registers r and w may be changed, either by 
+  
+    
+      
+        r
+        :=
+        0
+      
+    
+    {\displaystyle r:=0}
+   or 
+  
+    
+      
+        r
+        :=
+        r
+        +
+        1
+      
+    
+    {\displaystyle r:=r+1}
+   and similarly for w. The next instruction is k+1.
+Branch
+  
+    
+      
+        (
+        l
+        )
+      
+    
+    {\displaystyle (l)}
+  : if 
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        ≥
+        0
+      
+    
+    {\displaystyle x_{0}\geq 0}
+   then goto 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+  ; else goto k+1.
+Copy(
+  
+    
+      
+        
+          x
+          
+            r
+          
+        
+        ,
+        
+          x
+          
+            w
+          
+        
+      
+    
+    {\displaystyle x_{r},x_{w}}
+  ): the content of the "read" register 
+  
+    
+      
+        
+          x
+          
+            r
+          
+        
+      
+    
+    {\displaystyle x_{r}}
+   is copied into the "written" register 
+  
+    
+      
+        
+          x
+          
+            w
+          
+        
+      
+    
+    {\displaystyle x_{w}}
+  ; the next instruction is k+1
+
+Theory
+Blum, Shub and Smale defined the complexity classes P (polynomial time) and NP (nondeterministic polynomial time) in the BSS model. Here NP is defined by adding an existentially-quantified input to a problem. They give a problem which is NP-complete for the class NP so defined: existence of roots of quartic polynomials. This is an analogue of the Cook-Levin Theorem for real numbers.
+
+See also
+General purpose analog computer
+Hypercomputation
+Real computer
+
+References
+Further reading
+Blum, Lenore; Cucker, Felipe; Shub, Mike; Smale, Steve (1998). Complexity and Real Computation. Springer New York. doi:10.1007/978-1-4612-0701-6. ISBN 978-0-387-98281-6. S2CID 12510680. Retrieved 23 March 2022.
+Bürgisser, Peter (2000). Completeness and reduction in algebraic complexity theory. Algorithms and Computation in Mathematics. Vol. 7. Berlin: Springer-Verlag. ISBN 3-540-66752-0. Zbl 0948.68082.
+Grädel, E. (2007). "Finite Model Theory and Descriptive Complexity". Finite Model Theory and Its Applications (PDF). Springer-Verlag. pp. 125–230. Zbl 1133.03001.

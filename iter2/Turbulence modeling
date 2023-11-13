@@ -1,0 +1,353 @@
+In fluid dynamics, turbulence modeling is the construction and use of a mathematical model to predict the effects of turbulence. Turbulent flows are commonplace in most real-life scenarios, including the flow of blood through the cardiovascular system, the airflow over an aircraft wing, the re-entry of space vehicles, besides others. In spite of decades of research, there is no analytical theory to predict the evolution of these turbulent flows. The equations governing turbulent flows can only be solved directly for simple cases of flow. For most real-life turbulent flows, CFD simulations use turbulent models to predict the evolution of turbulence. These turbulence models are simplified constitutive equations that predict the statistical evolution of turbulent flows.
+
+Closure problem
+The Navier–Stokes equations govern the velocity and pressure of a fluid flow. In a turbulent flow, each of these quantities may be decomposed into a mean part and a fluctuating part. Averaging the equations gives the Reynolds-averaged Navier–Stokes (RANS) equations, which govern the mean flow. However, the nonlinearity of the Navier–Stokes equations means that the velocity fluctuations still appear in the RANS equations, in the nonlinear term 
+  
+    
+      
+        −
+        ρ
+        
+          
+            
+              
+                v
+                
+                  i
+                
+                
+                  ′
+                
+              
+              
+                v
+                
+                  j
+                
+                
+                  ′
+                
+              
+            
+            ¯
+          
+        
+      
+    
+    {\displaystyle -\rho {\overline {v_{i}^{\prime }v_{j}^{\prime }}}}
+   from the convective acceleration. This term is known as the Reynolds stress, 
+  
+    
+      
+        
+          R
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle R_{ij}}
+  . Its effect on the mean flow is like that of a stress term, such as from pressure or viscosity.
+To obtain equations containing only the mean velocity and pressure, we need to close the RANS equations by modelling the Reynolds stress term 
+  
+    
+      
+        
+          R
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle R_{ij}}
+   as a function of the mean flow, removing any reference to the fluctuating part of the velocity. This is the closure problem.
+
+Eddy viscosity
+Joseph Valentin Boussinesq was the first to attack the closure problem, by introducing the concept of eddy viscosity. In 1877 Boussinesq proposed relating the turbulence stresses to the mean flow to close the system of equations. Here the Boussinesq hypothesis is applied to model the Reynolds stress term. Note that a new proportionality constant 
+  
+    
+      
+        
+          ν
+          
+            t
+          
+        
+        >
+        0
+      
+    
+    {\displaystyle \nu _{t}>0}
+  , the turbulence eddy viscosity, has been introduced. Models of this type are known as eddy viscosity models or EVM's.
+
+which can be written in shorthand as
+
+where
+
+  
+    
+      
+        
+          S
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle S_{ij}}
+   is the mean rate of strain tensor
+
+  
+    
+      
+        
+          ν
+          
+            t
+          
+        
+      
+    
+    {\displaystyle \nu _{t}}
+   is the turbulence eddy viscosity
+
+  
+    
+      
+        k
+        =
+        
+          
+            
+              1
+              2
+            
+          
+        
+        
+          
+            
+              
+                v
+                
+                  i
+                
+                ′
+              
+              
+                v
+                
+                  i
+                
+                ′
+              
+            
+            ¯
+          
+        
+      
+    
+    {\displaystyle k={\tfrac {1}{2}}{\overline {v_{i}'v_{i}'}}}
+   is the turbulence kinetic energy
+and 
+  
+    
+      
+        
+          δ
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle \delta _{ij}}
+   is the Kronecker delta.In this model, the additional turbulence stresses are given by augmenting the molecular viscosity with an eddy viscosity. This can be a simple constant eddy viscosity (which works well for some free shear flows such as axisymmetric jets, 2-D jets, and mixing layers).
+The Boussinesq hypothesis – although not explicitly stated by Boussinesq at the time – effectively consists of the assumption that the Reynolds stress tensor is aligned with the strain tensor of the mean flow (i.e.: that the shear stresses due to turbulence act in the same direction as the shear stresses produced by the averaged flow). It has since been found to be significantly less accurate than most practitioners would assume. Still, turbulence models which employ the Boussinesq hypothesis have demonstrated significant practical value. In cases with well-defined shear layers, this is likely due the dominance of streamwise shear components, so that considerable relative errors in flow-normal components are still negligible in absolute terms. Beyond this, most eddy viscosity turbulence models contain coefficients which are calibrated against measurements, and thus produce reasonably accurate overall outcomes for flow fields of similar type as used for calibration.
+
+Prandtl's mixing-length concept
+Later, Ludwig Prandtl introduced the additional concept of the mixing length, along with the idea of a boundary layer. For wall-bounded turbulent flows, the eddy viscosity must vary with distance from the wall, hence the addition of the concept of a 'mixing length'. In the simplest wall-bounded flow model, the eddy viscosity is given by the equation:
+
+where:
+
+  
+    
+      
+        
+          
+            
+              ∂
+              u
+            
+            
+              ∂
+              y
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial u}{\partial y}}}
+   is the partial derivative of the streamwise velocity (u) with respect to the wall normal direction (y);
+
+  
+    
+      
+        
+          l
+          
+            m
+          
+        
+      
+    
+    {\displaystyle l_{m}}
+   is the mixing length.This simple model is the basis for the "law of the wall", which is a surprisingly accurate model for wall-bounded, attached (not separated) flow fields with small pressure gradients.
+More general turbulence models have evolved over time, with most modern turbulence models given by field equations similar to the Navier–Stokes equations.
+
+Smagorinsky model for the sub-grid scale eddy viscosity
+Joseph Smagorinsky was the first who proposed a formula for the eddy viscosity in Large Eddy Simulation models, based on the local derivatives of the velocity field and the local grid size:
+
+  
+    
+      
+        
+          ν
+          
+            t
+          
+        
+        =
+        Δ
+        x
+        Δ
+        y
+        
+          
+            
+              
+                (
+                
+                  
+                    
+                      ∂
+                      u
+                    
+                    
+                      ∂
+                      x
+                    
+                  
+                
+                )
+              
+              
+                2
+              
+            
+            +
+            
+              
+                (
+                
+                  
+                    
+                      ∂
+                      v
+                    
+                    
+                      ∂
+                      y
+                    
+                  
+                
+                )
+              
+              
+                2
+              
+            
+            +
+            
+              
+                1
+                2
+              
+            
+            
+              
+                (
+                
+                  
+                    
+                      
+                        ∂
+                        u
+                      
+                      
+                        ∂
+                        y
+                      
+                    
+                  
+                  +
+                  
+                    
+                      
+                        ∂
+                        v
+                      
+                      
+                        ∂
+                        x
+                      
+                    
+                  
+                
+                )
+              
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle \nu _{t}=\Delta x\Delta y{\sqrt {\left({\frac {\partial u}{\partial x}}\right)^{2}+\left({\frac {\partial v}{\partial y}}\right)^{2}+{\frac {1}{2}}\left({\frac {\partial u}{\partial y}}+{\frac {\partial v}{\partial x}}\right)^{2}}}}
+  In the context of Large Eddy Simulation, turbulence modeling refers to the need to parameterize the subgrid scale stress in terms of features of the filtered velocity field. This field is called subgrid-scale modeling.
+
+Spalart–Allmaras, k–ε and k–ω models
+The Boussinesq hypothesis is employed in the Spalart–Allmaras (S–A), k–ε (k–epsilon), and k–ω (k–omega) models and offers a relatively low cost computation for the turbulence viscosity 
+  
+    
+      
+        
+          ν
+          
+            t
+          
+        
+      
+    
+    {\displaystyle \nu _{t}}
+  . The S–A model uses only one additional equation to model turbulence viscosity transport, while the k–ε and k–ω models use two.
+
+Common models
+The following is a brief overview of commonly employed models in modern engineering applications.
+
+References
+Notes
+Other
+Absi, R. (2019) "Eddy Viscosity and Velocity Profiles in Fully-Developed Turbulent Channel Flows" Fluid Dyn (2019) 54: 137. https://doi.org/10.1134/S0015462819010014
+Absi, R. (2021) "Reinvestigating the Parabolic-Shaped Eddy Viscosity Profile for Free Surface Flows" Hydrology 2021, 8(3), 126. https://doi.org/10.3390/hydrology8030126
+Townsend, A.A. (1980) "The Structure of Turbulent Shear Flow" 2nd Edition (Cambridge Monographs on Mechanics), ISBN 0521298199
+Bradshaw, P. (1971) "An introduction to turbulence and its measurement" (Pergamon Press), ISBN 0080166210
+Wilcox C. D., (1998), "Turbulence Modeling for CFD" 2nd Ed., (DCW Industries, La Cañada), ISBN 0963605100

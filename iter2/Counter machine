@@ -1,0 +1,238 @@
+A counter machine is an abstract machine used in a formal logic and theoretical computer science to model computation. It is the most primitive of the four types of register machines. A counter machine comprises a set of one or more unbounded registers, each of which can hold a single non-negative integer, and a list of (usually sequential) arithmetic and control instructions for the machine to follow. The counter machine is typically used in the process of designing parallel algorithms in relation to the mutual exclusion principle. When used in this manner, the counter machine is used to model the discrete time-steps of a computational system in relation to memory accesses. By modeling computations in relation to the memory accesses for each respective computational step, parallel algorithms may be designed in such a matter to avoid interlocking, the simultaneous writing operation by two (or more) threads to the same memory address.
+
+Basic features
+For a given counter machine model the instruction set is tiny—from just one to six or seven instructions. Most models contain a few arithmetic operations and at least one conditional operation (if condition is true, then jump). Three base models, each using three instructions, are drawn from the following collection. (The abbreviations are arbitrary.)
+
+CLR (r): CLeaR register r. (Set r to zero.)
+INC (r): INCrement the contents of register r.
+DEC (r): DECrement the contents of register r.
+CPY (rj, rk): CoPY the contents of register rj to register rk leaving the contents of rj intact.
+JZ (r, z): IF register r contains Zero THEN Jump to instruction z ELSE continue in sequence.
+JE (rj, rk, z): IF the contents of register rj Equals the contents of register rk THEN Jump to instruction z ELSE continue in sequence.In addition, a machine usually has a HALT instruction, which stops the machine (normally after the result has been computed).
+Using the instructions mentioned above, various authors have discussed certain counter machines:
+
+set 1: { INC (r), DEC (r), JZ (r, z) }, (Minsky (1961, 1967), Lambek (1961))
+set 2: { CLR (r), INC (r), JE (rj, rk, z) }, (Ershov (1958), Peter (1958) as interpreted by Shepherdson-Sturgis (1964); Minsky (1967); Schönhage (1980))
+set 3: { INC (r), CPY (rj, rk), JE (rj, rk, z) }, (Elgot-Robinson (1964), Minsky (1967))The three counter machine base models have the same computational power since the instructions of one model can be derived from those of another. All are equivalent to the computational power of Turing machines. Due to their unary processing style, counter machines are typically exponentially slower than comparable Turing machines.
+
+Alternative names, alternative models
+The counter machine models go by a number of different names that may help to distinguish them by their peculiarities. In the following the instruction "JZDEC ( r )" is a compound instruction that tests to see if a register r is empty; if so then jump to instruction Iz, else if not then DECrement the contents of r:
+
+Shepherdson–Sturgis machine, because these authors formally stated their model in an easily accessible exposition (1963). Uses instruction set (1) augmented with additional convenience instructions (JNZ is "Jump if Not Zero, used in place of JZ):
+{ INC ( r ), DEC ( r ), CLR ( r ), CPY ( rj, rk ), JNZ ( r, z ), J ( z ) }
+Minsky machine, because Marvin Minsky (1961) formalized the model. Usually uses instruction set (1), but instruction-execution is not default-sequential so the additional parameter 'z' appears to specify the next instruction after INC and as the alternative in JZDEC:
+{ INC ( r, z ), JZDEC ( r, ztrue, zfalse) }
+Program machine, program computer, the names Minsky (1967) gave the model because, like a computer its instructions proceed sequentially unless a conditional jump is successful. Uses (usually) instruction set (1) but may be augmented similar to the Shepherson-Sturgis model. JZDEC is often split apart:
+{  INC ( r ), DEC ( r ), JZ ( r, ztrue )}
+Abacus machine, the name Lambek (1961) gave to his simplification of the Melzak (1961) model, and what Boolos-Burgess-Jeffrey (2002) calls it. Uses instruction set (1) but with an additional parameter z to specify the next instruction in the manner of the Minsky (1961) model;
+{ INC ( r, z ), JZDEC (r, ztrue, zfalse ) }
+Lambek machine, an alternative name Boolos-Burgess-Jeffrey (2002) gave to the abacus machine. Uses instruction set (1-reduced) with an additional parameter to specify the next instruction:
+{ INC ( r, z ), JZDEC ( r, ztrue, zfalse ) }
+Successor machine, because it uses the 'successor operation' of, and closely resembles, the Peano axioms. Used as a base for the successor RAM model. Uses instruction set (2) by e.g. Schönhage as a base for his RAM0 and RAM1 models that lead to his pointer machine SMM model, also discussed briefly in van Emde Boas (1990):
+{ CLR ( r ), INC ( r ), JE ( rj, rk, z ) }
+Elgot-Robinson model, used to define their RASP model (1964). This model requires one empty register at the start (e.g. [r0] =0). (They augmented the same model with indirect addressing by use of an additional register to be used as an "index" register.)
+{ INC (r), CPY ( rs, rd ), JE ( rj, rk, z ) }
+Other counter machines: Minsky (1967) demonstrates how to build the three base models (program/Minsky/Lambek-abacus, successor, and Elgot-Robinson) from the superset of available instructions described in the lead paragraph of this article. The Melzak (1961) model is quite different from the above because it includes 'add' and 'subtract' rather than 'increment' and 'decrement'. The proofs of Minsky (1961, 1967) that a single register will suffice for Turing equivalence requires the two instructions { MULtiply k, and DIV k } to encode and decode the Gödel number in the register that represents the computation. Minsky shows that if two or more registers are available then the simpler INC, DEC etc. are adequate (but the Gödel number is still required to demonstrate Turing equivalence; also demonstrated in Elgot-Robinson 1964).
+
+Formal definition
+A counter machine consists of:
+
+Labeled unbounded integer-valued registers: a finite (or infinite in some models) set of registers r0 ... rn each of which can hold any single non-negative integer (0, 1, 2, ... - i.e. unbounded). The registers do their own arithmetic; there may or may not be one or more special registers e.g. "accumulator" (See Random-access machine for more on this).
+A state register that stores/identifies the current instruction to be executed. This register is finite and separate from the registers above; thus the counter machine model is an example of the Harvard architecture
+List of labelled, sequential instructions: A finite list of instructions I0 ... Im. The program store (instructions of the finite state machine) is not in the same physical "space" as the registers. Usually, but not always, like computer programs the instructions are listed in sequential order; unless a jump is successful, the default sequence continues in numerical order. Each of the instructions in the list is from a (very) small set, but this set does not include indirection. Historically most models drew their instructions from this set:{ Increment (r), Decrement (r), Clear (r); Copy (rj,rk), conditional Jump if contents of r=0, conditional Jump if rj=rk, unconditional Jump, HALT }Some models have either further atomized some of the above into no-parameter instructions, or combined them into a single instruction such as "Decrement" preceded by conditional jump-if-zero "JZ ( r, z )" . The atomization of instructions or the inclusion of convenience instructions causes no change in conceptual power, as any program in one variant can be straightforwardly translated to the other.Alternative instruction-sets are discussed in the supplement Register-machine models.
+
+Example: COPY the count from register #2 to #3
+This example shows how to create three more useful instructions: clear, unconditional jump, and copy.
+
+CLR ( j ): Clear the contents of register rj to zero.
+J ( z ): Unconditionally jump to instruction Iz.
+CPY ( s, d ): Copy the contents of source register rs to destination register rd. (See One-instruction set computer#Transport triggered architecture)Afterward rs will contain its original count (unlike MOVE which empties the source register, i.e., clears it to zero).
+The basic set (1) is used as defined here:
+
+Initial conditions
+Initially, register #2 contains "2". Registers #0, #1 and #3 are empty (contain "0"). Register #0 remains unchanged throughout calculations because it is used for the unconditional jump. Register #1 is a scratch pad. The program begins with instruction 1.
+
+Final conditions
+The program HALTs with the contents of register #2 at its original count and the contents of register #3 equal to the original contents of register #2, i.e.,
+
+[2] = [3].
+
+Program high-level description
+The program COPY ( #2, #3) has two parts. In the first part the program moves the contents of source register #2 to both scratch-pad #1 and to destination register #3; thus #1 and #3 will be copies of one another and of the original count in #2, but #2 is cleared in the process of decrementing it to zero. Unconditional jumps J (z) are done by tests of register #0, which always contains the number 0:
+
+[#2] →#3; [#2] →#1; 0 →#2In the second the part the program moves (returns, restores) the contents of scratch-pad #1 back to #2, clearing the scratch-pad #1 in the process:
+
+[#1] →#2; 0 →#1
+
+Program
+The program, highlighted in yellow, is shown written left-to-right in the upper right.
+A "run" of the program is shown below. Time runs down the page. The instructions are in yellow, the registers in blue. The program is flipped 90 degrees, with the instruction numbers (addresses) along the top, the instruction mnemonics under the addresses, and the instruction parameters under the mnemonics (one per cell):
+
+The partial recursive functions: building "convenience instructions" using recursion
+The example above demonstrates how the first basic instructions { INC, DEC, JZ } can create three more instructions—unconditional jump J, CLR, CPY. In a sense CPY used both CLR and J plus the base set. If register #3 had had contents initially, the sum of contents of #2 and #3 would have ended up in #3. So to be fully accurate CPY program should have preceded its moves with CLR (1) and CLR (3).
+However, we do see that ADD would have been possible, easily. And in fact the following is summary of how the primitive recursive functions such as ADD, MULtiply and EXPonent can come about (see Boolos-Burgess-Jeffrey (2002) p. 45-51).
+
+Beginning instruction set: { DEC, INC, JZ, H }
+Define unconditional "Jump J (z)" in terms of JZ ( r0, z ) given that r0 contains 0.{ J, DEC, INC, JZ, H }Define "CLeaR ( r ) in terms of the above:{ CLR, J, DEC, INC, JZ, H }Define "CoPY ( rj, rk )" while preserving contents of rj in terms of the above:{ CPY, CLR, J, DEC, INC, JZ, H }
+The above is the instruction set of Shepherdson-Sturgis (1963).Define "ADD ( rj, rk, ri )",  (perhaps preserving the contents of rj, and rk ), by use of the above:{ ADD, CPY, CLR, J, DEC, INC, JZ, H }Define " MULtiply ( rj, rk, ri )" (MUL) (perhaps preserving the contents of rj, rk), in terms of the above:{ MUL, ADD, CPY, CLR, J, DEC, INC, JZ, H }Define "EXPonential ( rj, rk, ri )" (EXP) (perhaps preserving the contents of rj, rk ) in terms of the above,{ EXP, MUL, ADD, CPY, CLR, J, DEC, INC, JZ, H }In general, we can build any partial- or total- primitive recursive function that we wish, by using the same methods. Indeed, Minsky (1967), Shepherdson-Sturgis (1963) and Boolos-Burgess-Jeffrey (2002) give demonstrations of how to form the five primitive recursive function "operators" (1-5 below) from the base set (1).
+But what about full Turing equivalence? We need to add the sixth operator—the μ operator—to obtain the full equivalence, capable of creating the total- and partial- recursive functions:
+
+Zero function (or constant function)
+Successor function
+Identity function
+Composition function
+Primitive recursion (induction)
+μ operator (unbounded search operator)The authors show that this is done easily within any of the available base sets (1, 2, or 3) (an example can be found at μ operator). This means that any mu recursive function can be implemented as a counter machine, despite the finite instruction set and program size of the counter machine design. However, the required construction may be counter-intuitive, even for functions that are relatively easy to define in more complex register machines such as the random-access machine. This is because the μ operator can iterate an unbounded number of times, but any given counter machine cannot address an unbounded number of distinct registers due to the finite size of its instruction list.
+For instance, the above hierarchy of primitive recursive operators can be further extended past exponentiation into higher-ordered arrow operations in Knuth's up-arrow notation. For any fixed 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  , the function 
+  
+    
+      
+        Q
+        (
+        x
+        ,
+        y
+        )
+        =
+        x
+        
+          ↑
+          
+            k
+          
+        
+        y
+      
+    
+    {\displaystyle Q(x,y)=x\uparrow ^{k}y}
+   is primitive recursive, and can be implemented as a counter machine in a straightforward way. But the function 
+  
+    
+      
+        R
+        (
+        n
+        ,
+        x
+        ,
+        y
+        )
+        =
+        x
+        
+          ↑
+          
+            n
+          
+        
+        y
+      
+    
+    {\displaystyle R(n,x,y)=x\uparrow ^{n}y}
+   is not primitive recursive. One may be tempted to implement the up-arrow operator 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   using a construction similar to the successor, addition, multiplication, and exponentiation instructions above, by implementing a call stack so that the function can be applied recursively on smaller values of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  . This idea is similar to how one may implement the function in practice in many programming languages. However, the counter machine cannot use an unbounded number of registers in its computation, which would be necessary to implement a call stack that can grow arbitrarily large. The up-arrow operation can still be implemented as a counter machine since it is mu recursive, however the function would be implemented by encoding an unbounded amount of information inside a finite number of registers, such as by using Gödel numbering.
+
+Problems with the counter machine model
+The problems are discussed in detail in the article Random-access machine. The problems fall into two major classes and a third "inconvenience" class:(1) Unbounded capacities of registers versus bounded capacities of state-machine instructions: How will the machine create constants larger than the capacity of its finite state machine?
+(2) Unbounded numbers of registers versus bounded numbers of state-machine instructions: How will the machine access registers with address-numbers beyond the reach/capability of its finite state machine?
+(3) The fully reduced models are cumbersome:
+Shepherdson and Sturgis (1963) are unapologetic about their 6-instruction set. They have made their choice based on "ease of programming... rather than economy" (p. 219 footnote 1).
+Shepherdson and Sturgis' instructions ( [r] indicates "contents of register r"):
+
+INCREMENT ( r ) ; [r] +1 → r
+DECREMENT ( r ) ; [r] -1 → r
+CLEAR ( r ) ; 0 → r
+COPY ( rs to rd ) ; [rs] → rd
+JUMP-UNCONDITIONAL to instruction Iz
+JUMP IF [r] =0 to instruction IzMinsky (1967) expanded his 2-instruction set { INC (z), JZDEC (r, Iz) } to { CLR (r), INC (r), JZDEC (r, Iz), J (Iz) } before his proof that a "Universal Program Machine" can be built with only two registers (p. 255ff).
+
+Two-counter machines are Turing equivalent (with a caveat)
+For every Turing machine, there is a 2CM that simulates it, given that the 2CM's input and output are properly encoded. This is proved in Minsky's book (Computation, 1967, p. 255-258), and an alternative proof is sketched below in three steps. First, a Turing machine can be simulated by a finite-state machine (FSM) equipped with two stacks. Then, two stacks can be simulated by four counters. Finally, four counters can be simulated by two counters.
+The two counters machine use the set of instruction { INC ( r, z ), JZDEC ( r, ztrue, zfalse) }.
+
+Step 1: A Turing machine can be simulated by two stacks.
+A Turing machine consists of an FSM and an infinite tape, initially filled with zeros, upon which the machine can write ones and zeros. At any time, the read/write head of the machine points to one cell on the tape. This tape can be conceptually cut in half at that point. Each half of the tape can be treated as a stack, where the top is the cell nearest the read/write head, and the bottom is some distance away from the head, with all zeros on the tape beyond the bottom. Accordingly, a Turing machine can be simulated by an FSM plus two stacks. Moving the head left or right is equivalent to popping a bit from one stack and pushing it onto the other. Writing is equivalent to changing the bit before pushing it.
+
+Step 2: A stack can be simulated by two counters.
+A stack containing zeros and ones can be simulated by two counters when the bits on the stack are thought of as representing a binary number (the topmost bit on the stack being the least significant bit). Pushing a zero onto the stack is equivalent to doubling the number. Pushing a one is equivalent to doubling and adding 1. Popping is equivalent to dividing by 2, where the remainder is the bit that was popped. Two counters can simulate this stack, in which one of the counters holds a number whose binary representation represents the bits on the stack, and the other counter is used as a scratchpad. To double the number in the first counter, the FSM can initialize the second counter to zero, then repeatedly decrement the first counter once and increment the second counter twice. This continues until the first counter reaches zero. At that point, the second counter will hold the doubled number. Halving is performed by decrementing one counter twice and increment the other once, and repeating until the first counter reaches zero. The remainder can be determined by whether it reached zero after an even or an odd number of steps, where the parity of the number of steps is encoded in the state of the FSM.
+
+Step 3: Four counters can be simulated by two counters.
+As before, one of the counters is used as scratchpad. The other holds an integer whose prime factorization is 2a3b5c7d. The exponents a, b, c, and d can be thought of as four virtual counters that are being packed (via Gödel numbering) into a single real counter. If the real counter is set to zero then incremented once, that is equivalent to setting all the virtual counters to zero. If the real counter is doubled, that is equivalent to incrementing a, and if it's halved, that's equivalent to decrementing a. By a similar procedure, it can be multiplied or divided by 3, which is equivalent to incrementing or decrementing b. Similarly, c and d can be incremented or decremented. To check if a virtual counter such as c is equal to zero, just divide the real counter by 5, see what the remainder is, then multiply by 5 and add back the remainder. That leaves the real counter unchanged. The remainder will have been nonzero if and only if c was zero.
+As a result, an FSM with two counters can simulate four counters, which are in turn simulating two stacks, which are simulating a Turing machine. Therefore, an FSM plus two counters is at least as powerful as a Turing machine. A Turing machine can easily simulate an FSM with two counters, therefore the two machines have equivalent power.
+
+The caveat: *If* its counters are initialised to N and 0, then a 2CM cannot calculate 2N
+This result, together with a list of other functions of N that are not calculable by a two-counter machine — when initialised with N in one counter and 0 in the other — such as N2, sqrt(N), log2(N), etc., appears in a paper by Schroeppel (1972). The result is not surprising, because the two-counter machine model was proved (by Minsky) to be universal only when the argument N is appropriately encoded (by Gödelization) to simulate a Turing machine whose initial tape contains N encoded in unary; moreover, the output of the two-counter machine will be similarly encoded. This phenomenon is typical of very small bases of computation whose universality is proved only by simulation (e.g., many Turing tarpits, the smallest-known universal Turing machines, etc.).
+The proof is preceded by some interesting theorems:
+
+"Theorem: A three-counter machine can simulate a Turing machine" (p. 2, also cf Minsky 1967:170-174)
+"Theorem: A 3CM [three-counter machine] can compute any partial recursive function of one variable. It starts with the argument [i.e. N] in a counter, and (if it halts) leaves the answer [i.e. F(N)] in a counter." (p. 3)
+"Theorem: A counter machine can be simulated by a 2CM [two-counter machine], provided an obscure coding is accepted for the input and output" [p. 3; the "obscure coding" is: 2W3X5Y7Z where the simulated counters are W, X, Y, Z]
+"Theorem: Any counter machine can be simulated by a 2CM, provided an obscure coding is accepted for the input and output." (p. 3)
+"Corollary: the halting problem for 2CMs is unsolvable.
+"Corollary: A 2CM can compute any partial recursive function of one argument, provided the input is coded as 2N and the output (if the machine halts) is coded as 2answer." (p. 3)
+"Theorem: There is no two counter machine that calculates 2N [if one counter is initialised to N]." (p. 11)With regard to the second theorem that "A 3CM can compute any partial recursive function" the author challenges the reader with a "Hard Problem: Multiply two numbers using only three counters" (p. 2). The main proof involves the notion that two-counter machines cannot compute arithmetic sequences with non-linear growth rates (p. 15) i.e. "the function 2X grows more rapidly than any arithmetic progression." (p. 11).
+
+A practical example of calculation by counting
+The Friden EC-130 calculator had no adder logic as such. Its logic was highly serial, doing arithmetic by counting. Internally, decimal digits were radix-1 — for instance, a six was represented by six consecutive pulses within the time slot allocated for that digit. Each time slot carried one digit, least significant first. Carries set a flip-flop which caused one count to be added to the digit in the next time slot.
+Adding was done by an up-counter, while subtracting was done by a down-counter, with a similar scheme for dealing with borrows.
+The time slot scheme defined six registers of 13 decimal digits, each with a sign bit.
+Multiplication and division were done basically by repeated addition and subtraction. The square root version, the EC-132, effectively subtracted consecutive odd integers, each decrement requiring two consecutive subtractions. After the first, the minuend was incremented by one before the second subtraction.
+
+See also
+Pointer machine
+Post–Turing machine
+Random-access machine
+Register machine
+Wang B-machine
+
+References
+George Boolos, John P. Burgess, Richard Jeffrey (2002), Computability and Logic: Fourth Edition, Cambridge University Press, Cambridge, England. The original Boolos-Jeffrey text has been extensively revised by Burgess: more advanced than an introductory textbook. "Abacus machine" model is extensively developed in Chapter 5 Abacus Computability; it is one of three models extensively treated and compared—the Turing machine (still in Boolos' original 4-tuple form) and recursion the other two.
+Arthur Burks, Herman Goldstine, John von Neumann (1946), Preliminary discussion of the logical design of an electronic computing instrument, reprinted pp. 92ff in Gordon Bell and Allen Newell (1971), Computer Structures: Readings and Examples, mcGraw-Hill Book Company, New York. ISBN 0-07-004357-4  .
+Stephen A. Cook and Robert A. Reckhow (1972), Time-bounded random access machines, Journal of Computer Systems Science 7 (1973), 354–375.
+Martin Davis (1958), Computability & Unsolvability, McGraw-Hill Book Company, Inc. New York.
+Calvin Elgot and Abraham Robinson (1964), Random-Access Stored-Program Machines, an Approach to Programming Languages, Journal of the Association for Computing Machinery, Vol. 11, No. 4 (October, 1964), pp. 365–399.
+Fischer, Patrick C.; Meyer, A. R.; Rosenberg, Arnold L. (1968), "Counter machines and counter languages", Mathematical Systems Theory, 2 (3): 265–283, doi:10.1007/bf01694011, MR 0235932, S2CID 13006433. Develops time hierarchy and space hierarchy theorems for counter machines, analogous to the hierarchies for Turing machines.
+J. Hartmanis (1971), "Computational Complexity of Random Access Stored Program Machines," Mathematical Systems Theory 5, 3 (1971) pp. 232–245.
+Hopcroft, John; Jeffrey Ullman (1979). Introduction to Automata Theory, Languages and Computation (1st ed.). Reading Mass: Addison-Wesley. ISBN 0-201-02988-X. A difficult book centered around the issues of machine-interpretation of "languages", NP-Completeness, etc.
+Stephen Kleene (1952), Introduction to Metamathematics, North-Holland Publishing Company, Amsterdam, Netherlands. ISBN 0-7204-2103-9.
+Donald Knuth (1968), The Art of Computer Programming, Second Edition 1973, Addison-Wesley, Reading, Massachusetts. Cf pages 462-463 where he defines "a new kind of abstract machine or 'automaton' which deals with linked structures."
+Joachim Lambek (1961, received 15 June 1961), How to Program an Infinite Abacus, Mathematical Bulletin, vol. 4, no. 3. September 1961 pages 295–302. In his Appendix II, Lambek proposes a "formal definition of 'program'. He references Melzak (1961) and Kleene (1952) Introduction to Metamathematics.
+Z. A. Melzak (1961, received 15 May 1961), An informal Arithmetical Approach to Computability and Computation, Canadian Mathematical Bulletin, vol. 4, no. 3. September 1961 pages 279-293. Melzak offers no references but acknowledges "the benefit of conversations with Drs. R. Hamming, D. McIlroy and V. Vyssots of the Bell telephone Laborators and with Dr. H. Wang of Oxford University."
+Marvin Minsky (1961). "Recursive Unsolvability of Post's Problem of "Tag" and Other Topics in Theory of Turing Machines". Annals of Mathematics. 74 (3): 437–455. doi:10.2307/1970290. JSTOR 1970290.
+Marvin Minsky (1967). Computation: Finite and Infinite Machines (1st ed.). Englewood Cliffs, N. J.: Prentice-Hall, Inc. In particular see chapter 11: Models Similar to Digital Computers and chapter 14: Very Simple Bases for Computability. In the former chapter he defines "Program machines" and in the later chapter he discusses "Universal Program machines with Two Registers" and "...with one register", etc.
+John C. Shepherdson and H. E. Sturgis (1961) received December 1961 Computability of Recursive Functions, Journal of the Association for Computing Machinery (JACM) 10:217-255, 1963. An extremely valuable reference paper. In their Appendix A the authors cite 4 others with reference to "Minimality of Instructions Used in 4.1: Comparison with Similar Systems".
+Kaphengst, Heinz, Eine Abstrakte programmgesteuerte Rechenmaschine', Zeitschrift fur mathematische Logik und Grundlagen der Mathematik:5 (1959), 366-379.
+Ershov, A. P. On operator algorithms, (Russian) Dok. Akad. Nauk 122 (1958), 967-970. English translation, Automat. Express 1 (1959), 20-23.
+Péter, Rózsa Graphschemata und rekursive Funktionen, Dialectica 12 (1958), 373.
+Hermes, Hans Die Universalität programmgesteuerter Rechenmaschinen. Math.-Phys. Semesterberichte (Göttingen) 4 (1954), 42–53.
+A. Schönhage (1980), Storage Modification Machines, Society for Industrial and Applied Mathematics, SIAM J. Comput. Vol. 9, No. 3, August 1980. Wherein Schönhage shows the equivalence of his SMM with the "successor RAM" (Random Access Machine), etc.
+Rich Schroeppel, May 1972, "A Two counter Machine Cannot Calculate 2N", Massachusetts Institute of Technology, A. I. Laboratory, Artificial Intelligence Memo #257. The author references Minsky 1967 and notes that "Frances Yao independently proved the non-computability using a similar method in April 1971."
+Peter van Emde Boas, Machine Models and Simulations pp. 3–66, appearing in:Jan van Leeuwen, ed. Handbook of Theoretical Computer Science. Volume A: Algorithms and Complexity, The MIT PRESS/Elsevier, 1990. ISBN 0-444-88071-2 (volume A). QA 76.H279 1990.
+van Emde Boas' treatment of SMMs appears on pp. 32-35. This treatment clarifies Schōnhage 1980 -- it closely follows but expands slightly the Schōnhage treatment. Both references may be needed for effective understanding.Hao Wang (1957), A Variant to Turing's Theory of Computing Machines, JACM (Journal of the Association for Computing Machinery) 4; 63–92. Presented at the meeting of the Association, June 23–25, 1954.
+
+External links
+Weisstein, Eric W. "Register machine". MathWorld.
+Igblan - Minsky Register Machines

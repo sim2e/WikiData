@@ -1,0 +1,3558 @@
+In computational geometry, Chan's algorithm, named after Timothy M. Chan, is an optimal output-sensitive algorithm to compute the convex hull of a set 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   points, in 2- or 3-dimensional space. 
+The algorithm takes 
+  
+    
+      
+        O
+        (
+        n
+        log
+        ⁡
+        h
+        )
+      
+    
+    {\displaystyle O(n\log h)}
+   time, where 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   is the number of vertices of the output (the convex hull). In the planar case, the algorithm combines an 
+  
+    
+      
+        O
+        (
+        n
+        log
+        ⁡
+        n
+        )
+      
+    
+    {\displaystyle O(n\log n)}
+   algorithm (Graham scan, for example) with Jarvis march (
+  
+    
+      
+        O
+        (
+        n
+        h
+        )
+      
+    
+    {\displaystyle O(nh)}
+  ), in order to obtain an optimal 
+  
+    
+      
+        O
+        (
+        n
+        log
+        ⁡
+        h
+        )
+      
+    
+    {\displaystyle O(n\log h)}
+   time. Chan's algorithm is notable because it is much simpler than the Kirkpatrick–Seidel algorithm, and it naturally extends to 3-dimensional space. This paradigm has been independently developed by Frank Nielsen in his Ph.D. thesis.
+
+Algorithm
+Overview
+A single pass of the algorithm requires a parameter 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   which is between 0 and 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   (number of points of our set 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  ). Ideally, 
+  
+    
+      
+        m
+        =
+        h
+      
+    
+    {\displaystyle m=h}
+   but 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  , the number of vertices in the output convex hull, is not known at the start. Multiple passes with increasing values of 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   are done which then terminates when 
+  
+    
+      
+        m
+        ≥
+        h
+      
+    
+    {\displaystyle m\geq h}
+  (see below on choosing parameter 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  ).
+The algorithm starts by arbitrarily partitioning the set of points 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   into 
+  
+    
+      
+        K
+        =
+        ⌈
+        n
+        
+          /
+        
+        m
+        ⌉
+      
+    
+    {\displaystyle K=\lceil n/m\rceil }
+   subsets 
+  
+    
+      
+        (
+        
+          Q
+          
+            k
+          
+        
+        
+          )
+          
+            k
+            =
+            1
+            ,
+            2
+            ,
+            .
+            .
+            .
+            K
+          
+        
+      
+    
+    {\displaystyle (Q_{k})_{k=1,2,...K}}
+   with at most 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   points each; notice that 
+  
+    
+      
+        K
+        =
+        O
+        (
+        n
+        
+          /
+        
+        m
+        )
+      
+    
+    {\displaystyle K=O(n/m)}
+  .
+For each subset 
+  
+    
+      
+        
+          Q
+          
+            k
+          
+        
+      
+    
+    {\displaystyle Q_{k}}
+  , it computes the convex hull, 
+  
+    
+      
+        
+          C
+          
+            k
+          
+        
+      
+    
+    {\displaystyle C_{k}}
+  , using an 
+  
+    
+      
+        O
+        (
+        p
+        log
+        ⁡
+        p
+        )
+      
+    
+    {\displaystyle O(p\log p)}
+   algorithm (for example, Graham scan), where 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is the number of points in the subset. As there are 
+  
+    
+      
+        K
+      
+    
+    {\displaystyle K}
+   subsets of 
+  
+    
+      
+        O
+        (
+        m
+        )
+      
+    
+    {\displaystyle O(m)}
+   points each, this phase takes 
+  
+    
+      
+        K
+        ⋅
+        O
+        (
+        m
+        log
+        ⁡
+        m
+        )
+        =
+        O
+        (
+        n
+        log
+        ⁡
+        m
+        )
+      
+    
+    {\displaystyle K\cdot O(m\log m)=O(n\log m)}
+   time.
+During the second phase, Jarvis's march is executed, making use of the precomputed (mini) convex hulls, 
+  
+    
+      
+        (
+        
+          C
+          
+            k
+          
+        
+        
+          )
+          
+            k
+            =
+            1
+            ,
+            2
+            ,
+            .
+            .
+            .
+            K
+          
+        
+      
+    
+    {\displaystyle (C_{k})_{k=1,2,...K}}
+  . At each step in this Jarvis's march algorithm, we have a point 
+  
+    
+      
+        
+          p
+          
+            i
+          
+        
+      
+    
+    {\displaystyle p_{i}}
+   in the convex hull (at the beginning, 
+  
+    
+      
+        
+          p
+          
+            i
+          
+        
+      
+    
+    {\displaystyle p_{i}}
+   may be the point in 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   with the lowest y coordinate, which is guaranteed to be in the convex hull of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  ), and need to find a point 
+  
+    
+      
+        
+          p
+          
+            i
+            +
+            1
+          
+        
+        =
+        f
+        (
+        
+          p
+          
+            i
+          
+        
+        ,
+        P
+        )
+      
+    
+    {\displaystyle p_{i+1}=f(p_{i},P)}
+   such that all other points of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   are to the right of the line 
+  
+    
+      
+        
+          p
+          
+            i
+          
+        
+        
+          p
+          
+            i
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle p_{i}p_{i+1}}
+  , where the notation 
+  
+    
+      
+        
+          p
+          
+            i
+            +
+            1
+          
+        
+        =
+        f
+        (
+        
+          p
+          
+            i
+          
+        
+        ,
+        P
+        )
+      
+    
+    {\displaystyle p_{i+1}=f(p_{i},P)}
+   simply means that the next point, that is 
+  
+    
+      
+        
+          p
+          
+            i
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle p_{i+1}}
+  , is determined as a function of 
+  
+    
+      
+        
+          p
+          
+            i
+          
+        
+      
+    
+    {\displaystyle p_{i}}
+   and 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  . The convex hull of the set 
+  
+    
+      
+        
+          Q
+          
+            k
+          
+        
+      
+    
+    {\displaystyle Q_{k}}
+  , 
+  
+    
+      
+        
+          C
+          
+            k
+          
+        
+      
+    
+    {\displaystyle C_{k}}
+  , is known and contains at most 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   points (listed in a clockwise or counter-clockwise order), which allows to compute 
+  
+    
+      
+        f
+        (
+        
+          p
+          
+            i
+          
+        
+        ,
+        
+          Q
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle f(p_{i},Q_{k})}
+   in 
+  
+    
+      
+        O
+        (
+        log
+        ⁡
+        m
+        )
+      
+    
+    {\displaystyle O(\log m)}
+   time by binary search. Hence, the computation of 
+  
+    
+      
+        f
+        (
+        
+          p
+          
+            i
+          
+        
+        ,
+        
+          Q
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle f(p_{i},Q_{k})}
+   for all the 
+  
+    
+      
+        K
+      
+    
+    {\displaystyle K}
+   subsets can be done in 
+  
+    
+      
+        O
+        (
+        K
+        log
+        ⁡
+        m
+        )
+      
+    
+    {\displaystyle O(K\log m)}
+   time. Then, we can determine 
+  
+    
+      
+        f
+        (
+        
+          p
+          
+            i
+          
+        
+        ,
+        P
+        )
+      
+    
+    {\displaystyle f(p_{i},P)}
+   using the same technique as normally used in Jarvis's march, but only considering the points 
+  
+    
+      
+        (
+        f
+        (
+        
+          p
+          
+            i
+          
+        
+        ,
+        
+          Q
+          
+            k
+          
+        
+        )
+        
+          )
+          
+            1
+            ≤
+            k
+            ≤
+            K
+          
+        
+      
+    
+    {\displaystyle (f(p_{i},Q_{k}))_{1\leq k\leq K}}
+   (i.e. the points in the mini convex hulls) instead of the whole set 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  . For those points, one iteration of Jarvis's march is 
+  
+    
+      
+        O
+        (
+        K
+        )
+      
+    
+    {\displaystyle O(K)}
+   which is negligible compared to the computation for all subsets. Jarvis's march completes when the process has been repeated 
+  
+    
+      
+        O
+        (
+        h
+        )
+      
+    
+    {\displaystyle O(h)}
+   times (because, in the way Jarvis march works, after at most 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   iterations of its outermost loop, where 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   is the number of points in the convex hull of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  , we must have found the convex hull), hence the second phase takes 
+  
+    
+      
+        O
+        (
+        K
+        h
+        log
+        ⁡
+        m
+        )
+      
+    
+    {\displaystyle O(Kh\log m)}
+   time, equivalent to 
+  
+    
+      
+        O
+        (
+        n
+        log
+        ⁡
+        h
+        )
+      
+    
+    {\displaystyle O(n\log h)}
+   time if 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   is close to 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   (see below the description of a strategy to choose 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   such that this is the case).
+By running the two phases described above, the convex hull of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   points is computed in 
+  
+    
+      
+        O
+        (
+        n
+        log
+        ⁡
+        h
+        )
+      
+    
+    {\displaystyle O(n\log h)}
+   time.
+
+Choosing the parameter
+m
+      
+    
+    {\textstyle m}
+  
+If an arbitrary value is chosen for 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  , it may happen that 
+  
+    
+      
+        m
+        <
+        h
+      
+    
+    {\displaystyle m<h}
+  . In that case, after 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   steps in the second phase, we interrupt the Jarvis's march as running it to the end would take too much time.
+At that moment, a 
+  
+    
+      
+        O
+        (
+        n
+        log
+        ⁡
+        m
+        )
+      
+    
+    {\displaystyle O(n\log m)}
+   time will have been spent, and the convex hull will not have been calculated.
+The idea is to make multiple passes of the algorithm with increasing values of 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  ; each pass terminates (successfully or unsuccessfully) in 
+  
+    
+      
+        O
+        (
+        n
+        log
+        ⁡
+        m
+        )
+      
+    
+    {\displaystyle O(n\log m)}
+   time. If 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   increases too slowly between passes, the number of iterations may be large; on the other hand, if it rises too quickly, the first 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   for which the algorithm terminates successfully may be much larger than 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  , and produce a complexity 
+  
+    
+      
+        O
+        (
+        n
+        log
+        ⁡
+        m
+        )
+        >
+        O
+        (
+        n
+        log
+        ⁡
+        h
+        )
+      
+    
+    {\displaystyle O(n\log m)>O(n\log h)}
+  .
+
+Squaring Strategy
+One possible strategy is to square the value of 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   at each iteration, up to a maximum value of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   (corresponding to a partition in singleton sets). Starting from a value of 2, at iteration 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  , 
+  
+    
+      
+        m
+        =
+        min
+        
+          (
+          
+            n
+            ,
+            
+              2
+              
+                
+                  2
+                  
+                    t
+                  
+                
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle m=\min \left(n,2^{2^{t}}\right)}
+   is chosen. In that case, 
+  
+    
+      
+        O
+        (
+        log
+        ⁡
+        log
+        ⁡
+        h
+        )
+      
+    
+    {\displaystyle O(\log \log h)}
+   iterations are made, given that the algorithm terminates once we have
+
+  
+    
+      
+        m
+        =
+        
+          2
+          
+            
+              2
+              
+                t
+              
+            
+          
+        
+        ≥
+        h
+        
+        ⟺
+        
+        log
+        ⁡
+        
+          (
+          
+            2
+            
+              
+                2
+                
+                  t
+                
+              
+            
+          
+          )
+        
+        ≥
+        log
+        ⁡
+        h
+        
+        ⟺
+        
+        
+          2
+          
+            t
+          
+        
+        ≥
+        log
+        ⁡
+        h
+        
+        ⟺
+        
+        log
+        ⁡
+        
+          
+            2
+            
+              t
+            
+          
+        
+        ≥
+        log
+        ⁡
+        
+          log
+          ⁡
+          h
+        
+        
+        ⟺
+        
+        t
+        ≥
+        log
+        ⁡
+        
+          log
+          ⁡
+          h
+        
+        ,
+      
+    
+    {\displaystyle m=2^{2^{t}}\geq h\iff \log \left(2^{2^{t}}\right)\geq \log h\iff 2^{t}\geq \log h\iff \log {2^{t}}\geq \log {\log h}\iff t\geq \log {\log h},}
+  with the logarithm taken in base 
+  
+    
+      
+        2
+      
+    
+    {\displaystyle 2}
+  , and the total running time of the algorithm is
+
+  
+    
+      
+        
+          ∑
+          
+            t
+            =
+            0
+          
+          
+            ⌈
+            log
+            ⁡
+            log
+            ⁡
+            h
+            ⌉
+          
+        
+        O
+        
+          (
+          
+            n
+            log
+            ⁡
+            
+              (
+              
+                2
+                
+                  
+                    2
+                    
+                      t
+                    
+                  
+                
+              
+              )
+            
+          
+          )
+        
+        =
+        O
+        (
+        n
+        )
+        
+          ∑
+          
+            t
+            =
+            0
+          
+          
+            ⌈
+            log
+            ⁡
+            log
+            ⁡
+            h
+            ⌉
+          
+        
+        
+          2
+          
+            t
+          
+        
+        =
+        O
+        
+          (
+          
+            n
+            ⋅
+            
+              2
+              
+                1
+                +
+                ⌈
+                log
+                ⁡
+                log
+                ⁡
+                h
+                ⌉
+              
+            
+          
+          )
+        
+        =
+        O
+        (
+        n
+        log
+        ⁡
+        h
+        )
+        .
+      
+    
+    {\displaystyle \sum _{t=0}^{\lceil \log \log h\rceil }O\left(n\log \left(2^{2^{t}}\right)\right)=O(n)\sum _{t=0}^{\lceil \log \log h\rceil }2^{t}=O\left(n\cdot 2^{1+\lceil \log \log h\rceil }\right)=O(n\log h).}
+
+In three dimensions
+To generalize this construction for the 3-dimensional case, an 
+  
+    
+      
+        O
+        (
+        n
+        log
+        ⁡
+        n
+        )
+      
+    
+    {\displaystyle O(n\log n)}
+   algorithm to compute the 3-dimensional convex hull by Preparata and Hong should be used instead of Graham scan, and a 3-dimensional version of Jarvis's march needs to be used. The time complexity remains 
+  
+    
+      
+        O
+        (
+        n
+        log
+        ⁡
+        h
+        )
+      
+    
+    {\displaystyle O(n\log h)}
+  .
+
+Pseudocode
+In the following pseudocode, text between parentheses and in italic are comments. To fully understand the following pseudocode, it is recommended that the reader is already familiar with Graham scan and Jarvis march algorithms to compute the convex hull, 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+  , of a set of points,
+
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  .
+
+Input: Set 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   with 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   points .
+Output: Set 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   with 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   points, the convex hull of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  .(Pick a point of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   which is guaranteed to be in 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+  : for instance, the point with the lowest y coordinate.)
+(This operation takes 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        n
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(n)}
+   time: e.g., we can simply iterate through 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  .)
+
+  
+    
+      
+        
+          p
+          
+            1
+          
+        
+        :=
+        P
+        I
+        C
+        K
+        _
+        S
+        T
+        A
+        R
+        T
+        (
+        P
+        )
+      
+    
+    {\displaystyle p_{1}:=PICK\_START(P)}
+  (
+  
+    
+      
+        
+          p
+          
+            0
+          
+        
+      
+    
+    {\displaystyle p_{0}}
+   is used in the Jarvis march part of this Chan's algorithm,
+so that to compute the second point, 
+  
+    
+      
+        
+          p
+          
+            2
+          
+        
+      
+    
+    {\displaystyle p_{2}}
+  , in the convex hull of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  .)
+(Note: 
+  
+    
+      
+        
+          p
+          
+            0
+          
+        
+      
+    
+    {\displaystyle p_{0}}
+   is not a point of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  .)
+(For more info, see the comments close to the corresponding part of the Chan's algorithm.)
+
+  
+    
+      
+        
+          p
+          
+            0
+          
+        
+        :=
+        (
+        −
+        ∞
+        ,
+        0
+        )
+      
+    
+    {\displaystyle p_{0}:=(-\infty ,0)}
+  (Note: 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  , the number of points in the final convex hull of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  , is not known.)
+(These are the iterations needed to discover the value of 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  , which is an estimate of 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  .)
+(
+  
+    
+      
+        h
+        ≤
+        m
+      
+    
+    {\displaystyle h\leq m}
+   is required for this Chan's algorithm to find the convex hull of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  .)
+(More specifically, we want 
+  
+    
+      
+        h
+        ≤
+        m
+        ≤
+        
+          h
+          
+            2
+          
+        
+      
+    
+    {\displaystyle h\leq m\leq h^{2}}
+  , so that not to perform too many unnecessary iterations
+and so that the time complexity of this Chan's algorithm is 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        n
+        log
+        ⁡
+        h
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(n\log h)}
+  .)
+(As explained above in this article, a strategy is used where at most 
+  
+    
+      
+        log
+        ⁡
+        log
+        ⁡
+        n
+      
+    
+    {\displaystyle \log \log n}
+   iterations are required to find 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  .)
+(Note: the final 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   may not be equal to 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  , but it is never smaller than 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   and greater than 
+  
+    
+      
+        
+          h
+          
+            2
+          
+        
+      
+    
+    {\displaystyle h^{2}}
+  .)
+(Nevertheless, this Chan's algorithm stops once 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   iterations of the outermost loop are performed,
+that is, even if 
+  
+    
+      
+        m
+        ≠
+        h
+      
+    
+    {\displaystyle m\neq h}
+  , it doesn't perform 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   iterations of the outermost loop.)
+(For more info, see the Jarvis march part of this algorithm below, where 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   is returned if 
+  
+    
+      
+        
+          p
+          
+            i
+            +
+            1
+          
+        
+        ==
+        
+          p
+          
+            1
+          
+        
+      
+    
+    {\displaystyle p_{i+1}==p_{1}}
+  .)
+for 
+  
+    
+      
+        1
+        ≤
+        t
+        ≤
+        log
+        ⁡
+        log
+        ⁡
+        n
+      
+    
+    {\displaystyle 1\leq t\leq \log \log n}
+   do
+(Set parameter 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   for the current iteration. A "squaring scheme" is used as described above in this article.
+There are other schemes: for example, the "doubling scheme", where 
+  
+    
+      
+        m
+        =
+        
+          2
+          
+            t
+          
+        
+      
+    
+    {\displaystyle m=2^{t}}
+  , for 
+  
+    
+      
+        t
+        =
+        1
+        ,
+        …
+        ,
+        
+          ⌈
+          
+            log
+            ⁡
+            h
+          
+          ⌉
+        
+      
+    
+    {\displaystyle t=1,\dots ,\left\lceil \log h\right\rceil }
+  .
+If the "doubling scheme" is used, though, the resulting time complexity of this Chan's algorithm is 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        n
+        
+          log
+          
+            2
+          
+        
+        ⁡
+        h
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(n\log ^{2}h)}
+  .)
+
+  
+    
+      
+        m
+        :=
+        
+          2
+          
+            
+              2
+              
+                t
+              
+            
+          
+        
+      
+    
+    {\displaystyle m:=2^{2^{t}}}
+  (Initialize an empty list (or array) to store the points of the convex hull of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  , as they are found.)
+
+  
+    
+      
+        C
+        :=
+        (
+        )
+      
+    
+    {\displaystyle C:=()}
+  
+
+  
+    
+      
+        A
+        D
+        D
+        (
+        C
+        ,
+        
+          p
+          
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle ADD(C,p_{1})}
+  (Arbitrarily split set of points 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   into 
+  
+    
+      
+        K
+        =
+        
+          ⌈
+          
+            
+              n
+              m
+            
+          
+          ⌉
+        
+      
+    
+    {\displaystyle K=\left\lceil {\frac {n}{m}}\right\rceil }
+   subsets of roughly 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   elements each.)
+
+  
+    
+      
+        
+          Q
+          
+            1
+          
+        
+        ,
+        
+          Q
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          Q
+          
+            K
+          
+        
+        :=
+        S
+        P
+        L
+        I
+        T
+        (
+        P
+        ,
+        m
+        )
+      
+    
+    {\displaystyle Q_{1},Q_{2},\dots ,Q_{K}:=SPLIT(P,m)}
+  (Compute the convex hull of all 
+  
+    
+      
+        K
+      
+    
+    {\displaystyle K}
+   subsets of points, 
+  
+    
+      
+        
+          Q
+          
+            1
+          
+        
+        ,
+        
+          Q
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          Q
+          
+            K
+          
+        
+      
+    
+    {\displaystyle Q_{1},Q_{2},\dots ,Q_{K}}
+  .)
+(It takes 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        K
+        m
+        log
+        ⁡
+        m
+        )
+        =
+        
+          
+            O
+          
+        
+        (
+        n
+        log
+        ⁡
+        m
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(Km\log m)={\mathcal {O}}(n\log m)}
+   time.)
+If 
+  
+    
+      
+        m
+        ≤
+        
+          h
+          
+            2
+          
+        
+      
+    
+    {\displaystyle m\leq h^{2}}
+  , then the time complexity is 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        n
+        log
+        ⁡
+        
+          h
+          
+            2
+          
+        
+        )
+        =
+        
+          
+            O
+          
+        
+        (
+        n
+        log
+        ⁡
+        h
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(n\log h^{2})={\mathcal {O}}(n\log h)}
+  .)
+for 
+  
+    
+      
+        1
+        ≤
+        k
+        ≤
+        K
+      
+    
+    {\displaystyle 1\leq k\leq K}
+   do
+(Compute the convex hull of subset 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  , 
+  
+    
+      
+        
+          Q
+          
+            k
+          
+        
+      
+    
+    {\displaystyle Q_{k}}
+  , using Graham scan, which takes 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        m
+        log
+        ⁡
+        m
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(m\log m)}
+   time.)
+(
+  
+    
+      
+        
+          C
+          
+            k
+          
+        
+      
+    
+    {\displaystyle C_{k}}
+   is the convex hull of the subset of points 
+  
+    
+      
+        
+          Q
+          
+            k
+          
+        
+      
+    
+    {\displaystyle Q_{k}}
+  .)
+
+  
+    
+      
+        
+          C
+          
+            k
+          
+        
+        :=
+        G
+        R
+        A
+        H
+        A
+        M
+        _
+        S
+        C
+        A
+        N
+        (
+        
+          Q
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle C_{k}:=GRAHAM\_SCAN(Q_{k})}
+  (At this point, the convex hulls 
+  
+    
+      
+        
+          C
+          
+            1
+          
+        
+        ,
+        
+          C
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          C
+          
+            K
+          
+        
+      
+    
+    {\displaystyle C_{1},C_{2},\dots ,C_{K}}
+   of respectively the subsets of points 
+  
+    
+      
+        
+          Q
+          
+            1
+          
+        
+        ,
+        
+          Q
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          Q
+          
+            K
+          
+        
+      
+    
+    {\displaystyle Q_{1},Q_{2},\dots ,Q_{K}}
+   have been computed.)
+(Now, use a modified version of the Jarvis march algorithm to compute the convex hull of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  .)
+(Jarvis march performs in 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        n
+        h
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(nh)}
+   time, where 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is the number of input points and 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   is the number of points in the convex hull.)
+(Given that Jarvis march is an output-sensitive algorithm, its running time depends on the size of the convex hull, 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  .)
+(In practice, it means that Jarvis march performs 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   iterations of its outermost loop.
+At each of these iterations, it performs at most 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   iterations of its innermost loop.)
+(We want 
+  
+    
+      
+        h
+        ≤
+        m
+        ≤
+        
+          h
+          
+            2
+          
+        
+      
+    
+    {\displaystyle h\leq m\leq h^{2}}
+  , so we do not want to perform more than 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   iterations in the following outer loop.)
+(If the current 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   is smaller than 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  , i.e. 
+  
+    
+      
+        m
+        <
+        h
+      
+    
+    {\displaystyle m<h}
+  , the convex hull of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   cannot be found.)
+(In this modified version of Jarvis march, we perform an operation inside the innermost loop which takes 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        log
+        ⁡
+        m
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(\log m)}
+   time.
+Hence, the total time complexity of this modified version is
+
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        m
+        K
+        log
+        ⁡
+        m
+        )
+        =
+        
+          
+            O
+          
+        
+        (
+        m
+        
+          ⌈
+          
+            
+              n
+              m
+            
+          
+          ⌉
+        
+        log
+        ⁡
+        m
+        )
+        =
+        
+          
+            O
+          
+        
+        (
+        n
+        log
+        ⁡
+        m
+        )
+        =
+        
+          
+            O
+          
+        
+        (
+        n
+        log
+        ⁡
+        
+          2
+          
+            
+              2
+              
+                t
+              
+            
+          
+        
+        )
+        =
+        
+          
+            O
+          
+        
+        (
+        n
+        
+          2
+          
+            t
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle {\mathcal {O}}(mK\log m)={\mathcal {O}}(m\left\lceil {\frac {n}{m}}\right\rceil \log m)={\mathcal {O}}(n\log m)={\mathcal {O}}(n\log 2^{2^{t}})={\mathcal {O}}(n2^{t}).}
+  
+If 
+  
+    
+      
+        m
+        ≤
+        
+          h
+          
+            2
+          
+        
+      
+    
+    {\displaystyle m\leq h^{2}}
+  , then the time complexity is 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        n
+        log
+        ⁡
+        
+          h
+          
+            2
+          
+        
+        )
+        =
+        
+          
+            O
+          
+        
+        (
+        n
+        log
+        ⁡
+        h
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(n\log h^{2})={\mathcal {O}}(n\log h)}
+  .)
+for 
+  
+    
+      
+        1
+        ≤
+        i
+        ≤
+        m
+      
+    
+    {\displaystyle 1\leq i\leq m}
+   do(Note: here, a point in the convex hull of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   is already known, that is 
+  
+    
+      
+        
+          p
+          
+            1
+          
+        
+      
+    
+    {\displaystyle p_{1}}
+  .)(In this inner for loop, 
+  
+    
+      
+        K
+      
+    
+    {\displaystyle K}
+   possible next points to be on the convex hull of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  , 
+  
+    
+      
+        
+          q
+          
+            i
+            ,
+            1
+          
+        
+        ,
+        
+          q
+          
+            i
+            ,
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          q
+          
+            i
+            ,
+            K
+          
+        
+      
+    
+    {\displaystyle q_{i,1},q_{i,2},\dots ,q_{i,K}}
+  , are computed.)
+(Each of these 
+  
+    
+      
+        K
+      
+    
+    {\displaystyle K}
+   possible next points is from a different 
+  
+    
+      
+        
+          C
+          
+            k
+          
+        
+      
+    
+    {\displaystyle C_{k}}
+  :
+that is, 
+  
+    
+      
+        
+          q
+          
+            i
+            ,
+            k
+          
+        
+      
+    
+    {\displaystyle q_{i,k}}
+   is a possible next point on the convex hull of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   which is part of the convex hull of 
+  
+    
+      
+        
+          C
+          
+            k
+          
+        
+      
+    
+    {\displaystyle C_{k}}
+  .)
+(Note: 
+  
+    
+      
+        
+          q
+          
+            i
+            ,
+            1
+          
+        
+        ,
+        
+          q
+          
+            i
+            ,
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          q
+          
+            i
+            ,
+            K
+          
+        
+      
+    
+    {\displaystyle q_{i,1},q_{i,2},\dots ,q_{i,K}}
+   depend on 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  : that is, for each iteration 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  , there are 
+  
+    
+      
+        K
+      
+    
+    {\displaystyle K}
+   possible next points to be on the convex hull of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  .)
+(Note: at each iteration 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  , only one of the points among 
+  
+    
+      
+        
+          q
+          
+            i
+            ,
+            1
+          
+        
+        ,
+        
+          q
+          
+            i
+            ,
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          q
+          
+            i
+            ,
+            K
+          
+        
+      
+    
+    {\displaystyle q_{i,1},q_{i,2},\dots ,q_{i,K}}
+   is added to the convex hull of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  .)
+for 
+  
+    
+      
+        1
+        ≤
+        k
+        ≤
+        K
+      
+    
+    {\displaystyle 1\leq k\leq K}
+   do
+(
+  
+    
+      
+        J
+        A
+        R
+        V
+        I
+        S
+        _
+        B
+        I
+        N
+        A
+        R
+        Y
+        _
+        S
+        E
+        A
+        R
+        C
+        H
+      
+    
+    {\displaystyle JARVIS\_BINARY\_SEARCH}
+   finds the point 
+  
+    
+      
+        d
+        ∈
+        
+          C
+          
+            k
+          
+        
+      
+    
+    {\displaystyle d\in C_{k}}
+   such that the angle 
+  
+    
+      
+        ∡
+        
+          p
+          
+            i
+            −
+            1
+          
+        
+        
+          p
+          
+            i
+          
+        
+        d
+      
+    
+    {\displaystyle \measuredangle p_{i-1}p_{i}d}
+   is maximized,
+where 
+  
+    
+      
+        ∡
+        
+          p
+          
+            i
+            −
+            1
+          
+        
+        
+          p
+          
+            i
+          
+        
+        d
+      
+    
+    {\displaystyle \measuredangle p_{i-1}p_{i}d}
+   is the angle between the vectors 
+  
+    
+      
+        
+          
+            
+              
+                p
+                
+                  i
+                
+              
+              
+                p
+                
+                  i
+                  −
+                  1
+                
+              
+            
+            →
+          
+        
+      
+    
+    {\displaystyle {\overrightarrow {p_{i}p_{i-1}}}}
+   and 
+  
+    
+      
+        
+          
+            
+              
+                p
+                
+                  i
+                
+              
+              d
+            
+            →
+          
+        
+      
+    
+    {\displaystyle {\overrightarrow {p_{i}d}}}
+  . Such 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   is stored in 
+  
+    
+      
+        
+          q
+          
+            i
+            ,
+            k
+          
+        
+      
+    
+    {\displaystyle q_{i,k}}
+  .)
+(Angles do not need to be calculated directly: the orientation test can be used.)
+(
+  
+    
+      
+        J
+        A
+        R
+        V
+        I
+        S
+        _
+        B
+        I
+        N
+        A
+        R
+        Y
+        _
+        S
+        E
+        A
+        R
+        C
+        H
+      
+    
+    {\displaystyle JARVIS\_BINARY\_SEARCH}
+   can be performed in 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        log
+        ⁡
+        m
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(\log m)}
+   time.)
+(Note: at the iteration 
+  
+    
+      
+        i
+        =
+        1
+      
+    
+    {\displaystyle i=1}
+  , 
+  
+    
+      
+        
+          p
+          
+            i
+            −
+            1
+          
+        
+        =
+        
+          p
+          
+            0
+          
+        
+        =
+        (
+        −
+        ∞
+        ,
+        0
+        )
+      
+    
+    {\displaystyle p_{i-1}=p_{0}=(-\infty ,0)}
+   and 
+  
+    
+      
+        
+          p
+          
+            1
+          
+        
+      
+    
+    {\displaystyle p_{1}}
+   is known and is a point in the convex hull of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  :
+in this case, it is the point of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   with the lowest y coordinate.)
+
+  
+    
+      
+        
+          q
+          
+            i
+            ,
+            k
+          
+        
+        :=
+        J
+        A
+        R
+        V
+        I
+        S
+        _
+        B
+        I
+        N
+        A
+        R
+        Y
+        _
+        S
+        E
+        A
+        R
+        C
+        H
+        (
+        
+          p
+          
+            i
+            −
+            1
+          
+        
+        ,
+        
+          p
+          
+            i
+          
+        
+        ,
+        
+          C
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle q_{i,k}:=JARVIS\_BINARY\_SEARCH(p_{i-1},p_{i},C_{k})}
+  (Choose the point 
+  
+    
+      
+        z
+        ∈
+        {
+        
+          q
+          
+            i
+            ,
+            1
+          
+        
+        ,
+        
+          q
+          
+            i
+            ,
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          q
+          
+            i
+            ,
+            K
+          
+        
+        }
+      
+    
+    {\displaystyle z\in \{q_{i,1},q_{i,2},\dots ,q_{i,K}\}}
+   which maximizes the angle 
+  
+    
+      
+        ∡
+        
+          p
+          
+            i
+            −
+            1
+          
+        
+        
+          p
+          
+            i
+          
+        
+        z
+      
+    
+    {\displaystyle \measuredangle p_{i-1}p_{i}z}
+   to be the next point on the convex hull of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  .)
+
+  
+    
+      
+        
+          p
+          
+            i
+            +
+            1
+          
+        
+        :=
+        J
+        A
+        R
+        V
+        I
+        S
+        _
+        N
+        E
+        X
+        T
+        _
+        C
+        H
+        _
+        P
+        O
+        I
+        N
+        T
+        (
+        
+          p
+          
+            i
+            −
+            1
+          
+        
+        ,
+        
+          p
+          
+            i
+          
+        
+        ,
+        (
+        
+          q
+          
+            i
+            ,
+            1
+          
+        
+        ,
+        
+          q
+          
+            i
+            ,
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          q
+          
+            i
+            ,
+            K
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle p_{i+1}:=JARVIS\_NEXT\_CH\_POINT(p_{i-1},p_{i},(q_{i,1},q_{i,2},\dots ,q_{i,K}))}
+  (Jarvis march terminates when the next selected point on the convext hull, 
+  
+    
+      
+        
+          p
+          
+            i
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle p_{i+1}}
+  , is the initial point, 
+  
+    
+      
+        
+          p
+          
+            1
+          
+        
+      
+    
+    {\displaystyle p_{1}}
+  .)
+if 
+  
+    
+      
+        
+          p
+          
+            i
+            +
+            1
+          
+        
+        ==
+        
+          p
+          
+            1
+          
+        
+      
+    
+    {\displaystyle p_{i+1}==p_{1}}
+  
+(Return the convex hull of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   which contains 
+  
+    
+      
+        i
+        =
+        h
+      
+    
+    {\displaystyle i=h}
+   points.)
+(Note: of course, no need to return 
+  
+    
+      
+        
+          p
+          
+            i
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle p_{i+1}}
+   which is equal to 
+  
+    
+      
+        
+          p
+          
+            1
+          
+        
+      
+    
+    {\displaystyle p_{1}}
+  .)
+return 
+  
+    
+      
+        C
+        :=
+        (
+        
+          p
+          
+            1
+          
+        
+        ,
+        
+          p
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          p
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle C:=(p_{1},p_{2},\dots ,p_{i})}
+  
+else
+
+  
+    
+      
+        A
+        D
+        D
+        (
+        C
+        ,
+        
+          p
+          
+            i
+            +
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle ADD(C,p_{i+1})}
+  (If after 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   iterations a point 
+  
+    
+      
+        
+          p
+          
+            i
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle p_{i+1}}
+   has not been found so that 
+  
+    
+      
+        
+          p
+          
+            i
+            +
+            1
+          
+        
+        ==
+        
+          p
+          
+            1
+          
+        
+      
+    
+    {\displaystyle p_{i+1}==p_{1}}
+  , then 
+  
+    
+      
+        m
+        <
+        h
+      
+    
+    {\displaystyle m<h}
+  .)
+(We need to start over with a higher value for 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  .)
+
+Implementation
+Chan's paper contains several suggestions that may improve the practical performance of the algorithm, for example:
+
+When computing the convex hulls of the subsets, eliminate the points that are not in the convex hull from consideration in subsequent executions.
+The convex hulls of larger point sets can be obtained by merging previously calculated convex hulls, instead of recomputing from scratch.
+With the above idea, the dominant cost of algorithm lies in the pre-processing, i.e., the computation of the convex hulls of the groups. To reduce this cost, we may consider reusing hulls computed from the previous iteration and merging them as the group size is increased.
+
+Extensions
+Chan's paper contains some other problems whose known algorithms can be made optimal output sensitive using his technique, for example:
+
+Computing the lower envelope 
+  
+    
+      
+        L
+        (
+        S
+        )
+      
+    
+    {\displaystyle L(S)}
+   of a set 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   line segments, which is defined as the lower boundary  of the unbounded trapezoid of formed by the intersections.
+Hershberger gave an 
+  
+    
+      
+        O
+        (
+        n
+        log
+        ⁡
+        n
+        )
+      
+    
+    {\displaystyle O(n\log n)}
+   algorithm which can be sped up to 
+  
+    
+      
+        O
+        (
+        n
+        log
+        ⁡
+        h
+        )
+      
+    
+    {\displaystyle O(n\log h)}
+  , where h is the number of edges in the envelopeConstructing output sensitive algorithms for higher dimensional convex hulls. With the use of grouping points and using efficient data structures, 
+  
+    
+      
+        O
+        (
+        n
+        log
+        ⁡
+        h
+        )
+      
+    
+    {\displaystyle O(n\log h)}
+   complexity can be achieved provided h is of polynomial order in 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  .
+
+See also
+Convex hull algorithms
+
+
+== References ==

@@ -1,0 +1,1388 @@
+In the theory of quantum communication, the quantum capacity is the highest rate at which quantum information can be communicated over many independent uses of a noisy quantum channel from a sender to a receiver. It is also equal to the highest rate at which entanglement can be generated over the channel, and forward classical communication cannot improve it. The quantum capacity theorem is important for the theory of quantum error correction, and more broadly for the theory of quantum computation. The theorem giving a lower bound on the quantum capacity of any channel is colloquially known as the LSD theorem, after the authors Lloyd, Shor, and Devetak who proved it with increasing standards of rigor.
+
+Hashing bound for Pauli channels
+The LSD theorem states that the coherent information of a quantum channel is an achievable rate for reliable quantum communication. For a Pauli channel, the coherent information has a simple form and the proof that it is achievable is particularly simple as well. We prove the theorem for this special case by exploiting random stabilizer codes and correcting only the likely errors that the channel produces.
+Theorem (hashing bound). There exists a stabilizer quantum error-correcting code that achieves the hashing limit 
+  
+    
+      
+        R
+        =
+        1
+        −
+        H
+        
+          (
+          
+            p
+          
+          )
+        
+      
+    
+    {\displaystyle R=1-H\left(\mathbf {p} \right)}
+   for a Pauli channel of the following form:where 
+  
+    
+      
+        
+          p
+        
+        =
+        
+          (
+          
+            
+              p
+              
+                I
+              
+            
+            ,
+            
+              p
+              
+                X
+              
+            
+            ,
+            
+              p
+              
+                Y
+              
+            
+            ,
+            
+              p
+              
+                Z
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \mathbf {p} =\left(p_{I},p_{X},p_{Y},p_{Z}\right)}
+   and 
+  
+    
+      
+        H
+        
+          (
+          
+            p
+          
+          )
+        
+      
+    
+    {\displaystyle H\left(\mathbf {p} \right)}
+   is the entropy of this probability vector.
+Proof. Consider correcting only the typical errors. That is, consider defining the
+typical set of errors as follows:where 
+  
+    
+      
+        
+          a
+          
+            n
+          
+        
+      
+    
+    {\displaystyle a^{n}}
+   is some sequence consisting of the letters 
+  
+    
+      
+        
+          {
+          
+            I
+            ,
+            X
+            ,
+            Y
+            ,
+            Z
+          
+          }
+        
+      
+    
+    {\displaystyle \left\{I,X,Y,Z\right\}}
+   and 
+  
+    
+      
+        Pr
+        
+          {
+          
+            E
+            
+              
+                a
+                
+                  n
+                
+              
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \Pr \left\{E_{a^{n}}\right\}}
+   is the probability that an IID Pauli channel issues some tensor-product error 
+  
+    
+      
+        
+          E
+          
+            
+              a
+              
+                n
+              
+            
+          
+        
+        ≡
+        
+          E
+          
+            
+              a
+              
+                1
+              
+            
+          
+        
+        ⊗
+        ⋯
+        ⊗
+        
+          E
+          
+            
+              a
+              
+                n
+              
+            
+          
+        
+      
+    
+    {\displaystyle E_{a^{n}}\equiv E_{a_{1}}\otimes \cdots \otimes E_{a_{n}}}
+  . This typical set consists of the likely errors in the sense thatfor all 
+  
+    
+      
+        ϵ
+        >
+        0
+      
+    
+    {\displaystyle \epsilon >0}
+   and sufficiently large 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  . The error-correcting
+conditions for a stabilizer code 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\mathcal {S}}}
+   in this case are that 
+  
+    
+      
+        {
+        
+          E
+          
+            
+              a
+              
+                n
+              
+            
+          
+        
+        :
+        
+          a
+          
+            n
+          
+        
+        ∈
+        
+          T
+          
+            δ
+          
+          
+            
+              
+                p
+              
+              
+                n
+              
+            
+          
+        
+        }
+      
+    
+    {\displaystyle \{E_{a^{n}}:a^{n}\in T_{\delta }^{\mathbf {p} ^{n}}\}}
+   is a correctable set of errors if
+for all error pairs 
+  
+    
+      
+        
+          E
+          
+            
+              a
+              
+                n
+              
+            
+          
+        
+      
+    
+    {\displaystyle E_{a^{n}}}
+   and 
+  
+    
+      
+        
+          E
+          
+            
+              b
+              
+                n
+              
+            
+          
+        
+      
+    
+    {\displaystyle E_{b^{n}}}
+   such that 
+  
+    
+      
+        
+          a
+          
+            n
+          
+        
+        ,
+        
+          b
+          
+            n
+          
+        
+        ∈
+        
+          T
+          
+            δ
+          
+          
+            
+              
+                p
+              
+              
+                n
+              
+            
+          
+        
+      
+    
+    {\displaystyle a^{n},b^{n}\in T_{\delta }^{\mathbf {p} ^{n}}}
+   where 
+  
+    
+      
+        N
+        (
+        
+          
+            S
+          
+        
+        )
+      
+    
+    {\displaystyle N({\mathcal {S}})}
+   is the normalizer of 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\mathcal {S}}}
+  . Also, we consider the expectation of the error probability under a random choice of a stabilizer code.
+Proceed as follows:The first equality follows by definition—
+  
+    
+      
+        
+          
+            I
+          
+        
+      
+    
+    {\displaystyle {\mathcal {I}}}
+   is an indicator function equal to one if 
+  
+    
+      
+        
+          E
+          
+            
+              a
+              
+                n
+              
+            
+          
+        
+      
+    
+    {\displaystyle E_{a^{n}}}
+   is uncorrectable under 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\mathcal {S}}}
+   and equal to zero otherwise. The first inequality follows, since we correct only the typical errors because the atypical error set has negligible probability mass. The second equality follows by exchanging the expectation and the sum. The third equality follows because the expectation of an indicator function is the probability that the event it selects occurs. 
+
+Continuing, we have:
+
+  
+    
+      
+        ≤
+        
+          ∑
+          
+            
+              a
+              
+                n
+              
+            
+            ∈
+            
+              T
+              
+                δ
+              
+              
+                
+                  A
+                  
+                    n
+                  
+                
+              
+            
+          
+        
+        Pr
+        
+          {
+          
+            E
+            
+              
+                a
+                
+                  n
+                
+              
+            
+          
+          }
+        
+        
+          Pr
+          
+            
+              S
+            
+          
+        
+        
+          {
+          
+            ∃
+            
+              E
+              
+                
+                  b
+                  
+                    n
+                  
+                
+              
+            
+            :
+            
+              b
+              
+                n
+              
+            
+            ∈
+            
+              T
+              
+                δ
+              
+              
+                
+                  
+                    p
+                  
+                  
+                    n
+                  
+                
+              
+            
+            ,
+             
+            
+              b
+              
+                n
+              
+            
+            ≠
+            
+              a
+              
+                n
+              
+            
+            ,
+             
+            
+              E
+              
+                
+                  a
+                  
+                    n
+                  
+                
+              
+              
+                †
+              
+            
+            
+              E
+              
+                
+                  b
+                  
+                    n
+                  
+                
+              
+            
+            ∈
+            N
+            
+              (
+              
+                
+                  S
+                
+              
+              )
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \leq \sum _{a^{n}\in T_{\delta }^{A^{n}}}\Pr \left\{E_{a^{n}}\right\}\Pr _{\mathcal {S}}\left\{\exists E_{b^{n}}:b^{n}\in T_{\delta }^{\mathbf {p} ^{n}},\ b^{n}\neq a^{n},\ E_{a^{n}}^{\dagger }E_{b^{n}}\in N\left({\mathcal {S}}\right)\right\}}
+  
+
+  
+    
+      
+        =
+        
+          ∑
+          
+            
+              a
+              
+                n
+              
+            
+            ∈
+            
+              T
+              
+                δ
+              
+              
+                
+                  
+                    p
+                  
+                  
+                    n
+                  
+                
+              
+            
+          
+        
+        Pr
+        
+          {
+          
+            E
+            
+              
+                a
+                
+                  n
+                
+              
+            
+          
+          }
+        
+        
+          Pr
+          
+            
+              S
+            
+          
+        
+        
+          {
+          
+            
+              ⋃
+              
+                
+                  b
+                  
+                    n
+                  
+                
+                ∈
+                
+                  T
+                  
+                    δ
+                  
+                  
+                    
+                      
+                        p
+                      
+                      
+                        n
+                      
+                    
+                  
+                
+                ,
+                 
+                
+                  b
+                  
+                    n
+                  
+                
+                ≠
+                
+                  a
+                  
+                    n
+                  
+                
+              
+            
+            
+              E
+              
+                
+                  a
+                  
+                    n
+                  
+                
+              
+              
+                †
+              
+            
+            
+              E
+              
+                
+                  b
+                  
+                    n
+                  
+                
+              
+            
+            ∈
+            N
+            
+              (
+              
+                
+                  S
+                
+              
+              )
+            
+          
+          }
+        
+      
+    
+    {\displaystyle =\sum _{a^{n}\in T_{\delta }^{\mathbf {p} ^{n}}}\Pr \left\{E_{a^{n}}\right\}\Pr _{\mathcal {S}}\left\{\bigcup \limits _{b^{n}\in T_{\delta }^{\mathbf {p} ^{n}},\ b^{n}\neq a^{n}}E_{a^{n}}^{\dagger }E_{b^{n}}\in N\left({\mathcal {S}}\right)\right\}}
+  
+
+  
+    
+      
+        ≤
+        
+          ∑
+          
+            
+              a
+              
+                n
+              
+            
+            ,
+            
+              b
+              
+                n
+              
+            
+            ∈
+            
+              T
+              
+                δ
+              
+              
+                
+                  
+                    p
+                  
+                  
+                    n
+                  
+                
+              
+            
+            ,
+             
+            
+              b
+              
+                n
+              
+            
+            ≠
+            
+              a
+              
+                n
+              
+            
+          
+        
+        Pr
+        
+          {
+          
+            E
+            
+              
+                a
+                
+                  n
+                
+              
+            
+          
+          }
+        
+        
+          Pr
+          
+            
+              S
+            
+          
+        
+        
+          {
+          
+            
+              E
+              
+                
+                  a
+                  
+                    n
+                  
+                
+              
+              
+                †
+              
+            
+            
+              E
+              
+                
+                  b
+                  
+                    n
+                  
+                
+              
+            
+            ∈
+            N
+            
+              (
+              
+                
+                  S
+                
+              
+              )
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \leq \sum _{a^{n},b^{n}\in T_{\delta }^{\mathbf {p} ^{n}},\ b^{n}\neq a^{n}}\Pr \left\{E_{a^{n}}\right\}\Pr _{\mathcal {S}}\left\{E_{a^{n}}^{\dagger }E_{b^{n}}\in N\left({\mathcal {S}}\right)\right\}}
+  
+
+  
+    
+      
+        ≤
+        
+          ∑
+          
+            
+              a
+              
+                n
+              
+            
+            ,
+            
+              b
+              
+                n
+              
+            
+            ∈
+            
+              T
+              
+                δ
+              
+              
+                
+                  
+                    p
+                  
+                  
+                    n
+                  
+                
+              
+            
+            ,
+             
+            
+              b
+              
+                n
+              
+            
+            ≠
+            
+              a
+              
+                n
+              
+            
+          
+        
+        Pr
+        
+          {
+          
+            E
+            
+              
+                a
+                
+                  n
+                
+              
+            
+          
+          }
+        
+        
+          2
+          
+            −
+            
+              (
+              
+                n
+                −
+                k
+              
+              )
+            
+          
+        
+      
+    
+    {\displaystyle \leq \sum _{a^{n},b^{n}\in T_{\delta }^{\mathbf {p} ^{n}},\ b^{n}\neq a^{n}}\Pr \left\{E_{a^{n}}\right\}2^{-\left(n-k\right)}}
+  
+
+  
+    
+      
+        ≤
+        
+          2
+          
+            2
+            n
+            
+              [
+              
+                H
+                
+                  (
+                  
+                    p
+                  
+                  )
+                
+                +
+                δ
+              
+              ]
+            
+          
+        
+        
+          2
+          
+            −
+            n
+            
+              [
+              
+                H
+                
+                  (
+                  
+                    p
+                  
+                  )
+                
+                +
+                δ
+              
+              ]
+            
+          
+        
+        
+          2
+          
+            −
+            
+              (
+              
+                n
+                −
+                k
+              
+              )
+            
+          
+        
+      
+    
+    {\displaystyle \leq 2^{2n\left[H\left(\mathbf {p} \right)+\delta \right]}2^{-n\left[H\left(\mathbf {p} \right)+\delta \right]}2^{-\left(n-k\right)}}
+  
+
+  
+    
+      
+        =
+        
+          2
+          
+            −
+            n
+            
+              [
+              
+                1
+                −
+                H
+                
+                  (
+                  
+                    p
+                  
+                  )
+                
+                −
+                k
+                
+                  /
+                
+                n
+                −
+                3
+                δ
+              
+              ]
+            
+          
+        
+        .
+      
+    
+    {\displaystyle =2^{-n\left[1-H\left(\mathbf {p} \right)-k/n-3\delta \right]}.}
+  The first equality follows from the error-correcting conditions for a quantum stabilizer code, where 
+  
+    
+      
+        N
+        
+          (
+          
+            
+              S
+            
+          
+          )
+        
+      
+    
+    {\displaystyle N\left({\mathcal {S}}\right)}
+   is the normalizer of
+
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\mathcal {S}}}
+  . The first inequality follows by ignoring any potential degeneracy in the code—we consider an error uncorrectable if it lies in the normalizer 
+  
+    
+      
+        N
+        
+          (
+          
+            
+              S
+            
+          
+          )
+        
+      
+    
+    {\displaystyle N\left({\mathcal {S}}\right)}
+   and the probability can only be larger because 
+  
+    
+      
+        N
+        
+          (
+          
+            
+              S
+            
+          
+          )
+        
+        ∖
+        
+          
+            S
+          
+        
+        ∈
+        N
+        
+          (
+          
+            
+              S
+            
+          
+          )
+        
+      
+    
+    {\displaystyle N\left({\mathcal {S}}\right)\backslash {\mathcal {S}}\in N\left({\mathcal {S}}\right)}
+  . The second equality follows by realizing that the probabilities for the existence criterion and the union of events are equivalent. The second inequality follows by applying the union bound. The third inequality follows from the fact that the probability for a fixed operator 
+  
+    
+      
+        
+          E
+          
+            
+              a
+              
+                n
+              
+            
+          
+          
+            †
+          
+        
+        
+          E
+          
+            
+              b
+              
+                n
+              
+            
+          
+        
+      
+    
+    {\displaystyle E_{a^{n}}^{\dagger }E_{b^{n}}}
+   not equal to the identity commuting with
+the stabilizer operators of a random stabilizer can be upper bounded as follows:
+
+  
+    
+      
+        
+          Pr
+          
+            
+              S
+            
+          
+        
+        
+          {
+          
+            
+              E
+              
+                
+                  a
+                  
+                    n
+                  
+                
+              
+              
+                †
+              
+            
+            
+              E
+              
+                
+                  b
+                  
+                    n
+                  
+                
+              
+            
+            ∈
+            N
+            
+              (
+              
+                
+                  S
+                
+              
+              )
+            
+          
+          }
+        
+        =
+        
+          
+            
+              
+                2
+                
+                  n
+                  +
+                  k
+                
+              
+              −
+              1
+            
+            
+              
+                2
+                
+                  2
+                  n
+                
+              
+              −
+              1
+            
+          
+        
+        ≤
+        
+          2
+          
+            −
+            
+              (
+              
+                n
+                −
+                k
+              
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \Pr _{\mathcal {S}}\left\{E_{a^{n}}^{\dagger }E_{b^{n}}\in N\left({\mathcal {S}}\right)\right\}={\frac {2^{n+k}-1}{2^{2n}-1}}\leq 2^{-\left(n-k\right)}.}
+  
+The reasoning here is that the random choice of a stabilizer code is equivalent to
+fixing operators 
+  
+    
+      
+        
+          Z
+          
+            1
+          
+        
+      
+    
+    {\displaystyle Z_{1}}
+  , ..., 
+  
+    
+      
+        
+          Z
+          
+            n
+            −
+            k
+          
+        
+      
+    
+    {\displaystyle Z_{n-k}}
+   and performing a uniformly random
+Clifford unitary. The probability that a fixed operator commutes with
+
+  
+    
+      
+        
+          
+            
+              Z
+              ¯
+            
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle {\overline {Z}}_{1}}
+  , ..., 
+  
+    
+      
+        
+          
+            
+              Z
+              ¯
+            
+          
+          
+            n
+            −
+            k
+          
+        
+      
+    
+    {\displaystyle {\overline {Z}}_{n-k}}
+   is then just the number of
+non-identity operators in the normalizer (
+  
+    
+      
+        
+          2
+          
+            n
+            +
+            k
+          
+        
+        −
+        1
+      
+    
+    {\displaystyle 2^{n+k}-1}
+  ) divided by the total number of non-identity operators (
+  
+    
+      
+        
+          2
+          
+            2
+            n
+          
+        
+        −
+        1
+      
+    
+    {\displaystyle 2^{2n}-1}
+  ). After applying the above bound, we then exploit the following typicality bounds:
+
+We conclude that as long as the rate 
+  
+    
+      
+        k
+        
+          /
+        
+        n
+        =
+        1
+        −
+        H
+        
+          (
+          
+            p
+          
+          )
+        
+        −
+        4
+        δ
+      
+    
+    {\displaystyle k/n=1-H\left(\mathbf {p} \right)-4\delta }
+  , the expectation of the error probability becomes arbitrarily small, so that there exists at least one choice of a stabilizer code with the same bound on the error probability.
+
+See also
+Quantum computing
+
+
+== References ==

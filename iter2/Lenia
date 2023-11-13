@@ -1,0 +1,1103 @@
+Lenia is a family of cellular automata created by Bert Wang-Chak Chan. It is intended to be a continuous generalization of Conway's Game of Life, with continuous states, space and time. As a consequence of its continuous, high-resolution domain, the complex autonomous patterns ("lifeforms" or "spaceships") generated in Lenia are described as differing from those appearing in other cellular automata, being "geometric, metameric, fuzzy, resilient, adaptive, and rule-generic".Lenia won the 2018 Virtual Creatures Contest at the Genetic and Evolutionary Computation Conference in Kyoto, an honorable mention for the ALIFE Art Award at ALIFE 2018 in Tokyo, and Outstanding Publication of 2019 by the International Society for Artificial Life (ISAL).
+
+Rules
+Iterative updates
+Let 
+  
+    
+      
+        
+          
+            L
+          
+        
+      
+    
+    {\displaystyle {\mathcal {L}}}
+   be the lattice or grid containing a set of states 
+  
+    
+      
+        
+          S
+          
+            
+              L
+            
+          
+        
+      
+    
+    {\displaystyle S^{\mathcal {L}}}
+  . Like many cellular automata, Lenia is updated iteratively; each output state is a pure function of the previous state, such that
+
+where 
+  
+    
+      
+        
+          A
+          
+            0
+          
+        
+      
+    
+    {\displaystyle A^{0}}
+   is the initial state and 
+  
+    
+      
+        Φ
+        :
+        
+          S
+          
+            
+              L
+            
+          
+        
+        →
+        
+          S
+          
+            
+              L
+            
+          
+        
+      
+    
+    {\displaystyle \Phi :S^{\mathcal {L}}\rightarrow S^{\mathcal {L}}}
+   is the global rule, representing the application of the local rule  over every site 
+  
+    
+      
+        
+          x
+        
+        ∈
+        
+          
+            L
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} \in {\cal {L}}}
+  . Thus 
+  
+    
+      
+        
+          Φ
+          
+            N
+          
+        
+        (
+        
+          A
+          
+            t
+          
+        
+        )
+        =
+        
+          A
+          
+            t
+            +
+            N
+            Δ
+            t
+          
+        
+      
+    
+    {\displaystyle \Phi ^{N}(A^{t})=A^{t+N\Delta t}}
+  .
+If the simulation is advanced by 
+  
+    
+      
+        Δ
+        t
+      
+    
+    {\displaystyle \Delta t}
+   at each timestep, then the time resolution 
+  
+    
+      
+        T
+        =
+        
+          
+            1
+            
+              Δ
+              t
+            
+          
+        
+      
+    
+    {\displaystyle T={\frac {1}{\Delta t}}}
+  .
+
+State sets
+Let 
+  
+    
+      
+        S
+        =
+        {
+        0
+        ,
+        1
+        ,
+        …
+        ,
+        P
+        −
+        1
+        ,
+        P
+        }
+      
+    
+    {\displaystyle S=\{0,1,\ldots ,P-1,P\}}
+   with maximum 
+  
+    
+      
+        P
+        ∈
+        
+          Z
+        
+      
+    
+    {\displaystyle P\in \mathbb {Z} }
+  . This is the state set of the automaton and characterizes the possible states that may be found at each site. Larger 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   correspond to higher state resolutions in the simulation. Many cellular automata use the lowest possible state resolution, i.e. 
+  
+    
+      
+        P
+        =
+        1
+      
+    
+    {\displaystyle P=1}
+  . Lenia allows for much higher resolutions. Note that the actual value at each site is not in 
+  
+    
+      
+        [
+        0
+        ,
+        P
+        ]
+      
+    
+    {\displaystyle [0,P]}
+   but rather an integer multiple of 
+  
+    
+      
+        Δ
+        p
+        =
+        
+          
+            1
+            P
+          
+        
+      
+    
+    {\displaystyle \Delta p={\frac {1}{P}}}
+  ; therefore we have 
+  
+    
+      
+        
+          A
+          
+            t
+          
+        
+        (
+        
+          x
+        
+        )
+        ∈
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle A^{t}(\mathbf {x} )\in [0,1]}
+   for all 
+  
+    
+      
+        
+          x
+        
+        ∈
+        
+          
+            L
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} \in {\mathcal {L}}}
+  . For example, given 
+  
+    
+      
+        P
+        =
+        4
+      
+    
+    {\displaystyle P=4}
+  , 
+  
+    
+      
+        
+          
+            A
+          
+          
+            t
+          
+        
+        (
+        
+          x
+        
+        )
+        ∈
+        [
+        0
+        ,
+        0.25
+        ,
+        0.75
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle \mathbf {A} ^{t}(\mathbf {x} )\in [0,0.25,0.75,1]}
+  .
+
+Neighborhoods
+Mathematically, neighborhoods like those in Game of Life may be represented using a set of position vectors in 
+  
+    
+      
+        
+          
+            R
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \mathbb {R} ^{2}}
+  . For the classic Moore neighborhood used by Game of Life, for instance, 
+  
+    
+      
+        
+          
+            N
+          
+        
+        =
+        {
+        −
+        1
+        ,
+        0
+        ,
+        1
+        
+          }
+          
+            2
+          
+        
+      
+    
+    {\displaystyle {\mathcal {N}}=\{-1,0,1\}^{2}}
+  ; i.e. a square of size 3 centered on every site.
+In Lenia's case, the neighborhood is instead a ball of radius 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   centered on a site, 
+  
+    
+      
+        
+          
+            N
+          
+        
+        =
+        {
+        
+          x
+        
+        ∈
+        
+          
+            L
+          
+        
+        :
+        ‖
+        
+          x
+        
+        
+          ‖
+          
+            2
+          
+        
+        ≤
+        R
+        }
+      
+    
+    {\displaystyle {\mathcal {N}}=\{\mathbf {x} \in {\mathcal {L}}:\lVert \mathbf {x} \rVert _{2}\leq R\}}
+  , which may include the original site itself.
+Note that the neighborhood vectors are not the absolute position of the elements, but rather a set of relative positions (deltas) with respect to any given site.
+
+Local rule
+There are discrete and continuous variants of Lenia. Let 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+   be a vector in 
+  
+    
+      
+        
+          
+            R
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \mathbb {R} ^{2}}
+   within 
+  
+    
+      
+        
+          
+            L
+          
+        
+      
+    
+    {\displaystyle {\mathcal {L}}}
+   representing the position of a given site, and 
+  
+    
+      
+        
+          
+            N
+          
+        
+      
+    
+    {\displaystyle {\mathcal {N}}}
+   be the set of sites neighboring 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+  . Both variations comprise two stages:
+
+Using a convolution kernel 
+  
+    
+      
+        
+          K
+        
+        :
+        
+          
+            N
+          
+        
+        →
+        S
+      
+    
+    {\displaystyle \mathbf {K} :{\mathcal {N}}\rightarrow S}
+   to compute the potential distribution 
+  
+    
+      
+        
+          
+            U
+          
+          
+            t
+          
+        
+        (
+        
+          x
+        
+        )
+        =
+        
+          K
+        
+        ∗
+        
+          
+            A
+          
+          
+            t
+          
+        
+        (
+        
+          x
+        
+        )
+      
+    
+    {\displaystyle \mathbf {U} ^{t}(\mathbf {x} )=\mathbf {K} *\mathbf {A} ^{t}(\mathbf {x} )}
+  .
+Using a growth mapping 
+  
+    
+      
+        G
+        :
+        [
+        0
+        ,
+        1
+        ]
+        →
+        [
+        −
+        1
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle G:[0,1]\rightarrow [-1,1]}
+   to compute the final growth distribution 
+  
+    
+      
+        
+          
+            G
+          
+          
+            t
+          
+        
+        (
+        
+          x
+        
+        )
+        =
+        G
+        (
+        
+          
+            U
+          
+          
+            t
+          
+        
+        (
+        
+          x
+        
+        )
+        )
+      
+    
+    {\displaystyle \mathbf {G} ^{t}(\mathbf {x} )=G(\mathbf {U} ^{t}(\mathbf {x} ))}
+  .Once 
+  
+    
+      
+        
+          
+            G
+          
+          
+            t
+          
+        
+      
+    
+    {\displaystyle \mathbf {G} ^{t}}
+   is computed, it is scaled by the chosen time resolution 
+  
+    
+      
+        Δ
+        t
+      
+    
+    {\displaystyle \Delta t}
+   and added to the original state value:Here, the clip function is defined by 
+  
+    
+      
+        clip
+        ⁡
+        (
+        v
+        ,
+        a
+        ,
+        b
+        )
+        :=
+        min
+        (
+        max
+        (
+        u
+        ,
+        a
+        )
+        ,
+        b
+        )
+      
+    
+    {\displaystyle \operatorname {clip} (v,a,b):=\min(\max(u,a),b)}
+   .
+The local rules are defined as follows for discrete and continuous Lenia:
+
+Kernel generation
+There are many ways to generate the convolution kernel 
+  
+    
+      
+        
+          K
+        
+      
+    
+    {\displaystyle \mathbf {K} }
+  . The final kernel is the composition of a kernel shell 
+  
+    
+      
+        
+          K
+          
+            C
+          
+        
+      
+    
+    {\displaystyle K_{C}}
+   and a kernel skeleton 
+  
+    
+      
+        
+          K
+          
+            S
+          
+        
+      
+    
+    {\displaystyle K_{S}}
+  .
+For the kernel shell 
+  
+    
+      
+        
+          K
+          
+            C
+          
+        
+      
+    
+    {\displaystyle K_{C}}
+  , Chan gives several functions that are defined radially. Kernel shell functions are unimodal and subject to the constraint 
+  
+    
+      
+        
+          K
+          
+            C
+          
+        
+        (
+        0
+        )
+        =
+        
+          K
+          
+            C
+          
+        
+        (
+        1
+        )
+        =
+        0
+      
+    
+    {\displaystyle K_{C}(0)=K_{C}(1)=0}
+   (and typically 
+  
+    
+      
+        
+          K
+          
+            C
+          
+        
+        
+          (
+          
+            
+              1
+              2
+            
+          
+          )
+        
+        =
+        1
+      
+    
+    {\displaystyle K_{C}\left({\frac {1}{2}}\right)=1}
+   as well). Example kernel functions include:
+
+Here, 
+  
+    
+      
+        
+          
+            1
+          
+          
+            A
+          
+        
+        (
+        r
+        )
+      
+    
+    {\displaystyle \mathbf {1} _{A}(r)}
+   is the indicator function.
+Once the kernel shell has been defined, the kernel skeleton 
+  
+    
+      
+        
+          K
+          
+            S
+          
+        
+      
+    
+    {\displaystyle K_{S}}
+   is used to expand it and compute the actual values of the kernel by transforming the shell into a series of concentric rings. The height of each ring is controlled by a kernel peak vector 
+  
+    
+      
+        β
+        =
+        (
+        
+          β
+          
+            1
+          
+        
+        ,
+        
+          β
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          β
+          
+            B
+          
+        
+        )
+        ∈
+        [
+        0
+        ,
+        1
+        
+          ]
+          
+            B
+          
+        
+      
+    
+    {\displaystyle \beta =(\beta _{1},\beta _{2},\ldots ,\beta _{B})\in [0,1]^{B}}
+  , where 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   is the rank of the parameter vector. Then the kernel skeleton 
+  
+    
+      
+        
+          K
+          
+            S
+          
+        
+      
+    
+    {\displaystyle K_{S}}
+   is defined as
+
+The final kernel 
+  
+    
+      
+        
+          K
+        
+        (
+        
+          n
+        
+        )
+      
+    
+    {\displaystyle \mathbf {K} (\mathbf {n} )}
+   is therefore
+
+such that 
+  
+    
+      
+        
+          K
+        
+      
+    
+    {\displaystyle \mathbf {K} }
+   is normalized to have an element sum of 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+   and 
+  
+    
+      
+        
+          K
+        
+        ∗
+        
+          A
+        
+        ∈
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle \mathbf {K} *\mathbf {A} \in [0,1]}
+   (for conservation of mass). 
+  
+    
+      
+        
+          |
+        
+        
+          K
+          
+            S
+          
+        
+        
+          |
+        
+        =
+        
+          
+            ∑
+            
+              
+                N
+              
+            
+          
+          
+            
+              K
+              
+                S
+              
+            
+            
+            Δ
+            
+              x
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle |K_{S}|=\textstyle \sum _{\mathcal {N}}\displaystyle K_{S}\,\Delta x^{2}}
+   in the discrete case, and 
+  
+    
+      
+        
+          ∫
+          
+            N
+          
+        
+        
+          K
+          
+            S
+          
+        
+        
+        d
+        
+          x
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \int _{N}K_{S}\,dx^{2}}
+   in the continuous case.
+
+Growth mappings
+The growth mapping 
+  
+    
+      
+        G
+        :
+        [
+        0
+        ,
+        1
+        ]
+        →
+        [
+        −
+        1
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle G:[0,1]\rightarrow [-1,1]}
+  , which is analogous to an activation function, may be any function that is unimodal, nonmonotonic, and accepts parameters 
+  
+    
+      
+        μ
+        ,
+        σ
+        ∈
+        
+          R
+        
+      
+    
+    {\displaystyle \mu ,\sigma \in \mathbb {R} }
+  . Examples include
+
+where 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   is a potential value drawn from 
+  
+    
+      
+        
+          
+            U
+          
+          
+            t
+          
+        
+      
+    
+    {\displaystyle \mathbf {U} ^{t}}
+  .
+
+Game of Life
+The Game of Life may be regarded as a special case of discrete Lenia with 
+  
+    
+      
+        R
+        =
+        T
+        =
+        P
+        =
+        1
+      
+    
+    {\displaystyle R=T=P=1}
+  . In this case, the kernel would be rectangular, with the functionand the growth rule also rectangular, with 
+  
+    
+      
+        μ
+        =
+        0.35
+        ,
+        σ
+        =
+        0.07
+      
+    
+    {\displaystyle \mu =0.35,\sigma =0.07}
+  .
+
+Patterns
+By varying the convolutional kernel, the growth mapping and the initial condition, over 400 "species" of "life" have been discovered in Lenia, displaying "self-organization, self-repair, bilateral and radial symmetries, locomotive dynamics, and sometimes chaotic nature". Chan has created a taxonomy for these patterns.
+
+Related work
+Other works have noted the strong similarity between cellular automata update rules and convolutions. Indeed, these works have focused on reproducing cellular automata using simplified convolutional neural networks. Mordvintsev et al. investigated the emergence of self-repairing pattern generation. Gilpin found that any cellular automaton could be represented as a convolutional neural network, and trained neural networks to reproduce existing cellular automataIn this light, cellular automata may be seen as a special case of recurrent convolutional neural networks. Lenia's update rule may also be seen as a single-layer convolution (the "potential field" 
+  
+    
+      
+        
+          K
+        
+      
+    
+    {\displaystyle \mathbf {K} }
+  ) with an activation function (the "growth mapping" 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  ). However, Lenia uses far larger, fixed, kernels and is not trained via gradient descent.
+
+See also
+Conway's Game of Life
+Cellular automaton
+Self-replication
+Pattern formation
+Morphogenesis
+
+External links
+The Github repository for Lenia
+Chan's website for Lenia
+An invited seminar at Stanford given by Chan
+
+
+== References ==

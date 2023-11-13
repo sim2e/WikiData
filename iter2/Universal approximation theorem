@@ -1,0 +1,1392 @@
+In the mathematical theory of artificial neural networks, universal approximation theorems are results that put limits on what neural networks can theoretically learn, i.e. that establish the density of an algorithmically generated class of functions within a given function space of interest.  Typically, these results concern the approximation capabilities of the feedforward architecture on the space of continuous functions between two Euclidean spaces, and the approximation is with respect to the compact convergence topology. What must be stressed, is that while some functions can be arbitrarily well approximated in a region, the proofs do not apply outside of the region, i.e. the approximated functions do not extrapolate outside of the region. That applies for all non-periodic activation functions, i.e. what's in practice used and most proofs assume.
+However, there are also a variety of results between non-Euclidean spaces and other commonly used architectures and, more generally, algorithmically generated sets of functions, such as the convolutional neural network (CNN) architecture, radial basis functions, or neural networks with specific properties. Most universal approximation theorems can be parsed into two classes. The first quantifies the approximation capabilities of neural networks with an arbitrary number of artificial neurons ("arbitrary width" case) and the second focuses on the case with an arbitrary number of hidden layers, each containing a limited number of artificial neurons ("arbitrary depth" case). In addition to these two classes, there are also universal approximation theorems for neural networks with bounded number of hidden layers and a limited number of neurons in each layer ("bounded depth and bounded width" case).
+Universal approximation theorems imply that neural networks can represent a wide variety of interesting functions with appropriate weights. On the other hand, they typically do not provide a construction for the weights, but merely state that such a construction is possible. To construct the weight, neural networks are trained, and they may converge on the correct weights, or not (i.e. get stuck in a local optimum). If the network is too small (for the dimensions of input data) then the universal approximation theorems do not apply, i.e. the networks will not learn. What was once proven about the depth of a network, i.e. a single hidden layer enough, only applies for one dimension, in general such a network is too shallow. The width of a network is also an important hyperparameter. The choice of an activation function is also important, and some work, and proofs written about, assume e.g. ReLU (or sigmoid) used, while some, such as a linear are known to not work (nor any polynominal).
+Neural networks with an unbounded (non-polynomial) activation function have the universal approximation property.The universal approximation property of width-bounded networks has been studied as a dual of classical universal approximation results on depth-bounded networks. For input dimension dx and output dimension dy  the minimum width required for the universal approximation of the Lp functions is exactly max{dx + 1, dy} (for a ReLU network).  More generally this also holds if both ReLU and a threshold activation function are used.
+
+History
+One of the first versions of the arbitrary width case was proven by George Cybenko in 1989 for sigmoid activation functions. Kurt Hornik, Maxwell Stinchcombe, and Halbert White showed in 1989 that multilayer feed-forward networks with as few as one hidden layer are universal approximators. Hornik also showed in 1991 that it is not the specific choice of the activation function but rather the multilayer feed-forward architecture itself that gives neural networks the potential of being universal approximators. Moshe Leshno et al in 1993 and later Allan Pinkus in 1999 showed that the universal approximation property is equivalent to having a nonpolynomial activation function.  In 2022, Shen Zuowei, Haizhao Yang, and Shijun Zhang obtained precise quantitative information on the depth and width required to approximate a target function by deep and wide ReLU neural networks.
+The arbitrary depth case was also studied by a number of authors such as Gustaf Gripenberg in 2003, Dmitry Yarotsky, Zhou Lu et al in 2017, Boris Hanin and Mark Sellke in 2018 who focused on neural networks with ReLU activation function.  In 2020, Patrick Kidger and Terry Lyons extended those results to neural networks with general activation functions such, e.g. tanh, GeLU, or Swish, and in 2022, their result was made quantitative by Leonie Papon and Anastasis Kratsios who derived explicit depth estimates depending on the regularity of the target function and of the activation function.
+The question of minimal possible width for universality was first studied in 2021, Park et al obtained the minimum width required for the universal approximation of Lp functions using feed-forward neural networks with ReLU as activation functions. Similar results that can be directly applied to residual neural networks were also obtained in the same year by Paulo Tabuada and Bahman Gharesifard using control-theoretic arguments. In 2023, Cai obtained the optimal minimum width bound for the universal approximation.
+The bounded depth and bounded width case was first studied by Maiorov and Pinkus in 1999. They showed that there exists an analytic sigmoidal activation function such that two hidden layer neural networks with bounded number of units in hidden layers are universal approximators. 
+Using algorithmic and computer programming techniques, Guliyev and Ismailov constructed a smooth sigmoidal activation function providing universal approximation property for two hidden layer feedforward neural networks with less units in hidden layers. It was constructively proved in 2018 paper that single hidden layer networks with bounded width are still universal approximators for univariate functions, but this property is no longer true for multivariable functions.
+Several extensions of the theorem exist, such as to discontinuous activation functions, noncompact domains, certifiable networks, 
+random neural networks, and alternative network architectures and topologies.
+
+Arbitrary-width case
+A spate of papers in the 1980s—1990s, from George Cybenko and Kurt Hornik etc, established several universal approximation theorems for arbitrary width and bounded depth. See for reviews. The following is the most often quoted:
+Also, certain non-continuous activation functions can be used to approximate a sigmoid function, which then allows the above theorem to apply to those functions. For example, the step function works. In particular, this shows that a perceptron network with a single infinitely wide hidden layer can approximate arbitrary functions.
+Such an 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   can also be approximated by a network of greater depth by using the same construction for the first layer and approximating the identity function with later layers.
+
+The above proof has not specified how one might use a ramp function to approximate arbitrary functions in 
+  
+    
+      
+        
+          C
+          
+            0
+          
+        
+        (
+        
+          
+            R
+          
+          
+            n
+          
+        
+        ,
+        
+          R
+        
+        )
+      
+    
+    {\displaystyle C_{0}(\mathbb {R} ^{n},\mathbb {R} )}
+  . A sketch of the proof is that one can first construct flat bump functions, intersect them to obtain spherical bump functions that approximate the Dirac delta function, then use those to approximate arbitrary functions in 
+  
+    
+      
+        
+          C
+          
+            0
+          
+        
+        (
+        
+          
+            R
+          
+          
+            n
+          
+        
+        ,
+        
+          R
+        
+        )
+      
+    
+    {\displaystyle C_{0}(\mathbb {R} ^{n},\mathbb {R} )}
+  . The original proofs, such as the one by Cybenko, use methods from functional analysis, including the Hahn-Banach and Riesz representation theorems. 
+The problem with polynomials may be removed by allowing the outputs of the hidden layers to be multiplied together (the "pi-sigma networks"), yielding the generalization:
+
+Arbitrary-depth case
+The "dual" versions of the theorem consider networks of bounded width and arbitrary depth. A variant of the universal approximation theorem was proved for the arbitrary depth case by Zhou Lu et al. in 2017.  They showed that networks of width n + 4 with ReLU activation functions can approximate any Lebesgue-integrable function on n-dimensional input space with respect to 
+  
+    
+      
+        
+          L
+          
+            1
+          
+        
+      
+    
+    {\displaystyle L^{1}}
+   distance if network depth is allowed to grow. It was also shown that if the width was less than or equal to n, this general expressive power to approximate any Lebesgue integrable function was lost. In the same paper it was shown that ReLU networks with width n + 1 were sufficient to approximate any continuous function of n-dimensional input variables.  The following refinement, specifies the optimal minimum width for which such an approximation is possible and is due to.
+
+Universal approximation theorem (L1 distance, ReLU activation, arbitrary depth, minimal width). For any Bochner–Lebesgue p-integrable function 
+  
+    
+      
+        f
+        :
+        
+          
+            R
+          
+          
+            n
+          
+        
+        →
+        
+          
+            R
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle f:\mathbb {R} ^{n}\to \mathbb {R} ^{m}}
+   and any 
+  
+    
+      
+        ε
+        >
+        0
+      
+    
+    {\displaystyle \varepsilon >0}
+  , there exists a fully connected ReLU network 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+   of width exactly 
+  
+    
+      
+        
+          d
+          
+            m
+          
+        
+        =
+        max
+        {
+        n
+        +
+        1
+        ,
+        m
+        }
+      
+    
+    {\displaystyle d_{m}=\max\{n+1,m\}}
+  , satisfying
+
+  
+    
+      
+        
+          ∫
+          
+            
+              
+                R
+              
+              
+                n
+              
+            
+          
+        
+        ‖
+        f
+        (
+        x
+        )
+        −
+        F
+        (
+        x
+        )
+        
+          ‖
+          
+            p
+          
+        
+        
+        
+          d
+        
+        x
+        <
+        ε
+        .
+      
+    
+    {\displaystyle \int _{\mathbb {R} ^{n}}\|f(x)-F(x)\|^{p}\,\mathrm {d} x<\varepsilon .}
+  Moreover, there exists a function 
+  
+    
+      
+        f
+        ∈
+        
+          L
+          
+            p
+          
+        
+        (
+        
+          
+            R
+          
+          
+            n
+          
+        
+        ,
+        
+          
+            R
+          
+          
+            m
+          
+        
+        )
+      
+    
+    {\displaystyle f\in L^{p}(\mathbb {R} ^{n},\mathbb {R} ^{m})}
+   and some 
+  
+    
+      
+        ε
+        >
+        0
+      
+    
+    {\displaystyle \varepsilon >0}
+  , for which there is no fully connected ReLU network of width less than 
+  
+    
+      
+        
+          d
+          
+            m
+          
+        
+        =
+        max
+        {
+        n
+        +
+        1
+        ,
+        m
+        }
+      
+    
+    {\displaystyle d_{m}=\max\{n+1,m\}}
+   satisfying the above approximation bound.
+Remark: If the activation is replaced by leaky-ReLU, and the input is restricted in a compact domain, then the exact minimum width is 
+  
+    
+      
+        
+          d
+          
+            m
+          
+        
+        =
+        max
+        {
+        n
+        ,
+        m
+        ,
+        2
+        }
+      
+    
+    {\displaystyle d_{m}=\max\{n,m,2\}}
+  .
+Quantitative refinement: In the case where, when 
+  
+    
+      
+        
+          
+            X
+          
+        
+        =
+        [
+        0
+        ,
+        1
+        
+          ]
+          
+            d
+          
+        
+      
+    
+    {\displaystyle {\mathcal {X}}=[0,1]^{d}}
+   and 
+  
+    
+      
+        D
+        =
+        1
+      
+    
+    {\displaystyle D=1}
+   and where 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   is the ReLU activation function, the exact depth and width for a ReLU network to achieve 
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+   error is also known.  If, moreover, the target function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is smooth, then the required number of layer and their width can be exponentially smaller.  Even if 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is not smooth, the curse of dimensionality can be broken if 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   admits additional "compositional structure".
+
+Together, the central result of yields the following universal approximation theorem for networks with bounded width (see also for the first result of this kind).
+
+Universal approximation theorem (Uniform non-affine activation, arbitrary depth, constrained width). Let 
+  
+    
+      
+        
+          
+            X
+          
+        
+      
+    
+    {\displaystyle {\mathcal {X}}}
+   be a compact subset of 
+  
+    
+      
+        
+          
+            R
+          
+          
+            d
+          
+        
+      
+    
+    {\displaystyle \mathbb {R} ^{d}}
+  .  Let 
+  
+    
+      
+        σ
+        :
+        
+          R
+        
+        →
+        
+          R
+        
+      
+    
+    {\displaystyle \sigma :\mathbb {R} \to \mathbb {R} }
+   be any non-affine continuous function which is continuously differentiable at at least one point, with nonzero derivative at that point. Let 
+  
+    
+      
+        
+          
+            
+              N
+            
+          
+          
+            d
+            ,
+            D
+            :
+            d
+            +
+            D
+            +
+            2
+          
+          
+            σ
+          
+        
+      
+    
+    {\displaystyle {\mathcal {N}}_{d,D:d+D+2}^{\sigma }}
+   denote the space of feed-forward neural networks with 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   input neurons, 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+   output neurons, and an arbitrary number of hidden layers each with 
+  
+    
+      
+        d
+        +
+        D
+        +
+        2
+      
+    
+    {\displaystyle d+D+2}
+   neurons, such that every hidden neuron has activation function 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   and every output neuron has the identity as its activation function, with input layer 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   and output layer 
+  
+    
+      
+        ρ
+      
+    
+    {\displaystyle \rho }
+  . Then given any 
+  
+    
+      
+        ε
+        >
+        0
+      
+    
+    {\displaystyle \varepsilon >0}
+   and any 
+  
+    
+      
+        f
+        ∈
+        C
+        (
+        
+          
+            X
+          
+        
+        ,
+        
+          
+            R
+          
+          
+            D
+          
+        
+        )
+      
+    
+    {\displaystyle f\in C({\mathcal {X}},\mathbb {R} ^{D})}
+  , there exists 
+  
+    
+      
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        ∈
+        
+          
+            
+              N
+            
+          
+          
+            d
+            ,
+            D
+            :
+            d
+            +
+            D
+            +
+            2
+          
+          
+            σ
+          
+        
+      
+    
+    {\displaystyle {\hat {f}}\in {\mathcal {N}}_{d,D:d+D+2}^{\sigma }}
+   such that
+
+  
+    
+      
+        
+          sup
+          
+            x
+            ∈
+            
+              
+                X
+              
+            
+          
+        
+        
+          ‖
+          
+            
+              
+                
+                  f
+                  ^
+                
+              
+            
+            (
+            x
+            )
+            −
+            f
+            (
+            x
+            )
+          
+          ‖
+        
+        <
+        ε
+        .
+      
+    
+    {\displaystyle \sup _{x\in {\mathcal {X}}}\left\|{\hat {f}}(x)-f(x)\right\|<\varepsilon .}
+  In other words, 
+  
+    
+      
+        
+          
+            N
+          
+        
+      
+    
+    {\displaystyle {\mathcal {N}}}
+   is dense in 
+  
+    
+      
+        C
+        (
+        
+          
+            X
+          
+        
+        ;
+        
+          
+            R
+          
+          
+            D
+          
+        
+        )
+      
+    
+    {\displaystyle C({\mathcal {X}};\mathbb {R} ^{D})}
+   with respect to the topology of uniform convergence.
+Quantitative refinement: The number of layers and the width of each layer required to approximate 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   to 
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+   precision known; moreover, the result hold true when 
+  
+    
+      
+        
+          
+            X
+          
+        
+      
+    
+    {\displaystyle {\mathcal {X}}}
+   and 
+  
+    
+      
+        
+          
+            R
+          
+          
+            D
+          
+        
+      
+    
+    {\displaystyle \mathbb {R} ^{D}}
+   are replaced with any non-positively curved Riemannian manifold.
+
+Certain necessary conditions for the bounded width, arbitrary depth case have been established, but there is still a gap between the known sufficient and necessary conditions.
+
+Bounded depth and bounded width case
+The first result on approximation capabilities of neural networks with bounded number of layers, each containing a limited number of artificial neurons was obtained by Maiorov and Pinkus. Their remarkable result revealed that such networks can be universal approximators and for achieving this property two hidden layers are enough.
+
+Universal approximation theorem: There exists an activation function 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   which is analytic, strictly increasing and
+sigmoidal and has the following property: For any 
+  
+    
+      
+        f
+        ∈
+        C
+        [
+        0
+        ,
+        1
+        
+          ]
+          
+            d
+          
+        
+      
+    
+    {\displaystyle f\in C[0,1]^{d}}
+    and 
+  
+    
+      
+        ε
+        >
+        0
+      
+    
+    {\displaystyle \varepsilon >0}
+   there exist constants 
+  
+    
+      
+        
+          d
+          
+            i
+          
+        
+        ,
+        
+          c
+          
+            i
+            j
+          
+        
+        ,
+        
+          θ
+          
+            i
+            j
+          
+        
+        ,
+        
+          γ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle d_{i},c_{ij},\theta _{ij},\gamma _{i}}
+  , and vectors 
+  
+    
+      
+        
+          
+            w
+          
+          
+            i
+            j
+          
+        
+        ∈
+        
+          
+            R
+          
+          
+            d
+          
+        
+      
+    
+    {\displaystyle \mathbf {w} ^{ij}\in \mathbb {R} ^{d}}
+    for which
+
+for all 
+  
+    
+      
+        
+          x
+        
+        =
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          x
+          
+            d
+          
+        
+        )
+        ∈
+        [
+        0
+        ,
+        1
+        
+          ]
+          
+            d
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} =(x_{1},...,x_{d})\in [0,1]^{d}}
+  .
+
+This is an existence result. It says that activation functions providing universal approximation property for bounded depth bounded width networks exist. Using certain algorithmic and computer programming techniques, Guliyev and Ismailov efficiently constructed such activation functions depending on a numerical parameter.  The developed algorithm allows one to compute the activation functions at any point of the real axis instantly. For the algorithm and the corresponding computer code see. The theoretical result can be formulated as follows.
+
+Universal approximation theorem: Let  
+  
+    
+      
+        [
+        a
+        ,
+        b
+        ]
+      
+    
+    {\displaystyle [a,b]}
+    be a finite segment of the real line, 
+  
+    
+      
+        s
+        =
+        b
+        −
+        a
+      
+    
+    {\displaystyle s=b-a}
+   and 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+    be any positive number. Then one can algorithmically construct a computable sigmoidal activation function 
+  
+    
+      
+        σ
+        :
+        
+          R
+        
+        →
+        
+          R
+        
+      
+    
+    {\displaystyle \sigma \colon \mathbb {R} \to \mathbb {R} }
+  , which is infinitely differentiable, strictly increasing on 
+  
+    
+      
+        (
+        −
+        ∞
+        ,
+        s
+        )
+      
+    
+    {\displaystyle (-\infty ,s)}
+  , 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   -strictly increasing on 
+  
+    
+      
+        [
+        s
+        ,
+        +
+        ∞
+        )
+      
+    
+    {\displaystyle [s,+\infty )}
+  , and satisfies the following properties:
+1) For any 
+  
+    
+      
+        f
+        ∈
+        C
+        [
+        a
+        ,
+        b
+        ]
+      
+    
+    {\displaystyle f\in C[a,b]}
+    and 
+  
+    
+      
+        ε
+        >
+        0
+      
+    
+    {\displaystyle \varepsilon >0}
+    there exist numbers 
+  
+    
+      
+        
+          c
+          
+            1
+          
+        
+        ,
+        
+          c
+          
+            2
+          
+        
+        ,
+        
+          θ
+          
+            1
+          
+        
+      
+    
+    {\displaystyle c_{1},c_{2},\theta _{1}}
+    and 
+  
+    
+      
+        
+          θ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \theta _{2}}
+    such that for all 
+  
+    
+      
+        x
+        ∈
+        [
+        a
+        ,
+        b
+        ]
+      
+    
+    {\displaystyle x\in [a,b]}
+  
+
+2) For any continuous function 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+   on the 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+  -dimensional box 
+  
+    
+      
+        [
+        a
+        ,
+        b
+        
+          ]
+          
+            d
+          
+        
+      
+    
+    {\displaystyle [a,b]^{d}}
+   and 
+  
+    
+      
+        ε
+        >
+        0
+      
+    
+    {\displaystyle \varepsilon >0}
+  , there exist constants 
+  
+    
+      
+        
+          e
+          
+            p
+          
+        
+      
+    
+    {\displaystyle e_{p}}
+  , 
+  
+    
+      
+        
+          c
+          
+            p
+            q
+          
+        
+      
+    
+    {\displaystyle c_{pq}}
+  , 
+  
+    
+      
+        
+          θ
+          
+            p
+            q
+          
+        
+      
+    
+    {\displaystyle \theta _{pq}}
+   and 
+  
+    
+      
+        
+          ζ
+          
+            p
+          
+        
+      
+    
+    {\displaystyle \zeta _{p}}
+   such that the inequality
+
+holds for all 
+  
+    
+      
+        
+          x
+        
+        =
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            d
+          
+        
+        )
+        ∈
+        [
+        a
+        ,
+        b
+        
+          ]
+          
+            d
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} =(x_{1},\ldots ,x_{d})\in [a,b]^{d}}
+  . Here the weights 
+  
+    
+      
+        
+          
+            w
+          
+          
+            q
+          
+        
+      
+    
+    {\displaystyle \mathbf {w} ^{q}}
+  , 
+  
+    
+      
+        q
+        =
+        1
+        ,
+        …
+        ,
+        d
+      
+    
+    {\displaystyle q=1,\ldots ,d}
+  , are fixed as follows:
+
+In addition, all the coefficients 
+  
+    
+      
+        
+          e
+          
+            p
+          
+        
+      
+    
+    {\displaystyle e_{p}}
+  , except one, are equal.
+
+Here “
+  
+    
+      
+        σ
+        :
+        
+          R
+        
+        →
+        
+          R
+        
+      
+    
+    {\displaystyle \sigma \colon \mathbb {R} \to \mathbb {R} }
+   is 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+  -strictly increasing on some set 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+  ” means that there exists a strictly increasing function 
+  
+    
+      
+        u
+        :
+        X
+        →
+        
+          R
+        
+      
+    
+    {\displaystyle u\colon X\to \mathbb {R} }
+   such that 
+  
+    
+      
+        
+          |
+        
+        σ
+        (
+        x
+        )
+        −
+        u
+        (
+        x
+        )
+        
+          |
+        
+        ≤
+        λ
+      
+    
+    {\displaystyle |\sigma (x)-u(x)|\leq \lambda }
+   for all 
+  
+    
+      
+        x
+        ∈
+        X
+      
+    
+    {\displaystyle x\in X}
+  . Clearly, a 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+  -increasing function behaves like a usual increasing function as 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   gets small.
+In the "depth-width" terminology, the above theorem says that for certain activation functions depth-
+  
+    
+      
+        2
+      
+    
+    {\displaystyle 2}
+   width-
+  
+    
+      
+        2
+      
+    
+    {\displaystyle 2}
+   networks are universal approximators for univariate functions and depth-
+  
+    
+      
+        3
+      
+    
+    {\displaystyle 3}
+   width-
+  
+    
+      
+        (
+        2
+        d
+        +
+        2
+        )
+      
+    
+    {\displaystyle (2d+2)}
+   networks are universal approximators for 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+  -variable functions (
+  
+    
+      
+        d
+        >
+        1
+      
+    
+    {\displaystyle d>1}
+  ).
+
+Graph input
+Achieving useful universal function approximation on graphs (or rather on graph isomorphism classes) has been a longstanding problem. The popular graph convolutional neural networks (GCNs or GNNs) can be made as discriminative as the Weisfeiler–Leman graph isomorphism test. In 2020, a universal approximation theorem result was established by Brüel-Gabrielsson, showing that graph representation with certain injective properties is sufficient for universal function approximation on bounded graphs and restricted universal function approximation on unbounded graphs, with an accompanying 
+  
+    
+      
+        O
+        (
+      
+    
+    {\displaystyle O(}
+  #edges
+  
+    
+      
+        ×
+      
+    
+    {\displaystyle \times }
+  #nodes
+  
+    
+      
+        )
+      
+    
+    {\displaystyle )}
+  -runtime method that performed at state of the art on a collection of benchmarks.
+
+See also
+Kolmogorov–Arnold representation theorem
+Representer theorem
+No free lunch theorem
+Stone–Weierstrass theorem
+Fourier series
+
+
+== References ==

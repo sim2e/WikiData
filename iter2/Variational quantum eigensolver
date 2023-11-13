@@ -1,0 +1,305 @@
+In quantum computing, the variational quantum eigensolver (VQE) is a quantum algorithm for quantum chemistry, quantum simulations and optimization problems. It is a hybrid algorithm that uses both classical computers and quantum computers to find the ground state of a given physical system. Given a guess or ansatz, the quantum processor calculates the expectation value of the system with respect to an observable, often the Hamiltonian, and a classical optimizer is used to improve the guess. The algorithm is based on variational method of quantum mechanics.
+It was originally proposed in 2013, with corresponding authors Alberto Peruzzo, Alán Aspuru-Guzik and Jeremy O'Brien. The algorithm has also found applications in quantum machine learning and has been further substantiated by general hybrid algorithms between quantum and classical computers. It is an example of a noisy intermediate-scale quantum (NISQ) algorithm.
+
+Description
+Pauli encoding
+The objective of the VQE is to find a set of quantum operations that prepares the lowest energy state (or minima) of a close approximation to some target quantity or observable. While the only strict requirement for the representation of an observable is that it is efficient to estimate its expectation values, it is often simplest if that operator has a compact or simple expression in terms of Pauli operators or tensor products of Pauli operators.  
+For a fermionic system, it is often most convenient to qubitize: that is to write the many-body Hamiltonian of the system using second quantization, and then use a mapping to write the creation-annihiliation operators  in terms of Pauli operators. Common schemes for fermions include Jordan–Wigner transformation,  Bravyi-Kitaev transformation, and parity transformation.Once the Hamiltonian 
+  
+    
+      
+        
+          
+            
+              H
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {H}}}
+   is written in terms of Pauli operators and irrelevant states are discarded (finite-dimensional space), it would consist of a linear combination of Pauli strings 
+  
+    
+      
+        
+          
+            
+              
+                P
+                ^
+              
+            
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\hat {P}}_{i}}
+   consisting of tensor products of Pauli operators (for example 
+  
+    
+      
+        X
+        ⊗
+        I
+        ⊗
+        Z
+        ⊗
+        X
+      
+    
+    {\displaystyle X\otimes I\otimes Z\otimes X}
+  ), such that
+
+  
+    
+      
+        
+          
+            
+              H
+              ^
+            
+          
+        
+        =
+        
+          ∑
+          
+            i
+          
+        
+        
+          α
+          
+            i
+          
+        
+        
+          
+            
+              
+                P
+                ^
+              
+            
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\hat {H}}=\sum _{i}\alpha _{i}{\hat {P}}_{i}}
+  ,where 
+  
+    
+      
+        
+          α
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \alpha _{i}}
+   are numerical coefficients. Based on the coefficients, the number of Pauli strings can be reduced in order to optimize the calculation.The VQE can be adapted to other optimization problems by adapting the Hamiltonian to be a cost function.
+
+Ansatz and initial trial function
+The choice of ansatz state depends on the system of interest. In gate-based quantum computing, the ansatz is given by a parametrized quantum circuit, whose parameters can be updated after each run. The ansatz has to be adaptable enough to not miss the desired state. A common method to obtain a valid ansatz is given by the unitary coupled cluster (UCC) framework and its extensions.If the ansatz is not chosen adequately the procedure may halt at suboptimal parameters that do not correspond to a minima. In this situation, the algorithm is said to have reached a 'barren plateau'.The ansatz can be set to an initial trial function to start the algorithm. For example, for a molecular system, one can use the Hartree–Fock method to provide a starting state that is close to the real ground state.
+
+Measurement
+The expectation value of a given state 
+  
+    
+      
+        
+          |
+        
+        ψ
+        (
+        
+          θ
+          
+            1
+          
+        
+        ,
+        ⋯
+        ,
+        
+          θ
+          
+            N
+          
+        
+        )
+        ⟩
+      
+    
+    {\displaystyle |\psi (\theta _{1},\cdots ,\theta _{N})\rangle }
+   with parameters 
+  
+    
+      
+        {
+        
+          θ
+          
+            i
+          
+        
+        
+          }
+          
+            i
+            =
+            1
+          
+          
+            N
+          
+        
+      
+    
+    {\displaystyle \{\theta _{i}\}_{i=1}^{N}}
+  , has an expectation value of the energy or cost function given by
+
+  
+    
+      
+        E
+        (
+        
+          θ
+          
+            1
+          
+        
+        ,
+        ⋯
+        ,
+        
+          θ
+          
+            n
+          
+        
+        )
+        =
+        ⟨
+        
+          
+            
+              H
+              ^
+            
+          
+        
+        ⟩
+        =
+        
+          ∑
+          
+            i
+          
+        
+        
+          α
+          
+            i
+          
+        
+        ⟨
+        ψ
+        (
+        
+          θ
+          
+            1
+          
+        
+        ,
+        ⋯
+        ,
+        
+          θ
+          
+            N
+          
+        
+        )
+        
+          |
+        
+        
+          
+            
+              
+                P
+                ^
+              
+            
+          
+          
+            i
+          
+        
+        
+          |
+        
+        ψ
+        (
+        
+          θ
+          
+            1
+          
+        
+        ,
+        ⋯
+        ,
+        
+          θ
+          
+            N
+          
+        
+        )
+        ⟩
+      
+    
+    {\displaystyle E(\theta _{1},\cdots ,\theta _{n})=\langle {\hat {H}}\rangle =\sum _{i}\alpha _{i}\langle \psi (\theta _{1},\cdots ,\theta _{N})|{\hat {P}}_{i}|\psi (\theta _{1},\cdots ,\theta _{N})\rangle }
+  so in order to obtain the expectation value of the energy, one can measure the expectation value of each Pauli string (number of counts for a given value over the total number of counts). This step corresponds to measuring each qubit in the axis provided by the Pauli string. For example, for the string  
+  
+    
+      
+        X
+        ⊗
+        Y
+        ⊗
+        Y
+      
+    
+    {\displaystyle X\otimes Y\otimes Y}
+  , the first qubit is to be measured in the x-axis, while the last two are to be measured in the y-axis of the Bloch sphere. If measurement in the z-axis is only possible, then Clifford gates can be used to transform between axes. If two Pauli strings commute, then they can be both measured simultaneously using the same circuit and interpreting the result according to the Pauli algebra.
+
+Variational method and optimization
+Given a parametrized ansatz for the ground state eigenstate, with parameters that can be modified, one is sure to find the parametrized state that is closest to the ground state based on the variational method of quantum mechanics. Using classical algorithms in a digital computer, the parameters of the ansatz can be optimized. For this minimization, it is necessary to find the minima of a multivariable function. Classical optimizers using gradient descent can be used for this purpose.By running the circuit many times and constantly updating the parameters to find the global minima of the expectation value of the desired observable, one can approach the ground state of the given system and store it in a quantum processor as a series of quantum gate instructions.
+
+Use
+In chemistry
+As of 2022, the variational quantum eigensolver can only simulate small molecules like the helium hydride ion or the beryllium hydride molecule. Larger molecules can be simulated by taking into account symmetry considerations. In 2020, a 12-qubit simulation of a hydrogen chain (H12) was demonstrated using Google's Sycamore quantum processor.
+
+See also
+Quantum optimization algorithms
+
+Notes
+
+
+== References ==

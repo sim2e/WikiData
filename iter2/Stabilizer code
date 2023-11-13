@@ -1,0 +1,3648 @@
+The theory of quantum error correction plays a prominent role in the practical realization and engineering of
+quantum computing and quantum communication devices. The first quantum
+error-correcting codes  are strikingly similar to classical block codes  in their
+operation and performance. Quantum error-correcting codes restore a noisy,
+decohered quantum state to a pure quantum state. A
+stabilizer quantum error-correcting code appends ancilla qubits
+to qubits that we want to protect. A unitary encoding circuit rotates the
+global state into a subspace of a larger Hilbert space. This highly entangled,
+encoded state corrects for local noisy errors. A quantum error-correcting code makes quantum computation
+and quantum communication practical by providing a way for a sender and
+receiver to simulate a noiseless qubit channel given a noisy qubit channel
+whose noise conforms to a particular error model.
+The stabilizer theory of quantum error correction allows one to import some
+classical binary or quaternary codes for use as a quantum code. However, when importing the
+classical code, it must satisfy the dual-containing (or self-orthogonality)
+constraint. Researchers have found many examples of classical codes satisfying
+this constraint, but most classical codes do not. Nevertheless, it is still useful to import classical codes in this way (though, see how the entanglement-assisted stabilizer formalism overcomes this difficulty).
+
+Mathematical background
+The stabilizer formalism exploits elements of
+the Pauli group 
+  
+    
+      
+        Π
+      
+    
+    {\displaystyle \Pi }
+   in formulating quantum error-correcting codes. The set
+
+  
+    
+      
+        Π
+        =
+        
+          {
+          
+            I
+            ,
+            X
+            ,
+            Y
+            ,
+            Z
+          
+          }
+        
+      
+    
+    {\displaystyle \Pi =\left\{I,X,Y,Z\right\}}
+   consists of the Pauli operators:
+
+  
+    
+      
+        I
+        ≡
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  1
+                
+              
+            
+            ]
+          
+        
+        ,
+         
+        X
+        ≡
+        
+          
+            [
+            
+              
+                
+                  0
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  0
+                
+              
+            
+            ]
+          
+        
+        ,
+         
+        Y
+        ≡
+        
+          
+            [
+            
+              
+                
+                  0
+                
+                
+                  −
+                  i
+                
+              
+              
+                
+                  i
+                
+                
+                  0
+                
+              
+            
+            ]
+          
+        
+        ,
+         
+        Z
+        ≡
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  −
+                  1
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle I\equiv {\begin{bmatrix}1&0\\0&1\end{bmatrix}},\ X\equiv {\begin{bmatrix}0&1\\1&0\end{bmatrix}},\ Y\equiv {\begin{bmatrix}0&-i\\i&0\end{bmatrix}},\ Z\equiv {\begin{bmatrix}1&0\\0&-1\end{bmatrix}}.}
+  The above operators act on a single qubit – a state represented by a vector in a two-dimensional
+Hilbert space. Operators in 
+  
+    
+      
+        Π
+      
+    
+    {\displaystyle \Pi }
+   have eigenvalues 
+  
+    
+      
+        ±
+        1
+      
+    
+    {\displaystyle \pm 1}
+   and either commute
+or anti-commute. The set 
+  
+    
+      
+        
+          Π
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \Pi ^{n}}
+   consists of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -fold tensor products of
+Pauli operators:
+
+  
+    
+      
+        
+          Π
+          
+            n
+          
+        
+        =
+        
+          {
+          
+            
+              
+                
+                  
+                    e
+                    
+                      i
+                      ϕ
+                    
+                  
+                  
+                    A
+                    
+                      1
+                    
+                  
+                  ⊗
+                  ⋯
+                  ⊗
+                  
+                    A
+                    
+                      n
+                    
+                  
+                  :
+                  ∀
+                  j
+                  ∈
+                  
+                    {
+                    
+                      1
+                      ,
+                      …
+                      ,
+                      n
+                    
+                    }
+                  
+                  
+                    A
+                    
+                      j
+                    
+                  
+                  ∈
+                  Π
+                  ,
+                   
+                   
+                  ϕ
+                  ∈
+                  
+                    {
+                    
+                      0
+                      ,
+                      π
+                      
+                        /
+                      
+                      2
+                      ,
+                      π
+                      ,
+                      3
+                      π
+                      
+                        /
+                      
+                      2
+                    
+                    }
+                  
+                
+              
+            
+          
+          }
+        
+        .
+      
+    
+    {\displaystyle \Pi ^{n}=\left\{{\begin{array}{c}e^{i\phi }A_{1}\otimes \cdots \otimes A_{n}:\forall j\in \left\{1,\ldots ,n\right\}A_{j}\in \Pi ,\ \ \phi \in \left\{0,\pi /2,\pi ,3\pi /2\right\}\end{array}}\right\}.}
+  Elements of 
+  
+    
+      
+        
+          Π
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \Pi ^{n}}
+   act on a quantum register of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   qubits. We
+occasionally omit tensor product symbols in what follows so that
+
+  
+    
+      
+        
+          A
+          
+            1
+          
+        
+        ⋯
+        
+          A
+          
+            n
+          
+        
+        ≡
+        
+          A
+          
+            1
+          
+        
+        ⊗
+        ⋯
+        ⊗
+        
+          A
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle A_{1}\cdots A_{n}\equiv A_{1}\otimes \cdots \otimes A_{n}.}
+  The 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -fold Pauli group
+
+  
+    
+      
+        
+          Π
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \Pi ^{n}}
+   plays an important role for both the encoding circuit and the
+error-correction procedure of a quantum stabilizer code over 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   qubits.
+
+Definition
+Let us define an 
+  
+    
+      
+        
+          [
+          
+            n
+            ,
+            k
+          
+          ]
+        
+      
+    
+    {\displaystyle \left[n,k\right]}
+   stabilizer quantum error-correcting
+code to encode 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   logical qubits into 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   physical qubits. The rate of such a
+code is 
+  
+    
+      
+        k
+        
+          /
+        
+        n
+      
+    
+    {\displaystyle k/n}
+  . Its stabilizer 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\mathcal {S}}}
+   is an abelian subgroup of the
+
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -fold Pauli group 
+  
+    
+      
+        
+          Π
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \Pi ^{n}}
+  . 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\mathcal {S}}}
+  
+does not contain the operator 
+  
+    
+      
+        −
+        
+          I
+          
+            ⊗
+            n
+          
+        
+      
+    
+    {\displaystyle -I^{\otimes n}}
+  . The simultaneous
+
+  
+    
+      
+        +
+        1
+      
+    
+    {\displaystyle +1}
+  -eigenspace of the operators constitutes the codespace. The
+codespace has dimension 
+  
+    
+      
+        
+          2
+          
+            k
+          
+        
+      
+    
+    {\displaystyle 2^{k}}
+   so that we can encode 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   qubits into it. The
+stabilizer 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\mathcal {S}}}
+   has a minimal representation in terms of 
+  
+    
+      
+        n
+        −
+        k
+      
+    
+    {\displaystyle n-k}
+  
+independent generators
+
+  
+    
+      
+        
+          {
+          
+            
+              g
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              g
+              
+                n
+                −
+                k
+              
+            
+             
+            
+              |
+            
+             
+            ∀
+            i
+            ∈
+            
+              {
+              
+                1
+                ,
+                …
+                ,
+                n
+                −
+                k
+              
+              }
+            
+            ,
+             
+            
+              g
+              
+                i
+              
+            
+            ∈
+            
+              
+                S
+              
+            
+          
+          }
+        
+        .
+      
+    
+    {\displaystyle \left\{g_{1},\ldots ,g_{n-k}\ |\ \forall i\in \left\{1,\ldots ,n-k\right\},\ g_{i}\in {\mathcal {S}}\right\}.}
+  The generators are
+independent in the sense that none of them is a product of any other two (up
+to a global phase). The operators 
+  
+    
+      
+        
+          g
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          g
+          
+            n
+            −
+            k
+          
+        
+      
+    
+    {\displaystyle g_{1},\ldots ,g_{n-k}}
+   function in the same
+way as a parity check matrix does for a classical linear block code.
+
+Stabilizer error-correction conditions
+One of the fundamental notions in quantum error correction theory is that it
+suffices to correct a discrete error set with support in the Pauli group
+
+  
+    
+      
+        
+          Π
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \Pi ^{n}}
+  . Suppose that the errors affecting an
+encoded quantum state are a subset 
+  
+    
+      
+        
+          
+            E
+          
+        
+      
+    
+    {\displaystyle {\mathcal {E}}}
+   of the Pauli group 
+  
+    
+      
+        
+          Π
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \Pi ^{n}}
+  :
+
+  
+    
+      
+        
+          
+            E
+          
+        
+        ⊂
+        
+          Π
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle {\mathcal {E}}\subset \Pi ^{n}.}
+  Because 
+  
+    
+      
+        
+          
+            E
+          
+        
+      
+    
+    {\displaystyle {\mathcal {E}}}
+   and 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\mathcal {S}}}
+   are both subsets of  
+  
+    
+      
+        
+          Π
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \Pi ^{n}}
+  , an error 
+  
+    
+      
+        E
+        ∈
+        
+          
+            E
+          
+        
+      
+    
+    {\displaystyle E\in {\mathcal {E}}}
+   that affects an
+encoded quantum state either commutes or anticommutes with any particular
+element 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   in 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\mathcal {S}}}
+  . The error 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   is correctable if it
+anticommutes with an element 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   in 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\mathcal {S}}}
+  . An anticommuting error
+
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   is detectable by measuring each element 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   in 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\mathcal {S}}}
+   and
+computing a syndrome 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbf {r} }
+   identifying 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+  . The syndrome is a binary
+vector 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbf {r} }
+   with length 
+  
+    
+      
+        n
+        −
+        k
+      
+    
+    {\displaystyle n-k}
+   whose elements identify whether the
+error 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   commutes or anticommutes with each 
+  
+    
+      
+        g
+        ∈
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle g\in {\mathcal {S}}}
+  . An error
+
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   that commutes with every element 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   in 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\mathcal {S}}}
+   is correctable if
+and only if it is in 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\mathcal {S}}}
+  . It corrupts the encoded state if it
+commutes with every element of 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\mathcal {S}}}
+   but does not lie in 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\mathcal {S}}}
+  . So we compactly summarize the stabilizer error-correcting conditions: a
+stabilizer code can correct any errors 
+  
+    
+      
+        
+          E
+          
+            1
+          
+        
+        ,
+        
+          E
+          
+            2
+          
+        
+      
+    
+    {\displaystyle E_{1},E_{2}}
+   in 
+  
+    
+      
+        
+          
+            E
+          
+        
+      
+    
+    {\displaystyle {\mathcal {E}}}
+   if
+
+  
+    
+      
+        
+          E
+          
+            1
+          
+          
+            †
+          
+        
+        
+          E
+          
+            2
+          
+        
+        ∉
+        
+          
+            Z
+          
+        
+        
+          (
+          
+            
+              S
+            
+          
+          )
+        
+      
+    
+    {\displaystyle E_{1}^{\dagger }E_{2}\notin {\mathcal {Z}}\left({\mathcal {S}}\right)}
+  or
+
+  
+    
+      
+        
+          E
+          
+            1
+          
+          
+            †
+          
+        
+        
+          E
+          
+            2
+          
+        
+        ∈
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle E_{1}^{\dagger }E_{2}\in {\mathcal {S}}}
+  where 
+  
+    
+      
+        
+          
+            Z
+          
+        
+        
+          (
+          
+            
+              S
+            
+          
+          )
+        
+      
+    
+    {\displaystyle {\mathcal {Z}}\left({\mathcal {S}}\right)}
+   is the centralizer of 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\mathcal {S}}}
+   (i.e., the subgroup of elements that commute with all members of 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\mathcal {S}}}
+  , also known as the commutant).
+
+Simple example of a stabilizer code
+A simple example of a stabilizer code is a three qubit
+
+  
+    
+      
+        
+          [
+          
+            [
+            3
+            ,
+            1
+            ,
+            3
+          
+          ]
+        
+        ]
+      
+    
+    {\displaystyle \left[[3,1,3\right]]}
+   stabilizer code. It encodes 
+  
+    
+      
+        k
+        =
+        1
+      
+    
+    {\displaystyle k=1}
+   logical qubit
+into 
+  
+    
+      
+        n
+        =
+        3
+      
+    
+    {\displaystyle n=3}
+   physical qubits and protects against a single-bit flip
+error in the set 
+  
+    
+      
+        
+          {
+          
+            X
+            
+              i
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \left\{X_{i}\right\}}
+  .  This does not protect against other Pauli errors such as phase flip errors in the set 
+  
+    
+      
+        
+          {
+          
+            Y
+            
+              i
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \left\{Y_{i}\right\}}
+  .or 
+  
+    
+      
+        
+          {
+          
+            Z
+            
+              i
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \left\{Z_{i}\right\}}
+  . This has code distance 
+  
+    
+      
+        d
+        =
+        3
+      
+    
+    {\displaystyle d=3}
+  . Its stabilizer consists of 
+  
+    
+      
+        n
+        −
+        k
+        =
+        2
+      
+    
+    {\displaystyle n-k=2}
+   Pauli operators:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  g
+                  
+                    1
+                  
+                
+              
+              
+                =
+              
+              
+                Z
+              
+              
+                Z
+              
+              
+                I
+              
+            
+            
+              
+                
+                  g
+                  
+                    2
+                  
+                
+              
+              
+                =
+              
+              
+                I
+              
+              
+                Z
+              
+              
+                Z
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{ccc}g_{1}&=&Z&Z&I\\g_{2}&=&I&Z&Z\\\end{array}}}
+  If there are no bit-flip errors, both operators 
+  
+    
+      
+        
+          g
+          
+            1
+          
+        
+      
+    
+    {\displaystyle g_{1}}
+   and  
+  
+    
+      
+        
+          g
+          
+            2
+          
+        
+      
+    
+    {\displaystyle g_{2}}
+   commute, the syndrome is +1,+1, and no errors are detected.
+If there is a bit-flip error on the first encoded qubit, operator 
+  
+    
+      
+        
+          g
+          
+            1
+          
+        
+      
+    
+    {\displaystyle g_{1}}
+   will anti-commute and  
+  
+    
+      
+        
+          g
+          
+            2
+          
+        
+      
+    
+    {\displaystyle g_{2}}
+   commute, the syndrome is -1,+1, and the error is detected. If there is a bit-flip error on the second encoded qubit, operator 
+  
+    
+      
+        
+          g
+          
+            1
+          
+        
+      
+    
+    {\displaystyle g_{1}}
+   will anti-commute and  
+  
+    
+      
+        
+          g
+          
+            2
+          
+        
+      
+    
+    {\displaystyle g_{2}}
+   anti-commute, the syndrome is -1,-1, and the error is detected. If there is a bit-flip error on the third encoded qubit, operator 
+  
+    
+      
+        
+          g
+          
+            1
+          
+        
+      
+    
+    {\displaystyle g_{1}}
+   will commute and  
+  
+    
+      
+        
+          g
+          
+            2
+          
+        
+      
+    
+    {\displaystyle g_{2}}
+   anti-commute, the syndrome is +1,-1, and the error is detected.
+
+Example of a stabilizer code
+An example of a stabilizer code is the five qubit
+
+  
+    
+      
+        
+          [
+          
+            [
+            5
+            ,
+            1
+            ,
+            3
+          
+          ]
+        
+        ]
+      
+    
+    {\displaystyle \left[[5,1,3\right]]}
+   stabilizer code. It encodes 
+  
+    
+      
+        k
+        =
+        1
+      
+    
+    {\displaystyle k=1}
+   logical qubit
+into 
+  
+    
+      
+        n
+        =
+        5
+      
+    
+    {\displaystyle n=5}
+   physical qubits and protects against an arbitrary single-qubit
+error. It has code distance 
+  
+    
+      
+        d
+        =
+        3
+      
+    
+    {\displaystyle d=3}
+  . Its stabilizer consists of 
+  
+    
+      
+        n
+        −
+        k
+        =
+        4
+      
+    
+    {\displaystyle n-k=4}
+   Pauli operators:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  g
+                  
+                    1
+                  
+                
+              
+              
+                =
+              
+              
+                X
+              
+              
+                Z
+              
+              
+                Z
+              
+              
+                X
+              
+              
+                I
+              
+            
+            
+              
+                
+                  g
+                  
+                    2
+                  
+                
+              
+              
+                =
+              
+              
+                I
+              
+              
+                X
+              
+              
+                Z
+              
+              
+                Z
+              
+              
+                X
+              
+            
+            
+              
+                
+                  g
+                  
+                    3
+                  
+                
+              
+              
+                =
+              
+              
+                X
+              
+              
+                I
+              
+              
+                X
+              
+              
+                Z
+              
+              
+                Z
+              
+            
+            
+              
+                
+                  g
+                  
+                    4
+                  
+                
+              
+              
+                =
+              
+              
+                Z
+              
+              
+                X
+              
+              
+                I
+              
+              
+                X
+              
+              
+                Z
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{ccccccc}g_{1}&=&X&Z&Z&X&I\\g_{2}&=&I&X&Z&Z&X\\g_{3}&=&X&I&X&Z&Z\\g_{4}&=&Z&X&I&X&Z\end{array}}}
+  The above operators commute. Therefore, the codespace is the simultaneous
++1-eigenspace of the above operators. Suppose a single-qubit error occurs on
+the encoded quantum register. A single-qubit error is in the set 
+  
+    
+      
+        
+          {
+          
+            
+              X
+              
+                i
+              
+            
+            ,
+            
+              Y
+              
+                i
+              
+            
+            ,
+            
+              Z
+              
+                i
+              
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \left\{X_{i},Y_{i},Z_{i}\right\}}
+   where 
+  
+    
+      
+        
+          A
+          
+            i
+          
+        
+      
+    
+    {\displaystyle A_{i}}
+   denotes a Pauli error on qubit 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  .
+It is straightforward to verify that any arbitrary single-qubit error has a
+unique syndrome. The receiver corrects any single-qubit error by identifying
+the syndrome via a parity measurement and applying a corrective operation.
+
+Relation between Pauli group and binary vectors
+A simple but useful mapping exists between elements of 
+  
+    
+      
+        Π
+      
+    
+    {\displaystyle \Pi }
+   and the binary
+vector space 
+  
+    
+      
+        
+          
+            (
+            
+              
+                Z
+              
+              
+                2
+              
+            
+            )
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \left(\mathbb {Z} _{2}\right)^{2}}
+  . This mapping gives a
+simplification of quantum error correction theory. It represents quantum codes
+with binary vectors and binary operations rather than with Pauli operators and
+matrix operations respectively.
+We first give the mapping for the one-qubit case. Suppose 
+  
+    
+      
+        
+          [
+          A
+          ]
+        
+      
+    
+    {\displaystyle \left[A\right]}
+  
+is a set of equivalence classes of an operator 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   that have the same phase:
+
+  
+    
+      
+        
+          [
+          A
+          ]
+        
+        =
+        
+          {
+          
+            β
+            A
+             
+            
+              |
+            
+             
+            β
+            ∈
+            
+              C
+            
+            ,
+             
+            
+              |
+              β
+              |
+            
+            =
+            1
+          
+          }
+        
+        .
+      
+    
+    {\displaystyle \left[A\right]=\left\{\beta A\ |\ \beta \in \mathbb {C} ,\ \left\vert \beta \right\vert =1\right\}.}
+  Let 
+  
+    
+      
+        
+          [
+          Π
+          ]
+        
+      
+    
+    {\displaystyle \left[\Pi \right]}
+   be the set of phase-free Pauli operators where
+
+  
+    
+      
+        
+          [
+          Π
+          ]
+        
+        =
+        
+          {
+          
+            
+              [
+              A
+              ]
+            
+             
+            
+              |
+            
+             
+            A
+            ∈
+            Π
+          
+          }
+        
+      
+    
+    {\displaystyle \left[\Pi \right]=\left\{\left[A\right]\ |\ A\in \Pi \right\}}
+  .
+Define the map 
+  
+    
+      
+        N
+        :
+        
+          
+            (
+            
+              
+                Z
+              
+              
+                2
+              
+            
+            )
+          
+          
+            2
+          
+        
+        →
+        Π
+      
+    
+    {\displaystyle N:\left(\mathbb {Z} _{2}\right)^{2}\rightarrow \Pi }
+   as
+
+  
+    
+      
+        00
+        →
+        I
+        ,
+        
+        
+        01
+        →
+        X
+        ,
+        
+        
+        11
+        →
+        Y
+        ,
+        
+        
+        10
+        →
+        Z
+      
+    
+    {\displaystyle 00\to I,\,\,01\to X,\,\,11\to Y,\,\,10\to Z}
+  Suppose 
+  
+    
+      
+        u
+        ,
+        v
+        ∈
+        
+          
+            (
+            
+              
+                Z
+              
+              
+                2
+              
+            
+            )
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle u,v\in \left(\mathbb {Z} _{2}\right)^{2}}
+  . Let us employ the
+shorthand 
+  
+    
+      
+        u
+        =
+        
+          (
+          
+            z
+            
+              |
+            
+            x
+          
+          )
+        
+      
+    
+    {\displaystyle u=\left(z|x\right)}
+   and 
+  
+    
+      
+        v
+        =
+        
+          (
+          
+            
+              z
+              
+                ′
+              
+            
+            
+              |
+            
+            
+              x
+              
+                ′
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle v=\left(z^{\prime }|x^{\prime }\right)}
+   where 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+  , 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  , 
+  
+    
+      
+        
+          z
+          
+            ′
+          
+        
+      
+    
+    {\displaystyle z^{\prime }}
+  , 
+  
+    
+      
+        
+          x
+          
+            ′
+          
+        
+        ∈
+        
+          
+            Z
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle x^{\prime }\in \mathbb {Z} _{2}}
+  . For
+example, suppose 
+  
+    
+      
+        u
+        =
+        
+          (
+          
+            0
+            
+              |
+            
+            1
+          
+          )
+        
+      
+    
+    {\displaystyle u=\left(0|1\right)}
+  . Then 
+  
+    
+      
+        N
+        
+          (
+          u
+          )
+        
+        =
+        X
+      
+    
+    {\displaystyle N\left(u\right)=X}
+  . The
+map 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+   induces an isomorphism 
+  
+    
+      
+        
+          [
+          N
+          ]
+        
+        :
+        
+          
+            (
+            
+              
+                Z
+              
+              
+                2
+              
+            
+            )
+          
+          
+            2
+          
+        
+        →
+        
+          [
+          Π
+          ]
+        
+      
+    
+    {\displaystyle \left[N\right]:\left(\mathbb {Z} _{2}\right)^{2}\rightarrow \left[\Pi \right]}
+   because addition of vectors
+in 
+  
+    
+      
+        
+          
+            (
+            
+              
+                Z
+              
+              
+                2
+              
+            
+            )
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \left(\mathbb {Z} _{2}\right)^{2}}
+   is equivalent to multiplication of
+Pauli operators up to a global phase:
+
+  
+    
+      
+        
+          [
+          
+            N
+            
+              (
+              
+                u
+                +
+                v
+              
+              )
+            
+          
+          ]
+        
+        =
+        
+          [
+          
+            N
+            
+              (
+              u
+              )
+            
+          
+          ]
+        
+        
+          [
+          
+            N
+            
+              (
+              v
+              )
+            
+          
+          ]
+        
+        .
+      
+    
+    {\displaystyle \left[N\left(u+v\right)\right]=\left[N\left(u\right)\right]\left[N\left(v\right)\right].}
+  Let 
+  
+    
+      
+        ⊙
+      
+    
+    {\displaystyle \odot }
+   denote the symplectic product between two elements 
+  
+    
+      
+        u
+        ,
+        v
+        ∈
+        
+          
+            (
+            
+              
+                Z
+              
+              
+                2
+              
+            
+            )
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle u,v\in \left(\mathbb {Z} _{2}\right)^{2}}
+  :
+
+  
+    
+      
+        u
+        ⊙
+        v
+        ≡
+        z
+        
+          x
+          
+            ′
+          
+        
+        −
+        x
+        
+          z
+          
+            ′
+          
+        
+        .
+      
+    
+    {\displaystyle u\odot v\equiv zx^{\prime }-xz^{\prime }.}
+  The symplectic product 
+  
+    
+      
+        ⊙
+      
+    
+    {\displaystyle \odot }
+   gives the commutation relations of elements of
+
+  
+    
+      
+        Π
+      
+    
+    {\displaystyle \Pi }
+  :
+
+  
+    
+      
+        N
+        
+          (
+          u
+          )
+        
+        N
+        
+          (
+          v
+          )
+        
+        =
+        
+          
+            (
+            
+              −
+              1
+            
+            )
+          
+          
+            
+              (
+              
+                u
+                ⊙
+                v
+              
+              )
+            
+          
+        
+        N
+        
+          (
+          v
+          )
+        
+        N
+        
+          (
+          u
+          )
+        
+        .
+      
+    
+    {\displaystyle N\left(u\right)N\left(v\right)=\left(-1\right)^{\left(u\odot v\right)}N\left(v\right)N\left(u\right).}
+  The symplectic product and the mapping 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+   thus give a useful way to phrase
+Pauli relations in terms of binary algebra.
+The extension of the above definitions and mapping 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+   to multiple qubits is
+straightforward. Let 
+  
+    
+      
+        
+          A
+        
+        =
+        
+          A
+          
+            1
+          
+        
+        ⊗
+        ⋯
+        ⊗
+        
+          A
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \mathbf {A} =A_{1}\otimes \cdots \otimes A_{n}}
+   denote an
+arbitrary element of 
+  
+    
+      
+        
+          Π
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \Pi ^{n}}
+  . We can similarly define the phase-free
+
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -qubit Pauli group 
+  
+    
+      
+        
+          [
+          
+            Π
+            
+              n
+            
+          
+          ]
+        
+        =
+        
+          {
+          
+            
+              [
+              
+                A
+              
+              ]
+            
+             
+            
+              |
+            
+             
+            
+              A
+            
+            ∈
+            
+              Π
+              
+                n
+              
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \left[\Pi ^{n}\right]=\left\{\left[\mathbf {A} \right]\ |\ \mathbf {A} \in \Pi ^{n}\right\}}
+   where
+
+  
+    
+      
+        
+          [
+          
+            A
+          
+          ]
+        
+        =
+        
+          {
+          
+            β
+            
+              A
+            
+             
+            
+              |
+            
+             
+            β
+            ∈
+            
+              C
+            
+            ,
+             
+            
+              |
+              β
+              |
+            
+            =
+            1
+          
+          }
+        
+        .
+      
+    
+    {\displaystyle \left[\mathbf {A} \right]=\left\{\beta \mathbf {A} \ |\ \beta \in \mathbb {C} ,\ \left\vert \beta \right\vert =1\right\}.}
+  The group operation 
+  
+    
+      
+        ∗
+      
+    
+    {\displaystyle \ast }
+   for the above equivalence class is as follows:
+
+  
+    
+      
+        
+          [
+          
+            A
+          
+          ]
+        
+        ∗
+        
+          [
+          
+            B
+          
+          ]
+        
+        ≡
+        
+          [
+          
+            A
+            
+              1
+            
+          
+          ]
+        
+        ∗
+        
+          [
+          
+            B
+            
+              1
+            
+          
+          ]
+        
+        ⊗
+        ⋯
+        ⊗
+        
+          [
+          
+            A
+            
+              n
+            
+          
+          ]
+        
+        ∗
+        
+          [
+          
+            B
+            
+              n
+            
+          
+          ]
+        
+        =
+        
+          [
+          
+            
+              A
+              
+                1
+              
+            
+            
+              B
+              
+                1
+              
+            
+          
+          ]
+        
+        ⊗
+        ⋯
+        ⊗
+        
+          [
+          
+            
+              A
+              
+                n
+              
+            
+            
+              B
+              
+                n
+              
+            
+          
+          ]
+        
+        =
+        
+          [
+          
+            A
+            B
+          
+          ]
+        
+        .
+      
+    
+    {\displaystyle \left[\mathbf {A} \right]\ast \left[\mathbf {B} \right]\equiv \left[A_{1}\right]\ast \left[B_{1}\right]\otimes \cdots \otimes \left[A_{n}\right]\ast \left[B_{n}\right]=\left[A_{1}B_{1}\right]\otimes \cdots \otimes \left[A_{n}B_{n}\right]=\left[\mathbf {AB} \right].}
+  The equivalence class 
+  
+    
+      
+        
+          [
+          
+            Π
+            
+              n
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle \left[\Pi ^{n}\right]}
+   forms a commutative group
+under operation 
+  
+    
+      
+        ∗
+      
+    
+    {\displaystyle \ast }
+  . Consider the 
+  
+    
+      
+        2
+        n
+      
+    
+    {\displaystyle 2n}
+  -dimensional vector space
+
+  
+    
+      
+        
+          
+            (
+            
+              
+                Z
+              
+              
+                2
+              
+            
+            )
+          
+          
+            2
+            n
+          
+        
+        =
+        
+          {
+          
+            
+              (
+              
+                z
+                ,
+                x
+              
+              )
+            
+            :
+            
+              z
+            
+            ,
+            
+              x
+            
+            ∈
+            
+              
+                (
+                
+                  
+                    Z
+                  
+                  
+                    2
+                  
+                
+                )
+              
+              
+                n
+              
+            
+          
+          }
+        
+        .
+      
+    
+    {\displaystyle \left(\mathbb {Z} _{2}\right)^{2n}=\left\{\left(\mathbf {z,x} \right):\mathbf {z} ,\mathbf {x} \in \left(\mathbb {Z} _{2}\right)^{n}\right\}.}
+  It forms the commutative group 
+  
+    
+      
+        (
+        
+          
+            (
+            
+              
+                Z
+              
+              
+                2
+              
+            
+            )
+          
+          
+            2
+            n
+          
+        
+        ,
+        +
+        )
+      
+    
+    {\displaystyle (\left(\mathbb {Z} _{2}\right)^{2n},+)}
+   with
+operation 
+  
+    
+      
+        +
+      
+    
+    {\displaystyle +}
+   defined as binary vector addition. We employ the notation
+
+  
+    
+      
+        
+          u
+        
+        =
+        
+          (
+          
+            
+              z
+            
+            
+              |
+            
+            
+              x
+            
+          
+          )
+        
+        ,
+        
+          v
+        
+        =
+        
+          (
+          
+            
+              
+                z
+              
+              
+                ′
+              
+            
+            
+              |
+            
+            
+              
+                x
+              
+              
+                ′
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \mathbf {u} =\left(\mathbf {z} |\mathbf {x} \right),\mathbf {v} =\left(\mathbf {z} ^{\prime }|\mathbf {x} ^{\prime }\right)}
+   to represent any vectors
+
+  
+    
+      
+        
+          u
+          ,
+          v
+        
+        ∈
+        
+          
+            (
+            
+              
+                Z
+              
+              
+                2
+              
+            
+            )
+          
+          
+            2
+            n
+          
+        
+      
+    
+    {\displaystyle \mathbf {u,v} \in \left(\mathbb {Z} _{2}\right)^{2n}}
+   respectively. Each
+vector 
+  
+    
+      
+        
+          z
+        
+      
+    
+    {\displaystyle \mathbf {z} }
+   and 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+   has elements 
+  
+    
+      
+        
+          (
+          
+            
+              z
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              z
+              
+                n
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \left(z_{1},\ldots ,z_{n}\right)}
+   and 
+  
+    
+      
+        
+          (
+          
+            
+              x
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              x
+              
+                n
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \left(x_{1},\ldots ,x_{n}\right)}
+   respectively with
+similar representations for 
+  
+    
+      
+        
+          
+            z
+          
+          
+            ′
+          
+        
+      
+    
+    {\displaystyle \mathbf {z} ^{\prime }}
+   and 
+  
+    
+      
+        
+          
+            x
+          
+          
+            ′
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} ^{\prime }}
+  .
+The symplectic product 
+  
+    
+      
+        ⊙
+      
+    
+    {\displaystyle \odot }
+   of 
+  
+    
+      
+        
+          u
+        
+      
+    
+    {\displaystyle \mathbf {u} }
+   and 
+  
+    
+      
+        
+          v
+        
+      
+    
+    {\displaystyle \mathbf {v} }
+   is
+
+  
+    
+      
+        
+          u
+        
+        ⊙
+        
+          v
+          ≡
+        
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          z
+          
+            i
+          
+        
+        
+          x
+          
+            i
+          
+          
+            ′
+          
+        
+        −
+        
+          x
+          
+            i
+          
+        
+        
+          z
+          
+            i
+          
+          
+            ′
+          
+        
+        ,
+      
+    
+    {\displaystyle \mathbf {u} \odot \mathbf {v\equiv } \sum _{i=1}^{n}z_{i}x_{i}^{\prime }-x_{i}z_{i}^{\prime },}
+  or
+
+  
+    
+      
+        
+          u
+        
+        ⊙
+        
+          v
+          ≡
+        
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          u
+          
+            i
+          
+        
+        ⊙
+        
+          v
+          
+            i
+          
+        
+        ,
+      
+    
+    {\displaystyle \mathbf {u} \odot \mathbf {v\equiv } \sum _{i=1}^{n}u_{i}\odot v_{i},}
+  where 
+  
+    
+      
+        
+          u
+          
+            i
+          
+        
+        =
+        
+          (
+          
+            
+              z
+              
+                i
+              
+            
+            
+              |
+            
+            
+              x
+              
+                i
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle u_{i}=\left(z_{i}|x_{i}\right)}
+   and 
+  
+    
+      
+        
+          v
+          
+            i
+          
+        
+        =
+        
+          (
+          
+            
+              z
+              
+                i
+              
+              
+                ′
+              
+            
+            
+              |
+            
+            
+              x
+              
+                i
+              
+              
+                ′
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle v_{i}=\left(z_{i}^{\prime }|x_{i}^{\prime }\right)}
+  . Let us define a map 
+  
+    
+      
+        
+          N
+        
+        :
+        
+          
+            (
+            
+              
+                Z
+              
+              
+                2
+              
+            
+            )
+          
+          
+            2
+            n
+          
+        
+        →
+        
+          Π
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \mathbf {N} :\left(\mathbb {Z} _{2}\right)^{2n}\rightarrow \Pi ^{n}}
+   as follows:
+
+  
+    
+      
+        
+          N
+        
+        
+          (
+          
+            u
+          
+          )
+        
+        ≡
+        N
+        
+          (
+          
+            u
+            
+              1
+            
+          
+          )
+        
+        ⊗
+        ⋯
+        ⊗
+        N
+        
+          (
+          
+            u
+            
+              n
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \mathbf {N} \left(\mathbf {u} \right)\equiv N\left(u_{1}\right)\otimes \cdots \otimes N\left(u_{n}\right).}
+  Let
+
+  
+    
+      
+        
+          X
+        
+        
+          (
+          
+            x
+          
+          )
+        
+        ≡
+        
+          X
+          
+            
+              x
+              
+                1
+              
+            
+          
+        
+        ⊗
+        ⋯
+        ⊗
+        
+          X
+          
+            
+              x
+              
+                n
+              
+            
+          
+        
+        ,
+        
+        
+        
+        
+        
+        
+        
+        
+          Z
+        
+        
+          (
+          
+            z
+          
+          )
+        
+        ≡
+        
+          Z
+          
+            
+              z
+              
+                1
+              
+            
+          
+        
+        ⊗
+        ⋯
+        ⊗
+        
+          Z
+          
+            
+              z
+              
+                n
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle \mathbf {X} \left(\mathbf {x} \right)\equiv X^{x_{1}}\otimes \cdots \otimes X^{x_{n}},\,\,\,\,\,\,\,\mathbf {Z} \left(\mathbf {z} \right)\equiv Z^{z_{1}}\otimes \cdots \otimes Z^{z_{n}},}
+  so that 
+  
+    
+      
+        
+          N
+        
+        
+          (
+          
+            u
+          
+          )
+        
+      
+    
+    {\displaystyle \mathbf {N} \left(\mathbf {u} \right)}
+   and 
+  
+    
+      
+        
+          Z
+        
+        
+          (
+          
+            z
+          
+          )
+        
+        
+          X
+        
+        
+          (
+          
+            x
+          
+          )
+        
+      
+    
+    {\displaystyle \mathbf {Z} \left(\mathbf {z} \right)\mathbf {X} \left(\mathbf {x} \right)}
+   belong to the same
+equivalence class:
+
+  
+    
+      
+        
+          [
+          
+            
+              N
+            
+            
+              (
+              
+                u
+              
+              )
+            
+          
+          ]
+        
+        =
+        
+          [
+          
+            
+              Z
+            
+            
+              (
+              
+                z
+              
+              )
+            
+            
+              X
+            
+            
+              (
+              
+                x
+              
+              )
+            
+          
+          ]
+        
+        .
+      
+    
+    {\displaystyle \left[\mathbf {N} \left(\mathbf {u} \right)\right]=\left[\mathbf {Z} \left(\mathbf {z} \right)\mathbf {X} \left(\mathbf {x} \right)\right].}
+  The map 
+  
+    
+      
+        
+          [
+          
+            N
+          
+          ]
+        
+        :
+        
+          
+            (
+            
+              
+                Z
+              
+              
+                2
+              
+            
+            )
+          
+          
+            2
+            n
+          
+        
+        →
+        
+          [
+          
+            Π
+            
+              n
+            
+          
+          ]
+        
+      
+    
+    {\displaystyle \left[\mathbf {N} \right]:\left(\mathbb {Z} _{2}\right)^{2n}\rightarrow \left[\Pi ^{n}\right]}
+   is an isomorphism for the same
+reason given as in the previous case:
+
+  
+    
+      
+        
+          [
+          
+            
+              N
+            
+            
+              (
+              
+                u
+                +
+                v
+              
+              )
+            
+          
+          ]
+        
+        =
+        
+          [
+          
+            
+              N
+            
+            
+              (
+              
+                u
+              
+              )
+            
+          
+          ]
+        
+        
+          [
+          
+            
+              N
+            
+            
+              (
+              
+                v
+              
+              )
+            
+          
+          ]
+        
+        ,
+      
+    
+    {\displaystyle \left[\mathbf {N} \left(\mathbf {u+v} \right)\right]=\left[\mathbf {N} \left(\mathbf {u} \right)\right]\left[\mathbf {N} \left(\mathbf {v} \right)\right],}
+  where 
+  
+    
+      
+        
+          u
+          ,
+          v
+        
+        ∈
+        
+          
+            (
+            
+              
+                Z
+              
+              
+                2
+              
+            
+            )
+          
+          
+            2
+            n
+          
+        
+      
+    
+    {\displaystyle \mathbf {u,v} \in \left(\mathbb {Z} _{2}\right)^{2n}}
+  . The symplectic product
+captures the commutation relations of any operators 
+  
+    
+      
+        
+          N
+        
+        
+          (
+          
+            u
+          
+          )
+        
+      
+    
+    {\displaystyle \mathbf {N} \left(\mathbf {u} \right)}
+   and 
+  
+    
+      
+        
+          N
+        
+        
+          (
+          
+            v
+          
+          )
+        
+      
+    
+    {\displaystyle \mathbf {N} \left(\mathbf {v} \right)}
+  :
+
+  
+    
+      
+        
+          N
+          
+            (
+            
+              u
+            
+            )
+          
+          N
+        
+        
+          (
+          
+            v
+          
+          )
+        
+        =
+        
+          
+            (
+            
+              −
+              1
+            
+            )
+          
+          
+            
+              (
+              
+                
+                  u
+                
+                ⊙
+                
+                  v
+                
+              
+              )
+            
+          
+        
+        
+          N
+        
+        
+          (
+          
+            v
+          
+          )
+        
+        
+          N
+        
+        
+          (
+          
+            u
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \mathbf {N\left(\mathbf {u} \right)N} \left(\mathbf {v} \right)=\left(-1\right)^{\left(\mathbf {u} \odot \mathbf {v} \right)}\mathbf {N} \left(\mathbf {v} \right)\mathbf {N} \left(\mathbf {u} \right).}
+  The above binary representation and symplectic algebra are useful in making
+the relation between classical linear error correction and quantum error correction more explicit.
+By comparing quantum error correcting codes in this language to symplectic vector spaces, we can see the following. A symplectic subspace corresponds to a direct sum of Pauli algebras (i.e., encoded qubits), while an isotropic subspace corresponds to a set of stabilizers.
+
+References
+D. Gottesman, "Stabilizer codes and quantum error correction," quant-ph/9705052, Caltech Ph.D. thesis. https://arxiv.org/abs/quant-ph/9705052
+Shor, Peter W. (1995-10-01). "Scheme for reducing decoherence in quantum computer memory". Physical Review A. American Physical Society (APS). 52 (4): R2493–R2496. Bibcode:1995PhRvA..52.2493S. doi:10.1103/physreva.52.r2493. ISSN 1050-2947. PMID 9912632.
+Calderbank, A. R.; Shor, Peter W. (1996-08-01). "Good quantum error-correcting codes exist". Physical Review A. American Physical Society (APS). 54 (2): 1098–1105. arXiv:quant-ph/9512032. Bibcode:1996PhRvA..54.1098C. doi:10.1103/physreva.54.1098. ISSN 1050-2947. PMID 9913578. S2CID 11524969.
+Steane, A. M. (1996-07-29). "Error Correcting Codes in Quantum Theory". Physical Review Letters. American Physical Society (APS). 77 (5): 793–797. Bibcode:1996PhRvL..77..793S. doi:10.1103/physrevlett.77.793. ISSN 0031-9007. PMID 10062908.
+A. Calderbank, E. Rains, P. Shor, and N. Sloane, “Quantum error correction via codes over GF(4),” IEEE Trans. Inf. Theory, vol. 44, pp. 1369–1387, 1998. Available at https://arxiv.org/abs/quant-ph/9608006

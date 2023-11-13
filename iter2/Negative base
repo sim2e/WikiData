@@ -1,0 +1,1234 @@
+A negative base (or negative radix) may be used to construct a non-standard positional numeral system. Like other place-value systems, each position holds multiples of the appropriate power of the system's base; but that base is negative—that is to say, the base b is equal to −r for some natural number r (r ≥ 2).
+Negative-base systems can accommodate all the same numbers as standard place-value systems, but both positive and negative numbers are represented without the use of a minus sign (or, in computer representation, a sign bit); this advantage is countered by an increased complexity of arithmetic operations. The need to store the information normally contained by a negative sign often results in a negative-base number being one digit longer than its positive-base equivalent.
+The common names for negative-base positional numeral systems are formed by prefixing nega- to the name of the corresponding positive-base system; for example, negadecimal (base −10) corresponds to decimal (base 10), negabinary (base −2) to binary (base 2), negaternary (base −3) to ternary (base 3), and negaquaternary (base −4) to quaternary (base 4).
+
+Example
+Consider what is meant by the representation 12243 in the negadecimal system, whose base b is −10:
+
+The representation 12,243−10 (which is intended to be negadecimal notation) is equivalent to 8,16310 in decimal notation, because 10,000 + (−2,000) + 200 + (−40) + 3 = 8,163.
+
+RemarkOn the other hand, −8,16310 in decimal would be written 9,977−10 in negadecimal.
+
+History
+Negative numerical bases were first considered by Vittorio Grünwald in an 1885 monograph published in Giornale di Matematiche di Battaglini. Grünwald gave algorithms for performing addition, subtraction, multiplication, division, root extraction, divisibility tests, and radix conversion.  Negative bases were later mentioned in passing by A. J. Kempner in 1936 and studied in more detail by Zdzisław Pawlak and A. Wakulicz in 1957.Negabinary was implemented in the early Polish computer BINEG (and UMC), built 1957–59, based on ideas by Z. Pawlak and A. Lazarkiewicz from the Mathematical Institute in Warsaw.  Implementations since then have been rare.
+
+Notation and use
+Denoting the base as −r, every integer a can be written uniquely as
+
+  
+    
+      
+        a
+        =
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            n
+          
+        
+        
+          d
+          
+            i
+          
+        
+        (
+        −
+        r
+        
+          )
+          
+            i
+          
+        
+      
+    
+    {\displaystyle a=\sum _{i=0}^{n}d_{i}(-r)^{i}}
+  where each digit dk is an integer from 0 to r − 1 and the leading digit dn is > 0 (unless n = 0). The base −r expansion of a is then given by the string dndn−1...d1d0.
+Negative-base systems may thus be compared to signed-digit representations, such as balanced ternary, where the radix is positive but the digits are taken from a partially negative range. (In the table below the digit of value −1 is written as the single character T.)
+Some numbers have the same representation in base −r as in base r.  For example, the numbers from 100 to 109 have the same representations in decimal and negadecimal.  Similarly,
+
+  
+    
+      
+        17
+        =
+        
+          2
+          
+            4
+          
+        
+        +
+        
+          2
+          
+            0
+          
+        
+        =
+        (
+        −
+        2
+        
+          )
+          
+            4
+          
+        
+        +
+        (
+        −
+        2
+        
+          )
+          
+            0
+          
+        
+      
+    
+    {\displaystyle 17=2^{4}+2^{0}=(-2)^{4}+(-2)^{0}}
+  and is represented by 10001 in binary and 10001 in negabinary.
+Some numbers with their expansions in a number of positive and corresponding negative bases are:
+
+Note that, with the exception of nega balanced ternary, the base −r expansions of negative integers have an even number of digits, while the base −r expansions of the non-negative integers have an odd number of digits.
+
+Calculation
+The base −r expansion of a number can be found by repeated division by −r, recording the non-negative remainders in 
+  
+    
+      
+        {
+        0
+        ,
+        1
+        ,
+        …
+        ,
+        r
+        −
+        1
+        }
+      
+    
+    {\displaystyle \{0,1,\ldots ,r-1\}}
+  , and concatenating those remainders, starting with the last.  Note that if a / b is c with remainder d, then bc + d = a and therefore d = a − bc. To arrive at the correct conversion, the value for c must be chosen such that d is non-negative and minimal. For the fourth line of the following example this means that
+
+  
+    
+      
+        −
+        5
+        ÷
+        (
+        −
+        3
+        )
+        =
+        2
+         
+        
+          r
+          e
+          m
+          a
+          i
+          n
+          d
+          e
+          r
+        
+         
+        1
+      
+    
+    {\displaystyle -5\div (-3)=2~\mathrm {remainder} ~1}
+  has to be chosen — and not 
+  
+    
+      
+        =
+        3
+         
+        
+          r
+          e
+          m
+          a
+          i
+          n
+          d
+          e
+          r
+        
+         
+        4
+      
+    
+    {\displaystyle =3~\mathrm {remainder} ~4}
+   nor 
+  
+    
+      
+        =
+        1
+         
+        
+          r
+          e
+          m
+          a
+          i
+          n
+          d
+          e
+          r
+        
+         
+        −
+        
+        2.
+      
+    
+    {\displaystyle =1~\mathrm {remainder} ~-\!2.}
+  
+For example, to convert 146 in decimal to negaternary:
+
+  
+    
+      
+        
+          
+            
+              
+                146
+                ÷
+                (
+                −
+                3
+                )
+                =
+              
+              
+                −
+                48
+                 
+                
+                  r
+                  e
+                  m
+                  a
+                  i
+                  n
+                  d
+                  e
+                  r
+                
+                 
+                2
+              
+            
+            
+              
+                −
+                48
+                ÷
+                (
+                −
+                3
+                )
+                =
+              
+              
+                16
+                 
+                
+                  r
+                  e
+                  m
+                  a
+                  i
+                  n
+                  d
+                  e
+                  r
+                
+                 
+                0
+              
+            
+            
+              
+                16
+                ÷
+                (
+                −
+                3
+                )
+                =
+              
+              
+                −
+                5
+                 
+                
+                  r
+                  e
+                  m
+                  a
+                  i
+                  n
+                  d
+                  e
+                  r
+                
+                 
+                1
+              
+            
+            
+              
+                −
+                5
+                ÷
+                (
+                −
+                3
+                )
+                =
+              
+              
+                2
+                 
+                
+                  r
+                  e
+                  m
+                  a
+                  i
+                  n
+                  d
+                  e
+                  r
+                
+                 
+                1
+              
+            
+            
+              
+                2
+                ÷
+                (
+                −
+                3
+                )
+                =
+              
+              
+                0
+                 
+                
+                  r
+                  e
+                  m
+                  a
+                  i
+                  n
+                  d
+                  e
+                  r
+                
+                 
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{rr}146\div (-3)=&-48~\mathrm {remainder} ~2\\-48\div (-3)=&16~\mathrm {remainder} ~0\\16\div (-3)=&-5~\mathrm {remainder} ~1\\-5\div (-3)=&2~\mathrm {remainder} ~1\\2\div (-3)=&0~\mathrm {remainder} ~2\end{array}}}
+  Reading the remainders backward we obtain the negaternary representation of 14610: 21102–3.
+
+Proof: (((2 · (–3) + 1) · (–3) + 1) · (–3) + 0) · (–3) + 2 = 14610.Note that in most programming languages, the result (in integer arithmetic) of dividing a negative number by a negative number is rounded towards 0, usually leaving a negative remainder. In such a case we have a = (−r)c + d = (−r)c + d − r + r = (−r)(c + 1) + (d + r). Because |d| < r, (d + r) is the positive remainder. Therefore, to get the correct result in such case, computer implementations of the above algorithm should add 1 and r to the quotient and remainder respectively.
+
+Example implementation code
+To negabinary
+C#
+C++
+To negaternary
+C#
+Visual Basic .NET
+Python
+Common Lisp
+To any negative base
+Java
+AutoLisp
+from [-10 -2] interval:
+
+PHP
+The conversion from integer to some negative base:
+
+Visual Basic .NET
+Shortcut calculation
+The following algorithms assume that
+
+the input is available in bitstrings and coded in (base +2; digits in 
+  
+    
+      
+        {
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle \{0,1\}}
+  ) (as in most of today's digital computers),
+there are add (+) and xor (^) operations which operate on such bitstrings (as in most of today's digital computers),
+the set 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+   of output digits is standard, i. e. 
+  
+    
+      
+        D
+        =
+        {
+        0
+        ,
+        
+          |
+        
+        b
+        
+          |
+        
+        −
+        1
+        }
+      
+    
+    {\displaystyle D=\{0,|b|-1\}}
+   with base 
+  
+    
+      
+        b
+        ∈
+        {
+        −
+        2
+        ,
+        −
+        4
+        }
+      
+    
+    {\displaystyle b\in \{-2,-4\}}
+  ,
+the output is coded in the same bitstring format, but the meaning of the places is another one.
+
+To negabinary
+The conversion to negabinary (base −2; digits in 
+  
+    
+      
+        {
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle \{0,1\}}
+  ) allows a remarkable shortcut 
+(C implementation):
+
+Due to D. Librik (Szudzik). The bitwise XOR portion is originally due to Schroeppel (1972).JavaScript port for the same shortcut calculation:
+
+To negaquaternary
+The conversion to negaquaternary (base −4; digits in 
+  
+    
+      
+        {
+        0
+        ,
+        1
+        ,
+        2
+        ,
+        3
+        }
+      
+    
+    {\displaystyle \{0,1,2,3\}}
+  ) allows a similar shortcut (C implementation):
+
+JavaScript port for the same shortcut calculation:
+
+Arithmetic operations
+The following describes the arithmetic operations for negabinary; calculations in larger bases are similar.
+
+Addition
+Adding negabinary numbers proceeds bitwise, starting from the least significant bits; the bits from each addend are summed with the (balanced ternary) carry from the previous bit (0 at the LSB). This sum is then decomposed into an output bit and carry for the next iteration as show in the table:
+
+The second row of this table, for instance, expresses the fact that −1 = 1 + 1 × −2; the fifth row says 2 = 0 + −1 × −2; etc.
+As an example, to add 1010101−2 (1 + 4 + 16 + 64 = 85) and 1110100−2 (4 + 16 − 32 + 64 = 52),
+
+Carry:          1 −1  0 −1  1 −1  0  0  0
+First addend:         1  0  1  0  1  0  1
+Second addend:        1  1  1  0  1  0  0 +
+               --------------------------
+Number:         1 −1  2  0  3 −1  2  0  1
+Bit (result):   1  1  0  0  1  1  0  0  1
+Carry:          0  1 −1  0 −1  1 −1  0  0
+
+so the result is 110011001−2 (1 − 8 + 16 − 128 + 256 = 137).
+
+Another method
+While adding two negabinary numbers, every time a carry is generated an extra carry should be propagated to next bit. Consider same example as above
+
+Extra carry:    1  1  1  0  1  0  0  0     
+Carry:             0  1  1  0  1  0  0  0
+First addend:         1  0  1  0  1  0  1
+Second addend:        1  1  1  0  1  0  0 +
+               --------------------------
+Answer:         1  1  0  0  1  1  0  0  1
+
+Negabinary full adder
+A full adder circuit can be designed to add numbers in negabinary. The following logic is used to calculate the sum and carries:
+
+  
+    
+      
+        
+          s
+          
+            i
+          
+        
+        =
+        
+          a
+          
+            i
+          
+        
+        ⊕
+        
+          b
+          
+            i
+          
+        
+        ⊕
+        
+          c
+          
+            i
+          
+          
+            +
+          
+        
+        ⊕
+        
+          c
+          
+            i
+          
+          
+            −
+          
+        
+      
+    
+    {\displaystyle s_{i}=a_{i}\oplus b_{i}\oplus c_{i}^{+}\oplus c_{i}^{-}}
+  
+  
+    
+      
+        
+          c
+          
+            i
+            +
+            1
+          
+          
+            +
+          
+        
+        =
+        
+          
+            
+              a
+              
+                i
+              
+            
+            ¯
+          
+        
+        
+          
+            
+              b
+              
+                i
+              
+            
+            ¯
+          
+        
+        
+          
+            
+              c
+              
+                i
+              
+              
+                +
+              
+            
+            ¯
+          
+        
+        
+          c
+          
+            i
+          
+          
+            −
+          
+        
+      
+    
+    {\displaystyle c_{i+1}^{+}={\overline {a_{i}}}{\overline {b_{i}}}{\overline {c_{i}^{+}}}c_{i}^{-}}
+  
+  
+    
+      
+        
+          c
+          
+            i
+            +
+            1
+          
+          
+            −
+          
+        
+        =
+        
+          a
+          
+            i
+          
+        
+        
+          b
+          
+            i
+          
+        
+        
+          
+            
+              c
+              
+                i
+              
+              
+                −
+              
+            
+            ¯
+          
+        
+        +
+        (
+        
+          a
+          
+            i
+          
+        
+        ⊕
+        
+          b
+          
+            i
+          
+        
+        )
+        
+          c
+          
+            i
+          
+          
+            +
+          
+        
+        
+          
+            
+              c
+              
+                i
+              
+              
+                −
+              
+            
+            ¯
+          
+        
+      
+    
+    {\displaystyle c_{i+1}^{-}=a_{i}b_{i}{\overline {c_{i}^{-}}}+(a_{i}\oplus b_{i})c_{i}^{+}{\overline {c_{i}^{-}}}}
+
+Incrementing negabinary numbers
+Incrementing a negabinary number can be done by using the following formula:
+
+  
+    
+      
+        2
+        x
+        ⊕
+        (
+        (
+        2
+        x
+        ⊕
+        x
+        )
+        +
+        1
+        )
+      
+    
+    {\displaystyle 2x\oplus ((2x\oplus x)+1)}
+
+Subtraction
+To subtract, multiply each bit of the second number by −1, and add the numbers, using the same table as above.
+As an example, to compute 1101001−2 (1 − 8 − 32 + 64 = 25) minus 1110100−2 (4 + 16 − 32 + 64 = 52),
+
+Carry:          0  1 −1  1  0  0  0
+First number:   1  1  0  1  0  0  1
+Second number: −1 −1 −1  0 −1  0  0 +
+               --------------------
+Number:         0  1 −2  2 −1  0  1
+Bit (result):   0  1  0  0  1  0  1
+Carry:          0  0  1 −1  1  0  0
+
+so the result is 100101−2 (1 + 4 −32 = −27).
+Unary negation, −x, can be computed as binary subtraction from zero, 0 − x.
+
+Multiplication and division
+Shifting to the left multiplies by −2, shifting to the right divides by −2.
+To multiply, multiply like normal decimal or binary numbers, but using the negabinary rules for adding the carry, when adding the numbers.
+
+First number:                   1  1  1  0  1  1  0
+Second number:                  1  0  1  1  0  1  1 ×
+              -------------------------------------
+                                1  1  1  0  1  1  0
+                             1  1  1  0  1  1  0
+
+                       1  1  1  0  1  1  0
+                    1  1  1  0  1  1  0
+
+              1  1  1  0  1  1  0                   +
+              -------------------------------------
+Carry:        0 −1  0 −1 −1 −1 −1 −1  0 −1  0  0
+Number:       1  0  2  1  2  2  2  3  2  0  2  1  0
+Bit (result): 1  0  0  1  0  0  0  1  0  0  0  1  0
+Carry:           0 −1  0 −1 −1 −1 −1 −1  0 −1  0  0
+
+For each column, add carry to number, and divide the sum by −2, to get the new carry, and the resulting bit as the remainder.
+
+Comparing negabinary numbers
+It is possible to compare negabinary numbers by slightly adjusting a normal unsigned binary comparator. When comparing the numbers 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   and 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+  , invert each odd positioned bit of both numbers.
+After this, compare 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   and 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   using a standard unsigned comparator.
+
+Fractional numbers
+Base −r representation may of course be carried beyond the radix point, allowing the representation of non-integer numbers.
+As with positive-base systems, terminating representations correspond to fractions where the denominator is a power of the base; repeating representations correspond to other rationals, and for the same reason.
+
+Non-unique representations
+Unlike positive-base systems, where integers and terminating fractions have non-unique representations (for example, in decimal 0.999... = 1) in negative-base systems the integers have only a single representation.  However, there do exist rationals with non-unique representations. For the digits {0, 1, ..., t} with 
+  
+    
+      
+        
+          t
+        
+        :=
+        r
+        
+        −
+        
+        
+        1
+        =
+        −
+        b
+        
+        −
+        
+        
+        1
+      
+    
+    {\displaystyle \mathbf {t} :=r\!-\!\!1=-b\!-\!\!1}
+   the biggest digit and
+
+  
+    
+      
+        T
+        :=
+        0.
+        
+          
+            
+              01
+              ¯
+            
+          
+          
+            b
+          
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            ∞
+          
+        
+        
+          b
+          
+            −
+            2
+            i
+          
+        
+        =
+        
+          
+            1
+            
+              
+                b
+                
+                  2
+                
+              
+              −
+              1
+            
+          
+        
+        =
+        
+          
+            1
+            
+              
+                r
+                
+                  2
+                
+              
+              −
+              1
+            
+          
+        
+      
+    
+    {\displaystyle T:=0.{\overline {01}}_{b}=\sum _{i=1}^{\infty }b^{-2i}={\frac {1}{b^{2}-1}}={\frac {1}{r^{2}-1}}}
+  we have
+
+  
+    
+      
+        0.
+        
+          
+            
+              
+                0
+                
+                  t
+                
+              
+              ¯
+            
+          
+          
+            b
+          
+        
+        =
+        
+          t
+        
+        T
+        =
+        
+          
+            
+              r
+              
+              −
+              
+              
+              1
+            
+            
+              
+                r
+                
+                  2
+                
+              
+              −
+              1
+            
+          
+        
+        =
+        
+          
+            1
+            
+              r
+              +
+              1
+            
+          
+        
+      
+    
+    {\displaystyle 0.{\overline {0\mathbf {t} }}_{b}=\mathbf {t} T={\frac {r\!-\!\!1}{r^{2}-1}}={\frac {1}{r+1}}}
+       as well as
+
+  
+    
+      
+        1.
+        
+          
+            
+              
+                
+                  t
+                
+                0
+              
+              ¯
+            
+          
+          
+            b
+          
+        
+        =
+        1
+        +
+        
+          t
+        
+        b
+        T
+        =
+        
+          
+            
+              (
+              
+                r
+                
+                  2
+                
+              
+              −
+              1
+              )
+              +
+              (
+              r
+              
+              −
+              
+              
+              1
+              )
+              b
+            
+            
+              
+                r
+                
+                  2
+                
+              
+              −
+              1
+            
+          
+        
+        =
+        
+          
+            1
+            
+              r
+              +
+              1
+            
+          
+        
+        .
+      
+    
+    {\displaystyle 1.{\overline {\mathbf {t} 0}}_{b}=1+\mathbf {t} bT={\frac {(r^{2}-1)+(r\!-\!\!1)b}{r^{2}-1}}={\frac {1}{r+1}}.}
+  So every number 
+  
+    
+      
+        
+          
+            1
+            
+              r
+              +
+              1
+            
+          
+        
+        +
+        z
+      
+    
+    {\displaystyle {\frac {1}{r+1}}+z}
+   with a terminating fraction 
+  
+    
+      
+        z
+        ∈
+        
+          Z
+        
+        
+          r
+          
+            
+              Z
+            
+          
+        
+      
+    
+    {\displaystyle z\in \mathbb {Z} r^{\mathbb {Z} }}
+   added has two distinct representations.
+For example, in negaternary, i.e. 
+  
+    
+      
+        b
+        =
+        −
+        3
+      
+    
+    {\displaystyle b=-3}
+   and 
+  
+    
+      
+        
+          t
+        
+        =
+        2
+      
+    
+    {\displaystyle \mathbf {t} =2}
+  , there is
+
+  
+    
+      
+        1.
+        
+          
+            
+              02
+              ¯
+            
+          
+          
+            (
+            −
+            3
+            )
+          
+        
+        =
+        
+          
+            5
+            4
+          
+        
+        =
+        2.
+        
+          
+            
+              20
+              ¯
+            
+          
+          
+            (
+            −
+            3
+            )
+          
+        
+      
+    
+    {\displaystyle 1.{\overline {02}}_{(-3)}={\frac {5}{4}}=2.{\overline {20}}_{(-3)}}
+  .Such non-unique representations can be found by considering the largest and smallest possible representations with integer parts 0 and 1 respectively, and then noting that they are equal. (Indeed, this works with any integer-base system.) The rationals thus non-uniquely expressible are those of form
+
+  
+    
+      
+        
+          
+            
+              z
+              (
+              r
+              +
+              1
+              )
+              +
+              1
+            
+            
+              
+                b
+                
+                  i
+                
+              
+              (
+              r
+              +
+              1
+              )
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {z(r+1)+1}{b^{i}(r+1)}}}
+  with 
+  
+    
+      
+        z
+        ,
+        i
+        ∈
+        
+          Z
+        
+        .
+      
+    
+    {\displaystyle z,i\in \mathbb {Z} .}
+
+Imaginary base
+Just as using a negative base allows the representation of negative numbers without an explicit negative sign, using an imaginary base allows the representation of Gaussian integers. Donald Knuth proposed the quater-imaginary base (base 2i) in 1955.
+
+See also
+Quater-imaginary base
+Binary
+Balanced ternary
+Quaternary numeral system
+Numeral systems
+1 − 2 + 4 − 8 + ⋯ (p-adic numbers)
+
+References
+Further reading
+Warren Jr., Henry S. (2013) [2002]. Hacker's Delight (2nd ed.). Addison Wesley - Pearson Education, Inc. ISBN 978-0-321-84268-8. 0-321-84268-5.
+
+External links
+Weisstein, Eric W. "Negabinary". MathWorld.
+Weisstein, Eric W. "Negadecimal". MathWorld.

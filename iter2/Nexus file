@@ -1,0 +1,46 @@
+The extensible NEXUS file format is widely used in bioinformatics. It stores information about taxa, morphological and molecular characters, distances, genetic codes, assumptions, sets, trees, etc. Several popular phylogenetic programs such as PAUP*, MrBayes, Mesquite, MacClade and SplitsTree use this format.
+
+Syntax
+A NEXUS file is made out of a fixed header #NEXUS followed by multiple blocks. Each block starts with BEGIN block_name; and ends with END;. The keywords are case-insensitive. Comments are enclosed inside square brackets [...].There are a few pre-defined block names for common types of data. Examples include:
+TAXA block
+The TAXA block contains information about taxa.
+DATA block
+The DATA block contains the data matrix (e.g. sequence alignment).
+TREES block
+The TREES block contains phylogenetic trees described using the Newick format, e.g. ((A,B),C);:The following example uses the three block types above: 
+
+#NEXUS
+Begin TAXA;
+  Dimensions ntax=4;
+  TaxLabels SpaceDog SpaceCat SpaceOrc SpaceElf;
+End;
+
+Begin data;
+  Dimensions nchar=15;
+  Format datatype=dna missing=? gap=- matchchar=.;
+  Matrix
+    [ When a position is a "matchchar", it means that it is the same as the first entry at the same position. ]
+    SpaceDog   atgctagctagctcg
+    SpaceCat   ......??...-.a.
+    SpaceOrc   ...t.......-.g. [ same as atgttagctag-tgg ]
+    SpaceElf   ...t.......-.a.           
+  ;
+End;
+
+BEGIN TREES;
+  Tree tree1 = (((SpaceDog,SpaceCat),SpaceOrc,SpaceElf));
+END;
+
+See also
+Newick format
+NeXML format
+phyloXML
+PAUP*
+
+References
+External links
+NEXUS file format — detailed explanation with many examples
+NEXUS format — a good description of the format and its uses in the field
+Nexus to phyloXML converter
+NeXML
+Nexus to Fasta converter

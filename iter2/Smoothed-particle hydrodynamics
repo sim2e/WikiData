@@ -1,0 +1,4494 @@
+Smoothed-particle hydrodynamics (SPH) is a computational method used for simulating the mechanics of continuum media, such as solid mechanics and fluid flows. It was developed by Gingold and Monaghan and Lucy in 1977, initially for astrophysical problems.  It has been used in many fields of research, including astrophysics, ballistics, volcanology, and oceanography. It is a meshfree Lagrangian method (where the co-ordinates move with the fluid), and the resolution of the method can easily be adjusted with respect to variables such as density.
+
+Method
+Advantages
+By construction, SPH is a meshfree method, which makes it ideally suited to simulate problems dominated by complex boundary dynamics, like free surface flows, or large boundary displacement.
+The lack of a mesh significantly simplifies the model implementation and its parallelization, even for many-core architectures.SPH can be easily extended to a wide variety of fields, and hybridized with some other models, as discussed in Modelling Physics.
+As discussed in section on weakly compressible SPH, the method has great conservation features.
+The computational cost of SPH simulations per number of particles is significantly less than the cost of grid-based simulations per number of cells when the metric of interest is related to fluid density (e.g., the probability density function of density fluctuations).  This is the case because in SPH the resolution is put where the matter is.
+
+Limitations
+Setting boundary conditions in SPH such as inlets and outlets and walls is more difficult than with grid-based methods.  In fact, it has been stated that "the treatment of boundary conditions is certainly one of the most difficult technical points of the SPH method".  This challenge is partly because in SPH the particles near the boundary change with time.  Nonetheless, wall boundary conditions for SPH are available
+The computational cost of SPH simulations per number of particles is significantly larger than the cost of grid-based simulations per number of cells when the metric of interest is not (directly) related to density (e.g., the kinetic-energy spectrum).  Therefore, overlooking issues of parallel speedup, the simulation of constant-density flows (e.g., external aerodynamics) is more efficient with grid-based methods than with SPH.
+
+Examples
+Fluid dynamics
+Smoothed-particle hydrodynamics is being increasingly used to model fluid motion as well. This is due to several benefits over traditional grid-based techniques. First, SPH guarantees conservation of mass without extra computation since the particles themselves represent mass. Second, SPH computes pressure from weighted contributions of neighboring particles rather than by solving linear systems of equations. Finally, unlike grid-based techniques, which must track fluid boundaries, SPH creates a free surface for two-phase interacting fluids directly since the particles represent the denser fluid (usually water) and empty space represents the lighter fluid (usually air). For these reasons, it is possible to simulate fluid motion using SPH in real time. However, both grid-based and SPH techniques still require the generation of renderable free surface geometry using a polygonization technique such as metaballs and marching cubes, point splatting, or 'carpet' visualization. For gas dynamics it is more appropriate to use the kernel function itself to produce a rendering of gas column density (e.g., as done in the SPLASH visualisation package).
+One drawback over grid-based techniques is the need for large numbers of particles to produce simulations of equivalent resolution. In the typical implementation of both uniform grids and SPH particle techniques, many voxels or particles will be used to fill water volumes that are never rendered. However, accuracy can be significantly higher with sophisticated grid-based techniques, especially those coupled with particle methods (such as particle level sets), since it is easier to enforce the incompressibility condition in these systems. SPH for fluid simulation is being used increasingly in real-time animation and games where accuracy is not as critical as interactivity.
+Recent work in SPH for fluid simulation has increased performance, accuracy, and areas of application:
+
+B. Solenthaler, 2009, develops Predictive-Corrective SPH (PCISPH) to allow for better incompressibility constraints
+M. Ihmsen et al., 2010, introduce boundary handling and adaptive time-stepping for PCISPH for accurate rigid body interactions
+K. Bodin et al., 2011, replace the standard equation of state pressure with a density constraint and apply a variational time integrator
+R. Hoetzlein, 2012, develops efficient GPU-based SPH for large scenes in Fluids v.3
+N. Akinci et al., 2012, introduce a versatile boundary handling and two-way SPH-rigid coupling technique that is completely based on hydrodynamic forces; the approach is applicable to different types of SPH solvers
+M. Macklin et al., 2013 simulates incompressible flows inside the Position Based Dynamics framework, for bigger timesteps
+N. Akinci et al., 2013, introduce a versatile surface tension and two-way fluid-solid adhesion technique that allows simulating a variety of interesting physical effects that are observed in reality
+J. Kyle and E. Terrell, 2013, apply SPH to Full-Film Lubrication
+A. Mahdavi and N. Talebbeydokhti, 2015, propose a hybrid algorithm for implementation of solid boundary condition and simulate flow over a sharp crested weir
+S. Tavakkol et al., 2016, develop curvSPH, which makes the horizontal and vertical size of particles independent and generates uniform mass distribution along curved boundaries
+W. Kostorz and A. Esmail-Yakas, 2020, propose a general, efficient and simple method for evaluating normalization factors near piecewise-planar boundaries
+Colagrossi et al., 2019, study flow around a cylinder close to a free-surface and compare with other techniques
+
+Astrophysics
+Smoothed-particle hydrodynamics's adaptive resolution, numerical conservation of physically conserved quantities, and ability to simulate phenomena covering many orders of magnitude make it ideal for computations in theoretical astrophysics.Simulations of galaxy formation, star formation, stellar collisions, supernovae and meteor impacts are some of the wide variety of astrophysical and cosmological uses of this method.
+SPH is used to model hydrodynamic flows, including possible effects of gravity. Incorporating other astrophysical processes which may be important, such as radiative transfer and magnetic fields is an active area of research in the astronomical community, and has had some limited success.
+
+Solid mechanics
+Libersky and Petschek
+extended SPH to Solid Mechanics. The main advantage of SPH in this application is the possibility of dealing with larger local distortion than grid-based methods.
+This feature has been exploited in many applications in Solid Mechanics: metal forming, impact, crack growth, fracture, fragmentation, etc.
+Another important advantage of meshfree methods in general, and of SPH in particular, is that mesh dependence problems are naturally avoided given the meshfree nature of the method. In particular, mesh alignment is related to problems involving cracks and it is avoided in SPH due to the isotropic support of the kernel functions. However, classical SPH formulations suffer from tensile instabilities
+and lack of consistency.
+Over the past years, different corrections have been introduced to improve the accuracy of the SPH solution, leading to the RKPM by Liu et al.
+Randles and Libersky
+and Johnson and Beissel
+tried to solve the consistency problem in their study of impact phenomena.
+Dyka et al.
+and Randles and Libersky
+introduced the stress-point integration into SPH and Ted Belytschko et al.
+showed that the stress-point technique removes the instability due to spurious singular modes, while tensile instabilities can be avoided by using a Lagrangian kernel. Many other recent studies can be found in the literature devoted to improve the convergence of the SPH method.
+Recent improvements in understanding the convergence and stability of SPH have allowed for more widespread applications in Solid Mechanics. Other examples of applications and developments of the method include:
+
+Metal forming simulations.
+SPH-based method SPAM (Smoothed Particle Applied Mechanics) for impact fracture in solids by William G. Hoover.
+Modified SPH (SPH/MLSPH) for fracture and fragmentation.
+Taylor-SPH (TSPH) for shock wave propagation in solids.
+Generalized coordinate SPH (GSPH) allocates particles inhomogeneously in the Cartesian coordinate system and arranges them via mapping in a generalized coordinate system in which the particles are aligned at a uniform spacing.
+
+Numerical tools
+Interpolations
+The Smoothed-Particle Hydrodynamics (SPH) method works by dividing the fluid into a set of discrete moving elements 
+  
+    
+      
+        i
+        ,
+        j
+      
+    
+    {\displaystyle i,j}
+  , referred to as particles. Their Lagrangian nature allows setting their position 
+  
+    
+      
+        
+          
+            r
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \mathbf {r} _{i}}
+   by integration of their velocity 
+  
+    
+      
+        
+          
+            v
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \mathbf {v} _{i}}
+   as:
+
+  
+    
+      
+        
+          
+            
+              
+                d
+              
+              
+                
+                  r
+                
+                
+                  i
+                
+              
+            
+            
+              
+                d
+              
+              t
+            
+          
+        
+        =
+        
+          
+            v
+          
+          
+            i
+          
+        
+        .
+      
+    
+    {\displaystyle {\frac {\mathrm {d} {\boldsymbol {r}}_{i}}{\mathrm {d} t}}={\boldsymbol {v}}_{i}.}
+  These particles interact through a kernel function with characteristic radius known as the "smoothing length", typically represented in equations by 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  . This means that the physical quantity of any particle can be obtained by summing the relevant properties of all the particles that lie within the range of the kernel, the latter being used as a weighting function 
+  
+    
+      
+        W
+      
+    
+    {\displaystyle W}
+  . This can be understood in two steps. First an arbitrary field 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is written as a convolution with 
+  
+    
+      
+        W
+      
+    
+    {\displaystyle W}
+  :
+
+  
+    
+      
+        A
+        (
+        
+          r
+        
+        )
+        =
+        ∫
+        A
+        
+          (
+          
+            
+              r
+              
+                ′
+              
+            
+          
+          )
+        
+        W
+        (
+        
+          |
+        
+        
+          r
+        
+        −
+        
+          
+            r
+            
+              ′
+            
+          
+        
+        
+          |
+        
+        ,
+        h
+        )
+        
+        
+          d
+        
+        V
+        
+        
+          (
+          
+            
+              r
+              ′
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle A({\boldsymbol {r}})=\int A\left({\boldsymbol {r^{\prime }}}\right)W(|{\boldsymbol {r}}-{\boldsymbol {r^{\prime }}}|,h)\,\mathrm {d} V\!\left({\boldsymbol {r'}}\right).}
+  The error in making the above approximation is order 
+  
+    
+      
+        
+          h
+          
+            2
+          
+        
+      
+    
+    {\displaystyle h^{2}}
+  . Secondly, the integral is approximated using a Riemann summation over the particles:
+
+  
+    
+      
+        A
+        (
+        
+          r
+        
+        )
+        =
+        
+          ∑
+          
+            j
+          
+        
+        
+          V
+          
+            j
+          
+        
+        
+          A
+          
+            j
+          
+        
+        W
+        (
+        
+          |
+        
+        
+          r
+        
+        −
+        
+          
+            r
+          
+          
+            j
+          
+        
+        
+          |
+        
+        ,
+        h
+        )
+        ,
+      
+    
+    {\displaystyle A({\boldsymbol {r}})=\sum _{j}V_{j}A_{j}W(|{\boldsymbol {r}}-{\boldsymbol {r}}_{j}|,h),}
+  where the summation over 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   includes all particles in the simulation. 
+  
+    
+      
+        
+          V
+          
+            j
+          
+        
+      
+    
+    {\displaystyle V_{j}}
+   is the volume of particle 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+  , 
+  
+    
+      
+        
+          A
+          
+            j
+          
+        
+      
+    
+    {\displaystyle A_{j}}
+   is the value of the quantity 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   for particle 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   and 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle {\boldsymbol {r}}}
+   denotes position. For example, the density 
+  
+    
+      
+        
+          ρ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \rho _{i}}
+   of particle 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   can be expressed as:
+
+  
+    
+      
+        
+          ρ
+          
+            i
+          
+        
+        =
+        ρ
+        (
+        
+          
+            r
+          
+          
+            i
+          
+        
+        )
+        =
+        
+          ∑
+          
+            j
+          
+        
+        
+          m
+          
+            j
+          
+        
+        
+          W
+          
+            i
+            j
+          
+        
+        ,
+      
+    
+    {\displaystyle \rho _{i}=\rho ({\boldsymbol {r}}_{i})=\sum _{j}m_{j}W_{ij},}
+  where 
+  
+    
+      
+        
+          m
+          
+            j
+          
+        
+        =
+        
+          ρ
+          
+            j
+          
+        
+        
+          V
+          
+            j
+          
+        
+      
+    
+    {\displaystyle m_{j}=\rho _{j}V_{j}}
+   denotes the particle mass and 
+  
+    
+      
+        
+          ρ
+          
+            j
+          
+        
+      
+    
+    {\displaystyle \rho _{j}}
+   the particle density, while 
+  
+    
+      
+        
+          W
+          
+            i
+            j
+          
+        
+        =
+        
+          W
+          
+            j
+            i
+          
+        
+      
+    
+    {\displaystyle W_{ij}=W_{ji}}
+   is a short notation for 
+  
+    
+      
+        W
+        (
+        
+          |
+        
+        
+          
+            r
+          
+          
+            i
+          
+        
+        −
+        
+          
+            r
+          
+          
+            j
+          
+        
+        
+          |
+        
+        ,
+        h
+        )
+      
+    
+    {\displaystyle W(|{\boldsymbol {r}}_{i}-{\boldsymbol {r}}_{j}|,h)}
+  . The error done in approximating the integral by a discrete sum depends on 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  , on the particle size (i.e. 
+  
+    
+      
+        
+          V
+          
+            j
+          
+          
+            1
+            
+              /
+            
+            d
+          
+        
+      
+    
+    {\displaystyle V_{j}^{1/d}}
+  , 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   being the space dimension), and on the particle arrangement in space. The latter effect is still poorly known.Kernel functions commonly used include the Gaussian function, the quintic spline and the Wendland 
+  
+    
+      
+        
+          C
+          
+            2
+          
+        
+      
+    
+    {\displaystyle C^{2}}
+   kernel. The latter two kernels are compactly supported (unlike the Gaussian, where there is a small contribution at any finite distance away), with support proportional to 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  . This has the advantage of saving computational effort by not including the relatively minor contributions from distant particles.
+Although the size of the smoothing length can be fixed in both space and time, this does not take advantage of the full power of SPH. By assigning each particle its own smoothing length and allowing it to vary with time, the resolution of a simulation can be made to automatically adapt itself depending on local conditions. For example, in a very dense region where many particles are close together, the smoothing length can be made relatively short, yielding high spatial resolution. Conversely, in low-density regions where individual particles are far apart and the resolution is low, the smoothing length can be increased, optimising the computation for the regions of interest.
+
+Discretization of governing equations
+For particles of constant mass, differentiating the interpolated density 
+  
+    
+      
+        
+          ρ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \rho _{i}}
+   with respect to time yields
+
+  
+    
+      
+        
+          
+            
+              d
+              
+                ρ
+                
+                  i
+                
+              
+            
+            
+              d
+              t
+            
+          
+        
+        =
+        
+          ∑
+          
+            j
+          
+        
+        
+          m
+          
+            j
+          
+        
+        
+          (
+          
+            
+              
+                v
+              
+              
+                i
+              
+            
+            −
+            
+              
+                v
+              
+              
+                j
+              
+            
+          
+          )
+        
+        ⋅
+        ∇
+        
+          W
+          
+            i
+            j
+          
+        
+        ,
+      
+    
+    {\displaystyle {\frac {d\rho _{i}}{dt}}=\sum _{j}m_{j}\left({\boldsymbol {v}}_{i}-{\boldsymbol {v}}_{j}\right)\cdot \nabla W_{ij},}
+  where 
+  
+    
+      
+        ∇
+        
+          W
+          
+            i
+            j
+          
+        
+        =
+        −
+        ∇
+        
+          W
+          
+            j
+            i
+          
+        
+      
+    
+    {\displaystyle \nabla W_{ij}=-\nabla W_{ji}}
+   is the gradient of 
+  
+    
+      
+        
+          W
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle W_{ij}}
+   with respect to 
+  
+    
+      
+        
+          
+            r
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\boldsymbol {r}}_{i}}
+  . Comparing this equation with the continuity equation in the Lagrangian description (using material derivatives),
+
+  
+    
+      
+        
+          
+            
+              d
+              ρ
+            
+            
+              d
+              t
+            
+          
+        
+        =
+        −
+        ρ
+        ∇
+        ⋅
+        
+          v
+        
+        ,
+      
+    
+    {\displaystyle {\frac {d\rho }{dt}}=-\rho \nabla \cdot {\boldsymbol {v}},}
+  it is apparent that its right-hand side is an approximation of 
+  
+    
+      
+        −
+        ρ
+        ∇
+        ⋅
+        
+          v
+        
+      
+    
+    {\displaystyle -\rho \nabla \cdot \mathbf {v} }
+  ; hence one defines a discrete divergence operator as follows:
+
+  
+    
+      
+        
+          D
+          
+            i
+          
+        
+        ⁡
+        
+          {
+          
+            
+              v
+            
+            
+              j
+            
+          
+          }
+        
+        =
+        −
+        
+          
+            1
+            
+              ρ
+              
+                i
+              
+            
+          
+        
+        
+          ∑
+          
+            j
+          
+        
+        
+          m
+          
+            j
+          
+        
+        
+          (
+          
+            
+              
+                v
+              
+              
+                i
+              
+            
+            −
+            
+              
+                v
+              
+              
+                j
+              
+            
+          
+          )
+        
+        ⋅
+        ∇
+        
+          W
+          
+            i
+            j
+          
+        
+        .
+      
+    
+    {\displaystyle \operatorname {D} _{i}\left\{{\boldsymbol {v}}_{j}\right\}=-{\frac {1}{\rho _{i}}}\sum _{j}m_{j}\left({\boldsymbol {v}}_{i}-{\boldsymbol {v}}_{j}\right)\cdot \nabla W_{ij}.}
+  This operator gives an SPH approximation of 
+  
+    
+      
+        ∇
+        ⋅
+        
+          v
+        
+      
+    
+    {\displaystyle \nabla \cdot \mathbf {v} }
+   at the particle 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   for a given set of particles with given masses 
+  
+    
+      
+        
+          m
+          
+            j
+          
+        
+      
+    
+    {\displaystyle m_{j}}
+  , positions 
+  
+    
+      
+        
+          {
+          
+            
+              r
+            
+            
+              j
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \left\{\mathbf {r} _{j}\right\}}
+   and velocities 
+  
+    
+      
+        
+          {
+          
+            
+              v
+            
+            
+              j
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \left\{\mathbf {v} _{j}\right\}}
+  .
+The other important equation for a compressible inviscid fluid is the Euler equation for momentum balance:
+
+  
+    
+      
+        
+          
+            
+              d
+              
+                v
+              
+            
+            
+              d
+              t
+            
+          
+        
+        =
+        −
+        
+          
+            1
+            ρ
+          
+        
+        ∇
+        p
+        +
+        
+          g
+        
+      
+    
+    {\displaystyle {\frac {d{\boldsymbol {v}}}{dt}}=-{\frac {1}{\rho }}\nabla p+{\boldsymbol {g}}}
+  Similarly to continuity, the task is to define a discrete gradient operator in order to write
+
+  
+    
+      
+        
+          
+            
+              d
+              
+                
+                  v
+                
+                
+                  i
+                
+              
+            
+            
+              d
+              t
+            
+          
+        
+        =
+        −
+        
+          
+            1
+            ρ
+          
+        
+        
+          
+            
+              G
+            
+          
+          
+            i
+          
+        
+        ⁡
+        
+          {
+          
+            p
+            
+              j
+            
+          
+          }
+        
+        +
+        
+          g
+        
+      
+    
+    {\displaystyle {\frac {d{\boldsymbol {v}}_{i}}{dt}}=-{\frac {1}{\rho }}\operatorname {\mathbf {G} } _{i}\left\{p_{j}\right\}+{\boldsymbol {g}}}
+  One choice is
+
+  
+    
+      
+        
+          
+            
+              G
+            
+          
+          
+            i
+          
+        
+        ⁡
+        
+          {
+          
+            p
+            
+              j
+            
+          
+          }
+        
+        =
+        
+          ρ
+          
+            i
+          
+        
+        
+          ∑
+          
+            j
+          
+        
+        
+          m
+          
+            j
+          
+        
+        
+          (
+          
+            
+              
+                
+                  p
+                  
+                    i
+                  
+                
+                
+                  ρ
+                  
+                    i
+                  
+                  
+                    2
+                  
+                
+              
+            
+            +
+            
+              
+                
+                  p
+                  
+                    j
+                  
+                
+                
+                  ρ
+                  
+                    j
+                  
+                  
+                    2
+                  
+                
+              
+            
+          
+          )
+        
+        ∇
+        
+          W
+          
+            i
+            j
+          
+        
+        ,
+      
+    
+    {\displaystyle \operatorname {\mathbf {G} } _{i}\left\{p_{j}\right\}=\rho _{i}\sum _{j}m_{j}\left({\frac {p_{i}}{\rho _{i}^{2}}}+{\frac {p_{j}}{\rho _{j}^{2}}}\right)\nabla W_{ij},}
+  which has the property of being skew-adjoint with the divergence operator above, in the sense that
+
+  
+    
+      
+        
+          ∑
+          
+            i
+          
+        
+        
+          V
+          
+            i
+          
+        
+        
+          
+            v
+          
+          
+            i
+          
+        
+        ⋅
+        
+          
+            
+              G
+            
+          
+          
+            i
+          
+        
+        ⁡
+        
+          {
+          
+            p
+            
+              j
+            
+          
+          }
+        
+        =
+        −
+        
+          ∑
+          
+            i
+          
+        
+        
+          V
+          
+            i
+          
+        
+        
+          p
+          
+            i
+          
+        
+        
+          D
+          
+            i
+          
+        
+        ⁡
+        
+          {
+          
+            
+              v
+            
+            
+              j
+            
+          
+          }
+        
+        ,
+      
+    
+    {\displaystyle \sum _{i}V_{i}{\boldsymbol {v}}_{i}\cdot \operatorname {\mathbf {G} } _{i}\left\{p_{j}\right\}=-\sum _{i}V_{i}p_{i}\operatorname {D} _{i}\left\{{\boldsymbol {v}}_{j}\right\},}
+  this being a discrete version of the continuum identity
+
+  
+    
+      
+        ∫
+        
+          v
+        
+        ⋅
+        grad
+        ⁡
+        p
+        =
+        −
+        ∫
+        p
+        div
+        ⋅
+        
+          v
+        
+        .
+      
+    
+    {\displaystyle \int {\boldsymbol {v}}\cdot \operatorname {grad} p=-\int p\operatorname {div} \cdot {\boldsymbol {v}}.}
+  This property leads to nice conservation properties.Notice also that this choice leads to a symmetric divergence operator and antisymmetric gradient. Although there are several ways of discretizing the pressure gradient in the Euler equations, the above antisymmetric form is the most acknowledged one. It supports strict conservation of linear and angular momentum. This means that a force that is exerted on particle 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   by particle 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   equals the one that is exerted on particle 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   by particle 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   including the sign change of the effective direction, thanks to the antisymmetry property 
+  
+    
+      
+        ∇
+        
+          W
+          
+            i
+            j
+          
+        
+        =
+        −
+        ∇
+        
+          W
+          
+            j
+            i
+          
+        
+      
+    
+    {\displaystyle \nabla W_{ij}=-\nabla W_{ji}}
+  .
+Nevertheless, other operators have been proposed, which may perform better numerically or physically.
+For instance, one drawback of these operators is that while the divergence 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle \operatorname {D} }
+   is zero-order consistent (i.e. yields zero when applied to a constant vector field), it can be seen that the gradient 
+  
+    
+      
+        
+          
+            G
+          
+        
+      
+    
+    {\displaystyle \operatorname {\mathbf {G} } }
+   is not. Several techniques have been proposed to circumvent this issue, leading to renormalized operators (see e.g.).
+
+Variational principle
+The above SPH governing equations can be derived from a least action principle, starting from the Lagrangian of a particle system:
+
+  
+    
+      
+        
+          
+            L
+          
+        
+        =
+        
+          ∑
+          
+            j
+          
+        
+        
+          m
+          
+            j
+          
+        
+        
+          (
+          
+            
+              
+                
+                  1
+                  2
+                
+              
+            
+            
+              
+                v
+              
+              
+                j
+              
+              
+                2
+              
+            
+            −
+            
+              e
+              
+                j
+              
+            
+            +
+            
+              g
+            
+            ⋅
+            
+              
+                r
+              
+              
+                j
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle {\mathcal {L}}=\sum _{j}m_{j}\left({\tfrac {1}{2}}{\boldsymbol {v}}_{j}^{2}-e_{j}+{\boldsymbol {g}}\cdot {\boldsymbol {r}}_{j}\right)}
+  ,where 
+  
+    
+      
+        
+          e
+          
+            j
+          
+        
+      
+    
+    {\displaystyle e_{j}}
+   is the particle specific internal energy. The Euler–Lagrange equation of variational mechanics reads, for each particle:
+
+  
+    
+      
+        
+          
+            
+              d
+            
+            
+              
+                d
+              
+              t
+            
+          
+        
+        
+          
+            
+              ∂
+              
+                
+                  L
+                
+              
+            
+            
+              ∂
+              
+                
+                  v
+                
+                
+                  i
+                
+              
+            
+          
+        
+        =
+        
+          
+            
+              ∂
+              
+                
+                  L
+                
+              
+            
+            
+              ∂
+              
+                
+                  r
+                
+                
+                  i
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle {\frac {\mathrm {d} }{\mathrm {d} t}}{\frac {\partial {\mathcal {L}}}{\partial {\boldsymbol {v}}_{i}}}={\frac {\partial {\mathcal {L}}}{\partial {\boldsymbol {r}}_{i}}}.}
+  When applied to the above Lagrangian, it gives the following momentum equation:
+
+  
+    
+      
+        
+          m
+          
+            i
+          
+        
+        
+          
+            
+              
+                d
+              
+              
+                
+                  v
+                
+                
+                  i
+                
+              
+            
+            
+              
+                d
+              
+              t
+            
+          
+        
+        =
+        −
+        
+          ∑
+          
+            j
+          
+        
+        
+          m
+          
+            j
+          
+        
+        
+          
+            
+              ∂
+              
+                e
+                
+                  j
+                
+              
+            
+            
+              ∂
+              
+                
+                  r
+                
+                
+                  i
+                
+              
+            
+          
+        
+        +
+        
+          m
+          
+            i
+          
+        
+        
+          g
+        
+        =
+        −
+        
+          ∑
+          
+            j
+          
+        
+        
+          m
+          
+            j
+          
+        
+        
+          
+            
+              ∂
+              
+                e
+                
+                  j
+                
+              
+            
+            
+              ∂
+              
+                ρ
+                
+                  j
+                
+              
+            
+          
+        
+        
+          
+            
+              ∂
+              
+                ρ
+                
+                  j
+                
+              
+            
+            
+              ∂
+              
+                
+                  r
+                
+                
+                  i
+                
+              
+            
+          
+        
+        +
+        
+          m
+          
+            i
+          
+        
+        
+          g
+        
+      
+    
+    {\displaystyle m_{i}{\frac {\mathrm {d} {\boldsymbol {v}}_{i}}{\mathrm {d} t}}=-\sum _{j}m_{j}{\frac {\partial e_{j}}{\partial {\boldsymbol {r}}_{i}}}+m_{i}{\boldsymbol {g}}=-\sum _{j}m_{j}{\frac {\partial e_{j}}{\partial \rho _{j}}}{\frac {\partial \rho _{j}}{\partial {\boldsymbol {r}}_{i}}}+m_{i}{\boldsymbol {g}}}
+  where the chain rule has been used, since 
+  
+    
+      
+        
+          e
+          
+            j
+          
+        
+      
+    
+    {\displaystyle e_{j}}
+   depends on 
+  
+    
+      
+        
+          ρ
+          
+            j
+          
+        
+      
+    
+    {\displaystyle \rho _{j}}
+  , and the latter, on the position of the particles.
+Using the thermodynamic property 
+  
+    
+      
+        
+          d
+        
+        e
+        =
+        
+          (
+          
+            p
+            
+              /
+            
+            
+              ρ
+              
+                2
+              
+            
+          
+          )
+        
+        
+          d
+        
+        ρ
+      
+    
+    {\displaystyle \mathrm {d} e=\left(p/\rho ^{2}\right)\mathrm {d} \rho }
+   we may write
+
+  
+    
+      
+        
+          m
+          
+            i
+          
+        
+        
+          
+            
+              
+                d
+              
+              
+                
+                  v
+                
+                
+                  i
+                
+              
+            
+            
+              
+                d
+              
+              t
+            
+          
+        
+        =
+        −
+        
+          ∑
+          
+            j
+          
+        
+        
+          m
+          
+            j
+          
+        
+        
+          
+            
+              p
+              
+                j
+              
+            
+            
+              ρ
+              
+                j
+              
+              
+                2
+              
+            
+          
+        
+        
+          
+            
+              ∂
+              
+                ρ
+                
+                  j
+                
+              
+            
+            
+              ∂
+              
+                
+                  r
+                
+                
+                  i
+                
+              
+            
+          
+        
+        +
+        
+          m
+          
+            i
+          
+        
+        
+          g
+        
+        ,
+      
+    
+    {\displaystyle m_{i}{\frac {\mathrm {d} {\boldsymbol {v}}_{i}}{\mathrm {d} t}}=-\sum _{j}m_{j}{\frac {p_{j}}{\rho _{j}^{2}}}{\frac {\partial \rho _{j}}{\partial {\boldsymbol {r}}_{i}}}+m_{i}{\boldsymbol {g}},}
+  Pluging the SPH density interpolation and differentiating explicitly 
+  
+    
+      
+        
+          
+            
+              
+                ∂
+                
+                  ρ
+                  
+                    j
+                  
+                
+              
+              
+                ∂
+                
+                  
+                    r
+                  
+                  
+                    i
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\tfrac {\partial \rho _{j}}{\partial {\boldsymbol {r}}_{i}}}}
+   leads to
+
+  
+    
+      
+        
+          
+            
+              
+                d
+              
+              
+                
+                  v
+                
+                
+                  i
+                
+              
+            
+            
+              
+                d
+              
+              t
+            
+          
+        
+        =
+        −
+        
+          ∑
+          
+            j
+          
+        
+        
+          m
+          
+            j
+          
+        
+        
+          (
+          
+            
+              
+                
+                  p
+                  
+                    i
+                  
+                
+                
+                  ρ
+                  
+                    i
+                  
+                  
+                    2
+                  
+                
+              
+            
+            +
+            
+              
+                
+                  p
+                  
+                    j
+                  
+                
+                
+                  ρ
+                  
+                    j
+                  
+                  
+                    2
+                  
+                
+              
+            
+          
+          )
+        
+        ∇
+        
+          W
+          
+            i
+            j
+          
+        
+        +
+        
+          g
+        
+        ,
+      
+    
+    {\displaystyle {\frac {\mathrm {d} {\boldsymbol {v}}_{i}}{\mathrm {d} t}}=-\sum _{j}m_{j}\left({\frac {p_{i}}{\rho _{i}^{2}}}+{\frac {p_{j}}{\rho _{j}^{2}}}\right)\nabla W_{ij}+{\boldsymbol {g}},}
+  which is the SPH momentum equation already mentioned, where we recognize the 
+  
+    
+      
+        
+          
+            G
+          
+        
+      
+    
+    {\displaystyle \operatorname {\mathbf {G} } }
+   operator. This explains why linear momentum is conserved, and allows conservation of angular momentum and energy to be conserved as well.
+
+Time integration
+From the work done in the 80's and 90's on numerical integration of point-like particles in large accelerators, appropriate time integrators have been developed with accurate conservation properties on the long term; they are called symplectic integrators. The most popular in the SPH literature is the leapfrog scheme, which reads for each particle 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  :
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    v
+                  
+                  
+                    i
+                  
+                  
+                    n
+                    +
+                    1
+                    
+                      /
+                    
+                    2
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    v
+                  
+                  
+                    i
+                  
+                  
+                    n
+                  
+                
+                +
+                
+                  
+                    a
+                  
+                  
+                    i
+                  
+                  
+                    n
+                  
+                
+                
+                  
+                    
+                      Δ
+                      t
+                    
+                    2
+                  
+                
+                ,
+              
+            
+            
+              
+                
+                  
+                    r
+                  
+                  
+                    i
+                  
+                  
+                    n
+                    +
+                    1
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    r
+                  
+                  
+                    i
+                  
+                  
+                    n
+                  
+                
+                +
+                
+                  
+                    v
+                  
+                  
+                    i
+                  
+                  
+                    i
+                    +
+                    1
+                    
+                      /
+                    
+                    2
+                  
+                
+                Δ
+                t
+                ,
+              
+            
+            
+              
+                
+                  
+                    v
+                  
+                  
+                    i
+                  
+                  
+                    n
+                    +
+                    1
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    v
+                  
+                  
+                    i
+                  
+                  
+                    n
+                    +
+                    1
+                    
+                      /
+                    
+                    2
+                  
+                
+                +
+                
+                  
+                    a
+                  
+                  
+                    i
+                  
+                  
+                    i
+                    +
+                    1
+                  
+                
+                
+                  
+                    
+                      Δ
+                      t
+                    
+                    2
+                  
+                
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\boldsymbol {v}}_{i}^{n+1/2}&={\boldsymbol {v}}_{i}^{n}+{\boldsymbol {a}}_{i}^{n}{\frac {\Delta t}{2}},\\{\boldsymbol {r}}_{i}^{n+1}&={\boldsymbol {r}}_{i}^{n}+{\boldsymbol {v}}_{i}^{i+1/2}\Delta t,\\{\boldsymbol {v}}_{i}^{n+1}&={\boldsymbol {v}}_{i}^{n+1/2}+{\boldsymbol {a}}_{i}^{i+1}{\frac {\Delta t}{2}},\end{aligned}}}
+  where 
+  
+    
+      
+        Δ
+        t
+      
+    
+    {\displaystyle \Delta t}
+   is the time step, superscripts stand for time iterations while 
+  
+    
+      
+        
+          
+            a
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\boldsymbol {a}}_{i}}
+   is the particle acceleration, given by the right-hand side of the momentum equation.
+Other symplectic integrators exist (see the reference textbook). It is recommended to use a symplectic (even low-order) scheme instead of a high order non-symplectic scheme, to avoid error accumulation after many iterations.
+Integration of density has not been studied extensively (see below for more details).
+Symplectic schemes are conservative but explicit, thus their numerical stability requires stability conditions, analogous to the Courant-Friedrichs-Lewy condition (see below).
+
+Boundary techniques
+In case the SPH convolution shall be practiced close to a boundary, i.e. closer than s · h, then the integral support is truncated. Indeed, when the convolution is affected by a boundary, the convolution shall be split in 2 integrals,
+
+  
+    
+      
+        A
+        (
+        
+          r
+        
+        )
+        =
+        
+          ∫
+          
+            Ω
+            (
+            
+              r
+            
+            )
+          
+        
+        A
+        
+          (
+          
+            
+              r
+              
+                ′
+              
+            
+          
+          )
+        
+        W
+        (
+        
+          |
+        
+        
+          r
+        
+        −
+        
+          
+            r
+            
+              ′
+            
+          
+        
+        
+          |
+        
+        ,
+        h
+        )
+        d
+        
+          
+            r
+            
+              ′
+            
+          
+        
+        +
+        
+          ∫
+          
+            B
+            (
+            
+              r
+            
+            )
+            −
+            Ω
+            (
+            
+              r
+            
+            )
+          
+        
+        A
+        
+          (
+          
+            
+              r
+              
+                ′
+              
+            
+          
+          )
+        
+        W
+        (
+        
+          |
+        
+        
+          r
+        
+        −
+        
+          
+            r
+            
+              ′
+            
+          
+        
+        
+          |
+        
+        ,
+        h
+        )
+        d
+        
+          
+            r
+            
+              ′
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle A({\boldsymbol {r}})=\int _{\Omega ({\boldsymbol {r}})}A\left({\boldsymbol {r^{\prime }}}\right)W(|{\boldsymbol {r}}-{\boldsymbol {r^{\prime }}}|,h)d{\boldsymbol {r^{\prime }}}+\int _{B({\boldsymbol {r}})-\Omega ({\boldsymbol {r}})}A\left({\boldsymbol {r^{\prime }}}\right)W(|{\boldsymbol {r}}-{\boldsymbol {r^{\prime }}}|,h)d{\boldsymbol {r^{\prime }}},}
+  where B(r) is the compact support ball centered at r, with radius s · h, and Ω(r) denotes the part of the compact support inside the computational domain, Ω ∩ B(r). Hence, imposing boundary conditions in SPH is completely based on approximating the second integral on the right hand side. The same can be of course applied to the differential operators computation,
+
+  
+    
+      
+        ∇
+        A
+        (
+        
+          r
+        
+        )
+        =
+        
+          ∫
+          
+            Ω
+            (
+            
+              r
+            
+            )
+          
+        
+        A
+        
+          (
+          
+            
+              r
+              
+                ′
+              
+            
+          
+          )
+        
+        ∇
+        W
+        (
+        
+          r
+        
+        −
+        
+          
+            r
+            
+              ′
+            
+          
+        
+        ,
+        h
+        )
+        d
+        
+          
+            r
+            
+              ′
+            
+          
+        
+        +
+        
+          ∫
+          
+            B
+            (
+            
+              r
+            
+            )
+            −
+            Ω
+            (
+            
+              r
+            
+            )
+          
+        
+        A
+        
+          (
+          
+            
+              r
+              
+                ′
+              
+            
+          
+          )
+        
+        ∇
+        W
+        (
+        
+          r
+        
+        −
+        
+          
+            r
+            
+              ′
+            
+          
+        
+        ,
+        h
+        )
+        d
+        
+          
+            r
+            
+              ′
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \nabla A({\boldsymbol {r}})=\int _{\Omega ({\boldsymbol {r}})}A\left({\boldsymbol {r^{\prime }}}\right)\nabla W({\boldsymbol {r}}-{\boldsymbol {r^{\prime }}},h)d{\boldsymbol {r^{\prime }}}+\int _{B({\boldsymbol {r}})-\Omega ({\boldsymbol {r}})}A\left({\boldsymbol {r^{\prime }}}\right)\nabla W({\boldsymbol {r}}-{\boldsymbol {r^{\prime }}},h)d{\boldsymbol {r^{\prime }}}.}
+  Several techniques has been introduced in the past to model boundaries in SPH.
+
+Integral neglect
+The most straightforward boundary model is neglecting the integral,
+
+  
+    
+      
+        
+          ∫
+          
+            B
+            (
+            
+              r
+            
+            )
+            −
+            Ω
+            (
+            
+              r
+            
+            )
+          
+        
+        A
+        
+          (
+          
+            
+              r
+              
+                ′
+              
+            
+          
+          )
+        
+        ∇
+        W
+        (
+        
+          r
+        
+        −
+        
+          
+            r
+            
+              ′
+            
+          
+        
+        ,
+        h
+        )
+        d
+        
+          
+            r
+            
+              ′
+            
+          
+        
+        ≃
+        
+          0
+        
+        ,
+      
+    
+    {\displaystyle \int _{B({\boldsymbol {r}})-\Omega ({\boldsymbol {r}})}A\left({\boldsymbol {r^{\prime }}}\right)\nabla W({\boldsymbol {r}}-{\boldsymbol {r^{\prime }}},h)d{\boldsymbol {r^{\prime }}}\simeq {\boldsymbol {0}},}
+  such that just the bulk interactions are taken into account,
+
+  
+    
+      
+        ∇
+        
+          A
+          
+            i
+          
+        
+        =
+        
+          ∑
+          
+            j
+            ∈
+            
+              Ω
+              
+                i
+              
+            
+          
+        
+        
+          V
+          
+            j
+          
+        
+        
+          A
+          
+            j
+          
+        
+        ∇
+        
+          W
+          
+            i
+            j
+          
+        
+        .
+      
+    
+    {\displaystyle \nabla A_{i}=\sum _{j\in \Omega _{i}}V_{j}A_{j}\nabla W_{ij}.}
+  This is a popular approach when free-surface is considered in monophase simulations.The main benefit of this boundary condition is its obvious simplicity. However, several consistency issues shall be considered when this boundary technique is applied. That's in fact a heavy limitation on its potential applications.
+
+Fluid Extension
+Probably the most popular methodology, or at least the most traditional one, to impose boundary conditions in SPH, is Fluid Extension technique. Such technique is based on populating the compact support across the boundary with so-called ghost particles, conveniently imposing their field values.Along this line, the integral neglect methodology can be considered as a particular case of fluid extensions, where the field, A, vanish outside the computational domain.
+The main benefit of this methodology is the simplicity, provided that the boundary contribution is computed as part of the bulk interactions. Also, this methodology has been deeply analyzed in the literature.On the other hand, deploying ghost particles in the truncated domain is not a trivial task, such that modelling complex boundary shapes becomes cumbersome. The 2 most popular approaches to populate the empty domain with ghost particles are Mirrored-Particles and Fixed-Particles.
+
+Boundary Integral
+The newest Boundary technique is the Boundary Integral methodology. In this methodology, the empty volume integral is replaced by a surface integral, and a renormalization:
+
+  
+    
+      
+        ∇
+        
+          A
+          
+            i
+          
+        
+        =
+        
+          
+            1
+            
+              γ
+              
+                i
+              
+            
+          
+        
+        
+          (
+          
+            
+              ∑
+              
+                j
+                ∈
+                
+                  Ω
+                  
+                    i
+                  
+                
+              
+            
+            
+              V
+              
+                j
+              
+            
+            
+              A
+              
+                j
+              
+            
+            ∇
+            
+              W
+              
+                i
+                j
+              
+            
+            +
+            
+              ∑
+              
+                j
+                ∈
+                ∂
+                
+                  Ω
+                  
+                    i
+                  
+                
+              
+            
+            
+              S
+              
+                j
+              
+            
+            
+              A
+              
+                j
+              
+            
+            
+              
+                n
+              
+              
+                j
+              
+            
+            
+              W
+              
+                i
+                j
+              
+            
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle \nabla A_{i}={\frac {1}{\gamma _{i}}}\left(\sum _{j\in \Omega _{i}}V_{j}A_{j}\nabla W_{ij}+\sum _{j\in \partial \Omega _{i}}S_{j}A_{j}{\boldsymbol {n}}_{j}W_{ij}\right),}
+  
+
+  
+    
+      
+        
+          γ
+          
+            i
+          
+        
+        =
+        
+          ∑
+          
+            j
+            ∈
+            
+              Ω
+              
+                i
+              
+            
+          
+        
+        
+          V
+          
+            j
+          
+        
+        
+          W
+          
+            i
+            j
+          
+        
+        ,
+      
+    
+    {\displaystyle \gamma _{i}=\sum _{j\in \Omega _{i}}V_{j}W_{ij},}
+  with nj the normal of the generic j-th boundary element. The surface term can be also solved considering a semi-analytic expression.
+
+Modelling physics
+Hydrodynamics
+Weakly compressible approach
+Another way to determine the density is based on the SPH smoothing operator itself. Therefore, the density is estimated from the particle distribution utilizing the SPH interpolation. To overcome undesired errors at the free surface through kernel truncation, the density formulation can again be integrated in time.
+The weakly compressible SPH in fluid dynamics is based on the discretization of the Navier–Stokes equations or Euler equations for compressible fluids. To close the system, an appropriate equation of state is utilized to link pressure 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   and density 
+  
+    
+      
+        ρ
+      
+    
+    {\displaystyle \rho }
+  . Generally, the so-called Cole equation
+
+(sometimes mistakenly referred to as the "Tait equation") is used in SPH. It reads
+
+  
+    
+      
+        p
+        =
+        
+          
+            
+              
+                ρ
+                
+                  0
+                
+              
+              
+                c
+                
+                  2
+                
+              
+            
+            γ
+          
+        
+        
+          (
+          
+            
+              
+                (
+                
+                  
+                    ρ
+                    
+                      ρ
+                      
+                        0
+                      
+                    
+                  
+                
+                )
+              
+              
+                γ
+              
+            
+            −
+            1
+          
+          )
+        
+        +
+        
+          p
+          
+            0
+          
+        
+        ,
+      
+    
+    {\displaystyle p={\frac {\rho _{0}c^{2}}{\gamma }}\left(\left({\frac {\rho }{\rho _{0}}}\right)^{\gamma }-1\right)+p_{0},}
+  where 
+  
+    
+      
+        
+          ρ
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \rho _{0}}
+   is the reference density and 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   the speed of sound. For water, 
+  
+    
+      
+        γ
+        =
+        7
+      
+    
+    {\displaystyle \gamma =7}
+   is commonly used. The background pressure 
+  
+    
+      
+        
+          p
+          
+            0
+          
+        
+      
+    
+    {\displaystyle p_{0}}
+   is added to avoid negative pressure values.
+Real nearly incompressible fluids such as water are characterized by very high speeds of sound of the order 
+  
+    
+      
+        
+          10
+          
+            3
+          
+        
+        
+          m
+          
+            /
+          
+          s
+        
+      
+    
+    {\displaystyle 10^{3}\mathrm {m/s} }
+  . Hence, pressure information travels fast compared to the actual bulk flow, which leads to very small Mach numbers 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  . The momentum equation leads to the following relation:
+
+  
+    
+      
+        
+          
+            
+              δ
+              ρ
+            
+            
+              ρ
+              
+                0
+              
+            
+          
+        
+        ≈
+        
+          
+            
+              
+                |
+              
+              
+                v
+              
+              
+                |
+              
+            
+            
+              c
+              
+                2
+              
+            
+          
+        
+        =
+        
+          M
+          
+            2
+          
+        
+      
+    
+    {\displaystyle {\frac {\delta \rho }{\rho _{0}}}\approx {\frac {|{\boldsymbol {v}}|}{c^{2}}}=M^{2}}
+  where 
+  
+    
+      
+        ρ
+      
+    
+    {\displaystyle \rho }
+   is the density change and 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   the velocity vector.
+In practice a value of c smaller than the real one is adopted to avoid time steps too small in the time integration scheme. Generally a numerical speed of sound is adopted such that density variation smaller than 1% are allowed. This is the so-called weak-compressibility assumption.
+This corresponds to a Mach number smaller than 0.1, which implies:
+
+  
+    
+      
+        c
+        =
+        10
+        
+          v
+          
+            max
+          
+        
+      
+    
+    {\displaystyle c=10v_{\text{max}}}
+  where the maximum velocity 
+  
+    
+      
+        
+          v
+          
+            max
+          
+        
+      
+    
+    {\displaystyle v_{\text{max}}}
+   needs to be estimated, for e.g. by Torricelli's law or an educated guess. Since only small density variations occur, a linear equation of state can be adopted:
+
+  
+    
+      
+        p
+        =
+        
+          c
+          
+            2
+          
+        
+        
+          (
+          
+            ρ
+            −
+            
+              ρ
+              
+                0
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle p=c^{2}\left(\rho -\rho _{0}\right)}
+  Usually the weakly-compressible schemes are affected by a high-frequency spurious noise on the pressure and density fields.
+
+This phenomenon is caused by the nonlinear interaction of acoustic waves and by fact that the scheme is explicit in time and centered in space
+.Through the years, several techniques have been proposed to get rid of this problem. They can be classified in three different groups: 
+
+the schemes that adopt density filters,
+the models that add a diffusive term in the continuity equation,
+the schemes that employ Riemann solvers to model the particle interaction.
+
+Density filter technique
+The schemes of the first group apply a filter directly on the density field to remove the spurious numerical noise. The most used filters are the MLS (moving least squares) and the Shepard filter
+which can be applied at each time step or every n time steps. The more frequent is the use of the filtering procedure, the more regular density and pressure fields are obtained. On the other hand, this leads to an increase of the computational costs. In long time simulations, the use of the filtering procedure may lead to the disruption of the hydrostatic pressure component and to an inconsistency between the global volume of fluid and the density field. Further, it does not ensure the enforcement of the dynamic free-surface boundary condition.
+
+Diffusive term technique
+A different way to smooth out the density and pressure field is to add a diffusive term inside the continuity equation (group 2) :
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  d
+                  
+                    ρ
+                    
+                      i
+                    
+                  
+                
+                
+                  d
+                  t
+                
+              
+            
+            =
+            
+              ∑
+              
+                j
+              
+            
+            
+              m
+              
+                j
+              
+            
+            
+              (
+              
+                
+                  
+                    v
+                  
+                  
+                    i
+                  
+                
+                −
+                
+                  
+                    v
+                  
+                  
+                    j
+                  
+                
+              
+              )
+            
+            ⋅
+            ∇
+            
+              W
+              
+                i
+                j
+              
+            
+            +
+            
+              
+                
+                  D
+                
+              
+              
+                i
+              
+            
+            (
+            ρ
+            )
+            ,
+          
+        
+      
+    
+    {\displaystyle {\displaystyle {\frac {d\rho _{i}}{dt}}=\sum _{j}m_{j}\left({\boldsymbol {v}}_{i}-{\boldsymbol {v}}_{j}\right)\cdot \nabla W_{ij}+{\mathcal {D}}_{i}(\rho ),}}
+  The first schemes that adopted such an approach were described in Ferrari
+
+and in Molteni
+where the diffusive term was modeled as a Laplacian of the density field. A similar approach was also used in Fatehi and Manzari
+.
+In Antuono et al.
+
+a correction to the diffusive term of Molteni was proposed to remove some inconsistencies close to the free-surface. In this case the adopted diffusive term is equivalent to a high-order differential operator on the density field.
+The scheme is called δ-SPH and preserves all the conservation properties of the SPH without diffusion (e.g., linear and angular momenta, total energy,
+see 
+
+) along with a smooth and regular representation of the density and pressure fields.
+In the third group there are those SPH schemes which employ numerical fluxes obtained through Riemann solvers to model the particle interactions.
+
+Riemann solver technique
+For an SPH method based on Riemann solvers, an inter-particle Riemann problem is constructed along a unit vector
+
+  
+    
+      
+        
+          
+            e
+          
+          
+            i
+            j
+          
+        
+        =
+        −
+        
+          
+            r
+          
+          
+            i
+            j
+          
+        
+        
+          /
+        
+        
+          r
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle \mathbf {e} _{ij}=-\mathbf {r} _{ij}/r_{ij}}
+   pointing form particle 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   to particle 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+  . In this Riemann problem the initial left and right states are on particles
+
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   and 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   , respectively. The 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   and 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   states are
+
+The solution of the Riemann problem results in three waves emanating from the discontinuity. Two waves, which can be shock or rarefaction wave, traveling with the smallest or largest wave speed. The middle wave is always a contact discontinuity and separates two intermediate states, denoted by 
+  
+    
+      
+        (
+        
+          ρ
+          
+            L
+          
+          
+            ∗
+          
+        
+        ,
+        
+          U
+          
+            L
+          
+          
+            ∗
+          
+        
+        ,
+        
+          P
+          
+            L
+          
+          
+            ∗
+          
+        
+        )
+      
+    
+    {\displaystyle (\rho _{L}^{\ast },U_{L}^{\ast },P_{L}^{\ast })}
+   and 
+  
+    
+      
+        (
+        
+          ρ
+          
+            R
+          
+          
+            ∗
+          
+        
+        ,
+        
+          U
+          
+            R
+          
+          
+            ∗
+          
+        
+        ,
+        
+          P
+          
+            R
+          
+          
+            ∗
+          
+        
+        )
+      
+    
+    {\displaystyle (\rho _{R}^{\ast },U_{R}^{\ast },P_{R}^{\ast })}
+  . By assuming that the intermediate state satisfies 
+  
+    
+      
+        
+          U
+          
+            L
+          
+          
+            ∗
+          
+        
+        =
+        
+          U
+          
+            R
+          
+          
+            ∗
+          
+        
+        =
+        
+          U
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle U_{L}^{\ast }=U_{R}^{\ast }=U^{\ast }}
+   and 
+  
+    
+      
+        
+          P
+          
+            L
+          
+          
+            ∗
+          
+        
+        =
+        
+          P
+          
+            R
+          
+          
+            ∗
+          
+        
+        =
+        
+          P
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle P_{L}^{\ast }=P_{R}^{\ast }=P^{\ast }}
+  , a linearized Riemann solver for smooth flows or with only moderately strong shocks can be written as
+
+where 
+  
+    
+      
+        
+          
+            U
+            ¯
+          
+        
+        =
+        (
+        
+          U
+          
+            L
+          
+        
+        +
+        
+          U
+          
+            R
+          
+        
+        )
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle {\overline {U}}=(U_{L}+U_{R})/2}
+   and 
+  
+    
+      
+        
+          
+            P
+            ¯
+          
+        
+        =
+        (
+        
+          P
+          
+            L
+          
+        
+        +
+        
+          P
+          
+            R
+          
+        
+        )
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle {\overline {P}}=(P_{L}+P_{R})/2}
+   are inter-particle averages. With the solution of the Riemann problem, i.e. 
+  
+    
+      
+        
+          U
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle U^{\ast }}
+   and 
+  
+    
+      
+        
+          P
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle P^{\ast }}
+  , the discretization of the SPH method is
+
+where 
+
+  
+    
+      
+        
+          
+            v
+          
+          
+            ∗
+          
+        
+        =
+        
+          U
+          
+            ∗
+          
+        
+        
+          
+            e
+          
+          
+            i
+            j
+          
+        
+        +
+        (
+        
+          
+            
+              
+                v
+              
+              ¯
+            
+          
+          
+            i
+            j
+          
+        
+        −
+        
+          
+            U
+            ¯
+          
+        
+        
+          
+            e
+          
+          
+            i
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle \mathbf {v} ^{\ast }=U^{\ast }\mathbf {e} _{ij}+({\overline {\mathbf {v} }}_{ij}-{\overline {U}}\mathbf {e} _{ij})}
+  . This indicates that the inter-particle average velocity and pressure are simply replaced by the solution of the Riemann problem. By comparing both it can be seen that the intermediate velocity and pressure from the inter-particle averages amount to implicit dissipation, i.e. density regularization and numerical viscosity, respectively.
+Since the above discretization is very dissipative a straightforward modification is to apply a limiter to decrease the implicit numerical dissipations introduced by limiting the intermediate pressure by
+
+where the limiter is defined as
+
+Note that 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+   ensures that there is no dissipation when the fluid is under the action of an expansion wave, i.e. 
+  
+    
+      
+        
+          U
+          
+            L
+          
+        
+        <
+        
+          U
+          
+            R
+          
+        
+      
+    
+    {\displaystyle U_{L}<U_{R}}
+  , and that the parameter 
+  
+    
+      
+        η
+      
+    
+    {\displaystyle \eta }
+  , is used to modulate dissipation when the fluid is under the action of a compression wave, i.e. 
+  
+    
+      
+        
+          U
+          
+            L
+          
+        
+        ≥
+        
+          U
+          
+            R
+          
+        
+      
+    
+    {\displaystyle U_{L}\geq U_{R}}
+  .  Numerical experiments found the 
+  
+    
+      
+        η
+        =
+        3
+      
+    
+    {\displaystyle \eta =3}
+   is generally effective. Also note that the dissipation introduced by the intermediate velocity is not limited.
+
+Incompressible approach
+Viscosity modelling
+In general, the description of hydrodynamic flows require a convenient treatment of diffusive processes to model the viscosity in the Navier–Stokes equations. It needs special consideration because it involves the Laplacian differential operator. Since the direct computation does not provide satisfactory results, several approaches to model the diffusion have been proposed.
+
+Artificial viscosityIntroduced by Monaghan and Gingold
+
+the artificial viscosity was used to deal with high Mach number fluid flows. It reads
+
+  
+    
+      
+        
+          Π
+          
+            i
+            j
+          
+        
+        =
+        
+          
+            {
+            
+              
+                
+                  
+                    
+                      
+                        
+                          −
+                          α
+                          
+                            
+                              
+                                
+                                  c
+                                  ¯
+                                
+                              
+                            
+                            
+                              i
+                              j
+                            
+                          
+                          
+                            ϕ
+                            
+                              i
+                              j
+                            
+                          
+                          +
+                          β
+                          
+                            ϕ
+                            
+                              i
+                              j
+                            
+                            
+                              2
+                            
+                          
+                        
+                        
+                          
+                            
+                              
+                                ρ
+                                ¯
+                              
+                            
+                          
+                          
+                            i
+                            j
+                          
+                        
+                      
+                    
+                  
+                
+                
+                  
+                  
+                    
+                      v
+                    
+                    
+                      i
+                      j
+                    
+                  
+                  ⋅
+                  
+                    
+                      r
+                    
+                    
+                      i
+                      j
+                    
+                  
+                  <
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  
+                  
+                    
+                      v
+                    
+                    
+                      i
+                      j
+                    
+                  
+                  ⋅
+                  
+                    
+                      r
+                    
+                    
+                      i
+                      j
+                    
+                  
+                  ≥
+                  0
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle \Pi _{ij}={\begin{cases}{\dfrac {-\alpha {\bar {c}}_{ij}\phi _{ij}+\beta \phi _{ij}^{2}}{{\bar {\rho }}_{ij}}}&\quad {\boldsymbol {v}}_{ij}\cdot {\boldsymbol {r}}_{ij}<0\\0&\quad {\boldsymbol {v}}_{ij}\cdot {\boldsymbol {r}}_{ij}\geq 0\end{cases}}}
+  Here, 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   is controlling a volume viscosity while 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+   acts similar to the Neumann Richtmeyr artificial viscosity. The 
+  
+    
+      
+        
+          ϕ
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle \phi _{ij}}
+   is defined by 
+
+  
+    
+      
+        
+          ϕ
+          
+            i
+            j
+          
+        
+        =
+        
+          
+            
+              h
+              
+                
+                  v
+                
+                
+                  i
+                  j
+                
+              
+              ⋅
+              
+                
+                  r
+                
+                
+                  i
+                  j
+                
+              
+            
+            
+              ‖
+              
+                
+                  r
+                
+                
+                  i
+                  j
+                
+              
+              
+                ‖
+                
+                  2
+                
+              
+              +
+              
+                η
+                
+                  h
+                
+                
+                  2
+                
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle \phi _{ij}={\frac {h{\boldsymbol {v}}_{ij}\cdot {\boldsymbol {r}}_{ij}}{\Vert {\boldsymbol {r}}_{ij}\Vert ^{2}+\eta _{h}^{2}}},}
+  where ηh is a small fraction of h (e.g. 0.01h) to prevent possible numerical infinities at close distances.
+The artificial viscosity also has shown to improve the overall stability of general flow simulations. Therefore, it is applied to inviscid problems in the following form 
+
+  
+    
+      
+        
+          Π
+          
+            i
+            j
+          
+        
+        =
+        α
+        h
+        c
+        
+          
+            
+              
+                
+                  v
+                
+                
+                  i
+                  j
+                
+              
+              ⋅
+              
+                
+                  r
+                
+                
+                  i
+                  j
+                
+              
+            
+            
+              ‖
+              
+                
+                  r
+                
+                
+                  i
+                  j
+                
+              
+              
+                ‖
+                
+                  2
+                
+              
+              +
+              
+                η
+                
+                  h
+                
+                
+                  2
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \Pi _{ij}=\alpha hc{\frac {{\boldsymbol {v}}_{ij}\cdot {\boldsymbol {r}}_{ij}}{\Vert {\boldsymbol {r}}_{ij}\Vert ^{2}+\eta _{h}^{2}}}.}
+  It is possible to not only stabilize inviscid simulations but also to model the physical viscosity by this approach. To do so 
+
+  
+    
+      
+        α
+        h
+        c
+        =
+        2
+        (
+        n
+        +
+        2
+        )
+        
+          
+            μ
+            ρ
+          
+        
+      
+    
+    {\displaystyle \alpha hc=2(n+2){\frac {\mu }{\rho }}}
+  is substituted in the equation above, where 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is the number of spartial dimensions of the model. This approach introduces the bulk viscosity 
+  
+    
+      
+        ζ
+        =
+        
+          
+            5
+            3
+          
+        
+        μ
+      
+    
+    {\displaystyle \zeta ={\frac {5}{3}}\mu }
+  .
+
+MorrisFor low Reynolds numbers the viscosity model by Morris
+
+was proposed. 
+
+  
+    
+      
+        [
+        ν
+        Δ
+        
+          v
+        
+        
+          ]
+          
+            i
+            j
+          
+        
+        =
+        2
+        ν
+        
+          
+            
+              m
+              
+                j
+              
+            
+            
+              ρ
+              
+                j
+              
+            
+          
+        
+        
+        
+          
+            
+              
+                
+                  r
+                
+                
+                  i
+                  j
+                
+              
+              ⋅
+              ∇
+              
+                w
+                
+                  h
+                  ,
+                  i
+                  j
+                
+              
+            
+            
+              ‖
+              
+                
+                  r
+                
+                
+                  i
+                  j
+                
+              
+              
+                ‖
+                
+                  2
+                
+              
+              +
+              
+                η
+                
+                  h
+                
+                
+                  2
+                
+              
+            
+          
+        
+        
+        
+          
+            v
+          
+          
+            i
+            j
+          
+        
+        .
+      
+    
+    {\displaystyle [\nu \Delta {\boldsymbol {v}}]_{ij}=2\nu {\frac {m_{j}}{\rho _{j}}}\,{\frac {{\boldsymbol {r}}_{ij}\cdot \nabla w_{h,ij}}{\Vert {\boldsymbol {r}}_{ij}\Vert ^{2}+\eta _{h}^{2}}}\,{\boldsymbol {v}}_{ij}.}
+  LoShao
+
+Additional physics
+Surface tension
+Heat transfer
+Turbulence
+
+Multiphase extensions
+Astrophysics
+Often in astrophysics, one wishes to model self-gravity in addition to pure hydrodynamics. The particle-based nature of SPH makes it ideal to combine with a particle-based gravity solver, for instance tree gravity code, particle mesh, or particle-particle particle-mesh.
+
+Solid mechanics and fluid-structure interaction (FSI)
+Total Lagrangian formulation for solid mechanics
+To discretize the governing equations of solid dynamics, a correction matrix 
+  
+    
+      
+        
+          
+            B
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \mathbb {B} ^{0}}
+   
+
+is first introduced to reproducing rigid-body rotation as
+
+where
+
+stands for the gradient of the kernel function evaluated at the initial reference configuration. 
+Note that subscripts 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   and 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   are used to denote solid particles, and smoothing length 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   is identical to that in the discretization of fluid equations.
+Using the initial configuration as the reference, the solid density is directly evaluated as
+
+where 
+  
+    
+      
+        J
+        =
+        det
+        (
+        
+          F
+        
+        )
+      
+    
+    {\displaystyle J=\det(\mathbb {F} )}
+   is the Jacobian determinant of deformation tensor 
+  
+    
+      
+        
+          F
+        
+      
+    
+    {\displaystyle \mathbb {F} }
+  .
+We can now discretize the momentum equation in the following form
+
+where inter-particle averaged first Piola-Kirchhoff stress 
+  
+    
+      
+        
+          
+            
+              
+                P
+              
+              ~
+            
+          
+        
+      
+    
+    {\displaystyle {\tilde {\mathbb {P} }}}
+   
+is defined as
+
+Also 
+  
+    
+      
+        
+          
+            f
+          
+          
+            a
+          
+          
+            F
+            :
+            p
+          
+        
+      
+    
+    {\displaystyle \mathbf {f} _{a}^{F:p}}
+   and 
+  
+    
+      
+        
+          
+            f
+          
+          
+            a
+          
+          
+            F
+            :
+            v
+          
+        
+      
+    
+    {\displaystyle \mathbf {f} _{a}^{F:v}}
+   correspond to the fluid pressure and viscous forces acting on the solid particle 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , respectively.
+
+Fluid-structure coupling
+In fluid-structure coupling, the surrounding solid structure is behaving as a moving boundary for fluid, and the no-slip boundary condition is imposed at the fluid-structure interface. The interaction forces 
+  
+    
+      
+        
+          
+            f
+          
+          
+            i
+          
+          
+            S
+            :
+            p
+          
+        
+      
+    
+    {\displaystyle \mathbf {f} _{i}^{S:p}}
+   and 
+  
+    
+      
+        
+          
+            f
+          
+          
+            i
+          
+          
+            S
+            :
+            v
+          
+        
+      
+    
+    {\displaystyle \mathbf {f} _{i}^{S:v}}
+   acting on a fluid particle 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  , due to the presence of the neighboring solid particle 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , can be obtained as 
+
+and
+
+Here, the imaginary pressure 
+  
+    
+      
+        
+          p
+          
+            a
+          
+          
+            d
+          
+        
+      
+    
+    {\displaystyle p_{a}^{d}}
+   and velocity 
+  
+    
+      
+        
+          
+            v
+          
+          
+            a
+          
+          
+            d
+          
+        
+      
+    
+    {\displaystyle \mathbf {v} _{a}^{d}}
+   are defined by
+
+where 
+  
+    
+      
+        
+          
+            n
+          
+          
+            S
+          
+        
+      
+    
+    {\displaystyle \mathbf {n} ^{S}}
+   denotes the surface normal direction of the solid structure, 
+and the imaginary particle density 
+  
+    
+      
+        
+          ρ
+          
+            a
+          
+          
+            d
+          
+        
+      
+    
+    {\displaystyle \rho _{a}^{d}}
+   is calculated through the equation of state.
+Accordingly, the interaction forces 
+  
+    
+      
+        
+          
+            f
+          
+          
+            a
+          
+          
+            F
+            :
+            p
+          
+        
+      
+    
+    {\displaystyle \mathbf {f} _{a}^{F:p}}
+   and 
+  
+    
+      
+        
+          
+            f
+          
+          
+            a
+          
+          
+            F
+            :
+            v
+          
+        
+      
+    
+    {\displaystyle \mathbf {f} _{a}^{F:v}}
+   acting on a solid particle 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   are given by
+
+and
+
+The anti-symmetric property of the derivative of the kernel function will ensure the momentum conservation for each pair of interacting particles 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   and 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  .
+
+Others
+The discrete element method, used for simulating granular materials, is related to SPH.
+
+Variants of the method
+References
+Further reading
+Hoover, W. G. (2006). Smooth Particle Applied Mechanics: The State of the Art, World Scientific.
+Impact Modelling with SPH Stellingwerf, R. F., Wingate, C. A., Memorie della Societa Astronomia Italiana, Vol. 65, p. 1117 (1994).
+Amada, T., Imura, M., Yasumuro, Y., Manabe, Y. and Chihara, K. (2004) Particle-based fluid simulation on GPU, in proceedings of ACM Workshop on General-purpose Computing on Graphics Processors (August, 2004, Los Angeles, California).
+Desbrun, M. and Cani, M-P. (1996). Smoothed Particles: a new paradigm for animating highly deformable bodies.  In Proceedings of Eurographics Workshop on Computer Animation and Simulation (August 1996, Poitiers, France).
+Hegeman, K., Carr, N.A. and Miller, G.S.P.  Particle-based fluid simulation on the GPU.  In Proceedings of International Conference on Computational Science (Reading, UK, May 2006).  Proceedings published as Lecture Notes in Computer Science v. 3994/2006 (Springer-Verlag).
+M. Kelager. (2006) Lagrangian Fluid Dynamics Using Smoothed Particle Hydrodynamics, M. Kelagar (MS Thesis, Univ. Copenhagen).
+Kolb, A. and Cuntz, N. (2005). Dynamic particle coupling for GPU-based fluid simulation. In Proceedings of the 18th Symposium on Simulation Techniques (2005) pp. 722–727.
+Liu, G.R. and Liu, M.B. Smoothed Particle Hydrodynamics: a meshfree particle method.  Singapore: World Scientific (2003).
+Monaghan, J.J. (1992). Smoothed Particle Hydrodynamics.  Annu. Rev. Astron. Astrophys. (1992). 30 : 543–74.
+Muller, M., Charypar, D. and Gross, M. Particle-based Fluid Simulation for Interactive Applications, In Proceedings of Eurographics/SIGGRAPH Symposium on Computer Animation (2003), eds. D. Breen and M. Lin.
+Vesterlund, M. Simulation and Rendering of a Viscous Fluid Using Smoothed Particle Hydrodynamics, (MS Thesis, Umea University, Sweden).
+Violeau, D., Fluid Mechanics and the SPH method. Oxford University Press (2012).
+
+External links
+First large simulation of star formation using SPH
+SPHERIC (SPH rEsearch and engineeRing International Community)
+ITVO is the web-site of The Italian Theoretical Virtual Observatory created to query a database of numerical simulation archive.
+SPHC Image Gallery depicts a wide variety of test cases, experimental validations, and commercial applications of the SPH code SPHC.
+A derivation of the SPH model starting from Navier-Stokes equations
+
+Software
+Algodoo is a 2D simulation framework for education using SPH
+AQUAgpusph is the free (GPLv3) SPH of the researchers, by the researchers, for the researchers
+dive solutions is a commercial web-based SPH engineering software for CFD purposes
+DualSPHysics is a mostly open source SPH code based on SPHysics and using GPU computing. The open source components are available under the LGPL.
+FLUIDS v.1 is a simple, open source (Zlib), real-time 3D SPH implementation in C++ for liquids for CPU and GPU.
+Fluidix is a GPU-based particle simulation API available from OneZero Software
+GADGET [1] is a freely available (GPL) code for cosmological N-body/SPH simulations
+GPUSPH SPH simulator with viscosity (GPLv3)
+Pasimodo is a program package for particle-based simulation methods, e.g. SPH
+LAMMPS is a massively parallel, open-source classical molecular dynamics code that can perform SPH simulations
+Physics Abstraction Layer is an open source abstraction system that supports real time physics engines with SPH support
+PreonLab is a commercial engineering software developed by FIFTY2 Technology implementing an implicit SPH method
+Punto is a freely available visualisation tool for particle simulations
+pysph Open Source Framework for Smoothed Particle Hydrodynamics in Python (New BSD License)
+Py-SPHViewer Open Source python visualisation tool for Smoothed Particle Hydrodynamics simulations.
+RealFlow Commercial SPH solver for the cinema industry.
+RheoCube is a commercial SaaS product by Lorenz Research for the study and prediction of complex-fluid rheology and stability
+SimPARTIX is a commercial simulation package for SPH and Discrete element method (DEM) simulations from Fraunhofer IWM
+SPH-flow
+SPHERA
+SPHinXsys is an open source multi-physics, multi-resolution SPH library. It provides C++ APIs for physical accurate simulation and aims to model coupled industrial dynamic systems including fluid, solid, multi-body dynamics and beyond.
+SPHysics is an open source SPH implementation in Fortran
+SPLASH is an open source (GPL) visualisation tool for SPH simulations
+SYMPLER: A freeware SYMbolic ParticLE simulatoR from the University of Freiburg.
+Nauticle is a general-purpose computational tool for particle-based numerical methods.
+NDYNAMICS is a commercial fluid simulation software based on implicit SPH developed by CENTROID LAB currently used for internal/external flooding/nuclear/chemical engineering applications.

@@ -1,0 +1,98 @@
+The binary GCD algorithm, also known as Stein's algorithm or the binary Euclidean algorithm, is an algorithm that computes the greatest common divisor (GCD) of two nonnegative integers. Stein's algorithm uses simpler arithmetic operations than the conventional Euclidean algorithm; it replaces division with arithmetic shifts, comparisons, and subtraction.
+Although the algorithm in its contemporary form was first published by the Israeli physicist and programmer Josef Stein in 1967, it may have been known by the 2nd century BCE, in ancient China.
+
+Algorithm
+The algorithm reduces the problem of finding the GCD of two nonnegative numbers v and u by repeatedly applying these identities:
+
+gcd(0, v) = v, because everything divides zero, and v is the largest number that divides v. Similarly, gcd(u, 0) = u.
+gcd(2u, 2v) = 2·gcd(u, v)
+gcd(2u, v) = gcd(u, v), if v is odd (2 is not a common divisor). Similarly, gcd(u, 2v) = gcd(u, v) if u is odd.
+gcd(u, v) = gcd(|u − v|, min(u, v)), if u and v are both odd.
+
+Implementation
+While the above description of the algorithm is mathematically correct, performant software implementations typically differ from it in a few notable ways:
+
+eschewing trial division by 
+  
+    
+      
+        2
+      
+    
+    {\displaystyle 2}
+   in favour of a single bitshift and the count trailing zeros primitive; this is functionally equivalent to repeatedly applying identity 3, but much faster;
+expressing the algorithm iteratively rather than recursively: the resulting implementation can be laid out to avoid repeated work, invoking identity 2 at the start and maintaining as invariant that both numbers are odd upon entering the loop, which only needs to implement identities 3 and 4;
+after the initial checks for either number being zero, using the fact that 
+  
+    
+      
+        g
+        c
+        d
+        (
+        x
+        ,
+        x
+        )
+        =
+        x
+      
+    
+    {\displaystyle gcd(x,x)=x}
+   to stop when 
+  
+    
+      
+        u
+        =
+        v
+      
+    
+    {\displaystyle u=v}
+   rather than doing an extra subtraction to get 
+  
+    
+      
+        u
+        =
+        0
+      
+    
+    {\displaystyle u=0}
+  .Following is an implementation of the algorithm in Rust exemplifying those differences, adapted from uutils:
+
+Complexity
+The algorithm requires O(n) steps, where n is the number of bits in the larger of the two numbers, as every two steps reduce at least one of the operands by at least a factor of 2.  Each step involves only a few arithmetic operations (O(1) with a small constant); when working with word-sized numbers, each arithmetic operation translates to a single machine operation, so the number of machine operations is on the order of n, i.e. log₂(max(u, v)).
+For arbitrary numbers, the asymptotic complexity of this algorithm is O(n2), as each arithmetic operation (subtract and shift) on arbitrary-sized integers involves a linear number of machine operations (one per word in the numbers' binary representation).
+This bound is reduced to O(n² / log₂ n) when assuming that the (input) numbers can be represented in the (abstract) machine's memory, i.e. the machine's words can represent each number's size.
+This is the same as for the Euclidean algorithm, though a more precise analysis by Akhavi and Vallée proved that binary GCD uses about 60% fewer bit operations.
+
+Extensions
+The binary GCD algorithm can be extended in several ways, either to output additional information, deal with arbitrarily-large integers more efficiently, or to compute GCDs in domains other than the integers.
+The extended binary GCD algorithm, analogous to the extended Euclidean algorithm, fits in the first kind of extension, as it provides the Bézout coefficients in addition to the GCD, i.e. integers a and b such that a·u + b·v = gcd(u, v).In the case of large integers, the best asymptotic complexity is O(log n M(n)), with M(n) the cost of n-bit multiplication; this is near-linear, and vastly smaller than the O(n2) of the binary GCD algorithm, though concrete implementations only outperform older algorithms for numbers larger than about 64 kilobits (i.e. greater than 8×1019265).  This is achieved by extending the binary GCD algorithm using ideas from the Schönhage–Strassen algorithm for fast integer multiplication.The binary GCD algorithm has also been extended to domains other than natural numbers, such as Gaussian integers, Eisenstein integers, quadratic rings, and integer rings of number fields.
+
+Historical description
+An algorithm for computing the GCD of two numbers was known in ancient China, under the Han dynasty, as a method to reduce fractions:
+
+If possible halve it; otherwise, take the denominator and the numerator, subtract the lesser from the greater, and do that alternately to make them the same. Reduce by the same number.
+The phrase "if possible halve it" is ambiguous,
+if this applies when either of the numbers become even, the algorithm is the binary GCD algorithm;
+if this only applies when both numbers are even, the algorithm is similar to the Euclidean algorithm.
+
+See also
+Euclidean algorithm
+Extended Euclidean algorithm
+Least common multiple
+
+References
+Further reading
+Knuth, Donald (1998). "§4.5 Rational arithmetic". Seminumerical Algorithms. The Art of Computer Programming. Vol. 2 (3rd ed.). Addison-Wesley. pp. 330–417. ISBN 978-0-201-89684-8.Covers the extended binary GCD, and a probabilistic analysis of the algorithm.
+
+Cohen, Henri (1993). "Chapter 1 : Fundamental Number-Theoretic Algorithms". A Course In Computational Algebraic Number Theory. Graduate Texts in Mathematics. Vol. 138. Springer-Verlag. pp. 12–24. ISBN 0-387-55640-0.Covers a variety of topics, including the extended binary GCD algorithm which outputs Bézout coefficients, efficient handling of multi-precision integers using a variant of Lehmer's GCD algorithm, and the relationship between GCD and continued fraction expansions of real numbers.
+
+Vallée, Brigitte (September–October 1998). "Dynamics of the Binary Euclidean Algorithm: Functional Analysis and Operators". Algorithmica. 22 (4): 660–685. doi:10.1007/PL00009246. S2CID 27441335. Archived from the original (PS) on 13 May 2011.An analysis of the algorithm in the average case, through the lens of functional analysis: the algorithms' main parameters are cast as a dynamical system, and their average value is related to the invariant measure of the system's transfer operator.
+
+External links
+NIST Dictionary of Algorithms and Data Structures: binary GCD algorithm
+Cut-the-Knot: Binary Euclid's Algorithm at cut-the-knot
+Analysis of the Binary Euclidean Algorithm (1976), a paper by Richard P. Brent, including a variant using left shifts

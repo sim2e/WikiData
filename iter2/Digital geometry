@@ -1,0 +1,367 @@
+Digital geometry deals with discrete sets (usually discrete point sets) considered to be digitized models or images of objects of the 2D or 3D Euclidean space. 
+Simply put, digitizing is replacing an object by a discrete set of its points. The images we see on the TV screen, the raster display of a computer, or in newspapers are in fact digital images.
+Its main application areas are computer graphics and image analysis.
+Main aspects of study are:
+
+Constructing digitized representations of objects, with the emphasis on precision and efficiency (either by means of synthesis, see, for example, Bresenham's line algorithm or digital disks, or by means of digitization and subsequent processing of digital images).
+Study of properties of digital sets; see, for example, Pick's theorem, digital convexity, digital straightness, or digital planarity.
+Transforming digitized representations of objects, for example (A) into simplified shapes such as (i) skeletons, by repeated removal of simple points such that the digital topology of an image does not change, or (ii) medial axis, by calculating local maxima in a distance transform of the given digitized object representation, or (B) into modified shapes using mathematical morphology.
+Reconstructing "real" objects or their properties (area, length, curvature, volume, surface area, and so forth) from digital images.
+Study of digital curves, digital surfaces, and digital manifolds.
+Designing tracking algorithms for digital objects.
+Functions on digital space.
+Curve sketching, a method of drawing a curve pixel by pixel.Digital geometry heavily overlaps with discrete geometry and may be considered as a part thereof.
+
+Digital space
+A 2D digital space usually means a 2D grid space that only contains integer points in 2D Euclidean space.  A 2D image is a function on a 2D digital space (See image processing).
+In Rosenfeld and Kak's book, digital connectivity are defined as the relationship among elements in digital space. For example, 4-connectivity and 8-connectivity in 2D. Also see pixel connectivity. A digital space and its (digital-)connectivity determine a digital topology.
+In digital space, the digitally continuous function (A. Rosenfeld, 1986) and the gradually varied function (L. Chen, 1989) were proposed, independently.
+A digitally continuous function means a function in which the value (an integer) at a digital point is the same or off by at most 1 from its neighbors. In other words, if x  and y are two adjacent points in a digital space, |f(x) − f(y)| ≤ 1.
+A gradually varied function is a function from a digital space  
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+   to 
+  
+    
+      
+        {
+        
+          A
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          A
+          
+            m
+          
+        
+        }
+      
+    
+    {\displaystyle \{A_{1},\dots ,A_{m}\}}
+   where 
+  
+    
+      
+        
+          A
+          
+            1
+          
+        
+        <
+        ⋯
+        <
+        
+          A
+          
+            m
+          
+        
+      
+    
+    {\displaystyle A_{1}<\cdots <A_{m}}
+   and 
+  
+    
+      
+        
+          A
+          
+            i
+          
+        
+      
+    
+    {\displaystyle A_{i}}
+   are real numbers. This function possesses the following property:  If x and y are two adjacent points in 
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+  , assume 
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        
+          A
+          
+            i
+          
+        
+      
+    
+    {\displaystyle f(x)=A_{i}}
+  , then 
+  
+    
+      
+        f
+        (
+        y
+        )
+        =
+        
+          A
+          
+            i
+          
+        
+      
+    
+    {\displaystyle f(y)=A_{i}}
+  ,  
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        
+          A
+          
+            i
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle f(x)=A_{i+1}}
+  , or 
+  
+    
+      
+        
+          A
+          
+            i
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle A_{i-1}}
+  .  So we can see that the gradually varied function is defined to be more general than the digitally continuous function.
+An extension theorem related to above functions was mentioned by A. Rosenfeld (1986) and completed by L. Chen (1989). This theorem states: Let 
+  
+    
+      
+        D
+        ⊂
+        Σ
+      
+    
+    {\displaystyle D\subset \Sigma }
+   and 
+  
+    
+      
+        f
+        :
+        D
+        →
+        {
+        
+          A
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          A
+          
+            m
+          
+        
+        }
+      
+    
+    {\displaystyle f:D\rightarrow \{A_{1},\dots ,A_{m}\}}
+  . The necessary and sufficient condition for the existence of the gradually varied extension 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+   of 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is : for each pair of points 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   in 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+  , assume 
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        
+          A
+          
+            i
+          
+        
+      
+    
+    {\displaystyle f(x)=A_{i}}
+   and 
+  
+    
+      
+        f
+        (
+        y
+        )
+        =
+        
+          A
+          
+            j
+          
+        
+      
+    
+    {\displaystyle f(y)=A_{j}}
+  , we have 
+  
+    
+      
+        
+          |
+        
+        i
+        −
+        j
+        
+          |
+        
+        ≤
+        d
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle |i-j|\leq d(x,y)}
+  , where 
+  
+    
+      
+        d
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle d(x,y)}
+   is the (digital) distance between 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  .
+
+See also
+Computational geometry
+Digital topology
+Discrete geometry
+Combinatorial geometry
+Tomography
+Point cloud
+
+References
+A. Rosenfeld, `Continuous' functions on digital pictures, Pattern Recognition Letters, v.4 n.3, p. 177–184, 1986.
+L. Chen, The necessary and sufficient condition and the efficient algorithms for gradually varied fill, Chinese Sci. Bull. 35 (10), pp 870–873, 1990.
+
+Further reading
+Rosenfeld, Azriel (1969). Picture Processing by Computer. Academic Press.
+Rosenfeld, Azriel (1976). Digital picture analysis. Berlin: Springer-Verlag. ISBN 0-387-07579-8.
+Rosenfeld, Azriel; Kak, Avinash C. (1982). Digital picture processing. Boston: Academic Press. ISBN 0-12-597301-2.
+Rosenfeld, Azriel (1979). Picture Languages. Academic Press. ISBN 0-12-597340-3.
+Chassery, J.; A. Montanvert. (1991). Geometrie discrete en analyze d'images. Hermes. ISBN 2-86601-271-2.
+Kong, T. Y.; Rosenfeld, A., eds. (1996). Topological Algorithms for Digital Image Processing. Elsevier. ISBN 0-444-89754-2.
+Voss, K. (1993). Discrete Images, Objects, and Functions in Zn. Springer. ISBN 0-387-55943-4.
+Herman, G. T. (1998). Geometry of Digital Spaces. Birkhauser. ISBN 0-8176-3897-0.
+Marchand-Maillet, S.; Y. M. Sharaiha (2000). Binary Digital Image Processing. Academic Press. ISBN 0-12-470505-7.
+Soille, P. (2003). Morphological Image Analysis: Principles and Applications. Springer. ISBN 3-540-42988-3.
+Chen, L. (2004). Discrete Surfaces and Manifolds: A Theory of Digital-Discrete Geometry and Topology. SP Computing. ISBN 0-9755122-1-8.
+Rosenfeld, Azriel; Klette, Reinhard (2004). Digital Geometry: Geometric Methods for Digital Image Analysis (The Morgan Kaufmann Series in Computer Graphics). San Diego: Morgan Kaufmann. ISBN 1-55860-861-3.
+Chen, L. (2014). Digital and discrete geometry: Theory and Algorithms. Springer. ISBN 978-3-319-12099-7.
+Kovalevsky, Vladimir A. (2008). Geometry of locally finite spaces computer agreeble topology and algorithms for computer imagery. Berlin. ISBN 978-3-9812252-0-4.
+
+External links
+IAPR Technical Committee on Discrete Geometry
+Website on digital geometry and topology
+Course on digital geometry and mathematical morphology (Ch. Kiselman)
+DGtal: Open Source  Digital Geometry Toolbox and Algorithms library

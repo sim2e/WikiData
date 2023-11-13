@@ -1,0 +1,1316 @@
+In physics, the Fermi–Pasta–Ulam–Tsingou (FPUT) problem or formerly the Fermi–Pasta–Ulam problem was the apparent paradox in chaos theory that many complicated enough physical systems exhibited almost exactly periodic behavior – called Fermi–Pasta–Ulam–Tsingou recurrence (or Fermi–Pasta–Ulam recurrence) – instead of the expected ergodic behavior. This came as a surprise, as Enrico Fermi, certainly, expected the system to thermalize in a fairly short time. That is, it was expected for all vibrational modes to eventually appear with equal strength, as per the equipartition theorem, or, more generally, the ergodic hypothesis. Yet here was a system that appeared to evade the ergodic hypothesis. Although the recurrence is easily observed, it eventually became apparent that over much, much longer time periods, the system does eventually thermalize. Multiple competing theories have been proposed to explain the behavior of the system, and it remains a topic of active research.
+The original intent was to find a physics problem worthy of numerical simulation on the then-new MANIAC computer. Fermi felt that thermalization would pose such a challenge. As such, it represents one of the earliest uses of digital computers in mathematical research; simultaneously, the unexpected results launched the study of nonlinear systems.
+
+The FPUT experiment
+In the summer of 1953 Enrico Fermi, John Pasta, Stanislaw Ulam, and Mary Tsingou conducted computer simulations of a vibrating string that included a non-linear term (quadratic in one test, cubic in another, and a piecewise linear approximation to a cubic in a third).  They found that the behavior of the system was quite different from what intuition would have led them to expect. Enrico Fermi thought that after many iterations, the system would exhibit thermalization, an ergodic behavior in which the influence of the initial modes of vibration fade and the system becomes more or less random with all modes excited more or less equally.  Instead, the system exhibited a very complicated quasi-periodic behavior.  They published their results in a Los Alamos technical report in 1955.  Enrico Fermi died in 1954, and so this technical report was published after Fermi's death. 
+In 2020, National Security Science magazine featured an article on Tsingou that included her commentary and historical reflections on the FPUT problem. In the article, Tsingou states “I remember sitting there one day with Pasta and Ulam,” as they brainstormed “some problems we could do on the computer, some really mathematical problems.” They tried several things, but, eventually, “they came up with this vibrating string.”The FPUT experiment was important both in showing the complexity of nonlinear system behavior and the value of computer simulation in analyzing systems.
+
+Name change
+The original paper names Fermi, Pasta, and Ulam as authors (although Fermi died before the report was written) with an acknowledgement to Tsingou for her work in programming the MANIAC simulations. Mary Tsingou's contributions to the FPUT problem were largely ignored by the community until Thierry Dauxois (2008) published additional information regarding the development and called for the problem to be renamed to grant her attribution as well.
+
+The FPUT lattice system
+Fermi, Pasta, Ulam, and Tsingou simulated the vibrating string by solving the following discrete system of nearest-neighbor coupled oscillators. We follow the explanation as given in Richard Palais's article. Let there be N oscillators representing a string of length 
+  
+    
+      
+        ℓ
+      
+    
+    {\displaystyle \ell }
+   with equilibrium positions 
+  
+    
+      
+        
+          p
+          
+            j
+          
+        
+        =
+        j
+        h
+        ,
+         
+        j
+        =
+        0
+        ,
+        …
+        ,
+        N
+        −
+        1
+      
+    
+    {\displaystyle p_{j}=jh,\ j=0,\dots ,N-1}
+  , where 
+  
+    
+      
+        h
+        =
+        ℓ
+        
+          /
+        
+        (
+        N
+        −
+        1
+        )
+      
+    
+    {\displaystyle h=\ell /(N-1)}
+   is the lattice spacing. Then the position of the j-th oscillator as a function of time is 
+  
+    
+      
+        
+          X
+          
+            j
+          
+        
+        (
+        t
+        )
+        =
+        
+          p
+          
+            j
+          
+        
+        +
+        
+          x
+          
+            j
+          
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle X_{j}(t)=p_{j}+x_{j}(t)}
+  , so that 
+  
+    
+      
+        
+          x
+          
+            j
+          
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle x_{j}(t)}
+   gives the displacement from equilibrium. FPUT used the following equations of motion:
+
+  
+    
+      
+        m
+        
+          
+            
+              
+                x
+                ¨
+              
+            
+          
+          
+            j
+          
+        
+        =
+        k
+        (
+        
+          x
+          
+            j
+            +
+            1
+          
+        
+        +
+        
+          x
+          
+            j
+            −
+            1
+          
+        
+        −
+        2
+        
+          x
+          
+            j
+          
+        
+        )
+        [
+        1
+        +
+        α
+        (
+        
+          x
+          
+            j
+            +
+            1
+          
+        
+        −
+        
+          x
+          
+            j
+            −
+            1
+          
+        
+        )
+        ]
+        .
+      
+    
+    {\displaystyle m{\ddot {x}}_{j}=k(x_{j+1}+x_{j-1}-2x_{j})[1+\alpha (x_{j+1}-x_{j-1})].}
+  This is just Newton's second law for the j-th particle. The first factor 
+  
+    
+      
+        k
+        (
+        
+          x
+          
+            j
+            +
+            1
+          
+        
+        +
+        
+          x
+          
+            j
+            −
+            1
+          
+        
+        −
+        2
+        
+          x
+          
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle k(x_{j+1}+x_{j-1}-2x_{j})}
+   is just the usual Hooke's law form for the force. The factor with 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   is the nonlinear force. We can rewrite this in terms of continuum quantities by defining 
+  
+    
+      
+        c
+        =
+        
+          
+            κ
+            
+              /
+            
+            ρ
+          
+        
+      
+    
+    {\displaystyle c={\sqrt {\kappa /\rho }}}
+   to be the wave speed, where 
+  
+    
+      
+        κ
+        =
+        k
+        
+          /
+        
+        h
+      
+    
+    {\displaystyle \kappa =k/h}
+   is the Young's modulus for the string, and 
+  
+    
+      
+        ρ
+        =
+        m
+        
+          /
+        
+        
+          h
+          
+            3
+          
+        
+      
+    
+    {\displaystyle \rho =m/h^{3}}
+   is the density:
+
+  
+    
+      
+        
+          
+            
+              
+                x
+                ¨
+              
+            
+          
+          
+            j
+          
+        
+        =
+        
+          
+            
+              c
+              
+                2
+              
+            
+            
+              h
+              
+                2
+              
+            
+          
+        
+        (
+        
+          x
+          
+            j
+            +
+            1
+          
+        
+        +
+        
+          x
+          
+            j
+            −
+            1
+          
+        
+        −
+        2
+        
+          x
+          
+            j
+          
+        
+        )
+        [
+        1
+        +
+        α
+        (
+        
+          x
+          
+            j
+            +
+            1
+          
+        
+        −
+        
+          x
+          
+            j
+            −
+            1
+          
+        
+        )
+        ]
+        .
+      
+    
+    {\displaystyle {\ddot {x}}_{j}={\frac {c^{2}}{h^{2}}}(x_{j+1}+x_{j-1}-2x_{j})[1+\alpha (x_{j+1}-x_{j-1})].}
+
+Connection to the KdV equation
+The continuum limit of the governing equations for the string (with the quadratic force term) is the Korteweg–de Vries equation (KdV equation.)  The discovery of this relationship and of the soliton solutions of the KdV equation by Martin David Kruskal and Norman Zabusky in 1965 was an important step forward in nonlinear system research. We reproduce below a derivation of this limit, which is rather tricky, as found in Palais's article. Beginning from the "continuum form" of the lattice equations above, we first define u(x, t) to be the displacement of the string at position x and time t. We'll then want a correspondence so that 
+  
+    
+      
+        u
+        (
+        
+          p
+          
+            j
+          
+        
+        ,
+        t
+        )
+      
+    
+    {\displaystyle u(p_{j},t)}
+   is 
+  
+    
+      
+        
+          x
+          
+            j
+          
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle x_{j}(t)}
+  .
+
+  
+    
+      
+        
+          
+            
+              
+                x
+                ¨
+              
+            
+          
+          
+            j
+          
+        
+        =
+        
+          
+            
+              c
+              
+                2
+              
+            
+            
+              h
+              
+                2
+              
+            
+          
+        
+        (
+        
+          x
+          
+            j
+            +
+            1
+          
+        
+        +
+        
+          x
+          
+            j
+            −
+            1
+          
+        
+        −
+        2
+        
+          x
+          
+            j
+          
+        
+        )
+        [
+        1
+        +
+        α
+        (
+        
+          x
+          
+            j
+            +
+            1
+          
+        
+        −
+        
+          x
+          
+            j
+            −
+            1
+          
+        
+        )
+        ]
+        .
+      
+    
+    {\displaystyle {\ddot {x}}_{j}={\frac {c^{2}}{h^{2}}}(x_{j+1}+x_{j-1}-2x_{j})[1+\alpha (x_{j+1}-x_{j-1})].}
+  We can use Taylor's theorem to rewrite the second factor for small 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   (subscripts of u denote partial derivatives):
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  (
+                  
+                    
+                      
+                        
+                          x
+                          
+                            j
+                            +
+                            1
+                          
+                        
+                        +
+                        
+                          x
+                          
+                            j
+                            −
+                            1
+                          
+                        
+                        −
+                        2
+                        
+                          x
+                          
+                            j
+                          
+                        
+                      
+                      
+                        h
+                        
+                          2
+                        
+                      
+                    
+                  
+                  )
+                
+              
+              
+                
+                =
+                
+                  
+                    
+                      u
+                      (
+                      x
+                      +
+                      h
+                      ,
+                      t
+                      )
+                      +
+                      u
+                      (
+                      x
+                      −
+                      h
+                      ,
+                      t
+                      )
+                      −
+                      2
+                      u
+                      (
+                      x
+                      ,
+                      t
+                      )
+                    
+                    
+                      h
+                      
+                        2
+                      
+                    
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  u
+                  
+                    x
+                    x
+                  
+                
+                (
+                x
+                ,
+                t
+                )
+                +
+                
+                  (
+                  
+                    
+                      
+                        h
+                        
+                          2
+                        
+                      
+                      12
+                    
+                  
+                  )
+                
+                
+                  u
+                  
+                    x
+                    x
+                    x
+                    x
+                  
+                
+                (
+                x
+                ,
+                t
+                )
+                +
+                O
+                (
+                
+                  h
+                  
+                    4
+                  
+                
+                )
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\left({\frac {x_{j+1}+x_{j-1}-2x_{j}}{h^{2}}}\right)&={\frac {u(x+h,t)+u(x-h,t)-2u(x,t)}{h^{2}}}\\&=u_{xx}(x,t)+\left({\frac {h^{2}}{12}}\right)u_{xxxx}(x,t)+O(h^{4}).\end{aligned}}}
+  Similarly, the second term in the third factor is
+
+  
+    
+      
+        α
+        (
+        
+          x
+          
+            j
+            +
+            1
+          
+        
+        −
+        
+          x
+          
+            j
+            −
+            1
+          
+        
+        )
+        =
+        2
+        α
+        h
+        
+          u
+          
+            x
+          
+        
+        (
+        x
+        ,
+        t
+        )
+        +
+        
+          (
+          
+            
+              
+                α
+                
+                  h
+                  
+                    3
+                  
+                
+              
+              3
+            
+          
+          )
+        
+        
+          u
+          
+            x
+            x
+            x
+          
+        
+        (
+        x
+        ,
+        t
+        )
+        +
+        O
+        (
+        
+          h
+          
+            5
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle \alpha (x_{j+1}-x_{j-1})=2\alpha hu_{x}(x,t)+\left({\frac {\alpha h^{3}}{3}}\right)u_{xxx}(x,t)+O(h^{5}).}
+  Thus, the FPUT system is
+
+  
+    
+      
+        
+          
+            1
+            
+              c
+              
+                2
+              
+            
+          
+        
+        
+          u
+          
+            t
+            t
+          
+        
+        −
+        
+          u
+          
+            x
+            x
+          
+        
+        =
+        (
+        2
+        α
+        h
+        )
+        
+          u
+          
+            x
+          
+        
+        
+          u
+          
+            x
+            x
+          
+        
+        +
+        
+          (
+          
+            
+              
+                h
+                
+                  2
+                
+              
+              12
+            
+          
+          )
+        
+        
+          u
+          
+            x
+            x
+            x
+            x
+          
+        
+        +
+        O
+        (
+        α
+        
+          h
+          
+            2
+          
+        
+        ,
+        
+          h
+          
+            4
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle {\frac {1}{c^{2}}}u_{tt}-u_{xx}=(2\alpha h)u_{x}u_{xx}+\left({\frac {h^{2}}{12}}\right)u_{xxxx}+O(\alpha h^{2},h^{4}).}
+  If one were to keep terms up to O(h) only and assume that 
+  
+    
+      
+        2
+        α
+        h
+      
+    
+    {\displaystyle 2\alpha h}
+   approaches a limit, the resulting equation is one which develops shocks, which is not observed. Thus one keeps the O(h2) term as well:
+
+  
+    
+      
+        
+          
+            1
+            
+              c
+              
+                2
+              
+            
+          
+        
+        
+          u
+          
+            t
+            t
+          
+        
+        −
+        
+          u
+          
+            x
+            x
+          
+        
+        =
+        (
+        2
+        α
+        h
+        )
+        
+          u
+          
+            x
+          
+        
+        
+          u
+          
+            x
+            x
+          
+        
+        +
+        
+          (
+          
+            
+              
+                h
+                
+                  2
+                
+              
+              12
+            
+          
+          )
+        
+        
+          u
+          
+            x
+            x
+            x
+            x
+          
+        
+        .
+      
+    
+    {\displaystyle {\frac {1}{c^{2}}}u_{tt}-u_{xx}=(2\alpha h)u_{x}u_{xx}+\left({\frac {h^{2}}{12}}\right)u_{xxxx}.}
+  We now make the following substitutions, motivated by the decomposition of traveling-wave solutions (of the ordinary wave equation, to which this reduces when 
+  
+    
+      
+        α
+        ,
+        h
+      
+    
+    {\displaystyle \alpha ,h}
+   vanish) into left- and right-moving waves, so that we only consider a right-moving wave. Let 
+  
+    
+      
+        ξ
+        =
+        x
+        −
+        c
+        t
+        ,
+         
+        τ
+        =
+        (
+        α
+        h
+        )
+        c
+        t
+        ,
+         
+        y
+        (
+        ξ
+        ,
+        τ
+        )
+        =
+        u
+        (
+        x
+        ,
+        t
+        )
+      
+    
+    {\displaystyle \xi =x-ct,\ \tau =(\alpha h)ct,\ y(\xi ,\tau )=u(x,t)}
+  . Under this change of coordinates, the equation becomes
+
+  
+    
+      
+        
+          y
+          
+            ξ
+            τ
+          
+        
+        −
+        
+          (
+          
+            
+              
+                α
+                h
+              
+              2
+            
+          
+          )
+        
+        
+          y
+          
+            τ
+            τ
+          
+        
+        =
+        −
+        
+          y
+          
+            ξ
+          
+        
+        
+          y
+          
+            ξ
+            ξ
+          
+        
+        −
+        
+          (
+          
+            
+              h
+              
+                24
+                α
+              
+            
+          
+          )
+        
+        
+          y
+          
+            ξ
+            ξ
+            ξ
+            ξ
+          
+        
+        .
+      
+    
+    {\displaystyle y_{\xi \tau }-\left({\frac {\alpha h}{2}}\right)y_{\tau \tau }=-y_{\xi }y_{\xi \xi }-\left({\frac {h}{24\alpha }}\right)y_{\xi \xi \xi \xi }.}
+  To take the continuum limit, assume that 
+  
+    
+      
+        α
+        
+          /
+        
+        h
+      
+    
+    {\displaystyle \alpha /h}
+   tends to a constant, and 
+  
+    
+      
+        α
+        ,
+        h
+      
+    
+    {\displaystyle \alpha ,h}
+   tend to zero. If we take 
+  
+    
+      
+        δ
+        =
+        
+          lim
+          
+            h
+            →
+            0
+          
+        
+        
+          
+            h
+            
+              /
+            
+            (
+            24
+            α
+            )
+          
+        
+      
+    
+    {\displaystyle \delta =\lim _{h\to 0}{\sqrt {h/(24\alpha )}}}
+  , then
+
+  
+    
+      
+        
+          y
+          
+            ξ
+            τ
+          
+        
+        =
+        −
+        
+          y
+          
+            ξ
+          
+        
+        
+          y
+          
+            ξ
+            ξ
+          
+        
+        −
+        
+          δ
+          
+            2
+          
+        
+        
+          y
+          
+            ξ
+            ξ
+            ξ
+            ξ
+          
+        
+        .
+      
+    
+    {\displaystyle y_{\xi \tau }=-y_{\xi }y_{\xi \xi }-\delta ^{2}y_{\xi \xi \xi \xi }.}
+  Taking 
+  
+    
+      
+        v
+        =
+        
+          y
+          
+            ξ
+          
+        
+      
+    
+    {\displaystyle v=y_{\xi }}
+   results in the KdV equation:
+
+  
+    
+      
+        
+          v
+          
+            τ
+          
+        
+        +
+        v
+        
+          v
+          
+            ξ
+          
+        
+        +
+        
+          δ
+          
+            2
+          
+        
+        
+          v
+          
+            ξ
+            ξ
+            ξ
+          
+        
+        =
+        0.
+      
+    
+    {\displaystyle v_{\tau }+vv_{\xi }+\delta ^{2}v_{\xi \xi \xi }=0.}
+  Zabusky and Kruskal argued that it was the fact that soliton solutions of the KdV equation can pass through one another without affecting the asymptotic shapes that explained the quasi-periodicity of the waves in the FPUT experiment. In short, thermalization could not occur because of a certain "soliton symmetry" in the system, which broke ergodicity.
+A similar set of manipulations (and approximations) lead to the Toda lattice, which is also famous for being a completely integrable system. It, too, has soliton solutions, the Lax pairs, and so also can be used to argue for the lack of ergodicity in the FPUT model.
+
+Routes to thermalization
+In 1966, Félix Izrailev and Boris Chirikov proposed that the system will thermalize, if a sufficient amount of initial energy is provided. The idea here is that the non-linearity changes the dispersion relation, allowing resonant interactions to take place that will bleed energy from one mode to another. A review of such models can be found in Roberto Livi et al. Yet, in 1970, Joseph Ford and Gary H. Lunsford insist that mixing can be observed even with arbitrarily small initial energies. There is a long and complex history of approaches to the problem, see Thierry Dauxois (2008) for a (partial) survey.Recent work by Miguel Onorato et al. demonstrates a very interesting route to thermalization. Rewriting the FPUT model in terms of normal modes, the non-linear term expresses itself as a three-mode interaction (using the language of statistical mechanics, this could be called a "three-phonon interaction".) It is, however, not a resonant interaction, and is thus not able to spread energy from one mode to another; it can only generate the FPUT recurrence. The three-phonon interaction cannot thermalize the system.
+A key insight, however, is that these modes are combinations of "free" and "bound" modes. That is, higher harmonics are "bound" to the fundamental, much in the same way that the higher harmonics in solutions to the KdV equation are bound to the fundamental. They do not have any dynamics of their own, and are instead phase-locked to the fundamental. Thermalization, if present, can only be among the free modes.
+To obtain the free modes, a canonical transformation can be applied that removes all modes that are not free (that do not engage in resonant interactions). Doing so for the FPUT system results in oscillator modes that have a four-wave interaction (the three-wave interaction has been removed). These quartets do interact resonantly, i.e. do mix together four modes at a time. Oddly, though, when the FPUT chain has only 16, 32 or 64 nodes in it, these quartets are isolated from one-another. Any given mode belongs to only one quartet, and energy cannot bleed from one quartet to another. Continuing on to higher orders of interaction, there is a six-wave interaction that is resonant; furthermore, every mode participates in at least two different six-wave interactions. In other words, all of the modes become interconnected, and energy will transfer between all of the different modes.
+The three-wave interaction is of strength 
+  
+    
+      
+        1
+        
+          /
+        
+        α
+      
+    
+    {\displaystyle 1/\alpha }
+   (the same 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   as in prior sections, above). The four-wave interaction is of strength 
+  
+    
+      
+        1
+        
+          /
+        
+        
+          α
+          
+            2
+          
+        
+      
+    
+    {\displaystyle 1/\alpha ^{2}}
+   and the six-wave interaction is of strength 
+  
+    
+      
+        1
+        
+          /
+        
+        
+          α
+          
+            4
+          
+        
+      
+    
+    {\displaystyle 1/\alpha ^{4}}
+  . Based on general principles from correlation of interactions (stemming from the BBGKY hierarchy) one expects the thermalization time to run as the square of the interaction. Thus, the original FPUT lattice (of size 16, 32 or 64) will eventually thermalize, on a time scale of order 
+  
+    
+      
+        1
+        
+          /
+        
+        
+          α
+          
+            8
+          
+        
+      
+    
+    {\displaystyle 1/\alpha ^{8}}
+  : clearly, this becomes a very long time for weak interactions 
+  
+    
+      
+        α
+        ≪
+        1
+      
+    
+    {\displaystyle \alpha \ll 1}
+  ; meanwhile, the FPUT recurrence will appear to run unabated.  This particular result holds for these particular lattice sizes; the resonant four-wave or six-wave interactions for different lattice sizes may or may not mix together modes (because the Brillouin zones are of a different size, and so the combinatorics of which wave-vectors can sum to zero is altered.) Generic procedures for obtaining canonical transformations that linearize away the bound modes remain a topic of active research.
+
+References
+Further reading
+Dauxois, Thierry (2008). "Fermi, Pasta, Ulam, and a mysterious lady". Physics Today. 6 (1): 55–57. arXiv:0801.1590. Bibcode:2008PhT....61a..55D. doi:10.1063/1.2835154. S2CID 118607235.
+Fermi, E.; Pasta, J.; Ulam, S. (1955). "Studies of Nonlinear Problems" (PDF). Document LA-1940. Los Alamos National Laboratory.
+Grant, Virginia (2020). "We thank Miss Mary Tsingou". National Security Science. Winter 2020: 36-43.
+Zabusky, N. J.; Kruskal, M. D. (1965). "Interactions of solitons in a collisionless plasma and the recurrence of initial states". Physical Review Letters. 15 (6): 240–243. Bibcode:1965PhRvL..15..240Z. doi:10.1103/PhysRevLett.15.240.
+Palais, R. (1997). "The Symmetries of Solitons" (PDF). Bulletin of the American Mathematical Society. 34 (4): 339–403. arXiv:dg-ga/9708004. doi:10.1090/S0273-0979-97-00732-5. MR 1462745. S2CID 14550937.
+Dauxois, T.; Ruffo, S. (2008). "Fermi–Pasta–Ulam nonlinear lattice oscillations". Scholarpedia. 3 (8): 5538. Bibcode:2008SchpJ...3.5538D. doi:10.4249/scholarpedia.5538.
+Gallavotti, G., ed. (2008). The Fermi–Pasta–Ulam Problem: A Status Report. Lecture Notes in Physics. Vol. 728. Springer. ISBN 978-3-540-72994-5.
+Porter, M. A.; Zabusky, N. J.; Hu, B.; Campbell, D. K. (2009). "Fermi, Pasta, Ulam and the Birth of Experimental Mathematics" (PDF). American Scientist. 97 (3): 214–221. doi:10.1511/2009.78.214.
+Onorato, M.; Vozella, L.; Proment, D.; Lvov, Y. (2015). "Route to thermalization in the α-Fermi–Pasta–Ulam system" (PDF). Proceedings of the National Academy of Sciences of the United States of America. 112 (14): 4208–4213. arXiv:1402.1603. Bibcode:2015PNAS..112.4208O. doi:10.1073/pnas.1404397112. PMC 4394280. PMID 25805822.
+
+External links
+"Fermi Pasta Ulam: the paradox that launched scientific computing".

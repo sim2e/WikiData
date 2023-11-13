@@ -1,0 +1,204 @@
+In computer science, abstract interpretation is a theory of sound approximation of the semantics of computer programs, based on monotonic functions over ordered sets, especially lattices. It can be viewed as a partial execution of a computer program which gains information about its semantics (e.g., control-flow, data-flow) without performing all the calculations.
+Its main concrete application is formal static analysis, the automatic extraction of information about the possible executions of computer programs; such analyses have two main usages:
+
+inside compilers, to analyse programs to decide whether certain optimizations or transformations are applicable;
+for debugging or even the certification of programs against classes of bugs.Abstract interpretation was formalized by the French computer scientist working couple Patrick Cousot and Radhia Cousot in the late 1970s.
+
+Intuition
+This section illustrates abstract interpretation by means of real-world, non-computing examples.
+Consider the people in a conference room.  Assume a unique identifier for each person in the room, like a social security number in the United States.  To prove that someone is not present, all one needs to do is see if their social security number is not on the list. Since two different people cannot have the same number, it is possible to prove or disprove the presence of a participant simply by looking up his or her number.
+However it is possible that only the names of attendees were registered. If the name of a person is not found in the list, we may safely conclude that that person was not present; but if it is, we cannot conclude definitely without further inquiries, due to the possibility of homonyms (for example, two people named John Smith).  Note that this imprecise information will still be adequate for most purposes, because homonyms are rare in practice. However, in all rigor, we cannot say for sure that somebody was present in the room; all we can say is that he or she was possibly here. If the person we are looking up is a criminal, we will issue an alarm; but there is of course the possibility of issuing a false alarm. Similar phenomena will occur in the analysis of programs.
+If we are only interested in some specific information, say, "was there a person of age n in the room?", keeping a list of all names and dates of births is unnecessary. We may safely and without loss of precision restrict ourselves to keeping a list of the participants' ages. If this is already too much to handle, we might keep only the age of the youngest, m and oldest person, M. If the question is about an age strictly lower than m or strictly higher than M, then we may safely respond that no such participant was present. Otherwise, we may only be able to say that we do not know.
+In the case of computing, concrete, precise information is in general not computable within finite time and memory (see Rice's theorem and the halting problem). Abstraction is used to allow for generalized answers to questions (for example, answering "maybe" to a yes/no question, meaning "yes or no", when we (an algorithm of abstract interpretation) cannot compute the precise answer with certainty); this simplifies the problems, making them amenable to automatic solutions. One crucial requirement is to add enough vagueness so as to make problems manageable while still retaining enough precision for answering the important questions (such as "might the program crash?").
+
+Abstract interpretation of computer programs
+Given a programming or specification language, abstract interpretation consists of giving several semantics linked by relations of abstraction. A semantics is a mathematical characterization of a possible behavior of the program. The most precise semantics, describing very closely the actual execution of the program, are called the concrete semantics. For instance, the concrete semantics of an imperative programming language may associate to each program the set of execution traces it may produce – an execution trace being a sequence of possible consecutive states of the execution of the program; a state typically consists of the value of the program counter and the memory locations (globals, stack and heap). More abstract semantics are then derived; for instance, one may consider only the set of reachable states in the executions (which amounts to considering the last states in finite traces).
+The goal of static analysis is to derive a computable semantic interpretation  at some point. For instance, one may choose to represent the state of a program manipulating integer variables by forgetting the actual values of the variables and only keeping their signs (+, − or 0). For some elementary operations, such as multiplication, such an abstraction does not lose any precision: to get the sign of a product, it is sufficient to know the sign of the operands. For some other operations, the abstraction may lose precision: for instance, it is impossible to know the sign of a sum whose operands are respectively positive and negative.
+Sometimes a loss of precision is necessary to make the semantics decidable (see Rice's theorem and the halting problem). In general, there is a compromise to be made between the precision of the analysis and its decidability (computability), or tractability (computational cost).
+In practice the abstractions that are defined are tailored to both the program properties one desires to analyze, and to the set of target programs. The first large scale automated analysis of computer programs with abstract interpretation was motivated by the accident that resulted in the destruction of the first flight of the Ariane 5 rocket in 1996.
+
+Formalization
+Let L be an ordered set, called a concrete set and let L′ be another ordered set, called an abstract set. These two sets are related to each other by defining total functions that map elements from one to the other.
+A  function α is called an abstraction function if it maps an element x in the concrete set L to an element α(x) in the abstract set L′. That is, element  α(x) in L′ is the abstraction of x in L.
+A function γ is called a concretization function if it maps an element x′ in the abstract set L′ to an element γ(x′) in the concrete set L. That is, element γ(x′) in L is a concretization of x′ in L′.
+Let L1, L2, L′1 and L′2 be ordered sets. The concrete semantics f is a monotonic function from L1 to L2. A function f′ from L′1 to L′2 is said to be a valid abstraction of f if for all x′ in L′1, (f ∘ γ)(x′) ≤ (γ ∘ f′)(x′).
+Program semantics are generally described using fixed points in the presence of loops or recursive procedures. Let us suppose that L is a complete lattice and let f be a monotonic function from L into L. Then, any x′ such that f(x′) ≤ x′ is an abstraction of the least fixed-point of f, which exists, according to the Knaster–Tarski theorem.
+The difficulty is now to obtain such an x′. If L′ is of finite height, or at least verifies the ascending chain condition (all ascending sequences are ultimately stationary), then such an x′ may be obtained as the stationary limit of the ascending sequence x′n defined by induction as follows: x′0=⊥ (the least element of L′) and x′n+1=f′(x′n).
+In other cases, it is still possible to obtain such an x′ through a widening operator ∇: for all x and y, x ∇ y should be greater or equal than both x and y, and for any sequence y′n, the sequence defined by x′0=⊥ and x′n+1=x′n ∇ y′n is ultimately stationary. We can then take y′n=f′(x′n).
+In some cases, it is possible to define abstractions using Galois connections (α, γ) where α is from L to L′ and γ is from L′ to L. This supposes the existence of best abstractions, which is not necessarily the case. For instance, if we abstract sets of couples (x, y) of real numbers by enclosing convex polyhedra, there is no optimal abstraction to the disc defined by x2+y2 ≤ 1.
+
+Examples of abstract domains
+Numerical abstract domains
+One can assign to each variable x available at a given program point an interval [Lx, Hx]. A state assigning the value v(x) to variable x will be a concretization of these intervals if for all x, v(x) is in [Lx, Hx]. From the intervals [Lx, Hx] and [Ly, Hy] for variables x and y, one can easily obtain intervals for x+y ([Lx+Ly, Hx+Hy]) and for x−y ([Lx−Hy, Hx−Ly]); note that these are exact abstractions, since the set of possible outcomes for, say, x+y, is precisely the interval ([Lx+Ly, Hx+Hy]). More complex formulas can be derived for multiplication, division, etc., yielding so-called interval arithmetics.Let us now consider the following very simple program:
+
+y = x;
+z = x - y;
+
+With reasonable arithmetic types, the result for z should be zero. But if we do interval arithmetic starting from x in [0, 1], one gets z in [−1, +1]. While each of the operations taken individually was exactly abstracted, their composition isn't.
+The problem is evident: we did not keep track of the equality relationship between x and y; actually, this domain of intervals does not take into account any relationships between variables, and is thus a non-relational domain. Non-relational domains tend to be fast and simple to implement, but imprecise.
+Some examples of relational numerical abstract domains are:
+
+congruence relations on integers
+convex polyhedra (cf. left picture) – with some high computational costs
+difference-bound matrices
+"octagons"
+linear equalitiesand combinations thereof (such as the reduced product, cf. right picture).
+When one chooses an abstract domain, one typically has to strike a balance between keeping fine-grained relationships, and high computational costs.
+
+Machine word abstract domains
+While high-level languages such as Python or Haskell use unbounded integers by default, lower-level programming languages such as C or assembly language typically operate on finitely-sized machine words, which are more suitably modeled using the integers modulo 
+  
+    
+      
+        
+          2
+          
+            n
+          
+        
+      
+    
+    {\textstyle 2^{n}}
+   (where n is the bit width of a machine word). There are several abstract domains suitable for various analyses of such variables.
+The bitfield domain treats each bit in a machine word separately, i.e., a word of width n is treated as an array of n abstract values. The abstract values are taken from the set 
+  
+    
+      
+        {
+        0
+        ,
+        1
+        ,
+        ⊥
+        }
+      
+    
+    {\textstyle \{0,1,\bot \}}
+  , and the abstraction and concretization functions are given by: 
+  
+    
+      
+        γ
+        (
+        0
+        )
+        =
+        {
+        0
+        }
+      
+    
+    {\displaystyle \gamma (0)=\{0\}}
+  , 
+  
+    
+      
+        γ
+        (
+        1
+        )
+        =
+        {
+        1
+        }
+      
+    
+    {\displaystyle \gamma (1)=\{1\}}
+  , 
+  
+    
+      
+        γ
+        (
+        ⊥
+        )
+        =
+        {
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle \gamma (\bot )=\{0,1\}}
+  , 
+  
+    
+      
+        α
+        (
+        {
+        0
+        }
+        )
+        =
+        0
+      
+    
+    {\displaystyle \alpha (\{0\})=0}
+  , 
+  
+    
+      
+        α
+        (
+        {
+        1
+        }
+        )
+        =
+        1
+      
+    
+    {\displaystyle \alpha (\{1\})=1}
+  , 
+  
+    
+      
+        α
+        (
+        {
+        0
+        ,
+        1
+        }
+        )
+        =
+        ⊥
+      
+    
+    {\displaystyle \alpha (\{0,1\})=\bot }
+  , 
+  
+    
+      
+        α
+        (
+        {
+        }
+        )
+        =
+        ⊥
+      
+    
+    {\displaystyle \alpha (\{\})=\bot }
+  . Bitwise operations on these abstract values are identical with the corresponding logical operations in some three-valued logics:
+
+See also
+Model checking
+Symbolic simulation
+Symbolic execution
+List of tools for static code analysis — contains both abstract-interpretation based (sound) and ad hoc (unsound) tools
+Static program analysis — overview of analysis methods, including, but not restricted to, abstract interpretation
+Interpreter (computing)
+
+References
+External links
+A web-page on Abstract Interpretation maintained by Patrick Cousot
+Roberto Bagnara's paper showing how it is possible to implement an abstract-interpretation based static analyzer for a C-like programming language
+The Static Analysis Symposia, proceedings appearing in the Springer LNCS series
+Conference on Verification, Model-Checking, and Abstract Interpretation (VMCAI), affiliated at the POPL conference, proceedings appearing in the Springer LNCS seriesLecture notesAbstract Interpretation. Patrick Cousot. MIT.
+David Schmidt's lecture notes on abstract interpretation
+Møller and Schwarzbach's lecture notes on Static Program Analysis
+Agostino Cortesi's lecture notes on Program Analysis and Verification
+Slides by Grégoire Sutre going through every step of Abstract Interpretation with many examples - also introducing Galois connections

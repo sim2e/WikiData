@@ -1,0 +1,348 @@
+In numerical mathematics, relaxation methods are iterative methods for solving systems of equations, including nonlinear systems.Relaxation methods were developed for solving large sparse linear systems, which arose as finite-difference discretizations of differential equations. They are also used for the solution of linear equations for linear least-squares problems and also for systems of linear inequalities, such as those arising in linear programming. They have also been developed for solving nonlinear systems of equations.Relaxation methods are important especially in the solution of linear systems used to model elliptic partial differential equations, such as Laplace's equation and its generalization, Poisson's equation. These equations describe boundary-value problems, in which the solution-function's values are specified on boundary of a domain; the problem is to compute a solution also on its interior. Relaxation methods are used to solve the linear equations resulting from a discretization of the differential equation, for example by finite differences. Iterative relaxation of solutions is commonly dubbed smoothing because with certain equations, such as Laplace's equation, it resembles repeated application of a local smoothing filter to the solution vector.  These are not to be confused with relaxation methods in mathematical optimization, which approximate a difficult problem by a simpler problem whose "relaxed" solution provides information about the solution of the original problem.
+
+Model problem of potential theory
+When φ is a smooth real-valued function on the real numbers, its second derivative can be approximated by:
+
+  
+    
+      
+        
+          
+            
+              
+                d
+                
+                  2
+                
+              
+              φ
+              (
+              x
+              )
+            
+            
+              
+                d
+                x
+              
+              
+                2
+              
+            
+          
+        
+        =
+        
+          
+            
+              φ
+              (
+              x
+              
+                −
+              
+              h
+              )
+              −
+              2
+              φ
+              (
+              x
+              )
+              +
+              φ
+              (
+              x
+              
+                +
+              
+              h
+              )
+            
+            
+              h
+              
+                2
+              
+            
+          
+        
+        
+        +
+        
+        
+          
+            O
+          
+        
+        (
+        
+          h
+          
+            2
+          
+        
+        )
+        
+        .
+      
+    
+    {\displaystyle {\frac {d^{2}\varphi (x)}{{dx}^{2}}}={\frac {\varphi (x{-}h)-2\varphi (x)+\varphi (x{+}h)}{h^{2}}}\,+\,{\mathcal {O}}(h^{2})\,.}
+  Using this in both dimensions for a function φ of two arguments at the point (x, y), and solving for φ(x, y), results in:
+
+  
+    
+      
+        φ
+        (
+        x
+        ,
+        y
+        )
+        =
+        
+          
+            
+              1
+              4
+            
+          
+        
+        
+          (
+          
+            φ
+            (
+            x
+            
+              +
+            
+            h
+            ,
+            y
+            )
+            +
+            φ
+            (
+            x
+            ,
+            y
+            
+              +
+            
+            h
+            )
+            +
+            φ
+            (
+            x
+            
+              −
+            
+            h
+            ,
+            y
+            )
+            +
+            φ
+            (
+            x
+            ,
+            y
+            
+              −
+            
+            h
+            )
+            
+            −
+            
+            
+              h
+              
+                2
+              
+            
+            
+              
+                ∇
+              
+              
+                2
+              
+            
+            φ
+            (
+            x
+            ,
+            y
+            )
+          
+          )
+        
+        
+        +
+        
+        
+          
+            O
+          
+        
+        (
+        
+          h
+          
+            4
+          
+        
+        )
+        
+        .
+      
+    
+    {\displaystyle \varphi (x,y)={\tfrac {1}{4}}\left(\varphi (x{+}h,y)+\varphi (x,y{+}h)+\varphi (x{-}h,y)+\varphi (x,y{-}h)\,-\,h^{2}{\nabla }^{2}\varphi (x,y)\right)\,+\,{\mathcal {O}}(h^{4})\,.}
+  To approximate the solution of the Poisson equation:
+
+  
+    
+      
+        
+          
+            ∇
+          
+          
+            2
+          
+        
+        φ
+        =
+        f
+        
+      
+    
+    {\displaystyle {\nabla }^{2}\varphi =f\,}
+  numerically on a two-dimensional grid with grid spacing h, the relaxation method assigns the given values of function φ to the grid points near the boundary and arbitrary values to the interior grid points, and then repeatedly performs the assignment
+φ := φ* on the interior points, where φ* is defined by:
+
+  
+    
+      
+        
+          φ
+          
+            ∗
+          
+        
+        (
+        x
+        ,
+        y
+        )
+        =
+        
+          
+            
+              1
+              4
+            
+          
+        
+        
+          (
+          
+            φ
+            (
+            x
+            
+              +
+            
+            h
+            ,
+            y
+            )
+            +
+            φ
+            (
+            x
+            ,
+            y
+            
+              +
+            
+            h
+            )
+            +
+            φ
+            (
+            x
+            
+              −
+            
+            h
+            ,
+            y
+            )
+            +
+            φ
+            (
+            x
+            ,
+            y
+            
+              −
+            
+            h
+            )
+            
+            −
+            
+            
+              h
+              
+                2
+              
+            
+            f
+            (
+            x
+            ,
+            y
+            )
+          
+          )
+        
+        
+        ,
+      
+    
+    {\displaystyle \varphi ^{*}(x,y)={\tfrac {1}{4}}\left(\varphi (x{+}h,y)+\varphi (x,y{+}h)+\varphi (x{-}h,y)+\varphi (x,y{-}h)\,-\,h^{2}f(x,y)\right)\,,}
+  until convergence.The method is easily generalized to other numbers of dimensions.
+
+Convergence and acceleration
+While the method converges under general conditions, it typically makes slower progress than competing methods. Nonetheless, the study of relaxation methods remains a core part of linear algebra, because the transformations of relaxation theory provide excellent preconditioners for new methods. Indeed, the choice of preconditioner is often more important than the choice of iterative method.Multigrid methods may be used to accelerate the methods. One can first compute an approximation on a coarser grid – usually the double spacing 2h – and use that solution with interpolated values for the other grid points as the initial assignment. This can then also be done recursively for the coarser computation.
+
+See also
+In linear systems, the two main classes of relaxation methods are stationary iterative methods, and the more general Krylov subspace methods.
+The Jacobi method is a simple relaxation method.
+The Gauss–Seidel method is an improvement upon the Jacobi method.
+Successive over-relaxation can be applied to either of the Jacobi and Gauss–Seidel methods to speed convergence.
+Multigrid methods
+
+Notes
+References
+Abraham Berman, Robert J. Plemmons, Nonnegative Matrices in the Mathematical Sciences, 1994, SIAM. ISBN 0-89871-321-8.
+Ortega, J. M.; Rheinboldt, W. C. (2000). Iterative solution of nonlinear equations in several variables. Classics in Applied Mathematics. Vol. 30 (Reprint of the 1970 Academic Press ed.). Philadelphia, PA: Society for Industrial and Applied Mathematics (SIAM). pp. xxvi+572. ISBN 0-89871-461-3. MR 1744713.
+Press, WH; Teukolsky, SA; Vetterling, WT; Flannery, BP (2007). "Section 18.3. Relaxation Methods". Numerical Recipes: The Art of Scientific Computing (3rd ed.). New York: Cambridge University Press. ISBN 978-0-521-88068-8.
+Yousef Saad, Iterative Methods for Sparse Linear Systems, 1st edition, PWS, 1996.
+Richard S. Varga 2002 Matrix Iterative Analysis, Second ed. (of 1962 Prentice Hall edition), Springer-Verlag.
+David M. Young, Jr. Iterative Solution of Large Linear Systems, Academic Press, 1971. (reprinted by Dover, 2003)
+
+Further reading
+Southwell, R.V. (1940) Relaxation Methods in Engineering Science. Oxford University Press, Oxford.
+Southwell, R.V. (1946) Relaxation Methods in Theoretical Physics. Oxford University Press, Oxford.
+John. D. Jackson (1999). Classical Electrodynamics. New Jersey: Wiley. ISBN 0-471-30932-X.
+M.N.O. Sadiku (1992). Numerical Techniques in Electromagnetics. Boca Raton: CRC Pres.
+P.-B. Zhou (1993). Numerical Analysis of Electromagnetic Fields. New York: Springer.
+P. Grivet, P.W. Hawkes, A.Septier (1972). Electron Optics, 2nd edition. Pergamon Press. ISBN 9781483137858.
+D. W. O. Heddle (2000). Electrostatic Lens Systems, 2nd edition. CRC Press. ISBN 9781420034394.
+Erwin Kasper (2001). Advances in Imaging and Electron Physics, Vol. 116 , Numerical Field Calculation for Charged Particle Optics. Academic Press. ISBN 978-0-12-014758-8.

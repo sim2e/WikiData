@@ -1,0 +1,565 @@
+Network controllability concerns the structural controllability of a network.  Controllability describes our ability to guide a dynamical system from any initial state to any desired final state in finite time, with a suitable choice of inputs. This definition agrees well with our intuitive notion of control. The controllability of general directed and weighted complex networks has recently been the subject of intense study by a number of groups in wide variety of networks, worldwide. Recent studies by Sharma et al.  on multi-type biological networks (gene–gene, miRNA–gene, and protein–protein interaction networks) identified control targets in phenotypically characterized Osteosarcoma showing important role of genes and proteins responsible for maintaining tumor microenvironment.
+
+Background
+Consider the canonical linear time-invariant dynamics on a complex network
+
+  
+    
+      
+        
+          
+            
+              
+                X
+              
+              ˙
+            
+          
+        
+        (
+        t
+        )
+        =
+        
+          A
+        
+        ⋅
+        
+          X
+        
+        (
+        t
+        )
+        +
+        
+          B
+        
+        ⋅
+        
+          u
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle {\dot {\mathbf {X} }}(t)=\mathbf {A} \cdot \mathbf {X} (t)+\mathbf {B} \cdot \mathbf {u} (t)}
+  
+where the vector 
+  
+    
+      
+        
+          X
+        
+        (
+        t
+        )
+        =
+        (
+        
+          x
+          
+            1
+          
+        
+        (
+        t
+        )
+        ,
+        ⋯
+        ,
+        
+          x
+          
+            N
+          
+        
+        (
+        t
+        )
+        
+          )
+          
+            
+              T
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {X} (t)=(x_{1}(t),\cdots ,x_{N}(t))^{\mathrm {T} }}
+   captures the state of a system of 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+   nodes at time 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  .  The 
+  
+    
+      
+        N
+        ×
+        N
+      
+    
+    {\displaystyle N\times N}
+  
+matrix 
+  
+    
+      
+        
+          A
+        
+      
+    
+    {\displaystyle \mathbf {A} }
+   describes the system's wiring diagram and the interaction strength between the components. The 
+  
+    
+      
+        N
+        ×
+        M
+      
+    
+    {\displaystyle N\times M}
+   matrix 
+  
+    
+      
+        
+          B
+        
+      
+    
+    {\displaystyle \mathbf {B} }
+   identifies the nodes controlled by an outside controller. The system is controlled through the time dependent input vector 
+  
+    
+      
+        
+          u
+        
+        (
+        t
+        )
+        =
+        (
+        
+          u
+          
+            1
+          
+        
+        (
+        t
+        )
+        ,
+        ⋯
+        ,
+        
+          u
+          
+            M
+          
+        
+        (
+        t
+        )
+        
+          )
+          
+            
+              T
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {u} (t)=(u_{1}(t),\cdots ,u_{M}(t))^{\mathrm {T} }}
+   that the controller imposes on the system. To identify the minimum number of driver nodes, denoted by 
+  
+    
+      
+        
+          N
+          
+            
+              D
+            
+          
+        
+      
+    
+    {\displaystyle N_{\mathrm {D} }}
+  , whose control is sufficient to fully control the system's dynamics, Liu et al. attempted to combine the tools from structural control theory, graph theory and statistical physics. They showed that the minimum number of inputs or driver nodes needed to maintain full control of the network is determined by the maximum-cardinality matching in the network. From this result, an analytical framework, based on the in–out degree distribution, was developed to predict 
+  
+    
+      
+        
+          n
+          
+            
+              D
+            
+          
+        
+        =
+        
+          N
+          
+            
+              D
+            
+          
+        
+        
+          /
+        
+        N
+      
+    
+    {\displaystyle n_{\mathrm {D} }=N_{\mathrm {D} }/N}
+   for scale-free and Erdős–Rényi random graphs. However, more recently it has been demonstrated that network controllability (and other structure-only methods that use exclusively the connectivity of a graph, 
+  
+    
+      
+        
+          A
+        
+      
+    
+    {\displaystyle \mathbf {A} }
+  , to simplify the underlying dynamics), both undershoot and overshoot the number and which sets of driver nodes best control network dynamics, highlighting the importance of redundancy (e.g. canalization) and non-linear dynamics in determining control.It is also notable that Liu's et al. formulation would predict same values of 
+  
+    
+      
+        
+          
+            n
+            
+              
+                D
+              
+            
+          
+        
+      
+    
+    {\displaystyle {n_{\mathrm {D} }}}
+   for a chain graph and for a weak densely connected graph. Obviously, both these graphs have very different in and out degree distributions. A recent unpublished work  questions whether degree, which is a purely local measure in networks, would completely describe controllability and whether even slightly distant nodes would have no role in deciding network controllability. Indeed, for many real-word networks, namely,  food webs, neuronal and metabolic  networks, the mismatch in values of 
+  
+    
+      
+        
+          
+            
+              n
+              
+                
+                  D
+                
+              
+            
+          
+          
+            r
+            e
+            a
+            l
+          
+        
+      
+    
+    {\displaystyle {n_{\mathrm {D} }}^{real}}
+   and 
+  
+    
+      
+        
+          
+            
+              n
+              
+                
+                  D
+                
+              
+            
+          
+          
+            
+              r
+              a
+              n
+              d
+              _
+              d
+              e
+              g
+              r
+              e
+              e
+            
+          
+        
+      
+    
+    {\displaystyle {n_{\mathrm {D} }}^{\mathrm {rand\_degree} }}
+   calculated by Liu et al. is notable. If controllability is decided mainly by degree, why are 
+  
+    
+      
+        
+          
+            
+              n
+              
+                
+                  D
+                
+              
+            
+          
+          
+            r
+            e
+            a
+            l
+          
+        
+      
+    
+    {\displaystyle {n_{\mathrm {D} }}^{real}}
+   and 
+  
+    
+      
+        
+          
+            
+              n
+              
+                
+                  D
+                
+              
+            
+          
+          
+            
+              r
+              a
+              n
+              d
+              _
+              d
+              e
+              g
+              r
+              e
+              e
+            
+          
+        
+      
+    
+    {\displaystyle {n_{\mathrm {D} }}^{\mathrm {rand\_degree} }}
+   so different for many real world networks? They argued (arXiv:1203.5161v1) that this might be due to the effect of degree correlations. However, it has been shown that network controllability can be altered only by using betweenness centrality and closeness centrality, without using degree (graph theory) or degree correlations at all.
+
+Structural controllability
+The concept of the structural properties was first introduced by Lin (1974) and then extended by Shields and Pearson (1976) and alternatively derived by Glover and Silverman (1976). The main question is whether the lack of controllability or observability are generic with respect to the variable system parameters. In the framework of structural control the system parameters are either independent free variables or fixed zeros. This is consistent for models of physical systems since parameter values are never known exactly, with the exception of zero values which express the absence of interactions or connections.
+
+Maximum matching
+In graph theory, a matching is a set of edges without common vertices. Liu et al. extended this definition to directed graph, where a matching is a set of directed edges that do not share start or end vertices. It is easy to check that a matching of a directed graph composes of a set of vertex-disjoint simple paths and cycles. The maximum matching of a directed network can be efficiently calculated by working in the bipartite representation using the classical Hopcroft–Karp algorithm, which runs in O(E√N) time in the worst case. For undirected graph, analytical solutions of the size and number of maximum matchings have been studied using the cavity method developed in statistical physics. Liu et al. extended the calculations for directed graph.
+By calculating the maximum matchings of a wide range of real networks, Liu et al. asserted that the number of driver nodes is determined mainly by the networks degree distribution 
+  
+    
+      
+        P
+        (
+        
+          k
+          
+            
+              i
+              n
+            
+          
+        
+        ,
+        
+          k
+          
+            
+              o
+              u
+              t
+            
+          
+        
+        )
+      
+    
+    {\displaystyle P(k_{\mathrm {in} },k_{\mathrm {out} })}
+  . They also calculated the average number of driver nodes for a network ensemble with arbitrary degree distribution using the cavity method. It is interesting that for a chain graph and a weak densely connected graph, both of which have very different in and out degree distributions; the formulation of Liu et al. would predict same values of 
+  
+    
+      
+        
+          
+            n
+            
+              
+                D
+              
+            
+          
+        
+      
+    
+    {\displaystyle {n_{\mathrm {D} }}}
+  . Also, for many real-word networks, namely,  food webs, neuronal and metabolic  networks, the mismatch in values of 
+  
+    
+      
+        
+          
+            
+              n
+              
+                
+                  D
+                
+              
+            
+          
+          
+            r
+            e
+            a
+            l
+          
+        
+      
+    
+    {\displaystyle {n_{\mathrm {D} }}^{real}}
+   and 
+  
+    
+      
+        
+          
+            
+              n
+              
+                
+                  D
+                
+              
+            
+          
+          
+            
+              r
+              a
+              n
+              d
+              _
+              d
+              e
+              g
+              r
+              e
+              e
+            
+          
+        
+      
+    
+    {\displaystyle {n_{\mathrm {D} }}^{\mathrm {rand\_degree} }}
+   calculated by Liu et al. is notable. If controllability is decided purely by degree, why are 
+  
+    
+      
+        
+          
+            
+              n
+              
+                
+                  D
+                
+              
+            
+          
+          
+            r
+            e
+            a
+            l
+          
+        
+      
+    
+    {\displaystyle {n_{\mathrm {D} }}^{real}}
+   and 
+  
+    
+      
+        
+          
+            
+              n
+              
+                
+                  D
+                
+              
+            
+          
+          
+            
+              r
+              a
+              n
+              d
+              _
+              d
+              e
+              g
+              r
+              e
+              e
+            
+          
+        
+      
+    
+    {\displaystyle {n_{\mathrm {D} }}^{\mathrm {rand\_degree} }}
+   so different for many real world networks? It remains open to scrutiny whether "control robustness" in networks is influenced more by using   betweenness centrality and closeness centrality over degree-based metrics.
+While sparser graphs are more difficult to control, it would obviously be interesting to find whether betweenness centrality and closeness centrality or degree heterogeneity plays a more important role in deciding controllability of sparse graphs with almost-similar degree distributions.
+
+Control of composite quantum systems and algebraic graph theory
+A control theory of networks has also been developed in the context of universal control for composite quantum systems, where subsystems and their interactions are associated to nodes and links, respectively. This framework permits formulation of Kalman's criterion with tools from algebraic graph theory via the minimum rank of a graph and related notions.
+
+See also
+Controllability Gramian
+
+References
+External links
+The network controllability project website
+The video showing network controllability

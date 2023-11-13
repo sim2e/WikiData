@@ -1,0 +1,75 @@
+The IBM 305 RAMAC was the first commercial computer that used a moving-head hard disk drive (magnetic disk storage) for secondary storage. The system was publicly announced on September 14, 1956,  with test units already installed at the U.S. Navy and at private corporations.   RAMAC stood for "Random Access Method of Accounting and Control", as its design was motivated by the need for real-time accounting in business.
+
+History
+The first RAMAC to be used in the U.S. auto industry was installed at Chrysler's MOPAR Division in 1957. It replaced a huge tub file which was part of MOPAR's parts inventory control and order processing system.
+During the 1960 Olympic Winter Games in Squaw Valley (USA), IBM provided the first electronic data processing systems for the  Games. The system featured an IBM RAMAC 305 computer, punched card data collection, and a central printing facility.
+More than 1,000 systems were built. Production ended in 1961; the RAMAC computer became obsolete in 1962 when the IBM 1405 Disk Storage Unit for the IBM 1401 was introduced, and the 305 was withdrawn in 1969.
+
+Overview
+The first hard disk unit was shipped September 13, 1956. The additional components of the computer were a card punch, a central processing unit, a power supply unit, an operator's console/card reader unit, and a printer. There was also a manual inquiry station that allowed direct access to stored records. IBM  touted the system as being able to store the equivalent of 64,000 punched cards.The 305 was one of the last vacuum tube computers that IBM built. It weighed over a ton.The IBM 350 disk system stored 5 million alphanumeric characters recorded as six data bits, one parity bit and one space bit for eight bits recorded per character. It had fifty 24-inch-diameter (610 mm) disks. Two independent access arms moved up and down to select a disk, and in and out to select a recording track, all under servo control. Average time to locate a single record was 600 milliseconds. Several improved models were added in the 1950s. The IBM RAMAC 305 system with 350 disk storage leased for US$3,200 (equivalent to $33,300 in 2022) per month.
+
+The original 305 RAMAC computer system could be housed in a room of about 9 m (30 ft) by 15 m (50 ft); the 350 disk storage unit measured around 1.5 square meters (16 sq ft). Currie Munce, research vice president for Hitachi Global Storage Technologies (which has acquired IBM's hard disk drive business), stated in a Wall Street Journal interview that the RAMAC unit weighed over a ton, had to be moved around with forklifts, and was delivered via large cargo airplanes. According to Munce, the storage capacity of the drive could have been increased beyond five megabytes, but IBM's marketing department at that time was against a larger capacity drive, because they did not know how to sell a product with more storage.
+
+Programming the 305 involved not only writing machine language instructions to be stored on the drum memory, but also almost every unit in the system (including the computer itself) could be programmed by inserting wire jumpers into a plugboard control panel.
+
+Architecture
+System architecture was documented in the 305 RAMAC Manual of Operation.
+The 305 was a character-oriented variable "word" length decimal (BCD) computer with a drum memory rotating at 6000 RPM that held 3200 alphanumeric characters.  A core memory buffer of 100 characters was used for temporary storage during data transfers.
+Each character was six bits –  plus one odd parity bit ("R") –  composed of two zone bits ("X" and "O") and remaining four binary bits for the value of the digit in the following format:
+
+X O 8 4 2 1 R
+
+Instructions could only be stored on 20 tracks of the drum memory and were fixed length (10 characters), in the following format:
+
+T1 A1 B1 T2 A2 B2 M N P Q
+Fixed-point data "words" could be any size from one decimal digit up to 100 decimal digits, with the X bit of the least significant digit storing the sign (signed magnitude).
+Data records could be any size from one character up to 100 characters.
+
+Drum memory
+The drum memory was organized into 32 tracks of 100 characters each.
+The color code of this table is:
+
+Yellow – Storage
+Blue – Arithmetic
+Green – Input/output
+Red – Special function
+L and M select the same track, containing ten 10-character "Accumulators". As a destination L specifies addition, M specifies subtraction. (Numbers in these accumulators were stored in ten's complement form, with the X bit of the most significant digit storing the sign. The sign of each accumulator was also held in a relay. However the 305 automatically converted between its standard signed magnitude format and this format without the need for special programming.)
+J, R, and - do not select tracks on the drum, they specify other sources and destinations.
+
+Jumps
+The 305's instruction set does not include any jumps, instead these are programmed on the control panel:
+
+Unconditional jump – the program exit code (P field) specifies a Program exit hub on the control panel, which has a wire plugged into it and, via distributors, to Program entry hubs specifying the first, second and third address digit of the instruction to jump to.
+Conditional jump – the program exit code (P field) specifies a Program exit hub on the control panel, which has a wire plugged into it and the appropriate Condition selector common hub to be tested, the corresponding  two Condition selector output hubs have wires plugged into them and the Program entry hubs specifying the instructions to jump to or the Program advance hub to continue in sequence. Complicated conditions involving many Condition selectors could be wired to execute in a single instruction (e.g., Testing the sign and zero states of multiple accumulators), with one of several Program entry hubs activated.
+Multi-way jump – the destination track (T2 field) is set to - and the appropriate Character selector hubs on the control panel have wires plugged into them and the Program entry hubs specifying the instructions to jump to or the Program advance hub to continue in sequence.
+
+Timing
+All timing signals for the 305 were derived from a factory recorded clock track on the drum. The clock track contained 816 pulses 12 μs apart with a 208 μs gap for sync.
+Reading or writing a character took 96 μs.
+The 305's typical instruction took three revolutions of the drum (30 ms): one (I phase) to fetch the instruction, one (R phase) to read the source operand and copy it to the core buffer, and one (W phase) to write the destination operand from the core buffer. If the P field (Program exit code) was not blank, then two (D phase and P phase) additional revolutions of the drum (20 ms) were added to the execution time to allow relays to be picked. The Improved Processing Speed option could be installed that allowed the three instruction phases (IRW) to immediately follow each other instead of waiting for the next revolution to start; with this option and well optimized code and operand placement a typical instruction could execute in as little as one revolution of the drum (10 ms).
+Certain instructions though took far longer than the typical 30 ms to 50 ms. For example, multiply took six to nineteen revolutions of the drum (60 ms to 190 ms) and divide (an option) took ten to thirty seven revolutions of the drum (100 ms to 370 ms). Input/Output instructions could interlock the processor for as many revolutions of the drum as needed by the hardware.
+
+Hardware implementation
+The logic circuitry of the 305 was built of one- and two-tube pluggable units and relays.
+
+Related peripheral units
+A basic system was composed of the following units:
+
+IBM 305 – Processing unit, the magnetic process drum, magnetic core register and electronic logical and arithmetic circuits
+IBM 350 – Disk storage unit
+IBM 370 – Printer
+IBM 323 – Card punch
+IBM 380 – Console, the card reader and IBM Electric typewriter model B1
+IBM 340 – Power supply
+
+See also
+List of vacuum tube computers
+History of hard disk drives
+
+References
+External links
+
+IBM 305 RAMAC Data Processing System
+IBM Archives on the 305
+IBM 350 RAMAC site originally prepared under the supervision of the Storage Special Interest Group of the Computer History Museum
+Youtube video

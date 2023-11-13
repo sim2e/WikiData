@@ -1,0 +1,48 @@
+In computer science, a recursive descent parser is a kind of top-down parser built from a set of mutually recursive procedures (or a non-recursive equivalent) where each such procedure implements one of the nonterminals of the grammar. Thus the structure of the resulting program closely mirrors that of the grammar it recognizes.A predictive parser is a recursive descent parser that does not require backtracking.  Predictive parsing is possible only for the class of LL(k) grammars, which are the context-free grammars for which there exists some positive integer k that allows a recursive descent parser to decide which production to use by examining only the next k tokens of input. The LL(k) grammars therefore exclude all ambiguous grammars, as well as all grammars that contain left recursion.  Any context-free grammar can be transformed into an equivalent grammar that has no left recursion, but removal of left recursion does not always yield an LL(k) grammar. A predictive parser runs in linear time.
+Recursive descent with backtracking is a technique that determines which production to use by trying each production in turn.  Recursive descent with backtracking is not limited to LL(k) grammars, but is not guaranteed to terminate unless the grammar is LL(k).  Even when they terminate, parsers that use recursive descent with backtracking may require exponential time.
+Although predictive parsers are widely used, and are frequently chosen if writing a parser by hand, programmers often prefer to use a table-based parser produced by a parser generator, either for an LL(k) language or using an alternative parser, such as LALR or LR. This is particularly the case if a grammar is not in LL(k) form, as transforming the grammar to LL to make it suitable for predictive parsing is involved. Predictive parsers can also be automatically generated, using tools like ANTLR.
+Predictive parsers can be depicted using transition diagrams for each non-terminal symbol where the edges between the initial and the final states are labelled by the symbols (terminals and non-terminals) of the right side of the production rule.
+
+Example parser
+The following EBNF-like grammar (for Niklaus Wirth's PL/0 programming language, from Algorithms + Data Structures = Programs) is in LL(1) form:
+
+Terminals are expressed in quotes.  Each nonterminal is defined by a rule in the grammar, except for ident and number, which are assumed to be implicitly defined.
+
+C implementation
+What follows is an implementation of a recursive descent parser for the above language in C. The parser reads in source code, and exits with an error message if the code fails to parse, exiting silently if the code parses correctly.
+Notice how closely the predictive parser below mirrors the grammar above.  There is a procedure for each nonterminal in the grammar.  Parsing descends in a top-down manner until the final nonterminal has been processed.  The program fragment depends on a global variable, sym, which contains the current symbol from the input, and the function nextsym, which updates sym when called.
+The implementations of the functions nextsym and error are omitted for simplicity.
+
+Examples
+Some recursive descent parser generators:
+
+TMG – an early compiler-compiler used in the 1960s and early 1970s
+JavaCC
+Coco/R
+ANTLR
+Spirit Parser Framework – a C++ recursive descent parser generator framework requiring no pre-compile step
+parboiled (Java) – a recursive descent PEG parsing library for Java
+
+See also
+Parser combinator – a higher-order function used in combinatory parsing, a method of factoring recursive descent parser designs
+Parsing expression grammar – another form representing recursive descent grammar
+Recursive ascent parser
+Tail recursive parser – a variant of the recursive descent parser
+
+References
+General references
+Compilers: Principles, Techniques, and Tools, first edition, Alfred V Aho, Ravi Sethi, and Jeffrey D Ullman, in particular Section 4.4.
+Modern Compiler Implementation in Java, Second Edition, Andrew Appel, 2002, ISBN 0-521-82060-X.
+Recursive Programming Techniques, W.H. Burge, 1975, ISBN 0-201-14450-6
+Crafting a Compiler with C, Charles N Fischer and Richard J LeBlanc, Jr, 1991, ISBN 0-8053-2166-7.
+Compiling with C# and Java, Pat Terry, 2005, ISBN 0-321-26360-X, 624
+Algorithms + Data Structures = Programs, Niklaus Wirth, 1975, ISBN 0-13-022418-9
+Compiler Construction, Niklaus Wirth, 1996, ISBN 0-201-40353-6
+
+External links
+Introduction to Parsing - an easy to read introduction to parsing, with a comprehensive section on recursive descent parsing
+How to turn a Grammar into C code - a brief tutorial on implementing recursive descent parser
+Simple mathematical expressions parser in Ruby
+Simple Top Down Parsing in Python
+Jack W. Crenshaw: Let's Build A Compiler (1988-1995), in Pascal, with assembly language output, using a "keep it simple" approach
+Functional Pearls: Monadic Parsing in Haskell

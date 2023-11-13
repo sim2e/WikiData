@@ -1,0 +1,120 @@
+In computer science, the Sharp Satisfiability Problem (sometimes called Sharp-SAT, #SAT or model counting) is the problem of counting the number of interpretations that satisfy a given Boolean formula, introduced by Valiant in 1979. In other words, it asks in how many ways the variables of a given Boolean formula can be consistently replaced by the values TRUE or FALSE in such a way that the formula evaluates to TRUE. For example, the formula 
+  
+    
+      
+        a
+        ∨
+        ¬
+        b
+      
+    
+    {\displaystyle a\lor \neg b}
+   is satisfiable by three distinct boolean value assignments of the variables, namely, for any of the assignments (
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   = TRUE,  
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   = FALSE), (
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   = FALSE, 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   = FALSE), and (
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   = TRUE, 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   = TRUE), we have 
+  
+    
+      
+        a
+        ∨
+        ¬
+        b
+        =
+        
+          
+            TRUE
+          
+        
+        .
+      
+    
+    {\displaystyle a\lor \neg b={\textsf {TRUE}}.}
+  
+#SAT is different from Boolean satisfiability problem (SAT), which asks if there exists a solution of Boolean formula. Instead, #SAT asks to enumerate all the solutions to a Boolean Formula. #SAT is harder than SAT in the sense that, once the total number of solutions to a Boolean formula is known, SAT can be decided in constant time. However, the converse is not true, because knowing a Boolean formula has a solution does not help us to count all the solutions, as there are an exponential number of possibilities.
+#SAT is a well-known example of the class of counting problems, known as #P-complete (read as sharp P complete). In other words, every instance of a problem in the complexity class #P can be reduced to an instance of the #SAT problem. This is an important result because many difficult counting problems arise in Enumerative Combinatorics, Statistical physics, Network Reliability, and Artificial intelligence without any known formula. If a problem is shown to be hard, then it provides a complexity theoretic explanation for the lack of nice looking formulas.
+
+#P-Completeness
+#SAT is #P-complete. To prove this, first note that #SAT is obviously in #P.
+Next, we prove that #SAT is #P-hard. Take any problem #A in #P. We know that A can be solved using a Non-deterministic Turing Machine M. On the other hand, from the proof for Cook-Levin Theorem, we know that we can reduce M to a boolean formula F. Now, each valid assignment of F corresponds to a unique acceptable path in M, and vice versa. However, each acceptable path taken by M represents a solution to A. In other words, there is a bijection between the valid assignments of F and the solutions to A. So, the reduction used in the proof for Cook-Levin Theorem is parsimonious. This implies that #SAT is #P-hard.
+
+Intractable special cases
+Counting solutions is intractable (#P-complete) in many special cases for which satisfiability is tractable (in P), as well as when satisfiability is intractable (NP-complete). This includes the following.
+
+#3SAT
+This is the counting version of 3SAT. One can show that any formula in SAT can be rewritten as a formula in 3-CNF form preserving the number of satisfying assignments. Hence, #SAT and #3SAT are counting equivalent and #3SAT is #P-complete as well.
+
+#2SAT
+Even though 2SAT (deciding whether a 2CNF formula has a solution) is polynomial, counting the number of solutions is #P-complete.
+The #P-completeness already in the monotone case, i.e., when there are no negations (#MONOTONE-2-CNF).
+It is known that, assuming that NP is different from RP, #MONOTONE-2-CNF also cannot be approximated by a fully polynomial-time approximation scheme (FPRAS), even assuming that each variable occurs in at most 6 clauses, but that a fully polynomial-time approximation scheme (FPTAS) exists when each variable occurs in at most 5 clauses: this follows from analogous results on the problem ♯IS of counting the number of independent sets in graphs.
+
+#Horn-SAT
+Similarly, even though Horn-satisfiability is polynomial, counting the number of solutions is #P-complete. This result follows from a general dichotomy characterizing which SAT-like problems are #P-complete.
+
+Planar #3SAT
+This is the counting version of Planar 3SAT. The hardness reduction from 3SAT to Planar 3SAT given by Lichtenstein is parsimonious.  This implies that Planar #3SAT is #P-complete.
+
+Planar Monotone Rectilinear #3SAT
+This is the counting version of Planar Monotone Rectilinear 3SAT. The NP-hardness reduction given by de Berg & Khosravi is parsimonious. Therefore, this problem is #P-complete as well.
+
+#DNF
+For disjunctive normal form (DNF) formulas, counting the solutions is also #P-complete, even when all clauses have size 2 and there are no negations: this is because, by De Morgan's laws, counting the number of solutions of a DNF amounts to counting the number of solutions of the negation of a conjunctive normal form (CNF) formula. Intractability even holds in the case known as #PP2DNF, where the variables are partitioned into two sets, with each clause containing one variable from each set.By contrast, it is possible to tractably approximate the number of solutions of a disjunctive normal form formula using the Karp-Luby algorithm, which is an FPRAS for this problem.
+
+Tractable special cases
+Affine constraint satisfaction problems
+The variant of SAT corresponding to affine relations in the sense of Schaefer's dichotomy theorem, i.e., where clauses amount to equations modulo 2 with the XOR operator, is the only SAT variant for which the #SAT problem can be solved in polynomial time.
+
+Bounded treewidth
+If the instances to SAT are restricted using graph parameters, the #SAT problem can become tractable. For instance, #SAT on SAT instances whose treewidth is bounded by a constant can be performed in polynomial time. Here, the treewidth can be the primal treewidth, dual treewidth, or incidence treewidth of the hypergraph associated to the SAT formula, whose vertices are the variables and where each clause is represented as a hyperedge.
+
+Restricted circuit and diagram classes
+Model counting is tractable (solvable in polynomial time) for (ordered) BDDs and for some circuit formalisms studied in knowledge compilation, such as d-DNNFs.
+
+
+== References ==

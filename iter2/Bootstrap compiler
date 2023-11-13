@@ -1,0 +1,46 @@
+In computer science, bootstrapping is the technique for producing a self-compiling compiler – that is, a compiler (or assembler) written in the source programming language that it intends to compile. An initial core version of the compiler (the bootstrap compiler) is generated in a different language (which could be assembly language); successive expanded versions of the compiler are developed using this minimal subset of the language. The problem of compiling a self-compiling compiler has been called the chicken-or-egg problem in compiler design, and bootstrapping is a solution to this problem.Bootstrapping is a fairly common practice when creating a programming language. Many compilers for many programming languages are bootstrapped, including compilers for BASIC, ALGOL, C, C#, D, Pascal, PL/I, Haskell, Modula-2, Oberon, OCaml, Common Lisp, Scheme, Go, Java, Elixir, Rust, Python, Scala, Nim, Eiffel, TypeScript, Vala, Zig and more.
+
+Process
+A typical bootstrap process works in three or four stages:
+Stage 0: preparing an environment for the bootstrap compiler to work with. This is where the source language and output language of the bootstrap compiler are chosen. In the case of a "bare machine" (one where no compiler for any language exist) the source and output are written as binary machine code, or may be created by cross compiling on some other machine than the target. Otherwise, the bootstrap compiler is to be written in one of the programming languages which does exist on the target machine, and that compiler will generate something which can execute on the target, including a high-level programming language, an assembly language, an object file, or even machine code.
+Stage 1: the bootstrap compiler is produced. This compiler is enough to translate its own source into a program which can be executed on the target machine. At this point, all further development is done using the language defined by the bootstrap compiler, and stage 2 begins.
+Stage 2: a full compiler is produced by the bootstrap compiler. This is typically done in stages as needed, e.g. compiler for version X of the language will be able to compile features from version X+1, but that compiler does not actually use those features. Once this compiler has been tested and can compile itself, now version X+1 features may be used by subsequent releases of the compiler.
+Stage 3: a full compiler is produced by the stage 2 full compiler. If more features are to be added, work resumes at stage 2, with the current stage 3 full compiler replacing the bootstrap compiler.The full compiler is built twice in order to compare the outputs of the two stages. If they are different, either the bootstrap or the full compiler contains a bug.
+
+Advantages
+Bootstrapping a compiler has the following advantages:
+It is a non-trivial test of the language being compiled, and as such is a form of dogfooding.
+Compiler developers and bug reporters only need to know the language being compiled.
+Compiler development can be performed in the higher-level language being compiled.
+Improvements to the compiler's back-end improve not only general-purpose programs but also the compiler itself.
+It is a comprehensive consistency check as it should be able to reproduce its own object code.Note that some of these points assume that the language runtime is also written in the same language.
+
+Methods
+If one needs to compile a compiler for language X written in language X, there is the issue of how the first compiler can be compiled. The different methods that are used in practice include:
+
+Implementing an interpreter or compiler for language X in language Y. Niklaus Wirth reported that he wrote the first Pascal compiler in Fortran.
+Another interpreter or compiler for X has already been written in another language Y; this is how Scheme is often bootstrapped.
+Earlier versions of the compiler were written in a subset of X for which there existed some other compiler; this is how some supersets of Java, Haskell, and the initial Free Pascal compiler are bootstrapped.
+A compiler supporting non-standard language extensions or optional language features can be written without using those extensions and features, to enable it being compiled with another compiler supporting the same base language but a different set of extensions and features. The main parts of the C++ compiler clang were written in a subset of C++ that can be compiled by both g++ and Microsoft Visual C++. Advanced features are written with some GCC extensions.
+The compiler for X is cross compiled from another architecture where there exists a compiler for X; this is how compilers for C are usually ported to other platforms. Also this is the method used for Free Pascal after the initial bootstrap.
+Writing the compiler in X; then hand-compiling it from source (most likely in a non-optimized way) and running that on the code to get an optimized compiler. Donald Knuth used this for his WEB literate programming system.Methods for distributing compilers in source code include providing a portable bytecode version of the compiler, so as to bootstrap the process of compiling the compiler with itself. The T-diagram is a notation used to explain these compiler bootstrap techniques. In some cases, the most convenient way to get a complicated compiler running on a system that has little or no software on it involves a series of ever more sophisticated assemblers and compilers.
+
+History
+Assemblers were the first language tools to bootstrap themselves.
+The first high-level language to provide such a bootstrap was NELIAC in 1958. The first widely used languages to do so were Burroughs B5000 Algol in 1961 and LISP in 1962.
+Hart and Levin wrote a LISP compiler in LISP at MIT in 1962, testing it inside an existing LISP interpreter. Once they had improved the compiler to the point where it could compile its own source code, it was self-hosting.
+The compiler as it exists on the standard compiler tape is a machine language program that was obtained by having the S-expression definition of the compiler work on itself through the interpreter.
+This technique is only possible when an interpreter already exists for the very same language that is to be compiled. It borrows directly from the notion of running a program on itself as input, which is also used in various proofs in theoretical computer science, such as the variation of the proof that the halting problem is undecidable that uses Rice's Theorem.
+
+Current efforts
+Due to security concerns regarding the Trusting Trust Attack and various attacks against binary trustworthiness, it involves a compiler being maliciously modified to introduce covert backdoors in programs it compiles or even further replicate the malicious modification in future versions of the compiler itself, creating a perpetual cycle of distrust. multiple projects are working to reduce the effort for not only bootstrapping from source but also allowing everyone to verify that source and executable correspond. These include the Bootstrappable builds project and the Reproducible builds project.
+
+See also
+Self-hosting
+Self-interpreter
+Indirect self-modification
+Tombstone diagram
+Metacompiler
+
+
+== References ==

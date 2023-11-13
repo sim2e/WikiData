@@ -1,0 +1,1982 @@
+In the study of graphs and networks, the degree of a node in a network is the number of connections it has to other nodes and the degree distribution is the probability distribution of these degrees over the whole network.
+
+Definition
+The degree of a node in a network (sometimes referred to incorrectly as the connectivity) is the number of connections or edges the node has to other nodes. If a network is directed, meaning that edges point in one direction from one node to another node, then nodes have two different degrees, the in-degree, which is the number of incoming edges, and the out-degree, which is the number of outgoing edges.
+The degree distribution P(k) of a network is then defined to be the fraction of nodes in the network with degree k.  Thus if there are n nodes in total in a network and nk of them have degree k, we have 
+  
+    
+      
+        P
+        (
+        k
+        )
+        =
+        
+          
+            
+              n
+              
+                k
+              
+            
+            n
+          
+        
+      
+    
+    {\displaystyle P(k)={\frac {n_{k}}{n}}}
+  .
+The same information is also sometimes presented in the form of a cumulative degree distribution, the fraction of nodes with degree smaller than k, or even the complementary cumulative degree distribution, the fraction of nodes with degree greater than or equal to k (1 - C) if one considers C as the cumulative degree distribution;  i.e. the complement of C.
+
+Observed degree distributions
+The degree distribution is very important in studying both real networks, such as the Internet and social networks, and theoretical networks.  The simplest network model, for example, the (Erdős–Rényi model) random graph, in which each of n nodes is independently connected (or not) with probability p (or 1 − p), has a binomial distribution of degrees k:
+
+  
+    
+      
+        P
+        (
+        k
+        )
+        =
+        
+          
+            
+              (
+            
+            
+              
+                n
+                −
+                1
+              
+              k
+            
+            
+              )
+            
+          
+        
+        
+          p
+          
+            k
+          
+        
+        (
+        1
+        −
+        p
+        
+          )
+          
+            n
+            −
+            1
+            −
+            k
+          
+        
+        ,
+      
+    
+    {\displaystyle P(k)={n-1 \choose k}p^{k}(1-p)^{n-1-k},}
+  (or Poisson in the limit of large n, if the average degree 
+  
+    
+      
+        ⟨
+        k
+        ⟩
+        =
+        p
+        (
+        n
+        −
+        1
+        )
+      
+    
+    {\displaystyle \langle k\rangle =p(n-1)}
+   is held fixed). Most networks in the real world, however, have degree distributions very different from this. Most are highly right-skewed, meaning that a large majority of nodes have low degree but a small number, known as "hubs", have high degree. Some networks, notably the Internet, the World Wide Web, and some social networks were argued to have degree distributions that approximately follow a power law: 
+  
+    
+      
+        P
+        (
+        k
+        )
+        ∼
+        
+          k
+          
+            −
+            γ
+          
+        
+      
+    
+    {\displaystyle P(k)\sim k^{-\gamma }}
+  , where γ is a constant. Such networks are called scale-free networks and have attracted particular attention for their structural and dynamical properties. However, a survey of a wide range of real world networks suggests that scale-free networks are rare when assessed using statistically rigorous measures. Some researchers have disputed these findings arguing that the definitions used in the study are inappropriately strict, while others have argued that the precise functional form of the degree distribution is less important than knowing whether the degree distribution is fat-tailed or not. The over-interpretation of specific forms of the degree distribution has also been criticised for failing to consider how networks may evolve over time.
+
+Excess degree distribution
+Excess degree distribution is the probability distribution, for a node reached by following an edge, of the number of other edges attached to that node. In other words, it is the distribution of outgoing links from a node reached by following a link.
+Suppose a network has a degree distribution 
+  
+    
+      
+        P
+        (
+        k
+        )
+      
+    
+    {\displaystyle P(k)}
+  , by selecting one node (randomly or not) and going to one of its neighbors (assuming to have one neighbor at least), then the probability of that node to have 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   neighbors is not given by 
+  
+    
+      
+        P
+        (
+        k
+        )
+      
+    
+    {\displaystyle P(k)}
+  . The reason is that, whenever some node is selected in a heterogeneous network, it is more probable to reach the hubs by following one of the existing neighbors of that node. The true probability of such nodes to have degree 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   is 
+  
+    
+      
+        q
+        (
+        k
+        )
+      
+    
+    {\displaystyle q(k)}
+   which is called the excess degree of that node. In the configuration model, which correlations between the nodes have been ignored and every node is assumed to be connected to any other nodes in the network with the same probability, the excess degree distribution can be found as:
+  
+    
+      
+        q
+        (
+        k
+        )
+        =
+        
+          
+            
+              k
+              +
+              1
+            
+            
+              ⟨
+              k
+              ⟩
+            
+          
+        
+        P
+        (
+        k
+        +
+        1
+        )
+        ,
+      
+    
+    {\displaystyle q(k)={\frac {k+1}{\langle k\rangle }}P(k+1),}
+  
+where 
+  
+    
+      
+        
+          ⟨
+          k
+          ⟩
+        
+      
+    
+    {\displaystyle {\langle k\rangle }}
+   is the mean-degree (average degree) of the model. It follows to that fact that the average degree of the neighbor of any node is greater than the average degree of that node. In social networks, it mean that your friends, on average, have more friends than you. This is famous as the friendship paradox. It can be shown that a network can have a giant component, if its average excess degree is larger than one:
+
+  
+    
+      
+        
+          ∑
+          
+            k
+          
+        
+        k
+        q
+        (
+        k
+        )
+        >
+        1
+        ⇒
+        
+          ⟨
+          
+            k
+            
+              2
+            
+          
+          ⟩
+        
+        
+          /
+        
+        
+          ⟨
+          k
+          ⟩
+        
+        −
+        1
+        >
+        1
+        ⇒
+        
+          ⟨
+          
+            k
+            
+              2
+            
+          
+          ⟩
+        
+        −
+        2
+        
+          ⟨
+          k
+          ⟩
+        
+        >
+        0
+      
+    
+    {\displaystyle \sum _{k}kq(k)>1\Rightarrow {\langle k^{2}\rangle }/{\langle k\rangle }-1>1\Rightarrow {\langle k^{2}\rangle }-2{\langle k\rangle }>0}
+  
+Bear in mind that the last two equations are just for the configuration model and to derive the excess degree distribution of a real-word network, we should also add degree correlations into account.
+
+Generating functions method
+Generating functions can be used to calculate different properties of random networks. Given the degree distribution and the excess degree distribution of some network, 
+  
+    
+      
+        P
+        (
+        k
+        )
+      
+    
+    {\displaystyle P(k)}
+   and 
+  
+    
+      
+        q
+        (
+        k
+        )
+      
+    
+    {\displaystyle q(k)}
+   respectively, it is possible to write two power series in the following forms:
+
+  
+    
+      
+        
+          G
+          
+            0
+          
+        
+        (
+        x
+        )
+        =
+        
+          
+            ∑
+            
+              k
+            
+          
+          
+            P
+            (
+            k
+            )
+            
+              x
+              
+                k
+              
+            
+          
+        
+      
+    
+    {\displaystyle G_{0}(x)=\textstyle \sum _{k}\displaystyle P(k)x^{k}}
+   and 
+  
+    
+      
+        
+          G
+          
+            1
+          
+        
+        (
+        x
+        )
+        =
+        
+          
+            ∑
+            
+              k
+            
+          
+          
+            q
+            (
+            k
+            )
+            
+              x
+              
+                k
+              
+            
+            =
+            
+              
+                ∑
+                
+                  k
+                
+              
+              
+                
+                  
+                    k
+                    
+                      ⟨
+                      k
+                      ⟩
+                    
+                  
+                
+                P
+                (
+                k
+                )
+                
+                  x
+                  
+                    k
+                    −
+                    1
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle G_{1}(x)=\textstyle \sum _{k}\displaystyle q(k)x^{k}=\textstyle \sum _{k}\displaystyle {\frac {k}{\langle k\rangle }}P(k)x^{k-1}}
+  
+
+  
+    
+      
+        
+          G
+          
+            1
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle G_{1}(x)}
+   can also be obtained from derivatives of 
+  
+    
+      
+        
+          G
+          
+            0
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle G_{0}(x)}
+  :
+
+  
+    
+      
+        
+          G
+          
+            1
+          
+        
+        (
+        x
+        )
+        =
+        
+          
+            
+              
+                G
+                
+                  0
+                
+                ′
+              
+              (
+              x
+              )
+            
+            
+              
+                G
+                
+                  0
+                
+                ′
+              
+              (
+              1
+              )
+            
+          
+        
+      
+    
+    {\displaystyle G_{1}(x)={\frac {G'_{0}(x)}{G'_{0}(1)}}}
+  
+If we know the generating function for a probability distribution 
+  
+    
+      
+        P
+        (
+        k
+        )
+      
+    
+    {\displaystyle P(k)}
+   then we can recover the values of 
+  
+    
+      
+        P
+        (
+        k
+        )
+      
+    
+    {\displaystyle P(k)}
+   by differentiating:
+
+  
+    
+      
+        P
+        (
+        k
+        )
+        =
+        
+          
+            1
+            
+              k
+              !
+            
+          
+        
+        
+          
+            
+              
+                d
+                
+                  k
+                
+              
+              
+              G
+            
+            
+              d
+              
+              
+                x
+                
+                  k
+                
+              
+            
+          
+        
+        
+          
+            
+              |
+            
+          
+          
+            x
+            =
+            0
+          
+        
+      
+    
+    {\displaystyle P(k)={\frac {1}{k!}}{\operatorname {d} ^{k}\!G \over \operatorname {d} \!x^{k}}{\biggl \vert }_{x=0}}
+  
+Some properties, e.g. the moments, can be easily calculated from 
+  
+    
+      
+        
+          G
+          
+            0
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle G_{0}(x)}
+   and its derivatives:
+
+  
+    
+      
+        
+          ⟨
+          k
+          ⟩
+        
+        =
+        
+          G
+          
+            0
+          
+          ′
+        
+        (
+        1
+        )
+      
+    
+    {\displaystyle {\langle k\rangle }=G'_{0}(1)}
+  
+
+  
+    
+      
+        
+          ⟨
+          
+            k
+            
+              2
+            
+          
+          ⟩
+        
+        =
+        
+          G
+          
+            0
+          
+          ″
+        
+        (
+        1
+        )
+        +
+        
+          G
+          
+            0
+          
+          ′
+        
+        (
+        1
+        )
+      
+    
+    {\displaystyle {\langle k^{2}\rangle }=G''_{0}(1)+G'_{0}(1)}
+  And in general:
+
+  
+    
+      
+        
+          ⟨
+          
+            k
+            
+              m
+            
+          
+          ⟩
+        
+        =
+        
+          
+            [
+          
+        
+        
+          
+            
+              (
+            
+          
+          x
+          ⁡
+          
+            
+              
+                d
+                
+              
+              
+                dx
+                
+              
+            
+          
+          
+            
+              
+                )
+              
+            
+            
+              m
+            
+          
+        
+        
+          G
+          
+            0
+          
+        
+        (
+        x
+        )
+        
+          
+            
+              ]
+            
+          
+          
+            x
+            =
+            1
+          
+        
+      
+    
+    {\displaystyle {\langle k^{m}\rangle }={\Biggl [}{{\bigg (}\operatorname {x} {\operatorname {d} \! \over \operatorname {dx} \!}{\biggl )}^{m}}G_{0}(x){\Biggl ]}_{x=1}}
+  For Poisson-distributed random networks, such as the ER graph, 
+  
+    
+      
+        
+          G
+          
+            1
+          
+        
+        (
+        x
+        )
+        =
+        
+          G
+          
+            0
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle G_{1}(x)=G_{0}(x)}
+  , that is the reason why the theory of random networks of this type is especially simple. The probability distributions for the 1st and 2nd-nearest neighbors are generated by the functions 
+  
+    
+      
+        
+          G
+          
+            0
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle G_{0}(x)}
+   and 
+  
+    
+      
+        
+          G
+          
+            0
+          
+        
+        (
+        
+          G
+          
+            1
+          
+        
+        (
+        x
+        )
+        )
+      
+    
+    {\displaystyle G_{0}(G_{1}(x))}
+  . By extension, the distribution of 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  -th neighbors is generated by:
+
+  
+    
+      
+        
+          G
+          
+            0
+          
+        
+        
+          
+            (
+          
+        
+        
+          G
+          
+            1
+          
+        
+        (
+        .
+        .
+        .
+        
+          G
+          
+            1
+          
+        
+        (
+        x
+        )
+        .
+        .
+        .
+        )
+        
+          
+            )
+          
+        
+      
+    
+    {\displaystyle G_{0}{\bigl (}G_{1}(...G_{1}(x)...){\bigr )}}
+  , with 
+  
+    
+      
+        m
+        −
+        1
+      
+    
+    {\displaystyle m-1}
+   iterations of the function 
+  
+    
+      
+        
+          G
+          
+            1
+          
+        
+      
+    
+    {\displaystyle G_{1}}
+   acting on itself.The average number of 1st neighbors, 
+  
+    
+      
+        
+          c
+          
+            1
+          
+        
+      
+    
+    {\displaystyle c_{1}}
+  , is 
+  
+    
+      
+        
+          ⟨
+          k
+          ⟩
+        
+        =
+        
+          
+            
+              d
+              
+                G
+                
+                  0
+                
+              
+              (
+              x
+              )
+            
+            
+              d
+              x
+            
+          
+        
+        
+          
+            |
+          
+          
+            x
+            =
+            1
+          
+        
+      
+    
+    {\displaystyle {\langle k\rangle }={dG_{0}(x) \over dx}|_{x=1}}
+   and the average number of 2nd neighbors is: 
+  
+    
+      
+        
+          c
+          
+            2
+          
+        
+        =
+        
+          
+            [
+          
+        
+        
+          
+            d
+            
+              d
+              x
+            
+          
+        
+        
+          G
+          
+            0
+          
+        
+        
+          
+            (
+          
+        
+        
+          G
+          
+            1
+          
+        
+        (
+        x
+        )
+        
+          
+            )
+          
+        
+        
+          
+            
+              ]
+            
+          
+          
+            x
+            =
+            1
+          
+        
+        =
+        
+          G
+          
+            1
+          
+          ′
+        
+        (
+        1
+        )
+        
+          G
+          
+            0
+          
+          ′
+        
+        
+          
+            (
+          
+        
+        
+          G
+          
+            1
+          
+        
+        (
+        1
+        )
+        
+          
+            )
+          
+        
+        =
+        
+          G
+          
+            1
+          
+          ′
+        
+        (
+        1
+        )
+        
+          G
+          
+            0
+          
+          ′
+        
+        (
+        1
+        )
+        =
+        
+          G
+          
+            0
+          
+          ″
+        
+        (
+        1
+        )
+      
+    
+    {\displaystyle c_{2}={\biggl [}{d \over dx}G_{0}{\big (}G_{1}(x){\big )}{\biggl ]}_{x=1}=G_{1}'(1)G'_{0}{\big (}G_{1}(1){\big )}=G_{1}'(1)G'_{0}(1)=G''_{0}(1)}
+
+Degree distribution for directed networks
+In a directed network, each node has some in-degree 
+  
+    
+      
+        
+          k
+          
+            i
+            n
+          
+        
+      
+    
+    {\displaystyle k_{in}}
+   and some out-degree 
+  
+    
+      
+        
+          k
+          
+            o
+            u
+            t
+          
+        
+      
+    
+    {\displaystyle k_{out}}
+   which are the number of links which have run into and out of that node respectfully. If 
+  
+    
+      
+        P
+        (
+        
+          k
+          
+            i
+            n
+          
+        
+        ,
+        
+          k
+          
+            o
+            u
+            t
+          
+        
+        )
+      
+    
+    {\displaystyle P(k_{in},k_{out})}
+   is the probability that a randomly chosen node has in-degree 
+  
+    
+      
+        
+          k
+          
+            i
+            n
+          
+        
+      
+    
+    {\displaystyle k_{in}}
+   and out-degree 
+  
+    
+      
+        
+          k
+          
+            o
+            u
+            t
+          
+        
+      
+    
+    {\displaystyle k_{out}}
+   then the generating function assigned to this joint probability distribution can be written with two valuables 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   as:
+
+  
+    
+      
+        
+          
+            G
+          
+        
+        (
+        x
+        ,
+        y
+        )
+        =
+        
+          ∑
+          
+            
+              k
+              
+                i
+                n
+              
+            
+            ,
+            
+              k
+              
+                o
+                u
+                t
+              
+            
+          
+        
+        
+          P
+          (
+          
+            
+              k
+              
+                i
+                n
+              
+            
+            ,
+            
+              k
+              
+                o
+                u
+                t
+              
+            
+          
+          )
+          
+            x
+            
+              
+                k
+                
+                  i
+                  n
+                
+              
+            
+          
+          
+            y
+            
+              
+                k
+                
+                  o
+                  u
+                  t
+                
+              
+            
+          
+          .
+        
+      
+    
+    {\displaystyle {\mathcal {G}}(x,y)=\sum _{k_{in},k_{out}}\displaystyle P({k_{in},k_{out}})x^{k_{in}}y^{k_{out}}.}
+   
+Since every link in a directed network must leave some node and enter another, the net average number of links entering a node is zero. Therefore, 
+
+  
+    
+      
+        ⟨
+        
+          
+            k
+            
+              i
+              n
+            
+          
+          −
+          
+            k
+            
+              o
+              u
+              t
+            
+          
+        
+        ⟩
+        =
+        
+          ∑
+          
+            
+              k
+              
+                i
+                n
+              
+            
+            ,
+            
+              k
+              
+                o
+                u
+                t
+              
+            
+          
+        
+        
+          (
+          
+            k
+            
+              i
+              n
+            
+          
+          −
+          
+            k
+            
+              o
+              u
+              t
+            
+          
+          )
+          P
+          (
+          
+            
+              k
+              
+                i
+                n
+              
+            
+            ,
+            
+              k
+              
+                o
+                u
+                t
+              
+            
+          
+          )
+          =
+          0
+        
+      
+    
+    {\displaystyle \langle {k_{in}-k_{out}}\rangle =\sum _{k_{in},k_{out}}\displaystyle (k_{in}-k_{out})P({k_{in},k_{out}})=0}
+  ,
+which implies that, the generation function must satisfy:
+
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                
+                  G
+                
+              
+            
+            
+              ∂
+              x
+            
+          
+        
+        
+          |
+          
+            x
+            ,
+            y
+            =
+            1
+          
+        
+        =
+        
+          
+            
+              ∂
+              
+                
+                  G
+                
+              
+            
+            
+              ∂
+              y
+            
+          
+        
+        
+          |
+          
+            x
+            ,
+            y
+            =
+            1
+          
+        
+        =
+        c
+        ,
+      
+    
+    {\displaystyle {\partial {\mathcal {G}} \over \partial x}\vert _{x,y=1}={\partial {\mathcal {G}} \over \partial y}\vert _{x,y=1}=c,}
+  
+where 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   is the mean degree (both in and out) of the nodes in the network; 
+  
+    
+      
+        ⟨
+        
+          
+            k
+            
+              i
+              n
+            
+          
+        
+        ⟩
+        =
+        ⟨
+        
+          
+            k
+            
+              o
+              u
+              t
+            
+          
+        
+        ⟩
+        =
+        c
+        .
+      
+    
+    {\displaystyle \langle {k_{in}}\rangle =\langle {k_{out}}\rangle =c.}
+  
+Using the function 
+  
+    
+      
+        
+          
+            G
+          
+        
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle {\mathcal {G}}(x,y)}
+  , we can again find the generation function for the in/out-degree distribution and in/out-excess degree distribution, as before. 
+  
+    
+      
+        
+          G
+          
+            0
+          
+          
+            i
+            n
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle G_{0}^{in}(x)}
+   can be defined as generating functions for the number of arriving links at a randomly chosen node, and 
+  
+    
+      
+        
+          G
+          
+            1
+          
+          
+            i
+            n
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle G_{1}^{in}(x)}
+  can be defined as the number of arriving links at a node reached by following a randomly chosen link. We can also define generating functions 
+  
+    
+      
+        
+          G
+          
+            0
+          
+          
+            o
+            u
+            t
+          
+        
+        (
+        y
+        )
+      
+    
+    {\displaystyle G_{0}^{out}(y)}
+   and 
+  
+    
+      
+        
+          G
+          
+            1
+          
+          
+            o
+            u
+            t
+          
+        
+        (
+        y
+        )
+      
+    
+    {\displaystyle G_{1}^{out}(y)}
+   for the number leaving such a node:
+
+  
+    
+      
+        
+          G
+          
+            0
+          
+          
+            i
+            n
+          
+        
+        (
+        x
+        )
+        =
+        
+          
+            G
+          
+        
+        (
+        x
+        ,
+        1
+        )
+      
+    
+    {\displaystyle G_{0}^{in}(x)={\mathcal {G}}(x,1)}
+  
+
+  
+    
+      
+        
+          G
+          
+            1
+          
+          
+            i
+            n
+          
+        
+        (
+        x
+        )
+        =
+        
+          
+            1
+            c
+          
+        
+        
+          
+            
+              ∂
+              
+                
+                  G
+                
+              
+            
+            
+              ∂
+              x
+            
+          
+        
+        
+          |
+          
+            y
+            =
+            1
+          
+        
+      
+    
+    {\displaystyle G_{1}^{in}(x)={\frac {1}{c}}{\partial {\mathcal {G}} \over \partial x}\vert _{y=1}}
+  
+
+  
+    
+      
+        
+          G
+          
+            0
+          
+          
+            o
+            u
+            t
+          
+        
+        (
+        y
+        )
+        =
+        
+          
+            G
+          
+        
+        (
+        1
+        ,
+        y
+        )
+      
+    
+    {\displaystyle G_{0}^{out}(y)={\mathcal {G}}(1,y)}
+  
+
+  
+    
+      
+        
+          G
+          
+            1
+          
+          
+            o
+            u
+            t
+          
+        
+        (
+        y
+        )
+        =
+        
+          
+            1
+            c
+          
+        
+        
+          
+            
+              ∂
+              
+                
+                  G
+                
+              
+            
+            
+              ∂
+              y
+            
+          
+        
+        
+          |
+          
+            x
+            =
+            1
+          
+        
+      
+    
+    {\displaystyle G_{1}^{out}(y)={\frac {1}{c}}{\partial {\mathcal {G}} \over \partial y}\vert _{x=1}}
+  Here, the average number of 1st neighbors, 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+  , or as previously introduced as 
+  
+    
+      
+        
+          c
+          
+            1
+          
+        
+      
+    
+    {\displaystyle c_{1}}
+  , is 
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                
+                  G
+                
+              
+            
+            
+              ∂
+              x
+            
+          
+        
+        
+          
+            
+              |
+            
+          
+          
+            x
+            ,
+            y
+            =
+            1
+          
+        
+        =
+        
+          
+            
+              ∂
+              
+                
+                  G
+                
+              
+            
+            
+              ∂
+              y
+            
+          
+        
+        
+          
+            
+              |
+            
+          
+          
+            x
+            ,
+            y
+            =
+            1
+          
+        
+      
+    
+    {\displaystyle {\partial {\mathcal {G}} \over \partial x}{\biggl \vert }_{x,y=1}={\partial {\mathcal {G}} \over \partial y}{\biggl \vert }_{x,y=1}}
+   and the average number of 2nd neighbors reachable from a randomly chosen node is given by: 
+  
+    
+      
+        
+          c
+          
+            2
+          
+        
+        =
+        
+          G
+          
+            1
+          
+          ′
+        
+        (
+        1
+        )
+        
+          G
+          
+            0
+          
+          ′
+        
+        (
+        1
+        )
+        =
+        
+          
+            
+              
+                ∂
+                
+                  2
+                
+              
+              
+                
+                  G
+                
+              
+            
+            
+              ∂
+              x
+              ∂
+              y
+            
+          
+        
+        
+          
+            
+              |
+            
+          
+          
+            x
+            ,
+            y
+            =
+            1
+          
+        
+      
+    
+    {\displaystyle c_{2}=G_{1}'(1)G'_{0}(1)={\partial ^{2}{\mathcal {G}} \over \partial x\partial y}{\biggl \vert }_{x,y=1}}
+  . These are also the numbers of 1st and 2nd neighbors from which a random node can be reached, since these equations are manifestly symmetric in 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  .
+
+Degree distribution for signed networks
+In a signed network, each node has a positive-degree 
+  
+    
+      
+        
+          k
+          
+            +
+          
+        
+      
+    
+    {\displaystyle k_{+}}
+   and a negative degree 
+  
+    
+      
+        
+          k
+          
+            −
+          
+        
+      
+    
+    {\displaystyle k_{-}}
+   which are the positive number of links and negative number of links connected to that node respectfully. So 
+  
+    
+      
+        P
+        (
+        
+          k
+          
+            +
+          
+        
+        )
+      
+    
+    {\displaystyle P(k_{+})}
+   and 
+  
+    
+      
+        P
+        (
+        
+          k
+          
+            −
+          
+        
+        )
+      
+    
+    {\displaystyle P(k_{-})}
+   denote negative degree distribution and positive degree distribution of the signed network.
+
+See also
+Graph theory
+Complex network
+Scale-free network
+Random graph
+Structural cut-off
+
+References
+
+Albert, R.; Barabasi, A.-L. (2002). "Statistical mechanics of complex networks". Reviews of Modern Physics. 74 (1): 47–97. arXiv:cond-mat/0106096. Bibcode:2002RvMP...74...47A. doi:10.1103/RevModPhys.74.47. S2CID 60545.
+Dorogovtsev, S.; Mendes, J. F. F. (2002). "Evolution of networks". Advances in Physics. 51 (4): 1079–1187. arXiv:cond-mat/0106144. Bibcode:2002AdPhy..51.1079D. doi:10.1080/00018730110112519. S2CID 429546.
+Newman, M. E. J. (2003). "The structure and function of complex networks". SIAM Review. 45 (2): 167–256. arXiv:cond-mat/0303516. Bibcode:2003SIAMR..45..167N. doi:10.1137/S003614450342480. S2CID 221278130.

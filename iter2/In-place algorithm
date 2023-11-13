@@ -1,0 +1,42 @@
+In computer science, an in-place algorithm is an algorithm that operates directly on the input data structure without requiring extra space proportional to the input size. In other words, it modifies the input in place, without creating a separate copy of the data structure. An algorithm which is not in-place is sometimes called not-in-place or out-of-place.
+In-place can have slightly different meanings. In its strictest form, the algorithm can only have a constant amount of extra space, counting everything including function calls and pointers. However, this form is very limited as simply having an index to a length n array requires O(log n) bits. More broadly, in-place means that the algorithm does not use extra space for manipulating the input but may require a small though nonconstant extra space for its operation. Usually, this space is O(log n), though sometimes anything in o(n) is allowed. Note that space complexity also has varied choices in whether or not to count the index lengths as part of the space used. Often, the space complexity is given in terms of the number of indices or pointers needed, ignoring their length. In this article, we refer to total space complexity (DSPACE), counting pointer lengths. Therefore, the space requirements here have an extra log n factor compared to an analysis that ignores the length of indices and pointers.  
+An algorithm may or may not count the output as part of its space usage. Since in-place algorithms usually overwrite their input with output, no additional space is needed. When writing the output to write-only memory or a stream, it may be more appropriate to only consider the working space of the algorithm. In theoretical applications such as log-space reductions, it is more typical to always ignore output space (in these cases it is more essential that the output is write-only).
+
+Examples
+Given an array a of n items, suppose we want an array that holds the same elements in reversed order and to dispose of the original. One seemingly simple way to do this is to create a new array of equal size, fill it with copies from a in the appropriate order and then delete a.
+
+ function reverse(a[0..n - 1])
+     allocate b[0..n - 1]
+     for i from 0 to n - 1
+         b[n − 1 − i] := a[i]
+     return b
+
+Unfortunately, this requires O(n) extra space for having the arrays a and b available simultaneously. Also, allocation and deallocation are often slow operations. Since we no longer need a, we can instead overwrite it with its own reversal using this in-place algorithm which will only need constant number (2) of integers for the auxiliary variables i and tmp, no matter how large the array is.
+
+ function reverse_in_place(a[0..n-1])
+     for i from 0 to floor((n-2)/2)
+         tmp := a[i]
+         a[i] := a[n − 1 − i]
+         a[n − 1 − i] := tmp
+
+As another example, many sorting algorithms rearrange arrays into sorted order in-place, including: bubble sort, comb sort, selection sort, insertion sort, heapsort, and Shell sort. These algorithms require only a few pointers, so their space complexity is O(log n).Quicksort operates in-place on the data to be sorted. However, quicksort requires O(log n) stack space pointers to keep track of the subarrays in its divide and conquer strategy. Consequently, quicksort needs O(log2 n) additional space. Although this non-constant space technically takes quicksort out of the in-place category, quicksort and other algorithms needing only O(log n) additional pointers are usually considered in-place algorithms.
+Most selection algorithms are also in-place, although some considerably rearrange the input array in the process of finding the final, constant-sized result.
+Some text manipulation algorithms such as trim and reverse may be done in-place.
+
+In computational complexity
+In computational complexity theory, the strict definition of in-place algorithms includes all algorithms with O(1) space complexity, the class DSPACE(1). This class is very limited; it equals the regular languages. In fact, it does not even include any of the examples listed above.
+Algorithms are usually considered in L, the class of problems requiring O(log n) additional space, to be in-place. This class is more in line with the practical definition, as it allows numbers of size n as pointers or indices. This expanded definition still excludes quicksort, however, because of its recursive calls.  
+Identifying the in-place algorithms with L has some interesting implications; for example, it means that there is a (rather complex) in-place algorithm to determine whether a path exists between two nodes in an undirected graph, a problem that requires O(n) extra space using typical algorithms such as depth-first search (a visited bit for each node). This in turn yields in-place algorithms for problems such as determining if a graph is bipartite or testing whether two graphs have the same number of connected components.
+
+Role of randomness
+In many cases, the space requirements of an algorithm can be drastically cut by using a randomized algorithm. For example, if one wishes to know if two vertices in a graph of n vertices are in the same connected component of the graph, there is no known simple, deterministic, in-place algorithm to determine this. However, if we simply start at one vertex and perform a random walk of about 20n3 steps, the chance that we will stumble across the other vertex provided that it is in the same component is very high. Similarly, there are simple randomized in-place algorithms for primality testing such as the Miller–Rabin primality test, and there are also simple in-place randomized factoring algorithms such as Pollard's rho algorithm.
+
+In functional programming
+Functional programming languages often discourage or do not support explicit in-place algorithms that overwrite data, since this is a type of side effect; instead, they only allow new data to be constructed. However, good functional language compilers will often recognize when an object very similar to an existing one is created and then the old one is thrown away, and will optimize this into a simple mutation "under the hood".
+Note that it is possible in principle to carefully construct in-place algorithms that do not modify data (unless the data is no longer being used), but this is rarely done in practice.
+
+See also
+Table of in-place and not-in-place sorting algorithms
+
+
+== References ==

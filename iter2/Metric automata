@@ -1,0 +1,2166 @@
+In quantum computing, quantum finite automata (QFA) or quantum state machines are a quantum analog of probabilistic automata or a Markov decision process. They provide a mathematical abstraction of real-world quantum computers. Several types of automata may be defined, including measure-once and measure-many automata.  Quantum finite automata can also be understood as the quantization of subshifts of finite type, or as a quantization of Markov chains. QFAs are, in turn, special cases of geometric finite automata or topological finite automata.
+The automata work by receiving a finite-length string 
+  
+    
+      
+        σ
+        =
+        (
+        
+          σ
+          
+            0
+          
+        
+        ,
+        
+          σ
+          
+            1
+          
+        
+        ,
+        ⋯
+        ,
+        
+          σ
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle \sigma =(\sigma _{0},\sigma _{1},\cdots ,\sigma _{k})}
+   of letters 
+  
+    
+      
+        
+          σ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \sigma _{i}}
+   from a finite alphabet 
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+  , and assigning to each such string a probability 
+  
+    
+      
+        Pr
+        ⁡
+        (
+        σ
+        )
+      
+    
+    {\displaystyle \operatorname {Pr} (\sigma )}
+   indicating the probability of the automaton being in an accept state; that is, indicating whether the automaton accepted or rejected the string.
+The languages accepted by QFAs are not the regular languages of deterministic finite automata, nor are they the stochastic languages of probabilistic finite automata. Study of these quantum languages remains an active area of research.
+
+Informal description
+There is a simple, intuitive way of understanding quantum finite automata. One begins with a graph-theoretic interpretation of deterministic finite automata (DFA).  A DFA can be represented as a directed graph, with states as nodes in the graph, and arrows representing state transitions. Each arrow is labelled with a possible input symbol, so that, given a specific state and an input symbol, the arrow points at the next state.  One way of representing such a graph is by means of a set of adjacency matrices, with one matrix for each input symbol.  In this case, the list of possible DFA states is written as a column vector. For a given input symbol, the adjacency matrix indicates how any given state (row in the state vector) will transition to the next state; a state transition is given by matrix multiplication.
+One needs a distinct adjacency matrix for each possible input symbol, since each input symbol can result in a different transition. The entries in the adjacency matrix must be zero's and one's. For any given column in the matrix, only one entry can be non-zero: this is the entry that indicates the next (unique) state transition.  Similarly, the state of the system is a column vector, in which only one entry is non-zero: this entry corresponds to the current state of the system. Let 
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+   denote the set of input symbols. For a given input symbol 
+  
+    
+      
+        α
+        ∈
+        Σ
+      
+    
+    {\displaystyle \alpha \in \Sigma }
+  , write 
+  
+    
+      
+        
+          U
+          
+            α
+          
+        
+      
+    
+    {\displaystyle U_{\alpha }}
+   as the adjacency matrix that describes the evolution of the DFA to its next state.  The set 
+  
+    
+      
+        {
+        
+          U
+          
+            α
+          
+        
+        
+          |
+        
+        α
+        ∈
+        Σ
+        }
+      
+    
+    {\displaystyle \{U_{\alpha }|\alpha \in \Sigma \}}
+   then completely describes the state transition function of the DFA. Let Q represent the set of possible states of the DFA. If there are N states in Q, then each matrix 
+  
+    
+      
+        
+          U
+          
+            α
+          
+        
+      
+    
+    {\displaystyle U_{\alpha }}
+   is N by N-dimensional. The initial state 
+  
+    
+      
+        
+          q
+          
+            0
+          
+        
+        ∈
+        Q
+      
+    
+    {\displaystyle q_{0}\in Q}
+   corresponds to a column vector with a one in the q0'th row. A general state q is then a column vector with a one in the q'th row. By abuse of notation, let q0 and q also denote these two vectors. Then, after reading input symbols 
+  
+    
+      
+        α
+        β
+        γ
+        ⋯
+      
+    
+    {\displaystyle \alpha \beta \gamma \cdots }
+   from the input tape, the state of the DFA will be given by 
+  
+    
+      
+        q
+        =
+        ⋯
+        
+          U
+          
+            γ
+          
+        
+        
+          U
+          
+            β
+          
+        
+        
+          U
+          
+            α
+          
+        
+        
+          q
+          
+            0
+          
+        
+        .
+      
+    
+    {\displaystyle q=\cdots U_{\gamma }U_{\beta }U_{\alpha }q_{0}.}
+   The state transitions are given by ordinary matrix multiplication (that is, multiply q0 by 
+  
+    
+      
+        
+          U
+          
+            α
+          
+        
+      
+    
+    {\displaystyle U_{\alpha }}
+  , etc.); the order of application is 'reversed' only because we follow the standard notation of linear algebra.
+The above description of a DFA, in terms of linear operators and vectors, almost begs for generalization, by replacing the state-vector q by some general vector, and the matrices 
+  
+    
+      
+        {
+        
+          U
+          
+            α
+          
+        
+        }
+      
+    
+    {\displaystyle \{U_{\alpha }\}}
+   by some general operators. This is essentially what a QFA does: it replaces q by a probability amplitude, and the 
+  
+    
+      
+        {
+        
+          U
+          
+            α
+          
+        
+        }
+      
+    
+    {\displaystyle \{U_{\alpha }\}}
+   by unitary matrices.  Other, similar generalizations also become obvious: the vector q can be some distribution on a manifold; the set of transition matrices become automorphisms of the manifold; this defines a topological finite automaton.  Similarly, the matrices could be taken as automorphisms of a homogeneous space; this defines a geometric finite automaton.
+Before moving on to the formal description of a QFA, there are two noteworthy generalizations that should be mentioned and understood. The first is the  non-deterministic finite automaton (NFA).  In this case, the vector q is replaced by a vector which can have more than one entry that is non-zero. Such a vector then represents an element of the power set of Q; it’s just an indicator function on Q. Likewise, the state transition matrices 
+  
+    
+      
+        {
+        
+          U
+          
+            α
+          
+        
+        }
+      
+    
+    {\displaystyle \{U_{\alpha }\}}
+   are defined in such a way that a given column can have several non-zero entries in it.  Equivalently, the multiply-add operations performed during component-wise matrix multiplication should be replaced by Boolean and-or operations, that is, so that one is working with a ring of characteristic 2.
+A well-known theorem states that, for each DFA, there is an equivalent NFA, and vice versa.  This implies that the set of languages that can be recognized by DFA's and NFA's are the same; these are the regular languages. In the generalization to QFAs, the set of recognized languages will be different. Describing that set is one of the outstanding research problems in QFA theory.
+Another generalization that should be immediately apparent is to use a stochastic matrix for the transition matrices, and a probability vector for the state; this gives a probabilistic finite automaton. The entries in the state vector must be real numbers, positive, and sum to one, in order for the state vector to be interpreted as a probability. The transition matrices must preserve this property: this is why they must be stochastic. Each state vector should be imagined as specifying a point in a simplex; thus, this is a topological automaton, with the simplex being the manifold, and the stochastic matrices being linear automorphisms of the simplex onto itself.  Since each transition is (essentially) independent of the previous (if we disregard the distinction between accepted and rejected languages), the PFA essentially becomes a kind of Markov chain.
+By contrast, in a QFA, the manifold is complex projective space 
+  
+    
+      
+        
+          C
+        
+        
+          P
+          
+            N
+          
+        
+      
+    
+    {\displaystyle \mathbb {C} P^{N}}
+  , and the transition matrices are unitary matrices.  Each point in 
+  
+    
+      
+        
+          C
+        
+        
+          P
+          
+            N
+          
+        
+      
+    
+    {\displaystyle \mathbb {C} P^{N}}
+   corresponds to a quantum-mechanical probability amplitude or pure state; the unitary matrices can be thought of as governing the time evolution of the system (viz in the Schrödinger picture). The generalization from pure states to mixed states should be straightforward: A mixed state is simply a measure-theoretic probability distribution on 
+  
+    
+      
+        
+          C
+        
+        
+          P
+          
+            N
+          
+        
+      
+    
+    {\displaystyle \mathbb {C} P^{N}}
+  .
+A worthy point to contemplate is the distributions that result on the manifold during the input of a language. In order for an automaton to be 'efficient' in recognizing a language, that distribution should be 'as uniform as possible'. This need for uniformity is the underlying principle behind maximum entropy methods: these simply guarantee crisp, compact operation of the automaton. Put in other words, the machine learning methods used to train hidden Markov models generalize to QFAs as well: the Viterbi algorithm and the forward-backward algorithm generalize readily to the QFA.
+Although the study of QFA was popularized in the work of Kondacs and Watrous in 1997 and later by Moore and Crutchfeld, they were described as early as 1971, by Ion Baianu.
+
+Measure-once automata
+Measure-once automata were introduced by Cris Moore and James P. Crutchfield. They may be defined formally as follows.
+As with an ordinary finite automaton, the quantum automaton is considered to have 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+   possible internal states, represented in this case by an 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+  -state qubit 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+  . More precisely, the 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+  -state qubit 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+        ∈
+        
+          C
+        
+        
+          P
+          
+            N
+          
+        
+      
+    
+    {\displaystyle |\psi \rangle \in \mathbb {C} P^{N}}
+   is an element of 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+  -dimensional complex projective space, carrying an inner product 
+  
+    
+      
+        ‖
+        ⋅
+        ‖
+      
+    
+    {\displaystyle \Vert \cdot \Vert }
+   that is the Fubini–Study metric.
+The state transitions, transition matrices or de Bruijn graphs are represented by a collection of 
+  
+    
+      
+        N
+        ×
+        N
+      
+    
+    {\displaystyle N\times N}
+   unitary matrices 
+  
+    
+      
+        
+          U
+          
+            α
+          
+        
+      
+    
+    {\displaystyle U_{\alpha }}
+  , with one unitary matrix for each letter 
+  
+    
+      
+        α
+        ∈
+        Σ
+      
+    
+    {\displaystyle \alpha \in \Sigma }
+  . That is, given an input letter 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+  , the unitary matrix describes the transition of the automaton from its current state 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   to its next state 
+  
+    
+      
+        
+          |
+        
+        
+          ψ
+          
+            ′
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\psi ^{\prime }\rangle }
+  :
+
+  
+    
+      
+        
+          |
+        
+        
+          ψ
+          
+            ′
+          
+        
+        ⟩
+        =
+        
+          U
+          
+            α
+          
+        
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi ^{\prime }\rangle =U_{\alpha }|\psi \rangle }
+  Thus, the triple 
+  
+    
+      
+        (
+        
+          C
+        
+        
+          P
+          
+            N
+          
+        
+        ,
+        Σ
+        ,
+        {
+        
+          U
+          
+            α
+          
+        
+        
+        |
+        
+        α
+        ∈
+        Σ
+        }
+        )
+      
+    
+    {\displaystyle (\mathbb {C} P^{N},\Sigma ,\{U_{\alpha }\;\vert \;\alpha \in \Sigma \})}
+   form a quantum semiautomaton.
+The accept state of the automaton is given by an 
+  
+    
+      
+        N
+        ×
+        N
+      
+    
+    {\displaystyle N\times N}
+   projection matrix 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  , so that, given a 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+  -dimensional quantum state 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+  , the probability of 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   being in the accept state is
+
+  
+    
+      
+        ⟨
+        ψ
+        
+          |
+        
+        P
+        
+          |
+        
+        ψ
+        ⟩
+        =
+        ‖
+        P
+        
+          |
+        
+        ψ
+        ⟩
+        
+          ‖
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \langle \psi |P|\psi \rangle =\Vert P|\psi \rangle \Vert ^{2}}
+  The probability of the state machine accepting a given finite input string 
+  
+    
+      
+        σ
+        =
+        (
+        
+          σ
+          
+            0
+          
+        
+        ,
+        
+          σ
+          
+            1
+          
+        
+        ,
+        ⋯
+        ,
+        
+          σ
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle \sigma =(\sigma _{0},\sigma _{1},\cdots ,\sigma _{k})}
+   is given by
+
+  
+    
+      
+        Pr
+        ⁡
+        (
+        σ
+        )
+        =
+        ‖
+        P
+        
+          U
+          
+            
+              σ
+              
+                k
+              
+            
+          
+        
+        ⋯
+        
+          U
+          
+            
+              σ
+              
+                1
+              
+            
+          
+        
+        
+          U
+          
+            
+              σ
+              
+                0
+              
+            
+          
+        
+        
+          |
+        
+        ψ
+        ⟩
+        
+          ‖
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \operatorname {Pr} (\sigma )=\Vert PU_{\sigma _{k}}\cdots U_{\sigma _{1}}U_{\sigma _{0}}|\psi \rangle \Vert ^{2}}
+  Here, the vector 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   is understood to represent the initial state of the automaton, that is, the state the automaton was in before it started accepting the string input.  The empty string 
+  
+    
+      
+        ∅
+      
+    
+    {\displaystyle \varnothing }
+   is understood to be just the unit matrix, so that
+
+  
+    
+      
+        Pr
+        ⁡
+        (
+        ∅
+        )
+        =
+        ‖
+        P
+        
+          |
+        
+        ψ
+        ⟩
+        
+          ‖
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \operatorname {Pr} (\varnothing )=\Vert P|\psi \rangle \Vert ^{2}}
+  is just the probability of the initial state being an accepted state.
+Because the left-action of 
+  
+    
+      
+        
+          U
+          
+            α
+          
+        
+      
+    
+    {\displaystyle U_{\alpha }}
+   on 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   reverses the order of the letters in the string 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  , it is not uncommon for QFAs to be defined using a right action on the Hermitian transpose states, simply in order to keep the order of the letters the same.
+A regular language is accepted with probability 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   by a quantum finite automaton, if, for all sentences 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   in the language, (and a given, fixed initial state 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+  ), one has 
+  
+    
+      
+        p
+        <
+        Pr
+        ⁡
+        (
+        σ
+        )
+      
+    
+    {\displaystyle p<\operatorname {Pr} (\sigma )}
+  .
+
+Example
+Consider the classical deterministic finite automaton given by the state transition table
+
+The quantum state is a vector, in bra–ket notation
+
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+        =
+        
+          a
+          
+            1
+          
+        
+        
+          |
+        
+        
+          S
+          
+            1
+          
+        
+        ⟩
+        +
+        
+          a
+          
+            2
+          
+        
+        
+          |
+        
+        
+          S
+          
+            2
+          
+        
+        ⟩
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    a
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    a
+                    
+                      2
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle |\psi \rangle =a_{1}|S_{1}\rangle +a_{2}|S_{2}\rangle ={\begin{bmatrix}a_{1}\\a_{2}\end{bmatrix}}}
+  with the complex numbers 
+  
+    
+      
+        
+          a
+          
+            1
+          
+        
+        ,
+        
+          a
+          
+            2
+          
+        
+      
+    
+    {\displaystyle a_{1},a_{2}}
+   normalized so that
+
+  
+    
+      
+        
+          
+            [
+            
+              
+                
+                  
+                    a
+                    
+                      1
+                    
+                    
+                      ∗
+                    
+                  
+                  
+                  
+                  
+                    a
+                    
+                      2
+                    
+                    
+                      ∗
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        
+          
+            [
+            
+              
+                
+                  
+                    a
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    a
+                    
+                      2
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        =
+        
+          a
+          
+            1
+          
+          
+            ∗
+          
+        
+        
+          a
+          
+            1
+          
+        
+        +
+        
+          a
+          
+            2
+          
+          
+            ∗
+          
+        
+        
+          a
+          
+            2
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle {\begin{bmatrix}a_{1}^{*}\;\;a_{2}^{*}\end{bmatrix}}{\begin{bmatrix}a_{1}\\a_{2}\end{bmatrix}}=a_{1}^{*}a_{1}+a_{2}^{*}a_{2}=1}
+  The unitary transition matrices are
+
+  
+    
+      
+        
+          U
+          
+            0
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  0
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  0
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle U_{0}={\begin{bmatrix}0&1\\1&0\end{bmatrix}}}
+  and 
+
+  
+    
+      
+        
+          U
+          
+            1
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  1
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle U_{1}={\begin{bmatrix}1&0\\0&1\end{bmatrix}}}
+  Taking 
+  
+    
+      
+        
+          S
+          
+            1
+          
+        
+      
+    
+    {\displaystyle S_{1}}
+   to be the accept state, the projection matrix is
+
+  
+    
+      
+        P
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle P={\begin{bmatrix}1&0\\0&0\end{bmatrix}}}
+  As should be readily apparent, if the initial state is the pure state 
+  
+    
+      
+        
+          |
+        
+        
+          S
+          
+            1
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |S_{1}\rangle }
+   or 
+  
+    
+      
+        
+          |
+        
+        
+          S
+          
+            2
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |S_{2}\rangle }
+  , then the result of running the machine will be exactly identical to the classical deterministic finite state machine. In particular, there is a language accepted by this automaton with probability one, for these initial states, and it is identical to the regular language for the classical DFA, and is given by the regular expression:
+
+  
+    
+      
+        (
+        
+          1
+          
+            ∗
+          
+        
+        (
+        
+          01
+          
+            ∗
+          
+        
+        0
+        
+          )
+          
+            ∗
+          
+        
+        
+          )
+          
+            ∗
+          
+        
+        
+        
+      
+    
+    {\displaystyle (1^{*}(01^{*}0)^{*})^{*}\,\!}
+  The non-classical behaviour occurs if both 
+  
+    
+      
+        
+          a
+          
+            1
+          
+        
+      
+    
+    {\displaystyle a_{1}}
+   and 
+  
+    
+      
+        
+          a
+          
+            2
+          
+        
+      
+    
+    {\displaystyle a_{2}}
+   are non-zero. More subtle behaviour occurs when the matrices 
+  
+    
+      
+        
+          U
+          
+            0
+          
+        
+      
+    
+    {\displaystyle U_{0}}
+   and 
+  
+    
+      
+        
+          U
+          
+            1
+          
+        
+      
+    
+    {\displaystyle U_{1}}
+   are not so simple; see, for example, the de Rham curve as an example of a quantum finite state machine acting on the set of all possible finite binary strings.
+
+Measure-many automata
+Measure-many automata were introduced by Kondacs and Watrous in 1997. The general framework resembles that of the measure-once automaton, except that instead of there being one projection, at the end, there is a projection, or quantum measurement, performed after each letter is read. A formal definition follows.
+The Hilbert space 
+  
+    
+      
+        
+          
+            
+              H
+            
+          
+          
+            Q
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}_{Q}}
+   is decomposed into three orthogonal subspaces
+
+  
+    
+      
+        
+          
+            
+              H
+            
+          
+          
+            Q
+          
+        
+        =
+        
+          
+            
+              H
+            
+          
+          
+            accept
+          
+        
+        ⊕
+        
+          
+            
+              H
+            
+          
+          
+            reject
+          
+        
+        ⊕
+        
+          
+            
+              H
+            
+          
+          
+            non-halting
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}_{Q}={\mathcal {H}}_{\text{accept}}\oplus {\mathcal {H}}_{\text{reject}}\oplus {\mathcal {H}}_{\text{non-halting}}}
+  In the literature, these orthogonal subspaces are usually formulated in terms of the set 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+   of orthogonal basis vectors for the Hilbert space 
+  
+    
+      
+        
+          
+            
+              H
+            
+          
+          
+            Q
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}_{Q}}
+  . This set of basis vectors is divided up into subsets 
+  
+    
+      
+        
+          Q
+          
+            acc
+          
+        
+        ⊂
+        Q
+      
+    
+    {\displaystyle Q_{\text{acc}}\subset Q}
+   and 
+  
+    
+      
+        
+          Q
+          
+            rej
+          
+        
+        ⊂
+        Q
+      
+    
+    {\displaystyle Q_{\text{rej}}\subset Q}
+  , such that
+
+  
+    
+      
+        
+          
+            
+              H
+            
+          
+          
+            accept
+          
+        
+        =
+        span
+        ⁡
+        {
+        
+          |
+        
+        q
+        ⟩
+        :
+        
+          |
+        
+        q
+        ⟩
+        ∈
+        
+          Q
+          
+            acc
+          
+        
+        }
+      
+    
+    {\displaystyle {\mathcal {H}}_{\text{accept}}=\operatorname {span} \{|q\rangle :|q\rangle \in Q_{\text{acc}}\}}
+  is the linear span of the basis vectors in the accept set. The reject space is defined analogously, and the remaining space is designated the non-halting subspace.  There are three projection matrices, 
+  
+    
+      
+        
+          P
+          
+            acc
+          
+        
+      
+    
+    {\displaystyle P_{\text{acc}}}
+  ,  
+  
+    
+      
+        
+          P
+          
+            rej
+          
+        
+      
+    
+    {\displaystyle P_{\text{rej}}}
+   and 
+  
+    
+      
+        
+          P
+          
+            non
+          
+        
+      
+    
+    {\displaystyle P_{\text{non}}}
+  , each projecting to the respective subspace:
+
+  
+    
+      
+        
+          P
+          
+            acc
+          
+        
+        :
+        
+          
+            
+              H
+            
+          
+          
+            Q
+          
+        
+        →
+        
+          
+            
+              H
+            
+          
+          
+            accept
+          
+        
+      
+    
+    {\displaystyle P_{\text{acc}}:{\mathcal {H}}_{Q}\to {\mathcal {H}}_{\text{accept}}}
+  and so on. The parsing of the input string proceeds as follows. Consider the automaton to be in a state 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+  . After reading an input letter 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+  , the automaton will be in the state
+
+  
+    
+      
+        
+          |
+        
+        
+          ψ
+          
+            ′
+          
+        
+        ⟩
+        =
+        
+          U
+          
+            α
+          
+        
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi ^{\prime }\rangle =U_{\alpha }|\psi \rangle }
+  At this point, a measurement is performed on the state 
+  
+    
+      
+        
+          |
+        
+        
+          ψ
+          
+            ′
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\psi ^{\prime }\rangle }
+  , using the projection operators 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  , at which time its wave-function collapses into one of the three subspaces 
+  
+    
+      
+        
+          
+            
+              H
+            
+          
+          
+            accept
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}_{\text{accept}}}
+   or 
+  
+    
+      
+        
+          
+            
+              H
+            
+          
+          
+            reject
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}_{\text{reject}}}
+   or 
+  
+    
+      
+        
+          
+            
+              H
+            
+          
+          
+            non-halting
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}_{\text{non-halting}}}
+  . The probability of collapse is given by
+
+  
+    
+      
+        
+          Pr
+          
+            acc
+          
+        
+        ⁡
+        (
+        σ
+        )
+        =
+        ‖
+        
+          P
+          
+            acc
+          
+        
+        
+          |
+        
+        
+          ψ
+          
+            ′
+          
+        
+        ⟩
+        
+          ‖
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \operatorname {Pr} _{\text{acc}}(\sigma )=\Vert P_{\text{acc}}|\psi ^{\prime }\rangle \Vert ^{2}}
+  for the "accept" subspace, and analogously for the other two spaces.
+If the wave function has collapsed to either the "accept" or "reject" subspaces, then further processing halts. Otherwise, processing continues, with the next letter read from the input, and applied to what must be an eigenstate of 
+  
+    
+      
+        
+          P
+          
+            non
+          
+        
+      
+    
+    {\displaystyle P_{\text{non}}}
+  . Processing continues until the whole string is read, or the machine halts. Often, additional symbols 
+  
+    
+      
+        κ
+      
+    
+    {\displaystyle \kappa }
+   and $ are adjoined to the alphabet, to act as the left and right end-markers for the string.
+In the literature, the measure-many automaton is often denoted by the tuple 
+  
+    
+      
+        (
+        Q
+        ;
+        Σ
+        ;
+        δ
+        ;
+        
+          q
+          
+            0
+          
+        
+        ;
+        
+          Q
+          
+            acc
+          
+        
+        ;
+        
+          Q
+          
+            rej
+          
+        
+        )
+      
+    
+    {\displaystyle (Q;\Sigma ;\delta ;q_{0};Q_{\text{acc}};Q_{\text{rej}})}
+  . Here, 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+  , 
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+  , 
+  
+    
+      
+        
+          Q
+          
+            acc
+          
+        
+      
+    
+    {\displaystyle Q_{\text{acc}}}
+   and 
+  
+    
+      
+        
+          Q
+          
+            rej
+          
+        
+      
+    
+    {\displaystyle Q_{\text{rej}}}
+   are as defined above. The initial state is denoted by 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+        =
+        
+          |
+        
+        
+          q
+          
+            0
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle =|q_{0}\rangle }
+  . The unitary transformations are denoted by the map 
+  
+    
+      
+        δ
+      
+    
+    {\displaystyle \delta }
+  ,
+
+  
+    
+      
+        δ
+        :
+        Q
+        ×
+        Σ
+        ×
+        Q
+        →
+        
+          C
+        
+      
+    
+    {\displaystyle \delta :Q\times \Sigma \times Q\to \mathbb {C} }
+  so that
+
+  
+    
+      
+        
+          U
+          
+            α
+          
+        
+        
+          |
+        
+        
+          q
+          
+            1
+          
+        
+        ⟩
+        =
+        
+          ∑
+          
+            
+              q
+              
+                2
+              
+            
+            ∈
+            Q
+          
+        
+        δ
+        (
+        
+          q
+          
+            1
+          
+        
+        ,
+        α
+        ,
+        
+          q
+          
+            2
+          
+        
+        )
+        
+          |
+        
+        
+          q
+          
+            2
+          
+        
+        ⟩
+      
+    
+    {\displaystyle U_{\alpha }|q_{1}\rangle =\sum _{q_{2}\in Q}\delta (q_{1},\alpha ,q_{2})|q_{2}\rangle }
+
+Relation to quantum computing
+As of 2019, most quantum computers are implementations of measure-once quantum finite automata, and the software systems for programming them expose the state-preparation of 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+  , measurement 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   and a choice of unitary transformations 
+  
+    
+      
+        
+          U
+          
+            α
+          
+        
+      
+    
+    {\displaystyle U_{\alpha }}
+  , such the controlled NOT gate, the Hadamard transform and other quantum logic gates, directly to the programmer.
+The primary difference between real-world quantum computers and the theoretical framework presented above is that the initial state preparation cannot ever result in a point-like pure state, nor can the unitary operators be precisely applied.  Thus, the initial state must be taken as a mixed state
+
+  
+    
+      
+        ρ
+        =
+        ∫
+        p
+        (
+        x
+        )
+        
+          |
+        
+        
+          ψ
+          
+            x
+          
+        
+        ⟩
+        d
+        x
+      
+    
+    {\displaystyle \rho =\int p(x)|\psi _{x}\rangle dx}
+  for some probability distribution 
+  
+    
+      
+        p
+        (
+        x
+        )
+      
+    
+    {\displaystyle p(x)}
+   characterizing the ability of the machinery to prepare an initial state close to the desired initial pure state 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+  . This state is not stable, but suffers from some amount of quantum decoherence over time. Precise measurements are also not possible, and one instead uses positive operator-valued measures to describe the measurement process. Finally, each unitary transformation is not a single, sharply defined quantum logic gate, but rather a mixture
+
+  
+    
+      
+        
+          U
+          
+            α
+            ,
+            (
+            ρ
+            )
+          
+        
+        =
+        ∫
+        
+          p
+          
+            α
+          
+        
+        (
+        x
+        )
+        
+          U
+          
+            α
+            ,
+            x
+          
+        
+        d
+        x
+      
+    
+    {\displaystyle U_{\alpha ,(\rho )}=\int p_{\alpha }(x)U_{\alpha ,x}dx}
+  for some probability distribution 
+  
+    
+      
+        
+          p
+          
+            α
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle p_{\alpha }(x)}
+   describing how well the machinery can effect the desired transformation 
+  
+    
+      
+        
+          U
+          
+            α
+          
+        
+      
+    
+    {\displaystyle U_{\alpha }}
+  .
+As a result of these effects, the actual time evolution of the state cannot be taken as an infinite-precision pure point, operated on by a sequence of arbitrarily sharp transformations, but rather as an ergodic process, or more accurately, a mixing process that only concatenates transformations onto a state, but also smears the state over time.
+There is no quantum analog to the push-down automaton or stack machine. This is due to the no-cloning theorem: there is no way to make a copy of the current state of the machine, push it onto a stack for later reference, and then return to it.
+
+Geometric generalizations
+The above constructions indicate how the concept of a quantum finite automaton can be generalized to arbitrary topological spaces. For example, one may take some (N-dimensional) Riemann symmetric space to take the place of 
+  
+    
+      
+        
+          C
+        
+        
+          P
+          
+            N
+          
+        
+      
+    
+    {\displaystyle \mathbb {C} P^{N}}
+  . In place of the unitary matrices, one uses the isometries of the Riemannian manifold, or, more generally, some set of open functions appropriate for the given topological space. The initial state may be taken to be a point in the space. The set of accept states can be taken to be some arbitrary subset of the topological space. One then says that a formal language is accepted by this topological automaton if the point, after iteration by the homeomorphisms, intersects the accept set. But, of course, this is nothing more than the standard definition of an M-automaton. The behaviour of topological automata is studied in the field of topological dynamics.
+The quantum automaton differs from the topological automaton in that, instead of having a binary result (is the iterated point in, or not in, the final set?), one has a probability. The quantum probability is the (square of) the initial state projected onto some final state P; that is 
+  
+    
+      
+        
+          P
+          r
+        
+        =
+        |
+        ⟨
+        P
+        |
+        ψ
+        ⟩
+        
+          |
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \mathbf {Pr} =\vert \langle P\vert \psi \rangle \vert ^{2}}
+  . But this probability amplitude is just a very simple function of the distance between the point 
+  
+    
+      
+        |
+        P
+        ⟩
+      
+    
+    {\displaystyle \vert P\rangle }
+   and the point 
+  
+    
+      
+        |
+        ψ
+        ⟩
+      
+    
+    {\displaystyle \vert \psi \rangle }
+   in 
+  
+    
+      
+        
+          C
+        
+        
+          P
+          
+            N
+          
+        
+      
+    
+    {\displaystyle \mathbb {C} P^{N}}
+  , under the distance metric given by the Fubini–Study metric. To recap, the quantum probability of a language being accepted can be interpreted as a metric, with the probability of accept being unity, if the metric distance between the initial and final states is zero, and otherwise the probability of accept is less than one, if the metric distance is non-zero.  Thus, it follows that the quantum finite automaton is just a special case of a geometric automaton or a metric automaton, where 
+  
+    
+      
+        
+          C
+        
+        
+          P
+          
+            N
+          
+        
+      
+    
+    {\displaystyle \mathbb {C} P^{N}}
+   is generalized to some metric space, and the probability measure is replaced by a simple function of the metric on that space.
+
+See also
+Quantum Markov chain
+
+
+== Notes ==

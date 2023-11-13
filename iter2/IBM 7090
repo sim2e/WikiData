@@ -1,0 +1,121 @@
+The IBM 7090 is a second-generation transistorized version of the earlier IBM 709 vacuum tube mainframe computer that was designed for "large-scale scientific and technological applications". The 7090 is the fourth member of the IBM 700/7000 series scientific computers. The first 7090 installation was in December 1959. In 1960, a typical system sold for $2.9 million (equivalent to $21 million in 2022) or could be rented for $63,500 a month (equivalent to $452,000 in 2021).
+The 7090 uses a 36-bit word length, with an address space of 32,768 words (15-bit addresses). It operates with a basic memory cycle of 2.18 μs, using the IBM 7302 Core Storage core memory technology from the IBM 7030 (Stretch) project.
+With a processing speed of around 100 Kflop/s, the 7090 is six times faster than the 709, and could be rented for half the price. An upgraded version, the 7094, was up to twice as fast. Both the 7090 and the 7094 were withdrawn from sale on July 14, 1969, but systems remained in service for more than a decade after.
+
+Development and naming
+Although the 709 was a superior machine to its predecessor, the 704, it was being built and sold at the time that transistor circuitry was supplanting vacuum tube circuits.  Hence, IBM redeployed its 709 engineering group to the design of a transistorized successor.  That project became called the 709-T (for transistorized), which because of the sound when spoken, quickly shifted to the nomenclature 7090 (i.e., seven - oh - ninety).  Similarly, the related machines such as the 7070 and other 7000 series equipment were sometimes called by names of digit - digit - decade (e.g., seven - oh - seventy).
+
+IBM 7094
+An upgraded version, the IBM 7094, was first installed in September 1962.  It has seven index registers, instead of three on the earlier machines. The 7094 console has a distinctive box on top that displays lights for the four new index registers. The 7094 introduced double-precision floating point and additional instructions, but is largely backward compatible with the 7090. 
+Although the 7094 has four more index registers than the 709 and 7090, at power-on time it is in multiple tag mode,: 8  compatible with the 709 and 7090, and requires a Leave Multiple Tag Mode: 56  instruction in order to enter seven index register mode and use all seven index registers. In multiple tag mode, when more than one bit is set in the tag field, the contents of the two or three selected index registers are logically ORed, not added, together, before the decrement takes place. In seven index register mode, if the three-bit tag field is not zero, it selects just one of seven index registers, however, the program can return to multiple tag mode with the instruction Enter Multiple Tag Mode,: 55  restoring 7090 compatibility.
+In April 1964, the first 7094 II was installed, which had almost twice as much general speed as the 7094 due to a faster clock cycle, dual memory banks and improved overlap of instruction execution, an early instance of pipelined design.
+
+IBM 7040/7044
+In 1963, IBM introduced two new, lower cost machines called the IBM 7040 and 7044. They have a 36-bit architecture based on the 7090, but with some instructions omitted or optional, and simplified input/output that allows the use of more modern, higher performance peripherals from the IBM 1400 series.
+
+7094/7044 Direct Coupled System
+The  7094/7044 Direct Coupled System (DCS) was initially developed by an IBM customer, the Aerospace Corporation, seeking greater cost efficiency and scheduling flexibility than IBM's IBSYS tape operating system provided. DCS used a less expensive IBM 7044 to handle input/output (I/O) with the 7094 performing mostly computation. Aerospace developed the Direct Couple operating system, an extension to IBSYS, which was shared with other IBM customers. IBM later introduced the DCS as a product.
+
+Transistors and circuitry
+The 7090 used more than 50,000 germanium alloy-junction transistors and (faster) germanium diffused junction drift transistors.The 7090 used the Standard Modular System (SMS) cards using current-mode logic some using diffused junction drift transistors.
+
+Instruction and data formats
+The basic instruction formats were the same as the IBM 709:
+
+A three-bit opcode (prefix), 15-bit decrement (D), three-bit tag (T), and 15-bit address (Y)
+A twelve-bit opcode, two-bit flag (F), four unused bits, three-bit tag (T), and 15-bit address (Y)
+Variations of the above with different allocation of bits 12-17 or different allocations of bits 18-35The documentation of opcodes used signed octal. The flag field indicated whether to use indirect addressing or not. The decrement field often contained an immediate operand to modify the results of the operation, or was used to further define the instruction type. The tag field might describe an index register to be operated on, or be used as described below. The Y field might contain an address, an immediate operand or an opcode modifier. For instructions where the tag field indicated indexing, the operation was
+
+T=0
+use Y
+7090
+form the logical or of the selected index registers and subtract from Y
+7094 in multiple tag mode (power-on default)
+same as 7090
+7094 in seven index register mode
+subtract the index register from YIf there was no F field or F is not all one bits, then the above was the effective address. Otherwise it was an indirect effective address; i.e., fetch the word at that location and treat the T and Y fields as described above.
+Data formats are
+
+Fixed-point numbers were stored in binary sign/magnitude format.
+Single-precision floating-point numbers had a magnitude sign, an eight-bit excess-128 exponent and a 27-bit magnitude (numbers were binary, rather than the hexadecimal format introduced later for System/360)
+Double-precision floating-point numbers, introduced on the 7094, had a magnitude sign, an eight-bit excess-128 exponent, and a 54-bit magnitude.  The double-precision number was stored in memory in an even-odd pair of consecutive words; the sign and exponent in the second word were ignored when the number was used as an operand.
+Alphanumeric characters were six-bit BCD, packed six to a word.Octal notation was used in documentation and programming; console displays lights and switches were grouped into three-bit fields for easy conversion to and from octal.
+
+Input/output
+The 7090 series features a data channel architecture for input and output, a forerunner of modern direct memory access I/O. Up to eight data channels can be attached, with up to ten IBM 729 tape drives attached to each channel. The data channels have their own very limited set of operations called commands.  These are used with tape (and later, disk) storage as well as card units and printers, and offered high performance for the time.  Printing and punched card I/O, however, employed the same modified unit record equipment introduced with the 704 and was slow. It became common to use a less expensive IBM 1401 computer to read cards onto magnetic tape for transfer to the 7090/94. Output would be written onto tape and transferred to the 1401 for printing or card punching using its much faster peripherals, notably the IBM 1403 line printer.
+Later IBM introduced the 7094/7044 Direct Coupled System; the 7044 handled spooling between its fast 1400-series peripherals and 1301 or 1302 disk files, and used data channel to data channel communication as the 7094's interface to spooled data, with the 7094 
+primarily performing computations. There is also a 7090/7040 DCS.
+
+Software
+The 7090 and 7094 machines were quite successful for their time, and had a wide
+variety of software provided for them by IBM.  In addition, there was a very active user community within the user organization, SHARE.
+IBSYS is a "heavy duty" production operating system with numerous subsystem and language support options, among them FORTRAN, COBOL, SORT/MERGE, the MAP assembler, and others.
+FMS, the Fortran Monitor System, was a more lightweight but still very effective system optimized for batch FORTRAN and assembler programming.  The assembler provided, FAP, (FORTRAN Assembly Program), was somewhat less complete than MAP, but provided excellent capabilities for the era.  FMS also incorporated a considerably enhanced derivative of the FORTRAN compiler originally written for the 704 by Backus and his team.
+
+Notable applications
+The Compatible Time-Sharing System (CTSS), the first general purpose time-sharing operating system, developed at MIT's Computation Center on three successive computers, an IBM 709, 7090 and 7094 with RPQs for additional features. It eventually ran on two separate 7094s, one of them at Project MAC.
+it was the first computer to sing, singing "daisy bell".
+NASA used 7090s, and, later, 7094s to control the Mercury and Gemini space flights. Goddard Space Flight Center operated three 7094s. During the early Apollo Program, a 7094 was kept operational to run flight planning software that had not yet been ported to mission control's newer System/360 computers.
+Caltech/NASA Jet Propulsion Laboratory had three 7094s in the Space Flight Operations Facility (SFOF, building 230), fed via tape using several 1401s, and two 7094/7044 direct-coupled systems (in buildings 125 and 156). [under discussion]
+Erhard Glatzel used an IBM 7090 to assist in calculations for the design of the Carl Zeiss Planar 50mm f/0.7 lens commissioned by NASA. This lens was also used by Stanley Kubrick to shoot candlelit scenes in Barry Lyndon.
+An IBM 7090 was installed at LASL, Los Alamos Scientific Laboratory (Now Los Alamos National Laboratory).
+In 1961, Alexander Hurwitz used a 7090 to discover two Mersenne primes, with 1,281 and 1,332 digits—the largest known prime number at the time.
+In 1961, Michael Minovitch used UCLA's 7090 to tackle the three-body problem. His research was the scientific foundation of NASA's Planetary Grand Tour project.
+On February 13, 1961, an IBM 7090 was installed at the Woomera Long Range Weapons Establishment in Southern Australia.
+In 1962, a pair of 7090s in Briarcliff Manor, New York, were the basis for the original version of the SABRE airlines reservation system introduced by American Airlines.
+The composer Iannis Xenakis wrote his piece "Atrées" using an IBM 7090 at Place Vendôme, Paris.
+In 1962, Daniel Shanks and John Wrench used an IBM 7090 to compute the first 100,000 digits of π.
+In 1963, three 7090 systems were imported into and installed in Japan, one each at Mitsubishi Nuclear Power Co. (whose DP division later merged with Mitsubishi Research Institute, Inc.), IBM Japan's data center in Tokyo, and Toshiba in Kawasaki. They were mainly used for scientific computing.
+In 1964, an early version of TRACE, a high-precision orbit determination and orbit propagation program, was used on an IBM 7090 computer.
+Operation Match, the first computer dating service in the U.S., begun in 1965, used a 7090 at the Avco service bureau in Wilmington, Massachusetts.
+In 1967, Roger N. Shepard adapted M.V. Mathews' algorithm using an IBM 7090 to synthesize Shepard tones.
+The US Air Force retired its last 7090s in service from the Ballistic Missile Early Warning System ("BMEWS") in the 1980s after almost 30 years of use. 7090 serial number 1 and serial number 3 were installed at Thule Air Base in Greenland for this application.
+The US Navy continued to use a 7094 at Pacific Missile Test Center, Point Mugu, California through much of the 1980s, although a "retirement" ceremony was held in July 1982.  Not all of the applications had been ported to its successor, a dual-processor CDC Cyber 175.
+
+In the media
+A 7090/1401 installation is featured in the motion picture Dr. Strangelove, with the 1403 printer playing a pivotal role in the plot
+An IBM 7090 is featured in the 2016 American biographical film Hidden Figures.
+IBM 7094 specs are visible scrolling on a screen in the 1997 film Event Horizon.
+
+Competitors
+Despite its commercial success, the IBM 7090 faced competition in the market. Notable contemporary competitors included, in alphabetical order:
+
+Bull Gamma 60Burroughs Large Systems
+CDC 1604
+CDC 3600
+Ferranti Atlas
+GE-600 series
+Honeywell 800
+Philco TRANSAC S-2000
+RCA 601
+Sylvania 9300UNIVAC 1100/2200 series
+UNIVAC 1107
+
+See also
+9PAC
+Early IBM disk storage
+IBM 701
+IBM 704
+IBM 709
+IBM 711 card reader
+IBM 716 line printer
+IBM 729 tape drive
+SHARE and IBSYS operating systems
+SQUOZE
+University of Michigan Executive System
+List of IBM products
+
+References
+Further reading
+Reference Manual, IBM 7090 Data Processing System (PDF). IBM. March 1962. A22-6528-4.
+Sherman, Philip M. (1963).  Written at Bell Telephone Laboratories, Murray Hill, New Jersey, USA. Programming and Coding the IBM 709-7090-7094 Computers (PDF) (1 ed.). New York / London / Sydney: John Wiley & Sons, Inc. Archived (PDF) from the original on June 18, 2020. Retrieved June 18, 2020.
+
+External links
+IBM Archives - 7090
+IBM 7090 Data Processing System from BRL61 Report
+IBM 7090/94 Architecture page
+IBM 7090 Music From Mathematics Archived February 5, 2012, at the Wayback Machine recorded in 1960 by Bell Labs, using the "Digital to Sound Transducer" to realize several traditional and original compositions; this album contains the original Daisy (Bicycle Built for Two).
+IBM 7094 singing Daisy (mp3) 
+Bob Supnik's SimH project – Includes a simulator for the 7090/7094 in a user-modifiable package
+Dave Pitts' IBM 7090 support – Includes a simulator, cross assembler and linker
+The IBM 7094 and CTSS, Tom Van Vleck

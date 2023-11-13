@@ -1,0 +1,134 @@
+The IBM 650 Magnetic Drum Data-Processing Machine is an early digital computer produced by IBM in the mid-1950s. It was the first mass produced computer in the world. Almost 2,000 systems were produced, the last in 1962, and it was the first computer to make a meaningful profit. The first one was installed in late 1954 and it was the most-popular computer of the 1950s.The 650 offered it to business, scientific and engineering users as a slower and less expensive version of the IBM 701 and IBM 702 computers which were for scientific and business purposes respectively. It was also marketed to users of punched card machines who were upgrading from calculating punches, such as the IBM 604, to computers.: 5 Because of its relatively low cost and ease of programming, the 650 was used to pioneer a wide variety of applications, from modeling submarine crew performance to teaching high school and college students computer programming. The IBM 650 became highly popular in universities, where a generation of students first learned programming.It was announced in 1953 and in 1956 enhanced as the IBM 650 RAMAC with the addition of up to four disk storage units. The purchase price for the bare IBM 650 console, without the reader punch unit, was $150,000 in 1959, or roughly $1,500,000 as of 2023. Support for the 650 and its component units was withdrawn in 1969.
+The 650 was a two-address, bi-quinary coded decimal computer (both data and addresses were decimal), with memory on a rotating magnetic drum.  Character support was provided by the input/output units converting punched card alphabetical and special character encodings to/from a two-digit decimal code.
+The 650 was clocked at a frequency of 125 kHz. It could add or subtract in 1.63 milliseconds, multiply in 12.96 ms, and divide in 16.90 ms. The average speed of the 650 was estimated to be around 27.6 ms per instruction, or roughly 40 instructions per second.
+
+History
+The first 650 was installed on December 8, 1954 in the controller's department of the John Hancock Mutual Life Insurance Company in Boston.The IBM 7070 (signed 10-digit decimal words), announced 1958, was expected to be a "common successor to at least the 650 and the [IBM] 705". The IBM 1620 (variable-length decimal), introduced in 1959, addressed the lower end of the market. The UNIVAC Solid State (a two-address computer, signed 10-digit decimal words) was announced by Sperry Rand in December 1958 as a response to the 650.  None of these had an instruction set that was compatible with the 650.
+
+Hardware
+The basic 650 system consisted of three units:
+IBM 650 Console Unit housed the magnetic drum storage, arithmetical device (using vacuum tubes) and the operator's console.
+IBM 655 Power Unit
+IBM 533 or IBM 537 Card Read Punch Unit The IBM 533 had separate feeds for reading and punching; the IBM 537 had one feed, thus could read and then punch into the same card.Weight: 5,400–6,263 pounds (2.7–3.1 short tons; 2.4–2.8 t).Optional units:
+IBM 46 Tape To Card Punch, Model 3
+IBM 47 Tape To Card Printing Punch, Model 3
+IBM 355 Disk Storage Unit  Systems with a disk unit were known as IBM 650 RAMAC Data Processing Systems
+IBM 407 Accounting Machine
+IBM 543 Card Reader Unit
+IBM 544 Card Punch Unit
+IBM 652 Control Unit (magnetic tape, disk)
+IBM 653 Storage Unit (magnetic tape, disk, core storage, index registers, floating-point arithmetic)
+IBM 654 Auxiliary Alphabetic Unit
+IBM 727 Magnetic Tape Unit
+IBM 838 Inquiry Station
+
+Main memory
+Rotating drum memory provided 1,000, 2,000, or 4,000 words of memory at addresses 0000 to 0999, 1999, or 3999 respectively. Each word had 10 bi-quinary coded decimal digits, representing a signed 10-digit number or five characters. (Counting a bi-quinary coded digit as 7 bits, 4000 words would be equivalent to 35 kilobytes.)  Words on the drums were organized in bands around the drum, fifty words per band, and 20, 40, or 80 bands for the respective models. A word could be accessed when its location on the drum surface passed under the read/write heads during rotation (rotating at 12,500 rpm, the non-optimized average access time was 2.5 ms).  Because of this timing, the second address in each instruction was the address of the next instruction.  Programs could then be optimized by placing instructions at addresses that would be immediately accessible when execution of the previous instruction was completed. IBM provided a form with ten columns and 200 rows to allow programmers to keep track of where they put instructions and data. Later an assembler, SOAP (Symbolic Optimal Assembly Program), was provided that performed rough optimization.The LGP-30, Bendix G-15 and IBM 305 RAMAC computers used vacuum tubes and drum memory, too, but they were quite different from the IBM 650.
+Instructions read from the drum went to a program register (in current terminology, an instruction register). Data read from the drum went through a 10-digit distributor. The 650 had a 20-digit accumulator, divided into 10-digit lower and upper accumulators with a common sign.  Arithmetic was performed by a one-digit adder.  The console (10 digit switches, one sign switch, and 10 bi-quinary display lights), distributor, lower and upper accumulators were all addressable; 8000, 8001, 8002, 8003 respectively.
+
+IBM 653 Storage Unit
+The optional IBM 653 Storage Unit, was introduced on May 3, 1955, ultimately providing up to five features:
+Magnetic tape controller (for IBM 727 Magnetic Tape units) (10 extra operation codes)
+Disk storage controller (1956 enhancement for then new IBM 355 Disk Storage Unit) (5 extra operation codes)
+Sixty 10-digit words of magnetic core memory at addresses 9000 to 9059; a small fast memory (this device gave a memory access time of 96µs, a 26-fold raw improvement relative to the rotating drum), needed for a tape and disk I/O buffer. (5 extra operation codes)
+Three four-digit index registers at addresses 8005 to 8007; drum addresses were indexed by adding 2000, 4000 or 6000 to them, core addresses were indexed by adding 0200, 0400 or 0600 to them.  If the system had the 4000 word drum then indexing was by adding 4000 to the first address for index register A, adding 4000 to the second address for index register B, and by adding 4000 to each of the two addresses for index register C (the indexing for 4000-word systems only applied to the first address). The 4000-word systems required transistorized read/write circuitry for the drum memory and were available before 1963. (18 extra operation codes)
+Floating point – arithmetic instructions supported an eight-digit mantissa and two-digit characteristic (offset exponent) – MMMMMMMMCC, providing a range of ±0.00000001E-50 to ±0.99999999E+49. (seven extra operation codes)
+
+Instruction set
+The 650 instructions consisted of a two-digit operation code, a four-digit data address and the four-digit address of the next instruction. The sign was ignored on the basic machine, but was used on machines with optional features. The base machine had 44 operation codes.  Additional operation codes were provided for options, such as floating point, core storage, index registers and additional I/O devices.  With all options installed, there were 97 operation codes.The Table lookup (TLU) instruction could high-equal compare a referenced 10-digit word with 48 consecutive words on the same drum band in one 5ms revolution and then switch to the next band in time for the next 48 words.  This feat was about one-third the speed of a one-thousand times faster binary machine in 1963 (1,500 microseconds on the IBM 7040 to 5,000 microseconds on the 650) for looking up 46 entries as long as both were programmed in assembler. There was an optional Table lookup Equal instruction, with the same performance.
+The Read (RD) instruction read an 80 column card of numeric data into ten memory words; the distribution of digits to words determined by the card reader's control panel wiring.  When used with the 533 Reader Punch unit's Alphabetic device, a combination of numeric and alphanumeric columns (maximum of 30 alphanumeric columns) could be read.  An expansion feature allowed more alphanumeric columns but certainly not over 50, as only ten words (five characters per word) were stored on the drum by a card read operation.
+The base machine operation codes were:
+
+Notes:
+The IBM 653 options could implement additional instruction codes.
+
+Sample program
+This one-card program, taken from the 650 Programming Bulletin 5, IBM, 1956, 22-6314-0, will set most of the drum storage to minus zeros. The program includes examples of instructions being executed from the console switches and from an accumulator.
+To begin, a load card is keypunched with 80 consecutive digits (the second column below) so that, when read, drum locations 0001 through 0008 contents will be as shown.
+    0001 0000010000
+    0002 0000000000-
+    0003 1000018003
+    0004 6100080007
+    0005 2400008003
+    0006 0100008000
+    0007 6900060005
+    0008 2019990003
+
+The console digit switches (address 8000) are manually set to a Read instruction with data address 0004.
+
+    loc-       op|data|next
+    ation        |addr|instruction
+                 |    |addr
+
+    8000  RD   70 0004 xxxx  Read load card into first band read area
+
+Each drum band has a read area; these read areas are in locations 0001-0010, 0051-0060, 0101-0110 and so on.  Any address in a band can be used to identify that band for a read instruction; the address 0004 identifies the 1st band.  Execution begins then, from the console with the reading of the eight words on the load card into locations 0001-0008 of the first memory band. In the case of reading a load card, the "next instruction address" is taken from the data address field, not the next instruction address field (shown above as xxxx).  Thus execution continues at 0004
+
+    0004  RSU  61 0008 0007  Reset entire accumulator, subtract into upper (8003) the value 2019990003
+    0007  LD   69 0006 0005  Load distributor with 0100008000
+    0005  STD  24 0000 8003  Store distributor in location 0000, next instruction is in 8003 (the upper accumulator)
+                             Note: the moving of data or instructions from one drum location to another
+                               requires two instructions: LD, STD.
+
+Now a two instruction loop executes:
+
+    8003  STL  20 1999 0003  Store lower accumulator (that accumulator was reset to 0- by the RSU instruction above)
+                             The "1999" data address is decremented, below, on each iteration.
+                             This instruction was placed in the upper accumulator by the RSU instruction above.
+                             Note: this instruction, now in the upper accumulator, will be decremented and then
+                               executed again while still in the accumulator.
+
+    0003  AU   10 0001 8003  Decrement data address of the instruction in the accumulator by 1
+                             (by adding 10000 to a negative number)
+
+The STL's data address will, eventually, be decremented to 0003, and the AU ... instruction at 0003 will be overwritten with zeros.  When that occurs (the STL's next instruction address remains 0003) execution continues as follows:
+
+    0003  NOOP 00 0000 0000  No-operation instruction, next instruction address is 0000
+    0000  HALT 01 0000 8000  Halt, next instruction address is the console
+                             (this Halt instruction was stored in 0000 by the STD instruction above)
+
+Donald Knuth's series of books The Art of Computer Programming is famously dedicated to a 650.
+
+Software
+The 650 instruction set is simple enough that small programs could be written in machine language and this was common for student exercises. There was a single-instruction-per-card format that could be loaded directly into the machine and executed. 
+Machine language was awkward for large programs and, over time, a variety of programming languages and tools were 
+written for the IBM 650. These included:
+
+AssemblersSymbolic Optimal Assembly Program (SOAP) — An assembler
+Technical Assembly System (TASS) — A macro assembler.Interpretive systemsAn Interpretive application virtual machine package originally published as "Complete Floating Decimal Interpretive System for the IBM 650 Magnetic Drum Calculator". This was known by several names:
+the Wolontis–Bell Labs Interpreter, the Bell System, the Bell interpreter, the Bell interpretive system, or BLIS — the Bell Lab Interpretive System
+L1 and (later) L2 – known outside Bell Labs as "Bell 1" and "Bell 2", among other names (see above)
+Synthetic Programming System for Commercial Applications Algebraic languages / compilersInternal Translator (IT) — A compiler
+Revised Unified New Compiler IT Basic Language Extended (RUNCIBLE) — An extension of IT at Case
+FOR TRANSIT — A version of Fortran which compiled to IT which in turn was compiled to SOAP
+FORTRANGATE — A simple compiler with one character variable names
+IPL — The first list processing language. The best-known version was IPL-V.
+SPACE (Simplified Programming Anyone Can Enjoy) — A business-oriented two-step compiler through SOAP
+
+See also
+Ferranti Mark 1
+History of IBM#1946–1959: Postwar recovery, rise of business computing, space exploration, the Cold War
+IBM 700/7000 series
+Bull Gamma 3, one of the main competitors to the IBM 650
+LEO (computer)
+List of vacuum-tube computers
+Short Code
+UNIVAC I
+UNIVAC Solid State announced by Sperry Rand in December 1958 as a response to the IBM 650. In June 1959, Remington Rand announced that it had written an IBM 650 emulator program to ease conversion.
+
+Notes and references
+Further reading
+Andree, Richard V. (1958). Programming the IBM 650 Magnetic Drum Computer and Data-Processing Machine (PDF).
+IBM (1955). IBM 650 Magnetic Drum Data-Processing Machine Manual of Operation (PDF). 22-6060.
+IBM (1956). IBM 650 Data-Processing System, Customer Engineering Manual of Instruction (PDF). 22-6284-1.
+IBM (1955). IBM Presents the 650 Magnetic Drum Data Processing Machine (PDF). 32-6770. Archived from the original (PDF) on 2012-02-05. Retrieved 2006-09-24.
+Knuth, Donald E. (January–March 1986). "The IBM 650: An Appreciation from the Field" (PDF). IEEE Annals of the History of Computing. 8 (1): 50–55. doi:10.1109/MAHC.1986.10010. S2CID 34595049.
+
+External links
+
+Bitsavers.org: IBM 650 documents (PDF files)
+Columbia University: The IBM 650 at Columbia University
+IBM Archives The IBM 650: Workhorse of Modern Industry Includes a chronology, technical specifications, photographs, representative customers, and applications the 650 was used for.
+Video clip of IBM 650 and RAMAC in operation, alternate version
+Weik, Martin H. (March 1961). A Third Survey of Domestic Electronic Digital Computing Systems. Ballistic Research Laboratories (BRL). Report No. 1115. Includes about 40 pages of IBM 650 survey detail: customers, applications, specifications, and costs.
+IBM 650 “Magnetic Drum Data Processing Machine"

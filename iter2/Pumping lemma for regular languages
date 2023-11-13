@@ -1,0 +1,1640 @@
+In the theory of formal languages, the pumping lemma for regular languages is a lemma that describes an essential property of all regular languages. Informally, it says that all sufficiently long strings in a regular language may be pumped—that is, have a middle section of the string repeated an arbitrary number of times—to produce a new string that is also part of the language.
+Specifically, the pumping lemma says that for any regular language 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   there exists a constant 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   such that any string 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   in 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   with length at least 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   can be split into three substrings 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  , 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   and 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+   (
+  
+    
+      
+        w
+        =
+        x
+        y
+        z
+      
+    
+    {\displaystyle w=xyz}
+  , with 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   being non-empty), such that the strings 
+  
+    
+      
+        x
+        z
+        ,
+        x
+        y
+        z
+        ,
+        x
+        y
+        y
+        z
+        ,
+        x
+        y
+        y
+        y
+        z
+        ,
+        .
+        .
+        .
+      
+    
+    {\displaystyle xz,xyz,xyyz,xyyyz,...}
+   constructed by repeating 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   zero or more times are still in 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+  . This process of repetition is known as "pumping". Moreover, the pumping lemma guarantees that the length of 
+  
+    
+      
+        x
+        y
+      
+    
+    {\displaystyle xy}
+   will be at most 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , imposing a limit on the ways in which 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   may be split. 
+Languages with a finite number of strings vacuously satisfy the pumping lemma by having 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   equal to the maximum string length in 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   plus one. By doing so, zero strings in 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   have length greater than 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  .
+The pumping lemma is useful for disproving the regularity of a specific language in question. It was first proven by Michael Rabin and Dana Scott in 1959, and rediscovered shortly after by Yehoshua Bar-Hillel, Micha A. Perles, and Eli Shamir in 1961, as a simplification of their pumping lemma for context-free languages.
+
+Formal statement
+Let 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   be a regular language. Then there exists an integer 
+  
+    
+      
+        p
+        ≥
+        1
+      
+    
+    {\displaystyle p\geq 1}
+   depending only on 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   such that every string 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   in 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   of length at least 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   (
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is called the "pumping length") can be written as 
+  
+    
+      
+        w
+        =
+        x
+        y
+        z
+      
+    
+    {\displaystyle w=xyz}
+   (i.e., 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   can be divided into three substrings), satisfying the following conditions:
+
+  
+    
+      
+        
+          |
+        
+        y
+        
+          |
+        
+        ≥
+        1
+      
+    
+    {\displaystyle |y|\geq 1}
+  
+
+  
+    
+      
+        
+          |
+        
+        x
+        y
+        
+          |
+        
+        ≤
+        p
+      
+    
+    {\displaystyle |xy|\leq p}
+  
+
+  
+    
+      
+        (
+        ∀
+        n
+        ≥
+        0
+        )
+        (
+        x
+        
+          y
+          
+            n
+          
+        
+        z
+        ∈
+        L
+        )
+      
+    
+    {\displaystyle (\forall n\geq 0)(xy^{n}z\in L)}
+  
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   is the substring that can be pumped (removed or repeated any number of times, and the resulting string is always in 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+  ). (1) means the loop 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   to be pumped must be of length at least one, that is, not an empty string; (2) means the loop must occur within the first 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   characters. 
+  
+    
+      
+        
+          |
+        
+        x
+        
+          |
+        
+      
+    
+    {\displaystyle |x|}
+   must be smaller than 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   (conclusion of (1) and (2)), but apart from that, there is no restriction on 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+  .
+In simple words, for any regular language 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+  , any sufficiently long string 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   (in 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+  ) can be split into 3 parts.
+i.e. 
+  
+    
+      
+        w
+        =
+        x
+        y
+        z
+      
+    
+    {\displaystyle w=xyz}
+   , such that all the strings 
+  
+    
+      
+        x
+        
+          y
+          
+            n
+          
+        
+        z
+      
+    
+    {\displaystyle xy^{n}z}
+   for 
+  
+    
+      
+        n
+        ≥
+        0
+      
+    
+    {\displaystyle n\geq 0}
+   are also in 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+  .
+Below is a formal expression of the Pumping Lemma.
+
+  
+    
+      
+        
+          
+            
+              
+                (
+                ∀
+                L
+                ⊆
+                
+                  Σ
+                  
+                    ∗
+                  
+                
+                )
+              
+            
+            
+              
+                
+                (
+                
+                  
+                    regular
+                  
+                
+                (
+                L
+                )
+                ⇒
+              
+            
+            
+              
+                
+                (
+                (
+                ∃
+                p
+                ≥
+                1
+                )
+                (
+                (
+                ∀
+                w
+                ∈
+                L
+                )
+                (
+                (
+                
+                  |
+                
+                w
+                
+                  |
+                
+                ≥
+                p
+                )
+                ⇒
+              
+            
+            
+              
+                
+                (
+                (
+                ∃
+                x
+                ,
+                y
+                ,
+                z
+                ∈
+                
+                  Σ
+                  
+                    ∗
+                  
+                
+                )
+                (
+                w
+                =
+                x
+                y
+                z
+                ∧
+                (
+                
+                  |
+                
+                y
+                
+                  |
+                
+                ≥
+                1
+                ∧
+                
+                  |
+                
+                x
+                y
+                
+                  |
+                
+                ≤
+                p
+                ∧
+                (
+                ∀
+                n
+                ≥
+                0
+                )
+                (
+                x
+                
+                  y
+                  
+                    n
+                  
+                
+                z
+                ∈
+                L
+                )
+                )
+                )
+                )
+                )
+                )
+                )
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{l}(\forall L\subseteq \Sigma ^{*})\\\quad ({\mbox{regular}}(L)\Rightarrow \\\quad ((\exists p\geq 1)((\forall w\in L)((|w|\geq p)\Rightarrow \\\quad ((\exists x,y,z\in \Sigma ^{*})(w=xyz\land (|y|\geq 1\land |xy|\leq p\land (\forall n\geq 0)(xy^{n}z\in L))))))))\end{array}}}
+
+Use of the lemma to prove non-regularity
+The pumping lemma is often used to prove that a particular language is non-regular: a proof by contradiction may consist of exhibiting a string (of the required length) in the language that lacks the property outlined in the pumping lemma.
+
+Example: The language 
+  
+    
+      
+        L
+        =
+        {
+        
+          a
+          
+            n
+          
+        
+        
+          b
+          
+            n
+          
+        
+        :
+        n
+        ≥
+        0
+        }
+      
+    
+    {\displaystyle L=\{a^{n}b^{n}:n\geq 0\}}
+   over the alphabet 
+  
+    
+      
+        Σ
+        =
+        {
+        a
+        ,
+        b
+        }
+      
+    
+    {\displaystyle \Sigma =\{a,b\}}
+   can be shown to be non-regular as follows:
+
+Let 
+  
+    
+      
+        w
+        ,
+        x
+        ,
+        y
+        ,
+        z
+        ,
+        p
+      
+    
+    {\displaystyle w,x,y,z,p}
+  , and 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   be as used in the formal statement for the pumping lemma above.
+Assume that some constant 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   exists as required by the lemma.
+Let 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   in 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   be given by 
+  
+    
+      
+        w
+        =
+        
+          a
+          
+            p
+          
+        
+        
+          b
+          
+            p
+          
+        
+      
+    
+    {\displaystyle w=a^{p}b^{p}}
+  , which is a string longer than 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  .
+By the pumping lemma, there must exist a decomposition 
+  
+    
+      
+        w
+        =
+        x
+        y
+        z
+      
+    
+    {\displaystyle w=xyz}
+   with 
+  
+    
+      
+        
+          |
+        
+        x
+        y
+        
+          |
+        
+        ≤
+        p
+      
+    
+    {\displaystyle |xy|\leq p}
+   and 
+  
+    
+      
+        
+          |
+        
+        y
+        
+          |
+        
+        ≥
+        1
+      
+    
+    {\displaystyle |y|\geq 1}
+   such that 
+  
+    
+      
+        x
+        
+          y
+          
+            i
+          
+        
+        z
+      
+    
+    {\displaystyle xy^{i}z}
+   in 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   for every 
+  
+    
+      
+        i
+        ≥
+        0
+      
+    
+    {\displaystyle i\geq 0}
+  .
+Since 
+  
+    
+      
+        
+          |
+        
+        x
+        y
+        
+          |
+        
+        ≤
+        p
+      
+    
+    {\displaystyle |xy|\leq p}
+  , the string 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   only consists of instances of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  .
+Because 
+  
+    
+      
+        
+          |
+        
+        y
+        
+          |
+        
+        ≥
+        1
+      
+    
+    {\displaystyle |y|\geq 1}
+  , it contains at least one instance of the letter 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  .
+Pumping y to give 
+  
+    
+      
+        x
+        
+          y
+          
+            2
+          
+        
+        z
+      
+    
+    {\displaystyle xy^{2}z}
+   gives a word with more instances of the letter 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   than the letter 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  , since  some instances of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   but none of 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   were added.
+Therefore, 
+  
+    
+      
+        x
+        
+          y
+          
+            2
+          
+        
+        z
+      
+    
+    {\displaystyle xy^{2}z}
+   is not in 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   which contradicts the Pumping lemma.
+Therefore, 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   can not be regular.
+The proof that the language of balanced (i.e., properly nested) parentheses is not regular follows the same idea.  Given 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , there is a string of balanced parentheses that begins with more than 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   left parentheses, so that 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   will consist entirely of left parentheses.  By repeating 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  , a string can be produced that does not contain the same number of left and right parentheses, and so they cannot be balanced.
+
+Proof of the pumping lemma
+For every regular language there is a finite state automaton (FSA) that accepts the language.  The number of states in such an FSA are counted and that count is used as the pumping length 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  . For a string of length at least 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , let 
+  
+    
+      
+        
+          q
+          
+            0
+          
+        
+      
+    
+    {\displaystyle q_{0}}
+   be the start state and let 
+  
+    
+      
+        
+          q
+          
+            1
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          q
+          
+            p
+          
+        
+      
+    
+    {\displaystyle q_{1},...,q_{p}}
+   be the sequence of the next 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   states visited as the string is emitted.  Because the FSA has only 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   states, within this sequence of 
+  
+    
+      
+        p
+        +
+        1
+      
+    
+    {\displaystyle p+1}
+   visited states there must be at least one state that is repeated.  Write 
+  
+    
+      
+        
+          q
+          
+            s
+          
+        
+      
+    
+    {\displaystyle q_{s}}
+   for such a state.  The transitions that take the machine from the first encounter of state 
+  
+    
+      
+        
+          q
+          
+            s
+          
+        
+      
+    
+    {\displaystyle q_{s}}
+   to the second encounter of state 
+  
+    
+      
+        
+          q
+          
+            s
+          
+        
+      
+    
+    {\displaystyle q_{s}}
+   match some string.  This string is called 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   in the lemma, and since the machine will match a string without the 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   portion, or with the string 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   repeated any number of times, the conditions of the lemma are satisfied.
+For example, the following image shows an FSA.
+
+The FSA accepts the  string:  abcd.  Since this string has a length at least as large as the number of states, which is four, the pigeonhole principle indicates that there must be at least one repeated state among the start state and the next four visited states.  In this example, only 
+  
+    
+      
+        
+          q
+          
+            1
+          
+        
+      
+    
+    {\displaystyle q_{1}}
+   is a repeated state.  Since the substring bc takes the machine through transitions that start at state 
+  
+    
+      
+        
+          q
+          
+            1
+          
+        
+      
+    
+    {\displaystyle q_{1}}
+   and end at state 
+  
+    
+      
+        
+          q
+          
+            1
+          
+        
+      
+    
+    {\displaystyle q_{1}}
+  , that portion could be repeated and the FSA would still accept, giving the string abcbcd.  Alternatively, the bc portion could be removed and the FSA would still accept giving the string ad.  In terms of the pumping lemma, the string abcd is broken into an 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   portion a, a 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   portion bc and a 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+   portion d.
+As a side remark, the problem of checking whether a given string can be accepted by a given nondeterministic finite automaton without visiting any state repeatedly, is NP hard.
+
+General version of pumping lemma for regular languages
+If a language 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   is regular, then there exists a number 
+  
+    
+      
+        p
+        ≥
+        1
+      
+    
+    {\displaystyle p\geq 1}
+   (the pumping length) such that every string 
+  
+    
+      
+        u
+        w
+        v
+      
+    
+    {\displaystyle uwv}
+   in 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   with 
+  
+    
+      
+        
+          |
+        
+        w
+        
+          |
+        
+        ≥
+        p
+      
+    
+    {\displaystyle |w|\geq p}
+   can be written in the form 
+
+  
+    
+      
+        u
+        w
+        v
+        =
+        u
+        x
+        y
+        z
+        v
+      
+    
+    {\displaystyle uwv=uxyzv}
+  with strings 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  , 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   and 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+   such that 
+  
+    
+      
+        
+          |
+        
+        x
+        y
+        
+          |
+        
+        ≤
+        p
+      
+    
+    {\displaystyle |xy|\leq p}
+  , 
+  
+    
+      
+        
+          |
+        
+        y
+        
+          |
+        
+        ≥
+        1
+      
+    
+    {\displaystyle |y|\geq 1}
+   and
+
+  
+    
+      
+        u
+        x
+        
+          y
+          
+            i
+          
+        
+        z
+        v
+      
+    
+    {\displaystyle uxy^{i}zv}
+   is in 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   for every integer 
+  
+    
+      
+        i
+        ≥
+        0
+      
+    
+    {\displaystyle i\geq 0}
+  .From this, the above standard version follows a special case, with both 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   and 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   being the empty string.
+Since the general version imposes stricter requirements on the language, it can be used to prove the non-regularity of many more languages.
+
+Converse of lemma not true
+While the pumping lemma states that all regular languages satisfy the conditions described above, the converse of this statement is not true: a language that satisfies these conditions may still be non-regular. In other words, both the original and the general version of the pumping lemma give a necessary but not sufficient condition for a language to be regular.
+For example, consider the following language:
+
+  
+    
+      
+        
+          
+            
+              
+                L
+              
+              
+                =
+              
+              
+                {
+                u
+                v
+                w
+                x
+                y
+                :
+                u
+                ,
+                y
+                ∈
+                {
+                0
+                ,
+                1
+                ,
+                2
+                ,
+                3
+                
+                  }
+                  
+                    ∗
+                  
+                
+                ;
+                v
+                ,
+                w
+                ,
+                x
+                ∈
+                {
+                0
+                ,
+                1
+                ,
+                2
+                ,
+                3
+                }
+                ∧
+                (
+                v
+                =
+                w
+                ∨
+                v
+                =
+                x
+                ∨
+                x
+                =
+                w
+                )
+                }
+              
+            
+            
+              
+              
+              
+                ∪
+                 
+                {
+                w
+                :
+                w
+                ∈
+                {
+                0
+                ,
+                1
+                ,
+                2
+                ,
+                3
+                
+                  }
+                  
+                    ∗
+                  
+                
+                ∧
+                
+                  precisely 
+                
+                
+                  
+                    
+                      1
+                      7
+                    
+                  
+                
+                
+                   of the characters in 
+                
+                w
+                
+                   are 3's
+                
+                }
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{matrix}L&=&\{uvwxy:u,y\in \{0,1,2,3\}^{*};v,w,x\in \{0,1,2,3\}\land (v=w\lor v=x\lor x=w)\}\\&&\cup \ \{w:w\in \{0,1,2,3\}^{*}\land {\text{precisely }}{\tfrac {1}{7}}{\text{ of the characters in }}w{\text{ are 3's}}\}\end{matrix}}}
+  .In other words, 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   contains all strings over the alphabet 
+  
+    
+      
+        {
+        0
+        ,
+        1
+        ,
+        2
+        ,
+        3
+        }
+      
+    
+    {\displaystyle \{0,1,2,3\}}
+   with a substring of length 3 including a duplicate character, as well as all strings over this alphabet where precisely 1/7 of the string's characters are 3's. This language is not regular but can still be "pumped" with 
+  
+    
+      
+        p
+        =
+        5
+      
+    
+    {\displaystyle p=5}
+  . Suppose some string s has length at least 5. Then, since the alphabet has only four characters, at least two of the first five characters in the string must be duplicates. They are separated by at most three characters.
+
+If the duplicate characters are separated by 0 characters, or 1, pump one of the other two characters in the string, which will not affect the substring containing the duplicates.
+If the duplicate characters are separated by 2 or 3 characters, pump 2 of the characters separating them. Pumping either down or up results in the creation of a substring of size 3 that contains 2 duplicate characters.
+The second condition of 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   ensures that 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   is not regular: Consider the string 
+  
+    
+      
+        (
+        013
+        
+          )
+          
+            3
+            m
+          
+        
+        (
+        012
+        
+          )
+          
+            i
+          
+        
+      
+    
+    {\displaystyle (013)^{3m}(012)^{i}}
+  . This string is in 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   exactly when 
+  
+    
+      
+        i
+        =
+        4
+        m
+      
+    
+    {\displaystyle i=4m}
+   and thus 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   is not regular by the Myhill–Nerode theorem.The Myhill–Nerode theorem provides a test that exactly characterizes regular languages.  The typical method for proving that a language is regular is to construct either a finite state machine or a regular expression for the language.
+
+See also
+Ogden's lemma
+Pumping lemma for context-free languages
+Pumping lemma for regular tree languages
+
+Notes
+References
+Lawson, Mark V. (2004). Finite automata. Chapman and Hall/CRC. ISBN 978-1-58488-255-8. Zbl 1086.68074.
+Sipser, Michael (1997). "1.4: Nonregular Languages". Introduction to the Theory of Computation. PWS Publishing. pp. 77–83. ISBN 978-0-534-94728-6. Zbl 1169.68300.
+Hopcroft, John E.; Ullman, Jeffrey D. (1979). Introduction to Automata Theory, Languages, and Computation. Reading, Massachusetts: Addison-Wesley Publishing. ISBN 978-0-201-02988-8. Zbl 0426.68001. (See chapter 3.)
+Bakhadyr Khoussainov; Anil Nerode (6 December 2012). Automata Theory and its Applications. Springer Science & Business Media. ISBN 978-1-4612-0171-7.

@@ -1,0 +1,185 @@
+In computer software and hardware, find first set (ffs) or find first one is a bit operation that, given an unsigned machine word, designates the index or position of the least significant bit set to one in the word counting from the least significant bit position. A nearly equivalent operation is count trailing zeros (ctz) or number of trailing zeros (ntz), which counts the number of zero bits following the least significant one bit. The complementary operation that finds the index or position of the most significant set bit is log base 2, so called because it computes the binary logarithm ⌊log2(x)⌋. This is closely related to count leading zeros (clz) or number of leading zeros (nlz), which counts the number of zero bits preceding the most significant one bit.
+There are two common variants of find first set, the POSIX definition which starts indexing of bits at 1, herein labelled ffs, and the variant which starts indexing of bits at zero, which is equivalent to ctz and so will be called by that name.
+Most modern CPU instruction set architectures provide one or more of these as hardware operators; software emulation is usually provided for any that aren't available, either as compiler intrinsics or in system libraries.
+
+Examples
+Given the following 32-bit word:
+
+0000 0000 0000 0000 1000 0000 0000 1000The count trailing zeros operation would return 3, while the count leading zeros operation returns 16. The count leading zeros operation depends on the word size: if this 32-bit word were truncated to a 16-bit word, count leading zeros would return zero. The find first set operation would return 4, indicating the 4th position from the right. The log base 2 is 15.
+Similarly, given the following 32-bit word, the bitwise negation of the above word:
+
+1111 1111 1111 1111 0111 1111 1111 0111The count trailing ones operation would return 3, the count leading ones operation would return 16, and the find first zero operation ffz would return 4.
+If the word is zero (no bits set), count leading zeros and count trailing zeros both return the number of bits in the word, while ffs returns zero. Both log base 2 and zero-based implementations of find first set generally return an undefined result for the zero word.
+
+Hardware support
+Many architectures include instructions to rapidly perform find first set and/or related operations, listed below. The most common operation is count leading zeros (clz), likely because all other operations can be implemented efficiently in terms of it (see Properties and relations).
+
+On some Alpha platforms CTLZ and CTTZ are emulated in software.
+
+Tool and library support
+A number of compiler and library vendors supply compiler intrinsics or library functions to perform find first set and/or related operations, which are frequently implemented in terms of the hardware instructions above:
+
+Properties and relations
+If bits are labeled starting at 1 (which is the convention used in this article), then count trailing zeros and find first set operations are related by ctz(x) = ffs(x) − 1 (except when the input is zero). If bits are labeled starting at 0, then count trailing zeros and find first set are exactly equivalent operations. Given w bits per word, the log2 is easily computed from the clz and vice versa by log2(x) = w − 1 − clz(x).
+As demonstrated in the example above, the find first zero, count leading ones, and count trailing ones operations can be implemented by negating the input and using find first set, count leading zeros, and count trailing zeros. The reverse is also true.
+On platforms with an efficient log2 operation such as M68000, ctz can be computed by:
+
+ctz(x) = log2(x & −x)where & denotes bitwise AND and −x denotes the two's complement of x. The expression x & −x clears all but the least-significant 1 bit, so that the most- and least-significant 1 bit are the same.
+On platforms with an efficient count leading zeros operation such as ARM and PowerPC, ffs can be computed by:
+
+ffs(x) = w − clz(x & −x).Conversely, on machines without log2 or clz operators, clz can be computed using ctz, albeit inefficiently:
+
+clz = w − ctz(2⌈log2(x)⌉) (which depends on ctz returning w for the zero input)On platforms with an efficient Hamming weight (population count) operation such as SPARC's POPC or Blackfin's ONES, there is:
+
+ctz(x) = popcount((x & −x) − 1), or ctz(x) = popcount(~(x | −x)),
+ffs(x) = popcount(x ^ ~−x)
+clz = 32 − popcount(2⌈log2(x)⌉ − 1)where ^ denotes bitwise exclusive-OR, | denotes bitwise OR and ~ denotes bitwise negation.
+The inverse problem (given i, produce an x such that ctz(x) = i) can be computed with a left-shift (1 << i).
+Find first set and related operations can be extended to arbitrarily large bit arrays in a straightforward manner by starting at one end and proceeding until a word that is not all-zero (for ffs, ctz, clz) or not all-one (for ffz, clo, cto) is encountered. A tree data structure that recursively uses bitmaps to track which words are nonzero can accelerate this.
+
+Software emulation
+Most CPUs dating from the late 1980s onward have bit operators for ffs or equivalent, but a few modern ones like some of the ARM-Mx series do not. In lieu of hardware operators for ffs, clz and ctz, software can emulate them with shifts, integer arithmetic and bitwise operators. There are several approaches depending on architecture of the CPU and to a lesser extent, the programming language semantics and compiler code generation quality. The approaches may be loosely described as linear search, binary search, search+table lookup, de Bruijn multiplication, floating point conversion/exponent extract, and bit operator (branchless) methods. There are tradeoffs between execution time and storage space as well as portability and efficiency.
+Software emulations are usually deterministic. They return a defined result for all input values; in particular, the result for an input of all zero bits is usually 0 for ffs, and the bit length of the operand for the other operations.
+If one has a hardware clz or equivalent, ctz can be efficiently computed with bit operations, but the converse is not true: clz is not efficient to compute in the absence of a hardware operator.
+
+2n
+The function 2⌈log2(x)⌉ (round up to the nearest power of two) using shifts and bitwise ORs is not efficient to compute as in this 32-bit example and even more inefficient if we have a 64-bit or 128-bit operand:
+
+function pow2(x):
+    if x = 0 return invalid  // invalid is implementation defined (not in [0,63])
+    x ← x - 1
+    for each y in {1, 2, 4, 8, 16}: x ← x | (x >> y)
+    return x + 1
+
+FFS
+Since ffs = ctz + 1 (POSIX) or ffs = ctz (other implementations), the applicable algorithms for ctz may be used, with a possible final step of adding 1 to the result, and returning 0 instead of the operand length for input of all zero bits.
+
+CTZ
+The canonical algorithm is a loop counting zeros starting at the LSB until a 1-bit is encountered:
+
+function ctz1 (x)
+    if x = 0 return w
+    t ← 1
+    r ← 0
+    while (x & t) = 0
+        t ← t << 1
+        r ← r + 1
+    return r
+
+This algorithm executes O(n) time and operations, and is impractical in practice due to a large number of conditional branches.
+A lookup table can eliminate most branches:
+
+table[0..2n-1] = ctz(i) for i in 0..2n-1
+function ctz2 (x)
+    if x = 0 return w
+    r ← 0
+    loop
+        if (x & (2n-1)) ≠ 0
+            return r + table[x & (2n-1)]
+        x ← x >> n
+        r ← r + n
+
+The parameter n is fixed (typically 8) and represents a time–space tradeoff. The loop may also be fully unrolled. But as a linear lookup, this approach is still O(n) in the number of bits in the operand.
+A binary search implementation takes a logarithmic number of operations and branches, as in this 32-bit version:
+This algorithm can be assisted by a table as well, replacing the bottom three "if" statements with a 256 entry lookup table using the first non-zero byte encountered as an index.
+
+function ctz3 (x)
+    if x = 0 return 32
+    n ← 0
+    if (x & 0x0000FFFF) = 0: n ← n + 16, x ← x >> 16
+    if (x & 0x000000FF) = 0: n ← n +  8, x ← x >>  8
+    if (x & 0x0000000F) = 0: n ← n +  4, x ← x >>  4
+    if (x & 0x00000003) = 0: n ← n +  2, x ← x >>  2
+    if (x & 0x00000001) = 0: n ← n +  1
+    return n
+
+If the hardware has a clz operator, the most efficient approach to computing ctz is thus:
+
+function ctz4 (x)
+    x &= -x
+    return w - (clz(x) + 1)
+
+An algorithm for 32-bit ctz uses de Bruijn sequences to construct a minimal perfect hash function that eliminates all branches.
+This algorithm assumes that the result of the multiplication is truncated to 32 bit.
+
+for i from 0 to 31: table[ ( 0x077CB531 * ( 1 << i ) ) >> 27 ] ← i  // table [0..31] initialized
+function ctz5 (x)
+    return table[((x & -x) * 0x077CB531) >> 27]
+
+The expression (x & -x) again isolates the least-significant 1 bit. There are then only 32 possible words, which the unsigned multiplication and shift hash to the correct position in the table. (This algorithm does not handle the zero input.)
+
+CLZ
+The canonical algorithm examines one bit at a time starting from the MSB until a non-zero bit is found, as shown in this example. It executes in O(n) time where n is the bit-length of the operand, and is not a practical algorithm for general use.
+
+function clz1 (x)
+    if x = 0 return w
+    t ← 1 << (w - 1)
+    r ← 0
+    while (x & t) = 0
+        t ← t >> 1
+        r ← r + 1
+    return r
+
+An improvement on the previous looping approach examines eight bits at a time then uses a 256 (28) entry lookup table for the first non-zero byte. This approach, however, is still O(n) in execution time.
+
+function clz2 (x)
+    if x = 0 return w
+    t ← 0xff << (w - 8)
+    r ← 0
+    while (x & t) = 0
+        t ← t >> 8
+        r ← r + 8
+    return r + table[x >> (w - 8 - r)]
+
+Binary search can reduce execution time to O(log2n):
+
+function clz3 (x)
+    if x = 0 return 32
+    n ← 0
+    if (x & 0xFFFF0000) = 0: n ← n + 16, x ← x << 16
+    if (x & 0xFF000000) = 0: n ← n +  8, x ← x <<  8
+    if (x & 0xF0000000) = 0: n ← n +  4, x ← x <<  4
+    if (x & 0xC0000000) = 0: n ← n +  2, x ← x <<  2
+    if (x & 0x80000000) = 0: n ← n +  1
+    return n
+
+The fastest portable approaches to simulate clz are a combination of binary search and table lookup: an 8-bit table lookup (28=256 1-byte entries) can replace the bottom 3 branches in binary search. 64-bit operands require an additional branch. A larger width lookup can be used but the maximum practical table size is limited by the size of L1 data cache on modern processors, which is 32 KB for many. Saving a branch is more than offset by the latency of an L1 cache miss.
+An algorithm similar to de Bruijn multiplication for CTZ works for CLZ, but rather than isolating the most-significant bit, it rounds up to the nearest integer of the form 2n−1 using shifts and bitwise ORs:
+table[0..31] = {0, 9, 1, 10, 13, 21, 2, 29, 11, 14, 16, 18, 22, 25, 3, 30,
+                8, 12, 20, 28, 15, 17, 24, 7, 19, 27, 23, 6, 26, 5, 4, 31}
+function clz4 (x)
+    for each y in {1, 2, 4, 8, 16}: x ← x | (x >> y)
+    return table[((x * 0x07C4ACDD) >> 27) % 32]
+
+For processors with deep pipelines, like Prescott and later Intel processors, it may be faster to replace branches by bitwise AND and OR operators (even though many more instructions are required) to avoid pipeline flushes for mispredicted branches (and these types of branches are inherently unpredictable):
+
+function clz5 (x)
+   r = (x > 0xFFFF) << 4; x >>= r;
+   q = (x > 0xFF  ) << 3; x >>= q; r |= q;
+   q = (x > 0xF   ) << 2; x >>= q; r |= q;
+   q = (x > 0x3   ) << 1; x >>= q; r |= q;
+                                   r |= (x >> 1);
+   return r;
+
+On platforms that provide hardware conversion of integers to floating point, the exponent field can be extracted and subtracted from a constant to compute the count of leading zeros. Corrections are needed to account for rounding errors. Floating point conversion can have substantial latency. This method is highly non-portable and not usually recommended.
+
+Applications
+The count leading zeros (clz) operation can be used to efficiently implement normalization, which encodes an integer as m × 2e, where m has its most significant bit in a known position (such as the highest position). This can in turn be used to implement Newton–Raphson division, perform integer to floating point conversion in software, and other applications.Count leading zeros (clz) can be used to compute the 32-bit predicate "x = y" (zero if true, one if false) via the identity clz(x − y) >> 5, where ">>" is unsigned right shift. It can be used to perform more sophisticated bit operations like finding the first string of n 1 bits. The expression clz(x − y)1 << (16 − clz(x − 1)/2) is an effective initial guess for computing the square root of a 32-bit integer using Newton's method. CLZ can efficiently implement null suppression, a fast data compression technique that encodes an integer as the number of leading zero bytes together with the nonzero bytes. It can also efficiently generate exponentially distributed integers by taking the clz of uniformly random integers.The log base 2 can be used to anticipate whether a multiplication will overflow, since ⌈log2(xy)⌉ ≤ ⌈log2(x)⌉ + ⌈log2(y)⌉.Count leading zeros and count trailing zeros can be used together to implement Gosper's loop-detection algorithm, which can find the period of a function of finite range using limited resources.The binary GCD algorithm spends many cycles removing trailing zeros; this can be replaced by a count trailing zeros (ctz) followed by a shift. A similar loop appears in computations of the hailstone sequence.
+A bit array can be used to implement a priority queue. In this context, find first set (ffs) is useful in implementing the "pop" or "pull highest priority element" operation efficiently. The Linux kernel real-time scheduler internally uses sched_find_first_bit() for this purpose.The count trailing zeros operation gives a simple optimal solution to the Tower of Hanoi problem: the disks are numbered from zero, and at move k, disk number ctz(k) is moved the minimum possible distance to the right (circling back around to the left as needed). It can also generate a Gray code by taking an arbitrary word and flipping bit ctz(k) at step k.
+
+See also
+Bit Manipulation Instruction Sets (BMI) for Intel and AMD x86-based processors
+Trailing zero
+Leading zero
+Trailing digit
+Leading digit
+
+Notes
+References
+Further reading
+Warren, Jr., Henry S. (2013) [2002]. Hacker's Delight (2 ed.). Addison Wesley - Pearson Education, Inc. ISBN 978-0-321-84268-8. 0-321-84268-5.
+Anderson, Sean Eron (2005) [1997]. "Bit Twiddling Hacks". Stanford University. Archived from the original on 2020-01-08. Retrieved 2012-01-03. (NB. Lists several efficient public domain C implementations for count trailing zeros and log base 2.)
+
+External links
+Intel Intrinsics Guide
+Chess Programming Wiki: BitScan: A detailed explanation of a number of implementation methods for ffs (called LS1B) and log base 2 (called MS1B).

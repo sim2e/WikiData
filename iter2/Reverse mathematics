@@ -1,0 +1,367 @@
+Reverse mathematics is a program in mathematical logic that seeks to determine which axioms are required to prove theorems of mathematics.  Its defining method can briefly be described as "going backwards from the theorems to the axioms", in contrast to the ordinary mathematical practice of deriving theorems from axioms. It can be conceptualized as sculpting out necessary conditions from sufficient ones.
+The reverse mathematics program was foreshadowed by results in set theory such as the classical theorem that the axiom of choice and Zorn's lemma are equivalent over ZF set theory. The goal of reverse mathematics, however, is to study possible axioms of ordinary theorems of mathematics rather than possible axioms for set theory.
+Reverse mathematics is usually carried out using subsystems of second-order arithmetic, where many of its definitions and methods are inspired by previous work in constructive analysis and proof theory. The use of second-order arithmetic also allows many techniques from recursion theory to be employed; many results in reverse mathematics have corresponding results in computable analysis.  In higher-order reverse mathematics, the focus is on subsystems of higher-order arithmetic, and the associated richer language.The program was founded by Harvey Friedman (1975, 1976) and brought forward by Steve Simpson.  A standard reference for the subject is Simpson (2009), while an introduction for non-specialists is Stillwell (2018).  An introduction to higher-order reverse mathematics, and also the founding paper, is Kohlenbach (2005).
+
+General principles
+In reverse mathematics, one starts with a framework language and a base theory—a core axiom system—that is too weak to prove most of the theorems one might be interested in, but still powerful enough to develop the definitions necessary to state these theorems.  For example, to study the theorem “Every bounded sequence of real numbers has a supremum” it is necessary to use a base system that can speak of real numbers and sequences of real numbers.
+For each theorem that can be stated in the base system but is not provable in the base system, the goal is to determine the particular axiom system (stronger than the base system) that is necessary to prove that theorem. To show that a system S is required to prove a theorem T, two proofs are required. The first proof shows T is provable from S; this is an ordinary mathematical proof along with a justification that it can be carried out in the system S. The second proof, known as a reversal, shows that T itself implies S; this proof is carried out in the base system. The reversal establishes that no axiom system S′ that extends the base system can be weaker than S while still proving T.
+
+Use of second-order arithmetic
+Most reverse mathematics research focuses on subsystems of second-order arithmetic. The body of research in reverse mathematics has established that weak subsystems of second-order arithmetic suffice to formalize almost all undergraduate-level mathematics. In second-order arithmetic, all objects can be represented as either natural numbers or sets of natural numbers.  For example, in order to prove theorems about real numbers, the real numbers can be represented as Cauchy sequences of rational numbers, each of which sequence can be represented as a set of natural numbers.
+The axiom systems most often considered in reverse mathematics are defined using axiom schemes called comprehension schemes.  Such a scheme states that any set of natural numbers definable by a formula of a given complexity exists. In this context, the complexity of formulas is measured using the arithmetical hierarchy and analytical hierarchy.
+The reason that reverse mathematics is not carried out using set theory as a base system is that the language of set theory is too expressive.  Extremely complex sets of natural numbers can be defined by simple formulas in the language of set theory (which can quantify over arbitrary sets). In the context of second-order arithmetic, results such as Post's theorem establish a close link between the complexity of a formula and the (non)computability of the set it defines.
+Another effect of using second-order arithmetic is the need to restrict general mathematical theorems to forms that can be expressed within arithmetic. For example, second-order arithmetic can express the principle "Every countable vector space has a basis" but it cannot express the principle "Every vector space has a basis". In practical terms, this means that theorems of algebra and combinatorics are restricted to countable structures, while theorems of analysis and topology are restricted to separable spaces. Many principles that imply the axiom of choice in their general form (such as "Every vector space has a basis") become provable in weak subsystems of second-order arithmetic when they are restricted. For example, "every field has an algebraic closure" is not provable in ZF set theory, but the restricted form "every countable field has an algebraic closure" is provable in RCA0, the weakest system typically employed in reverse mathematics.
+
+Use of higher-order arithmetic
+A recent strand of higher-order reverse mathematics research, initiated by Ulrich Kohlenbach in 2005, focuses on subsystems of higher-order arithmetic.
+Due to the richer language of higher-order arithmetic, the use of representations (aka 'codes') common in second-order arithmetic, is greatly reduced.  
+For example, a continuous function on the Cantor space is just a function that maps binary sequences to binary sequences, and that also satisfies the usual 'epsilon-delta'-definition of continuity.
+Higher-order reverse mathematics includes higher-order versions of (second-order) comprehension schemes.  Such a higher-order axiom states the existence of a functional that decides the truth or falsity of formulas of a given complexity. In this context, the complexity of formulas is also measured using the arithmetical hierarchy and analytical hierarchy.  The higher-order counterparts of the major subsystems of second-order arithmetic generally prove the same second-order sentences (or a large subset) as the original second-order systems.  For instance, the base theory of higher-order reverse mathematics, called RCAω0, proves the same sentences as RCA0, up to language.
+As noted in the previous paragraph, second-order comprehension axioms easily generalize to the higher-order framework.  However, theorems expressing the compactness of basic spaces behave quite differently in second- and higher-order arithmetic: on one hand, when restricted to countable covers/the language of second-order arithmetic, the compactness of the unit interval is provable in WKL0 from the next section.  On the other hand, given uncountable covers/the language of higher-order arithmetic, the compactness of the unit interval is only provable from (full) second-order arithmetic. Other covering lemmas (e.g. due to Lindelöf, Vitali, Besicovitch, etc.) exhibit the same behavior, and many basic properties of the gauge integral are equivalent to the compactness of the underlying space.
+
+The big five subsystems of second-order arithmetic
+Second-order arithmetic is a formal theory of the natural numbers and sets of natural numbers.  Many mathematical objects, such as countable rings, groups, and fields, as well as points in effective Polish spaces, can be represented as sets of natural numbers, and modulo this representation can be studied in second-order arithmetic.
+Reverse mathematics makes use of several subsystems of second-order arithmetic. A typical reverse mathematics theorem shows that a particular mathematical theorem T is equivalent to a particular subsystem S of second-order arithmetic over a weaker subsystem B. This weaker system B is known as the base system for the result; in order for the reverse mathematics result to have
+meaning, this system must not itself be able to prove the mathematical theorem T.Simpson (2009) describes five particular subsystems of second-order arithmetic, which he calls the Big Five, that occur frequently in reverse mathematics. In order of increasing strength, these systems are named by the initialisms RCA0, WKL0, ACA0, ATR0, and Π11-CA0.
+The following table summarizes the "big five" systems and lists the counterpart systems in higher-order arithmetic.  
+The latter generally prove the same second-order sentences (or a large subset) as the original second-order systems.
+The subscript 0 in these names means that the induction scheme has been restricted from the full second-order induction scheme. For example, ACA0 includes the induction axiom (0 ∈ X ∧ ∀n(n ∈ X → n + 1 ∈ X)) → ∀n n ∈ X. This together with the full comprehension axiom of second-order arithmetic  implies the full second-order induction scheme given by the universal closure of (φ(0) ∧ ∀n(φ(n) → φ(n+1))) → ∀n φ(n) for any second-order formula φ. However ACA0 does not have the full comprehension axiom, and the subscript 0 is a reminder that it does not have the full second-order induction scheme either.  This restriction is important: systems with restricted induction have significantly lower proof-theoretical ordinals than systems with the full second-order induction scheme.
+
+The base system RCA0
+RCA0 is the fragment of second-order arithmetic whose axioms are the axioms of Robinson arithmetic, induction for Σ01 formulas, and comprehension for Δ01 formulas.
+The subsystem RCA0 is the one most commonly used as a base system for reverse mathematics. The initials "RCA" stand for "recursive comprehension axiom", where "recursive" means "computable", as in recursive function.  This name is used because RCA0 corresponds informally to "computable mathematics". In particular, any set of natural numbers that can be proven to exist in RCA0 is computable, and thus any theorem that implies that noncomputable sets exist is not provable in RCA0. To this extent, RCA0 is a constructive system, although it does not meet the requirements of the program of constructivism because it is a theory in classical logic including the law of excluded middle.
+Despite its seeming weakness (of not proving any non-computable sets exist), RCA0 is sufficient to prove a number of classical theorems which, therefore, require only minimal logical strength. These theorems are, in a sense, below the reach of the reverse mathematics enterprise because they are already provable in the base system. The classical theorems provable in RCA0 include:
+
+Basic properties of the natural numbers, integers, and rational numbers (for example, that the latter form an ordered field).
+Basic properties of the real numbers (the real numbers are an Archimedean ordered field; any nested sequence of closed intervals whose lengths tend to zero has a single point in its intersection; the real numbers are not countable).Section II.4
+The Baire category theorem for a complete separable metric space (the separability condition is necessary to even state the theorem in the language of second-order arithmetic).theorem II.5.8
+The intermediate value theorem on continuous real functions.theorem II.6.6
+The Banach–Steinhaus theorem for a sequence of continuous linear operators on separable Banach spaces.theorem II.10.8
+A weak version of Gödel's completeness theorem (for a set of sentences, in a countable language, that is already closed under consequence).
+The existence of an algebraic closure for a countable field (but not its uniqueness).II.9.4--II.9.8
+The existence and uniqueness of the real closure of a countable ordered field.II.9.5, II.9.7The first-order part of RCA0 (the theorems of the system that do not involve any set variables) is the set of theorems of first-order Peano arithmetic with induction limited to Σ01 formulas.  It is provably consistent, as is RCA0, in full first-order Peano arithmetic.
+
+Weak Kőnig's lemma WKL0
+The subsystem WKL0 consists of RCA0 plus a weak form of Kőnig's lemma, namely the statement that every infinite subtree of the full binary tree (the tree of all finite sequences of 0's and 1's) has an infinite path. This proposition, which is known as weak Kőnig's lemma, is easy to state in the language of second-order arithmetic. WKL0 can also be defined as the principle of Σ01 separation (given two Σ01 formulas of a free variable n that are exclusive, there is a set containing all n satisfying the one and no n satisfying the other). When this axiom is added to RCA0, the resulting subsystem is called WKL0. A similar distinction between particular axioms on the one hand, and subsystems including the basic axioms and induction on the other hand, is made for the stronger subsystems described below.
+In a sense, weak Kőnig's lemma is a form of the axiom of choice (although, as stated, it can be proven in classical Zermelo–Fraenkel set theory without the axiom of choice).  It is not constructively valid in some senses of the word "constructive".
+To show that WKL0 is actually stronger than (not provable in) RCA0, it is sufficient to exhibit a theorem of WKL0 that implies that noncomputable sets exist. This is not difficult; WKL0 implies the existence of separating sets for effectively inseparable recursively enumerable sets.
+It turns out that RCA0 and WKL0 have the same first-order part, meaning that they prove the same first-order sentences.  WKL0 can prove a good number of classical mathematical results that do not follow from RCA0, however.  These results are not expressible as first-order statements but can be expressed as second-order statements.
+The following results are equivalent to weak Kőnig's lemma and thus to WKL0 over RCA0:
+
+The Heine–Borel theorem for the closed unit real interval, in the following sense: every covering by a sequence of open intervals has a finite subcovering.
+The Heine–Borel theorem for complete totally bounded separable metric spaces (where covering is by a sequence of open balls).
+A continuous real function on the closed unit interval (or on any compact separable metric space, as above) is bounded (or: bounded and reaches its bounds).
+A continuous real function on the closed unit interval can be uniformly approximated by polynomials (with rational coefficients).
+A continuous real function on the closed unit interval is uniformly continuous.
+A continuous real function on the closed unit interval is Riemann integrable.
+The Brouwer fixed point theorem (for continuous functions on a finite product of copies of the closed unit interval).
+The separable Hahn–Banach theorem in the form: a bounded linear form on a subspace of a separable Banach space extends to a bounded linear form on the whole space.
+The Jordan curve theorem
+Gödel's completeness theorem (for a countable language).
+Determinacy for open (or even clopen) games on {0,1} of length ω.
+Every countable commutative ring has a prime ideal.
+Every countable formally real field is orderable.
+Uniqueness of algebraic closure (for a countable field).
+
+Arithmetical comprehension ACA0
+ACA0 is RCA0 plus the comprehension scheme for arithmetical formulas (which is sometimes called the "arithmetical comprehension axiom"). That is, ACA0 allows us to form the set of natural numbers satisfying an arbitrary arithmetical formula (one with no bound set variables, although possibly containing set parameters). Actually, it suffices to add to RCA0 the comprehension scheme for Σ1 formulas in order to obtain full arithmetical comprehension.
+The first-order part of ACA0 is exactly first-order Peano arithmetic; ACA0 is a conservative extension of first-order Peano arithmetic.  The two systems are provably (in a weak system) equiconsistent.  ACA0 can be thought of as a framework of predicative mathematics, although there are predicatively provable theorems that are not provable in ACA0. Most of the fundamental results about the natural numbers, and many other mathematical theorems, can be proven in this system.
+One way of seeing that ACA0 is stronger than WKL0 is to exhibit a model of WKL0 that doesn't contain all arithmetical sets. In fact, it is possible to build a model of WKL0 consisting entirely of low sets using the low basis theorem, since low sets relative to low sets are low.
+The following assertions are equivalent to ACA0
+over RCA0:
+
+The sequential completeness of the real numbers (every bounded increasing sequence of real numbers has a limit).theorem III.2.2
+The Bolzano–Weierstrass theorem.theorem III.2.2
+Ascoli's theorem: every bounded equicontinuous sequence of real functions on the unit interval has a uniformly convergent subsequence.
+Every countable field embeds isomorphically into its algebraic closure.theorem III.3.2
+Every countable commutative ring has a maximal ideal.theorem III.5.5
+Every countable vector space over the rationals (or over any countable field) has a basis.theorem III.4.3
+For any countable fields 
+  
+    
+      
+        K
+        ⊆
+        L
+      
+    
+    {\displaystyle K\subseteq L}
+  , there is a transcendence basis for 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   over 
+  
+    
+      
+        K
+      
+    
+    {\displaystyle K}
+  .theorem III.4.6
+Kőnig's lemma (for arbitrary finitely branching trees, as opposed to the weak version described above).theorem III.7.2
+For any countable group 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   and any subgroups 
+  
+    
+      
+        H
+        ,
+        I
+      
+    
+    {\displaystyle H,I}
+   of 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  , the subgroup generated by 
+  
+    
+      
+        H
+        ∪
+        I
+      
+    
+    {\displaystyle H\cup I}
+   exists.p.40
+Any partial function can be extended to a total function.
+Various theorems in combinatorics, such as certain forms of Ramsey's theorem.
+
+Arithmetical transfinite recursion ATR0
+The system ATR0 adds to ACA0 an axiom that states, informally, that any arithmetical functional (meaning any arithmetical formula with a free number variable n and a free set variable X, seen as the operator taking X to the set of n satisfying the formula) can be iterated transfinitely along any countable well ordering starting with any set.  ATR0 is equivalent over ACA0 to the principle of Σ11 separation. ATR0 is impredicative, and has the proof-theoretic ordinal 
+  
+    
+      
+        
+          Γ
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \Gamma _{0}}
+  , the supremum of that of predicative systems.
+ATR0 proves the consistency of ACA0, and thus by Gödel's theorem it is strictly stronger.
+The following assertions are equivalent to
+ATR0 over RCA0:
+
+Any two countable well orderings are comparable. That is, they are isomorphic or one is isomorphic to a proper initial segment of the other.theorem V.6.8
+Ulm's theorem for countable reduced Abelian groups.
+The perfect set theorem, which states that every uncountable closed subset of a complete separable metric space contains a perfect closed set.
+Lusin's separation theorem (essentially Σ11 separation).
+Determinacy for open sets in the Baire space.
+
+Π11 comprehension Π11-CA0
+Π11-CA0 is stronger than arithmetical transfinite recursion and is fully impredicative. It consists of RCA0 plus the comprehension scheme for Π11 formulas.
+In a sense, Π11-CA0 comprehension is to arithmetical transfinite recursion (Σ11 separation) as ACA0 is to weak Kőnig's lemma (Σ01 separation).   It is equivalent to several statements of descriptive set theory whose proofs make use of strongly impredicative arguments; this equivalence shows that these impredicative arguments cannot be removed.
+The following theorems are equivalent to Π11-CA0  over RCA0:
+
+The Cantor–Bendixson theorem (every closed set of reals is the union of a perfect set and a countable set).
+Silver's dichotomy (every coanalytic equivalence relation has either countably many equivalence classes or a perfect set of incomparables) 
+Every countable abelian group is the direct sum of a divisible group and a reduced group.
+
+Additional systems
+Weaker systems than recursive comprehension can be defined.  The weak system RCA*0 consists of elementary function arithmetic EFA (the basic axioms plus Δ00 induction in the enriched language with an exponential operation) plus Δ01 comprehension. Over RCA*0,  recursive comprehension as defined earlier (that is, with Σ01 induction) is equivalent to the statement that a polynomial (over a countable field) has only finitely many roots and to the classification theorem for finitely generated Abelian groups. The system RCA*0 has the same proof theoretic ordinal ω3 as EFA and is conservative over EFA for Π02 sentences.
+Weak Weak Kőnig's Lemma is the statement that a subtree of the infinite binary tree having no infinite paths has an asymptotically vanishing proportion of the leaves at length n (with a uniform estimate as to how many leaves of length n exist).   An equivalent formulation is that any subset of Cantor space that has positive measure is nonempty (this is not provable in RCA0). WWKL0 is obtained by adjoining this axiom to RCA0.  It is equivalent to the statement that if the unit real interval is covered by a sequence of intervals then the sum of their lengths is at least one.  The model theory of WWKL0 is closely connected to the theory of algorithmically random sequences.  In particular, an ω-model of RCA0 satisfies weak weak Kőnig's lemma if and only if for every set X there is a set Y that is 1-random relative to X.
+DNR (short for "diagonally non-recursive") adds to RCA0 an axiom asserting the existence of a diagonally non-recursive function relative to every set. That is, DNR states that, for any set A, there exists a total function f such that for all e the eth partial recursive function with oracle A is not equal to f. DNR is strictly weaker than WWKL (Lempp et al., 2004).
+Δ11-comprehension is in certain ways analogous to arithmetical transfinite recursion as recursive comprehension is to weak Kőnig's lemma.  It has the hyperarithmetical sets as minimal ω-model.  Arithmetical transfinite recursion proves Δ11-comprehension but not the other way around.
+Σ11-choice is the statement that if η(n,X) is a Σ11 formula such that for each n there exists an X satisfying η then there is a sequence of sets Xn such that η(n,Xn) holds for each n.  Σ11-choice also has the hyperarithmetical sets as minimal ω-model.  Arithmetical transfinite recursion proves Σ11-choice but not the other way around.
+HBU (short for "uncountable Heine-Borel") expresses the (open-cover) compactness of the unit interval, involving uncountable covers.  The latter aspect of HBU makes it only expressible in the language of third-order arithmetic.  Cousin's theorem (1895) implies HBU, and these theorems use the same notion of cover due to Cousin and Lindelöf.  HBU is hard to prove: in terms of the usual hierarchy of comprehension axioms, a proof of HBU requires full second-order arithmetic.
+Ramsey's theorem for infinite graphs does not fall into one of the big five subsystems, and there are many other weaker variants with varying proof strengths.
+
+Stronger Systems
+Over RCA0, Π11 transfinite recursion, ∆02 determinacy, and the ∆11 Ramsey theorem are all equivalent to each other.
+Over RCA0, Σ11 monotonic induction, Σ02 determinacy, and the Σ11 Ramsey theorem are all equivalent to each other.
+The following are equivalent:
+(schema) Π13 consequences of Π12-CA0
+RCA0 + (schema over finite n)  determinacy in the nth level of the difference hierarchy of Σ02 sets
+RCA0 + {τ: τ is a true S2S sentence}The set of Π13 consequences of second-order arithmetic Z2 has the same theory as RCA0 + (schema over finite n)  determinacy in the nth level of the difference hierarchy of Σ03 sets.For a poset 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  , let 
+  
+    
+      
+        
+          
+            MF
+          
+        
+        (
+        P
+        )
+      
+    
+    {\displaystyle {\textrm {MF}}(P)}
+   denote the topological space consisting of the filters on 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   whose open sets are the sets of the form 
+  
+    
+      
+        {
+        F
+        ∈
+        
+          
+            MF
+          
+        
+        (
+        P
+        )
+        ∣
+        p
+        ∈
+        F
+        }
+      
+    
+    {\displaystyle \{F\in {\textrm {MF}}(P)\mid p\in F\}}
+   for some 
+  
+    
+      
+        p
+        ∈
+        P
+      
+    
+    {\displaystyle p\in P}
+  . The following statement is equivalent to 
+  
+    
+      
+        
+          Π
+          
+            2
+          
+          
+            1
+          
+        
+        
+          
+            
+              −
+              C
+              A
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \Pi _{2}^{1}{\mathsf {-CA}}_{0}}
+   over 
+  
+    
+      
+        
+          Π
+          
+            1
+          
+          
+            1
+          
+        
+        
+          
+            
+              −
+              C
+              A
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \Pi _{1}^{1}{\mathsf {-CA}}_{0}}
+  : for any countable poset 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  , the topological space 
+  
+    
+      
+        
+          
+            MF
+          
+        
+        (
+        P
+        )
+      
+    
+    {\displaystyle {\textrm {MF}}(P)}
+   is completely metrizable iff it is regular.
+
+ω-models and β-models
+The ω in ω-model stands for the set of non-negative integers (or finite ordinals). An ω-model is a model for a fragment of second-order arithmetic  whose first-order part is the standard model of Peano arithmetic, but whose second-order part may be non-standard. More precisely, an ω-model is given by a choice S⊆2ω of subsets of ω. The first-order variables are interpreted in the usual way as elements of ω, and +, × have their usual meanings, while second-order variables are interpreted as elements of S.  There is a standard ω model where one just takes S to consist of all subsets of the integers. However, there are also other ω-models; for example, RCA0 has a minimal ω-model where S consists of the recursive subsets of ω.
+A β-model is an ω model that agrees with the standard ω-model on truth of Π11 and Σ11 sentences (with parameters).
+Non-ω models are also useful, especially in the proofs of conservation theorems.
+
+See also
+Closed-form expression § Conversion from numerical forms
+Induction, bounding and least number principles
+Ordinal analysis
+
+Notes
+References
+Ambos-Spies, K.; Kjos-Hanssen, B.; Lempp, S.; Slaman, T.A. (2004), "Comparing DNR and WWKL", Journal of Symbolic Logic, 69 (4): 1089, arXiv:1408.2281, doi:10.2178/jsl/1102022212, S2CID 17582399.
+Friedman, Harvey (1975), "Some systems of second-order arithmetic and their use", Proceedings of the International Congress of Mathematicians (Vancouver, B. C., 1974), Vol. 1, Canad. Math. Congress, Montreal, Que., pp. 235–242, MR 0429508
+Friedman, Harvey (1976), Baldwin, John; Martin, D. A.; Soare, R. I.; Tait, W. W. (eds.), "Systems of second-order arithmetic with restricted induction, I, II", Meeting of the Association for Symbolic Logic, The Journal of Symbolic Logic, 41 (2): 557–559, doi:10.2307/2272259, JSTOR 2272259
+Hirschfeldt, Denis R. (2014), Slicing the Truth, Lecture Notes Series of the Institute for Mathematical Sciences, National University of Singapore, vol. 28, World Scientific
+Hunter, James (2008), Reverse Topology (PDF) (PhD thesis), University of Wisconsin–Madison
+Kohlenbach, Ulrich (2005), "Higher order reverse mathematics", in Simpson, Stephen G (ed.), Higher Order Reverse Mathematics, Reverse Mathematics 2001 (PDF), Lecture notes in Logic, Cambridge University Press, pp. 281–295, CiteSeerX 10.1.1.643.551, doi:10.1017/9781316755846.018, ISBN 9781316755846
+Normann, Dag; Sanders, Sam (2018), "On the mathematical and foundational significance of the uncountable", Journal of Mathematical Logic, 19: 1950001, arXiv:1711.08939, doi:10.1142/S0219061319500016, S2CID 119120366
+Simpson, Stephen G. (2009), Subsystems of second-order arithmetic, Perspectives in Logic (2nd ed.), Cambridge University Press, doi:10.1017/CBO9780511581007, ISBN 978-0-521-88439-6, MR 2517689
+Stillwell, John (2018), Reverse Mathematics, proofs from the inside out, Princeton University Press, ISBN 978-0-691-17717-5
+Solomon, Reed (1999), "Ordered groups: a case study in reverse mathematics", The Bulletin of Symbolic Logic, 5 (1): 45–58, CiteSeerX 10.1.1.364.9553, doi:10.2307/421140, ISSN 1079-8986, JSTOR 421140, MR 1681895, S2CID 508431
+
+External links
+Harvey Friedman's home page
+Stephen G. Simpson's home page
+Reverse Mathematics Zoo

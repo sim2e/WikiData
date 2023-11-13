@@ -1,0 +1,1449 @@
+Modularity is a measure of the structure of networks or graphs which measures the strength of division of a network into modules (also called groups, clusters or communities). Networks with high modularity have dense connections between the nodes within modules but sparse connections between nodes in different modules. Modularity is often used in optimization methods for detecting community structure in networks.  Biological networks, including animal brains, exhibit a high degree of modularity. However, modularity maximization is not statistically consistent, and finds communities in its own null model, i.e. fully random graphs, and therefore it cannot be used to find statistically significant community structures in empirical networks. Furthermore, it has been shown that modularity suffers a resolution limit and, therefore, it is unable to detect small communities.
+
+Motivation
+Many scientifically important problems can be represented and empirically studied using networks. For example, biological and social patterns, the World Wide Web, metabolic networks, food webs, neural networks and pathological networks are real world problems that can be mathematically represented and topologically studied to reveal some unexpected structural features. Most of these networks possess a certain community structure that has substantial importance in building an understanding regarding the dynamics of the network. For instance, a closely connected social community will imply a faster rate of transmission of information or rumor among them than a loosely connected community. Thus, if a network is represented by a number of individual nodes connected by links which signify a certain degree of interaction between the nodes, communities are defined as groups of densely interconnected nodes that are only sparsely connected with the rest of the network. Hence, it may be imperative to identify the communities in networks since the communities may have quite different properties such as node degree, clustering coefficient, betweenness, centrality, etc., from that of the average network. Modularity is one such measure, which when maximized, leads to the appearance of communities in a given network.
+
+Definition
+Modularity is the fraction of the edges that fall within the given groups minus the expected fraction if edges were distributed at random. The value of the modularity for unweighted and undirected graphs lies in the range 
+  
+    
+      
+        [
+        −
+        1
+        
+          /
+        
+        2
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle [-1/2,1]}
+  .  It is positive if the number of edges within groups exceeds the number expected on the basis of chance. For a given division of the network's vertices into some modules, modularity reflects the concentration of edges within modules compared with random distribution of links between all nodes regardless of modules.
+There are different methods for calculating modularity. In the most common version of the concept, the randomization of the edges is done so as to preserve the degree of each vertex. Consider a graph with 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   nodes and 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   links (edges) such that the graph can be partitioned into two communities using a membership variable 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  . If a node 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   belongs to community 1, 
+  
+    
+      
+        
+          s
+          
+            v
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle s_{v}=1}
+  , or if 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   belongs to community 2, 
+  
+    
+      
+        
+          s
+          
+            v
+          
+        
+        =
+        −
+        1
+      
+    
+    {\displaystyle s_{v}=-1}
+  . Let the adjacency matrix for the network be represented by 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  , where 
+  
+    
+      
+        
+          A
+          
+            v
+            w
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle A_{vw}=0}
+   means there's no edge (no interaction) between nodes 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   and 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   and 
+  
+    
+      
+        
+          A
+          
+            v
+            w
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle A_{vw}=1}
+   means there is an edge between the two. Also for simplicity we consider an undirected network. Thus 
+  
+    
+      
+        
+          A
+          
+            v
+            w
+          
+        
+        =
+        
+          A
+          
+            w
+            v
+          
+        
+      
+    
+    {\displaystyle A_{vw}=A_{wv}}
+  . (It is important to note that multiple edges may exist between two nodes, but here we assess the simplest case).
+Modularity 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+   is then defined as the fraction of edges that fall within group 1 or 2, minus the expected number of edges within groups 1 and 2 for a random graph with the same node degree distribution as the given network.
+The expected number of edges shall be computed using the concept of a configuration model. The configuration model is a randomized realization of a particular network. Given a network with 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   nodes, where each node 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   has a node degree 
+  
+    
+      
+        
+          k
+          
+            v
+          
+        
+      
+    
+    {\displaystyle k_{v}}
+  , the configuration model cuts each edge into two halves,  and then each half edge, called a stub, is rewired randomly with any other stub in the network, even allowing self-loops (which occur when a stub is rewired to another stub from the same node) and multiple-edges between the same two nodes. Thus, even though the node degree distribution of the graph remains intact, the configuration model results in a completely random network.
+
+Expected Number of Edges Between Nodes
+Now consider two nodes 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   and 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+  , with node degrees 
+  
+    
+      
+        
+          k
+          
+            v
+          
+        
+      
+    
+    {\displaystyle k_{v}}
+   and 
+  
+    
+      
+        
+          k
+          
+            w
+          
+        
+      
+    
+    {\displaystyle k_{w}}
+   respectively, from a randomly rewired network as described above. We calculate the expected number of full edges between these nodes.
+Let us consider each of the 
+  
+    
+      
+        
+          k
+          
+            v
+          
+        
+      
+    
+    {\displaystyle k_{v}}
+   stubs of node 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   and create associated indicator variables 
+  
+    
+      
+        
+          I
+          
+            i
+          
+          
+            (
+            v
+            ,
+            w
+            )
+          
+        
+      
+    
+    {\displaystyle I_{i}^{(v,w)}}
+   for them, 
+  
+    
+      
+        i
+        =
+        1
+        ,
+        …
+        ,
+        
+          k
+          
+            v
+          
+        
+      
+    
+    {\displaystyle i=1,\ldots ,k_{v}}
+  , with 
+  
+    
+      
+        
+          I
+          
+            i
+          
+          
+            (
+            v
+            ,
+            w
+            )
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle I_{i}^{(v,w)}=1}
+   if the 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  -th stub happens to connect to one of the 
+  
+    
+      
+        
+          k
+          
+            w
+          
+        
+      
+    
+    {\displaystyle k_{w}}
+   stubs of node 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   in this particular random graph. If it does not, then 
+  
+    
+      
+        
+          I
+          
+            i
+          
+          
+            (
+            v
+            ,
+            w
+            )
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle I_{i}^{(v,w)}=0}
+  . Since the 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  -th stub of node 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   can connect to any of the 
+  
+    
+      
+        2
+        m
+        −
+        1
+      
+    
+    {\displaystyle 2m-1}
+   remaining stubs with equal probability, and since there are 
+  
+    
+      
+        
+          k
+          
+            w
+          
+        
+      
+    
+    {\displaystyle k_{w}}
+   stubs it can connect to associated with node 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+  , evidently
+
+  
+    
+      
+        p
+        (
+        
+          I
+          
+            i
+          
+          
+            (
+            v
+            ,
+            w
+            )
+          
+        
+        =
+        1
+        )
+        =
+        E
+        [
+        
+          I
+          
+            i
+          
+          
+            (
+            v
+            ,
+            w
+            )
+          
+        
+        ]
+        =
+        
+          
+            
+              k
+              
+                w
+              
+            
+            
+              2
+              m
+              −
+              1
+            
+          
+        
+      
+    
+    {\displaystyle p(I_{i}^{(v,w)}=1)=E[I_{i}^{(v,w)}]={\frac {k_{w}}{2m-1}}}
+  The total number of full edges 
+  
+    
+      
+        
+          J
+          
+            v
+            w
+          
+        
+      
+    
+    {\displaystyle J_{vw}}
+   between 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   and 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   is just 
+  
+    
+      
+        
+          J
+          
+            v
+            w
+          
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            
+              k
+              
+                v
+              
+            
+          
+        
+        
+          I
+          
+            i
+          
+          
+            (
+            v
+            ,
+            w
+            )
+          
+        
+      
+    
+    {\displaystyle J_{vw}=\sum _{i=1}^{k_{v}}I_{i}^{(v,w)}}
+  , so the expected value of this quantity is
+
+  
+    
+      
+        E
+        [
+        
+          J
+          
+            v
+            w
+          
+        
+        ]
+        =
+        E
+        
+          [
+          
+            
+              ∑
+              
+                i
+                =
+                1
+              
+              
+                
+                  k
+                  
+                    v
+                  
+                
+              
+            
+            
+              I
+              
+                i
+              
+              
+                (
+                v
+                ,
+                w
+                )
+              
+            
+          
+          ]
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            
+              k
+              
+                v
+              
+            
+          
+        
+        E
+        [
+        
+          I
+          
+            i
+          
+          
+            (
+            v
+            ,
+            w
+            )
+          
+        
+        ]
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            
+              k
+              
+                v
+              
+            
+          
+        
+        
+          
+            
+              k
+              
+                w
+              
+            
+            
+              2
+              m
+              −
+              1
+            
+          
+        
+        =
+        
+          
+            
+              
+                k
+                
+                  v
+                
+              
+              
+                k
+                
+                  w
+                
+              
+            
+            
+              2
+              m
+              −
+              1
+            
+          
+        
+      
+    
+    {\displaystyle E[J_{vw}]=E\left[\sum _{i=1}^{k_{v}}I_{i}^{(v,w)}\right]=\sum _{i=1}^{k_{v}}E[I_{i}^{(v,w)}]=\sum _{i=1}^{k_{v}}{\frac {k_{w}}{2m-1}}={\frac {k_{v}k_{w}}{2m-1}}}
+  Many texts then make the following approximations, for random networks with a large number of edges. When 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   is large, they drop the subtraction of 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+   in the denominator above and simply use the approximate expression 
+  
+    
+      
+        
+          
+            
+              
+                k
+                
+                  v
+                
+              
+              
+                k
+                
+                  w
+                
+              
+            
+            
+              2
+              m
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {k_{v}k_{w}}{2m}}}
+   for the expected number of edges between two nodes. Additionally, in a large random network, the number of self-loops and multi-edges is vanishingly small. Ignoring self-loops and multi-edges allows one to assume that there is at most one edge between any two nodes. In that case, 
+  
+    
+      
+        
+          J
+          
+            v
+            w
+          
+        
+      
+    
+    {\displaystyle J_{vw}}
+   becomes a binary indicator variable, so its expected value is also the probability that it equals 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+  , which means one can approximate the probability of an edge existing between nodes 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   and 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   as 
+  
+    
+      
+        
+          
+            
+              
+                k
+                
+                  v
+                
+              
+              
+                k
+                
+                  w
+                
+              
+            
+            
+              2
+              m
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {k_{v}k_{w}}{2m}}}
+  .
+
+Modularity
+Hence, the difference between the actual number of edges between node 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   and 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   and the expected number of edges between them is
+
+  
+    
+      
+        
+          A
+          
+            v
+            w
+          
+        
+        −
+        
+          
+            
+              
+                k
+                
+                  v
+                
+              
+              
+                k
+                
+                  w
+                
+              
+            
+            
+              2
+              m
+            
+          
+        
+      
+    
+    {\displaystyle A_{vw}-{\frac {k_{v}k_{w}}{2m}}}
+  
+Summing over all node pairs gives the equation for modularity, 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+  .
+
+It is important to note that Eq. 3 holds good for partitioning into two communities only. Hierarchical partitioning (i.e. partitioning into two communities, then the two sub-communities further partitioned into two smaller sub communities only to maximize Q) is a possible approach to identify multiple communities in a network. Additionally, (3) can be generalized for partitioning a network into c communities.
+
+where eij is the fraction of edges with one end vertices in community i and the other in community j:
+
+  
+    
+      
+        
+          e
+          
+            i
+            j
+          
+        
+        =
+        
+          ∑
+          
+            v
+            w
+          
+        
+        
+          
+            
+              A
+              
+                v
+                w
+              
+            
+            
+              2
+              m
+            
+          
+        
+        
+          1
+          
+            v
+            ∈
+            
+              c
+              
+                i
+              
+            
+          
+        
+        
+          1
+          
+            w
+            ∈
+            
+              c
+              
+                j
+              
+            
+          
+        
+      
+    
+    {\displaystyle e_{ij}=\sum _{vw}{\frac {A_{vw}}{2m}}1_{v\in c_{i}}1_{w\in c_{j}}}
+  and ai is the fraction of ends of edges that are attached to vertices in community i:
+
+  
+    
+      
+        
+          a
+          
+            i
+          
+        
+        =
+        
+          
+            
+              k
+              
+                i
+              
+            
+            
+              2
+              m
+            
+          
+        
+        =
+        
+          ∑
+          
+            j
+          
+        
+        
+          e
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle a_{i}={\frac {k_{i}}{2m}}=\sum _{j}e_{ij}}
+
+Example of multiple community detection
+We consider an undirected network with 10 nodes and 12 edges and the following adjacency matrix.
+
+The communities in the graph are represented by the red, green and blue node clusters in Fig 1. The optimal community partitions are depicted in Fig 2.
+
+Matrix formulation
+An alternative formulation of the modularity, useful particularly in spectral optimization algorithms, is as follows.  Define 
+  
+    
+      
+        
+          S
+          
+            v
+            r
+          
+        
+      
+    
+    {\displaystyle S_{vr}}
+   to be 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+   if vertex 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   belongs to group 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   and 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+   otherwise.  Then
+
+  
+    
+      
+        δ
+        (
+        
+          c
+          
+            v
+          
+        
+        ,
+        
+          c
+          
+            w
+          
+        
+        )
+        =
+        
+          ∑
+          
+            r
+          
+        
+        
+          S
+          
+            v
+            r
+          
+        
+        
+          S
+          
+            w
+            r
+          
+        
+      
+    
+    {\displaystyle \delta (c_{v},c_{w})=\sum _{r}S_{vr}S_{wr}}
+  and hence
+
+  
+    
+      
+        Q
+        =
+        
+          
+            1
+            
+              2
+              m
+            
+          
+        
+        
+          ∑
+          
+            v
+            w
+          
+        
+        
+          ∑
+          
+            r
+          
+        
+        
+          [
+          
+            
+              A
+              
+                v
+                w
+              
+            
+            −
+            
+              
+                
+                  
+                    k
+                    
+                      v
+                    
+                  
+                  
+                    k
+                    
+                      w
+                    
+                  
+                
+                
+                  2
+                  m
+                
+              
+            
+          
+          ]
+        
+        
+          S
+          
+            v
+            r
+          
+        
+        
+          S
+          
+            w
+            r
+          
+        
+        =
+        
+          
+            1
+            
+              2
+              m
+            
+          
+        
+        
+          T
+          r
+        
+        (
+        
+          
+            S
+          
+          
+            
+              T
+            
+          
+        
+        
+          B
+          S
+        
+        )
+        ,
+      
+    
+    {\displaystyle Q={\frac {1}{2m}}\sum _{vw}\sum _{r}\left[A_{vw}-{\frac {k_{v}k_{w}}{2m}}\right]S_{vr}S_{wr}={\frac {1}{2m}}\mathrm {Tr} (\mathbf {S} ^{\mathrm {T} }\mathbf {BS} ),}
+  where 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   is the (non-square) matrix having elements 
+  
+    
+      
+        
+          S
+          
+            v
+          
+        
+      
+    
+    {\displaystyle S_{v}}
+   and 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   is the so-called modularity matrix, which has elements
+
+  
+    
+      
+        
+          B
+          
+            v
+            w
+          
+        
+        =
+        
+          A
+          
+            v
+            w
+          
+        
+        −
+        
+          
+            
+              
+                k
+                
+                  v
+                
+              
+              
+                k
+                
+                  w
+                
+              
+            
+            
+              2
+              m
+            
+          
+        
+        .
+      
+    
+    {\displaystyle B_{vw}=A_{vw}-{\frac {k_{v}k_{w}}{2m}}.}
+  All rows and columns of the modularity matrix sum to zero, which means that the modularity of an undivided network is also always 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+  .
+For networks divided into just two communities, one can alternatively define 
+  
+    
+      
+        
+          s
+          
+            v
+          
+        
+        =
+        ±
+        1
+      
+    
+    {\displaystyle s_{v}=\pm 1}
+   to indicate the community to which node 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   belongs, which then leads to
+
+  
+    
+      
+        Q
+        =
+        
+          
+            1
+            
+              4
+              m
+            
+          
+        
+        
+          ∑
+          
+            v
+            w
+          
+        
+        
+          B
+          
+            v
+            w
+          
+        
+        
+          s
+          
+            v
+          
+        
+        
+          s
+          
+            w
+          
+        
+        =
+        
+          
+            1
+            
+              4
+              m
+            
+          
+        
+        
+          
+            s
+          
+          
+            
+              T
+            
+          
+        
+        
+          B
+          s
+        
+        ,
+      
+    
+    {\displaystyle Q={1 \over 4m}\sum _{vw}B_{vw}s_{v}s_{w}={1 \over 4m}\mathbf {s} ^{\mathrm {T} }\mathbf {Bs} ,}
+  where 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   is the column vector with elements 
+  
+    
+      
+        
+          s
+          
+            v
+          
+        
+      
+    
+    {\displaystyle s_{v}}
+  .This function has the same form as the Hamiltonian of an Ising spin glass, a connection that has been exploited to create simple computer algorithms, for instance using simulated annealing, to maximize the modularity.  The general form of the modularity for arbitrary numbers of communities is equivalent to a Potts spin glass and similar algorithms can be developed for this case also.
+
+Overfitting
+Although the method of modularity maximization is motivated by computing a deviation from a null model, this deviation is not computed in a statistically consistent manner. Because of this, the method notoriously finds high-scoring communities in its own null model
+
+(the configuration model), which by definition cannot be statistically significant. Because of this, the method cannot be used to reliably obtain statistically significant community structure in empirical networks.
+
+Resolution limit
+Modularity compares the number of edges inside a cluster with the expected number of edges that
+one would find in the cluster if the network were a random network with the same number of nodes and where
+each node keeps its degree, but edges are otherwise randomly attached. This random null model implicitly assumes that each node can get attached to any other node of the network. This assumption is however unreasonable if the network is very large, as the horizon of a node includes a small part of the network, ignoring most of it.
+Moreover, this implies that the expected number of edges between two groups of nodes decreases if the size of the network increases. So, if a network is large enough, the expected number of edges between two groups of nodes in modularity's null model may be smaller than one. If this happens, a single edge between the two clusters would be interpreted by modularity as a sign of a strong correlation between the two clusters, and optimizing modularity would lead to the merging of the two clusters, independently of the clusters' features. So, even weakly interconnected complete graphs, which have the highest possible density of internal edges, and represent the best identifiable communities, would be merged by modularity optimization if the network were sufficiently large.
+For this reason, optimizing modularity in large networks would fail to resolve small communities, even when they are well defined. This bias
+is inevitable for methods like modularity optimization, which rely on a global null model.
+
+Multiresolution methods
+There are two main approaches which try to solve the resolution limit within the modularity context: the addition of a resistance r to every node, in the form of a self-loop, which increases (r>0) or decreases (r<0) the aversion of nodes to form communities; or the addition of a parameter γ>0 in front of the null-case term in the definition of modularity, which controls the relative importance between internal links of the communities and the null model. Optimizing modularity for values of these parameters in their respective appropriate ranges, it is possible to recover the whole mesoscale of the network, from the macroscale in which all nodes belong to the same community, to the microscale in which every node forms its own community, hence the name multiresolution methods. However, it has been shown that these methods have limitations when communities are very heterogeneous in size.
+
+Software Tools
+There are a couple of software tools available that are able to compute clusterings in graphs with good modularity.
+Original implementation of the multi-level Louvain method.The Leiden algorithm which additionally avoids unconnected communities.The Vienna Graph Clustering (VieClus) algorithm, a parallel memetic algorithm.
+
+See also
+Complex network
+Community structure
+Null model
+Percolation theory
+
+
+== References ==

@@ -1,0 +1,594 @@
+Noise-Predictive Maximum-Likelihood (NPML) is a class of  digital signal-processing methods suitable for magnetic data storage systems that operate at high linear recording densities. It is used for retrieval of data recorded on magnetic media.
+Data are read back by the read head, producing a weak and noisy analog signal. NPML aims at minimizing the influence of noise in the detection process. Successfully applied, it allows recording data at higher areal densities. Alternatives include peak detection, partial-response maximum-likelihood (PRML), and extended partial-response maximum likelihood (EPRML) detection.Although advances in head and media technologies historically have been the driving forces behind the increases in the areal recording density, digital signal processing and coding established themselves as cost-efficient techniques for enabling additional increases in areal density while preserving reliability. Accordingly, the deployment of sophisticated detection schemes based on the concept of noise prediction are of paramount importance in the disk drive industry.
+
+Principles
+The NPML family of sequence-estimation data detectors arise by embedding a noise prediction/whitening process into the branch metric computation of the Viterbi algorithm. The latter is a data detection technique for communication channels that exhibit intersymbol interference (ISI) with finite memory.
+Reliable operation of the process is achieved by using hypothesized decisions associated with the branches of the trellis on which the Viterbi algorithm operates as well as tentative decisions corresponding to the path memory associated with each trellis state. NPML detectors can thus be viewed as reduced-state sequence-estimation detectors offering a range of implementation complexities. The complexity is governed by the number of detector states, which is equal to 
+  
+    
+      
+        
+          2
+          
+            K
+          
+        
+      
+    
+    {\displaystyle 2^{K}}
+  , 
+  
+    
+      
+        0
+        ≤
+        K
+        ≤
+        M
+      
+    
+    {\displaystyle 0\leq K\leq M}
+  , with 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   denoting the maximum number of controlled ISI terms introduced by the combination of a partial-response shaping equalizer and the noise predictor. By judiciously choosing 
+  
+    
+      
+        K
+      
+    
+    {\displaystyle K}
+  , practical NPML detectors can be devised that improve performance over PRML and EPRML detectors in terms of error rate and/or linear recording density.In the absence of noise enhancement or noise correlation, the PRML sequence detector performs maximum-likelihood sequence estimation. As the operating point moves to higher linear recording densities, optimality declines with linear partial-response (PR) equalization, which enhances noise and renders it correlated. A close match between the desired target polynomial and the physical channel can minimize losses. An effective way to achieve near optimal performance independently of the operating point—in terms of linear recording density—and the noise conditions is via noise prediction. In particular, the power of a stationary noise sequence 
+  
+    
+      
+        n
+        (
+        D
+        )
+      
+    
+    {\displaystyle n(D)}
+  , where the 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+   operator corresponds to a delay of one bit interval, at the output of a PR equalizer can be minimized by using an infinitely long predictor. A linear predictor with coefficients 
+  
+    
+      
+        {
+        
+          p
+          
+            l
+          
+        
+        }
+        ,
+        l
+        =
+        1
+        ,
+        2
+      
+    
+    {\displaystyle \{p_{l}\},l=1,2}
+  ,..., operating on the noise sequence 
+  
+    
+      
+        n
+        (
+        D
+        )
+      
+    
+    {\displaystyle n(D)}
+   produces the estimated noise sequence 
+  
+    
+      
+        
+          
+            
+              n
+              ´
+            
+          
+        
+        
+          (
+          D
+          )
+        
+      
+    
+    {\displaystyle {\acute {n}}\left(D\right)}
+  . Then, the prediction-error sequence given by
+
+  
+    
+      
+        e
+        
+          (
+          D
+          )
+        
+        =
+        n
+        
+          (
+          D
+          )
+        
+        −
+        
+          
+            
+              n
+              ´
+            
+          
+        
+        
+          (
+          D
+          )
+        
+        =
+        n
+        
+          (
+          D
+          )
+        
+        
+          (
+          
+            1
+            −
+            P
+            
+              (
+              D
+              )
+            
+          
+          )
+        
+      
+    
+    {\displaystyle e\left(D\right)=n\left(D\right)-{\acute {n}}\left(D\right)=n\left(D\right)\left(1-P\left(D\right)\right)}
+  
+is white with minimum power. The optimum predictor
+
+  
+    
+      
+        P
+        
+          (
+          D
+          )
+        
+        =
+        
+          p
+          
+            1
+          
+        
+        D
+        +
+        
+          p
+          
+            2
+          
+        
+        
+          
+            D
+            
+              2
+            
+          
+        
+        +
+      
+    
+    {\displaystyle P\left(D\right)=p_{1}D+p_{2}{D^{2}}+}
+  ...
+or the optimum noise-whitening filter
+
+  
+    
+      
+        W
+        
+          (
+          D
+          )
+        
+        =
+        1
+        −
+        P
+        
+          (
+          D
+          )
+        
+      
+    
+    {\displaystyle W\left(D\right)=1-P\left(D\right)}
+  ,
+is the one that minimizes the prediction error sequence 
+  
+    
+      
+        e
+        (
+        D
+        )
+      
+    
+    {\displaystyle e(D)}
+   in a mean-square senseAn infinitely long predictor filter would lead to a sequence detector structure that requires an unbounded number of states. Therefore, finite-length predictors that render the noise at the input of the sequence detector approximately white are of interest.
+Generalized PR shaping polynomials of the form
+
+  
+    
+      
+        G
+        
+          (
+          D
+          )
+        
+        =
+        F
+        
+          (
+          D
+          )
+        
+        ×
+        W
+        
+          (
+          D
+          )
+        
+      
+    
+    {\displaystyle G\left(D\right)=F\left(D\right)\times W\left(D\right)}
+  ,
+where 
+  
+    
+      
+        F
+        (
+        D
+        )
+      
+    
+    {\displaystyle F(D)}
+   is a polynomial of order S and the noise-whitening filter 
+  
+    
+      
+        W
+        (
+        D
+        )
+      
+    
+    {\displaystyle W(D)}
+   has a finite order of 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+  , give rise to NPML systems when combined with sequence detection In this case, the effective memory of the system is limited to
+
+  
+    
+      
+        M
+        =
+        L
+        +
+        S
+      
+    
+    {\displaystyle M=L+S}
+  ,
+requiring a 
+  
+    
+      
+        
+          2
+          
+            L
+          
+        
+        +
+        S
+      
+    
+    {\displaystyle 2^{L}+S}
+  -state NPML detector if no reduced-state detection is employed.
+
+As an example, if
+
+  
+    
+      
+        F
+        
+          (
+          D
+          )
+        
+        =
+        1
+        −
+        
+          
+            D
+            
+              2
+            
+          
+        
+      
+    
+    {\displaystyle F\left(D\right)=1-{D^{2}}}
+  
+then this corresponds to the classical PR4 signal shaping. Using a whitening filter 
+  
+    
+      
+        W
+        (
+        D
+        )
+      
+    
+    {\displaystyle W(D)}
+  , the generalized PR target becomes
+
+  
+    
+      
+        G
+        
+          (
+          D
+          )
+        
+        =
+        
+          (
+          
+            1
+            −
+            
+              
+                D
+                
+                  2
+                
+              
+            
+          
+          )
+        
+        ×
+        W
+        
+          (
+          D
+          )
+        
+      
+    
+    {\displaystyle G\left(D\right)=\left(1-{D^{2}}\right)\times W\left(D\right)}
+  ,
+and the effective ISI memory of the system is limited to
+
+  
+    
+      
+        M
+        =
+        L
+        +
+        2
+      
+    
+    {\displaystyle M=L+2}
+   symbols. In this case, the full-state NMPL detector performs maximum likelihood sequence estimation (MLSE) using the 
+  
+    
+      
+        
+          2
+          
+            L
+            +
+            2
+          
+        
+      
+    
+    {\displaystyle 2^{L+2}}
+  -state trellis corresponding to 
+  
+    
+      
+        G
+        (
+        D
+        )
+      
+    
+    {\displaystyle G(D)}
+  .
+The NPML detector is efficiently implemented via the Viterbi algorithm, which recursively computes the estimated data sequence.
+  
+    
+      
+        
+          
+            
+              a
+              ^
+            
+          
+        
+        
+          (
+          D
+          )
+        
+        =
+        a
+        r
+        g
+         
+        m
+        i
+        
+          n
+          
+            a
+            
+              (
+              D
+              )
+            
+          
+        
+        ∥
+        z
+        
+          (
+          D
+          )
+        
+        −
+        a
+        
+          (
+          D
+          )
+        
+        G
+        
+          (
+          D
+          )
+        
+        ∥
+        
+          
+            
+            
+              2
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {a}}\left(D\right)=arg\ min_{a\left(D\right)}\parallel z\left(D\right)-a\left(D\right)G\left(D\right)\parallel {^{2}}}
+  
+where 
+  
+    
+      
+        a
+        (
+        D
+        )
+      
+    
+    {\displaystyle a(D)}
+   denotes the binary sequence of recorded data bits and z(D) the signal sequence at the output of the noise whitening filter 
+  
+    
+      
+        W
+        (
+        D
+        )
+      
+    
+    {\displaystyle W(D)}
+  .
+Reduced-state sequence-detection schemes have been studied for application in the magnetic-recording channel and the references therein. For example, the NPML detectors with generalized PR target polynomials
+
+  
+    
+      
+        G
+        
+          (
+          D
+          )
+        
+        =
+        F
+        
+          (
+          D
+          )
+        
+        ×
+        W
+        
+          (
+          D
+          )
+        
+      
+    
+    {\displaystyle G\left(D\right)=F\left(D\right)\times W\left(D\right)}
+  
+can be viewed as a family of reduced-state detectors with embedded feedback. These detectors exist in a form in which the decision-feedback path can be realized by simple table look-up operations, whereby the contents of these tables can be updated as a function of the operating conditions. Analytical and experimental studies have shown that a judicious tradeoff between performance and state complexity leads to practical schemes with considerable performance gains. Thus, reduced-state approaches are promising for increasing linear density.
+Depending on the surface roughness and particle size, particulate media might exhibit nonstationary data-dependent transition or medium noise rather than colored stationary medium noise. Improvements o\in the quality of the readback head as well as the incorporation of low-noise preamplifiers may render the data-dependent medium noise a significant component of the total noise affecting performance. Because medium noise is correlated and data-dependent, information about noise and data patterns in past samples can provide information about noise in other samples. Thus, the concept of noise prediction for stationary Gaussian noise sources developed in  can be naturally extended to the case where noise characteristics depend highly on local data patterns.By modeling the data-dependent noise as a finite-order Markov process, the optimum MLSE for channels with ISI has been derived. In particular, it when the data-dependent noise is conditionally Gauss–Markov, the branch metrics can be computed from the conditional second-order statistics of the noise process. In other words, the optimum MLSE can be implemented efficiently by using the Viterbi algorithm, in which the branch-metric computation involves data-dependent noise prediction. Because the predictor coefficients and prediction error both depend on the local data pattern, the resulting structure has been called a data-dependent NPML detector. Reduced-state sequence detection schemes can be applied to data-dependent NPML, reducing implementation complexity.
+NPML and its various forms represent the core read-channel and detection technology used in recording systems employing advanced error-correcting codes that lend themselves to soft decoding, such as low-density parity check (LDPC) codes. For example, if noise-predictive detection is performed in conjunction with a maximum a posteriori (MAP) detection algorithm such as the BCJR algorithm then NPML and NPML-like detection allow the computation of soft reliability information on individual code symbols, while retaining all the performance advantages associated with noise-predictive techniques. The soft information generated in this manner is used for soft decoding of the error-correcting code. Moreover, the soft information computed by the decoder can be fed back again to the soft detector to improve detection performance. In this way it is possible to iteratively improve the error-rate performance at the decoder output in successive soft detection/decoding rounds.
+
+History
+Beginning in the 1980s several digital signal-processing and coding techniques were introduced into disk drives to improve the drive error-rate performance for operation at higher areal densities and for reducing manufacturing and servicing costs. In the early 1990s, partial-response class-4 (PR4) signal shaping in conjunction with maximum-likelihood sequence detection, eventually known as PRML technique replaced the peak detection systems that used run-length-limited (RLL) (d,k)-constrained coding. This development paved the way for future applications of advanced coding and signal-processing techniques in magnetic data storage.
+NPML detection was first described in 1996 and eventually found wide application in HDD read channel design. The “noise predictive” concept was later extended to handle autoregressive (AR) noise processes and autoregressive moving-average (ARMA) stationary noise processes The concept was extended to include a variety of non-stationary noise sources, such as head, transition jitter and media noise; it was applied to various post-processing schemes. Noise prediction became an integral part of the metric computation in a wide variety of iterative detection/decoding schemes.
+The pioneering research work on partial-response maximum-likelihood (PRML) and noise-predictive maximum-likelihood (NPML) detection and its impact on the industry were recognized in 2005 by the European Eduard Rhein Foundation Technology Award.
+
+Applications
+NPML technology were first introduced into IBM's line of HDD products in the late 1990s. Eventually, noise-predictive detection became a de facto standard and in its various instantiations became the core technology of the read channel module in HDD systems.In 2010, NPML was introduced into IBM's Linear Tape Open (LTO) tape drive products and in 2011 in IBM's enterprise-class tape drives.
+
+See also
+Maximum likelihood
+Partial-response maximum-likelihood
+Viterbi algorithm
+
+
+== References ==

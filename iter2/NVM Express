@@ -1,0 +1,111 @@
+NVM Express (NVMe) or Non-Volatile Memory Host Controller Interface Specification (NVMHCIS) is an open, logical-device interface specification for accessing a computer's non-volatile storage media usually attached via the PCI Express bus. The initialism NVM stands for non-volatile memory, which is often NAND flash memory that comes in several physical form factors, including solid-state drives (SSDs), PCIe add-in cards, and M.2 cards, the successor to mSATA cards.  NVM Express, as a logical-device interface, has been designed to capitalize on the low latency and internal parallelism of solid-state storage devices.Architecturally, the logic for NVMe is physically stored within and executed by the NVMe controller chip that is physically co-located with the storage media, usually an SSD. Version changes for NVMe, e.g., 1.3 to 1.4, are incorporated within the storage media, and do not affect PCIe-compatible components such as motherboards and CPUs.By its design, NVM Express allows host hardware and software to fully exploit the levels of parallelism possible in modern SSDs. As a result, NVM Express reduces I/O overhead and brings various performance improvements relative to previous logical-device interfaces, including multiple long command queues, and reduced latency. The previous interface protocols like AHCI were developed for use with far slower hard disk drives (HDD) where a very lengthy delay (relative to CPU operations) exists between a request and data transfer, where data speeds are much slower than RAM  speeds, and where disk rotation and seek time give rise to further optimization requirements.
+NVM Express devices are chiefly available in the form of standard-sized PCI Express expansion cards and as 2.5-inch form-factor devices that provide a four-lane PCI Express interface through the U.2 connector (formerly known as SFF-8639). Storage devices using SATA Express and the M.2 specification which support NVM Express as the logical-device interface are a popular use-case for NVMe and have become the dominant form of solid-state storage for servers, desktops, and laptops alike.
+
+Specifications
+Specifications for NVMe released to date include:
+1.0e (January 2013)
+1.1b (July 2014)
+1.2 (November 2014)
+1.2a (October 2015)
+1.2b (June 2016)
+1.2.1 (June 2016)
+1.3 (May 2017)
+1.3a (October 2017)
+1.3b (May 2018)
+1.3c (May 2018)
+1.3d (March 2019)
+1.4 (June 2019)
+1.4a (March 2020)
+1.4b (September 2020)
+1.4c (June 2021)
+2.0 (May 2021)2.0a (July 2021)
+2.0b (January 2022)
+2.0c (October 2022)
+
+Background
+Historically, most SSDs used buses such as SATA, SAS, or Fibre Channel for interfacing with the rest of a computer system. Since SSDs became available in mass markets, SATA has become the most typical way for connecting SSDs in personal computers; however, SATA was designed primarily for interfacing with mechanical hard disk drives (HDDs), and it became increasingly inadequate for SSDs, which improved in speed over time. For example, within about five years of mass market mainstream adoption (2005–2010) many SSDs were already held back by the comparatively slow data rates available for hard drives—unlike hard disk drives, some SSDs are limited by the maximum throughput of SATA.
+High-end SSDs had been made using the PCI Express bus before NVMe, but using non-standard specification interfaces. By standardizing the interface of SSDs, operating systems only need one common device driver to work with all SSDs adhering to the specification. It also means that each SSD manufacturer does not have to design specific interface drivers. This is similar to how USB mass storage devices are built to follow the USB mass-storage device class specification and work with all computers, with no per-device drivers needed.NVM Express devices are also used as the building block of the burst buffer storage in many leading supercomputers, such as Fugaku Supercomputer, Summit Supercomputer and Sierra Supercomputer, etc.
+
+History
+The first details of a new standard for accessing non-volatile memory emerged at the Intel Developer Forum 2007, when NVMHCI was shown as the host-side protocol of a proposed architectural design that had Open NAND Flash Interface Working Group (ONFI) on the memory (flash) chips side. A NVMHCI working group led by Intel was formed that year. The NVMHCI 1.0 specification was completed in April 2008 and released on Intel's web site.Technical work on NVMe began in the second half of 2009. The NVMe specifications were developed by the NVM Express Workgroup, which consists of more than 90 companies; Amber Huffman of Intel was the working group's chair.  Version 1.0 of the specification was released on 1 March 2011, while version 1.1 of the specification was released on 11 October 2012. Major features added in version 1.1 are multi-path I/O (with namespace sharing) and arbitrary-length scatter-gather I/O. It is expected that future revisions will significantly enhance namespace management. Because of its feature focus, NVMe 1.1 was initially called "Enterprise NVMHCI". An update for the base NVMe specification, called version 1.0e, was released in January 2013. In June 2011, a Promoter Group led by seven companies was formed.
+The first commercially available NVMe chipsets were released by Integrated Device Technology (89HF16P04AG3 and 89HF32P08AG3) in August 2012. The first NVMe drive, Samsung's XS1715 enterprise drive, was announced in July 2013; according to Samsung, this drive supported 3 GB/s read speeds, six times faster than their previous enterprise offerings. The LSI SandForce SF3700 controller family, released in November 2013, also supports NVMe. A Kingston HyperX "prosumer" product using this controller was showcased at the Consumer Electronics Show 2014 and promised similar performance. In June 2014, Intel announced their first NVM Express products, the Intel SSD data center family that interfaces with the host through PCI Express bus, which includes the DC P3700 series, the DC P3600 series, and the DC P3500 series. As of November 2014, NVMe drives are commercially available.
+In March 2014, the group incorporated to become NVM Express, Inc., which as of November 2014 consists of more than 65 companies from across the industry. NVM Express specifications are owned and maintained by NVM Express, Inc., which also promotes industry awareness of NVM Express as an industry-wide standard. NVM Express, Inc. is directed by a thirteen-member board of directors selected from the Promoter Group, which includes Cisco, Dell, EMC, HGST, Intel, Micron, Microsoft, NetApp, Oracle, PMC, Samsung, SanDisk and Seagate.In September 2016, the CompactFlash Association announced that it would be releasing a new memory card specification, CFexpress, which uses NVMe.NVMe Host Memory Buffer (HMB) added in version 1.2 of the NVMe specification. HMB allows SSDs to utilize the host's DRAM, which can improve the I/O performance for DRAM-less SSDs.
+
+Form factors
+There are many form factors of NVMe solid-state drive, such as AIC, U.2, U.3, M.2 etc.
+
+AIC (add-in card)
+Almost all early NVMe solid-state drives are HHHL (half height, half length) or FHHL (full height, half length) AIC, with a PCIe 2.0 or 3.0 interface. A HHHL NVMe solid-state drive card is easy to insert into a PCIe slot of a server.
+
+U.2 (SFF-8639)
+U.2, formerly known as SFF-8639, is a computer interface for connecting solid-state drives to a computer. It uses up to four PCI Express lanes. Available servers can combine up to 48 U.2 NVMe solid-state drives.
+
+U.3 (SFF-8639 or SFF-TA-1001)
+U.3 is built on the U.2 spec and uses the same SFF-8639 connector. It is a 'tri-mode' standard, combining SAS, SATA and NVMe support into a single controller. U.3 can also support hot-swap between the different drives where firmware support is available. U.3 drives are still backward compatible with U.2, but U.2 drives are not compatible with U.3 hosts.
+
+M.2
+M.2, formerly known as the Next Generation Form Factor (NGFF), uses a M.2 NVMe solid-state drive computer bus. Interfaces provided through the M.2 connector are PCI Express 3.0 or higher (up to four lanes).
+
+EDSFF
+NVMe-oF
+NVM Express over Fabrics (NVMe-oF) is the concept of using a transport protocol over a network to connect remote NVMe devices, contrary to regular NVMe where physical NVMe devices are connected to a PCIe bus either directly or over a PCIe switch to a PCIe bus. In August 2017, a standard for using NVMe over Fibre Channel (FC) was submitted by the standards organization International Committee for Information Technology Standards (ICITS), and this combination is often referred to as FC-NVMe or sometimes NVMe/FC.As of May 2021, supported NVMe transport protocols are:
+
+FC, FC-NVMe
+TCP, NVMe/TCP
+Ethernet, RoCE v1/v2 (RDMA over converged Ethernet)
+InfiniBand, NVMe over InfiniBand or NVMe/IBThe standard for NVMe over Fabrics was published by NVM Express, Inc. in 2016.The following software implements the NVMe-oF protocol:
+
+Linux NVMe-oF initiator and target. RoCE transport was supported initially, and with Linux kernel 5.x, native support for TCP was added.
+Storage Performance Development Kit (SPDK) NVMe-oF initiator and target drivers. Both RoCE and TCP transports are supported.
+Starwind NVMe-oF initiator and target for Microsoft Windows, supporting both RoCE and TCP transports.
+
+Comparison with AHCI
+The Advanced Host Controller Interface (AHCI) has the benefit of wide software compatibility, but has the downside of not delivering optimal performance when used with SSDs connected via the PCI Express bus. As a logical-device interface, AHCI was developed when the purpose of a host bus adapter (HBA) in a system was to connect the CPU/memory subsystem with a much slower storage subsystem based on rotating magnetic media.  As a result, AHCI introduces certain inefficiencies when used with SSD devices, which behave much more like RAM than like spinning media.The NVMe device interface has been designed from the ground up, capitalizing on the lower latency and parallelism of PCI Express SSDs, and complementing the parallelism of contemporary CPUs, platforms and applications.  At a high level, the basic advantages of NVMe over AHCI relate to its ability to exploit parallelism in host hardware and software, manifested by the differences in command queue depths, efficiency of interrupt processing, the number of uncacheable register accesses, etc., resulting in various performance improvements.: 17–18 The table below summarizes high-level differences between the NVMe and AHCI logical-device interfaces.
+
+Operating system support
+ChromeOS
+On February 24, 2015, support for booting from NVM Express devices was added to ChromeOS.DragonFly BSD
+The first release of DragonFly BSD with NVMe support is version 4.6.FreeBSD
+Intel sponsored a NVM Express driver for FreeBSD's head and stable/9 branches. The nvd(4) and nvme(4) drivers are included in the GENERIC kernel configuration by default since FreeBSD version 10.2 in 2015.Genode
+Support for consumer-grade NVMe was added to the Genode framework as part of the 18.05 release.Haiku
+Haiku gained support for NVMe on April 18, 2019.illumos
+illumos received support for NVMe on October 15, 2014.iOS
+With the release of the iPhone 6S and 6S Plus, Apple introduced the first mobile deployment of NVMe over PCIe in smartphones. Apple followed these releases with the release of the first-generation iPad Pro and first-generation iPhone SE that also use NVMe over PCIe.Linux
+Intel published an NVM Express driver for Linux on 3 March 2011, which was merged into the Linux kernel mainline on 18 January 2012 and released as part of version 3.3 of the Linux kernel on 19 March 2012. Linux supports NVMe Host Memory Buffer from version 4.13.1 with default maximum size 128 MB.macOS
+Apple introduced software support for NVM Express in Yosemite 10.10.3. The NVMe hardware interface was introduced in the 2016 MacBook and MacBook Pro.NetBSD
+NetBSD added support for NVMe in NetBSD 8.0. The implementation is derived from OpenBSD 6.0.OpenBSD
+Development work required to support NVMe in OpenBSD has been started in April 2014 by a senior developer formerly responsible for USB 2.0 and AHCI support. Support for NVMe has been enabled in the OpenBSD 6.0 release.OS/2
+Arca Noae provides an NVMe driver for ArcaOS, as of April, 2021. The driver requires advanced interrupts as provided by the ACPI PSD running in advanced interrupt mode (mode 2), thus requiring the SMP kernel, as well.Solaris
+Solaris received support for NVMe in Oracle Solaris 11.2.VMware
+Intel has provided an NVMe driver for VMware, which is included in vSphere 6.0 and later builds, supporting various NVMe devices.  As of vSphere 6 update 1, VMware's VSAN software-defined storage subsystem also supports NVMe devices.Windows
+Microsoft added native support for NVMe to Windows 8.1 and Windows Server 2012 R2. Native drivers for Windows 7 and Windows Server 2008 R2 have been added in updates. Many vendors have released their own Windows drivers for their devices as well. There are also manually customized installer files available to install a specific vendor's driver to any NVMe card, such as using a Samsung NVMe driver with a non-Samsung NVMe device, which may be needed for additional features, performance, and stability. Support for NVMe HMB was added in Windows 10 Anniversary Update (Version 1607) in 2016.
+The OpenFabrics Alliance maintains an open-source NVMe Windows Driver for Windows 7/8/8.1 and Windows Server 2008R2/2012/2012R2, developed from the baseline code submitted by several promoter companies in the NVMe workgroup, specifically IDT, Intel, and LSI. The current release is 1.5 from December 2016.
+
+Software support
+QEMU
+NVMe is supported by QEMU since version 1.6 released on August 15, 2013. NVMe devices presented to QEMU guests can be either real or emulated.UEFI
+An open source NVMe driver for UEFI is available on SourceForge.
+
+Management tools
+nvmecontrol
+The nvmecontrol tool is used to control an NVMe disk from the command line on FreeBSD.  It was added in FreeBSD 9.2.
+
+nvme-cli
+NVM-Express user space tooling for Linux.
+
+See also
+M.2
+PCI Express
+SATA Express
+Solid-state drive
+Universal Flash Storage (UFS)
+
+References
+External links
+
+Official website
+NVMe info
+CompactFlash Association
+LFCS: Preparing Linux for nonvolatile memory devices, LWN.net, April 19, 2013, by Jonathan Corbet
+Multipathing PCI Express Storage, Linux Foundation, March 12, 2015, by Keith Busch
+NVMe, NVMe-oF and RDMA for network engineers, August 2020, by Jerome Tissieres

@@ -1,0 +1,106 @@
+In computer science, a union is a value that may have any of several representations or formats within the same position in memory; that consists of a variable that may hold such a data structure. Some programming languages support special data types, called union types, to describe such values and variables. In other words, a union type definition will specify which of a number of permitted primitive types may be stored in its instances, e.g., "float or long integer". In contrast with a record (or structure), which could be defined to contain both a float and an integer; in a union, there is only one value at any given time.
+A union can be pictured as a chunk of memory that is used to store variables of different data types. Once a new value is assigned to a field, the existing data is overwritten with the new data. The memory area storing the value has no intrinsic type (other than just bytes or words of memory), but the value can be treated as one of several abstract data types, having the type of the value that was last written to the memory area.
+In type theory, a union has a sum type; this corresponds to disjoint union in mathematics.
+Depending on the language and type, a union value may be used in some operations, such as assignment and comparison for equality, without knowing its specific type.  Other operations may require that knowledge, either by some external information, or by the use of a tagged union.
+
+Untagged unions
+Because of the limitations of their use, untagged unions are generally only provided in untyped languages or in a type-unsafe way (as in C). They have the advantage over simple tagged unions of not requiring space to store a data type tag.
+The name "union" stems from the type's formal definition. If a type is considered as the set of all values that that type can take on, a union type is simply the mathematical union of its constituting types, since it can take on any value any of its fields can. Also, because a mathematical union discards duplicates, if more than one field of the union can take on a single common value, it is impossible to tell from the value alone which field was last written.
+However, one useful programming function of unions is to map smaller data elements to larger ones for easier manipulation. A data structure consisting, for example, of 4 bytes and a 32-bit integer, can form a union with an unsigned 64-bit integer, and thus be more readily accessed for purposes of comparison etc.
+
+Unions in various programming languages
+ALGOL 68
+ALGOL 68 has tagged unions, and uses a case clause to distinguish and extract the constituent type at runtime. A union containing another union is treated as the set of all its constituent possibilities, and if the context requires it a union is automatically coerced into the wider union. A union can explicitly contain no value, which can be distinguished at runtime.  An example is:
+
+ mode node = union (real, int, string, void);
+ 
+ node n := "abc";
+ 
+ case n in
+   (real r):   print(("real:", r)),
+   (int i):    print(("int:", i)),
+   (string s): print(("string:", s)),
+   (void):     print(("void:", "EMPTY")),
+   out         print(("?:", n))
+ esac
+
+The syntax of the C/C++ union type and the notion of casts was derived from ALGOL 68, though in an untagged form.
+
+C/C++
+In C and C++, untagged unions are expressed nearly exactly like structures (structs), except that each data member begins at the same location in memory. The data members, as in structures, need not be primitive values, and in fact may be structures or even other unions. C++ (since C++11) also allows for a data member to be any type that has a full-fledged constructor/destructor and/or copy constructor, or a non-trivial copy assignment operator. For example, it is possible to have the standard C++ string as a member of a union.
+The primary use of a union is allowing access to a common location by different data types, for example hardware input/output access, bitfield and word sharing, or type punning.  Unions can also provide low-level polymorphism.  However, there is no checking of types, so it is up to the programmer to be sure that the proper fields are accessed in different contexts.  The relevant field of a union variable is typically determined by the state of other variables, possibly in an enclosing struct.
+One common C programming idiom uses unions to perform what C++ calls a reinterpret_cast, by assigning to one field of a union and reading from another, as is done in code which depends on the raw representation of the values. A practical example is the method of computing square roots using the IEEE representation. This is not, however, a safe use of unions in general.
+
+Structure and union specifiers have the same form. [ . . . ] The size of a union is sufficient to contain the largest of its members. The value of at most one of the members can be stored in a union object at any time. A pointer to a union object, suitably converted, points to each of its members (or if a member is a bit-field, then to the unit in which it resides), and vice versa.
+
+Anonymous union
+In C++, C11, and as a non-standard extension in many compilers, unions can also be anonymous. Their data members do not need to be referenced, are instead accessed directly. They have some restrictions as opposed to traditional unions: in C11, they must be a member of another structure or union, and in C++, they can not have methods or access specifiers.
+Simply omitting the class-name portion of the syntax does not make a union an anonymous union. For a union to qualify as an anonymous union, the declaration must not declare an object.
+Example:
+
+Anonymous unions are also useful in C struct definitions to provide a sense of namespacing.
+
+Transparent union
+In compilers such as GCC, Clang, and IBM XL C for AIX, a transparent_union attribute is available for union types. Types contained in the union can be converted transparently to the union type itself in a function call, provided that all types have the same size. It is mainly intended for function with multiple parameter interfaces, a use necessitated by early Unix extensions and later re-standarisation.
+
+COBOL
+In COBOL, union data items are defined in two ways. The first uses the RENAMES (66 level) keyword, which effectively maps a second alphanumeric data item on top of the same memory location as a preceding data item. In the example code below, data item PERSON-REC is defined as a group containing another group and a numeric data item. PERSON-DATA is defined as an alphanumeric data item that renames PERSON-REC, treating the data bytes continued within it as character data.
+
+The second way to define a union type is by using the REDEFINES keyword. In the example code below, data item VERS-NUM is defined as a 2-byte binary integer containing a version number. A second data item VERS-BYTES is defined as a two-character alphanumeric variable. Since the second item is redefined over the first item, the two items share the same address in memory, and therefore share the same underlying data bytes. The first item interprets the two data bytes as a binary value, while the second item interprets the bytes as character values.
+
+Pascal
+In Pascal, there are two ways to create unions. One is the standard way through a variant record. The second is a nonstandard means of declaring a variable as absolute, meaning it is placed at the same memory location as another variable or at an absolute address. While all Pascal compilers support variant records, only some support absolute variables.
+For the purposes of this example, the following are all integer types: a byte consists of 8 bits, a  word is 16 bits, and an integer  is 32 bits.
+The following example shows the non-standard absolute form:
+
+In the first example, each of the elements of the array B maps to one of the specific bytes of the variable A. In the second example, the variable C is assigned to the exact machine address 0.
+In the following example, a record has variants, some of which share the same location as others:
+
+PL/I
+In PL/I then original term for a union was cell, which is still accepted as a synonym for union by several compilers. The union declaration is similar to the structure definition, where elements at the same level within the union declaration occupy the same storage. Elements of the union can be any data type, including structures and array.: pp192–193  Here 
+vers_num and vers_bytes occupy the same storage locations.
+
+An alternative to a union declaration is the DEFINED attribute, which allows alternative declarations of storage, however the data types of the base and defined variables must match.: pp.289–293
+
+Rust
+Rust implements both tagged and untagged unions. In Rust, tagged unions are implemented using the enum keyword. Unlike enumerated types in most other languages, enum variants in Rust can contain additional data in the form of a tuple or struct, making them tagged unions rather than simple enumerated types.Rust also supports untagged unions using the union keyword. The memory layout of unions in Rust is undefined by default, but a union with the #[repr(C)] attribute will be laid out in memory exactly like the equivalent union in C. Reading the fields of a union can only be done within an unsafe function or block, as the compiler cannot guarantee that the data in the union will be valid for the type of the field; if this is not the case, it will result in undefined behavior.
+
+Syntax and example
+C/C++
+In C and C++, the syntax is:
+
+A structure can also be a member of a union, as the following example shows:
+
+This example defines a variable uvar as a union (tagged as name1), which contains two members, a structure (tagged as name2) named svar (which in turn contains three members), and an integer variable named d.
+Unions may occur within structures and arrays, and vice versa:
+
+The number ival is referred to as symtab[i].u.ival and the first character of string sval by either of *symtab[i].u.sval or symtab[i].u.sval[0].
+
+PHP
+Union types were introduced in PHP 8.0. The values are implicitly "tagged" with a type by the language, and may be retrieved by "gettype()".
+
+Python
+Support for typing was introduced in Python 3.5. The new syntax for union types were introduced in Python 3.10.
+
+TypeScript
+Union types are supported in TypeScript. The values are implicitly "tagged" with a type by the language, and may be retrieved by "typeof()".
+
+Rust
+Tagged unions in Rust use the enum keyword, and can contain tuple and struct variants:
+
+Untagged unions in Rust use the union keyword:
+
+Reading from the fields of an untagged union results in undefined behavior if the data in the union is not valid as the type of the field, and thus requires an unsafe block:
+
+See also
+Tagged union
+Variant type
+
+References
+Kernighan, Brian W.; Ritchie, Dennis M. (1978). The C Programming Language (1st ed.). Prentice Hall. p. 138. ISBN 978-0131101630. Retrieved Jan 23, 2018.
+
+External links
+boost::variant, a type-safe alternative to C++ unions
+MSDN: Classes,Structures & Unions, for examples and syntax
+differences, differences between union & structure
+Difference between struct and union in C++

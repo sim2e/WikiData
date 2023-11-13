@@ -1,0 +1,4052 @@
+In mathematics, and more specifically in computer algebra, computational algebraic geometry, and computational commutative algebra, a Gröbner basis is a particular kind of generating set of an ideal in a polynomial ring K[x1, ..., xn] over a field K. A Gröbner basis allows many important properties of the ideal and the associated algebraic variety to be deduced easily, such as the dimension and the number of zeros when it is finite. Gröbner basis computation is one of the main practical tools for solving systems of polynomial equations and computing the images of algebraic varieties under projections or rational maps.
+Gröbner basis computation can be seen as a multivariate, non-linear generalization of both Euclid's algorithm for computing polynomial greatest common divisors, and
+Gaussian elimination for linear systems.Gröbner bases were introduced by Bruno Buchberger in his 1965 Ph.D. thesis, which also included an algorithm to compute them (Buchberger's algorithm). He named them after his advisor Wolfgang Gröbner. In 2007, Buchberger received the Association for Computing Machinery's Paris Kanellakis Theory and Practice Award for this work.
+However, the Russian mathematician Nikolai Günther had introduced a similar notion in 1913, published in various Russian mathematical journals. These papers were largely ignored by the mathematical community until their rediscovery in 1987 by Bodo Renschuch et al. An analogous concept for multivariate power series was developed independently by Heisuke Hironaka in 1964, who named them standard bases. This term has been used by some authors to also denote Gröbner bases.
+The theory of Gröbner bases has been extended by many authors in various directions. It has been generalized to other structures such as polynomials over principal ideal rings or polynomial rings, and also some classes of non-commutative rings and algebras, like Ore algebras.
+
+Tools
+Polynomial ring
+Gröbner bases are primarily defined for ideals in a polynomial ring 
+  
+    
+      
+        R
+        =
+        K
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        ]
+      
+    
+    {\displaystyle R=K[x_{1},\ldots ,x_{n}]}
+   over a field K. Although the theory works for any field, most Gröbner basis computations are done either when K is the field of rationals or the integers modulo a prime number.
+In the context of Gröbner bases, a nonzero polynomial in 
+  
+    
+      
+        R
+        =
+        K
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        ]
+      
+    
+    {\displaystyle R=K[x_{1},\ldots ,x_{n}]}
+   is commonly represented as a sum 
+  
+    
+      
+        
+          c
+          
+            1
+          
+        
+        
+          M
+          
+            1
+          
+        
+        +
+        ⋯
+        +
+        
+          c
+          
+            m
+          
+        
+        
+          M
+          
+            m
+          
+        
+        ,
+      
+    
+    {\displaystyle c_{1}M_{1}+\cdots +c_{m}M_{m},}
+   where the 
+  
+    
+      
+        
+          c
+          
+            i
+          
+        
+      
+    
+    {\displaystyle c_{i}}
+   are nonzero elements of K, called coefficients, and the 
+  
+    
+      
+        
+          M
+          
+            i
+          
+        
+      
+    
+    {\displaystyle M_{i}}
+   are monomials (called power products by Buchberger and some of his followers) of the form 
+  
+    
+      
+        
+          x
+          
+            1
+          
+          
+            
+              a
+              
+                1
+              
+            
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+          
+            
+              a
+              
+                n
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle x_{1}^{a_{1}}\cdots x_{n}^{a_{n}},}
+   where the 
+  
+    
+      
+        
+          a
+          
+            i
+          
+        
+      
+    
+    {\displaystyle a_{i}}
+   are nonnegative integers. The vector 
+  
+    
+      
+        A
+        =
+        [
+        
+          a
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            n
+          
+        
+        ]
+      
+    
+    {\displaystyle A=[a_{1},\ldots ,a_{n}]}
+   is called the exponent vector of the monomial. When the list 
+  
+    
+      
+        X
+        =
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        ]
+      
+    
+    {\displaystyle X=[x_{1},\ldots ,x_{n}]}
+   of the variables is fixed, the notation of monomials is often abbreviated as 
+  
+    
+      
+        
+          x
+          
+            1
+          
+          
+            
+              a
+              
+                1
+              
+            
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+          
+            
+              a
+              
+                n
+              
+            
+          
+        
+        =
+        
+          X
+          
+            A
+          
+        
+        .
+      
+    
+    {\displaystyle x_{1}^{a_{1}}\cdots x_{n}^{a_{n}}=X^{A}.}
+  
+Monomials are uniquely defined by their exponent vectors, and, when a monomial ordering (see below) is fixed, a polynomial is uniquely represented by the ordered list of the ordered pairs formed by an exponent vector and the corresponding coefficient. This representation of polynomials is especially efficient for Gröbner basis computation in computers, although it is less convenient for other computations such as polynomial factorization and polynomial greatest common divisor.
+If 
+  
+    
+      
+        F
+        =
+        {
+        
+          f
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          f
+          
+            k
+          
+        
+        }
+      
+    
+    {\displaystyle F=\{f_{1},\ldots ,f_{k}\}}
+   is a finite set of polynomials in the polynomial ring R, the ideal generated by F is the set of linear combinations of elements of F with coefficients in R; that is the set of polynomials that can be written 
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            k
+          
+        
+        
+          g
+          
+            i
+          
+        
+        
+          f
+          
+            i
+          
+        
+      
+    
+    {\textstyle \sum _{i=1}^{k}g_{i}f_{i}}
+   with 
+  
+    
+      
+        
+          g
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          g
+          
+            k
+          
+        
+        ∈
+        R
+        .
+      
+    
+    {\displaystyle g_{1},\ldots ,g_{k}\in R.}
+
+Monomial ordering
+All operations related to Gröbner bases require the choice of a total order on the monomials, with the following properties of compatibility with multiplication. For all monomials M, N, P,
+
+  
+    
+      
+        M
+        ≤
+        N
+        ⟺
+        M
+        P
+        ≤
+        N
+        P
+      
+    
+    {\displaystyle M\leq N\Longleftrightarrow MP\leq NP}
+  
+
+  
+    
+      
+        M
+        ≤
+        M
+        P
+      
+    
+    {\displaystyle M\leq MP}
+  .A total order satisfying these condition is sometimes called an admissible ordering.
+These conditions imply that the order is a well-order, that is, every strictly decreasing sequence of monomials is finite.
+Although Gröbner basis theory does not depend on a particular choice of an admissible monomial ordering, three monomial orderings are specially important for the applications:
+
+Lexicographical ordering, commonly called lex or plex (for pure lexical ordering).
+Total degree reverse lexicographical ordering, commonly called degrevlex.
+Elimination ordering, lexdeg.Gröbner basis theory was initially introduced for the lexicographical ordering. It was soon realised that the Gröbner basis for degrevlex is almost always much easier to compute, and that it is almost always easier to compute a lex Gröbner basis by first computing the degrevlex basis and then using a "change of ordering algorithm". When elimination is needed, degrevlex is not convenient; both lex and lexdeg may be used but, again, many computations are relatively easy with lexdeg and almost impossible with lex.
+
+Basic operations
+Leading term, coefficient and monomial
+Once a monomial ordering is fixed, the terms of a polynomial (product of a monomial with its nonzero coefficient) are naturally ordered by decreasing monomials (for this order). This makes the representation of a polynomial as a sorted list of pairs coefficient–exponent vector a canonical representation of the polynomials (that is, two polynomials are equal if and only they have the same representation).
+The first (greatest) term of a polynomial p for this ordering and the corresponding monomial and coefficient are respectively called the leading term, leading monomial and leading coefficient and denoted, in this article, lt(p), lm(p) and lc(p).
+Most polynomial operations related to Gröbner bases involve the leading terms. So, the representation of polynomials as sorted lists make these operations particularly efficient (reading the first element of a list takes a constant time, independently of the length of the list).
+
+Polynomial operations
+The other polynomial operations involved by Gröbner basis computations are also compatible with the monomial ordering; that is, they can be performed without reordering the result:
+
+The addition of two polynomials consists in a merge of the two corresponding lists of terms, with a special treatment in the case of a conflict (that is, when the same monomial appears in the two polynomials).
+The multiplication of a polynomial by a scalar consists of multiplying each coefficient by this scalar, without any other change in the representation.
+The multiplication of a polynomial by a monomial m consists of multiplying each monomial of the polynomial by m. This does not change the term ordering by definition of a monomial ordering.
+
+Divisibility of monomials
+Let 
+  
+    
+      
+        M
+        =
+        
+          x
+          
+            1
+          
+          
+            
+              a
+              
+                1
+              
+            
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+          
+            
+              a
+              
+                n
+              
+            
+          
+        
+      
+    
+    {\displaystyle M=x_{1}^{a_{1}}\cdots x_{n}^{a_{n}}}
+   and 
+  
+    
+      
+        N
+        =
+        
+          x
+          
+            1
+          
+          
+            
+              b
+              
+                1
+              
+            
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+          
+            
+              b
+              
+                n
+              
+            
+          
+        
+      
+    
+    {\displaystyle N=x_{1}^{b_{1}}\cdots x_{n}^{b_{n}}}
+   be two monomials, with exponent vectors 
+  
+    
+      
+        A
+        =
+        [
+        
+          a
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            n
+          
+        
+        ]
+      
+    
+    {\displaystyle A=[a_{1},\ldots ,a_{n}]}
+   and 
+  
+    
+      
+        B
+        =
+        [
+        
+          b
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          b
+          
+            n
+          
+        
+        ]
+        .
+      
+    
+    {\displaystyle B=[b_{1},\ldots ,b_{n}].}
+  
+One says that M divides N, or that N is a multiple of M, if 
+  
+    
+      
+        
+          a
+          
+            i
+          
+        
+        ≤
+        
+          b
+          
+            i
+          
+        
+      
+    
+    {\displaystyle a_{i}\leq b_{i}}
+   for every i; that is, if A is componentwise not greater than B. In this case, the quotient 
+  
+    
+      
+        
+          
+            N
+            M
+          
+        
+      
+    
+    {\textstyle {\frac {N}{M}}}
+   is defined as 
+  
+    
+      
+        
+          
+            N
+            M
+          
+        
+        =
+        
+          x
+          
+            1
+          
+          
+            
+              b
+              
+                1
+              
+            
+            −
+            
+              a
+              
+                1
+              
+            
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+          
+            
+              b
+              
+                n
+              
+            
+            −
+            
+              a
+              
+                n
+              
+            
+          
+        
+        .
+      
+    
+    {\textstyle {\frac {N}{M}}=x_{1}^{b_{1}-a_{1}}\cdots x_{n}^{b_{n}-a_{n}}.}
+   In other words, the exponent vector of 
+  
+    
+      
+        
+          
+            N
+            M
+          
+        
+      
+    
+    {\textstyle {\frac {N}{M}}}
+   is the componentwise subtraction of the exponent vectors of N and M.
+The greatest common divisor gcd(M, N) of M and N is the monomial 
+  
+    
+      
+        
+          x
+          
+            1
+          
+          
+            min
+            (
+            
+              a
+              
+                1
+              
+            
+            ,
+            
+              b
+              
+                1
+              
+            
+            )
+          
+        
+        ⋯
+        
+          x
+          
+            n
+          
+          
+            min
+            (
+            
+              a
+              
+                n
+              
+            
+            ,
+            
+              b
+              
+                n
+              
+            
+            )
+          
+        
+      
+    
+    {\textstyle x_{1}^{\min(a_{1},b_{1})}\cdots x_{n}^{\min(a_{n},b_{n})}}
+   whose exponent vector is the componentwise minimum of A and B. The least common multiple lcm(M, N) is defined similarly with max instead of min.
+One has
+
+  
+    
+      
+        lcm
+        ⁡
+        (
+        M
+        ,
+        N
+        )
+        =
+        
+          
+            
+              M
+              N
+            
+            
+              gcd
+              (
+              M
+              ,
+              N
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \operatorname {lcm} (M,N)={\frac {MN}{\gcd(M,N)}}.}
+
+Reduction
+The reduction  of a polynomial by other polynomials with respect to a monomial ordering is central to Gröbner basis theory. It is a generalization of both row reduction occurring in Gaussian elimination and division steps of the 
+Euclidean division of univariate polynomials. When completed as much as possible, it is sometimes called multivariate division although its result is not uniquely defined.
+Lead-reduction is a special case of reduction that is easier to compute. It is fundamental for Gröbner basis computation, since general reduction is needed only at the end of a Gröbner basis computation, for getting a reduced Gröbner basis from a non-reduced one.
+Let an admissible monomial ordering be fixed, to which refers every monomial comparison that will occur in this section.
+A polynomial f is lead-reducible by another polynomial g if the leading monomial lm(f) is a multiple of lm(g). The polynomial f is reducible by g if some monomial of f is a multiple lm(g). (So, if f is lead-reducible by g, it is also reducible, but f may be reducible without being lead-reducible.)
+Suppose that f is reducible by g, and let cm be a term of f such that the monomial m is a multiple of lm(g). A one-step reduction of f by g consists of replacing f by 
+
+  
+    
+      
+        
+          red
+          
+            1
+          
+        
+        ⁡
+        (
+        f
+        ,
+        g
+        )
+        =
+        f
+        −
+        
+          
+            c
+            
+              lc
+              ⁡
+              (
+              g
+              )
+            
+          
+        
+        
+        
+          
+            m
+            
+              lm
+              ⁡
+              (
+              g
+              )
+            
+          
+        
+        
+        g
+        .
+      
+    
+    {\displaystyle \operatorname {red} _{1}(f,g)=f-{\frac {c}{\operatorname {lc} (g)}}\,{\frac {m}{\operatorname {lm} (g)}}\,g.}
+  This operation removes the monomial m from f without changing the terms with a monomial greater than m (for the monomial ordering). In particular, a one step lead-reduction of f produces a polynomial whose all monomials are smaller than lm(f).
+Given a finite set G of polynomials, one says that f is reducible or lead-reducible by G if it is reducible or lead-reducible, respectively, by at least one element g of G. In this case, a one-step reduction (resp. one-step lead-reduction) of f by G is any one-step reduction (resp. one-step lead-reduction) of f by an element of G.
+The (complete) reduction (resp. lead-reduction) of f by G consists of iterating one-step reductions (respect. one-step lead reductions) until getting a polynomial that is irreducible (resp. lead-irreducible) by G. It is sometimes called a normal form of f by G. In general this form is not uniquely defined because there are, in general, several elements of G that can be used for reducing f; this non-uniqueness is the starting point of Gröbner basis theory.
+The definition of the reduction shows immediately that, if h is a normal form of f by G, one has
+
+  
+    
+      
+        f
+        =
+        h
+        +
+        
+          ∑
+          
+            g
+            ∈
+            G
+          
+        
+        
+          q
+          
+            g
+          
+        
+        
+        g
+        ,
+      
+    
+    {\displaystyle f=h+\sum _{g\in G}q_{g}\,g,}
+  where h is irreducible by G and the 
+  
+    
+      
+        
+          q
+          
+            g
+          
+        
+      
+    
+    {\displaystyle q_{g}}
+   are polynomials such that 
+  
+    
+      
+        lm
+        ⁡
+        (
+        
+          q
+          
+            g
+          
+        
+        
+        g
+        )
+        ≤
+        lm
+        ⁡
+        (
+        f
+        )
+        .
+      
+    
+    {\displaystyle \operatorname {lm} (q_{g}\,g)\leq \operatorname {lm} (f).}
+   In the case of univariate polynomials, if G consists of a single element g, then h is the remainder of the Euclidean division of f by g, and qg is the quotient. Moreover, the division algorithm is exactly the process of lead-reduction. For this reason, some authors use the term multivariate division instead of reduction.
+
+Non uniqueness of reduction
+In the example that follows, there are exactly two complete lead-reductions that produce two very different results. The fact that the results are irreducible (not only lead-irreducible) is specific to the example, although this is rather common with such small examples.
+In this two variable example, the monomial ordering that is used is the lexicographic order with 
+  
+    
+      
+        x
+        >
+        y
+        ,
+      
+    
+    {\displaystyle x>y,}
+   and we consider the reduction of  by 
+  
+    
+      
+        G
+        =
+        {
+        
+          g
+          
+            1
+          
+        
+        ,
+        
+          g
+          
+            2
+          
+        
+        }
+        ,
+      
+    
+    {\displaystyle G=\{g_{1},g_{2}\},}
+   with 
+For the first reduction step, either the first or the second term of f may be reduced. However, the reduction of a term amounts to removing this term at the cost of adding new lower terms; if it is not the first reducible term that is reduced, it may occur that a further reduction adds a similar term, which must be reduced again. It is therefore always better to reduce first the largest (for the monomial order) reducible term; that is, in particular, to lead-reduce first until getting a lead-irreducible polynomial.
+The leading term 
+  
+    
+      
+        2
+        
+          x
+          
+            3
+          
+        
+      
+    
+    {\displaystyle 2x^{3}}
+   of f is reducible by 
+  
+    
+      
+        
+          g
+          
+            1
+          
+        
+      
+    
+    {\displaystyle g_{1}}
+   and not by 
+  
+    
+      
+        
+          g
+          
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle g_{2}.}
+   So the first reduction step consists of multiplying 
+  
+    
+      
+        
+          g
+          
+            1
+          
+        
+      
+    
+    {\displaystyle g_{1}}
+   by –2x and adding the result to f:
+
+  
+    
+      
+        f
+        
+        
+          
+            ⟶
+            
+              −
+              2
+              x
+              
+                g
+                
+                  1
+                
+              
+            
+          
+        
+        
+        
+          f
+          
+            1
+          
+        
+        =
+        f
+        −
+        2
+        x
+        
+          g
+          
+            1
+          
+        
+        =
+        −
+        
+          x
+          
+            2
+          
+        
+        y
+        −
+        2
+        x
+        
+          y
+          
+            2
+          
+        
+        +
+        2
+        x
+        +
+        
+          y
+          
+            3
+          
+        
+        +
+        3
+        y
+        .
+      
+    
+    {\displaystyle f\;{\overset {-2xg_{1}}{\longrightarrow }}\;f_{1}=f-2xg_{1}=-x^{2}y-2xy^{2}+2x+y^{3}+3y.}
+  The leading term 
+  
+    
+      
+        −
+        
+          x
+          
+            2
+          
+        
+        y
+      
+    
+    {\displaystyle -x^{2}y}
+   of 
+  
+    
+      
+        
+          f
+          
+            1
+          
+        
+      
+    
+    {\displaystyle f_{1}}
+   is a multiple of the leading monomials of both 
+  
+    
+      
+        
+          g
+          
+            1
+          
+        
+      
+    
+    {\displaystyle g_{1}}
+   and 
+  
+    
+      
+        
+          g
+          
+            2
+          
+        
+        ,
+      
+    
+    {\displaystyle g_{2},}
+   So, one has two choices for the second reduction step. If one chooses 
+  
+    
+      
+        
+          g
+          
+            2
+          
+        
+        ,
+      
+    
+    {\displaystyle g_{2},}
+   one gets a polynomial that can be reduced again by 
+  
+    
+      
+        
+          g
+          
+            2
+          
+        
+        :
+      
+    
+    {\displaystyle g_{2}\colon }
+  
+
+  
+    
+      
+        f
+        
+        
+          
+            ⟶
+            
+              −
+              2
+              x
+              
+                g
+                
+                  1
+                
+              
+            
+          
+        
+        
+        
+          f
+          
+            1
+          
+        
+        
+        
+          
+            ⟶
+            
+              x
+              
+                g
+                
+                  2
+                
+              
+            
+          
+        
+        
+        −
+        2
+        x
+        
+          y
+          
+            2
+          
+        
+        +
+        
+          y
+          
+            3
+          
+        
+        +
+        3
+        y
+        
+        
+          
+            ⟶
+            
+              2
+              y
+              
+                g
+                
+                  2
+                
+              
+            
+          
+        
+        
+        
+          f
+          
+            2
+          
+        
+        =
+        
+          y
+          
+            3
+          
+        
+        −
+        y
+        .
+      
+    
+    {\displaystyle f\;{\overset {-2xg_{1}}{\longrightarrow }}\;f_{1}\;{\overset {xg_{2}}{\longrightarrow }}\;-2xy^{2}+y^{3}+3y\;{\overset {2yg_{2}}{\longrightarrow }}\;f_{2}=y^{3}-y.}
+  No further reduction is possible, so 
+  
+    
+      
+        
+          f
+          
+            2
+          
+        
+      
+    
+    {\displaystyle f_{2}}
+   is a complete reduction of f.
+One gets a different result with the other choice for the second step:
+
+  
+    
+      
+        f
+        
+        
+          
+            ⟶
+            
+              −
+              2
+              x
+              
+                g
+                
+                  1
+                
+              
+            
+          
+        
+        
+        
+          f
+          
+            1
+          
+        
+        
+        
+          
+            ⟶
+            
+              y
+              
+                g
+                
+                  1
+                
+              
+            
+          
+        
+        
+        −
+        2
+        x
+        
+          y
+          
+            2
+          
+        
+        +
+        2
+        x
+        +
+        2
+        
+          y
+          
+            3
+          
+        
+        +
+        2
+        y
+        
+        
+          
+            ⟶
+            
+              2
+              y
+              
+                g
+                
+                  2
+                
+              
+            
+          
+        
+        
+        
+          f
+          
+            3
+          
+        
+        =
+        2
+        x
+        +
+        2
+        
+          y
+          
+            3
+          
+        
+        −
+        2
+        y
+        .
+      
+    
+    {\displaystyle f\;{\overset {-2xg_{1}}{\longrightarrow }}\;f_{1}\;{\overset {yg_{1}}{\longrightarrow }}\;-2xy^{2}+2x+2y^{3}+2y\;{\overset {2yg_{2}}{\longrightarrow }}\;f_{3}=2x+2y^{3}-2y.}
+  Again, the result 
+  
+    
+      
+        
+          f
+          
+            3
+          
+        
+      
+    
+    {\displaystyle f_{3}}
+   is irreducible, although only lead reductions were done.
+In summary, the complete reduction of f can result in either 
+  
+    
+      
+        
+          f
+          
+            2
+          
+        
+        =
+        
+          y
+          
+            3
+          
+        
+        −
+        y
+      
+    
+    {\displaystyle f_{2}=y^{3}-y}
+   or 
+  
+    
+      
+        
+          f
+          
+            3
+          
+        
+        =
+        2
+        x
+        +
+        2
+        
+          y
+          
+            3
+          
+        
+        −
+        2
+        y
+        .
+      
+    
+    {\displaystyle f_{3}=2x+2y^{3}-2y.}
+  
+It is for dealing with the problems set by this non-uniqueness that Buchberger introduced Gröbner bases and S-polynomials. Intuitively, 0 = f − f may be reduced to 
+  
+    
+      
+        
+          f
+          
+            2
+          
+        
+        −
+        
+          f
+          
+            3
+          
+        
+        .
+      
+    
+    {\displaystyle f_{2}-f_{3}.}
+   This implies that 
+  
+    
+      
+        
+          f
+          
+            2
+          
+        
+        −
+        
+          f
+          
+            3
+          
+        
+      
+    
+    {\displaystyle f_{2}-f_{3}}
+   belongs to the ideal generated by G. So, this ideal is not changed by adding 
+  
+    
+      
+        
+          f
+          
+            3
+          
+        
+        −
+        
+          f
+          
+            2
+          
+        
+      
+    
+    {\displaystyle f_{3}-f_{2}}
+   to G, and this allows more reductions. In particular, 
+  
+    
+      
+        
+          f
+          
+            3
+          
+        
+      
+    
+    {\displaystyle f_{3}}
+   can be reduced to 
+  
+    
+      
+        
+          f
+          
+            2
+          
+        
+      
+    
+    {\displaystyle f_{2}}
+   by 
+  
+    
+      
+        
+          f
+          
+            3
+          
+        
+        −
+        
+          f
+          
+            2
+          
+        
+      
+    
+    {\displaystyle f_{3}-f_{2}}
+   and this restores the uniqueness of the reduced form.
+Here Buchberger's algorithm for Gröbner bases would begin by adding to G the polynomial
+
+  
+    
+      
+        
+          g
+          
+            3
+          
+        
+        =
+        y
+        
+          g
+          
+            1
+          
+        
+        −
+        x
+        
+          g
+          
+            2
+          
+        
+        =
+        2
+        x
+        +
+        
+          y
+          
+            3
+          
+        
+        −
+        y
+        .
+      
+    
+    {\displaystyle g_{3}=yg_{1}-xg_{2}=2x+y^{3}-y.}
+  This polynomial, called S-polynomial by Buchberger is the difference of the one-step reductions of the least common multiple 
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        y
+      
+    
+    {\displaystyle x^{2}y}
+   of the leading monomials of 
+  
+    
+      
+        
+          g
+          
+            1
+          
+        
+      
+    
+    {\displaystyle g_{1}}
+   and 
+  
+    
+      
+        
+          g
+          
+            2
+          
+        
+      
+    
+    {\displaystyle g_{2}}
+   (in this example, one has 
+  
+    
+      
+        
+          g
+          
+            3
+          
+        
+        =
+        
+          f
+          
+            3
+          
+        
+        −
+        
+          f
+          
+            2
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle g_{3}=f_{3}-f_{2}).}
+   This does not complete Buchberger's algorithm, as xy gives different results, when reduced by 
+  
+    
+      
+        
+          g
+          
+            2
+          
+        
+      
+    
+    {\displaystyle g_{2}}
+   or 
+  
+    
+      
+        
+          g
+          
+            3
+          
+        
+        .
+      
+    
+    {\displaystyle g_{3}.}
+
+S-polynomial
+The S-polynomial, also called critical pair, with respect of a given monomial ordering, of two polynomials f and g is the polynomial 
+
+  
+    
+      
+        
+          
+            
+              
+                S
+                (
+                f
+                ,
+                g
+                )
+              
+              
+                
+                =
+                
+                  red
+                  
+                    1
+                  
+                
+                ⁡
+                (
+                
+                  l
+                  c
+                  m
+                
+                ,
+                g
+                )
+                −
+                
+                  red
+                  
+                    1
+                  
+                
+                ⁡
+                (
+                
+                  l
+                  c
+                  m
+                
+                ,
+                f
+                )
+              
+            
+            
+              
+              
+                
+                =
+                
+                  
+                    1
+                    
+                      lc
+                      ⁡
+                      (
+                      f
+                      )
+                    
+                  
+                
+                
+                
+                  
+                    
+                      lm
+                      ⁡
+                      (
+                      g
+                      )
+                    
+                    
+                      g
+                      c
+                      d
+                    
+                  
+                
+                
+                f
+                −
+                
+                  
+                    1
+                    
+                      lc
+                      ⁡
+                      (
+                      g
+                      )
+                    
+                  
+                
+                
+                
+                  
+                    
+                      lm
+                      ⁡
+                      (
+                      f
+                      )
+                    
+                    
+                      g
+                      c
+                      d
+                    
+                  
+                
+                
+                g
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}S(f,g)&=\operatorname {red} _{1}(\mathrm {lcm} ,g)-\operatorname {red} _{1}(\mathrm {lcm} ,f)\\&={\frac {1}{\operatorname {lc} (f)}}\,{\frac {\operatorname {lm} (g)}{\mathrm {gcd} }}\,f-{\frac {1}{\operatorname {lc} (g)}}\,{\frac {\operatorname {lm} (f)}{\mathrm {gcd} }}\,g,\end{aligned}}}
+  where lcm and gcd denote respectively the least common multiple and the greatest common divisor of the leading monomials of f and g.
+As the monomials that are reducible by both f and g are exactly the multiples of lcm, one can deal with all cases of non-uniqueness of the reduction by considering only the S-polynomials. This is a fundamental fact for Gröbner basis theory and all algorithms for computing them.
+
+Definition
+Let 
+  
+    
+      
+        R
+        =
+        F
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        ]
+      
+    
+    {\displaystyle R=F[x_{1},\ldots ,x_{n}]}
+   be a polynomial ring over a field F. In this section, we suppose that an admissible monomial ordering has been fixed.
+Let G be a finite set of polynomials in R that generates an ideal I. The set G is a Gröbner basis (with respect to the monomial ordering), or, more precisely, a Gröbner basis of I if
+
+the ideal generated by the leading monomials of the polynomials in I equals the ideal generated by the leading monomials of G,or, equivalently,
+
+There are many characterizing properties, which can each be taken as an equivalent definition of Gröbner bases. For conciseness, in the following list, the notation "one-word/another word" means that one can take either "one-word" or "another word" for having two different characterizations of Gröbner bases. All the following assertions are characterizations of Gröbner bases:
+
+Counting the above definition, this provides 12 characterizations of Gröbner bases. The fact that so many characterizations are possible makes Gröbner bases very useful. For example, condition 3 provides an algorithm for testing ideal membership; condition 4 provides an algorithm for testing whether a set of polynomials is a Gröbner basis and forms the basis of Buchberger's algorithm for computing Gröbner bases; conditions 5 and 6 allow computing in 
+  
+    
+      
+        R
+        
+          /
+        
+        I
+      
+    
+    {\displaystyle R/I}
+   in a way that is very similar to modular arithmetic.
+Existence of Gröbner bases. For every admissible monomial ordering and every finite set G of polynomials, there is a Gröbner basis that contains G and generates the same ideal. Moreover, such a Gröbner basis may be computed with Buchberger's algorithm.
+This algorithm uses condition 4, and proceeds roughly as follows: add to G all nonzero results of a complete reduction by G of a S-polynomial of two elements of G; repeat this operation with the new elements of G included until, eventually, all reductions produce zero. The algorithm terminates always because of Dickson's lemma or because polynomial rings are Noetherian (Hilbert's basis theorem). Condition 4 insures that the result is a Gröbner basis.
+
+Reduced Gröbner bases
+A Gröbner basis is minimal if all leading monomials of its elements are irreducible by the other elements of the basis. Given a Gröbner basis of an ideal I, one gets a minimal Gröbner basis of I by removing the polynomials whose leading monomials are multiple of the leading monomial of another element of the Gröbner basis. However, if two polynomials of the basis have the same leading monomial, only one must be removed. So, every Gröbner basis contains a minimal Gröbner basis as a subset.
+All minimal Gröbner bases of a given ideal (for a fixed monomial ordering) have the same number of elements, and the same leading monomials, and the non-minimal Gröbner bases have more elements than the minimal ones.
+A Gröbner basis is reduced if every polynomial in it is irreducible by the other elements of the basis, and has 1 as leading coefficient. So, every reduced Gröbner basis is minimal, but a minimal Gröbner basis needs not to be reduced.
+Given a Gröbner basis of an ideal I, one gets a reduced Gröbner basis of I by first removing the polynomials that are lead-reducible by other elements of the basis (for getting a minimal basis); then replacing each element of the basis by the result of the complete reduction by the other elements of the basis; and, finally, by dividing each element of the basis by its leading coefficient.
+All reduced Gröbner bases of an ideal (for a fixed monomial ordering) are equal. It follows that two ideals are equal if and only if they have the same reduced Gröbner basis.
+Sometimes, reduced Gröbner bases are defined without the condition on the leading coefficients. In this case, the uniqueness of reduced Gröbner bases is true only up to the multiplication of polynomials by a nonzero constant.
+When working with polynomials over the field 
+  
+    
+      
+        
+          Q
+        
+      
+    
+    {\displaystyle \mathbb {Q} }
+   of the rational numbers, it is useful to work only with polynomials with integer coefficients. In this case, the condition on the leading coefficients in the definition of a reduced basis may be replaced by the condition that all elements of the basis are primitive polynomials with integer coefficients, with positive leading coefficients. This restores the uniqueness of reduced bases.
+In most implementations of Gröbner basis computation, the Gröbner bases that are output are always reduced.
+
+Special cases
+For every monomial ordering, the empty set of polynomials is the unique Gröbner basis of the zero ideal.
+For every monomial ordering, a set of polynomials that contains a nonzero constant is a Gröbner basis of the unit ideal (the whole polynomial ring). Conversely, every Gröbner basis of the unit ideal contains a nonzero constant. The reduced Gröbner basis of the unit is formed by the single polynomial 1.
+In the case of polynomials in a single variable, there is a unique admissible monomial ordering, the ordering by the degree. The minimal Gröbner bases are the singletons consisting of a single polynomial. The reduced Gröbner bases are the monic polynomials.
+
+Example and counterexample
+Let 
+  
+    
+      
+        R
+        =
+        
+          Q
+        
+        [
+        x
+        ,
+        y
+        ]
+      
+    
+    {\displaystyle R=\mathbb {Q} [x,y]}
+   be the ring of bivariate polynomials with rational coefficients and consider the ideal 
+  
+    
+      
+        I
+        =
+        ⟨
+        f
+        ,
+        g
+        ⟩
+      
+    
+    {\displaystyle I=\langle f,g\rangle }
+   generated by the polynomials
+
+  
+    
+      
+        f
+        =
+        
+          x
+          
+            2
+          
+        
+        −
+        y
+      
+    
+    {\displaystyle f=x^{2}-y}
+  ,
+
+  
+    
+      
+        g
+        =
+        
+          x
+          
+            3
+          
+        
+        −
+        x
+      
+    
+    {\displaystyle g=x^{3}-x}
+  .By reducing g by f, one obtains a new polynomial k such that 
+  
+    
+      
+        I
+        =
+        ⟨
+        f
+        ,
+        k
+        ⟩
+        :
+      
+    
+    {\displaystyle I=\langle f,k\rangle :}
+  
+
+  
+    
+      
+        k
+        =
+        g
+        −
+        x
+        f
+        =
+        x
+        y
+        −
+        x
+        .
+      
+    
+    {\displaystyle k=g-xf=xy-x.}
+  None of f and k is reducible by the other, but xk is reducible by f, which gives another polynomial in I:
+
+  
+    
+      
+        h
+        =
+        x
+        k
+        −
+        (
+        y
+        −
+        1
+        )
+        f
+        =
+        
+          y
+          
+            2
+          
+        
+        −
+        y
+        .
+      
+    
+    {\displaystyle h=xk-(y-1)f=y^{2}-y.}
+  Under lexicographic ordering with 
+  
+    
+      
+        x
+        >
+        y
+      
+    
+    {\displaystyle x>y}
+   we have
+
+lt(f) = x2
+lt(k) = xy
+lt(h) = y2As f, k and h belong to I, and none of them is reducible by the others, none of 
+  
+    
+      
+        {
+        f
+        ,
+        k
+        }
+        ,
+      
+    
+    {\displaystyle \{f,k\},}
+   
+  
+    
+      
+        {
+        f
+        ,
+        h
+        }
+        ,
+      
+    
+    {\displaystyle \{f,h\},}
+   and 
+  
+    
+      
+        {
+        h
+        ,
+        k
+        }
+      
+    
+    {\displaystyle \{h,k\}}
+   is a Gröbner basis of I.
+On the other hand, {f, k, h} is a Gröbner basis of I, since the S-polynomials
+
+  
+    
+      
+        
+          
+            
+              
+                y
+                f
+                −
+                x
+                k
+              
+              
+                
+                =
+                y
+                (
+                
+                  x
+                  
+                    2
+                  
+                
+                −
+                y
+                )
+                −
+                x
+                (
+                x
+                y
+                −
+                x
+                )
+                =
+                f
+                −
+                h
+              
+            
+            
+              
+                y
+                k
+                −
+                x
+                h
+              
+              
+                
+                =
+                y
+                (
+                x
+                y
+                −
+                x
+                )
+                −
+                x
+                (
+                
+                  y
+                  
+                    2
+                  
+                
+                −
+                y
+                )
+                =
+                0
+              
+            
+            
+              
+                
+                  y
+                  
+                    2
+                  
+                
+                f
+                −
+                
+                  x
+                  
+                    2
+                  
+                
+                h
+              
+              
+                
+                =
+                y
+                (
+                y
+                f
+                −
+                x
+                k
+                )
+                +
+                x
+                (
+                y
+                k
+                −
+                x
+                h
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}yf-xk&=y(x^{2}-y)-x(xy-x)=f-h\\yk-xh&=y(xy-x)-x(y^{2}-y)=0\\y^{2}f-x^{2}h&=y(yf-xk)+x(yk-xh)\end{aligned}}}
+  can be reduced to zero by f, k and h.
+The method that has been used here for finding h and k, and proving that {f, k, h} is a Gröbner basis is a direct application of Buchberger's algorithm. So, it can be applied mechanically to any similar example, although, in general, there are many polynomials and S-polynomials to consider, and the computation is generally too large for being done without a computer.
+
+Properties and applications of Gröbner bases
+Unless explicitly stated, all the results that follow are true for any monomial ordering (see that article for the definitions of the different orders that are mentioned below).
+It is a common misconception that the lexicographical order is needed for some of these results. On the contrary, the lexicographical order is, almost always, the most difficult to compute, and using it makes impractical many computations that are relatively easy with graded reverse lexicographic order (grevlex), or, when elimination is needed, the elimination order (lexdeg) which restricts to grevlex on each block of variables.
+
+Equality of ideals
+Reduced Gröbner bases are unique for any given ideal and any monomial ordering. Thus two ideals are equal if and only if they have the same (reduced) Gröbner basis (usually a Gröbner basis software always produces reduced Gröbner bases).
+
+Membership and inclusion of ideals
+The reduction of a polynomial f by the Gröbner basis G of an ideal I yields 0 if and only if f is in I. This allows to test the membership of an element in an ideal. Another method consists in verifying that the Gröbner basis of G∪{f} is equal to G.
+To test if the ideal I generated by f1, ..., fk is contained in the ideal J, it suffices to test that every fI is in J. One may also test the equality of the reduced Gröbner bases of J and J ∪ {f1, ...,fk}.
+
+Solutions of a system of algebraic equations
+Any set of polynomials may be viewed as a system of polynomial equations by equating the polynomials to zero. The set of the solutions of such a system depends only on the generated ideal, and, therefore does not change when the given generating set is replaced by the Gröbner basis, for any ordering, of the generated ideal. Such a solution, with coordinates in an algebraically closed field containing the coefficients of the polynomials, is called a zero of the ideal. In the usual case of rational coefficients, this algebraically closed field is chosen as the complex field.
+An ideal does not have any zero (the system of equations is inconsistent) if and only if 1 belongs to the ideal (this is Hilbert's Nullstellensatz), or, equivalently, if its Gröbner basis (for any monomial ordering) contains 1, or, also, if the corresponding reduced Gröbner basis is [1].
+Given the Gröbner basis G of an ideal I, it has only a finite number of zeros, if and only if, for each variable x, G contains a polynomial with a leading monomial that is a power of x (without any other variable appearing in the leading term). If this is the case, then the number of zeros, counted with multiplicity, is equal to the number of monomials that are not multiples of any leading monomial of G. This number is called the degree of the ideal.
+When the number of zeros is finite, the Gröbner basis for a lexicographical monomial ordering provides, theoretically, a solution: the first coordinate of a solution is a root of the greatest common divisor of polynomials of the basis that depend only on the first variable. After substituting this root in the basis, the second coordinate of this solution is a root of the greatest common divisor of the resulting polynomials that depend only on the second variable, and so on. This solving process is only theoretical, because it implies GCD computation and root-finding of polynomials with approximate coefficients, which are not practicable because of numeric instability. Therefore, other methods have been developed to solve polynomial systems through Gröbner bases (see System of polynomial equations for more details).
+
+Dimension, degree and Hilbert series
+The dimension of an ideal I in a polynomial ring R is the Krull dimension of the ring R/I and is equal to the dimension of the algebraic set of the zeros of I. It is also equal to number of hyperplanes in general position which are needed to have an intersection with the algebraic set, which is a finite number of points. The degree of the ideal and of its associated algebraic set is the number of points of this finite intersection, counted with multiplicity. In particular, the degree of a hypersurface is equal to the degree of its definition polynomial.
+Both degree and dimension depend only on the set of the leading monomials of the Gröbner basis of the ideal for any monomial ordering.
+The dimension is the maximal size of a subset S of the variables such that there is no leading monomial depending only on the variables in S. Thus, if the ideal has dimension 0, then for each variable x there is a leading monomial in the Gröbner basis that is a power of x.
+Both dimension and degree may be deduced from the Hilbert series of the ideal, which is the series 
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          d
+          
+            i
+          
+        
+        
+          t
+          
+            i
+          
+        
+      
+    
+    {\textstyle \sum _{i=0}^{\infty }d_{i}t^{i}}
+  , where 
+  
+    
+      
+        
+          d
+          
+            i
+          
+        
+      
+    
+    {\displaystyle d_{i}}
+   is the number of monomials of degree i that are not multiple of any leading monomial in the Gröbner basis. The Hilbert series may be summed into a rational fraction
+
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          d
+          
+            i
+          
+        
+        
+          t
+          
+            i
+          
+        
+        =
+        
+          
+            
+              P
+              (
+              t
+              )
+            
+            
+              (
+              1
+              −
+              t
+              
+                )
+                
+                  d
+                
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle \sum _{i=0}^{\infty }d_{i}t^{i}={\frac {P(t)}{(1-t)^{d}}},}
+  where d is the dimension of the ideal and 
+  
+    
+      
+        P
+        (
+        t
+        )
+      
+    
+    {\displaystyle P(t)}
+   is a polynomial such that 
+  
+    
+      
+        P
+        (
+        1
+        )
+      
+    
+    {\displaystyle P(1)}
+   is the degree of the ideal.
+Although the dimension and the degree do not depend on the choice of the monomial ordering, the Hilbert series and the polynomial 
+  
+    
+      
+        P
+        (
+        t
+        )
+      
+    
+    {\displaystyle P(t)}
+   change when one changes the monomial ordering.
+Most computer algebra systems that provide functions to compute Gröbner bases provide also functions for computing the Hilbert series, and thus also the dimension and the degree.
+
+Elimination
+The computation of Gröbner bases for an elimination monomial ordering allows computational elimination theory. This is based on the following theorem.
+Consider a polynomial ring 
+  
+    
+      
+        K
+        [
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        ,
+        
+          y
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          y
+          
+            m
+          
+        
+        ]
+        =
+        K
+        [
+        X
+        ,
+        Y
+        ]
+        ,
+      
+    
+    {\displaystyle K[x_{1},\ldots ,x_{n},y_{1},\ldots ,y_{m}]=K[X,Y],}
+   in which the variables are split into two subsets X and Y. Let us also choose an elimination monomial ordering "eliminating" X, that is a monomial ordering for which two monomials are compared by comparing first the X-parts, and, in case of equality only, considering the Y-parts. This implies that a monomial containing an X-variable is greater than every monomial independent of X.
+If G is a Gröbner basis of an ideal I for this monomial ordering, then 
+  
+    
+      
+        G
+        ∩
+        K
+        [
+        Y
+        ]
+      
+    
+    {\displaystyle G\cap K[Y]}
+   is a Gröbner basis of 
+  
+    
+      
+        I
+        ∩
+        K
+        [
+        Y
+        ]
+      
+    
+    {\displaystyle I\cap K[Y]}
+   (this ideal is often called the elimination ideal). Moreover, 
+  
+    
+      
+        G
+        ∩
+        K
+        [
+        Y
+        ]
+      
+    
+    {\displaystyle G\cap K[Y]}
+   consists exactly of the polynomials of G whose leading terms belong to K[Y] (this makes very easy the computation of 
+  
+    
+      
+        G
+        ∩
+        K
+        [
+        Y
+        ]
+      
+    
+    {\displaystyle G\cap K[Y]}
+  , as only the leading monomials need to be checked).
+This elimination property has many applications, some described in the next sections.
+Another application, in algebraic geometry, is that elimination realizes the geometric operation of projection of an affine algebraic set into a subspace of the ambient space: with above notation, the (Zariski closure of) the projection of the algebraic set defined by the ideal I into the Y-subspace is defined by the ideal 
+  
+    
+      
+        I
+        ∩
+        K
+        [
+        Y
+        ]
+        .
+      
+    
+    {\displaystyle I\cap K[Y].}
+  
+The lexicographical ordering such that 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        >
+        ⋯
+        >
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{1}>\cdots >x_{n}}
+   is an elimination ordering for every partition 
+  
+    
+      
+        {
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        }
+        ,
+        {
+        
+          x
+          
+            k
+            +
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+        }
+        .
+      
+    
+    {\displaystyle \{x_{1},\ldots ,x_{k}\},\{x_{k+1},\ldots ,x_{n}\}.}
+   Thus a Gröbner basis for this ordering carries much more information than usually necessary. This may explain why Gröbner bases for the lexicographical ordering are usually the most difficult to compute.
+
+Intersecting ideals
+If I and J are two ideals generated respectively by {f1, ..., fm} and {g1, ..., gk}, then a single Gröbner basis computation produces a Gröbner basis of their intersection I ∩ J. For this, one introduces a new indeterminate t, and one uses an elimination ordering such that the first block contains only t and the other block contains all the other variables (this means that a monomial containing t is greater than every monomial that does not contain t). With this monomial ordering, a Gröbner basis of I ∩ J consists in the polynomials that do not contain t, in the Gröbner basis of the ideal
+
+  
+    
+      
+        K
+        =
+        ⟨
+        t
+        
+          f
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        t
+        
+          f
+          
+            m
+          
+        
+        ,
+        (
+        1
+        −
+        t
+        )
+        
+          g
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        (
+        1
+        −
+        t
+        )
+        
+          g
+          
+            k
+          
+        
+        ⟩
+        .
+      
+    
+    {\displaystyle K=\langle tf_{1},\ldots ,tf_{m},(1-t)g_{1},\ldots ,(1-t)g_{k}\rangle .}
+  In other words, I ∩ J is obtained by eliminating t in K.
+This may be proven by remarking that the ideal K consists in the polynomials 
+  
+    
+      
+        (
+        a
+        −
+        b
+        )
+        t
+        +
+        b
+      
+    
+    {\displaystyle (a-b)t+b}
+   such that 
+  
+    
+      
+        a
+        ∈
+        I
+      
+    
+    {\displaystyle a\in I}
+   and 
+  
+    
+      
+        b
+        ∈
+        J
+      
+    
+    {\displaystyle b\in J}
+  . Such a polynomial is independent of t if and only if a=b, which means that 
+  
+    
+      
+        b
+        ∈
+        I
+        ∩
+        J
+        .
+      
+    
+    {\displaystyle b\in I\cap J.}
+
+Implicitization of a rational curve
+A rational curve is an algebraic curve that has a set of parametric equations of the form
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  x
+                  
+                    1
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    
+                      
+                        f
+                        
+                          1
+                        
+                      
+                      (
+                      t
+                      )
+                    
+                    
+                      
+                        g
+                        
+                          1
+                        
+                      
+                      (
+                      t
+                      )
+                    
+                  
+                
+              
+            
+            
+              
+              
+                
+                
+                
+                ⋮
+              
+            
+            
+              
+                
+                  x
+                  
+                    n
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    
+                      
+                        f
+                        
+                          n
+                        
+                      
+                      (
+                      t
+                      )
+                    
+                    
+                      
+                        g
+                        
+                          n
+                        
+                      
+                      (
+                      t
+                      )
+                    
+                  
+                
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}x_{1}&={\frac {f_{1}(t)}{g_{1}(t)}}\\&\;\;\vdots \\x_{n}&={\frac {f_{n}(t)}{g_{n}(t)}},\end{aligned}}}
+  where 
+  
+    
+      
+        
+          f
+          
+            i
+          
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle f_{i}(t)}
+   and 
+  
+    
+      
+        
+          g
+          
+            i
+          
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle g_{i}(t)}
+   are univariate polynomials for 1 ≤ i ≤ n. One may (and will) suppose that 
+  
+    
+      
+        
+          f
+          
+            i
+          
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle f_{i}(t)}
+   and 
+  
+    
+      
+        
+          g
+          
+            i
+          
+        
+        (
+        t
+        )
+      
+    
+    {\displaystyle g_{i}(t)}
+   are coprime (they have no non-constant common factors).
+Implicitization consists in computing the implicit equations of such a curve. In case of n = 2, that is for plane curves, this may be computed with the resultant. The implicit equation is the following resultant:
+
+  
+    
+      
+        
+          
+            Res
+          
+          
+            t
+          
+        
+        (
+        
+          g
+          
+            1
+          
+        
+        
+          x
+          
+            1
+          
+        
+        −
+        
+          f
+          
+            1
+          
+        
+        ,
+        
+          g
+          
+            2
+          
+        
+        
+          x
+          
+            2
+          
+        
+        −
+        
+          f
+          
+            2
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle {\text{Res}}_{t}(g_{1}x_{1}-f_{1},g_{2}x_{2}-f_{2}).}
+  Elimination with Gröbner bases allows to implicitize for any value of n, simply by eliminating t in the ideal
+
+  
+    
+      
+        ⟨
+        
+          g
+          
+            1
+          
+        
+        
+          x
+          
+            1
+          
+        
+        −
+        
+          f
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          g
+          
+            n
+          
+        
+        
+          x
+          
+            n
+          
+        
+        −
+        
+          f
+          
+            n
+          
+        
+        ⟩
+        .
+      
+    
+    {\displaystyle \langle g_{1}x_{1}-f_{1},\ldots ,g_{n}x_{n}-f_{n}\rangle .}
+  
+If n = 2, the result is the same as with the resultant, if the map 
+  
+    
+      
+        t
+        ↦
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle t\mapsto (x_{1},x_{2})}
+   is injective for almost every t. In the other case, the resultant is a power of the result of the elimination.
+
+Saturation
+When modeling a problem by polynomial equations, it is often assumed that some quantities are non-zero, so as to avoid degenerate cases. For example, when dealing with triangles, many properties become false if the triangle degenerates to a line segment, i.e. the length of one side is equal to the sum of the lengths of the other sides. In such situations, one cannot deduce relevant information from the polynomial system unless the degenerate solutions are ignored. More precisely, the system of equations defines an algebraic set which may have several irreducible components, and one must remove the components on which the degeneracy conditions are everywhere zero.
+This is done by saturating the equations by the degeneracy conditions, which may be done via the elimination property of Gröbner bases.
+
+Definition of the saturation
+The localization of a ring consists in adjoining to it the formal inverses of some elements. This section concerns only the case of a single element, or equivalently a finite number of elements (adjoining the inverses of several elements is equivalent to adjoining the inverse of their product). The localization of a ring R by an element f is the ring 
+  
+    
+      
+        
+          R
+          
+            f
+          
+        
+        =
+        R
+        [
+        t
+        ]
+        
+          /
+        
+        (
+        1
+        −
+        f
+        t
+        )
+        ,
+      
+    
+    {\displaystyle R_{f}=R[t]/(1-ft),}
+   where t is a new indeterminate representing the inverse of f. The localization of an ideal I of R is the ideal 
+  
+    
+      
+        
+          R
+          
+            f
+          
+        
+        I
+      
+    
+    {\displaystyle R_{f}I}
+   of 
+  
+    
+      
+        
+          I
+          
+            f
+          
+        
+        .
+      
+    
+    {\displaystyle I_{f}.}
+   When R is a polynomial ring, computing in 
+  
+    
+      
+        
+          R
+          
+            f
+          
+        
+      
+    
+    {\displaystyle R_{f}}
+   is not efficient because of the need to manage the denominators. Therefore, localization is usually replaced by the operation of saturation.
+The saturation with respect to f of an ideal I in R is the inverse image of 
+  
+    
+      
+        
+          R
+          
+            f
+          
+        
+        I
+      
+    
+    {\displaystyle R_{f}I}
+   under the canonical map from R to 
+  
+    
+      
+        
+          R
+          
+            f
+          
+        
+        .
+      
+    
+    {\displaystyle R_{f}.}
+   It is the ideal 
+  
+    
+      
+        I
+        :
+        
+          f
+          
+            ∞
+          
+        
+        =
+        {
+        g
+        ∈
+        R
+        ∣
+        (
+        ∃
+        k
+        ∈
+        
+          N
+        
+        )
+        
+          f
+          
+            k
+          
+        
+        g
+        ∈
+        I
+        }
+      
+    
+    {\displaystyle I:f^{\infty }=\{g\in R\mid (\exists k\in \mathbb {N} )f^{k}g\in I\}}
+   consisting in all elements of R whose product with some power of f belongs to I.
+If J is the ideal generated by I and 1−ft in R[t], then 
+  
+    
+      
+        I
+        :
+        
+          f
+          
+            ∞
+          
+        
+        =
+        J
+        ∩
+        R
+        .
+      
+    
+    {\displaystyle I:f^{\infty }=J\cap R.}
+   It follows that, if R is a polynomial ring, a Gröbner basis computation eliminating t produces a Gröbner basis of the saturation of an ideal by a polynomial.
+The important property of the saturation, which ensures that it removes from the algebraic set defined by the ideal I the irreducible components on which the polynomial f is zero, is the following: The primary decomposition of 
+  
+    
+      
+        I
+        :
+        
+          f
+          
+            ∞
+          
+        
+      
+    
+    {\displaystyle I:f^{\infty }}
+   consists of the components of the primary decomposition of I that do not contain any power of f.
+
+Computation of the saturation
+A Gröbner basis of the saturation by f of a polynomial ideal generated by a finite set of polynomials F, may be obtained by eliminating t in 
+  
+    
+      
+        F
+        ∪
+        {
+        1
+        −
+        t
+        f
+        }
+        ,
+      
+    
+    {\displaystyle F\cup \{1-tf\},}
+   that is by keeping the polynomials independent of t in the Gröbner basis of 
+  
+    
+      
+        F
+        ∪
+        {
+        1
+        −
+        t
+        f
+        }
+      
+    
+    {\displaystyle F\cup \{1-tf\}}
+   for an elimination ordering eliminating t.
+Instead of using F, one may also start from a Gröbner basis of F. Which method is most efficient depends on the problem. However, if the saturation does not remove any component, that is if the ideal is equal to its saturated ideal, computing first the Gröbner basis of F is usually faster. On the other hand, if the saturation removes some components, the direct computation may be dramatically faster.
+If one wants to saturate with respect to several polynomials 
+  
+    
+      
+        
+          f
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          f
+          
+            k
+          
+        
+      
+    
+    {\displaystyle f_{1},\ldots ,f_{k}}
+   or with respect to a single polynomial which is a product 
+  
+    
+      
+        f
+        =
+        
+          f
+          
+            1
+          
+        
+        ⋯
+        
+          f
+          
+            k
+          
+        
+        ,
+      
+    
+    {\displaystyle f=f_{1}\cdots f_{k},}
+   there are three ways to proceed which give the same result but may have very different computation times (it depends on the problem which is the most efficient).
+
+Saturating by 
+  
+    
+      
+        f
+        =
+        
+          f
+          
+            1
+          
+        
+        ⋯
+        
+          f
+          
+            k
+          
+        
+      
+    
+    {\displaystyle f=f_{1}\cdots f_{k}}
+   in a single Gröbner basis computation.
+Saturating by 
+  
+    
+      
+        
+          f
+          
+            1
+          
+        
+        ,
+      
+    
+    {\displaystyle f_{1},}
+   then saturating the result by 
+  
+    
+      
+        
+          f
+          
+            2
+          
+        
+        ,
+      
+    
+    {\displaystyle f_{2},}
+   and so on.
+Adding to F or to its Gröbner basis the polynomials 
+  
+    
+      
+        1
+        −
+        
+          t
+          
+            1
+          
+        
+        
+          f
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        1
+        −
+        
+          t
+          
+            k
+          
+        
+        
+          f
+          
+            k
+          
+        
+        ,
+      
+    
+    {\displaystyle 1-t_{1}f_{1},\ldots ,1-t_{k}f_{k},}
+   and eliminating the 
+  
+    
+      
+        
+          t
+          
+            i
+          
+        
+      
+    
+    {\displaystyle t_{i}}
+   in a single Gröbner basis computation.
+
+Effective Nullstellensatz
+Hilbert's Nullstellensatz has two versions. The first one asserts that a set of polynomials has no common zeros over an algebraic closure of the field of the coefficients, if and only if 1 belongs to the generated ideal. This is easily tested with a Gröbner basis computation, because 1 belongs to an ideal if and only if 1 belongs to the Gröbner basis of the ideal, for any monomial ordering.
+The second version asserts that the set of common zeros (in an algebraic closure of the field of the coefficients) of an ideal is contained in the hypersurface of the zeros of a polynomial f, if and only if a power of f belongs to the ideal. This may be tested by saturating the ideal by f; in fact, a power of f belongs to the ideal if and only if the saturation by f provides a Gröbner basis containing 1.
+
+Implicitization in higher dimension
+By definition, an affine rational variety of dimension k may be described by parametric equations of the form
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  x
+                  
+                    1
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    
+                      p
+                      
+                        1
+                      
+                    
+                    
+                      p
+                      
+                        0
+                      
+                    
+                  
+                
+              
+            
+            
+              
+              
+                
+                
+                
+                ⋮
+              
+            
+            
+              
+                
+                  x
+                  
+                    n
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    
+                      p
+                      
+                        n
+                      
+                    
+                    
+                      p
+                      
+                        0
+                      
+                    
+                  
+                
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}x_{1}&={\frac {p_{1}}{p_{0}}}\\&\;\;\vdots \\x_{n}&={\frac {p_{n}}{p_{0}}},\end{aligned}}}
+  where 
+  
+    
+      
+        
+          p
+          
+            0
+          
+        
+        ,
+        …
+        ,
+        
+          p
+          
+            n
+          
+        
+      
+    
+    {\displaystyle p_{0},\ldots ,p_{n}}
+   are n+1 polynomials in the k variables (parameters of the parameterization) 
+  
+    
+      
+        
+          t
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          t
+          
+            k
+          
+        
+        .
+      
+    
+    {\displaystyle t_{1},\ldots ,t_{k}.}
+   Thus the parameters 
+  
+    
+      
+        
+          t
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          t
+          
+            k
+          
+        
+      
+    
+    {\displaystyle t_{1},\ldots ,t_{k}}
+   and the coordinates 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{1},\ldots ,x_{n}}
+   of the points of the variety are zeros of the ideal
+
+  
+    
+      
+        I
+        =
+        
+          ⟨
+          
+            
+              p
+              
+                0
+              
+            
+            
+              x
+              
+                1
+              
+            
+            −
+            
+              p
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              p
+              
+                0
+              
+            
+            
+              x
+              
+                n
+              
+            
+            −
+            
+              p
+              
+                n
+              
+            
+          
+          ⟩
+        
+        .
+      
+    
+    {\displaystyle I=\left\langle p_{0}x_{1}-p_{1},\ldots ,p_{0}x_{n}-p_{n}\right\rangle .}
+  One could guess that it suffices to eliminate the parameters to obtain the implicit equations of the variety, as it has been done in the case of curves. Unfortunately this is not always the case. If the 
+  
+    
+      
+        
+          p
+          
+            i
+          
+        
+      
+    
+    {\displaystyle p_{i}}
+   have a common zero (sometimes called base point), every irreducible component of the non-empty algebraic set defined by the 
+  
+    
+      
+        
+          p
+          
+            i
+          
+        
+      
+    
+    {\displaystyle p_{i}}
+   is an irreducible component of the algebraic set defined by I. It follows that, in this case, the direct elimination of the 
+  
+    
+      
+        
+          t
+          
+            i
+          
+        
+      
+    
+    {\displaystyle t_{i}}
+   provides an empty set of polynomials.
+Therefore, if k>1, two Gröbner basis computations are needed to implicitize:
+
+Saturate 
+  
+    
+      
+        I
+      
+    
+    {\displaystyle I}
+   by 
+  
+    
+      
+        
+          p
+          
+            0
+          
+        
+      
+    
+    {\displaystyle p_{0}}
+   to get a Gröbner basis 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  
+Eliminate the 
+  
+    
+      
+        
+          t
+          
+            i
+          
+        
+      
+    
+    {\displaystyle t_{i}}
+   from 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   to get a Gröbner basis of the ideal (of the implicit equations) of the variety.
+
+Algorithms and implementations
+Buchberger's algorithm is the oldest algorithm for computing Gröbner bases. It has been devised by Bruno Buchberger together with the Gröbner basis theory. It is straightforward to implement, but it appeared soon that raw implementations can solve only trivial problems. The main issues are the following ones:
+
+Even when the resulting Gröbner basis is small, the intermediate polynomials can be huge. It results that most of the computing time may be spent in memory management. So, specialized memory management algorithms may be a fundamental part of an efficient implementation.
+The integers occurring during a computation may be sufficiently large for making fast multiplication algorithms and multimodular arithmetic useful. For this reason, most optimized implementations use the GMPlibrary. Also, modular arithmetic, Chinese remainder theorem and Hensel lifting are used in optimized implementations
+The choice of the S-polynomials to reduce and of the polynomials used for reducing them is devoted to heuristics. As in many computational problems, heuristics cannot detect most hidden simplifications, and if heuristic choices are avoided, one may get a dramatic improvement of the algorithm efficiency.
+In most cases most S-polynomials that are computed are reduced to zero; that is, most computing time is spent to compute zero.
+The monomial ordering that is most often needed for the applications (pure lexicographic) is not the ordering that leads to the easiest computation, generally the ordering degrevlex.For solving 3. many improvements, variants and heuristics have been proposed before the introduction of F4 and F5 algorithms by Jean-Charles Faugère. As these algorithms are designed for integer coefficients or with coefficients in the integers modulo a prime number, Buchberger's algorithm remains useful for more general coefficients.
+Roughly speaking, F4 algorithm solves 3. by replacing many S-polynomial reductions by the row reduction of a single large matrix for which advanced methods of linear algebra can be used. This solves partially issue 4., as reductions to zero in Buchberger's algorithm correspond to relations between rows of the matrix to be reduced, and the zero rows of the reduced matrix correspond to a basis of the vector space of these relations.
+F5 algorithm improves F4 by introducing a criterion that allows reducing the size of the matrices to be reduced. This criterion is almost optimal, since the matrices to be reduced have full rank in sufficiently regular cases (in particular, when the input polynomials form a regular sequence). Tuning F5 for a general use is difficult, since its performances depend on an order on the input polynomials and a balance between the incrementation of the working polynomial degree and of the number of the input polynomials that are considered. To date (2022), there is no distributed implementation that is significantly more efficient than F4, but, over modular integers F5 has been used successfully for several cryptographic challenges; for example, for breaking HFE challenge.
+Issue 5. has been solved by the discovery of basis conversion algorithms that start from the Gröbner basis for one monomial ordering for computing a Gröbner basis for another monomial ordering. FGLM algorithm is such a basis conversion algorithm that works only in the zero-dimensional case (where the polynomials have a finite number of complex common zeros) and has a polynomial complexity in the number of common zeros. A basis conversion algorithm that works is the general case is the Gröbner walk algorithm. In its original form, FGLM may be the critical step for solving systems of polynomial equations because FGML does not take into account the sparsity of involved matrices. This has been fixed by the introduction of sparse FGLM algorithms.Most general-purpose computer algebra systems have implementations of one or several algorithms for Gröbner bases, often also embedded in other functions, such as for solving systems of polynomial equations or for simplifying trigonometric functions; this is the case, for example, of CoCoA, GAP, Macaulay 2, Magma, Maple, Mathematica, SINGULAR, SageMath and SymPy. When F4 is available, it is generally much more efficient than Buchberger's algorithm. The implementation techniques and algorithmic variants are not always documented, although they may have a dramatic effect on efficiency.
+As of 2022, the fastest implementations of F4 and (sparse)-FGLM seem to be those of the library Msolve. Beside Gröbner algorithms, Msolve contains fast algorithms for real-root isolation, and combines all these functions in an algorithm for the real solutions of systems of polynomial equations that outperforms dramatically the other software for this problem (Maple and Magma). Msolve is available on GitHub, and is interfaced with Julia, Maple and SageMath; this means that Msolve can be used directly from within these software environments.
+
+Complexity
+The complexity of the Gröbner basis computations is commonly evaluated in term of the number n of variables and the maximal degree d of the input polynomials.
+In the worst case, the main parameter of the complexity is the maximal degree of the elements of the resulting reduced Gröbner basis. More precisely, if the Gröbner basis contains an element of a large degree D, this element may contain 
+  
+    
+      
+        Ω
+        (
+        
+          D
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle \Omega (D^{n})}
+   nonzero terms whose computation requires a time of 
+  
+    
+      
+        Ω
+        (
+        
+          D
+          
+            n
+          
+        
+        )
+        >
+        
+          D
+          
+            Ω
+            (
+            n
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle \Omega (D^{n})>D^{\Omega (n)}.}
+   On the other hand, if all polynomials in the reduced Gröbner basis a homogeneous ideal have a degree of at most D, the Gröbner basis can be computed by linear algebra on the vector space of polynomials of degree less than 2D, which has a dimension 
+  
+    
+      
+        O
+        (
+        
+          D
+          
+            n
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle O(D^{n}).}
+   So, the complexity of this computation is 
+  
+    
+      
+        O
+        (
+        
+          D
+          
+            n
+          
+        
+        
+          )
+          
+            O
+            (
+            1
+            )
+          
+        
+        =
+        
+          D
+          
+            O
+            (
+            n
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle O(D^{n})^{O(1)}=D^{O(n)}.}
+  
+The worst-case complexity of a Gröbner basis computation is doubly exponential in n. More precisely, the complexity is upper bounded by a polynomial in 
+  
+    
+      
+        
+          d
+          
+            
+              2
+              
+                n
+              
+            
+          
+        
+        .
+      
+    
+    {\textstyle d^{2^{n}}.}
+   Using little o notation, it is therefore bounded by 
+  
+    
+      
+        
+          d
+          
+            
+              2
+              
+                n
+                +
+                o
+                (
+                n
+                )
+              
+            
+          
+        
+        .
+      
+    
+    {\textstyle d^{2^{n+o(n)}}.}
+   On the other hand, examples have been given of reduced Gröbner bases containing polynomials of degree 
+  
+    
+      
+        
+          d
+          
+            
+              2
+              
+                Ω
+                (
+                n
+                )
+              
+            
+          
+        
+        ,
+      
+    
+    {\textstyle d^{2^{\Omega (n)}},}
+  
+or containing 
+  
+    
+      
+        
+          d
+          
+            
+              2
+              
+                Ω
+                (
+                n
+                )
+              
+            
+          
+        
+      
+    
+    {\textstyle d^{2^{\Omega (n)}}}
+   elements. As every algorithm for computing a Gröbner basis must write its result, this provides a lower bound of the complexity.
+Gröbner basis is EXPSPACE-complete.
+
+Generalizations
+The concept and algorithms of Gröbner bases have been generalized to submodules of free modules over a polynomial ring. In fact, if L is a free module over a ring R, then one may consider the direct sum 
+  
+    
+      
+        R
+        ⊕
+        L
+      
+    
+    {\displaystyle R\oplus L}
+   as a ring by defining the product of two elements of L to be 0. This ring may be identified with 
+  
+    
+      
+        R
+        [
+        
+          e
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          e
+          
+            l
+          
+        
+        ]
+        
+          /
+        
+        
+          ⟨
+          
+            {
+            
+              e
+              
+                i
+              
+            
+            
+              e
+              
+                j
+              
+            
+            
+              |
+            
+            1
+            ≤
+            i
+            ≤
+            j
+            ≤
+            l
+            }
+          
+          ⟩
+        
+      
+    
+    {\displaystyle R[e_{1},\ldots ,e_{l}]/\left\langle \{e_{i}e_{j}|1\leq i\leq j\leq l\}\right\rangle }
+  , where 
+  
+    
+      
+        
+          e
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          e
+          
+            l
+          
+        
+      
+    
+    {\displaystyle e_{1},\ldots ,e_{l}}
+   is a basis of L. This allows  identifying a submodule of L generated by 
+  
+    
+      
+        
+          g
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          g
+          
+            k
+          
+        
+      
+    
+    {\displaystyle g_{1},\ldots ,g_{k}}
+   with the ideal of 
+  
+    
+      
+        R
+        [
+        
+          e
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          e
+          
+            l
+          
+        
+        ]
+      
+    
+    {\displaystyle R[e_{1},\ldots ,e_{l}]}
+   generated by 
+  
+    
+      
+        
+          g
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          g
+          
+            k
+          
+        
+      
+    
+    {\displaystyle g_{1},\ldots ,g_{k}}
+   and the products 
+  
+    
+      
+        
+          e
+          
+            i
+          
+        
+        
+          e
+          
+            j
+          
+        
+      
+    
+    {\displaystyle e_{i}e_{j}}
+  , 
+  
+    
+      
+        1
+        ≤
+        i
+        ≤
+        j
+        ≤
+        l
+      
+    
+    {\displaystyle 1\leq i\leq j\leq l}
+  . If R is a polynomial ring, this reduces the theory and the algorithms of Gröbner bases of modules to the theory and the algorithms of Gröbner bases of ideals.
+The concept and algorithms of Gröbner bases have also been generalized to ideals over various rings, commutative or not, like polynomial rings over a principal ideal ring or Weyl algebras.
+
+Areas of applications
+Error-Correcting Codes
+Gröbner basis has been applied in the theory of error-correcting codes for algebraic decoding.  By using Gröbner basis computation on various forms of error-correcting equations, decoding methods were developed for correcting errors of cyclic codes, affine variety codes, algebraic-geometric codes and even general linear block codes.  Applying Gröbner basis in algebraic decoding is still a research area of channel coding theory.
+
+See also
+References
+Further reading
+Adams, William W.; Loustaunau, Philippe (1994). An Introduction to Gröbner Bases. Graduate Studies in Mathematics. Vol. 3. American Mathematical Society. ISBN 0-8218-3804-0.
+Li, Huishi (2011). Gröbner Bases in Ring Theory. World Scientific. ISBN 978-981-4365-13-0.
+Becker, Thomas; Weispfenning, Volker (1998). Gröbner Bases: A Computational Approach to Commutative Algebra. Graduate Texts in Mathematics. Vol. 141. Springer. ISBN 0-387-97971-9.
+Buchberger, Bruno (1965). An Algorithm for Finding the Basis Elements of the Residue Class Ring of a Zero Dimensional Polynomial Ideal (PDF) (PhD). University of Innsbruck. — (2006). Translated by Abramson, M. "Bruno Buchberger's PhD thesis 1965: An algorithm for finding the basis elements of the residue class ring of a zero dimensional polynomial ideal". Journal of Symbolic Computation. 41 (3–4): 471–511. doi:10.1016/j.jsc.2005.09.007.  [This is Buchberger's thesis inventing Gröbner bases.]
+Buchberger, Bruno (1970). "An Algorithmic Criterion for the Solvability of a System of Algebraic Equations" (PDF). Aequationes Mathematicae. 4: 374–383. doi:10.1007/BF01844169. S2CID 189834323.  (This is the journal publication of Buchberger's thesis.)Burchberger, B.; Winkler, F., eds. (26 February 1998). "An Algorithmic Criterion for the Solvability of a System of Algebraic Equations". Gröbner Bases and Applications. London Mathematical Society Lecture Note Series. Vol. 251. Cambridge University Press. pp. 535–545. ISBN 978-0-521-63298-0.
+Buchberger, Bruno; Kauers, Manuel (2010). "Gröbner Bases". Scholarpedia. 5 (10): 7763. Bibcode:2010SchpJ...5.7763B. doi:10.4249/scholarpedia.7763.
+Fröberg, Ralf (1997). An Introduction to Gröbner Bases. Wiley. ISBN 0-471-97442-0.
+Sturmfels, Bernd (November 2005). "What is ... a Gröbner Basis?" (PDF). Notices of the American Mathematical Society. 52 (10): 1199–1200, a brief introduction{{cite journal}}:  CS1 maint: postscript (link)
+Shirshov, Anatoliĭ I. (1999). "Certain algorithmic problems for Lie algebras" (PDF). ACM SIGSAM Bulletin. 33 (2): 3–6. doi:10.1145/334714.334715. S2CID 37070503. (translated from Sibirsk. Mat. Zh. Siberian Mathematics Journal 3 (1962), 292–296).
+Aschenbrenner, Matthias; Hillar, Christopher (2007). "Finite generation of symmetric ideals". Transactions of the American Mathematical Society. 359 (11): 5171–92. doi:10.1090/S0002-9947-07-04116-5. S2CID 5656701. (on infinite dimensional Gröbner bases for polynomial rings in infinitely many indeterminates).
+
+External links
+Faugère's own implementation of his F4 algorithm
+"Gröbner basis", Encyclopedia of Mathematics, EMS Press, 2001 [1994]
+Buchberger, B. (2003). "Gröbner Bases: A Short Introduction for Systems Theorists" (PDF). In Moreno-Diaz, R.; Buchberger, B.; Freire, J. (eds.). Computer Aided Systems Theory — EUROCAST 2001: A Selection of Papers from the 8th International Workshop on Computer Aided Systems Theory. Springer. pp. 1–19. ISBN 978-3-540-45654-4.
+Buchberger, B.; Zapletal, A. "Gröbner Bases Bibliography".
+Comparative Timings Page for Gröbner Bases Software
+Prof. Bruno Buchberger Bruno Buchberger
+Weisstein, Eric W. "Gröbner Basis". MathWorld.
+Gröbner basis introduction on Scholarpedia

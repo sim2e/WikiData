@@ -1,0 +1,3035 @@
+A finite difference is a mathematical expression of the form f (x + b) − f (x + a). If a finite difference is divided by b − a, one gets a difference quotient. The approximation of derivatives by finite differences plays a central role in finite difference methods for the numerical solution of differential equations, especially boundary value problems.
+The difference operator, commonly denoted 
+  
+    
+      
+        Δ
+      
+    
+    {\displaystyle \Delta }
+   is the operator that maps a function f to the function 
+  
+    
+      
+        Δ
+        [
+        f
+        ]
+      
+    
+    {\displaystyle \Delta [f]}
+   defined by
+
+  
+    
+      
+        Δ
+        [
+        f
+        ]
+        (
+        x
+        )
+        =
+        f
+        (
+        x
+        +
+        1
+        )
+        −
+        f
+        (
+        x
+        )
+        .
+      
+    
+    {\displaystyle \Delta [f](x)=f(x+1)-f(x).}
+  A difference equation is a functional equation that involves the finite difference operator in the same way as a differential equation involves derivatives. There are many similarities between difference equations and differential equations, specially in the solving methods. Certain recurrence relations can be written as difference equations by replacing iteration notation with finite differences.
+In numerical analysis, finite differences are widely used for approximating derivatives, and the term "finite difference" is often used as an abbreviation of "finite difference approximation of derivatives". Finite difference approximations are finite difference quotients in the terminology employed above.
+Finite differences were introduced by Brook Taylor in 1715 and have also been studied as abstract self-standing mathematical objects in works by George Boole (1860), L. M. Milne-Thomson (1933), and Károly Jordan (1939). Finite differences trace their origins back to one of Jost Bürgi's algorithms (c. 1592) and work by others including Isaac Newton. The formal calculus of finite differences can be viewed as an alternative to the calculus of infinitesimals.
+
+Basic types
+Three basic types are commonly considered: forward, backward, and central finite differences.
+A forward difference, denoted 
+  
+    
+      
+        
+          Δ
+          
+            h
+          
+        
+        [
+        f
+        ]
+        ,
+      
+    
+    {\displaystyle \Delta _{h}[f],}
+   of a function f is a function defined as
+
+  
+    
+      
+        
+          Δ
+          
+            h
+          
+        
+        [
+        f
+        ]
+        (
+        x
+        )
+        =
+        f
+        (
+        x
+        +
+        h
+        )
+        −
+        f
+        (
+        x
+        )
+        .
+      
+    
+    {\displaystyle \Delta _{h}[f](x)=f(x+h)-f(x).}
+  Depending on the application, the spacing h may be variable or constant.  When omitted, h is taken to be 1; that is, 
+
+  
+    
+      
+        Δ
+        [
+        f
+        ]
+        (
+        x
+        )
+        =
+        
+          Δ
+          
+            1
+          
+        
+        [
+        f
+        ]
+        (
+        x
+        )
+        =
+        f
+        (
+        x
+        +
+        1
+        )
+        −
+        f
+        (
+        x
+        )
+        .
+      
+    
+    {\displaystyle \Delta [f](x)=\Delta _{1}[f](x)=f(x+1)-f(x).}
+  
+A backward difference uses the function values at x and x − h, instead of the values at x + h and x:
+
+  
+    
+      
+        
+          ∇
+          
+            h
+          
+        
+        [
+        f
+        ]
+        (
+        x
+        )
+        =
+        f
+        (
+        x
+        )
+        −
+        f
+        (
+        x
+        −
+        h
+        )
+        =
+        
+          Δ
+          
+            h
+          
+        
+        [
+        f
+        ]
+        (
+        x
+        −
+        h
+        )
+        .
+      
+    
+    {\displaystyle \nabla _{h}[f](x)=f(x)-f(x-h)=\Delta _{h}[f](x-h).}
+  
+Finally, the central difference is given by
+
+  
+    
+      
+        
+          δ
+          
+            h
+          
+        
+        [
+        f
+        ]
+        (
+        x
+        )
+        =
+        f
+        (
+        x
+        +
+        
+          
+            
+              h
+              2
+            
+          
+        
+        )
+        −
+        f
+        (
+        x
+        −
+        
+          
+            
+              h
+              2
+            
+          
+        
+        )
+        =
+        
+          Δ
+          
+            h
+            
+              /
+            
+            2
+          
+        
+        [
+        f
+        ]
+        (
+        x
+        )
+        +
+        
+          ∇
+          
+            h
+            
+              /
+            
+            2
+          
+        
+        [
+        f
+        ]
+        (
+        x
+        )
+        .
+      
+    
+    {\displaystyle \delta _{h}[f](x)=f(x+{\tfrac {h}{2}})-f(x-{\tfrac {h}{2}})=\Delta _{h/2}[f](x)+\nabla _{h/2}[f](x).}
+
+Relation with derivatives
+Finite difference is often used as an approximation of the derivative, typically in numerical differentiation.
+The derivative of a function f at a point x  is defined by the limit.
+
+  
+    
+      
+        
+          f
+          ′
+        
+        (
+        x
+        )
+        =
+        
+          lim
+          
+            h
+            →
+            0
+          
+        
+        
+          
+            
+              f
+              (
+              x
+              +
+              h
+              )
+              −
+              f
+              (
+              x
+              )
+            
+            h
+          
+        
+        .
+      
+    
+    {\displaystyle f'(x)=\lim _{h\to 0}{\frac {f(x+h)-f(x)}{h}}.}
+  If h has a fixed (non-zero) value instead of approaching zero, then the right-hand side of the above equation would be written
+
+  
+    
+      
+        
+          
+            
+              f
+              (
+              x
+              +
+              h
+              )
+              −
+              f
+              (
+              x
+              )
+            
+            h
+          
+        
+        =
+        
+          
+            
+              
+                Δ
+                
+                  h
+                
+              
+              [
+              f
+              ]
+              (
+              x
+              )
+            
+            h
+          
+        
+        .
+      
+    
+    {\displaystyle {\frac {f(x+h)-f(x)}{h}}={\frac {\Delta _{h}[f](x)}{h}}.}
+  Hence, the forward difference divided by h approximates the derivative when  h is small. The error in this approximation can be derived from Taylor's theorem. Assuming that f is twice differentiable, we have
+
+  
+    
+      
+        
+          
+            
+              
+                Δ
+                
+                  h
+                
+              
+              [
+              f
+              ]
+              (
+              x
+              )
+            
+            h
+          
+        
+        −
+        
+          f
+          ′
+        
+        (
+        x
+        )
+        =
+        o
+        (
+        h
+        )
+        →
+        0
+        
+        
+          as 
+        
+        h
+        →
+        0.
+      
+    
+    {\displaystyle {\frac {\Delta _{h}[f](x)}{h}}-f'(x)=o(h)\to 0\quad {\text{as }}h\to 0.}
+  The same formula holds for the backward difference:
+
+  
+    
+      
+        
+          
+            
+              
+                ∇
+                
+                  h
+                
+              
+              [
+              f
+              ]
+              (
+              x
+              )
+            
+            h
+          
+        
+        −
+        
+          f
+          ′
+        
+        (
+        x
+        )
+        =
+        o
+        (
+        h
+        )
+        →
+        0
+        
+        
+          as 
+        
+        h
+        →
+        0.
+      
+    
+    {\displaystyle {\frac {\nabla _{h}[f](x)}{h}}-f'(x)=o(h)\to 0\quad {\text{as }}h\to 0.}
+  However, the central (also called centered) difference yields a more accurate approximation. If f is three times differentiable,
+
+  
+    
+      
+        
+          
+            
+              
+                δ
+                
+                  h
+                
+              
+              [
+              f
+              ]
+              (
+              x
+              )
+            
+            h
+          
+        
+        −
+        
+          f
+          ′
+        
+        (
+        x
+        )
+        =
+        o
+        
+          (
+          
+            h
+            
+              2
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle {\frac {\delta _{h}[f](x)}{h}}-f'(x)=o\left(h^{2}\right).}
+  The main problem with the central difference method, however, is that oscillating functions can yield zero derivative. If  f (nh) = 1  for n  odd, and f (nh) = 2  for n  even, then f ′(nh) = 0  if it is calculated with the central difference scheme. This is particularly troublesome if the domain of f  is discrete. See also Symmetric derivative.
+Authors for whom finite differences mean finite difference approximations define the forward/backward/central differences as the quotients given in this section (instead of employing the definitions given in the previous section).
+
+Higher-order differences
+In an analogous way, one can obtain finite difference approximations to higher order derivatives and differential operators. For example, by using  the above central difference formula for f ′(x + h/2)  and f ′(x − h/2)   and applying a central difference formula for the derivative of f ′ at x, we obtain the central difference approximation of the second derivative of f:
+
+Second-order central
+
+  
+    
+      
+        
+          f
+          ″
+        
+        (
+        x
+        )
+        ≈
+        
+          
+            
+              
+                δ
+                
+                  h
+                
+                
+                  2
+                
+              
+              [
+              f
+              ]
+              (
+              x
+              )
+            
+            
+              h
+              
+                2
+              
+            
+          
+        
+        =
+        
+          
+            
+              
+                
+                  
+                    f
+                    (
+                    x
+                    +
+                    h
+                    )
+                    −
+                    f
+                    (
+                    x
+                    )
+                  
+                  h
+                
+              
+              −
+              
+                
+                  
+                    f
+                    (
+                    x
+                    )
+                    −
+                    f
+                    (
+                    x
+                    −
+                    h
+                    )
+                  
+                  h
+                
+              
+            
+            h
+          
+        
+        =
+        
+          
+            
+              f
+              (
+              x
+              +
+              h
+              )
+              −
+              2
+              f
+              (
+              x
+              )
+              +
+              f
+              (
+              x
+              −
+              h
+              )
+            
+            
+              h
+              
+                2
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle f''(x)\approx {\frac {\delta _{h}^{2}[f](x)}{h^{2}}}={\frac {{\frac {f(x+h)-f(x)}{h}}-{\frac {f(x)-f(x-h)}{h}}}{h}}={\frac {f(x+h)-2f(x)+f(x-h)}{h^{2}}}.}
+  Similarly we can apply other differencing formulas in a recursive manner.
+
+Second order forward
+
+  
+    
+      
+        
+          f
+          ″
+        
+        (
+        x
+        )
+        ≈
+        
+          
+            
+              
+                Δ
+                
+                  h
+                
+                
+                  2
+                
+              
+              [
+              f
+              ]
+              (
+              x
+              )
+            
+            
+              h
+              
+                2
+              
+            
+          
+        
+        =
+        
+          
+            
+              
+                
+                  
+                    f
+                    (
+                    x
+                    +
+                    2
+                    h
+                    )
+                    −
+                    f
+                    (
+                    x
+                    +
+                    h
+                    )
+                  
+                  h
+                
+              
+              −
+              
+                
+                  
+                    f
+                    (
+                    x
+                    +
+                    h
+                    )
+                    −
+                    f
+                    (
+                    x
+                    )
+                  
+                  h
+                
+              
+            
+            h
+          
+        
+        =
+        
+          
+            
+              f
+              (
+              x
+              +
+              2
+              h
+              )
+              −
+              2
+              f
+              (
+              x
+              +
+              h
+              )
+              +
+              f
+              (
+              x
+              )
+            
+            
+              h
+              
+                2
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle f''(x)\approx {\frac {\Delta _{h}^{2}[f](x)}{h^{2}}}={\frac {{\frac {f(x+2h)-f(x+h)}{h}}-{\frac {f(x+h)-f(x)}{h}}}{h}}={\frac {f(x+2h)-2f(x+h)+f(x)}{h^{2}}}.}
+  Second order backward
+
+  
+    
+      
+        
+          f
+          ″
+        
+        (
+        x
+        )
+        ≈
+        
+          
+            
+              
+                ∇
+                
+                  h
+                
+                
+                  2
+                
+              
+              [
+              f
+              ]
+              (
+              x
+              )
+            
+            
+              h
+              
+                2
+              
+            
+          
+        
+        =
+        
+          
+            
+              
+                
+                  
+                    f
+                    (
+                    x
+                    )
+                    −
+                    f
+                    (
+                    x
+                    −
+                    h
+                    )
+                  
+                  h
+                
+              
+              −
+              
+                
+                  
+                    f
+                    (
+                    x
+                    −
+                    h
+                    )
+                    −
+                    f
+                    (
+                    x
+                    −
+                    2
+                    h
+                    )
+                  
+                  h
+                
+              
+            
+            h
+          
+        
+        =
+        
+          
+            
+              f
+              (
+              x
+              )
+              −
+              2
+              f
+              (
+              x
+              −
+              h
+              )
+              +
+              f
+              (
+              x
+              −
+              2
+              h
+              )
+            
+            
+              h
+              
+                2
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle f''(x)\approx {\frac {\nabla _{h}^{2}[f](x)}{h^{2}}}={\frac {{\frac {f(x)-f(x-h)}{h}}-{\frac {f(x-h)-f(x-2h)}{h}}}{h}}={\frac {f(x)-2f(x-h)+f(x-2h)}{h^{2}}}.}
+  More generally, the  nth order forward, backward, and central differences are given by, respectively,
+
+Forward
+
+  
+    
+      
+        
+          Δ
+          
+            h
+          
+          
+            n
+          
+        
+        [
+        f
+        ]
+        (
+        x
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            n
+          
+        
+        (
+        −
+        1
+        
+          )
+          
+            n
+            −
+            i
+          
+        
+        
+          
+            
+              (
+            
+            
+              n
+              i
+            
+            
+              )
+            
+          
+        
+        f
+        
+          
+            (
+          
+        
+        x
+        +
+        i
+        h
+        
+          
+            )
+          
+        
+        ,
+      
+    
+    {\displaystyle \Delta _{h}^{n}[f](x)=\sum _{i=0}^{n}(-1)^{n-i}{\binom {n}{i}}f{\bigl (}x+ih{\bigr )},}
+  or for h = 1,
+
+  
+    
+      
+        
+          Δ
+          
+            n
+          
+        
+        [
+        f
+        ]
+        (
+        x
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            n
+          
+        
+        
+          
+            
+              (
+            
+            
+              n
+              i
+            
+            
+              )
+            
+          
+        
+        (
+        −
+        1
+        
+          )
+          
+            n
+            −
+            i
+          
+        
+        f
+        (
+        x
+        +
+        i
+        )
+      
+    
+    {\displaystyle \Delta ^{n}[f](x)=\sum _{i=0}^{n}{\binom {n}{i}}(-1)^{n-i}f(x+i)}
+  Backward
+
+  
+    
+      
+        
+          ∇
+          
+            h
+          
+          
+            n
+          
+        
+        [
+        f
+        ]
+        (
+        x
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            n
+          
+        
+        (
+        −
+        1
+        
+          )
+          
+            i
+          
+        
+        
+          
+            
+              (
+            
+            
+              n
+              i
+            
+            
+              )
+            
+          
+        
+        f
+        (
+        x
+        −
+        i
+        h
+        )
+        ,
+      
+    
+    {\displaystyle \nabla _{h}^{n}[f](x)=\sum _{i=0}^{n}(-1)^{i}{\binom {n}{i}}f(x-ih),}
+  Central
+
+  
+    
+      
+        
+          δ
+          
+            h
+          
+          
+            n
+          
+        
+        [
+        f
+        ]
+        (
+        x
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            n
+          
+        
+        (
+        −
+        1
+        
+          )
+          
+            i
+          
+        
+        
+          
+            
+              (
+            
+            
+              n
+              i
+            
+            
+              )
+            
+          
+        
+        f
+        
+          (
+          
+            x
+            +
+            
+              (
+              
+                
+                  
+                    n
+                    2
+                  
+                
+                −
+                i
+              
+              )
+            
+            h
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle \delta _{h}^{n}[f](x)=\sum _{i=0}^{n}(-1)^{i}{\binom {n}{i}}f\left(x+\left({\frac {n}{2}}-i\right)h\right).}
+  These equations use binomial coefficients after the summation sign shown as (ni).  Each row of Pascal's triangle provides the coefficient for each value of i.
+Note that the central difference will, for odd n, have h  multiplied by non-integers. This is often a problem because it amounts to changing the interval of discretization. The problem may be remedied taking the average of δn[ f ](x − h/2) and δn[ f ](x + h/2).
+Forward differences applied to a sequence are sometimes called the binomial transform of the sequence, and have a number of interesting combinatorial properties. Forward differences may be evaluated using the Nörlund–Rice integral. The integral representation for these types of series is interesting, because the integral can often be evaluated using asymptotic expansion or saddle-point techniques; by contrast, the forward difference series can be extremely hard to evaluate numerically, because the binomial coefficients grow rapidly for large n.
+The relationship of these higher-order differences with the respective derivatives is  straightforward,
+
+  
+    
+      
+        
+          
+            
+              
+                d
+                
+                  n
+                
+              
+              f
+            
+            
+              d
+              
+                x
+                
+                  n
+                
+              
+            
+          
+        
+        (
+        x
+        )
+        =
+        
+          
+            
+              
+                Δ
+                
+                  h
+                
+                
+                  n
+                
+              
+              [
+              f
+              ]
+              (
+              x
+              )
+            
+            
+              h
+              
+                n
+              
+            
+          
+        
+        +
+        o
+        (
+        h
+        )
+        =
+        
+          
+            
+              
+                ∇
+                
+                  h
+                
+                
+                  n
+                
+              
+              [
+              f
+              ]
+              (
+              x
+              )
+            
+            
+              h
+              
+                n
+              
+            
+          
+        
+        +
+        o
+        (
+        h
+        )
+        =
+        
+          
+            
+              
+                δ
+                
+                  h
+                
+                
+                  n
+                
+              
+              [
+              f
+              ]
+              (
+              x
+              )
+            
+            
+              h
+              
+                n
+              
+            
+          
+        
+        +
+        o
+        
+          (
+          
+            h
+            
+              2
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle {\frac {d^{n}f}{dx^{n}}}(x)={\frac {\Delta _{h}^{n}[f](x)}{h^{n}}}+o(h)={\frac {\nabla _{h}^{n}[f](x)}{h^{n}}}+o(h)={\frac {\delta _{h}^{n}[f](x)}{h^{n}}}+o\left(h^{2}\right).}
+  Higher-order differences can also be used to construct better approximations. As mentioned above, the first-order difference approximates the first-order derivative up to a term of order h. However, the combination
+
+  
+    
+      
+        
+          
+            
+              
+                Δ
+                
+                  h
+                
+              
+              [
+              f
+              ]
+              (
+              x
+              )
+              −
+              
+                
+                  1
+                  2
+                
+              
+              
+                Δ
+                
+                  h
+                
+                
+                  2
+                
+              
+              [
+              f
+              ]
+              (
+              x
+              )
+            
+            h
+          
+        
+        =
+        −
+        
+          
+            
+              f
+              (
+              x
+              +
+              2
+              h
+              )
+              −
+              4
+              f
+              (
+              x
+              +
+              h
+              )
+              +
+              3
+              f
+              (
+              x
+              )
+            
+            
+              2
+              h
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\Delta _{h}[f](x)-{\frac {1}{2}}\Delta _{h}^{2}[f](x)}{h}}=-{\frac {f(x+2h)-4f(x+h)+3f(x)}{2h}}}
+  approximates f ′(x) up to a term of order h2. This can be proven by expanding the above expression in Taylor series, or by using the calculus of finite differences, explained below.
+If necessary, the finite difference can be centered about any point by mixing forward, backward, and central differences.
+
+Polynomials
+For a given polynomial of degree n ≥ 1, expressed in the function P(x), with real numbers a ≠ 0 and b and lower order terms (if any) marked as l.o.t.:
+
+  
+    
+      
+        P
+        (
+        x
+        )
+        =
+        a
+        
+          x
+          
+            n
+          
+        
+        +
+        b
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+        +
+        l
+        .
+        o
+        .
+        t
+        .
+      
+    
+    {\displaystyle P(x)=ax^{n}+bx^{n-1}+l.o.t.}
+  
+After n pairwise differences, the following result can be achieved, where h ≠ 0 is a real number marking the arithmetic difference:
+  
+    
+      
+        
+          Δ
+          
+            h
+          
+          
+            n
+          
+        
+        [
+        P
+        ]
+        (
+        x
+        )
+        =
+        a
+        
+          h
+          
+            n
+          
+        
+        n
+        !
+      
+    
+    {\displaystyle \Delta _{h}^{n}[P](x)=ah^{n}n!}
+  
+Only the coefficient of the highest-order term remains. As this result is constant with respect to x, any further pairwise differences will have the value 0.
+
+Inductive proof
+Base case
+Let Q(x) be a polynomial of degree 1:
+
+This proves it for the base case.
+
+Inductive step
+Let R(x) be a polynomial of degree m − 1 where m ≥ 2 and the coefficient of the highest-order term be a ≠ 0. Assuming the following holds true for all polynomials of degree m − 1:
+
+  
+    
+      
+        
+          Δ
+          
+            h
+          
+          
+            m
+            −
+            1
+          
+        
+        [
+        R
+        ]
+        (
+        x
+        )
+        =
+        a
+        
+          h
+          
+            m
+            −
+            1
+          
+        
+        (
+        m
+        −
+        1
+        )
+        !
+      
+    
+    {\displaystyle \Delta _{h}^{m-1}[R](x)=ah^{m-1}(m-1)!}
+  
+Let S(x) be a polynomial of degree m. With one pairwise difference:
+
+As ahm ≠ 0, this results in a polynomial T(x) of degree m − 1, with ahm as the coefficient of the highest-order term. Given the assumption above and m − 1 pairwise differences (resulting in a total of m pairwise differences for S(x)), it can be found that:
+
+  
+    
+      
+        
+          Δ
+          
+            h
+          
+          
+            m
+            −
+            1
+          
+        
+        [
+        T
+        ]
+        (
+        x
+        )
+        =
+        a
+        h
+        m
+        ⋅
+        
+          h
+          
+            m
+            −
+            1
+          
+        
+        (
+        m
+        −
+        1
+        )
+        !
+        =
+        a
+        
+          h
+          
+            m
+          
+        
+        m
+        !
+      
+    
+    {\displaystyle \Delta _{h}^{m-1}[T](x)=ahm\cdot h^{m-1}(m-1)!=ah^{m}m!}
+  This completes the proof.
+
+Application
+This identity can be used to find the lowest-degree polynomial that intercepts a number of points (x, y) where the difference on the x-axis from one point to the next is a constant h ≠ 0. For example, given the following points:
+
+We can use a differences table, where for all cells to the right of the first y, the following relation to the cells in the column immediately to the left exists for a cell (a + 1, b + 1), with the top-leftmost cell being at coordinate (0, 0):
+
+  
+    
+      
+        (
+        a
+        +
+        1
+        ,
+        b
+        +
+        1
+        )
+        =
+        (
+        a
+        ,
+        b
+        +
+        1
+        )
+        −
+        (
+        a
+        ,
+        b
+        )
+      
+    
+    {\displaystyle (a+1,b+1)=(a,b+1)-(a,b)}
+  To find the first term, the following table can be used:
+
+This arrives at a constant 648. The arithmetic difference is h=3, as established above. Given the number of pairwise differences needed to reach the constant, it can be surmised this is a polynomial of degree 3. Thus, using the identity above:
+
+  
+    
+      
+        648
+        =
+        a
+        ⋅
+        
+          3
+          
+            3
+          
+        
+        ⋅
+        3
+        !
+        =
+        a
+        ⋅
+        27
+        ⋅
+        6
+        =
+        a
+        ⋅
+        162
+      
+    
+    {\displaystyle 648=a\cdot 3^{3}\cdot 3!=a\cdot 27\cdot 6=a\cdot 162}
+  Solving for a, it can be found to have the value 4. Thus, the first term of the polynomial is 4x3.
+Then, subtracting out the first term, which lowers the polynomial's degree, and finding the finite difference again:
+
+Here, the constant is achieved after only two pairwise differences, thus the following result:
+
+  
+    
+      
+        −
+        306
+        =
+        a
+        ⋅
+        
+          3
+          
+            2
+          
+        
+        ⋅
+        2
+        !
+        =
+        a
+        ⋅
+        18
+      
+    
+    {\displaystyle -306=a\cdot 3^{2}\cdot 2!=a\cdot 18}
+  Solving for a, which is −17, the polynomial's second term is −17x2.
+Moving on to the next term, by subtracting out the second term:
+
+Thus the constant is achieved after only one pairwise difference:
+
+  
+    
+      
+        108
+        =
+        a
+        ⋅
+        
+          3
+          
+            1
+          
+        
+        ⋅
+        1
+        !
+        =
+        a
+        ⋅
+        3
+      
+    
+    {\displaystyle 108=a\cdot 3^{1}\cdot 1!=a\cdot 3}
+  It can be found that a = 36 and thus the third term of the polynomial is 36x. Subtracting out the third term:
+
+Without any pairwise differences, it is found that the 4th and final term of the polynomial is the constant -19. Thus, the lowest-degree polynomial intercepting all the points in the first table is found:
+
+  
+    
+      
+        4
+        
+          x
+          
+            3
+          
+        
+        −
+        17
+        
+          x
+          
+            2
+          
+        
+        +
+        36
+        x
+        −
+        19
+      
+    
+    {\displaystyle 4x^{3}-17x^{2}+36x-19}
+
+Arbitrarily sized kernels
+Using linear algebra one can construct finite difference approximations which utilize an arbitrary number of points to the left and a (possibly different) number of points to the right of the evaluation point, for any order derivative. This involves solving a linear system such that the Taylor expansion of the sum of those points around the evaluation point best approximates the Taylor expansion of the desired derivative. Such formulas can be represented graphically on a hexagonal or diamond-shaped grid.This is useful for differentiating a function on a grid, where, as one approaches the edge of the grid, one must sample fewer and fewer points on one side.
+The details are outlined in these notes.
+The Finite Difference Coefficients Calculator constructs finite difference approximations for non-standard (and even non-integer) stencils given an arbitrary stencil and a desired derivative order.
+
+Properties
+For all positive k and n 
+Leibniz rule:
+
+In differential equations
+An important application of finite differences is in numerical analysis, especially in numerical differential equations, which aim at the numerical solution of ordinary and partial differential equations. The idea is to replace the derivatives appearing in the differential equation by finite differences that approximate them. The resulting methods are called finite difference methods.
+Common applications of the finite difference method are in computational science and engineering disciplines, such as thermal engineering, fluid mechanics, etc.
+
+Newton's series
+The Newton series consists of the terms of the Newton forward difference equation, named after Isaac Newton;  in essence, it is  the Gregory–Newton interpolation formula (named after Isaac Newton and James Gregory), first published in his Principia Mathematica in 1687,  namely the discrete analog of the continuous Taylor expansion,
+
+which holds for any polynomial function f and for many (but not all)  analytic functions. (It does not hold when f is exponential type 
+  
+    
+      
+        π
+      
+    
+    {\displaystyle \pi }
+  . This is easily seen, as the sine function vanishes at integer multiples of 
+  
+    
+      
+        π
+      
+    
+    {\displaystyle \pi }
+  ; the corresponding Newton series is identically zero, as all finite differences are zero in this case. Yet clearly, the sine function is not zero.) Here, the expression
+
+  
+    
+      
+        
+          
+            
+              (
+            
+            
+              x
+              k
+            
+            
+              )
+            
+          
+        
+        =
+        
+          
+            
+              (
+              x
+              
+                )
+                
+                  k
+                
+              
+            
+            
+              k
+              !
+            
+          
+        
+      
+    
+    {\displaystyle {\binom {x}{k}}={\frac {(x)_{k}}{k!}}}
+  is the binomial coefficient, and
+
+  
+    
+      
+        (
+        x
+        
+          )
+          
+            k
+          
+        
+        =
+        x
+        (
+        x
+        −
+        1
+        )
+        (
+        x
+        −
+        2
+        )
+        ⋯
+        (
+        x
+        −
+        k
+        +
+        1
+        )
+      
+    
+    {\displaystyle (x)_{k}=x(x-1)(x-2)\cdots (x-k+1)}
+  is the "falling factorial" or "lower factorial", while  the empty product (x)0 is defined to be 1.  In this particular case, there is an assumption of unit steps for the changes in the values of x, h = 1 of the generalization below.
+Note the formal correspondence of this result to Taylor's theorem.  Historically, this, as well as the Chu–Vandermonde identity,  
+
+  
+    
+      
+        (
+        x
+        +
+        y
+        
+          )
+          
+            n
+          
+        
+        =
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            n
+          
+        
+        
+          
+            
+              (
+            
+            
+              n
+              k
+            
+            
+              )
+            
+          
+        
+        (
+        x
+        
+          )
+          
+            n
+            −
+            k
+          
+        
+        
+        (
+        y
+        
+          )
+          
+            k
+          
+        
+        ,
+      
+    
+    {\displaystyle (x+y)_{n}=\sum _{k=0}^{n}{\binom {n}{k}}(x)_{n-k}\,(y)_{k},}
+  (following from it, and corresponding to the binomial theorem),  are included in the observations that matured to the system of umbral calculus.
+Newton series expansions can be superior to Taylor series expansions when applied to discrete quantities like quantum spins (see Holstein–Primakoff transformation), bosonic operator functions or discrete counting statistics.To illustrate how one may use Newton's formula in actual practice, consider the first few terms of doubling the Fibonacci sequence f = 2, 2, 4, ... One can find a polynomial that reproduces these values, by first computing a difference table, and then substituting the differences that correspond to x0 (underlined) into the formula as follows,
+
+For the case of nonuniform steps in the values of x, Newton computes the divided differences,
+
+the series of products,
+
+  
+    
+      
+        
+          
+            P
+            
+              0
+            
+          
+        
+        =
+        1
+        ,
+        
+        
+        
+          P
+          
+            k
+            +
+            1
+          
+        
+        =
+        
+          P
+          
+            k
+          
+        
+        ⋅
+        
+          (
+          
+            ξ
+            −
+            
+              x
+              
+                k
+              
+            
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle {P_{0}}=1,\quad \quad P_{k+1}=P_{k}\cdot \left(\xi -x_{k}\right),}
+  and the resulting polynomial is the scalar product,
+
+  
+    
+      
+        f
+        (
+        ξ
+        )
+        =
+        Δ
+        0
+        ⋅
+        P
+        
+          (
+          ξ
+          )
+        
+      
+    
+    {\displaystyle f(\xi )=\Delta 0\cdot P\left(\xi \right)}
+   .In analysis with p-adic numbers, Mahler's theorem states that the assumption that f is a polynomial function can be weakened all the way to the assumption that f is merely continuous.
+Carlson's theorem provides necessary and sufficient conditions for a Newton series to be unique, if it exists. However, a Newton series does not, in general, exist.
+The Newton series, together with the Stirling series and the Selberg series, is a special case of the general difference series, all of which are defined in terms of suitably scaled forward differences.
+In a compressed and slightly more general form and equidistant nodes the formula reads
+
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        
+          ∑
+          
+            k
+            =
+            0
+          
+        
+        
+          
+            
+              (
+            
+            
+              
+                
+                  x
+                  −
+                  a
+                
+                h
+              
+              k
+            
+            
+              )
+            
+          
+        
+        
+          ∑
+          
+            j
+            =
+            0
+          
+          
+            k
+          
+        
+        (
+        −
+        1
+        
+          )
+          
+            k
+            −
+            j
+          
+        
+        
+          
+            
+              (
+            
+            
+              k
+              j
+            
+            
+              )
+            
+          
+        
+        f
+        (
+        a
+        +
+        j
+        h
+        )
+        .
+      
+    
+    {\displaystyle f(x)=\sum _{k=0}{\binom {\frac {x-a}{h}}{k}}\sum _{j=0}^{k}(-1)^{k-j}{\binom {k}{j}}f(a+jh).}
+
+Calculus of finite differences
+The forward difference can be considered as an operator, called the difference operator, which maps the function f to Δh[ f ]. This operator amounts to
+
+  
+    
+      
+        
+          Δ
+          
+            h
+          
+        
+        =
+        
+          T
+          
+            h
+          
+        
+        −
+        I
+        ,
+      
+    
+    {\displaystyle \Delta _{h}=T_{h}-I,}
+  where Th is the shift operator with step h, defined by Th[ f ](x) = f (x + h),  and I is the identity operator.
+The finite difference of higher orders can be defined in recursive manner as Δnh ≡ Δh(Δn − 1h).   Another equivalent definition is Δnh = [Th − I]n.
+The difference operator Δh is a linear operator, as such it satisfies Δh[αf + βg](x) = α Δh[ f ](x) + β Δh[g](x).
+It also satisfies a special Leibniz rule indicated above,
+Δh(f (x)g(x)) = (Δhf (x)) g(x+h) + f (x) (Δhg(x)).  Similar statements hold for the backward and central differences.
+Formally applying the Taylor series with respect to h, yields the formula
+
+  
+    
+      
+        
+          Δ
+          
+            h
+          
+        
+        =
+        h
+        D
+        +
+        
+          
+            1
+            
+              2
+              !
+            
+          
+        
+        
+          h
+          
+            2
+          
+        
+        
+          D
+          
+            2
+          
+        
+        +
+        
+          
+            1
+            
+              3
+              !
+            
+          
+        
+        
+          h
+          
+            3
+          
+        
+        
+          D
+          
+            3
+          
+        
+        +
+        ⋯
+        =
+        
+          
+            e
+          
+          
+            h
+            D
+          
+        
+        −
+        I
+        ,
+      
+    
+    {\displaystyle \Delta _{h}=hD+{\frac {1}{2!}}h^{2}D^{2}+{\frac {1}{3!}}h^{3}D^{3}+\cdots =\mathrm {e} ^{hD}-I,}
+  where D denotes the continuum derivative operator, mapping f to its derivative f ′. The expansion is valid when both sides act on analytic functions, for sufficiently small h. Thus, Th = ehD, and formally inverting the exponential yields 
+
+  
+    
+      
+        h
+        D
+        =
+        ln
+        ⁡
+        (
+        1
+        +
+        
+          Δ
+          
+            h
+          
+        
+        )
+        =
+        
+          Δ
+          
+            h
+          
+        
+        −
+        
+          
+            
+              1
+              2
+            
+          
+        
+        
+        
+          Δ
+          
+            h
+          
+          
+            2
+          
+        
+        +
+        
+          
+            
+              1
+              3
+            
+          
+        
+        
+        
+          Δ
+          
+            h
+          
+          
+            3
+          
+        
+        −
+        ⋯
+        .
+      
+    
+    {\displaystyle hD=\ln(1+\Delta _{h})=\Delta _{h}-{\tfrac {1}{2}}\,\Delta _{h}^{2}+{\tfrac {1}{3}}\,\Delta _{h}^{3}-\cdots .}
+  This formula holds in the sense that both operators give the same result when applied to a polynomial.
+Even for analytic functions, the series on the right is not guaranteed to converge; it may be an asymptotic series. However, it can be used to obtain more accurate approximations for the derivative. For instance, retaining the first two terms of the series yields the second-order approximation to f ′(x) mentioned at the end of the section Higher-order differences.
+The analogous formulas for the backward and central difference operators are
+
+  
+    
+      
+        h
+        D
+        =
+        −
+        ln
+        ⁡
+        (
+        1
+        −
+        
+          ∇
+          
+            h
+          
+        
+        )
+        
+        
+          and
+        
+        
+        h
+        D
+        =
+        2
+        arsinh
+        ⁡
+        
+          (
+          
+            
+              
+                
+                  1
+                  2
+                
+              
+            
+            
+            
+              δ
+              
+                h
+              
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle hD=-\ln(1-\nabla _{h})\quad {\text{and}}\quad hD=2\operatorname {arsinh} \left({\tfrac {1}{2}}\,\delta _{h}\right).}
+  The calculus of finite differences is related to the umbral calculus of combinatorics. This remarkably systematic correspondence is due to the identity of the commutators of the umbral quantities to their continuum analogs (h → 0 limits),
+
+A large number of formal differential relations of standard calculus involving 
+functions f (x) thus map systematically to umbral finite-difference analogs involving f (xT−1h).
+For instance, the umbral analog of a monomial xn is a generalization of the above falling factorial (Pochhammer k-symbol),  
+
+  
+    
+      
+         
+        (
+        x
+        
+          )
+          
+            n
+          
+        
+        ≡
+        
+          
+            (
+            
+              x
+              
+                T
+                
+                  h
+                
+                
+                  −
+                  1
+                
+              
+            
+            )
+          
+          
+            n
+          
+        
+        =
+        x
+        (
+        x
+        −
+        h
+        )
+        (
+        x
+        −
+        2
+        h
+        )
+        ⋯
+        
+          
+            (
+          
+        
+        x
+        −
+        (
+        n
+        −
+        1
+        )
+        h
+        
+          
+            )
+          
+        
+        ,
+      
+    
+    {\displaystyle ~(x)_{n}\equiv \left(xT_{h}^{-1}\right)^{n}=x(x-h)(x-2h)\cdots {\bigl (}x-(n-1)h{\bigr )},}
+  so that 
+
+  
+    
+      
+        
+          
+            
+              Δ
+              
+                h
+              
+            
+            h
+          
+        
+        (
+        x
+        
+          )
+          
+            n
+          
+        
+        =
+        n
+        (
+        x
+        
+          )
+          
+            n
+            −
+            1
+          
+        
+        ,
+      
+    
+    {\displaystyle {\frac {\Delta _{h}}{h}}(x)_{n}=n(x)_{n-1},}
+  hence the above Newton interpolation formula (by matching coefficients in the expansion of an arbitrary function f (x) in such symbols), and so on.
+For example, the umbral sine is
+
+  
+    
+      
+        sin
+        ⁡
+        
+          (
+          
+            x
+            
+            
+              T
+              
+                h
+              
+              
+                −
+                1
+              
+            
+          
+          )
+        
+        =
+        x
+        −
+        
+          
+            
+              (
+              x
+              
+                )
+                
+                  3
+                
+              
+            
+            
+              3
+              !
+            
+          
+        
+        +
+        
+          
+            
+              (
+              x
+              
+                )
+                
+                  5
+                
+              
+            
+            
+              5
+              !
+            
+          
+        
+        −
+        
+          
+            
+              (
+              x
+              
+                )
+                
+                  7
+                
+              
+            
+            
+              7
+              !
+            
+          
+        
+        +
+        ⋯
+      
+    
+    {\displaystyle \sin \left(x\,T_{h}^{-1}\right)=x-{\frac {(x)_{3}}{3!}}+{\frac {(x)_{5}}{5!}}-{\frac {(x)_{7}}{7!}}+\cdots }
+  As in the continuum limit, the eigenfunction of  Δh/h also happens to be an exponential,
+
+  
+    
+      
+        
+          
+            
+              Δ
+              
+                h
+              
+            
+            h
+          
+        
+        (
+        1
+        +
+        λ
+        h
+        
+          )
+          
+            
+              x
+              h
+            
+          
+        
+        =
+        
+          
+            
+              Δ
+              
+                h
+              
+            
+            h
+          
+        
+        
+          e
+          
+            ln
+            ⁡
+            (
+            1
+            +
+            λ
+            h
+            )
+            
+              
+                x
+                h
+              
+            
+          
+        
+        =
+        λ
+        
+          e
+          
+            ln
+            ⁡
+            (
+            1
+            +
+            λ
+            h
+            )
+            
+              
+                x
+                h
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle {\frac {\Delta _{h}}{h}}(1+\lambda h)^{\frac {x}{h}}={\frac {\Delta _{h}}{h}}e^{\ln(1+\lambda h){\frac {x}{h}}}=\lambda e^{\ln(1+\lambda h){\frac {x}{h}}},}
+  and hence Fourier sums of continuum functions are readily mapped to umbral Fourier sums faithfully, i.e., involving the same Fourier coefficients multiplying these umbral basis exponentials.  This umbral exponential thus amounts to the exponential generating function of the Pochhammer symbols.
+Thus, for instance,  the Dirac delta function maps to its umbral correspondent, the cardinal sine function,
+
+  
+    
+      
+        δ
+        (
+        x
+        )
+        ↦
+        
+          
+            
+              sin
+              ⁡
+              
+                [
+                
+                  
+                    
+                      π
+                      2
+                    
+                  
+                  
+                    (
+                    
+                      1
+                      +
+                      
+                        
+                          x
+                          h
+                        
+                      
+                    
+                    )
+                  
+                
+                ]
+              
+            
+            
+              π
+              (
+              x
+              +
+              h
+              )
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle \delta (x)\mapsto {\frac {\sin \left[{\frac {\pi }{2}}\left(1+{\frac {x}{h}}\right)\right]}{\pi (x+h)}},}
+  and so forth.  Difference equations can often be solved with techniques very similar to those for solving differential equations.
+The inverse operator of the forward difference operator, so then the umbral integral, is the indefinite sum or antidifference operator.
+
+Rules for calculus of finite difference operators
+Analogous to rules for finding the derivative, we have:
+
+Constant rule: If c is a constant, then
+  
+    
+      
+        Δ
+        c
+        =
+        0
+      
+    
+    {\displaystyle \Delta c=0}
+  Linearity: if a and b are constants,
+  
+    
+      
+        Δ
+        (
+        a
+         
+        f
+        +
+        b
+         
+        g
+        )
+        =
+        a
+         
+        Δ
+        f
+        +
+        b
+         
+        Δ
+        g
+      
+    
+    {\displaystyle \Delta (a\ f+b\ g)=a\ \Delta f+b\ \Delta g}
+  All of the above rules apply equally well to any difference operator as to Δ, including δ and ∇.
+
+Product rule:
+  
+    
+      
+        
+          
+            
+              
+                Δ
+                (
+                f
+                g
+                )
+              
+              
+                
+                =
+                f
+                
+                Δ
+                g
+                +
+                g
+                
+                Δ
+                f
+                +
+                Δ
+                f
+                
+                Δ
+                g
+              
+            
+            
+              
+                ∇
+                (
+                f
+                g
+                )
+              
+              
+                
+                =
+                f
+                
+                ∇
+                g
+                +
+                g
+                
+                ∇
+                f
+                −
+                ∇
+                f
+                
+                ∇
+                g
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\Delta (fg)&=f\,\Delta g+g\,\Delta f+\Delta f\,\Delta g\\[4pt]\nabla (fg)&=f\,\nabla g+g\,\nabla f-\nabla f\,\nabla g\end{aligned}}}
+  Quotient rule:
+  
+    
+      
+        ∇
+        
+          (
+          
+            
+              f
+              g
+            
+          
+          )
+        
+        =
+        
+          
+          
+            (
+            
+              det
+              
+                
+                  [
+                  
+                    
+                      
+                        ∇
+                        f
+                      
+                      
+                        ∇
+                        g
+                      
+                    
+                    
+                      
+                        f
+                      
+                      
+                        g
+                      
+                    
+                  
+                  ]
+                
+              
+            
+            )
+          
+          /
+        
+        
+          (
+          
+            g
+            ⋅
+            det
+            
+              
+                [
+                
+                  
+                    
+                      g
+                    
+                    
+                      ∇
+                      g
+                    
+                  
+                  
+                    
+                      1
+                    
+                    
+                      1
+                    
+                  
+                
+                ]
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \nabla \left({\frac {f}{g}}\right)=\left.\left(\det {\begin{bmatrix}\nabla f&\nabla g\\f&g\end{bmatrix}}\right)\right/\left(g\cdot \det {\begin{bmatrix}g&\nabla g\\1&1\end{bmatrix}}\right)}
+  
+or
+
+  
+    
+      
+        ∇
+        
+          (
+          
+            
+              f
+              g
+            
+          
+          )
+        
+        =
+        
+          
+            
+              g
+              
+              ∇
+              f
+              −
+              f
+              
+              ∇
+              g
+            
+            
+              g
+              ⋅
+              (
+              g
+              −
+              ∇
+              g
+              )
+            
+          
+        
+      
+    
+    {\displaystyle \nabla \left({\frac {f}{g}}\right)={\frac {g\,\nabla f-f\,\nabla g}{g\cdot (g-\nabla g)}}}
+  Summation rules:
+  
+    
+      
+        
+          
+            
+              
+                
+                  ∑
+                  
+                    n
+                    =
+                    a
+                  
+                  
+                    b
+                  
+                
+                Δ
+                f
+                (
+                n
+                )
+              
+              
+                
+                =
+                f
+                (
+                b
+                +
+                1
+                )
+                −
+                f
+                (
+                a
+                )
+              
+            
+            
+              
+                
+                  ∑
+                  
+                    n
+                    =
+                    a
+                  
+                  
+                    b
+                  
+                
+                ∇
+                f
+                (
+                n
+                )
+              
+              
+                
+                =
+                f
+                (
+                b
+                )
+                −
+                f
+                (
+                a
+                −
+                1
+                )
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\sum _{n=a}^{b}\Delta f(n)&=f(b+1)-f(a)\\\sum _{n=a}^{b}\nabla f(n)&=f(b)-f(a-1)\end{aligned}}}
+  See references.
+
+Generalizations
+A generalized finite difference is usually defined as  where μ = (μ0, …, μN) is its coefficient vector. An infinite difference is a further generalization, where the finite sum above is replaced by an infinite series. Another way of generalization is making coefficients μk depend on point x: μk = μk(x), thus considering weighted finite difference. Also one may make the step h depend on point x: h = h(x). Such generalizations are useful for constructing different modulus of continuity.
+The generalized difference can be seen as the polynomial rings R[Th]. It leads to difference algebras.
+Difference operator generalizes to Möbius inversion over a partially ordered set.
+As a convolution operator: Via the formalism of incidence algebras, difference operators and other Möbius inversion can be represented by convolution with a function on the poset, called the Möbius function μ; for the difference operator, μ is the sequence (1, −1, 0, 0, 0, …).
+
+Multivariate finite differences
+Finite differences can be considered in more than one variable. They are analogous to partial derivatives in several variables.
+Some partial derivative approximations are:
+
+Alternatively, for applications in which the computation of f  is the most costly step, and both first and second derivatives must be computed, a more efficient formula for the last case is
+
+since the only values to compute that are not already needed for the previous four equations are f (x + h, y + k)   and f (x − h, y − k).
+
+See also
+References
+Richardson, C. H. (1954): An Introduction to the Calculus of Finite Differences (Van Nostrand (1954) online copy
+Mickens, R. E. (1991): Difference Equations: Theory and Applications (Chapman and Hall/CRC) ISBN 978-0442001360
+
+External links
+"Finite-difference calculus", Encyclopedia of Mathematics, EMS Press, 2001 [1994]
+Table of useful finite difference formula generated using Mathematica
+D. Gleich (2005),  Finite Calculus: A Tutorial for Solving Nasty Sums
+Discrete Second Derivative from Unevenly Spaced Points

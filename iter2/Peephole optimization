@@ -1,0 +1,67 @@
+Peephole optimization is an optimization technique performed on a small set of compiler-generated instructions; the small set is known as the peephole or window.Peephole optimization involves changing the small set of instructions to an equivalent set that has better performance.
+For example:
+
+instead of pushing register A onto the stack and then immediately popping the value back into register A, a peephole optimization would remove both instructions;
+instead of adding A to A, a peephole optimization might do an arithmetic shift left;
+instead of multiplying a floating point register by 8, a peephole optimization might scale the floating point register's exponent by 3; and
+instead of multiplying an index by 4, adding the result to a base address to get a pointer value, and then dereferencing the pointer, a peephole optimization might use a hardware addressing mode that accomplishes the same result with one instruction.The term peephole optimization was introduced by William Marshall McKeeman in 1965.
+
+Replacement rules
+Common techniques applied in peephole optimization:
+Null sequences – Delete useless operations.
+Combine operations – Replace several operations with one equivalent.
+Algebraic laws – Use algebraic laws to simplify or reorder instructions.
+Special case instructions – Use instructions designed for special operand cases.
+Address mode operations – Use address modes to simplify code.There can be other types of peephole optimizations.
+
+Examples
+Replacing slow instructions with faster ones
+The following Java bytecode
+
+...
+aload 1
+aload 1
+mul
+...
+
+can be replaced by
+
+...
+aload 1
+dup
+mul
+...
+
+This kind of optimization, like most peephole optimizations, makes certain assumptions about the efficiency of instructions. For instance, in this case, it is assumed that the dup operation (which duplicates and pushes the top of the stack) is more efficient than the aload X operation (which loads a local variable identified as X and pushes it on the stack).
+
+Removing redundant code
+Another example is to eliminate redundant load stores.
+
+ a = b + c;
+ d = a + e;
+
+is straightforwardly implemented as
+
+but can be optimised to
+
+Removing redundant stack instructions
+If the compiler saves registers on the stack before calling a subroutine and restores them when returning, consecutive calls to subroutines may have redundant stack instructions.
+Suppose the compiler generates the following Z80 instructions for each procedure call:
+
+If there were two consecutive subroutine calls, they would look like this:
+
+The sequence POP regs followed by PUSH for the same registers is generally redundant. In cases where it is redundant, a peephole optimization would remove these instructions. In the example, this would cause another redundant POP/PUSH pair to appear in the peephole, and these would be removed in turn. Assuming that subroutine _ADDR2 does not depend on previous register values, removing all of the redundant code in the example above would eventually leave the following code:
+
+Implementation
+Modern compilers often implement peephole optimizations with a pattern matching algorithm.
+
+See also
+Object code optimizers, discussion in relation to general algorithmic efficiency
+Capex Corporation – produced the COBOL optimizer, an early mainframe object code optimizer for IBM Cobol
+Superoptimization
+Digital Research XLT86, an optimizing assembly source-to-source compiler
+
+References
+External links
+The copt general-purpose peephole optimizer by Christopher W. Fraser
+The original paper The dictionary definition of peephole optimization at Wiktionary

@@ -1,0 +1,4335 @@
+In numerical analysis, the Runge–Kutta methods (English:   RUUNG-ə-KUUT-tah) are a family of implicit and explicit iterative methods, which include the Euler method, used in temporal discretization for the approximate solutions of simultaneous nonlinear equations. These methods were developed around 1900 by the German mathematicians Carl Runge and Wilhelm Kutta.
+
+The Runge–Kutta method
+The most widely known member of the Runge–Kutta family is generally referred to as "RK4", the "classic Runge–Kutta method" or simply as "the Runge–Kutta method".
+Let an initial value problem be specified as follows:
+
+  
+    
+      
+        
+          
+            
+              d
+              y
+            
+            
+              d
+              t
+            
+          
+        
+        =
+        f
+        (
+        t
+        ,
+        y
+        )
+        ,
+        
+        y
+        (
+        
+          t
+          
+            0
+          
+        
+        )
+        =
+        
+          y
+          
+            0
+          
+        
+        .
+      
+    
+    {\displaystyle {\frac {dy}{dt}}=f(t,y),\quad y(t_{0})=y_{0}.}
+  Here 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   is an unknown function (scalar or vector) of time 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  , which we would like to approximate; we are told that 
+  
+    
+      
+        
+          
+            
+              d
+              y
+            
+            
+              d
+              t
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {dy}{dt}}}
+  , the rate at which 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   changes, is a function of 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   and of 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   itself. At the initial time 
+  
+    
+      
+        
+          t
+          
+            0
+          
+        
+      
+    
+    {\displaystyle t_{0}}
+   the corresponding 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   value is 
+  
+    
+      
+        
+          y
+          
+            0
+          
+        
+      
+    
+    {\displaystyle y_{0}}
+  . The function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   and the initial conditions 
+  
+    
+      
+        
+          t
+          
+            0
+          
+        
+      
+    
+    {\displaystyle t_{0}}
+  ,  
+  
+    
+      
+        
+          y
+          
+            0
+          
+        
+      
+    
+    {\displaystyle y_{0}}
+   are given.
+Now we pick a step-size h > 0 and define:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  y
+                  
+                    n
+                    +
+                    1
+                  
+                
+              
+              
+                
+                =
+                
+                  y
+                  
+                    n
+                  
+                
+                +
+                
+                  
+                    h
+                    6
+                  
+                
+                
+                  (
+                  
+                    
+                      k
+                      
+                        1
+                      
+                    
+                    +
+                    2
+                    
+                      k
+                      
+                        2
+                      
+                    
+                    +
+                    2
+                    
+                      k
+                      
+                        3
+                      
+                    
+                    +
+                    
+                      k
+                      
+                        4
+                      
+                    
+                  
+                  )
+                
+                ,
+              
+            
+            
+              
+                
+                  t
+                  
+                    n
+                    +
+                    1
+                  
+                
+              
+              
+                
+                =
+                
+                  t
+                  
+                    n
+                  
+                
+                +
+                h
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}y_{n+1}&=y_{n}+{\frac {h}{6}}\left(k_{1}+2k_{2}+2k_{3}+k_{4}\right),\\t_{n+1}&=t_{n}+h\\\end{aligned}}}
+  for n = 0, 1, 2, 3, ..., using
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  k
+                  
+                    1
+                  
+                
+              
+              
+                
+                =
+                 
+                f
+                (
+                
+                  t
+                  
+                    n
+                  
+                
+                ,
+                
+                  y
+                  
+                    n
+                  
+                
+                )
+                ,
+              
+            
+            
+              
+                
+                  k
+                  
+                    2
+                  
+                
+              
+              
+                
+                =
+                 
+                f
+                
+                
+                  (
+                  
+                    
+                      t
+                      
+                        n
+                      
+                    
+                    +
+                    
+                      
+                        h
+                        2
+                      
+                    
+                    ,
+                    
+                      y
+                      
+                        n
+                      
+                    
+                    +
+                    h
+                    
+                      
+                        
+                          k
+                          
+                            1
+                          
+                        
+                        2
+                      
+                    
+                  
+                  )
+                
+                ,
+              
+            
+            
+              
+                
+                  k
+                  
+                    3
+                  
+                
+              
+              
+                
+                =
+                 
+                f
+                
+                
+                  (
+                  
+                    
+                      t
+                      
+                        n
+                      
+                    
+                    +
+                    
+                      
+                        h
+                        2
+                      
+                    
+                    ,
+                    
+                      y
+                      
+                        n
+                      
+                    
+                    +
+                    h
+                    
+                      
+                        
+                          k
+                          
+                            2
+                          
+                        
+                        2
+                      
+                    
+                  
+                  )
+                
+                ,
+              
+            
+            
+              
+                
+                  k
+                  
+                    4
+                  
+                
+              
+              
+                
+                =
+                 
+                f
+                
+                
+                  (
+                  
+                    
+                      t
+                      
+                        n
+                      
+                    
+                    +
+                    h
+                    ,
+                    
+                      y
+                      
+                        n
+                      
+                    
+                    +
+                    h
+                    
+                      k
+                      
+                        3
+                      
+                    
+                  
+                  )
+                
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}k_{1}&=\ f(t_{n},y_{n}),\\k_{2}&=\ f\!\left(t_{n}+{\frac {h}{2}},y_{n}+h{\frac {k_{1}}{2}}\right),\\k_{3}&=\ f\!\left(t_{n}+{\frac {h}{2}},y_{n}+h{\frac {k_{2}}{2}}\right),\\k_{4}&=\ f\!\left(t_{n}+h,y_{n}+hk_{3}\right).\end{aligned}}}
+  
+(Note: the above equations have different but equivalent definitions in different texts.)Here 
+  
+    
+      
+        
+          y
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle y_{n+1}}
+   is the RK4 approximation of 
+  
+    
+      
+        y
+        (
+        
+          t
+          
+            n
+            +
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle y(t_{n+1})}
+  , and the next value (
+  
+    
+      
+        
+          y
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle y_{n+1}}
+  ) is determined by the present value (
+  
+    
+      
+        
+          y
+          
+            n
+          
+        
+      
+    
+    {\displaystyle y_{n}}
+  ) plus the weighted average of four increments, where each increment is the product of the size of the interval, h, and an estimated slope specified by function f on the right-hand side of the differential equation.
+
+  
+    
+      
+        
+          k
+          
+            1
+          
+        
+      
+    
+    {\displaystyle k_{1}}
+   is the slope at the beginning of the interval, using 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   (Euler's method);
+
+  
+    
+      
+        
+          k
+          
+            2
+          
+        
+      
+    
+    {\displaystyle k_{2}}
+   is the slope at the midpoint of the interval, using 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   and 
+  
+    
+      
+        
+          k
+          
+            1
+          
+        
+      
+    
+    {\displaystyle k_{1}}
+  ;
+
+  
+    
+      
+        
+          k
+          
+            3
+          
+        
+      
+    
+    {\displaystyle k_{3}}
+   is again the slope at the midpoint, but now using 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   and 
+  
+    
+      
+        
+          k
+          
+            2
+          
+        
+      
+    
+    {\displaystyle k_{2}}
+  ;
+
+  
+    
+      
+        
+          k
+          
+            4
+          
+        
+      
+    
+    {\displaystyle k_{4}}
+   is the slope at the end of the interval, using 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   and 
+  
+    
+      
+        
+          k
+          
+            3
+          
+        
+      
+    
+    {\displaystyle k_{3}}
+  .In averaging the four slopes, greater weight is given to the slopes at the midpoint. If 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is independent of 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  , so that the differential equation is equivalent to a simple integral, then RK4 is Simpson's rule.The RK4 method is a fourth-order method, meaning that the local truncation error is on the order of 
+  
+    
+      
+        O
+        (
+        
+          h
+          
+            5
+          
+        
+        )
+      
+    
+    {\displaystyle O(h^{5})}
+  , while the  total accumulated error is on the order of 
+  
+    
+      
+        O
+        (
+        
+          h
+          
+            4
+          
+        
+        )
+      
+    
+    {\displaystyle O(h^{4})}
+  .
+In many practical applications the function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is independent of 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   (so called autonomous system, or time-invariant system, especially in physics), and their increments are not computed at all and not passed to function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  , with only the final formula for 
+  
+    
+      
+        
+          t
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle t_{n+1}}
+   used.
+
+Explicit Runge–Kutta methods
+The family of explicit Runge–Kutta methods is a generalization of the RK4 method mentioned above. It is given by
+
+  
+    
+      
+        
+          y
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          y
+          
+            n
+          
+        
+        +
+        h
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            s
+          
+        
+        
+          b
+          
+            i
+          
+        
+        
+          k
+          
+            i
+          
+        
+        ,
+      
+    
+    {\displaystyle y_{n+1}=y_{n}+h\sum _{i=1}^{s}b_{i}k_{i},}
+  where
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  k
+                  
+                    1
+                  
+                
+              
+              
+                
+                =
+                f
+                (
+                
+                  t
+                  
+                    n
+                  
+                
+                ,
+                
+                  y
+                  
+                    n
+                  
+                
+                )
+                ,
+              
+            
+            
+              
+                
+                  k
+                  
+                    2
+                  
+                
+              
+              
+                
+                =
+                f
+                (
+                
+                  t
+                  
+                    n
+                  
+                
+                +
+                
+                  c
+                  
+                    2
+                  
+                
+                h
+                ,
+                
+                  y
+                  
+                    n
+                  
+                
+                +
+                (
+                
+                  a
+                  
+                    21
+                  
+                
+                
+                  k
+                  
+                    1
+                  
+                
+                )
+                h
+                )
+                ,
+              
+            
+            
+              
+                
+                  k
+                  
+                    3
+                  
+                
+              
+              
+                
+                =
+                f
+                (
+                
+                  t
+                  
+                    n
+                  
+                
+                +
+                
+                  c
+                  
+                    3
+                  
+                
+                h
+                ,
+                
+                  y
+                  
+                    n
+                  
+                
+                +
+                (
+                
+                  a
+                  
+                    31
+                  
+                
+                
+                  k
+                  
+                    1
+                  
+                
+                +
+                
+                  a
+                  
+                    32
+                  
+                
+                
+                  k
+                  
+                    2
+                  
+                
+                )
+                h
+                )
+                ,
+              
+            
+            
+              
+              
+                 
+                 
+                ⋮
+              
+            
+            
+              
+                
+                  k
+                  
+                    s
+                  
+                
+              
+              
+                
+                =
+                f
+                (
+                
+                  t
+                  
+                    n
+                  
+                
+                +
+                
+                  c
+                  
+                    s
+                  
+                
+                h
+                ,
+                
+                  y
+                  
+                    n
+                  
+                
+                +
+                (
+                
+                  a
+                  
+                    s
+                    1
+                  
+                
+                
+                  k
+                  
+                    1
+                  
+                
+                +
+                
+                  a
+                  
+                    s
+                    2
+                  
+                
+                
+                  k
+                  
+                    2
+                  
+                
+                +
+                ⋯
+                +
+                
+                  a
+                  
+                    s
+                    ,
+                    s
+                    −
+                    1
+                  
+                
+                
+                  k
+                  
+                    s
+                    −
+                    1
+                  
+                
+                )
+                h
+                )
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}k_{1}&=f(t_{n},y_{n}),\\k_{2}&=f(t_{n}+c_{2}h,y_{n}+(a_{21}k_{1})h),\\k_{3}&=f(t_{n}+c_{3}h,y_{n}+(a_{31}k_{1}+a_{32}k_{2})h),\\&\ \ \vdots \\k_{s}&=f(t_{n}+c_{s}h,y_{n}+(a_{s1}k_{1}+a_{s2}k_{2}+\cdots +a_{s,s-1}k_{s-1})h).\end{aligned}}}
+  
+(Note: the above equations may have different but equivalent definitions in some texts.)To specify a particular method, one needs to provide the integer s (the number of stages), and the coefficients aij (for 1 ≤ j < i ≤ s), bi (for i = 1, 2, ..., s) and ci (for i = 2, 3, ..., s). The matrix [aij] is called the Runge–Kutta matrix, while the bi and ci are known as the weights and the nodes. These data are usually arranged in a mnemonic device, known as a Butcher tableau (after John C. Butcher):
+
+A Taylor series expansion shows that the Runge–Kutta method is consistent if and only if
+
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            s
+          
+        
+        
+          b
+          
+            i
+          
+        
+        =
+        1.
+      
+    
+    {\displaystyle \sum _{i=1}^{s}b_{i}=1.}
+  There are also accompanying requirements if one requires the method to have a certain order p, meaning that the local truncation error is O(hp+1). These can be derived from the definition of the truncation error itself. For example, a two-stage method has order 2 if b1 + b2 = 1, b2c2 = 1/2, and b2a21 = 1/2. Note that a popular condition for determining coefficients is 
+
+  
+    
+      
+        
+          ∑
+          
+            j
+            =
+            1
+          
+          
+            i
+            −
+            1
+          
+        
+        
+          a
+          
+            i
+            j
+          
+        
+        =
+        
+          c
+          
+            i
+          
+        
+        
+           for 
+        
+        i
+        =
+        2
+        ,
+        …
+        ,
+        s
+        .
+      
+    
+    {\displaystyle \sum _{j=1}^{i-1}a_{ij}=c_{i}{\text{ for }}i=2,\ldots ,s.}
+  This condition alone, however, is neither sufficient, nor necessary for consistency.
+In general, if an explicit 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  -stage Runge–Kutta method has order 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , then it can be proven that the number of stages must satisfy 
+  
+    
+      
+        s
+        ≥
+        p
+      
+    
+    {\displaystyle s\geq p}
+  , and if 
+  
+    
+      
+        p
+        ≥
+        5
+      
+    
+    {\displaystyle p\geq 5}
+  , then 
+  
+    
+      
+        s
+        ≥
+        p
+        +
+        1
+      
+    
+    {\displaystyle s\geq p+1}
+  .
+However, it is not known whether these bounds are sharp in all cases; for example, all known methods of order 8 have at least 11 stages, though it is possible that there are methods with fewer stages. (The bound above suggests that there could be a method with 9 stages; but it could also be that the bound is simply not sharp.) Indeed, it is an open problem
+what the precise minimum number of stages 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   is for an explicit Runge–Kutta method to have order 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   in those cases where no methods have yet been discovered that satisfy the bounds above with equality. Some values which are known are:
+
+  
+    
+      
+        
+          
+            
+              
+                p
+              
+              
+                1
+              
+              
+                2
+              
+              
+                3
+              
+              
+                4
+              
+              
+                5
+              
+              
+                6
+              
+              
+                7
+              
+              
+                8
+              
+            
+            
+              
+                min
+                s
+              
+              
+                1
+              
+              
+                2
+              
+              
+                3
+              
+              
+                4
+              
+              
+                6
+              
+              
+                7
+              
+              
+                9
+              
+              
+                11
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{c|cccccccc}p&1&2&3&4&5&6&7&8\\\hline \min s&1&2&3&4&6&7&9&11\end{array}}}
+  The provable bounds above then imply that we can not find methods of orders 
+  
+    
+      
+        p
+        =
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        6
+      
+    
+    {\displaystyle p=1,2,\ldots ,6}
+   that require fewer stages than the methods we already know for these orders. However, it is conceivable that we might find a method of order 
+  
+    
+      
+        p
+        =
+        7
+      
+    
+    {\displaystyle p=7}
+   that has only 8 stages, whereas the only ones known today have at least 9 stages as shown in the table.
+
+Examples
+The RK4 method falls in this framework. Its tableau is
+A slight variation of "the" Runge–Kutta method is also due to Kutta in 1901 and is called the 3/8-rule. The primary advantage this method has is that almost all of the error coefficients are smaller than in the popular method, but it requires slightly more FLOPs (floating-point operations) per time step. Its Butcher tableau is
+
+However, the simplest Runge–Kutta method is the (forward) Euler method, given by the formula 
+  
+    
+      
+        
+          y
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          y
+          
+            n
+          
+        
+        +
+        h
+        f
+        (
+        
+          t
+          
+            n
+          
+        
+        ,
+        
+          y
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle y_{n+1}=y_{n}+hf(t_{n},y_{n})}
+  . This is the only consistent explicit Runge–Kutta method with one stage. The corresponding tableau is
+
+Second-order methods with two stages
+An example of a second-order method with two stages is provided by the explicit midpoint method:
+
+  
+    
+      
+        
+          y
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          y
+          
+            n
+          
+        
+        +
+        h
+        f
+        
+          (
+          
+            
+              t
+              
+                n
+              
+            
+            +
+            
+              
+                1
+                2
+              
+            
+            h
+            ,
+            
+              y
+              
+                n
+              
+            
+            +
+            
+              
+                1
+                2
+              
+            
+            h
+            f
+            (
+            
+              t
+              
+                n
+              
+            
+            ,
+             
+            
+              y
+              
+                n
+              
+            
+            )
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle y_{n+1}=y_{n}+hf\left(t_{n}+{\frac {1}{2}}h,y_{n}+{\frac {1}{2}}hf(t_{n},\ y_{n})\right).}
+  The corresponding tableau is
+
+The midpoint method is not the only second-order Runge–Kutta method with two stages; there is a family of such methods, parameterized by α and given by the formula
+
+  
+    
+      
+        
+          y
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          y
+          
+            n
+          
+        
+        +
+        h
+        
+          
+            (
+          
+        
+        (
+        1
+        −
+        
+          
+            
+              1
+              
+                2
+                α
+              
+            
+          
+        
+        )
+        f
+        (
+        
+          t
+          
+            n
+          
+        
+        ,
+        
+          y
+          
+            n
+          
+        
+        )
+        +
+        
+          
+            
+              1
+              
+                2
+                α
+              
+            
+          
+        
+        f
+        (
+        
+          t
+          
+            n
+          
+        
+        +
+        α
+        h
+        ,
+        
+          y
+          
+            n
+          
+        
+        +
+        α
+        h
+        f
+        (
+        
+          t
+          
+            n
+          
+        
+        ,
+        
+          y
+          
+            n
+          
+        
+        )
+        )
+        
+          
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle y_{n+1}=y_{n}+h{\bigl (}(1-{\tfrac {1}{2\alpha }})f(t_{n},y_{n})+{\tfrac {1}{2\alpha }}f(t_{n}+\alpha h,y_{n}+\alpha hf(t_{n},y_{n})){\bigr )}.}
+  Its Butcher tableau is
+
+In this family, 
+  
+    
+      
+        α
+        =
+        
+          
+            
+              1
+              2
+            
+          
+        
+      
+    
+    {\displaystyle \alpha ={\tfrac {1}{2}}}
+   gives the midpoint method, 
+  
+    
+      
+        α
+        =
+        1
+      
+    
+    {\displaystyle \alpha =1}
+   is Heun's method, and 
+  
+    
+      
+        α
+        =
+        
+          
+            
+              2
+              3
+            
+          
+        
+      
+    
+    {\displaystyle \alpha ={\tfrac {2}{3}}}
+   is Ralston's method.
+
+Use
+As an example, consider the two-stage second-order Runge–Kutta method with α = 2/3, also known as Ralston method. It is given by the tableau
+
+with the corresponding equations
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  k
+                  
+                    1
+                  
+                
+              
+              
+                
+                =
+                f
+                (
+                
+                  t
+                  
+                    n
+                  
+                
+                ,
+                 
+                
+                  y
+                  
+                    n
+                  
+                
+                )
+                ,
+              
+            
+            
+              
+                
+                  k
+                  
+                    2
+                  
+                
+              
+              
+                
+                =
+                f
+                (
+                
+                  t
+                  
+                    n
+                  
+                
+                +
+                
+                  
+                    
+                      2
+                      3
+                    
+                  
+                
+                h
+                ,
+                 
+                
+                  y
+                  
+                    n
+                  
+                
+                +
+                
+                  
+                    
+                      2
+                      3
+                    
+                  
+                
+                h
+                
+                  k
+                  
+                    1
+                  
+                
+                )
+                ,
+              
+            
+            
+              
+                
+                  y
+                  
+                    n
+                    +
+                    1
+                  
+                
+              
+              
+                
+                =
+                
+                  y
+                  
+                    n
+                  
+                
+                +
+                h
+                
+                  (
+                  
+                    
+                      
+                        
+                          1
+                          4
+                        
+                      
+                    
+                    
+                      k
+                      
+                        1
+                      
+                    
+                    +
+                    
+                      
+                        
+                          3
+                          4
+                        
+                      
+                    
+                    
+                      k
+                      
+                        2
+                      
+                    
+                  
+                  )
+                
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}k_{1}&=f(t_{n},\ y_{n}),\\k_{2}&=f(t_{n}+{\tfrac {2}{3}}h,\ y_{n}+{\tfrac {2}{3}}hk_{1}),\\y_{n+1}&=y_{n}+h\left({\tfrac {1}{4}}k_{1}+{\tfrac {3}{4}}k_{2}\right).\end{aligned}}}
+  This method is used to solve the initial-value problem
+
+  
+    
+      
+        
+          
+            
+              d
+              y
+            
+            
+              d
+              t
+            
+          
+        
+        =
+        tan
+        ⁡
+        (
+        y
+        )
+        +
+        1
+        ,
+        
+        
+          y
+          
+            0
+          
+        
+        =
+        1
+        ,
+         
+        t
+        ∈
+        [
+        1
+        ,
+        1.1
+        ]
+      
+    
+    {\displaystyle {\frac {dy}{dt}}=\tan(y)+1,\quad y_{0}=1,\ t\in [1,1.1]}
+  with step size h = 0.025, so the method needs to take four steps.
+The method proceeds as follows:
+
+The numerical solutions correspond to the underlined values.
+
+Adaptive Runge–Kutta methods
+Adaptive methods are designed to produce an estimate of the local truncation error of a single Runge–Kutta step. This is done by having two methods, one with order 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   and one with order 
+  
+    
+      
+        p
+        −
+        1
+      
+    
+    {\displaystyle p-1}
+  . These methods are interwoven, i.e., they have common intermediate steps. Thanks to this, estimating the error has little or negligible computational cost compared to a step with the higher-order method.
+During the integration, the step size is adapted such that the estimated error stays below a user-defined threshold: If the error is too high, a step is repeated with a lower step size; if the error is much smaller, the step size is increased to save time. This results in an (almost) optimal step size, which saves computation time. Moreover, the user does not have to spend time on finding an appropriate step size.
+The lower-order step is given by
+
+  
+    
+      
+        
+          y
+          
+            n
+            +
+            1
+          
+          
+            ∗
+          
+        
+        =
+        
+          y
+          
+            n
+          
+        
+        +
+        h
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            s
+          
+        
+        
+          b
+          
+            i
+          
+          
+            ∗
+          
+        
+        
+          k
+          
+            i
+          
+        
+        ,
+      
+    
+    {\displaystyle y_{n+1}^{*}=y_{n}+h\sum _{i=1}^{s}b_{i}^{*}k_{i},}
+  where 
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+      
+    
+    {\displaystyle k_{i}}
+   are the same as for the higher-order method. Then the error is
+
+  
+    
+      
+        
+          e
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          y
+          
+            n
+            +
+            1
+          
+        
+        −
+        
+          y
+          
+            n
+            +
+            1
+          
+          
+            ∗
+          
+        
+        =
+        h
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            s
+          
+        
+        (
+        
+          b
+          
+            i
+          
+        
+        −
+        
+          b
+          
+            i
+          
+          
+            ∗
+          
+        
+        )
+        
+          k
+          
+            i
+          
+        
+        ,
+      
+    
+    {\displaystyle e_{n+1}=y_{n+1}-y_{n+1}^{*}=h\sum _{i=1}^{s}(b_{i}-b_{i}^{*})k_{i},}
+  which is 
+  
+    
+      
+        O
+        (
+        
+          h
+          
+            p
+          
+        
+        )
+      
+    
+    {\displaystyle O(h^{p})}
+  . 
+The Butcher tableau for this kind of method is extended to give the values of 
+  
+    
+      
+        
+          b
+          
+            i
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle b_{i}^{*}}
+  :
+
+The Runge–Kutta–Fehlberg method has two methods of orders 5 and 4. Its extended Butcher tableau is:
+
+However, the simplest adaptive Runge–Kutta method involves combining Heun's method, which is order 2, with the Euler method, which is order 1. Its extended Butcher tableau is:
+
+Other adaptive Runge–Kutta methods are the Bogacki–Shampine method (orders 3 and 2), the Cash–Karp method and the Dormand–Prince method (both with orders 5 and 4).
+
+Nonconfluent Runge–Kutta methods
+A Runge–Kutta method is said to be nonconfluent  if all the 
+  
+    
+      
+        
+          c
+          
+            i
+          
+        
+        ,
+        
+        i
+        =
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        s
+      
+    
+    {\displaystyle c_{i},\,i=1,2,\ldots ,s}
+   are distinct.
+
+Runge–Kutta–Nyström methods
+Runge–Kutta–Nyström methods are specialized Runge-Kutta methods that are optimized for second-order differential equations.
+
+Implicit Runge–Kutta methods
+All Runge–Kutta methods mentioned up to now are explicit methods. Explicit Runge–Kutta methods are generally unsuitable for the solution of stiff equations because their region of absolute stability is small; in particular, it is bounded.
+This issue is especially important in the solution of partial differential equations.
+The instability of explicit Runge–Kutta methods motivates the development of implicit methods. An implicit Runge–Kutta method has the form
+
+  
+    
+      
+        
+          y
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          y
+          
+            n
+          
+        
+        +
+        h
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            s
+          
+        
+        
+          b
+          
+            i
+          
+        
+        
+          k
+          
+            i
+          
+        
+        ,
+      
+    
+    {\displaystyle y_{n+1}=y_{n}+h\sum _{i=1}^{s}b_{i}k_{i},}
+  where
+
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+        =
+        f
+        
+          (
+          
+            
+              t
+              
+                n
+              
+            
+            +
+            
+              c
+              
+                i
+              
+            
+            h
+            ,
+             
+            
+              y
+              
+                n
+              
+            
+            +
+            h
+            
+              ∑
+              
+                j
+                =
+                1
+              
+              
+                s
+              
+            
+            
+              a
+              
+                i
+                j
+              
+            
+            
+              k
+              
+                j
+              
+            
+          
+          )
+        
+        ,
+        
+        i
+        =
+        1
+        ,
+        …
+        ,
+        s
+        .
+      
+    
+    {\displaystyle k_{i}=f\left(t_{n}+c_{i}h,\ y_{n}+h\sum _{j=1}^{s}a_{ij}k_{j}\right),\quad i=1,\ldots ,s.}
+   The difference with an explicit method is that in an explicit method, the sum over j only goes up to i − 1. This also shows up in the Butcher tableau: the coefficient matrix 
+  
+    
+      
+        
+          a
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle a_{ij}}
+   of an explicit method is lower triangular. In an implicit method, the sum over j goes up to s and the coefficient matrix is not triangular, yielding a Butcher tableau of the form
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  c
+                  
+                    1
+                  
+                
+              
+              
+                
+                  a
+                  
+                    11
+                  
+                
+              
+              
+                
+                  a
+                  
+                    12
+                  
+                
+              
+              
+                …
+              
+              
+                
+                  a
+                  
+                    1
+                    s
+                  
+                
+              
+            
+            
+              
+                
+                  c
+                  
+                    2
+                  
+                
+              
+              
+                
+                  a
+                  
+                    21
+                  
+                
+              
+              
+                
+                  a
+                  
+                    22
+                  
+                
+              
+              
+                …
+              
+              
+                
+                  a
+                  
+                    2
+                    s
+                  
+                
+              
+            
+            
+              
+                ⋮
+              
+              
+                ⋮
+              
+              
+                ⋮
+              
+              
+                ⋱
+              
+              
+                ⋮
+              
+            
+            
+              
+                
+                  c
+                  
+                    s
+                  
+                
+              
+              
+                
+                  a
+                  
+                    s
+                    1
+                  
+                
+              
+              
+                
+                  a
+                  
+                    s
+                    2
+                  
+                
+              
+              
+                …
+              
+              
+                
+                  a
+                  
+                    s
+                    s
+                  
+                
+              
+            
+            
+              
+              
+                
+                  b
+                  
+                    1
+                  
+                
+              
+              
+                
+                  b
+                  
+                    2
+                  
+                
+              
+              
+                …
+              
+              
+                
+                  b
+                  
+                    s
+                  
+                
+              
+            
+            
+              
+              
+                
+                  b
+                  
+                    1
+                  
+                  
+                    ∗
+                  
+                
+              
+              
+                
+                  b
+                  
+                    2
+                  
+                  
+                    ∗
+                  
+                
+              
+              
+                …
+              
+              
+                
+                  b
+                  
+                    s
+                  
+                  
+                    ∗
+                  
+                
+              
+            
+          
+        
+        =
+        
+          
+            
+              
+                
+                  c
+                
+              
+              
+                A
+              
+            
+            
+              
+              
+                
+                  
+                    b
+                    
+                      T
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{c|cccc}c_{1}&a_{11}&a_{12}&\dots &a_{1s}\\c_{2}&a_{21}&a_{22}&\dots &a_{2s}\\\vdots &\vdots &\vdots &\ddots &\vdots \\c_{s}&a_{s1}&a_{s2}&\dots &a_{ss}\\\hline &b_{1}&b_{2}&\dots &b_{s}\\&b_{1}^{*}&b_{2}^{*}&\dots &b_{s}^{*}\\\end{array}}={\begin{array}{c|c}\mathbf {c} &A\\\hline &\mathbf {b^{T}} \\\end{array}}}
+  See Adaptive Runge-Kutta methods above for the explanation of the 
+  
+    
+      
+        
+          b
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle b^{*}}
+   row.
+The consequence of this difference is that at every step, a system of algebraic equations has to be solved. This increases the computational cost considerably. If a method with s stages is used to solve a differential equation with m components, then the system of algebraic equations has ms components. This can be contrasted with implicit linear multistep methods (the other big family of methods for ODEs): an implicit s-step linear multistep method needs to solve a system of algebraic equations with only m components, so the size of the system does not increase as the number of steps increases.
+
+Examples
+The simplest example of an implicit Runge–Kutta method is the backward Euler method:
+
+  
+    
+      
+        
+          y
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          y
+          
+            n
+          
+        
+        +
+        h
+        f
+        (
+        
+          t
+          
+            n
+          
+        
+        +
+        h
+        ,
+         
+        
+          y
+          
+            n
+            +
+            1
+          
+        
+        )
+        .
+        
+      
+    
+    {\displaystyle y_{n+1}=y_{n}+hf(t_{n}+h,\ y_{n+1}).\,}
+  The Butcher tableau for this is simply:
+
+  
+    
+      
+        
+          
+            
+              
+                1
+              
+              
+                1
+              
+            
+            
+              
+              
+                1
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{c|c}1&1\\\hline &1\\\end{array}}}
+  This Butcher tableau corresponds to the formulae
+
+  
+    
+      
+        
+          k
+          
+            1
+          
+        
+        =
+        f
+        (
+        
+          t
+          
+            n
+          
+        
+        +
+        h
+        ,
+         
+        
+          y
+          
+            n
+          
+        
+        +
+        h
+        
+          k
+          
+            1
+          
+        
+        )
+        
+        
+          and
+        
+        
+        
+          y
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          y
+          
+            n
+          
+        
+        +
+        h
+        
+          k
+          
+            1
+          
+        
+        ,
+      
+    
+    {\displaystyle k_{1}=f(t_{n}+h,\ y_{n}+hk_{1})\quad {\text{and}}\quad y_{n+1}=y_{n}+hk_{1},}
+  which can be re-arranged to get the formula for the backward Euler method listed above.
+Another example for an implicit Runge–Kutta method is the trapezoidal rule. Its Butcher tableau is:
+
+  
+    
+      
+        
+          
+            
+              
+                0
+              
+              
+                0
+              
+              
+                0
+              
+            
+            
+              
+                1
+              
+              
+                
+                  
+                    1
+                    2
+                  
+                
+              
+              
+                
+                  
+                    1
+                    2
+                  
+                
+              
+            
+            
+              
+              
+                
+                  
+                    1
+                    2
+                  
+                
+              
+              
+                
+                  
+                    1
+                    2
+                  
+                
+              
+            
+            
+              
+              
+                1
+              
+              
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{c|cc}0&0&0\\1&{\frac {1}{2}}&{\frac {1}{2}}\\\hline &{\frac {1}{2}}&{\frac {1}{2}}\\&1&0\\\end{array}}}
+  The trapezoidal rule is a collocation method (as discussed in that article). All collocation methods are implicit Runge–Kutta methods, but not all implicit Runge–Kutta methods are collocation methods.The Gauss–Legendre methods form a family of collocation methods based on Gauss quadrature. A Gauss–Legendre method with s stages has order 2s (thus, methods with arbitrarily high order can be constructed). The method with two stages (and thus order four) has Butcher tableau:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    1
+                    2
+                  
+                
+                −
+                
+                  
+                    1
+                    6
+                  
+                
+                
+                  
+                    3
+                  
+                
+              
+              
+                
+                  
+                    1
+                    4
+                  
+                
+              
+              
+                
+                  
+                    1
+                    4
+                  
+                
+                −
+                
+                  
+                    1
+                    6
+                  
+                
+                
+                  
+                    3
+                  
+                
+              
+            
+            
+              
+                
+                  
+                    1
+                    2
+                  
+                
+                +
+                
+                  
+                    1
+                    6
+                  
+                
+                
+                  
+                    3
+                  
+                
+              
+              
+                
+                  
+                    1
+                    4
+                  
+                
+                +
+                
+                  
+                    1
+                    6
+                  
+                
+                
+                  
+                    3
+                  
+                
+              
+              
+                
+                  
+                    1
+                    4
+                  
+                
+              
+            
+            
+              
+              
+                
+                  
+                    1
+                    2
+                  
+                
+              
+              
+                
+                  
+                    1
+                    2
+                  
+                
+              
+            
+            
+              
+              
+                
+                  
+                    1
+                    2
+                  
+                
+                +
+                
+                  
+                    1
+                    2
+                  
+                
+                
+                  
+                    3
+                  
+                
+              
+              
+                
+                  
+                    1
+                    2
+                  
+                
+                −
+                
+                  
+                    1
+                    2
+                  
+                
+                
+                  
+                    3
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{c|cc}{\frac {1}{2}}-{\frac {1}{6}}{\sqrt {3}}&{\frac {1}{4}}&{\frac {1}{4}}-{\frac {1}{6}}{\sqrt {3}}\\{\frac {1}{2}}+{\frac {1}{6}}{\sqrt {3}}&{\frac {1}{4}}+{\frac {1}{6}}{\sqrt {3}}&{\frac {1}{4}}\\\hline &{\frac {1}{2}}&{\frac {1}{2}}\\&{\frac {1}{2}}+{\frac {1}{2}}{\sqrt {3}}&{\frac {1}{2}}-{\frac {1}{2}}{\sqrt {3}}\end{array}}}
+
+Stability
+The advantage of implicit Runge–Kutta methods over explicit ones is their greater stability, especially when applied to stiff equations. Consider the linear test equation 
+  
+    
+      
+        
+          y
+          ′
+        
+        =
+        λ
+        y
+      
+    
+    {\displaystyle y'=\lambda y}
+  . A Runge–Kutta method applied to this equation reduces to the iteration 
+  
+    
+      
+        
+          y
+          
+            n
+            +
+            1
+          
+        
+        =
+        r
+        (
+        h
+        λ
+        )
+        
+        
+          y
+          
+            n
+          
+        
+      
+    
+    {\displaystyle y_{n+1}=r(h\lambda )\,y_{n}}
+  , with r given by
+
+  
+    
+      
+        r
+        (
+        z
+        )
+        =
+        1
+        +
+        z
+        
+          b
+          
+            T
+          
+        
+        (
+        I
+        −
+        z
+        A
+        
+          )
+          
+            −
+            1
+          
+        
+        e
+        =
+        
+          
+            
+              det
+              (
+              I
+              −
+              z
+              A
+              +
+              z
+              e
+              
+                b
+                
+                  T
+                
+              
+              )
+            
+            
+              det
+              (
+              I
+              −
+              z
+              A
+              )
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle r(z)=1+zb^{T}(I-zA)^{-1}e={\frac {\det(I-zA+zeb^{T})}{\det(I-zA)}},}
+   where e stands for the vector of ones. The function r is called the stability function. It follows from the formula that r is the quotient of two polynomials of degree s if the method has s stages. Explicit methods have a strictly lower triangular matrix A, which implies that det(I − zA) = 1 and that the stability function is a polynomial.The numerical solution to the linear test equation decays to zero if | r(z) | < 1 with z = hλ. The set of such z is called the domain of absolute stability. In particular, the method is said to be absolute stable if all z with Re(z) < 0 are in the domain of absolute stability. The stability function of an explicit Runge–Kutta method is a polynomial, so explicit Runge–Kutta methods can never be A-stable.If the method has order p, then the stability function satisfies 
+  
+    
+      
+        r
+        (
+        z
+        )
+        =
+        
+          
+            
+              e
+            
+          
+          
+            z
+          
+        
+        +
+        O
+        (
+        
+          z
+          
+            p
+            +
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle r(z)={\textrm {e}}^{z}+O(z^{p+1})}
+   as 
+  
+    
+      
+        z
+        →
+        0
+      
+    
+    {\displaystyle z\to 0}
+  . Thus, it is of interest to study quotients of polynomials of given degrees that approximate the exponential function the best. These are known as Padé approximants. A Padé approximant with numerator of degree m and denominator of degree n is A-stable if and only if m ≤ n ≤ m + 2.The Gauss–Legendre method with s stages has order 2s, so its stability function is the Padé approximant with m = n = s. It follows that the method is A-stable. This shows that A-stable Runge–Kutta can have arbitrarily high order. In contrast, the order of A-stable linear multistep methods cannot exceed two.
+
+B-stability
+The A-stability concept for the solution of differential equations is related to the linear autonomous equation 
+  
+    
+      
+        
+          y
+          ′
+        
+        =
+        λ
+        y
+      
+    
+    {\displaystyle y'=\lambda y}
+  . Dahlquist proposed the investigation of stability of numerical schemes when applied to nonlinear systems that satisfy a monotonicity condition. The corresponding concepts were defined as G-stability for multistep methods (and the related one-leg methods) and B-stability (Butcher, 1975) for Runge–Kutta methods. A Runge–Kutta method applied to the non-linear system 
+  
+    
+      
+        
+          y
+          ′
+        
+        =
+        f
+        (
+        y
+        )
+      
+    
+    {\displaystyle y'=f(y)}
+  , which verifies 
+  
+    
+      
+        ⟨
+        f
+        (
+        y
+        )
+        −
+        f
+        (
+        z
+        )
+        ,
+         
+        y
+        −
+        z
+        ⟩
+        ≤
+        0
+      
+    
+    {\displaystyle \langle f(y)-f(z),\ y-z\rangle \leq 0}
+  , is called B-stable, if this condition implies 
+  
+    
+      
+        ‖
+        
+          y
+          
+            n
+            +
+            1
+          
+        
+        −
+        
+          z
+          
+            n
+            +
+            1
+          
+        
+        ‖
+        ≤
+        ‖
+        
+          y
+          
+            n
+          
+        
+        −
+        
+          z
+          
+            n
+          
+        
+        ‖
+      
+    
+    {\displaystyle \|y_{n+1}-z_{n+1}\|\leq \|y_{n}-z_{n}\|}
+   for two numerical solutions.
+Let 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+  , 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   and 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+   be three 
+  
+    
+      
+        s
+        ×
+        s
+      
+    
+    {\displaystyle s\times s}
+   matrices defined by A Runge–Kutta method is said to be algebraically stable if the matrices 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   and 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   are both non-negative definite. A sufficient condition for B-stability is: 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   and 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+   are non-negative definite.
+
+Derivation of the Runge–Kutta fourth-order method
+In general a Runge–Kutta method of order 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   can be written as:
+
+  
+    
+      
+        
+          y
+          
+            t
+            +
+            h
+          
+        
+        =
+        
+          y
+          
+            t
+          
+        
+        +
+        h
+        ⋅
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            s
+          
+        
+        
+          a
+          
+            i
+          
+        
+        
+          k
+          
+            i
+          
+        
+        +
+        
+          
+            O
+          
+        
+        (
+        
+          h
+          
+            s
+            +
+            1
+          
+        
+        )
+        ,
+      
+    
+    {\displaystyle y_{t+h}=y_{t}+h\cdot \sum _{i=1}^{s}a_{i}k_{i}+{\mathcal {O}}(h^{s+1}),}
+  where:
+
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+        =
+        
+          y
+          
+            t
+          
+        
+        +
+        h
+        ⋅
+        
+          ∑
+          
+            j
+            =
+            1
+          
+          
+            s
+          
+        
+        
+          β
+          
+            i
+            j
+          
+        
+        f
+        
+          (
+          
+            
+              k
+              
+                j
+              
+            
+            ,
+             
+            
+              t
+              
+                n
+              
+            
+            +
+            
+              α
+              
+                i
+              
+            
+            h
+          
+          )
+        
+      
+    
+    {\displaystyle k_{i}=y_{t}+h\cdot \sum _{j=1}^{s}\beta _{ij}f\left(k_{j},\ t_{n}+\alpha _{i}h\right)}
+  are increments obtained evaluating the derivatives of 
+  
+    
+      
+        
+          y
+          
+            t
+          
+        
+      
+    
+    {\displaystyle y_{t}}
+   at the 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  -th order.
+We develop the derivation for the Runge–Kutta fourth-order method using the general formula with 
+  
+    
+      
+        s
+        =
+        4
+      
+    
+    {\displaystyle s=4}
+   evaluated, as explained above, at the starting point, the midpoint and the end point of any interval 
+  
+    
+      
+        (
+        t
+        ,
+         
+        t
+        +
+        h
+        )
+      
+    
+    {\displaystyle (t,\ t+h)}
+  ; thus, we choose:
+
+  
+    
+      
+        
+          
+            
+              
+              
+                
+                  α
+                  
+                    i
+                  
+                
+              
+              
+              
+                
+                  β
+                  
+                    i
+                    j
+                  
+                
+              
+            
+            
+              
+                
+                  α
+                  
+                    1
+                  
+                
+              
+              
+                
+                =
+                0
+              
+              
+                
+                  β
+                  
+                    21
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    1
+                    2
+                  
+                
+              
+            
+            
+              
+                
+                  α
+                  
+                    2
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    1
+                    2
+                  
+                
+              
+              
+                
+                  β
+                  
+                    32
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    1
+                    2
+                  
+                
+              
+            
+            
+              
+                
+                  α
+                  
+                    3
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    1
+                    2
+                  
+                
+              
+              
+                
+                  β
+                  
+                    43
+                  
+                
+              
+              
+                
+                =
+                1
+              
+            
+            
+              
+                
+                  α
+                  
+                    4
+                  
+                
+              
+              
+                
+                =
+                1
+              
+              
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}&\alpha _{i}&&\beta _{ij}\\\alpha _{1}&=0&\beta _{21}&={\frac {1}{2}}\\\alpha _{2}&={\frac {1}{2}}&\beta _{32}&={\frac {1}{2}}\\\alpha _{3}&={\frac {1}{2}}&\beta _{43}&=1\\\alpha _{4}&=1&&\\\end{aligned}}}
+  and 
+  
+    
+      
+        
+          β
+          
+            i
+            j
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle \beta _{ij}=0}
+   otherwise. We begin by defining the following quantities:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  y
+                  
+                    t
+                    +
+                    h
+                  
+                  
+                    1
+                  
+                
+              
+              
+                
+                =
+                
+                  y
+                  
+                    t
+                  
+                
+                +
+                h
+                f
+                
+                  (
+                  
+                    
+                      y
+                      
+                        t
+                      
+                    
+                    ,
+                     
+                    t
+                  
+                  )
+                
+              
+            
+            
+              
+                
+                  y
+                  
+                    t
+                    +
+                    h
+                  
+                  
+                    2
+                  
+                
+              
+              
+                
+                =
+                
+                  y
+                  
+                    t
+                  
+                
+                +
+                h
+                f
+                
+                  (
+                  
+                    
+                      y
+                      
+                        t
+                        +
+                        h
+                        
+                          /
+                        
+                        2
+                      
+                      
+                        1
+                      
+                    
+                    ,
+                     
+                    t
+                    +
+                    
+                      
+                        h
+                        2
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+                
+                  y
+                  
+                    t
+                    +
+                    h
+                  
+                  
+                    3
+                  
+                
+              
+              
+                
+                =
+                
+                  y
+                  
+                    t
+                  
+                
+                +
+                h
+                f
+                
+                  (
+                  
+                    
+                      y
+                      
+                        t
+                        +
+                        h
+                        
+                          /
+                        
+                        2
+                      
+                      
+                        2
+                      
+                    
+                    ,
+                     
+                    t
+                    +
+                    
+                      
+                        h
+                        2
+                      
+                    
+                  
+                  )
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}y_{t+h}^{1}&=y_{t}+hf\left(y_{t},\ t\right)\\y_{t+h}^{2}&=y_{t}+hf\left(y_{t+h/2}^{1},\ t+{\frac {h}{2}}\right)\\y_{t+h}^{3}&=y_{t}+hf\left(y_{t+h/2}^{2},\ t+{\frac {h}{2}}\right)\end{aligned}}}
+  where 
+  
+    
+      
+        
+          y
+          
+            t
+            +
+            h
+            
+              /
+            
+            2
+          
+          
+            1
+          
+        
+        =
+        
+          
+            
+              
+                
+                  y
+                  
+                    t
+                  
+                
+                +
+                
+                  y
+                  
+                    t
+                    +
+                    h
+                  
+                  
+                    1
+                  
+                
+              
+              2
+            
+          
+        
+      
+    
+    {\displaystyle y_{t+h/2}^{1}={\dfrac {y_{t}+y_{t+h}^{1}}{2}}}
+   and 
+  
+    
+      
+        
+          y
+          
+            t
+            +
+            h
+            
+              /
+            
+            2
+          
+          
+            2
+          
+        
+        =
+        
+          
+            
+              
+                
+                  y
+                  
+                    t
+                  
+                
+                +
+                
+                  y
+                  
+                    t
+                    +
+                    h
+                  
+                  
+                    2
+                  
+                
+              
+              2
+            
+          
+        
+      
+    
+    {\displaystyle y_{t+h/2}^{2}={\dfrac {y_{t}+y_{t+h}^{2}}{2}}}
+  .
+If we define:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  k
+                  
+                    1
+                  
+                
+              
+              
+                
+                =
+                f
+                (
+                
+                  y
+                  
+                    t
+                  
+                
+                ,
+                 
+                t
+                )
+              
+            
+            
+              
+                
+                  k
+                  
+                    2
+                  
+                
+              
+              
+                
+                =
+                f
+                
+                  (
+                  
+                    
+                      y
+                      
+                        t
+                        +
+                        h
+                        
+                          /
+                        
+                        2
+                      
+                      
+                        1
+                      
+                    
+                    ,
+                     
+                    t
+                    +
+                    
+                      
+                        h
+                        2
+                      
+                    
+                  
+                  )
+                
+                =
+                f
+                
+                  (
+                  
+                    
+                      y
+                      
+                        t
+                      
+                    
+                    +
+                    
+                      
+                        h
+                        2
+                      
+                    
+                    
+                      k
+                      
+                        1
+                      
+                    
+                    ,
+                     
+                    t
+                    +
+                    
+                      
+                        h
+                        2
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+                
+                  k
+                  
+                    3
+                  
+                
+              
+              
+                
+                =
+                f
+                
+                  (
+                  
+                    
+                      y
+                      
+                        t
+                        +
+                        h
+                        
+                          /
+                        
+                        2
+                      
+                      
+                        2
+                      
+                    
+                    ,
+                     
+                    t
+                    +
+                    
+                      
+                        h
+                        2
+                      
+                    
+                  
+                  )
+                
+                =
+                f
+                
+                  (
+                  
+                    
+                      y
+                      
+                        t
+                      
+                    
+                    +
+                    
+                      
+                        h
+                        2
+                      
+                    
+                    
+                      k
+                      
+                        2
+                      
+                    
+                    ,
+                     
+                    t
+                    +
+                    
+                      
+                        h
+                        2
+                      
+                    
+                  
+                  )
+                
+              
+            
+            
+              
+                
+                  k
+                  
+                    4
+                  
+                
+              
+              
+                
+                =
+                f
+                
+                  (
+                  
+                    
+                      y
+                      
+                        t
+                        +
+                        h
+                      
+                      
+                        3
+                      
+                    
+                    ,
+                     
+                    t
+                    +
+                    h
+                  
+                  )
+                
+                =
+                f
+                
+                  (
+                  
+                    
+                      y
+                      
+                        t
+                      
+                    
+                    +
+                    h
+                    
+                      k
+                      
+                        3
+                      
+                    
+                    ,
+                     
+                    t
+                    +
+                    h
+                  
+                  )
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}k_{1}&=f(y_{t},\ t)\\k_{2}&=f\left(y_{t+h/2}^{1},\ t+{\frac {h}{2}}\right)=f\left(y_{t}+{\frac {h}{2}}k_{1},\ t+{\frac {h}{2}}\right)\\k_{3}&=f\left(y_{t+h/2}^{2},\ t+{\frac {h}{2}}\right)=f\left(y_{t}+{\frac {h}{2}}k_{2},\ t+{\frac {h}{2}}\right)\\k_{4}&=f\left(y_{t+h}^{3},\ t+h\right)=f\left(y_{t}+hk_{3},\ t+h\right)\end{aligned}}}
+  and for the previous relations we can show that the following equalities hold up to 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        
+          h
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(h^{2})}
+  :
+where:
+is the total derivative of 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   with respect to time.
+If we now express the general formula using what we just derived we obtain:
+and comparing this with the Taylor series of 
+  
+    
+      
+        
+          y
+          
+            t
+            +
+            h
+          
+        
+      
+    
+    {\displaystyle y_{t+h}}
+   around 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  :
+we obtain a system of constraints on the coefficients:
+
+  
+    
+      
+        
+          
+            {
+            
+              
+                
+                
+                  a
+                  +
+                  b
+                  +
+                  c
+                  +
+                  d
+                  =
+                  1
+                
+              
+              
+                
+                
+                  
+                    
+                      1
+                      2
+                    
+                  
+                  b
+                  +
+                  
+                    
+                      1
+                      2
+                    
+                  
+                  c
+                  +
+                  d
+                  =
+                  
+                    
+                      1
+                      2
+                    
+                  
+                
+              
+              
+                
+                
+                  
+                    
+                      1
+                      4
+                    
+                  
+                  c
+                  +
+                  
+                    
+                      1
+                      2
+                    
+                  
+                  d
+                  =
+                  
+                    
+                      1
+                      6
+                    
+                  
+                
+              
+              
+                
+                
+                  
+                    
+                      1
+                      4
+                    
+                  
+                  d
+                  =
+                  
+                    
+                      1
+                      24
+                    
+                  
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{cases}&a+b+c+d=1\\[6pt]&{\frac {1}{2}}b+{\frac {1}{2}}c+d={\frac {1}{2}}\\[6pt]&{\frac {1}{4}}c+{\frac {1}{2}}d={\frac {1}{6}}\\[6pt]&{\frac {1}{4}}d={\frac {1}{24}}\end{cases}}}
+  which when solved gives 
+  
+    
+      
+        a
+        =
+        
+          
+            1
+            6
+          
+        
+        ,
+        b
+        =
+        
+          
+            1
+            3
+          
+        
+        ,
+        c
+        =
+        
+          
+            1
+            3
+          
+        
+        ,
+        d
+        =
+        
+          
+            1
+            6
+          
+        
+      
+    
+    {\displaystyle a={\frac {1}{6}},b={\frac {1}{3}},c={\frac {1}{3}},d={\frac {1}{6}}}
+   as stated above.
+
+See also
+Euler's method
+List of Runge–Kutta methods
+Numerical methods for ordinary differential equations
+Runge–Kutta method (SDE)
+General linear methods
+Lie group integrator
+
+Notes
+References
+Runge, Carl David Tolmé (1895), "Über die numerische Auflösung von Differentialgleichungen", Mathematische Annalen, Springer, 46 (2): 167–178, doi:10.1007/BF01446807, S2CID 119924854.
+Kutta, Wilhelm (1901), "Beitrag zur näherungsweisen Integration totaler Differentialgleichungen", Zeitschrift für Mathematik und Physik, 46: 435–453.
+Ascher, Uri M.; Petzold, Linda R. (1998), Computer Methods for Ordinary Differential Equations and Differential-Algebraic Equations, Philadelphia: Society for Industrial and Applied Mathematics, ISBN 978-0-89871-412-8.
+Atkinson, Kendall A. (1989), An Introduction to Numerical Analysis (2nd ed.), New York: John Wiley & Sons, ISBN 978-0-471-50023-0.
+Butcher, John C. (May 1963), "Coefficients for the study of Runge-Kutta integration processes", Journal of the Australian Mathematical Society, 3 (2): 185–201, doi:10.1017/S1446788700027932.
+Butcher, John C. (May 1964), "On Runge-Kutta processes of high order", Journal of the Australian Mathematical Society, 4 (2): 179–194, doi:10.1017/S1446788700023387
+Butcher, John C. (1975), "A stability property of implicit Runge-Kutta methods", BIT, 15 (4): 358–361, doi:10.1007/bf01931672, S2CID 120854166.
+Butcher, John C. (2000), "Numerical methods for ordinary differential equations in the 20th century", J. Comput. Appl. Math., 125 (1–2): 1–29, Bibcode:2000JCoAM.125....1B, doi:10.1016/S0377-0427(00)00455-6.
+Butcher, John C. (2008), Numerical Methods for Ordinary Differential Equations, New York: John Wiley & Sons, ISBN 978-0-470-72335-7.
+Cellier, F.; Kofman, E. (2006), Continuous System Simulation, Springer Verlag, ISBN 0-387-26102-8.
+Dahlquist, Germund (1963), "A special stability problem for linear multistep methods", BIT, 3: 27–43, doi:10.1007/BF01963532, hdl:10338.dmlcz/103497, ISSN 0006-3835, S2CID 120241743.
+Forsythe, George E.; Malcolm, Michael A.; Moler, Cleve B. (1977), Computer Methods for Mathematical Computations, Prentice-Hall (see Chapter 6).
+Hairer, Ernst; Nørsett, Syvert Paul; Wanner, Gerhard (1993), Solving ordinary differential equations I: Nonstiff problems, Berlin, New York: Springer-Verlag, ISBN 978-3-540-56670-0.
+Hairer, Ernst; Wanner, Gerhard (1996), Solving ordinary differential equations II: Stiff and differential-algebraic problems (2nd ed.), Berlin, New York: Springer-Verlag, ISBN 978-3-540-60452-5.
+Iserles, Arieh (1996), A First Course in the Numerical Analysis of Differential Equations, Cambridge University Press, ISBN 978-0-521-55655-2.
+Lambert, J.D (1991), Numerical Methods for Ordinary Differential Systems. The Initial Value Problem, John Wiley & Sons, ISBN 0-471-92990-5
+Kaw, Autar; Kalu, Egwu (2008), Numerical Methods with Applications (1st ed.), autarkaw.com.
+Press, William H.; Teukolsky, Saul A.; Vetterling, William T.; Flannery, Brian P. (2007), "Section 17.1 Runge-Kutta Method", Numerical Recipes: The Art of Scientific Computing (3rd ed.), Cambridge University Press, ISBN 978-0-521-88068-8. Also, Section 17.2. Adaptive Stepsize Control for Runge-Kutta.
+Stoer, Josef; Bulirsch, Roland (2002), Introduction to Numerical Analysis (3rd ed.), Berlin, New York: Springer-Verlag, ISBN 978-0-387-95452-3.
+Süli, Endre; Mayers, David (2003), An Introduction to Numerical Analysis, Cambridge University Press, ISBN 0-521-00794-1.
+Tan, Delin; Chen, Zheng (2012), "On A General Formula of Fourth Order Runge-Kutta Method" (PDF), Journal of Mathematical Science & Mathematics Education, 7 (2): 1–10.
+advance discrete maths ignou reference book (code- mcs033)
+John C. Butcher: "B-Series : Algebraic Analysis of Numerical Methods", Springer（SSCM, volume 55), ISBN 978-3030709556 (April, 2021).
+
+External links
+"Runge-Kutta method", Encyclopedia of Mathematics, EMS Press, 2001 [1994]
+Runge–Kutta 4th-Order Method
+Tracker Component Library Implementation in Matlab — Implements 32 embedded Runge Kutta algorithms in RungeKStep, 24 embedded Runge-Kutta Nyström algorithms in RungeKNystroemSStep and 4 general Runge-Kutta Nyström algorithms in RungeKNystroemGStep.

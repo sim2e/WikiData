@@ -1,0 +1,19 @@
+Temporal multithreading is one of the two main forms of multithreading that can be implemented on computer processor hardware, the other being simultaneous multithreading.  The distinguishing difference between the two forms is the maximum number of concurrent threads that can execute in any given pipeline stage in a given cycle.  In temporal multithreading the number is one, while in simultaneous multithreading the number is greater than one. Some authors use the term super-threading synonymously.
+
+Variations
+There are many possible variations of temporal multithreading, but most can be classified into two sub-forms:
+
+Coarse-grained
+The main processor pipeline contains only one thread at a time.  The processor must effectively perform a rapid context switch before executing a different thread.  This fast context switch is sometimes referred to as a thread switch.  There may or may not be additional penalty cycles when switching.There are many possible variations of coarse-grained temporal multithreading, mainly concerning the algorithm that determines when thread switching occurs.  This algorithm may be based on one or more of many different factors, including cycle counts, cache misses, and fairness.Fine-grained (or interleaved)
+The main processor pipeline may contain multiple threads, with context switches effectively occurring between pipe stages (e.g., in the barrel processor). This form of multithreading can be more expensive than the coarse-grained forms because execution resources that span multiple pipe stages may have to deal with multiple threads.  Also contributing to cost is the fact that this design cannot be optimized around the concept of a "background" thread — any of the concurrent threads implemented by the hardware might require its state to be read or written on any cycle.
+
+Comparison to simultaneous multithreading
+In any of its forms, temporal multithreading is similar in many ways to simultaneous multithreading.  As in the simultaneous process, the hardware must store a complete set of states per concurrent thread implemented. The hardware must also preserve the illusion that a given thread has the processor resources to itself.  Fairness algorithms must be included in both types of multithreading situations to prevent one thread from dominating processor time and/or resources.
+Temporal multithreading has an advantage over simultaneous multithreading in that it causes lower processor heat output; however, it allows only one thread to be executed at a time.
+
+See also
+Barrel processor
+Symmetric multiprocessing
+
+
+== References ==

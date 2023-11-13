@@ -1,0 +1,3301 @@
+The Schönhage–Strassen algorithm is an asymptotically fast multiplication algorithm for large integers, published by Arnold Schönhage and Volker Strassen in 1971. It works by recursively applying fast Fourier transform (FFT) over the integers modulo 2n+1. The run-time bit complexity to multiply two n-digit numbers using the algorithm is 
+  
+    
+      
+        O
+        (
+        n
+        ⋅
+        log
+        ⁡
+        n
+        ⋅
+        log
+        ⁡
+        log
+        ⁡
+        n
+        )
+      
+    
+    {\displaystyle O(n\cdot \log n\cdot \log \log n)}
+   in big O notation.
+The Schönhage–Strassen algorithm was the asymptotically fastest multiplication method known from 1971 until 2007. It is asymptotically faster than older methods such as Karatsuba and Toom–Cook multiplication, and starts to outperform them in practice for numbers beyond about 10,000 to 100,000 decimal digits. In 2007, Martin Fürer published an algorithm with faster asymptotic complexity. In 2019, David Harvey and Joris van der Hoeven demonstrated that multi-digit multiplication has theoretical 
+  
+    
+      
+        O
+        (
+        n
+        log
+        ⁡
+        n
+        )
+      
+    
+    {\displaystyle O(n\log n)}
+   complexity; however, their algorithm has constant factors which make it impossibly slow for any conceivable practical problem (see galactic algorithm).Applications of the Schönhage–Strassen algorithm include large computations done for their own sake such as the Great Internet Mersenne Prime Search and approximations of π, as well as practical applications such as Lenstra elliptic curve factorization via Kronecker substitution, which reduces polynomial multiplication to integer multiplication.
+
+Description
+Every number in base B, can be written as a polynomial:
+
+  
+    
+      
+        X
+        =
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            N
+          
+        
+        
+          
+            x
+            
+              i
+            
+          
+          
+            B
+            
+              i
+            
+          
+        
+      
+    
+    {\displaystyle X=\sum _{i=0}^{N}{x_{i}B^{i}}}
+  Furthermore, multiplication of two numbers could be thought of as a product of two polynomials:
+
+  
+    
+      
+        X
+        Y
+        =
+        
+          (
+          
+            
+              ∑
+              
+                i
+                =
+                0
+              
+              
+                N
+              
+            
+            
+              
+                x
+                
+                  i
+                
+              
+              
+                B
+                
+                  i
+                
+              
+            
+          
+          )
+        
+        
+          (
+          
+            
+              ∑
+              
+                j
+                =
+                0
+              
+              
+                N
+              
+            
+            
+              
+                y
+                
+                  i
+                
+              
+              
+                B
+                
+                  j
+                
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle XY=\left(\sum _{i=0}^{N}{x_{i}B^{i}}\right)\left(\sum _{j=0}^{N}{y_{i}B^{j}}\right)}
+  Because,for 
+  
+    
+      
+        
+          B
+          
+            k
+          
+        
+      
+    
+    {\displaystyle B^{k}}
+  : 
+  
+    
+      
+        
+          c
+          
+            k
+          
+        
+        =
+        
+          ∑
+          
+            (
+            i
+            ,
+            j
+            )
+            :
+            i
+            +
+            j
+            =
+            k
+          
+        
+        
+          
+            a
+            
+              i
+            
+          
+          
+            b
+            
+              j
+            
+          
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            k
+          
+        
+        
+          
+            a
+            
+              i
+            
+          
+          
+            b
+            
+              k
+              −
+              i
+            
+          
+        
+      
+    
+    {\displaystyle c_{k}=\sum _{(i,j):i+j=k}{a_{i}b_{j}}=\sum _{i=0}^{k}{a_{i}b_{k-i}}}
+  ,
+we have a convolution.
+By using FFT (Fast Fourier transform), used in original version rather than NTT, with convolution rule; we get
+
+  
+    
+      
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        (
+        a
+        ∗
+        b
+        )
+        =
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        
+          (
+          
+            
+              ∑
+              
+                i
+                =
+                0
+              
+              
+                k
+              
+            
+            
+              
+                a
+                
+                  i
+                
+              
+              
+                b
+                
+                  k
+                  −
+                  i
+                
+              
+            
+          
+          )
+        
+        =
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        (
+        a
+        )
+        ∙
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        (
+        b
+        )
+      
+    
+    {\displaystyle {\hat {f}}(a*b)={\hat {f}}\left(\sum _{i=0}^{k}{a_{i}b_{k-i}}\right)={\hat {f}}(a)\bullet {\hat {f}}(b)}
+  .That is; 
+  
+    
+      
+        
+          C
+          
+            k
+          
+        
+        =
+        
+          a
+          
+            k
+          
+        
+        ∙
+        
+          b
+          
+            k
+          
+        
+      
+    
+    {\displaystyle C_{k}=a_{k}\bullet b_{k}}
+  , where 
+  
+    
+      
+        
+          C
+          
+            k
+          
+        
+      
+    
+    {\displaystyle C_{k}}
+  
+is the corresponding coefficient in fourier space. This can also be written as: fft(a * b) = fft(a) ● fft(b).
+We have the same coefficients due to linearity under Fourier transform, and because these polynomials 
+only consist of one unique term per coefficient:
+
+  
+    
+      
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        (
+        
+          x
+          
+            n
+          
+        
+        )
+        =
+        
+          
+            (
+            
+              
+                i
+                
+                  2
+                  π
+                
+              
+            
+            )
+          
+          
+            n
+          
+        
+        
+          δ
+          
+            (
+            n
+            )
+          
+        
+      
+    
+    {\displaystyle {\hat {f}}(x^{n})=\left({\frac {i}{2\pi }}\right)^{n}\delta ^{(n)}}
+    and
+
+  
+    
+      
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        (
+        a
+        
+        X
+        (
+        ξ
+        )
+        +
+        b
+        
+        Y
+        (
+        ξ
+        )
+        )
+        =
+        a
+        
+        
+          
+            
+              X
+              ^
+            
+          
+        
+        (
+        ξ
+        )
+        +
+        b
+        
+        
+          
+            
+              Y
+              ^
+            
+          
+        
+        (
+        ξ
+        )
+      
+    
+    {\displaystyle {\hat {f}}(a\,X(\xi )+b\,Y(\xi ))=a\,{\hat {X}}(\xi )+b\,{\hat {Y}}(\xi )}
+  Convolution rule: 
+  
+    
+      
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        (
+        X
+        ∗
+        Y
+        )
+        =
+         
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        (
+        X
+        )
+        ∙
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        (
+        Y
+        )
+      
+    
+    {\displaystyle {\hat {f}}(X*Y)=\ {\hat {f}}(X)\bullet {\hat {f}}(Y)}
+  
+We have reduced our convolution problem
+to product problem, through FFT.
+By finding ifft (polynomial interpolation), for each 
+  
+    
+      
+        
+          c
+          
+            k
+          
+        
+      
+    
+    {\displaystyle c_{k}}
+  , one get the desired coefficients.
+Algorithm uses divide and conquer strategy, to divide problem to subproblems.
+
+Convolution under mod N
+c
+          
+            k
+          
+        
+        =
+        
+          ∑
+          
+            (
+            i
+            ,
+            j
+            )
+            :
+            i
+            +
+            j
+            ≡
+            k
+            
+              
+              (
+              mod
+              
+              N
+              (
+              n
+              )
+              )
+            
+          
+        
+        
+          
+            a
+            
+              i
+            
+          
+          
+            b
+            
+              j
+            
+          
+        
+      
+    
+    {\displaystyle c_{k}=\sum _{(i,j):i+j\equiv k{\pmod {N(n)}}}{a_{i}b_{j}}}
+  , where 
+  
+    
+      
+        N
+        (
+        n
+        )
+        =
+        
+          2
+          
+            n
+          
+        
+        +
+        1
+      
+    
+    {\displaystyle N(n)=2^{n}+1}
+   and 
+  
+    
+      
+        N
+        (
+        N
+        )
+        =
+        
+          2
+          
+            N
+          
+        
+        +
+        1
+      
+    
+    {\displaystyle N(N)=2^{N}+1}
+   in Schönhage–Strassen algorithm.
+By letting:
+
+  
+    
+      
+        
+          a
+          
+            i
+          
+          ′
+        
+        =
+        
+          θ
+          
+            i
+          
+        
+        
+          a
+          
+            i
+          
+        
+      
+    
+    {\displaystyle a_{i}'=\theta ^{i}a_{i}}
+   and 
+  
+    
+      
+        
+          b
+          
+            j
+          
+          ′
+        
+        =
+        
+          θ
+          
+            j
+          
+        
+        
+          b
+          
+            j
+          
+        
+      
+    
+    {\displaystyle b_{j}'=\theta ^{j}b_{j}}
+  , where 
+  
+    
+      
+        
+          θ
+          
+            N
+          
+        
+        =
+        −
+        1
+      
+    
+    {\displaystyle \theta ^{N}=-1}
+   is the n-th rootOne see that:
+
+  
+    
+      
+        
+          C
+          
+            k
+          
+        
+        =
+        
+          ∑
+          
+            (
+            i
+            ,
+            j
+            )
+            :
+            i
+            +
+            j
+            =
+            k
+            ≡
+            
+              
+              (
+              mod
+              
+              N
+              (
+              n
+              )
+              )
+            
+          
+        
+        
+          
+            a
+            
+              i
+            
+          
+          
+            b
+            
+              j
+            
+          
+        
+        =
+        
+          θ
+          
+            −
+            k
+          
+        
+        
+          ∑
+          
+            (
+            i
+            ,
+            j
+            )
+            :
+            i
+            +
+            j
+            ≡
+            k
+            
+              
+              (
+              mod
+              
+              N
+              (
+              n
+              )
+              )
+            
+          
+        
+        
+          
+            a
+            
+              i
+            
+            ′
+          
+          
+            b
+            
+              j
+            
+            ′
+          
+        
+        =
+        
+          θ
+          
+            −
+            k
+          
+        
+        
+          (
+          
+            
+              ∑
+              
+                (
+                i
+                ,
+                j
+                )
+                :
+                i
+                +
+                j
+                =
+                k
+              
+            
+            
+              
+                a
+                
+                  i
+                
+                ′
+              
+              
+                b
+                
+                  j
+                
+                ′
+              
+            
+            +
+            
+              ∑
+              
+                (
+                i
+                ,
+                j
+                )
+                :
+                i
+                +
+                j
+                =
+                k
+                +
+                n
+              
+            
+            
+              
+                a
+                
+                  i
+                
+                ′
+              
+              
+                b
+                
+                  j
+                
+                ′
+              
+            
+          
+          )
+        
+        =
+      
+    
+    {\displaystyle C_{k}=\sum _{(i,j):i+j=k\equiv {\pmod {N(n)}}}{a_{i}b_{j}}=\theta ^{-k}\sum _{(i,j):i+j\equiv k{\pmod {N(n)}}}{a_{i}'b_{j}'}=\theta ^{-k}\left(\sum _{(i,j):i+j=k}{a_{i}'b_{j}'}+\sum _{(i,j):i+j=k+n}{a_{i}'b_{j}'}\right)=}
+  
+
+  
+    
+      
+        
+          θ
+          
+            −
+            k
+          
+        
+        
+          (
+          
+            
+              ∑
+              
+                (
+                i
+                ,
+                j
+                )
+                :
+                i
+                +
+                j
+                =
+                k
+              
+            
+            
+              
+                a
+                
+                  i
+                
+              
+              
+                b
+                
+                  j
+                
+              
+              
+                θ
+                
+                  k
+                
+              
+            
+            +
+            
+              ∑
+              
+                (
+                i
+                ,
+                j
+                )
+                :
+                i
+                +
+                j
+                =
+                k
+                +
+                n
+              
+            
+            
+              
+                a
+                
+                  i
+                
+              
+              
+                b
+                
+                  j
+                
+              
+              
+                θ
+                
+                  n
+                  +
+                  k
+                
+              
+            
+          
+          )
+        
+        =
+        
+          ∑
+          
+            (
+            i
+            ,
+            j
+            )
+            :
+            i
+            +
+            j
+            =
+            k
+          
+        
+        
+          
+            a
+            
+              i
+            
+          
+          
+            b
+            
+              j
+            
+          
+        
+        +
+        
+          θ
+          
+            n
+          
+        
+        
+          ∑
+          
+            (
+            i
+            ,
+            j
+            )
+            :
+            i
+            +
+            j
+            =
+            k
+            +
+            n
+          
+        
+        
+          
+            a
+            
+              i
+            
+          
+          
+            b
+            
+              j
+            
+          
+        
+      
+    
+    {\displaystyle \theta ^{-k}\left(\sum _{(i,j):i+j=k}{a_{i}b_{j}\theta ^{k}}+\sum _{(i,j):i+j=k+n}{a_{i}b_{j}\theta ^{n+k}}\right)=\sum _{(i,j):i+j=k}{a_{i}b_{j}}+\theta ^{n}\sum _{(i,j):i+j=k+n}{a_{i}b_{j}}}
+  .This mean, one can  use weight 
+  
+    
+      
+        
+          θ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \theta ^{i}}
+  , and then multiply with 
+  
+    
+      
+        
+          θ
+          
+            −
+            k
+          
+        
+      
+    
+    {\displaystyle \theta ^{-k}}
+   after.
+Instead of using weight; one can due to 
+  
+    
+      
+        
+          θ
+          
+            N
+          
+        
+        =
+        −
+        1
+      
+    
+    {\displaystyle \theta ^{N}=-1}
+  , in first step of recursion (when 
+  
+    
+      
+        n
+        =
+        N
+      
+    
+    {\displaystyle n=N}
+  ), calculate :
+
+  
+    
+      
+        
+          C
+          
+            k
+          
+        
+        =
+        
+          ∑
+          
+            (
+            i
+            ,
+            j
+            )
+            :
+            i
+            +
+            j
+            ≡
+            k
+            
+              
+              (
+              mod
+              
+              N
+              (
+              N
+              )
+              )
+            
+          
+        
+        =
+        
+          ∑
+          
+            (
+            i
+            ,
+            j
+            )
+            :
+            i
+            +
+            j
+            =
+            k
+          
+        
+        
+          
+            a
+            
+              i
+            
+          
+          
+            b
+            
+              j
+            
+          
+        
+        −
+        
+          ∑
+          
+            (
+            i
+            ,
+            j
+            )
+            :
+            i
+            +
+            j
+            =
+            k
+            +
+            n
+          
+        
+        
+          
+            a
+            
+              i
+            
+          
+          
+            b
+            
+              j
+            
+          
+        
+      
+    
+    {\displaystyle C_{k}=\sum _{(i,j):i+j\equiv k{\pmod {N(N)}}}=\sum _{(i,j):i+j=k}{a_{i}b_{j}}-\sum _{(i,j):i+j=k+n}{a_{i}b_{j}}}
+  In normal FFT, that operates over complex numbers, one would use:
+
+  
+    
+      
+        
+          C
+          
+            k
+          
+        
+        =
+        
+          θ
+          
+            −
+            k
+          
+        
+        
+          (
+          
+            
+              ∑
+              
+                (
+                i
+                ,
+                j
+                )
+                :
+                i
+                +
+                j
+                =
+                k
+              
+            
+            
+              
+                a
+                
+                  i
+                
+              
+              
+                b
+                
+                  j
+                
+              
+              
+                θ
+                
+                  k
+                
+              
+            
+            +
+            
+              ∑
+              
+                (
+                i
+                ,
+                j
+                )
+                :
+                i
+                +
+                j
+                =
+                k
+                +
+                n
+              
+            
+            
+              
+                a
+                
+                  i
+                
+              
+              
+                b
+                
+                  j
+                
+              
+              
+                θ
+                
+                  n
+                  +
+                  k
+                
+              
+            
+          
+          )
+        
+        =
+        
+          e
+          
+            −
+            i
+            2
+            π
+            k
+            
+              /
+            
+            n
+          
+        
+        
+          (
+          
+            
+              ∑
+              
+                (
+                i
+                ,
+                j
+                )
+                :
+                i
+                +
+                j
+                =
+                k
+              
+            
+            
+              
+                a
+                
+                  i
+                
+              
+              
+                b
+                
+                  j
+                
+              
+              
+                e
+                
+                  i
+                  2
+                  π
+                  k
+                  
+                    /
+                  
+                  n
+                
+              
+            
+            +
+            
+              ∑
+              
+                (
+                i
+                ,
+                j
+                )
+                :
+                i
+                +
+                j
+                =
+                k
+                +
+                n
+              
+            
+            
+              
+                a
+                
+                  i
+                
+              
+              
+                b
+                
+                  j
+                
+              
+              
+                e
+                
+                  i
+                  2
+                  π
+                  (
+                  n
+                  +
+                  k
+                  )
+                  
+                    /
+                  
+                  n
+                
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle C_{k}=\theta ^{-k}\left(\sum _{(i,j):i+j=k}{a_{i}b_{j}\theta ^{k}}+\sum _{(i,j):i+j=k+n}{a_{i}b_{j}\theta ^{n+k}}\right)=e^{-i2\pi k/n}\left(\sum _{(i,j):i+j=k}{a_{i}b_{j}e^{i2\pi k/n}}+\sum _{(i,j):i+j=k+n}{a_{i}b_{j}e^{i2\pi (n+k)/n}}\right)}
+  However, FFT can also be used as a NTT (number theoretic transformation) in Schönhage–Strassen. This means that we have to use  θ that generate numbers in a finite field (for example 
+  
+    
+      
+        
+          G
+          F
+        
+        (
+        
+          2
+          
+            n
+          
+        
+        +
+        1
+        )
+      
+    
+    {\displaystyle \mathrm {GF} (2^{n}+1)}
+  ).
+A root of unity under a finite field GF(r), is an element a such that 
+  
+    
+      
+        
+          θ
+          
+            r
+            −
+            1
+          
+        
+        ≡
+        1
+      
+    
+    {\displaystyle \theta ^{r-1}\equiv 1}
+   or 
+  
+    
+      
+        
+          θ
+          
+            r
+          
+        
+        ≡
+        θ
+      
+    
+    {\displaystyle \theta ^{r}\equiv \theta }
+  . For example GF(p), where p is a prime, 
+gives 
+  
+    
+      
+        {
+        1
+        ,
+        2
+        ,
+        .
+        .
+        .
+        ,
+        p
+        −
+        1
+        }
+      
+    
+    {\displaystyle \{1,2,...,p-1\}}
+  .
+Notice that 
+  
+    
+      
+        
+          2
+          
+            n
+          
+        
+        ≡
+        −
+        1
+      
+    
+    {\displaystyle 2^{n}\equiv -1}
+   in 
+  
+    
+      
+        
+          G
+          F
+        
+        (
+        
+          2
+          
+            n
+          
+        
+        +
+        1
+        )
+      
+    
+    {\displaystyle \mathrm {GF} (2^{n}+1)}
+    and 
+  
+    
+      
+        
+          
+            2
+          
+        
+        ≡
+        −
+        1
+      
+    
+    {\displaystyle {\sqrt {2}}\equiv -1}
+   in 
+  
+    
+      
+        
+          G
+          F
+        
+        (
+        
+          2
+          
+            n
+            +
+            2
+          
+        
+        +
+        1
+        )
+      
+    
+    {\displaystyle \mathrm {GF} (2^{n+2}+1)}
+  . For these candiadates, 
+  
+    
+      
+        
+          θ
+          
+            N
+          
+        
+        ≡
+        −
+        1
+      
+    
+    {\displaystyle \theta ^{N}\equiv -1}
+   under its finite field, and therefore act the way we want .
+Same FFT algorithms can still be used, though, as long as θ is root of unity of a finite field.
+To find FFT/NTT transform, we do the following:
+
+  
+    
+      
+        
+          C
+          
+            k
+          
+          ′
+        
+        =
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        (
+        k
+        )
+        =
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        
+          (
+          
+            
+              θ
+              
+                −
+                k
+              
+            
+            
+              (
+              
+                
+                  ∑
+                  
+                    (
+                    i
+                    ,
+                    j
+                    )
+                    :
+                    i
+                    +
+                    j
+                    =
+                    k
+                  
+                
+                
+                  
+                    a
+                    
+                      i
+                    
+                  
+                  
+                    b
+                    
+                      j
+                    
+                  
+                  
+                    θ
+                    
+                      k
+                    
+                  
+                
+                +
+                
+                  ∑
+                  
+                    (
+                    i
+                    ,
+                    j
+                    )
+                    :
+                    i
+                    +
+                    j
+                    =
+                    k
+                    +
+                    n
+                  
+                
+                
+                  
+                    a
+                    
+                      i
+                    
+                  
+                  
+                    b
+                    
+                      j
+                    
+                  
+                  
+                    θ
+                    
+                      n
+                      +
+                      k
+                    
+                  
+                
+              
+              )
+            
+          
+          )
+        
+      
+    
+    {\displaystyle C_{k}'={\hat {f}}(k)={\hat {f}}\left(\theta ^{-k}\left(\sum _{(i,j):i+j=k}{a_{i}b_{j}\theta ^{k}}+\sum _{(i,j):i+j=k+n}{a_{i}b_{j}\theta ^{n+k}}\right)\right)}
+  
+
+  
+    
+      
+        
+          C
+          
+            k
+            +
+            k
+          
+          ′
+        
+        =
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        (
+        k
+        +
+        k
+        )
+        =
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        
+          (
+          
+            
+              ∑
+              
+                (
+                i
+                ,
+                j
+                )
+                :
+                i
+                +
+                j
+                =
+                2
+                k
+              
+            
+            
+              
+                a
+                
+                  i
+                
+              
+              
+                b
+                
+                  j
+                
+              
+              
+                θ
+                
+                  k
+                
+              
+            
+            +
+            
+              ∑
+              
+                (
+                i
+                ,
+                j
+                )
+                :
+                i
+                +
+                j
+                =
+                n
+                +
+                2
+                k
+              
+            
+            
+              
+                a
+                
+                  i
+                
+              
+              
+                b
+                
+                  j
+                
+              
+              
+                θ
+                
+                  n
+                  +
+                  k
+                
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle C_{k+k}'={\hat {f}}(k+k)={\hat {f}}\left(\sum _{(i,j):i+j=2k}{a_{i}b_{j}\theta ^{k}}+\sum _{(i,j):i+j=n+2k}{a_{i}b_{j}\theta ^{n+k}}\right)}
+  
+  
+    
+      
+        =
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        
+          (
+          
+            
+              ∑
+              
+                (
+                i
+                ,
+                j
+                )
+                :
+                i
+                +
+                j
+                =
+                2
+                k
+              
+            
+            
+              
+                a
+                
+                  i
+                
+              
+              
+                b
+                
+                  j
+                
+              
+              
+                θ
+                
+                  k
+                
+              
+            
+            +
+            
+              ∑
+              
+                (
+                i
+                ,
+                j
+                )
+                :
+                i
+                +
+                j
+                =
+                2
+                k
+                +
+                n
+              
+            
+            
+              
+                a
+                
+                  i
+                
+              
+              
+                b
+                
+                  j
+                
+              
+              
+                θ
+                
+                  n
+                  +
+                  k
+                
+              
+            
+          
+          )
+        
+        =
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        
+          (
+          
+            A
+            
+              k
+              ←
+              k
+            
+          
+          )
+        
+        ∙
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        (
+        
+          B
+          
+            k
+            ←
+            k
+          
+        
+        )
+        +
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        (
+        
+          A
+          
+            k
+            ←
+            k
+            +
+            n
+          
+        
+        )
+        ∙
+        
+          
+            
+              f
+              ^
+            
+          
+        
+        (
+        
+          B
+          
+            k
+            ←
+            k
+            +
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle ={\hat {f}}\left(\sum _{(i,j):i+j=2k}{a_{i}b_{j}\theta ^{k}}+\sum _{(i,j):i+j=2k+n}{a_{i}b_{j}\theta ^{n+k}}\right)={\hat {f}}\left(A_{k\leftarrow k}\right)\bullet {\hat {f}}(B_{k\leftarrow k})+{\hat {f}}(A_{k\leftarrow k+n})\bullet {\hat {f}}(B_{k\leftarrow k+n})}
+  First product gives contribution to 
+  
+    
+      
+        
+          c
+          
+            k
+          
+        
+      
+    
+    {\displaystyle c_{k}}
+  , for each k. Second gives contribution to 
+  
+    
+      
+        
+          c
+          
+            k
+          
+        
+      
+    
+    {\displaystyle c_{k}}
+  , due to 
+  
+    
+      
+        (
+        i
+        +
+        j
+        )
+      
+    
+    {\displaystyle (i+j)}
+   mod 
+  
+    
+      
+        N
+        (
+        n
+        )
+      
+    
+    {\displaystyle N(n)}
+  .
+To do the inverse:
+
+  
+    
+      
+        
+          C
+          
+            k
+          
+        
+        =
+        
+          2
+          
+            −
+            m
+          
+        
+        
+          
+            
+              
+                f
+                
+                  −
+                  1
+                
+              
+              ^
+            
+          
+        
+        (
+        
+          θ
+          
+            −
+            k
+          
+        
+        
+          C
+          
+            k
+            +
+            k
+          
+          ′
+        
+        )
+      
+    
+    {\displaystyle C_{k}=2^{-m}{\hat {f^{-1}}}(\theta ^{-k}C_{k+k}')}
+   or 
+  
+    
+      
+        
+          C
+          
+            k
+          
+        
+        =
+        
+          
+            
+              
+                f
+                
+                  −
+                  1
+                
+              
+              ^
+            
+          
+        
+        (
+        
+          θ
+          
+            −
+            k
+          
+        
+        
+          C
+          
+            k
+            +
+            k
+          
+          ′
+        
+        )
+      
+    
+    {\displaystyle C_{k}={\hat {f^{-1}}}(\theta ^{-k}C_{k+k}')}
+  depending on whether fft one use normalize data or not.
+One multiply by 
+  
+    
+      
+        
+          2
+          
+            −
+            m
+          
+        
+      
+    
+    {\displaystyle 2^{-m}}
+  , to normailize fft data to a specific range, where 
+  
+    
+      
+        
+          
+            1
+            n
+          
+        
+        ≡
+        
+          2
+          
+            −
+            m
+          
+        
+      
+    
+    {\displaystyle {\frac {1}{n}}\equiv 2^{-m}}
+   mod 
+  
+    
+      
+        N
+        (
+        n
+        )
+      
+    
+    {\displaystyle N(n)}
+  , where m is found using modular multiplicative inverse.
+
+Implementation details
+Why N = 2M + 1  in mod N
+In Schönhage–Strassen algorithm, 
+  
+    
+      
+        N
+        =
+        
+          2
+          
+            M
+          
+        
+        +
+        1
+      
+    
+    {\displaystyle N=2^{M}+1}
+  . One should think of this as a binary tree, where one have values in 
+  
+    
+      
+        0
+        ≤
+        
+          index
+        
+        ≤
+        
+          2
+          
+            M
+          
+        
+        =
+        
+          2
+          
+            i
+            +
+            j
+          
+        
+      
+    
+    {\displaystyle 0\leq {\text{index}}\leq 2^{M}=2^{i+j}}
+  . By letting 
+  
+    
+      
+        K
+        ∈
+        [
+        0
+        ,
+        M
+        ]
+      
+    
+    {\displaystyle K\in [0,M]}
+  , one can for each K find all 
+  
+    
+      
+        i
+        +
+        j
+        =
+        K
+      
+    
+    {\displaystyle i+j=K}
+  : One can group all 
+  
+    
+      
+        (
+        i
+        ,
+        j
+        )
+      
+    
+    {\displaystyle (i,j)}
+   pairs into M different groups. Using 
+  
+    
+      
+        i
+        +
+        j
+        =
+        k
+      
+    
+    {\displaystyle i+j=k}
+   to group 
+  
+    
+      
+        (
+        i
+        ,
+        j
+        )
+      
+    
+    {\displaystyle (i,j)}
+   pairs through convolution, is a classical problem in algorithms. For example: Let k be total income and i be mans income and j womans income; by using convolution, one can group  
+  
+    
+      
+        (
+        i
+        ,
+        j
+        )
+      
+    
+    {\displaystyle (i,j)}
+   into  K groups based on desired total income.
+Having this in mind, 
+  
+    
+      
+        N
+        =
+        
+          2
+          
+            M
+          
+        
+        +
+        1
+      
+    
+    {\displaystyle N=2^{M}+1}
+   help us to group 
+  
+    
+      
+        (
+        i
+        ,
+        j
+        )
+      
+    
+    {\displaystyle (i,j)}
+   into 
+  
+    
+      
+        
+          
+            M
+            
+              2
+              
+                k
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {M}{2^{k}}}}
+   groups, for each group of subtasks in depth k; in tree with 
+  
+    
+      
+        N
+        =
+        
+          2
+          
+            
+              M
+              
+                2
+                
+                  k
+                
+              
+            
+          
+        
+        +
+        1
+      
+    
+    {\displaystyle N=2^{\frac {M}{2^{k}}}+1}
+  
+Notice that 
+  
+    
+      
+        N
+        =
+        
+          2
+          
+            M
+          
+        
+        +
+        1
+        =
+        
+          2
+          
+            
+              2
+              
+                L
+              
+            
+          
+        
+        +
+        1
+      
+    
+    {\displaystyle N=2^{M}+1=2^{2^{L}}+1}
+  , for some L. This is Fermat number.
+When doing mod 
+  
+    
+      
+        N
+        =
+        
+          2
+          
+            M
+          
+        
+        +
+        1
+        =
+        
+          2
+          
+            
+              2
+              
+                L
+              
+            
+          
+        
+        +
+        1
+      
+    
+    {\displaystyle N=2^{M}+1=2^{2^{L}}+1}
+  , we have something called Fermat ring.
+Because some Fermat numbers are Fermat primes, one can in some cases avoid calculations.
+There are other N that could have been used, of course, with same prime number advantages. By letting 
+  
+    
+      
+        N
+        =
+        
+          2
+          
+            k
+          
+        
+        −
+        1
+      
+    
+    {\displaystyle N=2^{k}-1}
+  , one have the maximal number in a binary number with 
+  
+    
+      
+        k
+        +
+        1
+      
+    
+    {\displaystyle k+1}
+   bits.
+
+  
+    
+      
+        N
+        =
+        
+          2
+          
+            k
+          
+        
+        −
+        1
+      
+    
+    {\displaystyle N=2^{k}-1}
+   is a Mersenne number, that in some cases is a Mersenne prime. It is a natural candidate against Fermat number 
+  
+    
+      
+        N
+        =
+        
+          2
+          
+            
+              2
+              
+                L
+              
+            
+          
+        
+        +
+        1
+      
+    
+    {\displaystyle N=2^{2^{L}}+1}
+
+In search of another N
+Doing several mod calculations against different N, can be helpful when it comes to solving integer product. By using the Chinese remainder theorem, after splitting M into smaller different types of N, one can find the answer of multiplication xy Fermat numbers and Mersenne numbers are just two types of numbers, in something called generalized Fermat Mersenne number (GSM); with formula:
+
+  
+    
+      
+        
+          G
+          
+            q
+            ,
+            p
+            ,
+            n
+          
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            p
+          
+        
+        
+          q
+          
+            (
+            p
+            −
+            i
+            )
+            n
+          
+        
+        =
+        
+          
+            
+              
+                q
+                
+                  p
+                  n
+                
+              
+              −
+              1
+            
+            
+              
+                q
+                
+                  n
+                
+              
+              −
+              1
+            
+          
+        
+      
+    
+    {\displaystyle G_{q,p,n}=\sum _{i=1}^{p}q^{(p-i)n}={\frac {q^{pn}-1}{q^{n}-1}}}
+  
+  
+    
+      
+        
+          M
+          
+            p
+            ,
+            n
+          
+        
+        =
+        
+          G
+          
+            2
+            ,
+            p
+            ,
+            n
+          
+        
+      
+    
+    {\displaystyle M_{p,n}=G_{2,p,n}}
+  In this formula; 
+  
+    
+      
+        
+          M
+          
+            2
+            ,
+            
+              2
+              
+                k
+              
+            
+          
+        
+      
+    
+    {\displaystyle M_{2,2^{k}}}
+   is a Fermat number, and 
+  
+    
+      
+        
+          M
+          
+            p
+            ,
+            1
+          
+        
+      
+    
+    {\displaystyle M_{p,1}}
+   is a Mersenne number.
+This formula can be used to generate sets of equations, that can be used in CRT (Chinese remainder theorem):
+
+  
+    
+      
+        
+          g
+          
+            
+              
+                (
+                
+                  M
+                  
+                    p
+                    ,
+                    n
+                  
+                
+                −
+                1
+                )
+              
+              2
+            
+          
+        
+        ≡
+        −
+        1
+        
+          
+          (
+          mod
+          
+          
+            M
+            
+              p
+              ,
+              n
+            
+          
+          )
+        
+      
+    
+    {\displaystyle g^{\frac {(M_{p,n}-1)}{2}}\equiv -1{\pmod {M_{p,n}}}}
+  , where g is a number such that there exists a x where  
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        ≡
+        g
+        
+          
+          (
+          mod
+          
+          
+            M
+            
+              p
+              ,
+              n
+            
+          
+          )
+        
+      
+    
+    {\displaystyle x^{2}\equiv g{\pmod {M_{p,n}}}}
+  , assuming 
+  
+    
+      
+        N
+        =
+        
+          2
+          
+            n
+          
+        
+      
+    
+    {\displaystyle N=2^{n}}
+  Furthermore; 
+  
+    
+      
+        
+          g
+          
+            
+              2
+              
+                (
+                p
+                −
+                1
+                )
+                n
+              
+            
+            −
+            1
+          
+        
+        ≡
+        
+          a
+          
+            
+              2
+              
+                n
+              
+            
+            −
+            1
+          
+        
+        
+          
+          (
+          mod
+          
+          
+            M
+            
+              p
+              ,
+              n
+            
+          
+          )
+        
+      
+    
+    {\displaystyle g^{2^{(p-1)n}-1}\equiv a^{2^{n}-1}{\pmod {M_{p,n}}}}
+  , where a is an element that generates elements in 
+  
+    
+      
+        {
+        1
+        ,
+        2
+        ,
+        4
+        ,
+        .
+        .
+        
+          .2
+          
+            n
+            −
+            1
+          
+        
+        ,
+        
+          2
+          
+            n
+          
+        
+        }
+      
+    
+    {\displaystyle \{1,2,4,...2^{n-1},2^{n}\}}
+   in a cyclic manner.
+If 
+  
+    
+      
+        N
+        =
+        
+          2
+          
+            t
+          
+        
+      
+    
+    {\displaystyle N=2^{t}}
+  , where 
+  
+    
+      
+        1
+        ≤
+        t
+        ≤
+        n
+      
+    
+    {\displaystyle 1\leq t\leq n}
+  , then 
+  
+    
+      
+        
+          g
+          
+            t
+          
+        
+        =
+        
+          a
+          
+            (
+            
+              2
+              
+                n
+              
+            
+            −
+            1
+            )
+            
+              2
+              
+                n
+                −
+                t
+              
+            
+          
+        
+      
+    
+    {\displaystyle g_{t}=a^{(2^{n}-1)2^{n-t}}}
+  .
+
+How to choose K for a specific N
+Following formula helps one out, finding a proper K (number of groups to divide N bits into) given bit size N by calculating efficiency :
+  
+    
+      
+        E
+        =
+        
+          
+            
+              
+                
+                  
+                    2
+                    N
+                  
+                  K
+                
+              
+              +
+              k
+            
+            n
+          
+        
+      
+    
+    {\displaystyle E={\frac {{\frac {2N}{K}}+k}{n}}}
+   N is bit size (the one used in 
+  
+    
+      
+        
+          2
+          
+            N
+          
+        
+        +
+        1
+      
+    
+    {\displaystyle 2^{N}+1}
+  ) at outermost level. K gives 
+  
+    
+      
+        
+          
+            N
+            K
+          
+        
+      
+    
+    {\displaystyle {\frac {N}{K}}}
+   groups of bits,  where 
+  
+    
+      
+        K
+        =
+        
+          2
+          
+            k
+          
+        
+      
+    
+    {\displaystyle K=2^{k}}
+  .
+n is found through N, K and k by finding the smallest x, such that  
+  
+    
+      
+        2
+        N
+        
+          /
+        
+        K
+        +
+        k
+        ≤
+        n
+        =
+        K
+        
+          2
+          
+            x
+          
+        
+      
+    
+    {\displaystyle 2N/K+k\leq n=K2^{x}}
+  
+If one assume efficiency above 50%, 
+  
+    
+      
+        
+          
+            n
+            2
+          
+        
+        ≤
+        
+          
+            
+              2
+              N
+            
+            K
+          
+        
+        ,
+        K
+        ≤
+        n
+      
+    
+    {\displaystyle {\frac {n}{2}}\leq {\frac {2N}{K}},K\leq n}
+   and k is very small compared to rest of formula; one get
+
+  
+    
+      
+        K
+        ≤
+        2
+        
+          
+            N
+          
+        
+      
+    
+    {\displaystyle K\leq 2{\sqrt {N}}}
+  This means: When something is very effective; K is bound above by 
+  
+    
+      
+        2
+        
+          
+            N
+          
+        
+      
+    
+    {\displaystyle 2{\sqrt {N}}}
+   or asymptoticaly bound above by 
+  
+    
+      
+        
+          
+            N
+          
+        
+      
+    
+    {\displaystyle {\sqrt {N}}}
+
+Pseudocode
+Following alogithm, the standard Modular Schönhage-Strassen Multiplication algorithm (with some optimizations), is found in overview through 
+
+T3MUL = Toom-Cook multiplication
+SMUL  = Schönhage-Strassen multiplication
+Evaluate = FFT/IFFT
+
+Further study
+For implemantion details, one can read the book Prime Numbers: A Computational Perspective. This variant differs somewhat from Schönhage's original method in that it exploits the discrete weighted transform to perform negacyclic convolutions more efficiently. Another source for detailed information is Knuth's The Art of Computer Programming.
+
+Optimizations
+This section explains a number of important practical optimizations, when implementing Schönhage–Strassen.
+
+Use of other multiplications algorithm, inside algorithm
+Below a certain cutoff point, it's more efficient to use other multiplications algorithms, such as Toom–Cook multiplication.
+
+Square root of 2 trick
+The idea is to use 
+  
+    
+      
+        
+          
+            2
+          
+        
+      
+    
+    {\displaystyle {\sqrt {2}}}
+   as root of unity of order 
+  
+    
+      
+        
+          2
+          
+            n
+            +
+            2
+          
+        
+      
+    
+    {\displaystyle 2^{n+2}}
+   in finite field 
+  
+    
+      
+        
+          G
+          F
+        
+        (
+        
+          2
+          
+            n
+            +
+            2
+          
+        
+        +
+        1
+        )
+      
+    
+    {\displaystyle \mathrm {GF} (2^{n+2}+1)}
+   ( it is a solution to equation 
+  
+    
+      
+        
+          θ
+          
+            
+              2
+              
+                n
+                +
+                2
+              
+            
+          
+        
+        ≡
+        1
+        
+          
+          (
+          mod
+          
+          
+            2
+            
+              n
+              +
+              2
+            
+          
+          +
+          1
+          )
+        
+      
+    
+    {\displaystyle \theta ^{2^{n+2}}\equiv 1{\pmod {2^{n+2}+1}}}
+  ), when weighting values in NTT (number theoretic transformation) appraoch. It has been shown to save 10% in integer multiplication time.
+
+Granlund's trick
+By letting 
+  
+    
+      
+        m
+        =
+        N
+        +
+        h
+      
+    
+    {\displaystyle m=N+h}
+  ; one can compute
+
+  
+    
+      
+        u
+        v
+        
+          mod
+          
+            
+              2
+              
+                N
+              
+            
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle uv{\bmod {2^{N}+1}}}
+   and 
+  
+    
+      
+        (
+        u
+        
+          mod
+          
+            
+              2
+              
+                h
+              
+            
+          
+        
+        )
+        (
+        v
+        
+          
+            mod
+            
+              2
+            
+          
+          
+            h
+          
+        
+        )
+      
+    
+    {\displaystyle (u{\bmod {2^{h}}})(v{\bmod {2}}^{h})}
+  . In combination with CRT (Chinese Remainder Theorem), to 
+find exact values of multiplication uv
+
+
+== References ==

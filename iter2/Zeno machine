@@ -1,0 +1,235 @@
+In mathematics and computer science, Zeno machines (abbreviated ZM, and also called accelerated Turing machine, ATM) are a hypothetical computational model related to Turing machines that are capable of carrying out computations involving a countably infinite number of algorithmic steps.  These machines are ruled out in most models of computation.
+The idea of Zeno machines was first discussed by Hermann Weyl in 1927; the name refers to Zeno's paradoxes, attributed to the ancient Greek philosopher Zeno of Elea. Zeno machines play a crucial role in some theories. The theory of the Omega Point devised by physicist Frank J. Tipler, for instance, can only be valid if Zeno machines are possible.
+
+Definition
+A Zeno machine is a Turing machine that can take an infinite number of steps, and then continue take more steps.  This can be thought of as a supertask where 
+  
+    
+      
+        1
+        
+          /
+        
+        
+          2
+          
+            n
+          
+        
+      
+    
+    {\displaystyle 1/2^{n}}
+   units of time are taken to perform the 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -th step; thus, the first step takes 0.5 units of time, the second takes 0.25, the third 0.125 and so on, so that after one unit of time, a countably infinite number of steps will have been performed.
+
+Infinite time Turing machines
+A more formal model of the Zeno machine is the infinite time Turing machine.  Defined first in unpublished work by Jeffrey Kidder and expanded upon by Joel Hamkins and Andy Lewis, in Infinite Time Turing Machines, the infinite time Turing machine is an extension of the classical Turing machine model, to include transfinite time; that is time beyond all finite time.  A classical Turing machine has a status at step 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+   (in the start state, with an empty tape, read head at cell 0) and a procedure for getting from one status to the successive status. In this way the status of a Turing machine is defined for all steps corresponding to a natural number. An ITTM maintains these properties, but also defines the status of the machine at limit ordinals, that is ordinals that are neither 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+   nor the successor of any ordinal.  The status of a Turing machine consists of 3 parts:
+
+The state
+The location of the read-write head
+The contents of the tapeJust as a classical Turing machine has a labeled start state, which is the state at the start of a program, an ITTM has a labeled limit state which is the state for the machine at any limit ordinal. This is the case even if the machine has no other way to access this state, for example no node transitions to it.  The location of the read-write head is set to zero for at any limit step.  Lastly the state of the tape is determined by the limit supremum of previous tape states.  For some machine 
+  
+    
+      
+        T
+      
+    
+    {\displaystyle T}
+  , a cell 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   and, a limit ordinal 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   then
+
+  
+    
+      
+        T
+        (
+        λ
+        
+          )
+          
+            k
+          
+        
+        =
+        
+          lim sup
+          
+            n
+            →
+            λ
+          
+        
+        T
+        (
+        n
+        
+          )
+          
+            k
+          
+        
+      
+    
+    {\displaystyle T(\lambda )_{k}=\limsup _{n\rightarrow \lambda }T(n)_{k}}
+  
+That is the 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  th cell at time 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   is the limit supremum of that same cell as the machine approaches 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+  . This can be thought of as the limit if it converges or 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+   otherwise.
+
+Computability
+Zeno machines have been proposed as a model of computation more powerful than classical Turing machines, based on their ability to solve the halting problem for classical Turing machines. Cristian Calude and Ludwig Staiger present the following pseudocode algorithm as a solution to the halting problem when run on a Zeno machine.
+begin program
+    write 0 on the first position of the output tape;
+    begin loop
+        simulate 1 successive step of the given Turing machine on the given input;
+        if the Turing machine has halted then
+            write 1 on the first position of the output tape and break out of loop;
+    end loop
+end program
+
+By inspecting the first position of the output tape after 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+   unit of time has elapsed we can determine whether the given Turing machine halts.
+In contrast Oron Shagir argues that the state of a Zeno machine is only defined on the interval 
+  
+    
+      
+        [
+        0
+        ,
+        1
+        )
+      
+    
+    {\displaystyle [0,1)}
+  , and so it is impossible to inspect the tape at time 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+  . Furthermore since classical Turing machines don't have any timing information, the addition of timing information whether accelerating or not does not itself add any computational power.Infinite time Turing machines however, are capable of implementing the given algorithm, halting at time 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+   with the correct solution, since they do define their state for transfinite steps.  All 
+  
+    
+      
+        
+          Π
+          
+            1
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \Pi _{1}^{1}}
+   sets are decidable by infinite time Turing machines, and 
+  
+    
+      
+        
+          Δ
+          
+            2
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \Delta _{2}^{1}}
+   sets are semidecidable.Zeno machines cannot solve their own halting problem.
+
+See also
+Computation in the limit
+Specker sequence
+Ross–Littlewood paradox
+
+
+== References ==

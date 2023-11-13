@@ -1,0 +1,2190 @@
+The simply typed lambda calculus (
+  
+    
+      
+        
+          λ
+          
+            →
+          
+        
+      
+    
+    {\displaystyle \lambda ^{\to }}
+  ), a form
+of type theory, is a typed interpretation of the lambda calculus with only one type constructor (
+  
+    
+      
+        →
+      
+    
+    {\displaystyle \to }
+  ) that builds function types. It is the canonical and simplest example of a typed lambda calculus.  The simply typed lambda calculus was originally introduced by Alonzo Church in 1940 as an attempt to avoid paradoxical use of the untyped lambda calculus.The term simple type is also used to refer extensions of the simply typed lambda calculus such as products, coproducts or natural numbers (System T) or even full recursion (like PCF). In contrast, systems which introduce polymorphic types (like System F) or dependent types (like the Logical Framework) are not considered simply typed.  The simple types, except for full recursion, are still considered  simple because the Church encodings of such structures can be done using only 
+  
+    
+      
+        →
+      
+    
+    {\displaystyle \to }
+   and suitable type variables, while polymorphism and dependency cannot.
+
+Syntax
+In this article, the symbols 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   and 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+   are used to range over types. Informally, the function type 
+  
+    
+      
+        σ
+        →
+        τ
+      
+    
+    {\displaystyle \sigma \to \tau }
+   refers to the type of functions that, given an input of type 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  , produce an output of type 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+  .
+By convention, 
+  
+    
+      
+        →
+      
+    
+    {\displaystyle \to }
+   associates to the right: 
+  
+    
+      
+        σ
+        →
+        τ
+        →
+        ρ
+      
+    
+    {\displaystyle \sigma \to \tau \to \rho }
+   is read as 
+  
+    
+      
+        σ
+        →
+        (
+        τ
+        →
+        ρ
+        )
+      
+    
+    {\displaystyle \sigma \to (\tau \to \rho )}
+  .
+To define the types, a set of base types, 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+  , must first be defined. These are sometimes called atomic types or type constants. With this fixed, the syntax of types is:
+
+  
+    
+      
+        τ
+        ::=
+        τ
+        →
+        τ
+        ∣
+        T
+        
+        
+          w
+          h
+          e
+          r
+          e
+        
+        
+        T
+        ∈
+        B
+      
+    
+    {\displaystyle \tau ::=\tau \to \tau \mid T\quad \mathrm {where} \quad T\in B}
+  .For example, 
+  
+    
+      
+        B
+        =
+        {
+        a
+        ,
+        b
+        }
+      
+    
+    {\displaystyle B=\{a,b\}}
+  , generates an infinite set of types starting with 
+  
+    
+      
+        a
+        ,
+        b
+        ,
+      
+    
+    {\displaystyle a,b,}
+  
+  
+    
+      
+        a
+        →
+        a
+        ,
+      
+    
+    {\displaystyle a\to a,}
+  
+  
+    
+      
+        a
+        →
+        b
+        ,
+        b
+        →
+        b
+        ,
+      
+    
+    {\displaystyle a\to b,b\to b,}
+  
+  
+    
+      
+        b
+        →
+        a
+        ,
+      
+    
+    {\displaystyle b\to a,}
+  
+  
+    
+      
+        a
+        →
+        (
+        a
+        →
+        a
+        )
+        ,
+        …
+        ,
+      
+    
+    {\displaystyle a\to (a\to a),\ldots ,}
+  
+  
+    
+      
+        (
+        b
+        →
+        a
+        )
+        →
+        (
+        a
+        →
+        b
+        )
+        ,
+        …
+      
+    
+    {\displaystyle (b\to a)\to (a\to b),\ldots }
+  
+A set of term constants is also fixed for the base types. For example, it might be assumed that a base type nat, and the term constants could be the natural numbers. In the original presentation, Church used only two base types: 
+  
+    
+      
+        o
+      
+    
+    {\displaystyle o}
+   for "the type of propositions" and 
+  
+    
+      
+        ι
+      
+    
+    {\displaystyle \iota }
+   for "the type of individuals". The type 
+  
+    
+      
+        o
+      
+    
+    {\displaystyle o}
+   has no term constants, whereas 
+  
+    
+      
+        ι
+      
+    
+    {\displaystyle \iota }
+   has one term constant. Frequently the calculus with only one base type, usually 
+  
+    
+      
+        o
+      
+    
+    {\displaystyle o}
+  , is considered.
+The syntax of the simply typed lambda calculus is essentially that of the lambda calculus itself. The term 
+  
+    
+      
+        x
+        
+          
+            :
+          
+        
+        τ
+      
+    
+    {\displaystyle x{\mathbin {:}}\tau }
+   denotes that the variable 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is of type 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+  .  The term syntax, in BNF, is then:
+
+  
+    
+      
+        e
+        ::=
+        x
+        ∣
+        λ
+        x
+        
+          
+            :
+          
+        
+        τ
+        .
+        e
+        ∣
+        e
+        
+        e
+        ∣
+        c
+      
+    
+    {\displaystyle e::=x\mid \lambda x{\mathbin {:}}\tau .e\mid e\,e\mid c}
+  where 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   is a term constant.
+That is, variable reference, abstractions, application, and constant.  A variable reference 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is bound if it is inside of an abstraction binding 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  .  A term is closed if there are no unbound variables.
+In comparison, the syntax of untyped lambda calculus has no such typing or term constants:
+
+  
+    
+      
+        e
+        ::=
+        x
+        ∣
+        λ
+        x
+        .
+        e
+        ∣
+        e
+        
+        e
+      
+    
+    {\displaystyle e::=x\mid \lambda x.e\mid e\,e}
+  Whereas in typed lambda calculus every abstraction (i.e. function) must specify the type of its argument.
+
+Typing rules
+To define the set of well-typed lambda terms of a given type, one defines a typing relation between terms and types.  First, one introduces typing contexts or typing environments 
+  
+    
+      
+        Γ
+        ,
+        Δ
+        ,
+        …
+      
+    
+    {\displaystyle \Gamma ,\Delta ,\dots }
+  , which are sets of typing assumptions.  A typing assumption has the form 
+  
+    
+      
+        x
+        
+          
+            :
+          
+        
+        σ
+      
+    
+    {\displaystyle x{\mathbin {:}}\sigma }
+  , meaning 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   has type 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  .
+The typing relation 
+  
+    
+      
+        Γ
+        ⊢
+        e
+        
+          
+            :
+          
+        
+        σ
+      
+    
+    {\displaystyle \Gamma \vdash e{\mathbin {:}}\sigma }
+   indicates that 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+   is a term of type 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   in context 
+  
+    
+      
+        Γ
+      
+    
+    {\displaystyle \Gamma }
+  .  In this case 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+   is said to be well-typed (having type 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  ).  Instances of the typing relation are called typing judgements.  The validity of a typing judgement is shown by providing a typing derivation, constructed using typing rules (wherein the premises above the line allow us to derive the conclusion below the line).  Simply-typed lambda calculus uses these rules:
+
+In words,
+
+If 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   has type 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   in the context, then 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   has type 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  .
+Term constants have the appropriate base types.
+If, in a certain context with 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   having type 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  , 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+   has type 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+  , then, in the same context without 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  , 
+  
+    
+      
+        λ
+        x
+        
+          
+            :
+          
+        
+        σ
+        .
+         
+        e
+      
+    
+    {\displaystyle \lambda x{\mathbin {:}}\sigma .~e}
+   has type 
+  
+    
+      
+        σ
+        →
+        τ
+      
+    
+    {\displaystyle \sigma \to \tau }
+  .
+If, in a certain context, 
+  
+    
+      
+        
+          e
+          
+            1
+          
+        
+      
+    
+    {\displaystyle e_{1}}
+   has type 
+  
+    
+      
+        σ
+        →
+        τ
+      
+    
+    {\displaystyle \sigma \to \tau }
+  , and 
+  
+    
+      
+        
+          e
+          
+            2
+          
+        
+      
+    
+    {\displaystyle e_{2}}
+   has type 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  , then 
+  
+    
+      
+        
+          e
+          
+            1
+          
+        
+         
+        
+          e
+          
+            2
+          
+        
+      
+    
+    {\displaystyle e_{1}~e_{2}}
+   has type 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+  .Examples of closed terms, i.e. terms typable in the empty context, are:
+
+For every type 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+  , a term 
+  
+    
+      
+        λ
+        x
+        
+          
+            :
+          
+        
+        τ
+        .
+        x
+        
+          
+            :
+          
+        
+        τ
+        →
+        τ
+      
+    
+    {\displaystyle \lambda x{\mathbin {:}}\tau .x{\mathbin {:}}\tau \to \tau }
+   (identity function/I-combinator),
+For types 
+  
+    
+      
+        σ
+        ,
+        τ
+      
+    
+    {\displaystyle \sigma ,\tau }
+  , a term 
+  
+    
+      
+        λ
+        x
+        
+          
+            :
+          
+        
+        σ
+        .
+        λ
+        y
+        
+          
+            :
+          
+        
+        τ
+        .
+        x
+        
+          
+            :
+          
+        
+        σ
+        →
+        τ
+        →
+        σ
+      
+    
+    {\displaystyle \lambda x{\mathbin {:}}\sigma .\lambda y{\mathbin {:}}\tau .x{\mathbin {:}}\sigma \to \tau \to \sigma }
+   (the K-combinator), and
+For types 
+  
+    
+      
+        τ
+        ,
+        
+          τ
+          ′
+        
+        ,
+        
+          τ
+          ″
+        
+      
+    
+    {\displaystyle \tau ,\tau ',\tau ''}
+  , a term 
+  
+    
+      
+        λ
+        x
+        
+          
+            :
+          
+        
+        τ
+        →
+        
+          τ
+          ′
+        
+        →
+        
+          τ
+          ″
+        
+        .
+        λ
+        y
+        
+          
+            :
+          
+        
+        τ
+        →
+        
+          τ
+          ′
+        
+        .
+        λ
+        z
+        
+          
+            :
+          
+        
+        τ
+        .
+        x
+        z
+        (
+        y
+        z
+        )
+        :
+        (
+        τ
+        →
+        
+          τ
+          ′
+        
+        →
+        
+          τ
+          ″
+        
+        )
+        →
+        (
+        τ
+        →
+        
+          τ
+          ′
+        
+        )
+        →
+        τ
+        →
+        
+          τ
+          ″
+        
+      
+    
+    {\displaystyle \lambda x{\mathbin {:}}\tau \to \tau '\to \tau ''.\lambda y{\mathbin {:}}\tau \to \tau '.\lambda z{\mathbin {:}}\tau .xz(yz):(\tau \to \tau '\to \tau '')\to (\tau \to \tau ')\to \tau \to \tau ''}
+   (the S-combinator).These are the typed lambda calculus representations of the basic combinators of combinatory logic.
+Each type 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+   is assigned an order, a number 
+  
+    
+      
+        o
+        (
+        τ
+        )
+      
+    
+    {\displaystyle o(\tau )}
+  . For base types, 
+  
+    
+      
+        o
+        (
+        T
+        )
+        =
+        0
+      
+    
+    {\displaystyle o(T)=0}
+  ; for function types, 
+  
+    
+      
+        o
+        (
+        σ
+        →
+        τ
+        )
+        =
+        
+          
+            max
+          
+        
+        (
+        o
+        (
+        σ
+        )
+        +
+        1
+        ,
+        o
+        (
+        τ
+        )
+        )
+      
+    
+    {\displaystyle o(\sigma \to \tau )={\mbox{max}}(o(\sigma )+1,o(\tau ))}
+  .  That is, the order of a type measures the depth of the most left-nested arrow. Hence:
+
+  
+    
+      
+        o
+        (
+        ι
+        →
+        ι
+        →
+        ι
+        )
+        =
+        1
+      
+    
+    {\displaystyle o(\iota \to \iota \to \iota )=1}
+  
+  
+    
+      
+        o
+        (
+        (
+        ι
+        →
+        ι
+        )
+        →
+        ι
+        )
+        =
+        2
+      
+    
+    {\displaystyle o((\iota \to \iota )\to \iota )=2}
+
+Semantics
+Intrinsic vs. extrinsic interpretations
+Broadly speaking, there are two different ways of assigning meaning to the simply typed lambda calculus, as to typed languages more generally, variously called intrinsic vs. extrinsic, ontological vs. semantical, or Church-style vs. Curry-style.
+An intrinsic semantics only assigns meaning to well-typed terms, or more precisely, assigns meaning directly to typing derivations.  This has the effect that terms differing only by type annotations can nonetheless be assigned different meanings.  For example, the identity term 
+  
+    
+      
+        λ
+        x
+        
+          
+            :
+          
+        
+        
+          
+            i
+            n
+            t
+          
+        
+        .
+         
+        x
+      
+    
+    {\displaystyle \lambda x{\mathbin {:}}{\mathtt {int}}.~x}
+   on integers and the identity term 
+  
+    
+      
+        λ
+        x
+        
+          
+            :
+          
+        
+        
+          
+            b
+            o
+            o
+            l
+          
+        
+        .
+         
+        x
+      
+    
+    {\displaystyle \lambda x{\mathbin {:}}{\mathtt {bool}}.~x}
+   on booleans may mean different things.  (The classic intended interpretations
+are the identity function on integers and the identity function on boolean values.)
+In contrast, an extrinsic semantics assigns meaning to terms regardless of typing, as they would be interpreted in an untyped language.  In this view, 
+  
+    
+      
+        λ
+        x
+        
+          
+            :
+          
+        
+        
+          
+            i
+            n
+            t
+          
+        
+        .
+         
+        x
+      
+    
+    {\displaystyle \lambda x{\mathbin {:}}{\mathtt {int}}.~x}
+   and 
+  
+    
+      
+        λ
+        x
+        
+          
+            :
+          
+        
+        
+          
+            b
+            o
+            o
+            l
+          
+        
+        .
+         
+        x
+      
+    
+    {\displaystyle \lambda x{\mathbin {:}}{\mathtt {bool}}.~x}
+   mean the same thing (i.e., the same thing as 
+  
+    
+      
+        λ
+        x
+        .
+         
+        x
+      
+    
+    {\displaystyle \lambda x.~x}
+  ).
+The distinction between intrinsic and extrinsic semantics is sometimes associated with the presence or absence of annotations on lambda abstractions, but strictly speaking this usage is imprecise.  It is possible to define an extrinsic semantics on annotated terms simply by ignoring the types (i.e., through type erasure), as it is possible to give an intrinsic semantics on unannotated terms when the types can be deduced from context (i.e., through type inference).  The essential difference between intrinsic and extrinsic approaches is just whether the typing rules are viewed as defining the language, or as a formalism for verifying properties of a more primitive underlying language.  Most of the different semantic interpretations discussed below can be seen through either an intrinsic or extrinsic perspective.
+
+Equational theory
+The simply typed lambda calculus has the same equational theory of βη-equivalence as untyped lambda calculus, but subject to type restrictions.  The equation for beta reduction
+
+  
+    
+      
+        (
+        λ
+        x
+        
+          
+            :
+          
+        
+        σ
+        .
+         
+        t
+        )
+        
+        u
+        
+          =
+          
+            β
+          
+        
+        t
+        [
+        x
+        :=
+        u
+        ]
+      
+    
+    {\displaystyle (\lambda x{\mathbin {:}}\sigma .~t)\,u=_{\beta }t[x:=u]}
+  holds in context 
+  
+    
+      
+        Γ
+      
+    
+    {\displaystyle \Gamma }
+   whenever 
+  
+    
+      
+        Γ
+        ,
+        x
+        
+          
+            :
+          
+        
+        σ
+        ⊢
+        t
+        
+          
+            :
+          
+        
+        τ
+      
+    
+    {\displaystyle \Gamma ,x{\mathbin {:}}\sigma \vdash t{\mathbin {:}}\tau }
+   and 
+  
+    
+      
+        Γ
+        ⊢
+        u
+        
+          
+            :
+          
+        
+        σ
+      
+    
+    {\displaystyle \Gamma \vdash u{\mathbin {:}}\sigma }
+  , while the equation for eta reduction
+
+  
+    
+      
+        λ
+        x
+        
+          
+            :
+          
+        
+        σ
+        .
+         
+        t
+        
+        x
+        
+          =
+          
+            η
+          
+        
+        t
+      
+    
+    {\displaystyle \lambda x{\mathbin {:}}\sigma .~t\,x=_{\eta }t}
+  holds whenever 
+  
+    
+      
+        Γ
+        ⊢
+        t
+        
+        :
+        σ
+        →
+        τ
+      
+    
+    {\displaystyle \Gamma \vdash t\!:\sigma \to \tau }
+   and 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   does not appear free in 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  .
+
+Operational semantics
+Likewise, the operational semantics of simply typed lambda calculus can be fixed as for the untyped lambda calculus, using call by name, call by value, or other evaluation strategies.  As for any typed language, type safety is a fundamental property of all of these evaluation strategies.  Additionally, the strong normalization property described below implies that any evaluation strategy will terminate on all simply typed terms.
+
+Categorical semantics
+The simply typed lambda calculus enriched with product types, pairing and projection operators (with  
+  
+    
+      
+        β
+        η
+      
+    
+    {\displaystyle \beta \eta }
+  -equivalence) is the internal language of Cartesian closed categories (CCCs), as was first observed by Joachim Lambek.  Given any CCC, the basic types of the corresponding lambda calculus are the objects, and the terms are the morphisms. Conversely, the simply typed lambda calculus with product types and pairing operators over a collection of base types and given terms forms a CCC whose objects are the types, and morphisms are equivalence classes of terms. 
+There are typing rules for pairing, projection, and a unit term. Given two terms 
+  
+    
+      
+        s
+        
+          
+            :
+          
+        
+        σ
+      
+    
+    {\displaystyle s{\mathbin {:}}\sigma }
+   and 
+  
+    
+      
+        t
+        
+          
+            :
+          
+        
+        τ
+      
+    
+    {\displaystyle t{\mathbin {:}}\tau }
+  , the term 
+  
+    
+      
+        (
+        s
+        ,
+        t
+        )
+      
+    
+    {\displaystyle (s,t)}
+   has type 
+  
+    
+      
+        σ
+        ×
+        τ
+      
+    
+    {\displaystyle \sigma \times \tau }
+  .  Likewise, if one has a term 
+  
+    
+      
+        u
+        
+          
+            :
+          
+        
+        
+          τ
+          
+            1
+          
+        
+        ×
+        
+          τ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle u{\mathbin {:}}\tau _{1}\times \tau _{2}}
+  , then there are terms 
+  
+    
+      
+        
+          π
+          
+            1
+          
+        
+        (
+        u
+        )
+        
+          
+            :
+          
+        
+        
+          τ
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \pi _{1}(u){\mathbin {:}}\tau _{1}}
+   and 
+  
+    
+      
+        
+          π
+          
+            2
+          
+        
+        (
+        u
+        )
+        
+          
+            :
+          
+        
+        
+          τ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \pi _{2}(u){\mathbin {:}}\tau _{2}}
+   where the 
+  
+    
+      
+        
+          π
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \pi _{i}}
+   correspond to the projections of the Cartesian product. The unit term, of type 1, is written as 
+  
+    
+      
+        (
+        )
+      
+    
+    {\displaystyle ()}
+   and vocalized as 'nil', is the final object.  The equational theory is extended likewise, so that one has
+
+  
+    
+      
+        
+          π
+          
+            1
+          
+        
+        (
+        s
+        
+          
+            :
+          
+        
+        σ
+        ,
+        t
+        
+          
+            :
+          
+        
+        τ
+        )
+        =
+        s
+        
+          
+            :
+          
+        
+        σ
+      
+    
+    {\displaystyle \pi _{1}(s{\mathbin {:}}\sigma ,t{\mathbin {:}}\tau )=s{\mathbin {:}}\sigma }
+  
+
+  
+    
+      
+        
+          π
+          
+            2
+          
+        
+        (
+        s
+        
+          
+            :
+          
+        
+        σ
+        ,
+        t
+        
+          
+            :
+          
+        
+        τ
+        )
+        =
+        t
+        
+          
+            :
+          
+        
+        τ
+      
+    
+    {\displaystyle \pi _{2}(s{\mathbin {:}}\sigma ,t{\mathbin {:}}\tau )=t{\mathbin {:}}\tau }
+  
+
+  
+    
+      
+        (
+        
+          π
+          
+            1
+          
+        
+        (
+        u
+        
+          
+            :
+          
+        
+        σ
+        ×
+        τ
+        )
+        ,
+        
+          π
+          
+            2
+          
+        
+        (
+        u
+        
+          
+            :
+          
+        
+        σ
+        ×
+        τ
+        )
+        )
+        =
+        u
+        
+          
+            :
+          
+        
+        σ
+        ×
+        τ
+      
+    
+    {\displaystyle (\pi _{1}(u{\mathbin {:}}\sigma \times \tau ),\pi _{2}(u{\mathbin {:}}\sigma \times \tau ))=u{\mathbin {:}}\sigma \times \tau }
+  
+
+  
+    
+      
+        t
+        
+          
+            :
+          
+        
+        1
+        =
+        (
+        )
+      
+    
+    {\displaystyle t{\mathbin {:}}1=()}
+  This last is read as "if t has type 1, then it reduces to nil".
+The above can then be turned into a category by taking the types as the objects. The morphisms 
+  
+    
+      
+        σ
+        →
+        τ
+      
+    
+    {\displaystyle \sigma \to \tau }
+   are equivalence classes of pairs 
+  
+    
+      
+        (
+        x
+        
+          
+            :
+          
+        
+        σ
+        ,
+        t
+        
+          
+            :
+          
+        
+        τ
+        )
+      
+    
+    {\displaystyle (x{\mathbin {:}}\sigma ,t{\mathbin {:}}\tau )}
+   where x is a variable (of type 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  ) and t is a term (of type 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+  ), having no free variables in it, except for (optionally) x. 
+The set of terms in the language is the closure of this set of terms under the operations of abstraction and application. 
+This correspondence can be extended to include "language homomorphisms" and functors between the category of Cartesian closed categories, and the category of simply-typed lambda theories.
+Part of this correspondence can be extended to closed symmetric monoidal categories by using a linear type system.
+
+Proof-theoretic semantics
+The simply typed lambda calculus is closely related to the implicational fragment of propositional intuitionistic logic, i.e., minimal logic, via the Curry–Howard isomorphism: terms correspond precisely to proofs in natural deduction, and inhabited types are exactly the tautologies of minimal logic.
+
+Alternative syntaxes
+The presentation given above is not the only way of defining the syntax of the simply typed lambda calculus.  One alternative is to remove type annotations entirely (so that the syntax is identical to the untyped lambda calculus), while ensuring that terms are well-typed via Hindley–Milner type inference.  The inference algorithm is terminating, sound, and complete: whenever a term is typable, the algorithm computes its type.  More precisely, it computes the term's principal type, since often an unannotated term (such as 
+  
+    
+      
+        λ
+        x
+        .
+         
+        x
+      
+    
+    {\displaystyle \lambda x.~x}
+  ) may have more than one type (
+  
+    
+      
+        
+          
+            i
+            n
+            t
+          
+        
+        →
+        
+          
+            i
+            n
+            t
+          
+        
+      
+    
+    {\displaystyle {\mathtt {int}}\to {\mathtt {int}}}
+  , 
+  
+    
+      
+        
+          
+            b
+            o
+            o
+            l
+          
+        
+        →
+        
+          
+            b
+            o
+            o
+            l
+          
+        
+      
+    
+    {\displaystyle {\mathtt {bool}}\to {\mathtt {bool}}}
+  , etc., which are all instances of the principal type 
+  
+    
+      
+        α
+        →
+        α
+      
+    
+    {\displaystyle \alpha \to \alpha }
+  ).
+Another alternative presentation of simply typed lambda calculus is based on bidirectional type checking, which requires more type annotations than Hindley–Milner inference but is easier to describe.  The type system is divided into two judgments, representing both checking and synthesis, written 
+  
+    
+      
+        Γ
+        ⊢
+        e
+        ⇐
+        τ
+      
+    
+    {\displaystyle \Gamma \vdash e\Leftarrow \tau }
+   and 
+  
+    
+      
+        Γ
+        ⊢
+        e
+        ⇒
+        τ
+      
+    
+    {\displaystyle \Gamma \vdash e\Rightarrow \tau }
+   respectively.  Operationally, the three components 
+  
+    
+      
+        Γ
+      
+    
+    {\displaystyle \Gamma }
+  , 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+  , and 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+   are all inputs to the checking judgment 
+  
+    
+      
+        Γ
+        ⊢
+        e
+        ⇐
+        τ
+      
+    
+    {\displaystyle \Gamma \vdash e\Leftarrow \tau }
+  , whereas the synthesis judgment 
+  
+    
+      
+        Γ
+        ⊢
+        e
+        ⇒
+        τ
+      
+    
+    {\displaystyle \Gamma \vdash e\Rightarrow \tau }
+   only takes 
+  
+    
+      
+        Γ
+      
+    
+    {\displaystyle \Gamma }
+   and 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+   as inputs, producing the type 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+   as output.  These judgments are derived via the following rules:
+
+Observe that rules [1]–[4] are nearly identical to rules (1)–(4) above, except for the careful choice of checking or synthesis judgments.  These choices can be explained like so:
+
+If 
+  
+    
+      
+        x
+        
+          
+            :
+          
+        
+        σ
+      
+    
+    {\displaystyle x{\mathbin {:}}\sigma }
+   is in the context, we can synthesize type 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   for 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  .
+The types of term constants are fixed and can be synthesized.
+To check that 
+  
+    
+      
+        λ
+        x
+        .
+         
+        e
+      
+    
+    {\displaystyle \lambda x.~e}
+   has type 
+  
+    
+      
+        σ
+        →
+        τ
+      
+    
+    {\displaystyle \sigma \to \tau }
+   in some context, we extend the context with 
+  
+    
+      
+        x
+        
+          
+            :
+          
+        
+        σ
+      
+    
+    {\displaystyle x{\mathbin {:}}\sigma }
+   and check that 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+   has type 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+  .
+If 
+  
+    
+      
+        
+          e
+          
+            1
+          
+        
+      
+    
+    {\displaystyle e_{1}}
+   synthesizes type 
+  
+    
+      
+        σ
+        →
+        τ
+      
+    
+    {\displaystyle \sigma \to \tau }
+   (in some context), and 
+  
+    
+      
+        
+          e
+          
+            2
+          
+        
+      
+    
+    {\displaystyle e_{2}}
+   checks against type 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   (in the same context), then 
+  
+    
+      
+        
+          e
+          
+            1
+          
+        
+         
+        
+          e
+          
+            2
+          
+        
+      
+    
+    {\displaystyle e_{1}~e_{2}}
+   synthesizes type 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+  .Observe that the rules for synthesis are read top-to-bottom, whereas the rules for checking are read bottom-to-top.  Note in particular that we do not need any annotation on the lambda abstraction in rule [3], because the type of the bound variable can be deduced from the type at which we check the function. Finally, we explain rules [5] and [6] as follows:
+
+To check that 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+   has type 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+  , it suffices to synthesize type 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+  .
+If 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+   checks against type 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+  , then the explicitly annotated term 
+  
+    
+      
+        (
+        e
+        
+          
+            :
+          
+        
+        τ
+        )
+      
+    
+    {\displaystyle (e{\mathbin {:}}\tau )}
+   synthesizes 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+  .
+
+Because of these last two rules coercing between synthesis and checking, it is easy to see that any well-typed but unannotated term can be checked in the bidirectional system, so long as we insert "enough" type annotations.  And in fact, annotations are needed only at β-redexes.
+
+General observations
+Given the standard semantics, the simply typed lambda calculus is strongly normalizing: every sequence of reductions eventually terminates. This is because recursion is not allowed by the typing rules: it is impossible to find types for fixed-point combinators and the looping term 
+  
+    
+      
+        Ω
+        =
+        (
+        λ
+        x
+        .
+         
+        x
+         
+        x
+        )
+        (
+        λ
+        x
+        .
+         
+        x
+         
+        x
+        )
+      
+    
+    {\displaystyle \Omega =(\lambda x.~x~x)(\lambda x.~x~x)}
+  .  Recursion can be added to the language by either having a special operator 
+  
+    
+      
+        
+          
+            
+              f
+              i
+              x
+            
+          
+          
+            α
+          
+        
+      
+    
+    {\displaystyle {\mathtt {fix}}_{\alpha }}
+  of type 
+  
+    
+      
+        (
+        α
+        →
+        α
+        )
+        →
+        α
+      
+    
+    {\displaystyle (\alpha \to \alpha )\to \alpha }
+   or adding general recursive types, though both eliminate strong normalization.
+Unlike the untyped lambda calculus, the simply typed lambda calculus is not Turing complete. All programs in the simply typed lambda calculus halt. For the untyped lambda calculus, there are programs which do not halt, and moreover there is no general decision procedure which can determine whether a program halts.
+
+Important results
+Tait showed in 1967 that 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+  -reduction is strongly normalizing. As a corollary 
+  
+    
+      
+        β
+        η
+      
+    
+    {\displaystyle \beta \eta }
+  -equivalence is decidable. Statman showed in 1979 that the normalisation problem is not elementary recursive, a proof which was later simplified by Mairson. The problem is known to be in the set 
+  
+    
+      
+        
+          
+            
+              E
+            
+          
+          
+            4
+          
+        
+      
+    
+    {\displaystyle {\mathcal {E}}^{4}}
+   of the Grzegorczyk hierarchy. A purely semantic normalisation proof (see normalisation by evaluation) was given by Berger and Schwichtenberg in 1991.
+The unification problem for 
+  
+    
+      
+        β
+        η
+      
+    
+    {\displaystyle \beta \eta }
+  -equivalence is undecidable. Huet showed in 1973 that 3rd order unification is undecidable and this was improved upon by Baxter in 1978 then by Goldfarb in 1981 by showing that 2nd order unification is already undecidable. A proof that higher order matching (unification where only one term contains existential variables) is decidable was announced by Colin Stirling in 2006, and a full proof was published in 2009.
+We can encode natural numbers by terms of the type 
+  
+    
+      
+        (
+        o
+        →
+        o
+        )
+        →
+        (
+        o
+        →
+        o
+        )
+      
+    
+    {\displaystyle (o\to o)\to (o\to o)}
+   (Church numerals). Schwichtenberg showed in 1975 that in 
+  
+    
+      
+        
+          λ
+          
+            →
+          
+        
+      
+    
+    {\displaystyle \lambda ^{\to }}
+   exactly the extended polynomials are representable as functions over Church numerals; these are roughly the polynomials closed up under a conditional operator.
+A full model of 
+  
+    
+      
+        
+          λ
+          
+            →
+          
+        
+      
+    
+    {\displaystyle \lambda ^{\to }}
+   is given by interpreting base types as sets and function types by the set-theoretic function space. Friedman showed in 1975 that this interpretation is complete for 
+  
+    
+      
+        β
+        η
+      
+    
+    {\displaystyle \beta \eta }
+  -equivalence, if the base types are interpreted by infinite sets. Statman showed in 1983 that 
+  
+    
+      
+        β
+        η
+      
+    
+    {\displaystyle \beta \eta }
+  -equivalence is the maximal equivalence which is typically ambiguous, i.e. closed under type substitutions (Statman's Typical Ambiguity Theorem). A corollary of this is that the finite model property holds, i.e. finite sets are sufficient to distinguish terms which are not identified by 
+  
+    
+      
+        β
+        η
+      
+    
+    {\displaystyle \beta \eta }
+  -equivalence.
+Plotkin introduced logical relations in 1973 to characterize the elements of a model which are definable by lambda terms. In 1993 Jung and Tiuryn showed that a general form of logical relation (Kripke logical relations with varying arity) exactly characterizes lambda definability. Plotkin and Statman conjectured that it is decidable whether a given element of a model generated from finite sets is definable by a lambda term (Plotkin–Statman conjecture). The conjecture was shown to be false by Loader in 2001.
+
+Notes
+References
+H. Barendregt, Lambda Calculi with Types, Handbook of Logic in Computer Science, Volume II, Oxford University Press, 1993. ISBN 0-19-853761-1.
+
+External links
+Loader, Ralph (February 1998). "Notes on Simply Typed Lambda Calculus".
+"Church's Type Theory" entry  in the Stanford Encyclopedia of Philosophy

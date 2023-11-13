@@ -1,0 +1,178 @@
+The Baillie–PSW primality test is a probabilistic or possibly deterministic primality testing algorithm that determines whether a number is composite or is a probable prime. It is named after Robert Baillie, Carl Pomerance, John Selfridge, and Samuel Wagstaff.
+The Baillie–PSW test is a combination of a strong Fermat probable prime test to base 2 and a standard or strong Lucas probable prime test. The Fermat and Lucas test each have their own list of pseudoprimes, that is, composite numbers that pass the test. For example, the first ten strong pseudoprimes to base 2 are
+
+2047, 3277, 4033, 4681, 8321, 15841, 29341, 42799, 49141, and 52633 (sequence A001262 in the OEIS).The first ten strong Lucas pseudoprimes (with Lucas parameters (P, Q) defined by Selfridge's Method A) are
+
+5459, 5777, 10877, 16109, 18971, 22499, 24569, 25199, 40309, and 58519 (sequence A217255 in the OEIS).There is no known overlap between these lists, and there is even evidence that the numbers tend to be of different kind, in fact even with standard and not strong Lucas test there is no known overlap. For example, Fermat pseudoprimes to base 2 tend to fall into the residue class 1 (mod m) for many small m, whereas Lucas pseudoprimes tend to fall into the residue class −1 (mod m).: §6 : Table 2 & §5  As a result, a number that passes both a strong Fermat base 2 and a strong Lucas test is very likely to be prime. If you choose a random base, there might be some composite n that passes both the Fermat and Lucas tests. For example, n=5777 is a strong psp base 76, and is also a strong Lucas pseudoprime.
+No composite number below 264 (approximately 1.845·1019) passes the strong or standard Baillie–PSW test, that result was also separately verified by Charles Greathouse in June 2011. Consequently, this test is a deterministic primality test on numbers below that bound. There are also no known composite numbers above that bound that pass the test, in other words, there are no known Baillie–PSW pseudoprimes.
+In 1980, the authors Pomerance, Selfridge, and Wagstaff offered $30 for the discovery of a counterexample, that is, a composite number that passed this test. Richard Guy incorrectly stated that the value of this prize had been raised to $620, but he was confusing the Lucas sequence with the Fibonacci sequence, and his remarks really apply only to a conjecture of Selfridge's. As of June 2014 the prize remains unclaimed. However, a heuristic argument by Pomerance suggests that there are infinitely many counterexamples.
+Moreover, Chen and Greene
+have constructed a set S of 1248 primes such that, among the nearly 21248 products of distinct primes in S, there may be about 740 counterexamples. However, they are talking about the weaker PSW test that substitutes a Fibonacci test for the Lucas one.
+
+The test
+Let n be the odd positive integer that we wish to test for primality.
+
+Optionally, perform trial division to check if n is divisible by a small prime number less than some convenient limit.
+Perform a base 2 strong probable prime test.  If n is not a strong probable prime base 2, then n is composite; quit.
+Find the first D in the sequence 5, −7, 9, −11, 13, −15,  ... for which the Jacobi symbol (D/n) is −1. Set P = 1 and Q = (1 − D) / 4.
+Perform a strong Lucas probable prime test on n using parameters D, P, and Q. If n is not a strong Lucas probable prime, then n is composite. Otherwise, n is almost certainly prime.Remarks.
+
+The first step is for efficiency only. The Baillie–PSW test works without this step, but if n has small prime factors, then the quickest way to show that n is composite is to find a factor by trial division.
+Step 2 is, in effect, a single application of the Miller–Rabin primality test, but using the fixed base 2. There is nothing special about using base 2; other bases might work just as well. However, much work has been done (see above) to verify that the combination of the base 2 strong probable prime test and a strong Lucas test does a good job of distinguishing primes from composites.
+Baillie and Wagstaff proved in Theorem 9 on page 1413 of that the average number of Ds that must be tried is about 3.147755149.
+If n is a perfect square, then step 3 will never yield a D with (D/n) = −1; this is not a problem because perfect squares are easy to detect using Newton's method for square roots. If step 3 fails to produce a D quickly, one should check whether n is a perfect square.
+Given n, there are other methods for choosing D, P, and Q.: 1401, 1409  What is important is that the Jacobi symbol (D/n) be −1.  Bressoud and Wagon explain why we want the Jacobi symbol to be −1, as well as why one gets more powerful primality tests if Q ≠ ±1.: 266–269 
+Section 6 of recommends that  if Q ≠ ±1, a good primality test should also check two additional congruence conditions. These two congruences involve almost no extra computational cost, and are only rarely true if n is composite: 
+  
+    
+      
+        
+          V
+          
+            n
+            +
+            1
+          
+        
+        ≡
+        2
+        Q
+        
+          
+          (
+          mod
+          
+          n
+          )
+        
+      
+    
+    {\displaystyle V_{n+1}\equiv 2Q{\pmod {n}}}
+   and 
+  
+    
+      
+        
+          Q
+          
+            (
+            n
+            +
+            1
+            )
+            
+              /
+            
+            2
+          
+        
+        =
+        Q
+        ⋅
+        
+          Q
+          
+            (
+            n
+            −
+            1
+            )
+            
+              /
+            
+            2
+          
+        
+        ≡
+        Q
+        ⋅
+        
+          (
+          
+            
+              
+                Q
+                n
+              
+            
+          
+          )
+        
+        
+          
+          (
+          mod
+          
+          n
+          )
+        
+      
+    
+    {\displaystyle Q^{(n+1)/2}=Q\cdot Q^{(n-1)/2}\equiv Q\cdot \left({\tfrac {Q}{n}}\right){\pmod {n}}}
+   .
+There are weaker versions of the Baillie–PSW test, and this one is sometimes referred to as the Strong Baillie–PSW test.
+If the Lucas test is replaced by a Fibonacci test, then it shouldn't be called a Baillie–PSW test, but rather a Selfridge test or a PSW test. See Selfridge's conjecture about primality testing.
+Pomerance, Selfridge and Wagstaff offered $30 in 1980 for a composite number passing a weaker version of the Baillie–PSW test. Such a number passing the (strong) Baillie–PSW test would qualify.
+With an appropriate method of choosing D, P, and Q, there are only five odd, composite numbers (also called Dickson pseudoprimes of the second kind) less than 1015 for which 
+  
+    
+      
+        
+          V
+          
+            n
+            +
+            1
+          
+        
+        ≡
+        2
+        Q
+        
+          
+          (
+          mod
+          
+          n
+          )
+        
+      
+    
+    {\displaystyle V_{n+1}\equiv 2Q{\pmod {n}}}
+  . The authors of suggest a stronger version of the Baillie–PSW primality test that includes this congruence; the authors offer a $2000 reward for a composite number that passes this stronger test. This version of the algorithm is already used in Mathematica.
+
+The danger of relying only on Fermat tests
+There is significant overlap among the lists of pseudoprimes to different bases.
+Choose a base a. If n is a pseudoprime to base a, then n is likely to be one of those few numbers that is a pseudoprime to many bases.For example, n = 341 is a pseudoprime to base 2. It follows from Theorem 1 on page 1392 of that there are 100 values of a (mod 341) for which 341 is a pseudoprime base a.
+(The first ten such a are 1, 2, 4, 8, 15, 16, 23, 27, 29, and 30).
+The proportion of such a compared to n is usually much smaller.
+Therefore, if n is a pseudoprime to base a, then n is more likely than average to be a pseudoprime to some other base.: 1020  For example, there are 21853 pseudoprimes to base 2 up to 25·109.
+This is only about two out of every million odd integers in this range.
+However:: 1021 
+4709 of these 21853 numbers (over 21 percent) are also pseudoprimes to base 3;
+2522 of these 4709 numbers (over 53 percent) are pseudoprimes to bases 2, 3, and 5;
+1770 of these 2522 numbers (over 70 percent) are pseudoprimes to bases 2, 3, 5, and 7.The number 29341 is the smallest pseudoprime to bases 2 through 12.
+All of this suggests that probable prime tests to different bases are not independent of each other, so that performing Fermat probable prime tests to more and more bases will give diminishing returns.
+On the other hand, the calculations in : 1400  and the calculations up to 264 mentioned above suggest that Fermat and Lucas probable prime tests are independent, so that a combination of these types of tests would make a powerful primality test, especially if the strong forms of the tests are used.
+Note that a number that is pseudoprime to all prime bases 2, ..., p is also pseudoprime to all bases that are p-smooth.
+There is also overlap among strong pseudoprimes to different bases.
+For example, 1373653 is the smallest strong pseudoprime to bases 2 through 4, and 3215031751 is the smallest strong pseudoprime to bases 2 through 10.
+Arnault
+
+gives a 397-digit Carmichael number N that is a strong pseudoprime to all prime bases less than 307. Because this N is a Carmichael number, N is also a (not necessarily strong) pseudoprime to all bases less than p, where p is the 131-digit smallest prime factor of N. A quick calculation shows that N is not a Lucas probable prime when D, P, and Q are chosen by the method described above, so this number would be correctly determined by the Baillie–PSW test to be composite.
+
+Applications of combined Fermat and Lucas primality tests
+The following computer algebra systems and software packages use some version of the Baillie–PSW primality test.
+Maple's isprime function, Mathematica's PrimeQ function (that already uses 2020's version of Baillie–PSW), PARI/GP's isprime and ispseudoprime functions, and SageMath's is_pseudoprime function all use a combination of a Fermat strong probable prime test and a Lucas test.
+Maxima's primep function uses such a test for numbers greater than 341550071728321.The FLINT library has functions n_is_probabprime and n_is_probabprime_BPSW that use a combined test, as well as other functions that perform Fermat and Lucas tests separately.The BigInteger class in standard versions of Java and in open-source implementations like OpenJDK
+has a method called isProbablePrime. This method does one or more Miller–Rabin tests with random bases. If n, the number being tested, has 100 bits or more, this method also does a non-strong Lucas test that checks whether Un+1 is 0 (mod n).
+The use of random bases in the Miller–Rabin tests has an advantage and a drawback compared to doing a single base 2 test as specified in the Baillie–PSW test.
+The advantage is that, with random bases, one can get a bound on the probability that n is composite. The drawback is that, unlike the Baillie–PSW test, one cannot say with certainty that if n is less than some fixed bound such as 264, then n is prime.
+In Perl, the Math::Primality and Math::Prime::Util modules have functions to perform the strong Baillie–PSW test as well as separate functions for strong pseudoprime and strong Lucas tests.  In Python, the NZMATH library has the strong pseudoprime and Lucas tests, but does not have a combined function. The SymPy library does implement this.
+As of 6.2.0, GNU Multiple Precision Arithmetic Library's mpz_probab_prime_p function uses a strong Lucas test and a Miller–Rabin test; previous versions did not make use of Baillie–PSW.Magma's IsProbablePrime and IsProbablyPrime functions use 20 Miller–Rabin tests for numbers > 34·1013, but do not combine them with a Lucas probable prime test.Cryptographic libraries often have prime-testing functions. Albrecht et al. discuss the tests used in these libraries. Some use a combined Fermat and Lucas test; many do not.: Table 1  For some of the latter, Albrecht, et al. were able to construct composite numbers that the libraries declared to be prime.
+
+References
+Further reading
+Jacobsen, Dana Pseudoprime Statistics, Tables, and Data (lists of pseudoprimes base 2, Lucas, and other pseudoprimes to 1014)
+Nicely, Thomas R., The Baillie–PSW primality test., archived from the original on 2013-08-28, retrieved 2007-08-07
+Weisstein, Eric W. "Baillie–PSW Primality Test". MathWorld.

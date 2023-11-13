@@ -1,0 +1,47 @@
+Hardware acceleration is the use of computer hardware designed to perform specific functions more efficiently when compared to software running on a general-purpose central processing unit (CPU). Any transformation of data that can be calculated in software running on a generic CPU can also be calculated in custom-made hardware, or in some mix of both.
+To perform computing tasks more efficiently, generally one can invest time and money in improving the software, improving the hardware, or both. There are various approaches with advantages and disadvantages in terms of decreased latency, increased throughput and reduced energy consumption. Typical advantages of focusing on software may include greater versatility, more rapid development, lower non-recurring engineering costs, heightened portability, and ease of updating features or patching bugs, at the cost of overhead to compute general operations. Advantages of focusing on hardware may include speedup, reduced power consumption, lower latency, increased parallelism and bandwidth, and better utilization of area and functional components available on an integrated circuit; at the cost of lower ability to update designs once etched onto silicon and higher costs of functional verification, times to market, and need for more parts. In the hierarchy of digital computing systems ranging from general-purpose processors to fully customized hardware, there is a tradeoff between flexibility and efficiency, with efficiency increasing by orders of magnitude when any given application is implemented higher up that hierarchy. This hierarchy includes general-purpose processors such as CPUs, more specialized processors such as programmable shaders in a GPU, fixed-function implemented on field-programmable gate arrays (FPGAs), and fixed-function implemented on application-specific integrated circuits (ASICs).Hardware acceleration is advantageous for performance, and practical when the functions are fixed so updates are not as needed as in software solutions. With the advent of reprogrammable logic devices such as FPGAs, the restriction of hardware acceleration to fully fixed algorithms has eased since 2010, allowing hardware acceleration to be applied to problem domains requiring modification to algorithms and processing control flow. The disadvantage however, is that in many open source projects, it requires proprietary libraries that not all vendors are keen to distribute or expose, making it difficult to integrate in such projects.
+
+Overview
+Integrated circuits can be created to perform arbitrary operations on analog and digital signals. Most often in computing, signals are digital and can be interpreted as binary number data. Computer hardware and software operate on information in binary representation to perform computing; this is accomplished by calculating Boolean functions on the bits of input and outputting the result to some output device downstream for storage or further processing.
+
+Computational equivalence of hardware and software
+Because all Turing machines can run any computable function, it is always possible to design custom hardware that performs the same function as a given piece of software. Conversely, software can be always used to emulate the function of a given piece of hardware. Custom hardware may offer higher performance per watt for the same functions that can be specified in software. Hardware description languages (HDLs) such as Verilog and VHDL can model the same semantics as software and synthesize the design into a netlist that can be programmed to an FPGA or composed into the logic gates of an ASIC.
+
+Stored-program computers
+The vast majority of software-based computing occurs on machines implementing the von Neumann architecture, collectively known as stored-program computers. Computer programs are stored as data and executed by processors. Such processors must fetch and decode instructions, as well as loading data operands from memory (as part of the instruction cycle) to execute the instructions constituting the software program. Relying on a common cache for code and data leads to the "von Neumann bottleneck", a fundamental limitation on the throughput of software on processors implementing the von Neumann architecture. Even in the modified Harvard architecture, where instructions and data have separate caches in the memory hierarchy, there is overhead to decoding instruction opcodes and multiplexing available execution units on a microprocessor or microcontroller, leading to low circuit utilization. Modern processors that provide simultaneous multithreading exploit under-utilization of available processor functional units and instruction level parallelism between different hardware threads.
+
+Hardware execution units
+Hardware execution units do not in general rely on the von Neumann or modified Harvard architectures and do not need to perform the instruction fetch and decode steps of an instruction cycle and incur those stages' overhead. If needed calculations are specified in a register transfer level (RTL) hardware design, the time and circuit area costs that would be incurred by instruction fetch and decoding stages can be reclaimed and put to other uses.
+This reclamation saves time, power and circuit area in computation. The reclaimed resources can be used for increased parallel computation, other functions, communication or memory, as well as increased input/output capabilities. This comes at the cost of general-purpose utility.
+
+Emerging hardware architectures
+Greater RTL customization of hardware designs allows emerging architectures such as in-memory computing, transport triggered architectures (TTA) and networks-on-chip (NoC) to further benefit from increased locality of data to execution context, thereby reducing computing and communication latency between modules and functional units.
+Custom hardware is limited in parallel processing capability only by the area and logic blocks available on the integrated circuit die. Therefore, hardware is much more free to offer massive parallelism than software on general-purpose processors, offering a possibility of implementing the parallel random-access machine (PRAM) model.
+It is common to build multicore and manycore processing units out of microprocessor IP core schematics on a single FPGA or ASIC. Similarly, specialized functional units can be composed in parallel as in digital signal processing without being embedded in a processor IP core. Therefore, hardware acceleration is often employed for repetitive, fixed tasks involving little conditional branching, especially on large amounts of data. This is how Nvidia's CUDA line of GPUs are implemented.
+
+Implementation metrics
+As device mobility has increased, new metrics have been developed that measure the relative performance of specific acceleration protocols, considering the characteristics such as physical hardware dimensions, power consumption and operations throughput. These can be summarized into three categories: task efficiency, implementation efficiency, and flexibility. Appropriate metrics consider the area of the hardware along with both the corresponding operations throughput and energy consumed.
+
+Applications
+Examples of hardware acceleration include bit blit acceleration functionality in graphics processing units (GPUs), use of memristors for accelerating neural networks and regular expression hardware acceleration for spam control in the server industry, intended to prevent regular expression denial of service (ReDoS) attacks. The hardware that performs the acceleration may be part of a general-purpose CPU, or a separate unit called a hardware accelerator, though they are usually referred with a more specific term, such as 3D accelerator, or cryptographic accelerator.
+Traditionally, processors were sequential (instructions are executed one by one), and were designed to run general purpose algorithms controlled by instruction fetch (for example moving temporary results to and from a register file). Hardware accelerators improve the execution of a specific algorithm by allowing greater concurrency, having specific datapaths for their temporary variables, and reducing the overhead of instruction control in the fetch-decode-execute cycle.
+Modern processors are multi-core and often feature parallel "single-instruction; multiple data" (SIMD) units. Even so, hardware acceleration still yields benefits. Hardware acceleration is suitable for any computation-intensive algorithm which is executed frequently in a task or program. Depending upon the granularity, hardware acceleration can vary from a small functional unit, to a large functional block (like motion estimation in MPEG-2).
+
+Hardware acceleration units by application
+See also
+Coprocessor
+DirectX Video Acceleration (DXVA)
+Direct memory access (DMA)
+High-level synthesis
+C to HDL
+Flow to HDL
+Soft microprocessor
+Flynn's taxonomy of parallel computer architectures
+Single instruction, multiple data (SIMD)
+Single instruction, multiple threads (SIMT)
+Multiple instructions, multiple data (MIMD)
+Computer for operations with functions
+
+References
+External links
+ Media related to Hardware acceleration at Wikimedia Commons

@@ -1,0 +1,34 @@
+A cellular automaton (CA) is Life-like (in the sense of being similar to Conway's Game of Life) if it meets the following criteria:
+
+The array of cells of the automaton has two dimensions.
+Each cell of the automaton has two states (conventionally referred to as "alive" and "dead", or alternatively "on" and "off")
+The neighborhood of each cell is the Moore neighborhood; it consists of the eight adjacent cells to the one under consideration and (possibly) the cell itself.
+In each time step of the automaton, the new state of a cell can be expressed as a function of the number of adjacent cells that are in the alive state and of the cell's own state; that is, the rule is outer totalistic (sometimes called semitotalistic).This class of cellular automata is named for the Game of Life (B3/S23), the most famous cellular automaton, which meets all of these criteria. Many different terms are used to describe this class. It is common to refer to it as the "Life family" or to simply use phrases like "similar to Life".
+
+Notation for rules
+There are three standard notations for describing these rules, that are similar to each other but incompatible. Wolfram & Packard (1985) use the Wolfram code, a decimal number the binary representation of which has bits that correspond to each possible number of neighbors and state of a cell; the bits of this number are zero or one accordingly as a cell with that neighborhood is dead or alive in the next generation. The other two notations unpack the same sequence of bits into a string of characters that is more easily read by a human.
+In the notation used by Mirek's Cellebration, a rule is written as a string x/y where each of x and y is a sequence of distinct digits from 0 to 8, in numerical order. The presence of a digit d in the x string means that a live cell with d live neighbors survives into the next generation of the pattern, and the presence of d in the y string means that a dead cell with d live neighbors becomes alive in the next generation. For instance, in this notation, Conway's Game of Life is denoted 23/3.In the notation used by the Golly open-source cellular automaton package and in the RLE format for storing cellular automaton patterns, a rule is written in the form By/Sx where x and y are the same as in the MCell notation. Thus, in this notation, Conway's Game of Life is denoted B3/S23. The "B" in this format stands for "birth" and the "S" stands for "survival".
+
+A selection of Life-like rules
+There are 218 = 262,144 possible Life-like rules, only a small fraction of which have been studied in any detail.
+In the descriptions below, all rules are specified in Golly/RLE format.
+
+Several more rules are listed and described in the MCell rule list and by Eppstein (2010), including some rules with B0 in which the background of the field of cells alternates between live and dead at each step.Any automaton of the above form that contains the element B1 (e.g. B17/S78, or B145/S34) will always be explosive for any finite pattern: at any step, consider the cell (x,y) that has minimum x-coordinate among cells that are on, and among such cells the one with minimum y-coordinate. Then the cell (x-1,y-1) must have exactly one neighbor, and will become on in the next step. Similarly, the pattern must grow at each step in each of the four diagonal directions. Thus, any nonempty starting pattern leads to explosive growth.Any automaton of the above form that does not include any of B0, B1, B2 or B3 cannot support movement or expansion of patterns because any cell outside a rectangular building box containing the pattern has at most three on neighbours. Most finite patterns in rules whose notation begins with B2, and all finite patterns in rules beginning with B1, grow in all directions rather than remaining of bounded size, with a front that moves at the speed of light. Thus, the remaining "interesting" rules are the ones beginning with B3 (Game of Life, Highlife, Morley, 2x2, Day&Night) or beginning with B0 (and not including S8, as otherwise the dual can be studied instead).
+
+Generalizations
+There are other cellular automata which are inspired by the Game of Life, but which do not fit the definition of
+"life-like" given in this article, because their neighborhoods are larger than the Moore neighborhood, or
+they are defined on three-dimensional lattices, or they use a different lattice topology.  For example:
+
+Non-totalistic rules depend on the configuration of live cells in the neighborhood.
+Non-isotropic rules that behave differently in different directions. There are 2512≈1.34*10154 rules of this kind, including isotropic rules.
+Isotropic non-totalistic rules behave identically under rotation and reflection. There are 2102≈5.07*1030 rules of this kind, including outer-totalistic rules.
+Generations rules include one or more "dying" states cells switch to instead of instantly dying. The most famous examples in this category are the rules "Brian's Brain" (B2/S/3) and "Star Wars" (B2/S345/4). Random patterns in these two rules feature a large variety of spaceships and rakes with a speed of c, often crashing and combining into even more objects.
+Larger than Life is a family of cellular automata studied by Kellie Michele Evans.  They have very large radius neighborhoods, but perform "birth/death" thresholding similar to Conway's life.  These automata have eerily organic "glider" and "blinker" structures.
+RealLife is the continuum limit of Evan's Larger Than Life CA, in the limit as the neighborhood radius goes to infinity, while the lattice spacing goes to zero.  Technically, they are not cellular automata at all, because the underlying "space" is the continuous Euclidean plane R2, not the discrete lattice Z2.  They have been studied by Marcus Pivato.
+Lenia is a family of continuous cellular automata created by Bert Wang-Chak Chan. The space, time and states of the Game of Life are generalized to continuous domains, using large neighborhoods, fractional updates, and real number states, respectively.
+Carter Bays has proposed a variety of generalizations of the Game of Life to three-dimensional CA defined on Z3 (3D Life).  Bays has also studied two-dimensional life-like CA with triangular or hexagonal neighborhoods.
+
+References
+External links
+Griffeath, David, "Totalistic Growth Rules with Moore Neighborhood", The Primordial Soup Kitchen, Department of Mathematics, University of Wisconsin.Game of Life - Conway and Variants - Online Software Tool

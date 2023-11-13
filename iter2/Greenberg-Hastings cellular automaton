@@ -1,0 +1,332 @@
+The Greenberg–Hastings Cellular Automaton (abbrev. GH model) is a three state two dimensional cellular automaton (abbrev CA) named after James M. Greenberg and Stuart Hastings, designed to model excitable media,   One advantage of a CA model is ease of computation. The model can be understood quite well using simple "hand" calculations, not involving a computer. Another advantage is that, at least in this case, one can prove a theorem characterizing those initial conditions which lead to repetitive behavior.
+
+Informal description
+As in a typical two dimensional cellular automaton, consider a rectangular grid, or checkerboard pattern, of "cells".  It can be finite or infinite in extent. Each cell has a set of "neighbors". In the simplest case, each cell has four neighbors, those being the cells directly above or below or to the left or right of the given cell.Like this: the b's are all of the neighbors of the a. The a is one of the neighbors of each of the b's.
+
+                                                  b
+                                                b a b
+                                                  b
+
+At each "time" t=0,1,2,3,...., each cell is assigned one of three "states", typically called "resting"  (or "quiescent" ; see excitable medium), "excited", or "refractory". The assignment of states for all cells is arbitrary for t = 0, and then at subsequent times the state of each cell is determined by the following rules.1. If a cell is in the excited state at time t then it is in the refractory state at time t+1.
+2. If a cell is in the refractory state at time t then it is in the resting state at time t+1.
+3.  If a given cell is in the resting state at time t and at least one of its neighbors is in the excited state at time t, then the given cell is in the excited state at time t+1, otherwise (no neighbor is excited at time t) it remains in the resting state at time t+1.
+In this way the whole grid of cells advances from their initial states at t = 0 to their states at t = 1, then to their states at t = 2,3,4, etc., producing a pattern of cells in the various states for each time.
+See the first animation in Belousov–Zhabotinsky reaction for a striking example of behavior that can be exhibited by this model.
+The three states are indicated by different colors.
+
+Mathematical description
+To describe the GH model more mathematically, consider the simplest case of a grid of square cells  
+  
+    
+      
+        
+          C
+          
+            i
+            ,
+            j
+          
+        
+      
+    
+    {\displaystyle C_{i,j}}
+  . At each time 
+  
+    
+      
+        t
+        =
+        0
+        ,
+        1
+        ,
+        2
+        ,
+        .
+        .
+        .
+      
+    
+    {\displaystyle t=0,1,2,...}
+  
+the cell 
+  
+    
+      
+        
+          C
+          
+            i
+            ,
+            j
+          
+        
+      
+    
+    {\displaystyle C_{i,j}}
+   has a state 
+  
+    
+      
+        
+          S
+          
+            i
+            ,
+            j
+          
+          
+            t
+          
+        
+        ∈
+        {
+        0
+        ,
+        1
+        ,
+        2
+        }
+        .
+      
+    
+    {\displaystyle S_{i,j}^{t}\in \{0,1,2\}.}
+   
+The type of neighborhood is not important, so long as each cell has some neighbors. In a square grid (as opposed to hexagonal), either four or eight cell neighborhoods work fine. The evolution rule is as follows:  
+If 
+  
+    
+      
+        
+          S
+          
+            i
+            ,
+            j
+          
+          
+            t
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle S_{i,j}^{t}=1}
+   then 
+  
+    
+      
+        
+          S
+          
+            i
+            ,
+            j
+          
+          
+            t
+            +
+            1
+          
+        
+        =
+        2
+      
+    
+    {\displaystyle S_{i,j}^{t+1}=2}
+  . 
+If 
+  
+    
+      
+        
+          S
+          
+            i
+            ,
+            j
+          
+          
+            t
+          
+        
+        =
+        2
+      
+    
+    {\displaystyle S_{i,j}^{t}=2}
+   then 
+  
+    
+      
+        
+          S
+          
+            i
+            ,
+            j
+          
+          
+            t
+            +
+            1
+          
+        
+        =
+        0.
+      
+    
+    {\displaystyle S_{i,j}^{t+1}=0.}
+    
+If 
+  
+    
+      
+        
+          S
+          
+            i
+            ,
+            j
+          
+          
+            t
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle S_{i,j}^{t}=0}
+   and 
+  
+    
+      
+        
+          S
+          
+            
+              i
+              ′
+            
+            ,
+            
+              j
+              ′
+            
+          
+          
+            t
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle S_{i',j'}^{t}=1}
+   for some neighboring cell 
+  
+    
+      
+        
+          C
+          
+            
+              i
+              ′
+            
+            ,
+            
+              j
+              ′
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle C_{i',j'},}
+   then 
+  
+    
+      
+        
+          S
+          
+            i
+            ,
+            j
+          
+          
+            t
+            +
+            1
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle S_{i,j}^{t+1}=1}
+  . 
+Otherwise, 
+  
+    
+      
+        
+          S
+          
+            i
+            ,
+            j
+          
+          
+            t
+            +
+            1
+          
+        
+        =
+        0.
+      
+    
+    {\displaystyle S_{i,j}^{t+1}=0.}
+
+Relation to a model of Wiener and Rosenblueth
+While the GH model has often been compared with the ground breaking model of Wiener and Rosenblueth  developed earlier for the same purpose, the analogy is incorrect because the latter is not a CA. See for example, in which it is stated that "The organization of muscle cells, the contraction of muscle, the dependence of the activity of the medium on the activity of its component elements, problems of memory, reliability, and mobility were formulated by Wiener in the form of definitions and theorems for a three-phase threshold-invariant continuous excitable medium." Even this statement is misleading, however. By reading the original paper  carefully, it can be seen that neither the time, the medium, nor the state are discrete. This is immediately obvious as regards the time and the medium.  Wiener and Rosenblueth do say, though,  that "There are three conditions in which any given region of the fiber can exist." They name these as the "active", the "refractory", and the "rest" states. However, in the next paragraph they refine this by identifying the rest state with the number 1, the active state with the number 0, and the refractory state with the open interval (0,1) on the real line. The number assigned to a give point at a given time is called its "epoch number" at that time. Thus, the "state space" is the interval [0,1]. And in the next paragraph we find "..behind every wave front moving freely there will be a band of fixed width within which the recovery process is taking place." A wave therefore consists of a "front", a smooth curve of points with epoch number 0 which moves in the plane with constant speed, followed by a refractory region of points with epoch number in (0,1), of constant width (depending on the velocity), and leaving behind a rest region of points with epoch number 1. This is far from a cellular automata, and is more correctly called a "geometric" model.
+Further on in  it is stated that
+"Automaton models of excitable media were investigated in [9]  and [10]. These models are a discrete analog of Wiener's medium." (The models in their citations "[9]" and "[10]" are different from GH.)
+Many writers have called the Weiner–Rosenblueth model a cellular automaton. The earliest paper found by Google Scholar with this designation clearly stated is.
+However, as mentioned above, the continuity of the Wiener-Rosenblueth medium has not so far allowed as precise a theorem about persistence of patterns as the one for GH which is described below. On the other hand, several theorems are stated in  which are similar to those proved in, though the proofs given for the theorems in  are less clear than those in  because of the natures of the respective models.
+See also  for an often cited computer study based on a model which is similar to that of Wiener and Rosenblueth.
+
+Generating a spiral
+One interesting behavior is seen, for a four cell neighborhood and a square grid, when the initial condition consists of a half line of excited cells (1's) going off to infinity and below this half line a half line of refractory cells (2's).  The rest of the cells are resting when t=0.Like this:
+
+...................................................................
+....00000000000000000000000000000000000000000000000000000000000....
+....00000000000000000000000000000000000000000000000000000000000....
+....00000000000000000001111111111111111111111111111111111111111....
+....00000000000000000002222222222222222222222222222222222222222....
+....00000000000000000000000000000000000000000000000000000000000....
+....00000000000000000000000000000000000000000000000000000000000....
+................................................................... 
+
+The spiral which is produced can be seen in. 
+This spiral can easily be seen by following the pattern forward for a few iterations "by hand".  No computer is necessary.
+
+A theorem
+As stated in, and proved in  (which also considered n-state models), if the set of initial 1's is finite, then every individual cell oscillates forever through the cycle 0,1,2,0  if and only if at the start there is at least one square of four neighboring cells with one of the following patterns:
+
+                    1 2       2 0       0 1
+                    0 0       1 1       2 2
+
+or some reflection or rotation of one of these. These patterns cannot be killed off by their surroundings. It is the "only if" part of this result which is most interesting. If none of these patterns is present at t = 0, then in any bounded region the pattern eventually settles down to all zeros.  The key tool in the proof in   is a "winding number" which is shown to be invariant for this model.
+One easy consequence of the theorem stated above is that if there are no "refractory" cells  initially then the pattern will die out in any bounded region (whether the total grid is finite or infinite in extent). This property of an excitable medium was found earlier, in the paper of Wiener and Rosenblueth, and does not hold if there are "holes" in the region.
+
+Notes
+References
+External links
+http://psoup.math.wisc.edu/java/jgh.html
+http://demonstrations.wolfram.com/GreenbergHastingsModel/

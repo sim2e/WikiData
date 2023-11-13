@@ -1,0 +1,2256 @@
+LOCC, or local operations and classical communication, is a method in quantum information theory where a local (product) operation is performed on part of the system, and where the result of that operation is "communicated" classically to another part where usually another local operation is performed conditioned on the information received.
+
+Mathematical properties
+The formal definition of the set of LOCC operations is complicated due to the fact that later local operations depend in general on all the previous classical communication and due to the unbounded number of communication rounds. For any finite number 
+  
+    
+      
+        r
+        ≥
+        1
+      
+    
+    {\displaystyle r\geq 1}
+   one can define 
+  
+    
+      
+        
+          LOCC
+          
+            r
+          
+        
+      
+    
+    {\displaystyle \operatorname {LOCC} _{r}}
+  , the set of LOCC operations that can be achieved with 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   rounds of classical communication. The set becomes strictly larger whenever 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   is increased and care has to be taken to define the limit of infinitely many rounds. In particular, the set LOCC is not topologically closed, that is there are quantum operations that can be approximated arbitrarily closely by LOCC but that are not themselves LOCC.A one-round LOCC 
+  
+    
+      
+        
+          LOCC
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \operatorname {LOCC} _{1}}
+   is a quantum instrument 
+  
+    
+      
+        
+          {
+          
+            
+              
+                E
+              
+            
+            
+              x
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \left\{{\mathcal {E}}_{x}\right\}}
+  , for which the trace-non-increasing completely positive maps (CPMs) 
+  
+    
+      
+        
+          
+            
+              E
+            
+          
+          
+            x
+          
+        
+      
+    
+    {\displaystyle {\mathcal {E}}_{x}}
+   are local for all measurement results 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  , i.e., 
+  
+    
+      
+        
+          
+            
+              E
+            
+          
+          
+            x
+          
+        
+        =
+        
+          ⨂
+          
+            j
+          
+        
+        (
+        
+          
+            
+              E
+            
+          
+          
+            x
+          
+          
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathcal {E}}_{x}=\bigotimes _{j}({\cal {E}}_{x}^{j})}
+   and there is one site 
+  
+    
+      
+        j
+        =
+        K
+      
+    
+    {\displaystyle j=K}
+   such that only at 
+  
+    
+      
+        K
+      
+    
+    {\displaystyle K}
+   the map 
+  
+    
+      
+        
+          
+            
+              E
+            
+          
+          
+            x
+          
+          
+            K
+          
+        
+      
+    
+    {\displaystyle {\mathcal {E}}_{x}^{K}}
+   
+  
+    
+      
+        
+          
+            
+              E
+            
+          
+          
+            x
+          
+        
+        =
+        
+          ⨂
+          
+            j
+            ≠
+            K
+          
+        
+        (
+        
+          
+            
+              T
+              
+                j
+              
+              
+                x
+              
+            
+          
+        
+        )
+        ⊗
+        
+          
+            
+              E
+            
+          
+          
+            K
+          
+        
+      
+    
+    {\displaystyle {\mathcal {E}}_{x}=\bigotimes _{j\not =K}({\cal {T_{j}^{x}}})\otimes {\cal {E}}_{K}}
+   is not trace-preserving. This means that the instrument can be realized by the party at site 
+  
+    
+      
+        K
+      
+    
+    {\displaystyle K}
+   applying the (local) instrument 
+  
+    
+      
+        
+          {
+          
+            
+              
+                E
+              
+            
+            
+              x
+            
+            
+              K
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \left\{{\mathcal {E}}_{x}^{K}\right\}}
+   and communicating the classical result 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   to all other parties, which then each perform (conditioned on 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  ) trace-preserving (deterministic) local quantum operations 
+  
+    
+      
+        
+          
+            
+              T
+            
+          
+          
+            x
+          
+          
+            j
+          
+        
+      
+    
+    {\displaystyle {\cal {T}}_{x}^{j}}
+  .
+Then 
+  
+    
+      
+        
+          LOCC
+          
+            r
+          
+        
+      
+    
+    {\displaystyle \operatorname {LOCC} _{r}}
+   are defined recursively as those operations that can be realized by following up an operation 
+  
+    
+      
+        
+          LOCC
+          
+            r
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle \operatorname {LOCC} _{r-1}}
+   with a 
+  
+    
+      
+        
+          LOCC
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \operatorname {LOCC} _{1}}
+  -operation. Here it is allowed that the party which performs the follow-up operations depends on the result of the previous rounds. Moreover, we also allow "coarse-graining", i.e., discarding some of the classical information encoded in the measurement results (of all rounds).
+The union of all 
+  
+    
+      
+        
+          LOCC
+          
+            r
+          
+        
+      
+    
+    {\displaystyle \operatorname {LOCC} _{r}}
+   operations is denoted by 
+  
+    
+      
+        
+          LOCC
+          
+            
+              N
+            
+          
+        
+      
+    
+    {\displaystyle \operatorname {LOCC} _{\mathbb {N} }}
+   and contains instruments that can be approximated better and better with more LOCC rounds. Its topological closure 
+  
+    
+      
+        
+          
+            
+              LOCC
+              ¯
+            
+          
+          
+            
+              N
+            
+          
+        
+      
+    
+    {\displaystyle {\overline {\operatorname {LOCC} }}_{\mathbb {N} }}
+   contains all such operations.
+It can be shown that all these sets are different:
+
+  
+    
+      
+        
+          LOCC
+          
+            r
+          
+        
+        ⊂
+        
+          LOCC
+          
+            r
+            +
+            1
+          
+        
+        ⊂
+        
+          LOCC
+          
+            
+              N
+            
+          
+        
+        ⊂
+        
+          
+            
+              LOCC
+              ¯
+            
+          
+          
+            
+              N
+            
+          
+        
+      
+    
+    {\displaystyle \operatorname {LOCC} _{r}\subset \operatorname {LOCC} _{r+1}\subset \operatorname {LOCC} _{\mathbb {N} }\subset {\overline {\operatorname {LOCC} }}_{\mathbb {N} }}
+  The set of all LOCC operations is contained in the set 
+  
+    
+      
+        SEP
+      
+    
+    {\displaystyle \operatorname {SEP} }
+   of all separable operations. 
+  
+    
+      
+        SEP
+      
+    
+    {\displaystyle \operatorname {SEP} }
+   contains all operations that can be written using Kraus operators that have all product form, i.e., 
+
+  
+    
+      
+        
+          
+            E
+          
+        
+        (
+        ρ
+        )
+        =
+        
+          ∑
+          
+            l
+          
+        
+        
+          K
+          
+            1
+          
+          
+            l
+          
+        
+        ⊗
+        
+          K
+          
+            2
+          
+          
+            l
+          
+        
+        ⋯
+        ⊗
+        
+          K
+          
+            N
+          
+        
+        ρ
+        (
+        
+          K
+          
+            1
+          
+          
+            l
+          
+        
+        ⊗
+        
+          K
+          
+            2
+          
+          
+            l
+          
+        
+        ⋯
+        ⊗
+        
+          K
+          
+            N
+          
+        
+        
+          )
+          
+            †
+          
+        
+        ,
+      
+    
+    {\displaystyle {\cal {E}}(\rho )=\sum _{l}K_{1}^{l}\otimes K_{2}^{l}\dots \otimes K_{N}\rho (K_{1}^{l}\otimes K_{2}^{l}\dots \otimes K_{N})^{\dagger },}
+  with 
+  
+    
+      
+        
+          ∑
+          
+            l
+          
+        
+        
+          K
+          
+            1
+          
+          
+            l
+          
+        
+        ⊗
+        
+          K
+          
+            2
+          
+          
+            l
+          
+        
+        ⋯
+        ⊗
+        
+          K
+          
+            N
+          
+        
+        (
+        
+          K
+          
+            1
+          
+          
+            l
+          
+        
+        ⊗
+        
+          K
+          
+            2
+          
+          
+            l
+          
+        
+        ⋯
+        ⊗
+        
+          K
+          
+            N
+          
+        
+        
+          )
+          
+            †
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle \sum _{l}K_{1}^{l}\otimes K_{2}^{l}\dots \otimes K_{N}(K_{1}^{l}\otimes K_{2}^{l}\dots \otimes K_{N})^{\dagger }=1}
+  . Not all operations in 
+  
+    
+      
+        SEP
+      
+    
+    {\displaystyle \operatorname {SEP} }
+   are LOCC, 
+
+  
+    
+      
+        
+          
+            
+              LOCC
+              ¯
+            
+          
+          
+            
+              N
+            
+          
+        
+        ⊂
+        SEP
+        ,
+      
+    
+    {\displaystyle {\overline {\operatorname {LOCC} }}_{\mathbb {N} }\subset \operatorname {SEP} ,}
+  i.e., there are examples that cannot be implemented locally even with infinite rounds of communication.LOCC are the "free operations" in the resource theories of entanglement: Entanglement cannot be produced from separable states with LOCC and if the local parties in addition to being able to perform all LOCC operations are also furnished with some entangled states, they can realize more operations than with LOCC alone.
+
+Examples
+LOCC operations are useful for state preparation, state discrimination, and entanglement transformations.
+
+State preparation
+Alice and Bob are given a quantum system in the product state 
+  
+    
+      
+        
+          |
+        
+        00
+        ⟩
+        =
+        
+          |
+        
+        0
+        
+          ⟩
+          
+            A
+          
+        
+        ⊗
+        
+          |
+        
+        0
+        
+          ⟩
+          
+            B
+          
+        
+      
+    
+    {\displaystyle |00\rangle =|0\rangle _{A}\otimes |0\rangle _{B}}
+  . Their task is to produce the separable state 
+  
+    
+      
+        ρ
+        =
+        
+          
+            1
+            2
+          
+        
+        
+          |
+        
+        00
+        ⟩
+        ⟨
+        00
+        
+          |
+        
+        +
+        
+          
+            1
+            2
+          
+        
+        
+          |
+        
+        11
+        ⟩
+        ⟨
+        11
+        
+          |
+        
+      
+    
+    {\displaystyle \rho ={\frac {1}{2}}|00\rangle \langle 00|+{\frac {1}{2}}|11\rangle \langle 11|}
+  . With local operations alone this cannot be achieved, since they cannot produce the (classical) correlations present in 
+  
+    
+      
+        ρ
+      
+    
+    {\displaystyle \rho }
+  . However with LOCC (with one round of communication) 
+  
+    
+      
+        ρ
+      
+    
+    {\displaystyle \rho }
+   can be prepared: Alice throws an unbiased coin (that shows heads or tails each with 50% probability) and flips her qubit (to 
+  
+    
+      
+        
+          |
+        
+        1
+        
+          ⟩
+          
+            A
+          
+        
+      
+    
+    {\displaystyle |1\rangle _{A}}
+  ) if the coin shows "tails", otherwise it is left unchanged. She then sends the result of the coin-flip (classical information) to Bob who also flips his qubit if he receives the message "tails". The resulting state is 
+  
+    
+      
+        ρ
+      
+    
+    {\displaystyle \rho }
+  . In general, all separable states (and only these) can be prepared from a product states with LOCC operations alone.
+
+State discrimination
+Given two quantum states 
+  
+    
+      
+        ψ
+      
+    
+    {\displaystyle \psi }
+   on a bi- or multipartite Hilbert space 
+  
+    
+      
+        
+          
+            H
+          
+        
+        =
+        
+          
+            
+              H
+            
+          
+          
+            A
+          
+        
+        ⊗
+        
+          
+            
+              H
+            
+          
+          
+            B
+          
+        
+        ⊗
+        …
+        
+          
+            
+              H
+            
+          
+          
+            Z
+          
+        
+      
+    
+    {\displaystyle {\cal {H}}={\cal {H}}_{A}\otimes {\cal {H}}_{B}\otimes \dots {\cal {H}}_{Z}}
+  , the task is to determine which one of two (or more) possible states 
+  
+    
+      
+        
+          ψ
+          
+            1
+          
+        
+        ,
+        
+          ψ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \psi _{1},\psi _{2}}
+   it is. As a simple example, consider the two Bell states
+
+  
+    
+      
+        
+          |
+        
+        
+          ψ
+          
+            1
+          
+        
+        ⟩
+        =
+        
+          
+            1
+            
+              2
+            
+          
+        
+        
+          (
+          
+            
+              |
+            
+            0
+            
+              ⟩
+              
+                A
+              
+            
+            ⊗
+            
+              |
+            
+            0
+            
+              ⟩
+              
+                B
+              
+            
+            +
+            
+              |
+            
+            1
+            
+              ⟩
+              
+                A
+              
+            
+            ⊗
+            
+              |
+            
+            1
+            
+              ⟩
+              
+                B
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle |\psi _{1}\rangle ={\frac {1}{\sqrt {2}}}\left(|0\rangle _{A}\otimes |0\rangle _{B}+|1\rangle _{A}\otimes |1\rangle _{B}\right)}
+  
+  
+    
+      
+        
+          |
+        
+        
+          ψ
+          
+            2
+          
+        
+        ⟩
+        =
+        
+          
+            1
+            
+              2
+            
+          
+        
+        
+          (
+          
+            
+              |
+            
+            0
+            
+              ⟩
+              
+                A
+              
+            
+            ⊗
+            
+              |
+            
+            1
+            
+              ⟩
+              
+                B
+              
+            
+            +
+            
+              |
+            
+            1
+            
+              ⟩
+              
+                A
+              
+            
+            ⊗
+            
+              |
+            
+            0
+            
+              ⟩
+              
+                B
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle |\psi _{2}\rangle ={\frac {1}{\sqrt {2}}}\left(|0\rangle _{A}\otimes |1\rangle _{B}+|1\rangle _{A}\otimes |0\rangle _{B}\right)}
+  Let's say the two-qubit system is separated, where the first qubit is given to Alice and the second is given to Bob. Without communication, Alice and Bob cannot distinguish the two states, since for all local measurements all measurement statistics are exactly the same (both states have the same reduced density matrix). E.g., assume that Alice measures the first qubit, and obtains the result 0. Since this result is equally likely to occur (with probability 50%) in each of the two cases, she does not gain any information on which Bell pair she was given and the same holds for Bob if he performs any measurement. But now let Alice send her result to Bob over a classical channel. Now Bob can compare his result to hers and if they are the same he can conclude that the pair given was 
+  
+    
+      
+        
+          |
+        
+        
+          ψ
+          
+            1
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\psi _{1}\rangle }
+  , since only this allows for a joint measurement outcome 
+  
+    
+      
+        
+          |
+        
+        0
+        
+          ⟩
+          
+            A
+          
+        
+        ⊗
+        
+          |
+        
+        0
+        
+          ⟩
+          
+            B
+          
+        
+      
+    
+    {\displaystyle |0\rangle _{A}\otimes |0\rangle _{B}}
+  . Thus with LOCC and two measurements these two states can be distinguished perfectly. Note that with global (nonlocal or entangled) measurements, a single measurement (on the joint Hilbert space) is sufficient to distinguish these two (mutually orthogonal) states.
+There are quantum states that cannot be distinguished with LOCC operations.
+
+Entanglement transformations
+While LOCC cannot generate entangled states out of product states, they can be used to transform entangled states into other entangled states. The restriction to LOCC severely limits which transformations are possible.
+
+Entanglement conversion
+Nielsen  has derived a general condition to determine whether one pure state of a bipartite quantum system may be transformed into another using only LOCC. Full details may be found in the paper referenced earlier, the results are sketched out here.
+Consider two particles in a Hilbert space of dimension 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   with particle states 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   and 
+  
+    
+      
+        
+          |
+        
+        ϕ
+        ⟩
+      
+    
+    {\displaystyle |\phi \rangle }
+   with Schmidt decompositions
+
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+        =
+        
+          ∑
+          
+            i
+          
+        
+        
+          
+            
+              ω
+              
+                i
+              
+            
+          
+        
+        
+          |
+        
+        
+          i
+          
+            A
+          
+        
+        ⟩
+        ⊗
+        
+          |
+        
+        
+          i
+          
+            B
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle =\sum _{i}{\sqrt {\omega _{i}}}|i_{A}\rangle \otimes |i_{B}\rangle }
+  
+  
+    
+      
+        
+          |
+        
+        ϕ
+        ⟩
+        =
+        
+          ∑
+          
+            i
+          
+        
+        
+          
+            
+              ω
+              
+                i
+              
+              ′
+            
+          
+        
+        
+          |
+        
+        
+          i
+          
+            A
+          
+          ′
+        
+        ⟩
+        ⊗
+        
+          |
+        
+        
+          i
+          
+            B
+          
+          ′
+        
+        ⟩
+      
+    
+    {\displaystyle |\phi \rangle =\sum _{i}{\sqrt {\omega _{i}'}}|i_{A}'\rangle \otimes |i_{B}'\rangle }
+  The 
+  
+    
+      
+        
+          
+            
+              ω
+              
+                i
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\sqrt {\omega _{i}}}}
+  's are known as Schmidt coefficients. If they are ordered largest to smallest (i.e., with 
+  
+    
+      
+        
+          ω
+          
+            1
+          
+        
+        >
+        
+          ω
+          
+            d
+          
+        
+      
+    
+    {\displaystyle \omega _{1}>\omega _{d}}
+  ) then 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   can only be transformed into 
+  
+    
+      
+        
+          |
+        
+        ϕ
+        ⟩
+      
+    
+    {\displaystyle |\phi \rangle }
+   using only local operations if and only if for all 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   in the range 
+  
+    
+      
+        1
+        ≤
+        k
+        ≤
+        d
+      
+    
+    {\displaystyle 1\leq k\leq d}
+  
+
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            k
+          
+        
+        
+          ω
+          
+            i
+          
+        
+        ≤
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            k
+          
+        
+        
+          ω
+          
+            i
+          
+          ′
+        
+      
+    
+    {\displaystyle \sum _{i=1}^{k}\omega _{i}\leq \sum _{i=1}^{k}\omega _{i}'}
+  In more concise notation:
+
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+        →
+        
+          |
+        
+        ϕ
+        ⟩
+        
+        
+          iff
+        
+        
+        ω
+        ≺
+        
+          ω
+          ′
+        
+      
+    
+    {\displaystyle |\psi \rangle \rightarrow |\phi \rangle \quad {\text{iff}}\quad \omega \prec \omega '}
+  This is a more restrictive condition than that local operations cannot increase entanglement measures. It is quite possible that 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   and 
+  
+    
+      
+        
+          |
+        
+        ϕ
+        ⟩
+      
+    
+    {\displaystyle |\phi \rangle }
+   have the same amount of entanglement but converting one into the other is not possible and even that conversion in either direction is impossible because neither set of Schmidt coefficients majorises the other. For large 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   if all Schmidt coefficients are non-zero then the probability of one set of coefficients majorising the other becomes negligible. Therefore, for large 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   the probability of any arbitrary  state being convertible into another via LOCC becomes negligible.
+The operations described so far are deterministic, i.e., they succeed with probability 100%. If one is satisfied by probabilistic transformations, many more transformations are possible using LOCC. These operations are called stochastic LOCC (SLOCC). In particular for multi-partite states the convertibility under SLOCC is studied to gain a qualitative insight into the entanglement properties of the involved states.
+
+Going beyond LOCC: Catalytic conversion
+If entangled states are available as a resource, these together with LOCC allow a much larger class of transformations. This is the case even if these resource states are not consumed in the process (as they are, for example, in quantum teleportation). Thus transformations are called entanglement catalysis. In this procedure, the conversion of an initial state to a final state that is impossible with LOCC is made possible by taking a tensor product of the initial state with a "catalyst state" 
+  
+    
+      
+        
+          |
+        
+        c
+        ⟩
+      
+    
+    {\displaystyle |c\rangle }
+   and requiring that this state is still available at the end of the conversion process. I.e., the catalyst state is left unchanged by the conversion and can then be removed, leaving only the desired final state. Consider the states,
+
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+        =
+        
+          
+            0.4
+          
+        
+        
+          |
+        
+        00
+        ⟩
+        +
+        
+          
+            0.4
+          
+        
+        
+          |
+        
+        11
+        ⟩
+        +
+        
+          
+            0.1
+          
+        
+        
+          |
+        
+        22
+        ⟩
+        +
+        
+          
+            0.1
+          
+        
+        
+          |
+        
+        33
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle ={\sqrt {0.4}}|00\rangle +{\sqrt {0.4}}|11\rangle +{\sqrt {0.1}}|22\rangle +{\sqrt {0.1}}|33\rangle }
+  
+
+  
+    
+      
+        
+          |
+        
+        ϕ
+        ⟩
+        =
+        
+          
+            0.5
+          
+        
+        
+          |
+        
+        00
+        ⟩
+        +
+        
+          
+            0.25
+          
+        
+        
+          |
+        
+        11
+        ⟩
+        +
+        
+          
+            0.25
+          
+        
+        
+          |
+        
+        22
+        ⟩
+      
+    
+    {\displaystyle |\phi \rangle ={\sqrt {0.5}}|00\rangle +{\sqrt {0.25}}|11\rangle +{\sqrt {0.25}}|22\rangle }
+  
+
+  
+    
+      
+        
+          |
+        
+        c
+        ⟩
+        =
+        
+          
+            0.6
+          
+        
+        ∣↑↑
+        ⟩
+        +
+        
+          
+            0.4
+          
+        
+        ∣↓↓
+        ⟩
+      
+    
+    {\displaystyle |c\rangle ={\sqrt {0.6}}\mid \uparrow \uparrow \rangle +{\sqrt {0.4}}\mid \downarrow \downarrow \rangle }
+  These states are written in the form of Schmidt decomposition and in a descending order. We compare the sum of the coefficients of 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   and 
+  
+    
+      
+        
+          |
+        
+        ϕ
+        ⟩
+      
+    
+    {\displaystyle |\phi \rangle }
+  
+
+In the table, red color is put if 
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            k
+          
+        
+        
+          ω
+          
+            i
+          
+        
+        >
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            k
+          
+        
+        
+          ω
+          
+            i
+          
+          ′
+        
+      
+    
+    {\displaystyle \sum _{i=0}^{k}\omega _{i}>\sum _{i=0}^{k}\omega '_{i}}
+  , green color is put if 
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            k
+          
+        
+        
+          ω
+          
+            i
+          
+        
+        <
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            k
+          
+        
+        
+          ω
+          
+            i
+          
+          ′
+        
+      
+    
+    {\displaystyle \sum _{i=0}^{k}\omega _{i}<\sum _{i=0}^{k}\omega '_{i}}
+  , and white color is remained if 
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            k
+          
+        
+        
+          ω
+          
+            i
+          
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            k
+          
+        
+        
+          ω
+          
+            i
+          
+          ′
+        
+      
+    
+    {\displaystyle \sum _{i=0}^{k}\omega _{i}=\sum _{i=0}^{k}\omega '_{i}}
+  . After building up the table, one can easily to find out whether 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   and 
+  
+    
+      
+        
+          |
+        
+        ϕ
+        ⟩
+      
+    
+    {\displaystyle |\phi \rangle }
+   are convertible by looking at the color in the 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   direction. 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   can be converted into 
+  
+    
+      
+        
+          |
+        
+        ϕ
+        ⟩
+      
+    
+    {\displaystyle |\phi \rangle }
+   by LOCC if the color are all green or white, and 
+  
+    
+      
+        
+          |
+        
+        ϕ
+        ⟩
+      
+    
+    {\displaystyle |\phi \rangle }
+   can be converted into 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   by LOCC if the color are all red or white. When the table presents both red and green color, the states are not convertible.
+Now we consider the product states 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+        
+          |
+        
+        c
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle |c\rangle }
+   and 
+  
+    
+      
+        
+          |
+        
+        ϕ
+        ⟩
+        
+          |
+        
+        c
+        ⟩
+      
+    
+    {\displaystyle |\phi \rangle |c\rangle }
+  ：
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  |
+                
+                ψ
+                ⟩
+                
+                  |
+                
+                c
+                ⟩
+              
+              
+                
+                =
+                
+                  
+                    0.24
+                  
+                
+                
+                  |
+                
+                00
+                ⟩
+                ∣↑↑
+                ⟩
+                +
+                
+                  
+                    0.24
+                  
+                
+                
+                  |
+                
+                11
+                ⟩
+                ∣↑↑
+                ⟩
+                +
+                
+                  
+                    0.16
+                  
+                
+                
+                  |
+                
+                00
+                ⟩
+                ∣↓↓
+                ⟩
+                +
+                
+                  
+                    0.16
+                  
+                
+                
+                  |
+                
+                11
+                ⟩
+                ∣↓↓
+                ⟩
+              
+            
+            
+              
+              
+                
+                +
+                
+                  
+                    0.06
+                  
+                
+                
+                  |
+                
+                22
+                ⟩
+                ∣↑↑
+                ⟩
+                +
+                
+                  
+                    0.06
+                  
+                
+                
+                  |
+                
+                33
+                ⟩
+                ∣↑↑
+                ⟩
+                +
+                
+                  
+                    0.04
+                  
+                
+                
+                  |
+                
+                22
+                ⟩
+                ∣↓↓
+                ⟩
+                +
+                
+                  
+                    0.04
+                  
+                
+                
+                  |
+                
+                33
+                ⟩
+                ∣↓↓
+                ⟩
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}|\psi \rangle |c\rangle &={\sqrt {0.24}}|00\rangle \mid \uparrow \uparrow \rangle +{\sqrt {0.24}}|11\rangle \mid \uparrow \uparrow \rangle +{\sqrt {0.16}}|00\rangle \mid \downarrow \downarrow \rangle +{\sqrt {0.16}}|11\rangle \mid \downarrow \downarrow \rangle \\&+{\sqrt {0.06}}|22\rangle \mid \uparrow \uparrow \rangle +{\sqrt {0.06}}|33\rangle \mid \uparrow \uparrow \rangle +{\sqrt {0.04}}|22\rangle \mid \downarrow \downarrow \rangle +{\sqrt {0.04}}|33\rangle \mid \downarrow \downarrow \rangle \end{aligned}}}
+  
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  |
+                
+                ϕ
+                ⟩
+                
+                  |
+                
+                c
+                ⟩
+              
+              
+                
+                =
+                
+                  
+                    0.30
+                  
+                
+                
+                  |
+                
+                00
+                ⟩
+                ∣↑↑
+                ⟩
+                +
+                
+                  
+                    0.20
+                  
+                
+                
+                  |
+                
+                00
+                ⟩
+                ∣↓↓
+                ⟩
+                +
+                
+                  
+                    0.15
+                  
+                
+                
+                  |
+                
+                11
+                ⟩
+                ∣↑↑
+                ⟩
+                +
+                
+                  
+                    0.15
+                  
+                
+                
+                  |
+                
+                22
+                ⟩
+                ∣↑↑
+                ⟩
+              
+            
+            
+              
+              
+                
+                +
+                
+                  
+                    0.10
+                  
+                
+                
+                  |
+                
+                11
+                ⟩
+                ∣↓↓
+                ⟩
+                +
+                
+                  
+                    0.10
+                  
+                
+                
+                  |
+                
+                22
+                ⟩
+                ∣↓↓
+                ⟩
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}|\phi \rangle |c\rangle &={\sqrt {0.30}}|00\rangle \mid \uparrow \uparrow \rangle +{\sqrt {0.20}}|00\rangle \mid \downarrow \downarrow \rangle +{\sqrt {0.15}}|11\rangle \mid \uparrow \uparrow \rangle +{\sqrt {0.15}}|22\rangle \mid \uparrow \uparrow \rangle \\&+{\sqrt {0.10}}|11\rangle \mid \downarrow \downarrow \rangle +{\sqrt {0.10}}|22\rangle \mid \downarrow \downarrow \rangle \end{aligned}}}
+  Similarly, we make up the table:
+
+The color in the 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   direction are all green or white, therefore, according to the Nielsen's theorem, 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+        
+          |
+        
+        c
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle |c\rangle }
+   is possible to be converted into 
+  
+    
+      
+        
+          |
+        
+        ϕ
+        ⟩
+        
+          |
+        
+        c
+        ⟩
+      
+    
+    {\displaystyle |\phi \rangle |c\rangle }
+   by the LOCC. The catalyst state 
+  
+    
+      
+        
+          |
+        
+        c
+        ⟩
+      
+    
+    {\displaystyle |c\rangle }
+   is taken away after the conversion. Finally we find 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+        
+          
+            →
+            
+              
+                |
+              
+              c
+              ⟩
+            
+          
+        
+        
+          |
+        
+        ϕ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle {\overset {|c\rangle }{\rightarrow }}|\phi \rangle }
+   by the LOCC.
+If correlations between the system and the catalyst are allowed, catalytic transformations between bipartite pure states are characterized via the entanglement entropy. In more detail, a pure state 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   can be converted into another pure state 
+  
+    
+      
+        
+          |
+        
+        ϕ
+        ⟩
+      
+    
+    {\displaystyle |\phi \rangle }
+   via catalytic LOCC if and only if 
+
+  
+    
+      
+        S
+        (
+        
+          ψ
+          
+            A
+          
+        
+        )
+        ≥
+        S
+        (
+        
+          ϕ
+          
+            A
+          
+        
+        )
+      
+    
+    {\displaystyle S(\psi ^{A})\geq S(\phi ^{A})}
+  ,
+where 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   is the von Neumann entropy, and 
+  
+    
+      
+        
+          ψ
+          
+            A
+          
+        
+      
+    
+    {\displaystyle \psi ^{A}}
+   and 
+  
+    
+      
+        
+          ϕ
+          
+            A
+          
+        
+      
+    
+    {\displaystyle \phi ^{A}}
+   are the reduced states of 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   and 
+  
+    
+      
+        
+          |
+        
+        ϕ
+        ⟩
+      
+    
+    {\displaystyle |\phi \rangle }
+  , respectively. In general, the conversion is not exact, but can be performed with an arbitrary accuracy. The amount of correlations between the system and the catalyst can also be made arbitrarily small.
+
+See also
+Quantum teleportation
+
+References
+Further reading
+https://quantiki.org/wiki/locc-operations
+Nielsen M. A. (1999). "Conditions for a class of entanglement transformations". Phys. Rev. Lett. 83 (2): 436–439. arXiv:quant-ph/9811053. Bibcode:1999PhRvL..83..436N. doi:10.1103/physrevlett.83.436. S2CID 17928003.

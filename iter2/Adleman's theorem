@@ -1,0 +1,668 @@
+In computational complexity theory, P/poly is a complexity class representing problems that can be solved by small circuits. More precisely, it is the set of formal languages that have polynomial-size circuit families. It can also be defined equivalently in terms of Turing machines with advice, extra information supplied to the Turing machine along with its input, that may depend on the input length but not on the input itself. In this formulation, P/poly is the class of decision problems that can be solved by a polynomial-time Turing machine with advice strings of length polynomial in the input size. These two different definitions make P/poly central to circuit complexity and non-uniform complexity.
+For example, the popular Miller–Rabin primality test can be formulated as a P/poly algorithm: the "advice" is a list of candidate values to test. It is possible to precompute a list of 
+  
+    
+      
+        O
+        (
+        n
+        )
+      
+    
+    {\displaystyle O(n)}
+   values such that every composite 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -bit number will be certain to have a witness 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   in the list. For example, to correctly determine the primality of 32-bit numbers, it is enough to test 
+  
+    
+      
+        a
+        ∈
+        {
+        2
+        ,
+        7
+        ,
+        61
+        }
+      
+    
+    {\displaystyle a\in \{2,7,61\}}
+  . The existence of short lists of candidate witnesses follows from the fact that for each composite 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  , three out of four candidate values successfully detect that 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is composite. From this, a simple counting argument similar to the one in the proof that BPP 
+  
+    
+      
+        ⊂
+      
+    
+    {\displaystyle \subset }
+   P/poly below shows that there exists a suitable list of candidate values for every input size, and more strongly that most long-enough lists of candidate values will work correctly, although finding a list that is guaranteed to work may be expensive.P/poly, unlike other polynomial-time classes such as P or BPP, is not generally considered a practical class for computing. Indeed, it contains every undecidable unary language, none of which can be solved in general by real computers. On the other hand, if the input length is bounded by a relatively small number and the advice strings are short, it can be used to model practical algorithms with a separate expensive preprocessing phase and a fast processing phase, as in the Miller–Rabin example.
+
+Formal definition
+The complexity class P/poly can be defined in terms of SIZE as follows:
+
+  
+    
+      
+        
+          
+            P
+            
+              /
+            
+            p
+            o
+            l
+            y
+          
+        
+        =
+        
+          ∪
+          
+            c
+            ∈
+            
+              N
+            
+          
+        
+        
+          
+            S
+            I
+            Z
+            E
+          
+        
+        (
+        
+          n
+          
+            c
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle {\mathsf {P/poly}}=\cup _{c\in \mathbb {N} }{\mathsf {SIZE}}(n^{c}).}
+  where 
+  
+    
+      
+        
+          
+            S
+            I
+            Z
+            E
+          
+        
+        (
+        
+          n
+          
+            c
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathsf {SIZE}}(n^{c})}
+   is the set of decision problems that can be solved by polynomial-sized circuit families.
+Alternatively, 
+  
+    
+      
+        
+          
+            P
+            
+              /
+            
+            p
+            o
+            l
+            y
+          
+        
+      
+    
+    {\displaystyle {\mathsf {P/poly}}}
+   can be defined using Turing machines that "take advice". Such a machine has, for each n, an advice string 
+  
+    
+      
+        
+          α
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \alpha _{n}}
+  , which it is allowed to use in its computation whenever the input has size n.
+Let 
+  
+    
+      
+        T
+        ,
+        a
+        :
+        
+          N
+        
+        →
+        
+          N
+        
+      
+    
+    {\displaystyle T,a:\mathbb {N} \rightarrow \mathbb {N} }
+   be functions. The class of languages decidable by time-T(n) Turing machines with 
+  
+    
+      
+        a
+        (
+        n
+        )
+      
+    
+    {\displaystyle a(n)}
+   advice, denoted 
+  
+    
+      
+        
+          
+            D
+            T
+            I
+            M
+            E
+          
+        
+        (
+        T
+        (
+        n
+        )
+        )
+        
+          /
+        
+        a
+        (
+        n
+        )
+      
+    
+    {\displaystyle {\mathsf {DTIME}}(T(n))/a(n)}
+  , contains every language L such that there exists a sequence 
+  
+    
+      
+        {
+        
+          α
+          
+            n
+          
+        
+        
+          }
+          
+            n
+            ∈
+            
+              N
+            
+          
+        
+      
+    
+    {\displaystyle \{\alpha _{n}\}_{n\in \mathbb {N} }}
+   of strings with 
+  
+    
+      
+        
+          α
+          
+            n
+          
+        
+        ∈
+        {
+        0
+        ,
+        1
+        
+          }
+          
+            a
+            (
+            n
+            )
+          
+        
+      
+    
+    {\displaystyle \alpha _{n}\in \{0,1\}^{a(n)}}
+   and a TM M satisfying
+
+  
+    
+      
+        M
+        (
+        x
+        ,
+        
+          α
+          
+            n
+          
+        
+        )
+        =
+        1
+        ⇔
+        x
+        ∈
+        L
+      
+    
+    {\displaystyle M(x,\alpha _{n})=1\Leftrightarrow x\in L}
+  for every 
+  
+    
+      
+        x
+        ∈
+        {
+        0
+        ,
+        1
+        
+          }
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x\in \{0,1\}^{n}}
+  , where on input 
+  
+    
+      
+        (
+        x
+        ,
+        
+          α
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle (x,\alpha _{n})}
+   the machine M runs for at most 
+  
+    
+      
+        O
+        (
+        T
+        (
+        n
+        )
+        )
+      
+    
+    {\displaystyle O(T(n))}
+   steps.
+
+Importance of P/poly
+P/poly is an important class for several reasons.  For theoretical computer science, there are several important properties that depend on P/poly:
+
+If NP ⊆ P/poly then PH (the polynomial hierarchy) collapses to 
+  
+    
+      
+        
+          Σ
+          
+            2
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \Sigma _{2}^{\mathsf {P}}}
+  . This result is the Karp–Lipton theorem; furthermore,  NP ⊆ P/poly implies AM = MA 
+If PSPACE ⊆ P/poly then 
+  
+    
+      
+        
+          
+            P
+            S
+            P
+            A
+            C
+            E
+          
+        
+        =
+        
+          Σ
+          
+            2
+          
+          
+            
+              P
+            
+          
+        
+        ∩
+        
+          Π
+          
+            2
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle {\mathsf {PSPACE}}=\Sigma _{2}^{\mathsf {P}}\cap \Pi _{2}^{\mathsf {P}}}
+  , even PSPACE = MA.Proof: Consider a language L from PSPACE. It is known that there exists an interactive proof system for L, where actions of the prover can be carried out by a PSPACE machine. By assumption, the prover can be replaced by a polynomial-size circuit. Therefore, L has a MA protocol: Merlin sends the circuit as proof, and Arthur can simulate the IP protocol himself without any additional help.If P#P ⊆ P/poly then P#P = MA.  The proof is similar to above, based on an interactive protocol for permanent and #P-completeness of permanent.
+If EXPTIME ⊆ P/poly then 
+  
+    
+      
+        
+          
+            E
+            X
+            P
+            T
+            I
+            M
+            E
+          
+        
+        =
+        
+          Σ
+          
+            2
+          
+          
+            
+              P
+            
+          
+        
+        ∩
+        
+          Π
+          
+            2
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle {\mathsf {EXPTIME}}=\Sigma _{2}^{\mathsf {P}}\cap \Pi _{2}^{\mathsf {P}}}
+   (Meyer's theorem), even EXPTIME = MA.
+If NEXPTIME ⊆ P/poly then NEXPTIME = EXPTIME, even NEXPTIME = MA. Conversely, NEXPTIME = MA implies NEXPTIME ⊆ P/poly
+If EXPNP ⊆ P/poly then 
+  
+    
+      
+        
+          
+            E
+            X
+            
+              P
+              
+                N
+                P
+              
+            
+          
+        
+        =
+        
+          Σ
+          
+            2
+          
+          
+            
+              P
+            
+          
+        
+        ∩
+        
+          Π
+          
+            2
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle {\mathsf {EXP^{NP}}}=\Sigma _{2}^{\mathsf {P}}\cap \Pi _{2}^{\mathsf {P}}}
+   (Buhrman, Homer) 
+It is known that MAEXP, an exponential version of MA, is not contained in P/poly.Proof: If MAEXP ⊆ P/poly then PSPACE = MA (see above). By padding, EXPSPACE = MAEXP, therefore EXPSPACE ⊆ P/poly but this can be proven false with diagonalization.One of the most interesting reasons that P/poly is important is the property that if NP is not a subset of P/poly, then P ≠ NP.  This observation was the center of many attempts to prove P ≠ NP. It is known that for a random oracle A, NPA is not a subset of PA/poly with probability 1.P/poly is also used in the field of cryptography.  Security is often defined 'against' P/poly adversaries. Besides including most practical models of computation like BPP, this also admits the possibility that adversaries can do heavy precomputation for inputs up to a certain length, as in the construction of rainbow tables.
+Although not all languages in P/poly are sparse languages, there is a polynomial-time Turing reduction from any language in P/poly to a sparse language.
+
+Bounded-error probabilistic polynomial is contained in P/poly
+Adleman's theorem states that BPP ⊆ P/poly, where BPP is the set of problems solvable with randomized algorithms with two-sided error in polynomial time. A weaker result was initially proven by Leonard Adleman, namely, that RP ⊆ P/poly; and this result was generalized to BPP ⊆ P/poly by Bennett and Gill.
+Variants of the theorem show that BPL is contained in L/poly and AM is contained in NP/poly.
+
+Proof
+Let L be a language in BPP, and let M(x,r) be a polynomial-time algorithm that decides L with error ≤ 1/3 (where x is the input string and r is a set of random bits).
+Construct a new machine M'(x,R), which runs M 48n times and takes a majority vote of the results (where n is the input length and R is a sequence of 48n independently random rs).  Thus, M' is also polynomial-time, and has an error probability ≤ 1/en by the Chernoff bound (see BPP). If we can fix R then we obtain an algorithm that is deterministic.
+If 
+  
+    
+      
+        
+          
+            Bad
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle {\mbox{Bad}}(x)}
+   is defined as 
+  
+    
+      
+        {
+        R
+        :
+        M
+        
+          
+            
+            ′
+          
+        
+        (
+        x
+        ,
+        R
+        )
+        
+           is incorrect
+        
+        }
+      
+    
+    {\displaystyle \{R:M{'}(x,R){\text{ is incorrect}}\}}
+  , we have:
+
+  
+    
+      
+        ∀
+        x
+        
+        
+          
+            
+              Prob
+            
+          
+          
+            R
+          
+        
+        [
+        R
+        ∈
+        
+          
+            Bad
+          
+        
+        (
+        x
+        )
+        ]
+        ≤
+        
+          
+            1
+            
+              e
+              
+                n
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \forall x\,{\mbox{Prob}}_{R}[R\in {\mbox{Bad}}(x)]\leq {\frac {1}{e^{n}}}.}
+  The input size is n, so there are 2n possible inputs. Thus, by the union bound, the probability that a random R is bad for at least one input x is
+
+  
+    
+      
+        
+          
+            
+              Prob
+            
+          
+          
+            R
+          
+        
+        [
+        ∃
+        x
+        
+        R
+        ∈
+        
+          
+            Bad
+          
+        
+        (
+        x
+        )
+        ]
+        ≤
+        
+          
+            
+              2
+              
+                n
+              
+            
+            
+              e
+              
+                n
+              
+            
+          
+        
+        <
+        1.
+      
+    
+    {\displaystyle {\mbox{Prob}}_{R}[\exists x\,R\in {\mbox{Bad}}(x)]\leq {\frac {2^{n}}{e^{n}}}<1.}
+  In words, the probability that R is bad for some x is less than 1, therefore there must be an R that is good for all x. Take such an R to be the advice string in our P/poly algorithm.
+
+
+== References ==

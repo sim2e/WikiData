@@ -1,0 +1,830 @@
+In computational complexity theory, the Sipser–Lautemann theorem or Sipser–Gács–Lautemann theorem states that bounded-error probabilistic polynomial (BPP) time is contained in the polynomial time hierarchy, and more specifically Σ2 ∩ Π2.
+In 1983, Michael Sipser showed that BPP is contained in the polynomial time hierarchy. Péter Gács showed that BPP is actually contained in Σ2 ∩ Π2. Clemens Lautemann contributed by giving a simple proof of BPP’s membership in Σ2 ∩ Π2, also in 1983. It is conjectured that in fact BPP=P, which is a much stronger statement than the Sipser–Lautemann theorem.
+
+Proof
+Here we present the Lautemann's proof. Without loss of generality, a machine M ∈ BPP with error ≤ 2−|x| can be chosen.  (All BPP problems can be amplified to reduce the error probability exponentially.)  The basic idea of the proof is to define a Σ2 sentence that is equivalent to stating that x is in the language, L, defined by M by using a set of transforms of the random variable inputs.
+Since the output of M depends on random input, as well as the input x, it is useful to define which random strings produce the correct output as A(x) = {r | M(x,r) accepts}.  The key to the proof is to note that when x ∈ L, A(x) is very large and when x ∉ L, A(x) is very small.  By using bitwise parity, ⊕, a set of transforms can be defined as A(x) ⊕ t={r ⊕ t | r ∈ A(x)}.  The first main lemma of the proof shows that the union of a small finite number of these transforms will contain the entire space of random input strings.  Using this fact, a Σ2 sentence and a Π2 sentence can be generated that is true if and only if x ∈ L (see conclusion).
+
+Lemma 1
+The general idea of lemma one is to prove that if A(x) covers a large part of the random space 
+  
+    
+      
+        R
+        =
+        {
+        1
+        ,
+        0
+        
+          }
+          
+            
+              |
+            
+            r
+            
+              |
+            
+          
+        
+      
+    
+    {\displaystyle R=\{1,0\}^{|r|}}
+   then there exists a small set of translations that will cover the entire random space.  In more mathematical language:
+
+If 
+  
+    
+      
+        
+          
+            
+              
+                |
+              
+              A
+              (
+              x
+              )
+              
+                |
+              
+            
+            
+              
+                |
+              
+              R
+              
+                |
+              
+            
+          
+        
+        ≥
+        1
+        −
+        
+          
+            1
+            
+              2
+              
+                
+                  |
+                
+                x
+                
+                  |
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {|A(x)|}{|R|}}\geq 1-{\frac {1}{2^{|x|}}}}
+  , then 
+  
+    
+      
+        ∃
+        
+          t
+          
+            1
+          
+        
+        ,
+        
+          t
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          t
+          
+            
+              |
+            
+            r
+            
+              |
+            
+          
+        
+      
+    
+    {\displaystyle \exists t_{1},t_{2},\ldots ,t_{|r|}}
+  , where 
+  
+    
+      
+        
+          t
+          
+            i
+          
+        
+        ∈
+        {
+        1
+        ,
+        0
+        
+          }
+          
+            
+              |
+            
+            r
+            
+              |
+            
+          
+        
+      
+    
+    {\displaystyle t_{i}\in \{1,0\}^{|r|}}
+   such that 
+  
+    
+      
+        
+          ⋃
+          
+            i
+          
+        
+        A
+        (
+        x
+        )
+        ⊕
+        
+          t
+          
+            i
+          
+        
+        =
+        R
+        .
+      
+    
+    {\displaystyle \bigcup _{i}A(x)\oplus t_{i}=R.}
+  Proof. Randomly pick t1, t2, ..., t|r|. Let 
+  
+    
+      
+        S
+        =
+        
+          ⋃
+          
+            i
+          
+        
+        A
+        (
+        x
+        )
+        ⊕
+        
+          t
+          
+            i
+          
+        
+      
+    
+    {\displaystyle S=\bigcup _{i}A(x)\oplus t_{i}}
+   (the union of all transforms of A(x)).
+So, for all r in R,
+
+  
+    
+      
+        Pr
+        [
+        r
+        ∉
+        S
+        ]
+        =
+        Pr
+        [
+        r
+        ∉
+        A
+        (
+        x
+        )
+        ⊕
+        
+          t
+          
+            1
+          
+        
+        ]
+        ⋅
+        Pr
+        [
+        r
+        ∉
+        A
+        (
+        x
+        )
+        ⊕
+        
+          t
+          
+            2
+          
+        
+        ]
+        ⋯
+        Pr
+        [
+        r
+        ∉
+        A
+        (
+        x
+        )
+        ⊕
+        
+          t
+          
+            
+              |
+            
+            r
+            
+              |
+            
+          
+        
+        ]
+        ≤
+        
+          
+            1
+            
+              2
+              
+                
+                  |
+                
+                x
+                
+                  |
+                
+                ⋅
+                
+                  |
+                
+                r
+                
+                  |
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \Pr[r\notin S]=\Pr[r\notin A(x)\oplus t_{1}]\cdot \Pr[r\notin A(x)\oplus t_{2}]\cdots \Pr[r\notin A(x)\oplus t_{|r|}]\leq {\frac {1}{2^{|x|\cdot |r|}}}.}
+  The probability that there will exist at least one element in R not in S is
+
+  
+    
+      
+        Pr
+        
+          
+            [
+          
+        
+        
+          ⋁
+          
+            i
+          
+        
+        (
+        
+          r
+          
+            i
+          
+        
+        ∉
+        S
+        )
+        
+          
+            ]
+          
+        
+        ≤
+        
+          ∑
+          
+            i
+          
+        
+        
+          
+            1
+            
+              2
+              
+                
+                  |
+                
+                x
+                
+                  |
+                
+                ⋅
+                
+                  |
+                
+                r
+                
+                  |
+                
+              
+            
+          
+        
+        =
+        
+          
+            
+              2
+              
+                
+                  |
+                
+                r
+                
+                  |
+                
+              
+            
+            
+              2
+              
+                
+                  |
+                
+                x
+                
+                  |
+                
+                ⋅
+                
+                  |
+                
+                r
+                
+                  |
+                
+              
+            
+          
+        
+        <
+        1.
+      
+    
+    {\displaystyle \Pr {\Bigl [}\bigvee _{i}(r_{i}\notin S){\Bigr ]}\leq \sum _{i}{\frac {1}{2^{|x|\cdot |r|}}}={\frac {2^{|r|}}{2^{|x|\cdot |r|}}}<1.}
+  Therefore
+
+  
+    
+      
+        Pr
+        [
+        S
+        =
+        R
+        ]
+        ≥
+        1
+        −
+        
+          
+            
+              2
+              
+                
+                  |
+                
+                r
+                
+                  |
+                
+              
+            
+            
+              2
+              
+                
+                  |
+                
+                x
+                
+                  |
+                
+                ⋅
+                
+                  |
+                
+                r
+                
+                  |
+                
+              
+            
+          
+        
+        >
+        0.
+      
+    
+    {\displaystyle \Pr[S=R]\geq 1-{\frac {2^{|r|}}{2^{|x|\cdot |r|}}}>0.}
+  Thus there is a selection for each 
+  
+    
+      
+        
+          t
+          
+            1
+          
+        
+        ,
+        
+          t
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          t
+          
+            
+              |
+            
+            r
+            
+              |
+            
+          
+        
+      
+    
+    {\displaystyle t_{1},t_{2},\ldots ,t_{|r|}}
+   such that
+
+  
+    
+      
+        
+          ⋃
+          
+            i
+          
+        
+        A
+        (
+        x
+        )
+        ⊕
+        
+          t
+          
+            i
+          
+        
+        =
+        R
+        .
+      
+    
+    {\displaystyle \bigcup _{i}A(x)\oplus t_{i}=R.}
+
+Lemma 2
+The previous lemma shows that A(x) can cover every possible point in the space using a small set of translations.  Complementary to this, for x ∉ L only a small fraction of the space is covered by 
+  
+    
+      
+        S
+        =
+        
+          ⋃
+          
+            i
+          
+        
+        A
+        (
+        x
+        )
+        ⊕
+        
+          t
+          
+            i
+          
+        
+      
+    
+    {\displaystyle S=\bigcup _{i}A(x)\oplus t_{i}}
+  . We have:
+
+  
+    
+      
+        
+          
+            
+              
+                |
+              
+              S
+              
+                |
+              
+            
+            
+              
+                |
+              
+              R
+              
+                |
+              
+            
+          
+        
+        ≤
+        
+          |
+        
+        r
+        
+          |
+        
+        ⋅
+        
+          
+            
+              
+                |
+              
+              A
+              (
+              x
+              )
+              
+                |
+              
+            
+            
+              
+                |
+              
+              R
+              
+                |
+              
+            
+          
+        
+        ≤
+        
+          |
+        
+        r
+        
+          |
+        
+        ⋅
+        
+          2
+          
+            −
+            
+              |
+            
+            x
+            
+              |
+            
+          
+        
+        <
+        1
+      
+    
+    {\displaystyle {\frac {|S|}{|R|}}\leq |r|\cdot {\frac {|A(x)|}{|R|}}\leq |r|\cdot 2^{-|x|}<1}
+  because 
+  
+    
+      
+        
+          |
+        
+        r
+        
+          |
+        
+      
+    
+    {\displaystyle |r|}
+   is polynomial in 
+  
+    
+      
+        
+          |
+        
+        x
+        
+          |
+        
+      
+    
+    {\displaystyle |x|}
+  .
+
+Conclusion
+The lemmas show that language membership of a language in BPP can be expressed as a Σ2 expression, as follows.
+
+  
+    
+      
+        x
+        ∈
+        L
+        
+        ⟺
+        
+        ∃
+        
+          t
+          
+            1
+          
+        
+        ,
+        
+          t
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          t
+          
+            
+              |
+            
+            r
+            
+              |
+            
+          
+        
+        
+        ∀
+        r
+        ∈
+        R
+        
+          ⋁
+          
+            1
+            ≤
+            i
+            ≤
+            
+              |
+            
+            r
+            
+              |
+            
+          
+        
+        (
+        M
+        (
+        x
+        ,
+        r
+        ⊕
+        
+          t
+          
+            i
+          
+        
+        )
+        
+           accepts
+        
+        )
+        .
+      
+    
+    {\displaystyle x\in L\iff \exists t_{1},t_{2},\dots ,t_{|r|}\,\forall r\in R\bigvee _{1\leq i\leq |r|}(M(x,r\oplus t_{i}){\text{ accepts}}).}
+  That is, x is in language L if and only if there exist 
+  
+    
+      
+        
+          |
+        
+        r
+        
+          |
+        
+      
+    
+    {\displaystyle |r|}
+   binary vectors, where for all random bit vectors r, TM M accepts at least one random vector ⊕ ti.
+The above expression is in Σ2 in that it is first existentially then universally quantified.  Therefore BPP ⊆ Σ2.  Because BPP is closed under complement, this proves BPP ⊆ Σ2 ∩ Π2.
+
+Stronger version
+The theorem can be strengthened to 
+  
+    
+      
+        
+          
+            B
+            P
+            P
+          
+        
+        ⊆
+        
+          
+            M
+            A
+          
+        
+        ⊆
+        
+          
+            
+              S
+            
+          
+          
+            2
+          
+          
+            P
+          
+        
+        ⊆
+        
+          Σ
+          
+            2
+          
+        
+        ∩
+        
+          Π
+          
+            2
+          
+        
+      
+    
+    {\displaystyle {\mathsf {BPP}}\subseteq {\mathsf {MA}}\subseteq {\mathsf {S}}_{2}^{P}\subseteq \Sigma _{2}\cap \Pi _{2}}
+   (see MA, SP2).
+
+
+== References ==

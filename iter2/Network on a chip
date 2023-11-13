@@ -1,0 +1,57 @@
+A network on a chip or network-on-chip (NoC  en-oh-SEE or  knock) is a network-based communications subsystem on an integrated circuit ("microchip"), most typically between modules in a system on a chip (SoC).  The modules on the IC are typically semiconductor IP cores schematizing various functions of the computer system, and are designed to be modular in the sense of network science.  The network on chip is a router-based packet switching network between SoC modules.
+NoC technology applies the theory and methods of computer networking to on-chip communication and brings notable improvements over conventional bus and crossbar communication architectures.  Networks-on-chip come in many network topologies, many of which are still experimental as of 2018.In 2000s researchers had started to propose a type of on-chip interconnection in the form of packet switching networks in order to address the scalability issues of bus-based design. Preceding researches proposed the design that routes data packets instead of routing the wires. Then, the concept of "network on chips" was proposed in 2002. NoCs improve the scalability of systems-on-chip and the power efficiency of complex SoCs compared to other communication subsystem designs.  They are an emerging technology, with projections for large growth in the near future as multicore computer architectures become more common.
+
+Structure
+NoCs can span synchronous and asynchronous clock domains, known as clock domain crossing, or use unclocked asynchronous logic.  NoCs support globally asynchronous, locally synchronous electronics architectures, allowing each processor core or functional unit on the System-on-Chip to have its own clock domain.
+
+Architectures
+NoC architectures typically model sparse small-world networks (SWNs) and scale-free networks (SFNs) to limit the number, length, area and power consumption of interconnection wires and point-to-point connections.
+
+Topology
+The topology is the first fundamental aspect of NoC design, and it has a profound effect on the overall network cost and performance. The topology determines the physical layout and connections between nodes and channels. Also, the message traverse hops, and each hop's channel length depend on the topology. Thus, the topology significantly influences latency and power consumption. Furthermore, since the topology determines the number of alternative paths between nodes, it affects the network traffic distribution, and hence the network bandwidth and performance achieved.
+Read more about the tradeoffs between the various NoC topologies here: NoC Interconnect Topologies Explained
+
+Benefits
+Traditionally, ICs have been designed with dedicated point-to-point connections, with one wire dedicated to each signal.  This results in a dense network topology.  For large designs, in particular, this has several limitations from a physical design viewpoint.  It requires power quadratic in the number of interconnections.  The wires occupy much of the area of the chip, and in nanometer CMOS technology, interconnects dominate both performance and dynamic power dissipation, as signal propagation in wires across the chip requires multiple clock cycles.  This also allows more parasitic capacitance, resistance and inductance to accrue on the circuit.  (See Rent's rule for a discussion of wiring requirements for point-to-point connections).
+Sparsity and locality of interconnections in the communications subsystem yield several improvements over traditional bus-based and crossbar-based systems.
+
+Parallelism and scalability
+The wires in the links of the network-on-chip are shared by many signals. A high level of parallelism is achieved, because all data links in the NoC can operate simultaneously on different data packets. Therefore, as the complexity of integrated systems keeps growing, a NoC provides enhanced performance (such as throughput) and scalability in comparison with previous communication architectures (e.g., dedicated point-to-point signal wires, shared buses, or segmented buses with bridges). The algorithms must be designed in such a way that they offer large parallelism and can hence utilize the potential of NoC.
+
+Current research
+Some researchers think that NoCs need to support quality of service (QoS), namely achieve the various requirements in terms of throughput, end-to-end delays, fairness, and deadlines. Real-time computation, including audio and video playback, is one reason for providing QoS support. However, current system implementations like VxWorks, RTLinux or QNX are able to achieve sub-millisecond real-time computing without special hardware.This may indicate that for many real-time applications the service quality of existing on-chip interconnect infrastructure is sufficient, and dedicated hardware logic would be necessary to achieve microsecond precision, a degree that is rarely needed in practice for end users (sound or video jitter need only tenth of milliseconds latency guarantee).  Another motivation for NoC-level quality of service (QoS) is to support multiple concurrent users sharing resources of a single chip multiprocessor in a public cloud computing infrastructure.  In such instances, hardware QoS logic enables the service provider to make contractual guarantees on the level of service that a user receives, a feature that may be deemed desirable by some corporate or government clients.Many challenging research problems remain to be solved at all levels, from the physical link level through the network level, and all the way up to the system architecture and application software. The first dedicated research symposium on networks on chip was held at Princeton University, in May 2007. The second IEEE International Symposium on Networks-on-Chip was held in April 2008 at Newcastle University.
+Research has been conducted on integrated optical waveguides and devices comprising an optical network on a chip (ONoC).The possible way to increasing the performance of NoC is use wireless communication channels between chiplets — named wireless network on chip (WiNoC).
+
+Side benefits of NoC
+In a multi-core system, connected by NoC, coherency messages and cache miss requests have to pass switches. Accordingly, switches can be augmented with simple tracking and forwarding elements to detect which cache blocks will be requested in the future by which cores. Then, the forwarding elements multicast any requested block to all the cores that may request the block in the future. This mechanism reduces cache miss rate.
+
+Benchmarks
+NoC development and studies require comparing different proposals and options.  NoC traffic patterns are under development to help such evaluations.  Existing NoC benchmarks include NoCBench and MCSL NoC Traffic Patterns.
+
+Interconnect processing unit
+An interconnect processing unit (IPU) is an on-chip communication network with hardware and software components which jointly implement key functions of different system-on-chip programming models through a set of communication and synchronization primitives and provide low-level platform services to enable advanced features in modern heterogeneous applications on a single die.
+
+See also
+Arteris
+Electronic design automation (EDA)
+Integrated circuit design
+CUDA
+Globally asynchronous, locally synchronous
+Network architecture
+
+Notes
+References
+Adapted from Avinoam Kolodny's's column in the ACM SIGDA e-newsletter by Igor Markov The original text can be found at http://www.sigda.org/newsletter/2006/060415.txt
+
+Further reading
+Kundu, Santanu; Chattopadhyay, Santanu (2014). Network-on-chip: the Next Generation of System-on-Chip Integration (1st ed.). Boca Raton, FL: CRC Press. ISBN 978-1-4665-6527-2. OCLC 895661009.
+Sheng Ma; Libo Huang; Mingche Lai; Wei Shi; Zhiying Wang (2014). Networks-on-Chip: From Implementations to Programming Paradigms (1st ed.). Amsterdam, NL: Morgan Kaufmann. ISBN 978-0-12-801178-2. OCLC 894609116.
+Giorgios Dimitrakopoulos; Anastasios Psarras; Ioannis Seitanidis (2014-08-27). Microarchitecture of Network-on-Chip Routers: A Designer's Perspective (1st ed.). New York, NY. ISBN 978-1-4614-4301-8. OCLC 890132032.{{cite book}}:  CS1 maint: location missing publisher (link)
+Natalie Enright Jerger; Tushar Krishna; Li-Shiuan Peh (2017-06-19). On-chip Networks (2nd ed.). San Rafael, California. ISBN 978-1-62705-996-1. OCLC 991871622.{{cite book}}:  CS1 maint: location missing publisher (link)
+Marzieh Lenjani; Mahmoud Reza Hashemi (2014). "Tree-based scheme for reducing shared cache miss rate leveraging regional, statistical and temporal similarities". IET Computers & Digital Techniques. 8: 30–48. doi:10.1049/iet-cdt.2011.0066.
+
+External links
+DATE 2006 workshop on NoC
+NoCS 2007 - The 1st ACM/IEEE International Symposium on Networks-on-Chip
+NoCS 2008 - The 2nd IEEE International Symposium on Networks-on-Chip
+Jean-Jacques Lecler, Gilles Baillieu, Design Automation for Embedded Systems (Springer), "Application driven network-on-chip architecture exploration & refinement for a complex SoC", June 2011, Volume 15, Issue 2, pp 133–158, doi:10.1007/s10617-011-9075-5 [Online] http://www.arteris.com/hs-fs/hub/48858/file-14363521-pdf/docs/springer-appdrivennocarchitecture8.5x11.pdf

@@ -1,0 +1,171 @@
+This page explains how to create the Footnotes section for Wikipedia articles. In this context, the word "Footnotes" refers to the Wikipedia-specific manner of documenting an article's sources and providing tangential information, and should not be confused with the general concept of footnotes. This how-to does not cover the formatting of citations within the Footnotes section, which is reviewed in Citing sources.
+Footnotes are used most commonly to provide:
+
+references (bibliographic citations) to reliable sources,
+explanatory information, or
+source information for tables and other elements.Footnotes or shortened footnotes may be used at the editor's discretion in accordance with the guideline on Variation in citation methods.
+Only certain types of material on the English Wikipedia are required to have an inline citation. There is no requirement to provide a citation for every sentence, because multiple sentences may be supported by the same footnote. For advice on which material should be cited, see the guidelines on When you must use inline citations, the Good article criteria and When to cite. For advice on how to organize and format bibliographic citations, see the guideline on Citing sources and examples of Citation templates.
+Footnotes are created using the Cite software extension. This extension adds the HTML-like elements <ref>...</ref>, <references /> and <references>...</references>. The elements are also used in a number of templates; for example, it is becoming more common to use {{reflist}} rather than <references /> as it can style the reference list.
+
+The Footnotes system shows two elements on the page:
+
+A Footnote marker is displayed in the article's content as a bracketed, superscripted number, letter, or word. Examples shown respectively are: [1][a][Note 1]. This footnote label is linked to the full footnote. Clicking on the footnote marker jumps the page down to the footnote and highlights the citation.  If you are using the desktop site and have Javascript enabled, then hovering your cursor over a footnote marker (or touching it on touch devices) will show a pop-up box containing the footnote.
+A Footnote displays the full citation for the source. Together the footnotes are displayed in an ordered list wherever the reference list markup {{reflist}} is placed. Each entry begins with the footnote label in plain text. The entire reference list is formatted in a slightly smaller font.Each successive footnote label is automatically incremented. Thus the first footnote marker would be [1], the second would be [2] and so on. Custom labels are also incremented: [a][b][c], [Note 1] [Note 2] [Note 3].
+For a single-use footnote, the label is followed by a caret (^) that is a backlink to the matching footnote marker. For example:
+If a named footnote is used in the text multiple times, then the footnote has multiple backlinks shown as letters:
+Clicking on the backlink or pressing Alt+← returns to the footnote marker.
+
+Footnotes in action
+The superscript numeral "1" in square brackets at the end of this sentence is an example of a footnote marker.
+
+To create the footnote marker, determine the point in the page content where the marker is desired and enter the markup with the citation or note inside the <ref>...</ref> tags. For example:
+
+The {{reflist}} template will be explained in the next section.
+The content inside the <ref>...</ref> will show in the reference list. The ref tags can be added anywhere a citation or note is needed. There must be content inside the tags, else an error will show.
+
+Where to place ref tags
+Ref tags should follow any punctuation (usually a period), not precede it; see WP:REFPUNC. There should be no space between the punctuation and the tag:
+
+Formatting ref tags
+The content of the ref tags can be formatted using most wiki markup or HTML markup, although techniques such as the pipe trick and template substitution will not work in footnotes. For example:
+
+The ref tag content may also contain an internal or external link:
+
+URLs must begin with a supported URI scheme. http:// and https:// will be supported by all browsers; however, ftp://, gopher://, irc://, ircs://, mailto: and news: may require a plug-in or an external application and should normally be avoided. IPv6 host-names are currently not supported.
+If URLs in citation template parameters contain certain characters, then they will not display and link correctly. Those characters need to be percent-encoded. For example, a space must be replaced by %20. To encode the URL, replace the following characters with:
+
+Single apostrophes do not need to be encoded; however, unencoded multiples will be parsed as italic or bold markup. Single curly closing braces also do not need to be encoded; however, an unencoded pair will be parsed as the double closing braces for the template transclusion.
+
+Once any number of footnotes have been inserted into the content, the reference list must be generated. For the basic reference list, add {{reflist}} wherever the list is desired. Once the page is published  and viewed, the footnotes will be automatically generated and numbered and the reference list will be generated. The main reference list is placed in a separate section, usually titled "References", "Notes" or the like.
+
+Notes
+
+In some cases, a page has more than one reference list. Until 2014, multiple uses of {{reflist}} on the same page required use of a |close= parameter; that bug has been fixed and the|close= parameter may safely be removed.
+When editing, <references /> may be seen instead of {{reflist}}. This will automatically display the references in multiple columns, but <references /> does not offer the other advanced features of {{reflist}}.
+
+ 
+
+You can cite the same source more than once on a page by using named references, also called named footnotes. The syntax to define a named footnote is:
+
+<ref name="name">content</ref>To invoke the named footnote:
+
+<ref name="name" />Names for footnotes and groups must follow these rules:
+
+Names are case-sensitive.  Please do not use raNdOM capitalization.
+Names must not be purely numeric; the software will accept something like ":31337" (which is punctuation plus a number), but it will ignore "31337" (purely numeric).
+Names should have semantic value, so that they can be more easily distinguished from each other by human editors who are looking at the wikitext.  This means that ref names like "Nguyen 2010" are preferred to names like ":31337".
+Names must be unique. You may not use the same name to define different groups or footnotes. Try to avoid picking a name that someone else is likely to choose for a new citation, such as ":0" or "NYT".
+Please consider keeping reference names short, simple and restricted to the standard English alphabet and numerals. If spaces are used, the following technical restrictions become relevant:
+Quotation marks are preferred but optional if the only characters used are letters A–Z, a–z, digits 0–9, and the symbols !$%&()*,-.:;<@[]^_`{|}~. That is, all printable ASCII characters except #"'/=<>?\ and space.
+Inclusion of any other characters, including spaces, requires that the reference name be enclosed in quotes; for example, name="John Smith". But quote-enclosed reference names may not include a less-than sign (<) or a double straight quote symbol ("), which may however be included by escaping as &lt; and &quot; respectively.
+The quote marks must be the standard, straight, double quotation marks ("); curly or other quotes will be parsed as part of the reference name.
+You may optionally provide reference names even when the reference name is not required. This makes later re-use of the sourced reference easier.Note that the colon-followed-by-numeral names, like ":0", are currently generated by default in VisualEditor.
+
+The actual name used can be almost anything, but it is recommended that it have a connection to the citation or note. A common practice is to use the author-year or publisher-year for the reference name. This helps editors remember the name, by associating it with the information that is visible to the reader.
+Note that the footnote labels are incremented in the order they are used, and that they use the same label when reused, thus the labels can seem out of order:
+
+When using both names and groups, the syntax is:
+
+<ref group="groupname" name="name">Content</ref>Care should be taken when deleting references to avoid creating a cite error. See Avoiding common mistakes.
+
+When using <references /> or {{reflist}}, the list can be split into columns.  The <references /> tag provides a default column width of 30 em.  {{Reflist}} can be used to set a different column width:
+
+{{reflist|xxem}}, where xx is the column width in em.The number of columns will automatically be adjusted to the width of the display. It should be used only when necessary, as both the tag and the template have built-in auto-formatting capabilities providing a useful default display in most scenarios.
+The set columns feature is now deprecated in favor of the option described above, which is better suited to flexible formatting for a variety of display screen sizes, ranging from mobile phones and tablets to wide-screen "cinema" displays. Forcing a fixed number of columns has been disabled in mobile view.
+The number of columns to use is up to the editor, but some major practices include:
+
+{{Reflist|30em}}: Where there are many footnotes plus a page-width Bibliography subsection: see Ebola virus disease (06:28, 23 June 2013)
+{{Reflist|20em}}: Where Shortened footnotes are used; see NBR 224 and 420 Classes (13:32, 1 August 2011).For example:
+Using {{Reflist|30em}} will create columns with a minimum width of 30 em,
+
+Some or all of the footnotes can also be defined within the reference section/list, and invoked in the page content. This keeps those citations in one central location for easier maintenance and avoids cluttering the text. This is purely a source code change – the actual display of the citation in the text to a reader is unaffected. For a more detailed evaluation of this method, see WP:LDRHOW. The syntax is:
+
+or, alternatively,
+
+The footnote markers are included as usual for a named footnote. For example:
+
+The references will be numbered, and appear in the output, in the order that they are first referred to in the content, regardless of their order within the list. All references in reference list must be referenced in the content, otherwise an error message will be shown.
+Note that when you use the visual editor, you will not be able to add, remove, or change list-defined references.
+
+Explanatory notes may need to be referenced. Because of limitations in the Cite software, reference tags cannot be nested; that is, a set of <ref>...</ref> tags cannot be placed inside another pair of <ref>...</ref> tags. Attempting to do so will result in a cite error.
+The templates {{r}} and {{refn}} can be used to nest references. The markup is:
+
+{{refn|group=group|name=name|content}} or
+{{r|group=group|name=name|refn=content}} or
+{{r|g=group|n=name|r=content}} (shorter)name and group being optional parameters. The content may include <ref> tags or another {{r}} template.
+The other templates listed below in Predefined groups are variants of {{refn}} that include a styled group and have a matching styled reference list template.
+Examples:
+
+Using {{refn}}
+Using {{r}}
+The use of the magic word #tag:ref is valid, but the sequence of parameters is invariant and nonintuitive. {{r}} as well as {{refn}} and its variants use this markup internally.
+
+{{#tag:ref|refcontent|group=groupname|name=name}}
+
+Sometimes it is useful to group the footnotes into separate lists, for example to separate explanatory notes from references, or to list references for tables, image captions, infoboxes and navboxes. The sequence of footnote labels is independent in each group.
+The syntax to define a footnote with a group is:
+
+<ref group=groupname>Content</ref>The footnote marker group name must be enclosed in quotes if the group name includes a space, else a cite error will occur, otherwise quotes are optional.
+The syntax for the reference list with a group is:
+
+{{reflist|group=groupname}}The reference list group name does not need to be enclosed in quotes.
+Example:
+
+Note that the footnote labels in the reference list show only the numbers and not the group name.
+When using both names and groups, the syntax is:
+
+<ref group="groupname" name="name">Content</ref>For the repeated note:
+
+<ref group="groupname" name="name" />
+
+There are several predefined groups that can have a reference list styled so that the label (a superscripted character within square brackets, e.g., [1]) of an explanatory note or citation (a.k.a. footnote, reference) matches and links to the note marker label located in the main text and the label in front of the note's text in the appropriate group's list. There can be more than one of these groups' lists in the Notes, References and other similarly purposed sections.
+These predefined note and citation groups have templates that make the wikitext markup simpler. These templates also allow a standard reference to be inserted, so that an explanatory note can have a reference, or citations can be nested.
+Note: If the note's text has a reference name that is used more than once, the labels will still match, but the clickable alpha characters that toggle the note's display will be next to the note's label, with links to the multiple locations of its marker in the main text. See WP:REFNAME and the first point below in § Issues.
+
+Template use by reference group type
+{{efn}} supports |name= and |group=, which work the same as the parameters in <ref> (see, for instance, the 3rd and 4th examples below). Do not enclose values in quotes.
+{{notelist}} supports the |colwidth=, |refs=, and |group= parameters, which work the same as the parameters in {{reflist}}. Do not enclose values in quotes.In these examples, the footnote labels match between the footnote marker and the reference list:
+
+Note: With named references you only need to add the details once. For each use after the first you just need to re-use the reference name. Doing this will not cause the inline superscript to display a custom name.
+
+Note: Due to limitations in the MediaWiki software, do not use list defined footnotes that contain references.
+
+Issues
+Multiple backlink labels (see WP:REFNAME) are always styled as lower-alpha. This can be confusing when {{efn}} is used. See the note in the introduction of this section, above.
+The entries in the reference list will show the default decimal styling if:
+The value for |group= in {{reflist}} or <references /> does not exactly match one of the predefined values; use {{efn}} or variant as |group= will not be needed.
+The value for |group= in {{reflist}} or <references /> is enclosed by quotes; use {{efn}} or variant as |group= will not be needed.
+{{reflist}} is indented with the : markup.
+<references /> is used instead of {{reflist}}
+The entries in the reference list will have no styling if:
+A reference is included in {{navbox}} or one of the variants and the style is set to bodyclass=hlist; to resolve this, replace the style with listclass=hlist.
+If the note text contains an "=" sign, precede the note text with |1=, like this: {{efn|name=fn1|1=Very long footnote with an equation, 2+2=4}}
+
+A page with <ref> tags but no reference list markup used to display an error, except on talk and user pages. In recent versions of Wikipedia, the error no longer appears; instead an automatically generated reference list (AGRL) is displayed at the bottom of the page.
+Compared to the reference lists on properly formatted pages, an AGRL can be confusing to both readers and editors. But it is easily corrected by adding reference list markup such as the following. Add it at the position where the reference list would normally appear.
+
+On talk pages, the {{reflist-talk}} template can be used to add a reference list to a specific discussion.
+
+Suppose you would like to cite one book, but different facts appear on different pages. You would like to cite the book again and again, but point each fact to the proper page. Suppose one fact is on page 8, a different fact on page 12, a third fact on page 18, a fourth fact on page 241. You could put a line in the "pages" parameter saying "see pages 8, 12, 18, 241" but a fact-checker might have to check all of them before figuring out the right one. Or, you could duplicate the entire citation for the book in each instance, but that would be redundant. 
+One common approach is to use shortened citations. The long citation to support the shortened citations can either be placed as a bullet point in a separate References section after the Footnotes section; or it can be placed in the first footnote to cite the source (with the initial relevant page number[s]). The remaining footnotes will use shortened citations (these usually contain the author's last name, the date of publication, and the relevant page number[s]).
+A less common approach is to attach a {{rp|8}} right after the footnote marker and replace the "8" with the appropriate page number. For example:
+
+{{r}} compactly combines the functions of <ref> and {{rp}}: {{r|Schudson}} is equivalent to <ref name="Schudson"/>  and {{r|Schudson|p=241}} is equivalent to <ref name="Schudson"/>{{rp|241}}.
+
+When you edit a single section of a page, the footnotes list will be visible when you preview your edits under the heading "Preview of references", although you will still not be able to see named references whose definition is outside the section you are editing.
+Tools that can be used are the user:js/ajaxPreview or User:Anomie/ajaxpreview.js scripts or the wikEd gadget.
+
+You can use the citation toolbar to name references. When you first create a reference, you can enter a value in the "Ref name" box. When you want to reuse this reference, click the "Named references" button on the citation toolbar and choose which reference you would like to insert.
+
+Cite bug list
+subst: does not work within <ref> tags. T4700
+The pipe trick does not work within <ref> tags. T4700
+
+The template {{Refimprove}} should be added to articles where there are some, but insufficient, inline citations to support the material currently in the article. For biographies of living persons, use {{BLP sources}} instead.
+The template {{Unreferenced}} should be added to articles with no references at all. For biographies of living persons, use {{BLP unsourced}} instead.
+The template {{Unreferenced section}} is for individual sections that have no citations in articles that have at least one citation somewhere else. For biographies of living persons, use {{BLP unsourced section}} instead.
+The template {{Medref}} is specifically for articles needing additional medical references.
+Template:Harvard citation#Using CITEREF directly and {{sfnref}}
+Wikipedia:Citing sources/Further considerations—a how-to article with some additional considerations for citing sources
+Wikipedia:Help desk—to ask questions about using footnotes in articles if you were not able to find the information you need on this help page.
+Template:Editor tools—{{Editor tools}}

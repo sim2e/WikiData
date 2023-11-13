@@ -1,0 +1,51 @@
+The Intel 4040 microprocessor was the successor to the Intel 4004. It was introduced in 1974. The 4040 employed a 10 μm silicon gate enhancement load PMOS technology, was made up of 3,000 transistors and could execute approximately 62,000 instructions per second. General performance, bus layout and instruction set was identical to the 4004, with the main improvements being in the addition of extra lines and instructions to recognise and service interrupts and hardware Halt/Stop commands (the latter allowing operator-controlled single-stepping for debugging purposes), an extended internal stack and general-purpose "Index" register space to handle nesting of several subroutines and/or interrupts, plus a doubling of program ROM address range.
+
+New features
+Interrupts
+Single Stepping plus both hardware and software HALTing.
+Low-power standby
+
+Extensions
+Instruction Set expanded to 60 instructions (14 new instructions added to existing 46, mainly concerned with handling interrupts, halting/single stepping and ROM bank switching)
+Program memory (ROM) expanded to 8 KB (13-bit address space), using bank switching (4004's original single chip-select expanded to two mutually exclusive lines)
+Registers expanded to 24 (8 added to the 16 existing 4-bit-wide general-purpose "Index Register" set, mainly for use with interrupt processing)
+Subroutine/interrupt stack expanded to 7 levels deep (using dedicated internal registers)
+
+Characteristics
+Data Bus: 4-bit
+Address Bus: 12-bit for ROM (multiplexed onto data bus; addresses took three bus cycles to transmit, same as in the 4004), effectively 13-bit with use of bank-switching commands; effectively 10-bit or 8-bit for RAM (8-bit direct address plus one-of-four, ie 2-bit equivalent, bank select; the additional 256 "status" memory locations required use of I/O commands to read or write, from an overall 8-bit address space)
+Voltage: -15V DC
+Operating Frequency: 500 to 740 kHz main clock (2-phase, overlapping); 62500 to 92500 8-clock machine cycles per second, each instruction requiring either one or two machine cycles to read and execute, meaning a rough average of 62 kIPS at 740 kHz with an equal mix.
+Performance: Claimed execution time of ~850 µs to add two 32-bit (8-digit BCD) numbers, or around 1175 such operations per second and approx 10 machine cycles per digit-pair.
+
+Designers
+Federico Faggin proposed the project, formulated the architecture and led the design.
+The detailed design was done by Tom Innes (Tinnes of Bristol).
+
+New support chips
+3216 and 3226 4-bit parallel bus drivers
+4101 – 256 x 4-bit Static RAM
+4201 – Clock Generator, 500 to 740 kHz, using 4.000 to 5.185 MHz crystals
+4207 – General Purpose 8-bit Output port
+4209 – General Purpose 8-bit Input port
+4211 – General Purpose 8-bit I/O port
+4265 - Programmable general-purpose I/O
+4269 - Programmable keyboard/display
+4289 – Standard Memory Interface (replaces 4008/4009)
+4308 – 1K x 8-bit ROM plus 4 x 4-bit IO ports
+4316 – 2K x 8-bit ROM
+4702 – 256 x 8-bit EPROM
+
+Use in computers
+According to Byte magazine, the first microcomputer designed around the Intel 4040 was the Micro 440, released by Comp-Sultants of Huntsville, Alabama, in 1975.
+
+Notes
+References
+Further reading
+ChipDB Datasheets: i4040 (PDF)
+Bitsavers: MCS-40 Users Manual, November 1974 (PDF)
+Wikichip: MCS-40
+Pastraiser: i4040 Memory Organisation
+Intel-Vintage: Memory Chips
+CPU Zone: MCS-4 chipset
+CPU Zone: i4702

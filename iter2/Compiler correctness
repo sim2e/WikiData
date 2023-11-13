@@ -1,0 +1,35 @@
+In computing, compiler correctness is the branch of computer science that deals with trying to show that a compiler behaves according to its language specification.  Techniques include developing the compiler using formal methods and using rigorous testing (often called compiler validation) on an existing compiler.
+
+Formal verification
+Two main formal verification approaches for establishing correctness of compilation are proving correctness of the compiler for all inputs and proving correctness of a compilation of a particular program (translation validation).
+
+Compiler correctness for all input programs
+Compiler validation with formal methods involves a long chain of formal, deductive logic.  However, since the tool to find the proof (theorem prover) is implemented in software and is complex, there is a high probability it will contain errors.  One approach has been to use a tool that verifies the proof (a proof checker) which, because it is much simpler than a proof-finder, is less likely to contain errors.
+A prominent example of this approach is CompCert, which is a formally verified optimizing compiler of a large subset of C99.Another verified compiler was developed in CakeML project,
+which establishes correctness of a substantial subset of Standard ML programming language using the HOL (proof assistant).
+Another approach to obtain a formally correct compiler is to use semantics-directed compiler generation.
+
+Translation validation: compiler correctness on a given program
+In contrast to attempting to prove that a compiler is correct for all valid input programs translation validation
+
+aims to automatically establish that a given input program is compiled correctly. Proving correct compilation of a given program is potentially easier than proving a compiler correct for all programs, but still requires symbolic reasoning, because a fixed program may still work on arbitrarily large inputs and run for arbitrarily long amount of time. 
+Translation validation can reuse an existing compiler implementation by generating, for a given compilation, a proof that the compilation was correct.
+Translation validation can be used even with a compiler that sometimes generates incorrect code, as long as this incorrect does not manifest itself for a given program. Depending on the input program the translation validation can fail (because the generated code is wrong or the translation validation technique is too weak to show correctness). However, if translation validation succeeds, then the compiled program is guaranteed to be correct for all inputs.
+
+Testing
+Testing represents a significant portion of the effort in shipping a compiler, but receives comparatively little coverage in the standard literature.  The 1986 edition of Aho, Sethi, & Ullman has a single-page section on compiler testing, with no named examples.  The 2006 edition omits the section on testing, but does emphasize its importance: “Optimizing compilers are so difficult to get right that we dare say that no optimizing compiler is completely error-free!  Thus, the most important objective in writing a compiler is that it is correct.”
+Fraser & Hanson 1995 has a brief section on regression testing; source code is available.
+Bailey & Davidson 2003 cover testing of procedure calls
+A number of articles confirm that many released compilers have significant code-correctness bugs.
+Sheridan 2007 is probably the most recent journal article on general compiler testing. For most purposes, the largest body of information available on compiler testing are the Fortran and Cobol validation suites.
+Further common techniques when testing compilers are fuzzing (which generates random programs to try to find bugs in a compiler) and test case reduction (which tries to minimize a found test case to make it easier to understand).
+
+See also
+Compiler
+Verification and validation (software)
+Correctness (computer science)
+CompCert C compiler—Formally verified C compiler
+Reflections on Trusting Trust
+
+
+== References ==

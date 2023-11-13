@@ -1,0 +1,1222 @@
+In mathematics, a Walsh matrix is a specific square matrix of dimensions 2n, where n is some particular natural number. The entries of the matrix are either +1 or −1 and its rows as well as columns are orthogonal, i.e. dot product is zero. The Walsh matrix was proposed by Joseph L. Walsh in 1923.  Each row of a Walsh matrix corresponds to a Walsh function.
+The Walsh matrices are a special case of Hadamard matrices. The naturally ordered Hadamard matrix is defined by the recursive formula below, and the sequency-ordered Hadamard matrix is formed by rearranging the rows so that the number of sign changes in a row is in increasing order. Confusingly, different sources refer to either matrix as the Walsh matrix.
+The Walsh matrix (and Walsh functions) are used in computing the Walsh transform and have applications in the efficient implementation of certain signal processing operations.
+
+Formula
+The Hadamard matrices of dimension 2k for k ∈ N are given by the recursive formula (the lowest order of Hadamard matrix is 2):
+
+  
+    
+      
+        
+          
+            
+              
+                H
+                
+                  (
+                  
+                    2
+                    
+                      1
+                    
+                  
+                  )
+                
+              
+              
+                
+                =
+                
+                  
+                    [
+                    
+                      
+                        
+                          1
+                        
+                        
+                          1
+                        
+                      
+                      
+                        
+                          1
+                        
+                        
+                          −
+                          1
+                        
+                      
+                    
+                    ]
+                  
+                
+                ,
+              
+            
+            
+              
+                H
+                
+                  (
+                  
+                    2
+                    
+                      2
+                    
+                  
+                  )
+                
+              
+              
+                
+                =
+                
+                  
+                    [
+                    
+                      
+                        
+                          1
+                        
+                        
+                          1
+                        
+                        
+                          1
+                        
+                        
+                          1
+                        
+                      
+                      
+                        
+                          1
+                        
+                        
+                          −
+                          1
+                        
+                        
+                          1
+                        
+                        
+                          −
+                          1
+                        
+                      
+                      
+                        
+                          1
+                        
+                        
+                          1
+                        
+                        
+                          −
+                          1
+                        
+                        
+                          −
+                          1
+                        
+                      
+                      
+                        
+                          1
+                        
+                        
+                          −
+                          1
+                        
+                        
+                          −
+                          1
+                        
+                        
+                          1
+                        
+                      
+                    
+                    ]
+                  
+                
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}H\left(2^{1}\right)&={\begin{bmatrix}1&1\\1&-1\end{bmatrix}},\\H\left(2^{2}\right)&={\begin{bmatrix}1&1&1&1\\1&-1&1&-1\\1&1&-1&-1\\1&-1&-1&1\\\end{bmatrix}},\end{aligned}}}
+  and in general
+
+  
+    
+      
+        H
+        
+          (
+          
+            2
+            
+              k
+            
+          
+          )
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  H
+                  
+                    (
+                    
+                      2
+                      
+                        k
+                        −
+                        1
+                      
+                    
+                    )
+                  
+                
+                
+                  H
+                  
+                    (
+                    
+                      2
+                      
+                        k
+                        −
+                        1
+                      
+                    
+                    )
+                  
+                
+              
+              
+                
+                  H
+                  
+                    (
+                    
+                      2
+                      
+                        k
+                        −
+                        1
+                      
+                    
+                    )
+                  
+                
+                
+                  −
+                  H
+                  
+                    (
+                    
+                      2
+                      
+                        k
+                        −
+                        1
+                      
+                    
+                    )
+                  
+                
+              
+            
+            ]
+          
+        
+        =
+        H
+        (
+        2
+        )
+        ⊗
+        H
+        
+          (
+          
+            2
+            
+              k
+              −
+              1
+            
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle H\left(2^{k}\right)={\begin{bmatrix}H\left(2^{k-1}\right)&H\left(2^{k-1}\right)\\H\left(2^{k-1}\right)&-H\left(2^{k-1}\right)\end{bmatrix}}=H(2)\otimes H\left(2^{k-1}\right),}
+  for 2 ≤ k ∈ N, where ⊗ denotes the Kronecker product.
+
+Permutation
+Rearrange the rows of the matrix according to the number of sign change of each row. For example, in
+
+  
+    
+      
+        H
+        (
+        4
+        )
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle H(4)={\begin{bmatrix}1&1&1&1\\1&-1&1&-1\\1&1&-1&-1\\1&-1&-1&1\\\end{bmatrix}}}
+  the successive rows have 0, 3, 1, and 2 sign changes. If we rearrange the rows in sequency ordering:
+
+  
+    
+      
+        W
+        (
+        4
+        )
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+              
+            
+            ]
+          
+        
+        ,
+      
+    
+    {\displaystyle W(4)={\begin{bmatrix}1&1&1&1\\1&1&-1&-1\\1&-1&-1&1\\1&-1&1&-1\\\end{bmatrix}},}
+  then the successive rows have 0, 1, 2, and 3 sign changes.
+
+Alternative forms of the Walsh matrix
+Sequency ordering
+The sequency ordering of the rows of the Walsh matrix can be derived from the ordering of the Hadamard matrix by first applying the bit-reversal permutation and then the Gray-code permutation:
+
+  
+    
+      
+        W
+        (
+        8
+        )
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+              
+            
+            ]
+          
+        
+        ,
+      
+    
+    {\displaystyle W(8)={\begin{bmatrix}1&1&1&1&1&1&1&1\\1&1&1&1&-1&-1&-1&-1\\1&1&-1&-1&-1&-1&1&1\\1&1&-1&-1&1&1&-1&-1\\1&-1&-1&1&1&-1&-1&1\\1&-1&-1&1&-1&1&1&-1\\1&-1&1&-1&-1&1&-1&1\\1&-1&1&-1&1&-1&1&-1\\\end{bmatrix}},}
+  where the successive rows have 0, 1, 2, 3, 4, 5, 6, and 7 sign changes.
+
+Dyadic ordering
+W
+        (
+        8
+        )
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+              
+            
+            ]
+          
+        
+        ,
+      
+    
+    {\displaystyle W(8)={\begin{bmatrix}1&1&1&1&1&1&1&1\\1&1&1&1&-1&-1&-1&-1\\1&1&-1&-1&1&1&-1&-1\\1&1&-1&-1&-1&-1&1&1\\1&-1&1&-1&1&-1&1&-1\\1&-1&1&-1&-1&1&-1&1\\1&-1&-1&1&1&-1&-1&1\\1&-1&-1&1&-1&1&1&-1\\\end{bmatrix}},}
+  where the successive rows have 0, 1, 3, 2, 7, 6, 4, and 5 sign changes.
+
+Natural ordering
+W
+        (
+        8
+        )
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  −
+                  1
+                
+              
+            
+            ]
+          
+        
+        ,
+      
+    
+    {\displaystyle W(8)={\begin{bmatrix}1&1&1&1&1&1&1&1\\1&-1&1&-1&1&-1&1&-1\\1&1&-1&-1&1&1&-1&-1\\1&-1&-1&1&1&-1&-1&1\\1&1&1&1&-1&-1&-1&-1\\1&-1&1&-1&-1&1&-1&1\\1&1&-1&-1&-1&-1&1&1\\1&-1&-1&1&-1&1&1&-1\\\end{bmatrix}},}
+  where the successive rows have 0, 7, 3, 4, 1, 6, 2, and 5 sign changes.
+
+See also
+
+Haar wavelet
+Quincunx matrix
+Hadamard transform
+Code-division multiple access
+OEIS: A228539 (OEIS: A228540) – rows of the (negated) binary Walsh matrices read as reverse binary numbers
+OEIS: A197818 – antidiagonals of the negated binary Walsh matrix read as binary numbers
+
+
+== References ==

@@ -1,0 +1,496 @@
+In computer vision, the fundamental matrix 
+  
+    
+      
+        
+          F
+        
+      
+    
+    {\displaystyle \mathbf {F} }
+   is a 3×3 matrix which relates corresponding points in stereo images.  In epipolar geometry, with homogeneous image coordinates, x and x′, of corresponding points in a stereo image pair, Fx describes a line (an epipolar line) on which the corresponding point x′ on the other image must lie.  That means, for all pairs of corresponding points holds
+
+  
+    
+      
+        
+          
+            x
+          
+          
+            ′
+            
+              ⊤
+            
+          
+        
+        
+          F
+          x
+        
+        =
+        0.
+      
+    
+    {\displaystyle \mathbf {x} '^{\top }\mathbf {Fx} =0.}
+  Being of rank two and determined only up to scale, the fundamental matrix can be estimated given at least seven point correspondences. Its seven parameters represent the only geometric information about cameras that can be obtained through point correspondences alone.
+The term "fundamental matrix" was coined by QT Luong in his influential PhD thesis. It is sometimes also referred to as the "bifocal tensor". As a tensor it is a two-point tensor in that it is a bilinear form relating points in distinct coordinate systems.
+The above relation which defines the fundamental matrix was published in 1992 by both Olivier Faugeras and Richard Hartley. Although H. Christopher Longuet-Higgins' essential matrix satisfies a similar relationship, the essential matrix is a metric object pertaining to calibrated cameras, while the fundamental matrix describes the correspondence in more general and fundamental terms of projective geometry.
+This is captured mathematically by the relationship between a fundamental matrix
+
+  
+    
+      
+        
+          F
+        
+      
+    
+    {\displaystyle \mathbf {F} }
+   and its corresponding essential matrix 
+  
+    
+      
+        
+          E
+        
+      
+    
+    {\displaystyle \mathbf {E} }
+  ,
+which is
+
+  
+    
+      
+        
+          E
+        
+        =
+        (
+        
+          
+            
+              K
+            
+            ′
+          
+        
+        
+          )
+          
+            ⊤
+          
+        
+        
+        
+          F
+        
+        
+        
+          K
+        
+      
+    
+    {\displaystyle \mathbf {E} =({\mathbf {K} '})^{\top }\;\mathbf {F} \;\mathbf {K} }
+  
+  
+    
+      
+        
+          K
+        
+      
+    
+    {\displaystyle \mathbf {K} }
+   and 
+  
+    
+      
+        
+          
+            K
+          
+          ′
+        
+      
+    
+    {\displaystyle \mathbf {K} '}
+   being the intrinsic calibration
+matrices of the two images involved.
+
+Introduction
+The fundamental matrix is a relationship between any two images of the same scene that constrains where the projection of points from the scene can occur in both images. Given the projection of a scene point into one of the images the corresponding point in the other image is constrained to a line, helping the search, and allowing for the detection of wrong correspondences.  The relation between corresponding points, which the fundamental matrix represents, is referred to as epipolar constraint, matching constraint, discrete matching constraint, or incidence relation.
+
+Projective reconstruction theorem
+The fundamental matrix can be determined by a set of point correspondences.  Additionally, these corresponding image points may be triangulated to world points with the help of camera matrices derived directly from this fundamental matrix.  The scene composed of these world points is within a projective transformation of the true scene.
+
+Proof
+Say that the image point correspondence 
+  
+    
+      
+        
+          x
+        
+        ↔
+        
+          
+            x
+            ′
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} \leftrightarrow \mathbf {x'} }
+   derives from the world point 
+  
+    
+      
+        
+          
+            X
+          
+        
+      
+    
+    {\displaystyle {\textbf {X}}}
+   under the camera matrices 
+  
+    
+      
+        
+          (
+          
+            
+              
+                P
+              
+            
+            ,
+            
+              
+                
+                  P
+                
+              
+              ′
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \left({\textbf {P}},{\textbf {P}}'\right)}
+   as
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  x
+                
+              
+              
+                
+                =
+                
+                  
+                    P
+                  
+                
+                
+                  
+                    X
+                  
+                
+              
+            
+            
+              
+                
+                  
+                    x
+                    ′
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    
+                      P
+                    
+                  
+                  ′
+                
+                
+                  
+                    X
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\mathbf {x} &={\textbf {P}}{\textbf {X}}\\\mathbf {x'} &={\textbf {P}}'{\textbf {X}}\end{aligned}}}
+  Say we transform space by a general homography matrix 
+  
+    
+      
+        
+          
+            
+              H
+            
+          
+          
+            4
+            ×
+            4
+          
+        
+      
+    
+    {\displaystyle {\textbf {H}}_{4\times 4}}
+   such that 
+  
+    
+      
+        
+          
+            
+              X
+            
+          
+          
+            0
+          
+        
+        =
+        
+          
+            H
+          
+        
+        
+          
+            X
+          
+        
+      
+    
+    {\displaystyle {\textbf {X}}_{0}={\textbf {H}}{\textbf {X}}}
+  .
+The cameras then transform as
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    
+                      P
+                    
+                  
+                  
+                    0
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    P
+                  
+                
+                
+                  
+                    
+                      H
+                    
+                  
+                  
+                    −
+                    1
+                  
+                
+              
+            
+            
+              
+                
+                  
+                    
+                      P
+                    
+                  
+                  
+                    0
+                  
+                  ′
+                
+              
+              
+                
+                =
+                
+                  
+                    
+                      P
+                    
+                  
+                  ′
+                
+                
+                  
+                    
+                      H
+                    
+                  
+                  
+                    −
+                    1
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\textbf {P}}_{0}&={\textbf {P}}{\textbf {H}}^{-1}\\{\textbf {P}}_{0}'&={\textbf {P}}'{\textbf {H}}^{-1}\end{aligned}}}
+  
+  
+    
+      
+        
+          
+            
+              P
+            
+          
+          
+            0
+          
+        
+        
+          
+            
+              X
+            
+          
+          
+            0
+          
+        
+        =
+        
+          
+            P
+          
+        
+        
+          
+            
+              H
+            
+          
+          
+            −
+            1
+          
+        
+        
+          
+            H
+          
+        
+        
+          
+            X
+          
+        
+        =
+        
+          
+            P
+          
+        
+        
+          
+            X
+          
+        
+        =
+        
+          x
+        
+      
+    
+    {\displaystyle {\textbf {P}}_{0}{\textbf {X}}_{0}={\textbf {P}}{\textbf {H}}^{-1}{\textbf {H}}{\textbf {X}}={\textbf {P}}{\textbf {X}}=\mathbf {x} }
+   and likewise with 
+  
+    
+      
+        
+          
+            
+              P
+            
+          
+          
+            0
+          
+          ′
+        
+      
+    
+    {\displaystyle {\textbf {P}}_{0}'}
+   still get us the same image points.
+
+Derivation of the fundamental matrix using coplanarity condition
+The fundamental matrix can also be derived using the coplanarity condition.
+
+For satellite images
+The fundamental matrix expresses the epipolar geometry in stereo images. The epipolar geometry in images taken with perspective cameras appears as straight lines.  However, in satellite images, the image is formed during the sensor movement along its orbit (pushbroom sensor).  Therefore, there are multiple projection centers for one image scene and the epipolar line is formed as an epipolar curve. However, in special conditions such as small image tiles, the satellite images could be rectified using the fundamental matrix.
+
+Properties
+The fundamental matrix is of rank 2. Its kernel defines the epipole.
+
+See also
+Epipolar geometry
+Essential matrix
+Trifocal tensor
+Eight-point algorithm
+
+Notes
+References
+Olivier D. Faugeras (1992). "What can be seen in three dimensions with an uncalibrated stereo rig?". Proceedings of European Conference on Computer Vision. CiteSeerX 10.1.1.462.4708.Olivier D. Faugeras; Q.T. Luong; Steven Maybank (1992). "Camera self-calibration: Theory and experiments". Proceedings of European Conference on Computer Vision. doi:10.1007/3-540-55426-2_37.Q.T. Luong and Olivier D. Faugeras (1996). "The Fundamental Matrix: Theory, Algorithms, and Stability Analysis". International Journal of Computer Vision. 17 (1): 43–75. doi:10.1007/BF00127818. S2CID 2582003.Olivier Faugeras and Q.T. Luong (2001). The Geometry of Multiple Images. MIT Press. ISBN 978-0-262-06220-6.Richard I. Hartley (1992). "Estimation of relative camera positions for uncalibrated cameras" (PDF). Proceedings of European Conference on Computer Vision.Richard Hartley and Andrew Zisserman (2003). Multiple View Geometry in Computer Vision. Cambridge University Press. ISBN 978-0-521-54051-3.Richard I. Hartley (1997). "In Defense of the Eight-Point Algorithm". IEEE Transactions on Pattern Analysis and Machine Intelligence. 19 (6): 580–593. doi:10.1109/34.601246.
+Nurollah Tatar (2019). "Stereo rectification of pushbroom satellite images by robustly estimating the fundamental matrix". International Journal of Remote Sensing. 40 (20): 1–19. doi:10.1080/01431161.2019.1624862.Q.T. Luong (1992). Matrice fondamentale et auto-calibration en vision par ordinateur. PhD Thesis, University of Paris, Orsay.Yi Ma; Stefano Soatto; Jana Košecká; S. Shankar Sastry (2004). An Invitation to 3-D Vision. Springer. ISBN 978-0-387-00893-6.Marc Pollefeys, Reinhard Koch and Luc van Gool (1999). "Self-Calibration and Metric Reconstruction in spite of Varying and Unknown Intrinsic Camera Parameters". International Journal of Computer Vision. 32 (1): 7–25. doi:10.1023/A:1008109111715. S2CID 306722.Philip H. S. Torr (1997). "The Development and Comparison of Robust Methods for Estimating the Fundamental Matrix". International Journal of Computer Vision. 24 (3): 271–300. doi:10.1023/A:1007927408552. S2CID 12031059.Philip H. S. Torr and A. Zisserman (2000). "MLESAC: A New Robust Estimator with Application to Estimating Image Geometry". Computer Vision and Image Understanding. 78 (1): 138–156. CiteSeerX 10.1.1.110.5740. doi:10.1006/cviu.1999.0832.Gang Xu and Zhengyou Zhang (1996). Epipolar geometry in Stereo, Motion and Object Recognition. Kluwer Academic Publishers. ISBN 978-0-7923-4199-4.Zhengyou Zhang (1998). "Determining the epipolar geometry and its uncertainty: A review". International Journal of Computer Vision. 27 (2): 161–195. doi:10.1023/A:1007941100561. S2CID 3190498.
+
+Toolboxes
+fundest is a GPL C/C++ library for robust, non-linear (based on the Levenberg–Marquardt algorithm) fundamental matrix estimation from matched point pairs and various objective functions (Manolis Lourakis).
+Structure and Motion Toolkit in MATLAB (Philip H. S. Torr)
+Fundamental Matrix Estimation Toolbox (Joaquim Salvi)
+The Epipolar Geometry Toolbox (EGT)
+
+External links
+Epipolar Geometry and the Fundamental Matrix (chapter from Hartley & Zisserman)
+Determining the epipolar geometry and its uncertainty: A review (Zhengyou Zhang)
+Visualization of epipolar geometry (originally by Sylvain Bougnoux of INRIA Robotvis, requires Java)
+The Fundamental Matrix Song Video demonstrating laws of epipolar geometry.

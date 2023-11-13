@@ -1,0 +1,116 @@
+Top-down parsing in computer science is a parsing strategy where one first looks at the highest level of the parse tree and works down the parse tree by using the rewriting rules of a formal grammar. LL parsers are a type of parser that uses a top-down parsing strategy.
+Top-down parsing is a strategy of analyzing unknown data relationships by hypothesizing general parse tree structures and then considering whether the known fundamental structures are compatible with the hypothesis. It occurs in the analysis of both natural languages and computer languages.
+Top-down parsing can be viewed as an attempt to find left-most derivations of an input-stream by searching for parse-trees using a top-down expansion of the given formal grammar rules. Inclusive choice is used to accommodate ambiguity by expanding all alternative right-hand-sides of grammar rules.Simple implementations of top-down parsing do not terminate for left-recursive grammars, and top-down parsing with backtracking may have exponential time complexity with respect to the length of the input for ambiguous CFGs. However, more sophisticated top-down parsers have been created by Frost, Hafiz, and Callaghan, which do accommodate ambiguity and left recursion in polynomial time and which generate polynomial-sized representations of the potentially exponential number of parse trees.
+
+Programming language application
+A compiler parses input from a programming language to an internal representation by matching the incoming symbols to production rules. Production rules are commonly defined using Backus–Naur form. An LL parser is a type of parser that does top-down parsing by applying each production rule to the incoming symbols, working from the left-most symbol yielded on a production rule and then proceeding to the next production rule for each non-terminal symbol encountered. In this way the parsing starts on the Left of the result side (right side) of the production rule and evaluates non-terminals from the Left first and, thus, proceeds down the parse tree for each new non-terminal before continuing to the next symbol for a production rule.
+For example:
+
+  
+    
+      
+        A
+        →
+        a
+        B
+        C
+      
+    
+    {\displaystyle A\rightarrow aBC}
+  
+
+  
+    
+      
+        B
+        →
+        c
+        ∣
+        c
+        d
+      
+    
+    {\displaystyle B\rightarrow c\mid cd}
+  
+
+  
+    
+      
+        C
+        →
+        d
+        f
+        ∣
+        e
+        g
+      
+    
+    {\displaystyle C\rightarrow df\mid eg}
+  which produces the string A=acdf
+would match 
+  
+    
+      
+        A
+        →
+        a
+        B
+        C
+      
+    
+    {\displaystyle A\rightarrow aBC}
+   and attempt to match 
+  
+    
+      
+        B
+        →
+        c
+        ∣
+        c
+        d
+      
+    
+    {\displaystyle B\rightarrow c\mid cd}
+   next. Then 
+  
+    
+      
+        C
+        →
+        d
+        f
+        ∣
+        e
+        g
+      
+    
+    {\displaystyle C\rightarrow df\mid eg}
+   would be tried. As one may expect, some languages are more ambiguous than others. For a non-ambiguous language, in which all productions for a non-terminal produce distinct strings, the string produced by one production will not start with the same symbol as the string produced by another production. A non-ambiguous language may be parsed by an LL(1) grammar where the (1) signifies the parser reads ahead one token at a time. For an ambiguous language to be parsed by an LL parser, the parser must lookahead more than 1 symbol, e.g. LL(3).
+The common solution to this problem is to use an LR parser, which is a type of shift-reduce parser, and does bottom-up parsing.
+
+Accommodating left recursion in top-down parsing
+A formal grammar that contains left recursion cannot be parsed by a naive recursive descent parser unless they are converted to a weakly equivalent right-recursive form. However, recent research demonstrates that it is possible to accommodate left-recursive grammars (along with all other forms of general CFGs) in a more sophisticated top-down parser by use of curtailment. A recognition algorithm that accommodates ambiguous grammars and curtails an ever-growing direct left-recursive parse by imposing depth restrictions with respect to input length and current input position, is described by Frost and Hafiz in 2006. That algorithm was extended to a complete parsing algorithm to accommodate indirect (by comparing previously computed context with current context) as well as direct left-recursion in polynomial time, and to generate compact polynomial-size representations of the potentially exponential number of parse trees for highly ambiguous grammars by Frost, Hafiz and Callaghan in 2007. The algorithm has since been implemented as a set of parser combinators written in the Haskell programming language. The implementation details of these new set of combinators can be found in a paper by the authors, which was presented in PADL'08.
+The X-SAIGA site has more about the algorithms and implementation details.
+Additionally, one may use a Graph-structured stack (GSS) in addition to the aforementioned curtailment in order to accommodate left recursion by 'merging' stacks with common prefixes and by preventing infinite recursion, thereby reducing the number and contents of each stack, thereby reducing the time and space complexity of the parser. This leads to an algorithm known as Generalized LL parsing, in which you use a GSS, left-recursion curtailment, and an LL(k) parser to parse input strings relative to a given CFG.
+
+Time and space complexity of top-down parsing
+When top-down parser tries to parse an ambiguous input with respect to an ambiguous CFG, it may need exponential number of steps (with respect to the length of the input) to try all alternatives of the CFG in order to produce all possible parse trees, which eventually would require exponential memory space. The problem of exponential time complexity in top-down parsers constructed as sets of mutually recursive functions has been solved by Norvig in 1991. His technique is similar to the use of dynamic programming and state-sets in Earley's algorithm (1970), and tables in the CYK algorithm of Cocke, Younger and Kasami.
+The key idea is to store results of applying a parser p at position j in a memorable and to reuse results whenever the same situation arises. Frost, Hafiz and Callaghan also use memoization for refraining redundant computations to accommodate any form of CFG in polynomial time (Θ(n4) for left-recursive grammars and Θ(n3) for non left-recursive grammars). Their top-down parsing algorithm also requires polynomial space for potentially exponential ambiguous parse trees by 'compact representation' and 'local ambiguities grouping'. Their compact representation is comparable with Tomita's compact representation of bottom-up parsing.Using PEG's, another representation of grammars, packrat parsers provide an elegant and powerful parsing algorithm. See Parsing expression grammar.
+
+Examples
+Some of the parsers that use top-down parsing include:
+
+Definite clause grammar parsers
+Recursive descent parser
+Predictive parser
+Earley parser
+
+See also
+Bottom-up parsing
+Parsing
+Parsing expression grammar
+
+References
+External links
+X-SAIGA - eXecutable SpecificAtIons of GrAmmars

@@ -1,0 +1,79 @@
+In computational complexity theory, a decision problem is PSPACE-complete if it can be solved using an amount of memory that is polynomial in the input length (polynomial space) and if every other problem that can be solved in polynomial space can be transformed to it in polynomial time.  The problems that are PSPACE-complete can be thought of as the hardest problems in PSPACE, the class of decision problems solvable in polynomial space, because a solution to any one such problem could easily be used to solve any other problem in PSPACE.
+Problems known to be PSPACE-complete include determining properties of regular expressions and context-sensitive grammars, determining the truth of quantified Boolean formulas, step-by-step changes between solutions of combinatorial optimization problems, and many puzzles and games.
+
+Theory
+A problem is defined to be PSPACE-complete if it can be solved using a polynomial amount of memory (it belongs to PSPACE) and every problem in PSPACE can be transformed in polynomial time into an equivalent instance of the given problem.The PSPACE-complete problems are widely suspected to be outside the more famous complexity classes P (polynomial time) and NP (non-deterministic polynomial time), but that is not known. It is known that they lie outside of the class NC, a class of problems with highly efficient parallel algorithms, because problems in NC can be solved in an amount of space polynomial in the logarithm of the input size, and the class of problems solvable in such a small amount of space is strictly contained in PSPACE by the space hierarchy theorem.
+The transformations that are usually considered in defining PSPACE-completeness are polynomial-time many-one reductions, transformations that take a single instance of a problem of one type into an equivalent single instance of a problem of a different type. However, it is also possible to define completeness using Turing reductions, in which one problem can be solved in a polynomial number of calls to a subroutine for the other problem. It is not known whether these two types of reductions lead to different classes of PSPACE-complete problems. Other types of reductions, such as many-one reductions that always increase the length of the transformed input, have also been considered.A version of the Berman–Hartmanis conjecture for PSPACE-complete sets states that all such sets look alike, in the sense that they can all be transformed into each other by polynomial-time bijections.
+
+Examples
+Formal languages
+Given a regular expression 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+  , determining whether it generates every string over its alphabet is PSPACE-complete.The first known PSPACE-complete problem was the word problem for deterministic context-sensitive grammars. In the word problem for context-sensitive grammars, one is given a set of grammatical transformations which can increase, but cannot decrease, the length of a sentence, and wishes to determine if a given sentence could be produced by these transformations. The technical condition of "determinism" (implying roughly that each transformation makes it obvious that it was used) ensures that this process can be solved in polynomial space, and Kuroda (1964) showed that every (possibly non-deterministic) program computable in linear space could be converted into the parsing of a context-sensitive grammar, in a way which preserves determinism. In 1970, Savitch's theorem showed that PSPACE is closed under nondeterminism, implying that even non-deterministic context-sensitive grammars are in PSPACE.
+
+Logic
+A standard PSPACE-complete problem, used in many other PSPACE-completeness results, is the quantified Boolean formula problem, a generalization of the Boolean satisfiability problem. The quantified Boolean formula problem takes as input a Boolean expression, with all of its variables quantified either universally or existentially, for example:
+
+The output of the problem is the value of the quantified expression. Finding this value is PSPACE-complete.
+
+Reconfiguration
+Reconfiguration problems concern the connectivity of a state space of solutions to a combinatorial problem. For instance, testing whether two 4-colorings of a graph can be connected to each other by moves that change the color of one vertex at a time, maintaining at each step a valid 4-coloring, is PSPACE-complete, even though the same problem for 3-colorings can be solved in polynomial time. Another family of reconfiguration problems, used similarly to quantified Boolean formulas as the basis for PSPACE-completeness proofs of many other problems in this area, involve nondeterministic constraint logic, in which the states are orientations of a constraint graph subject to certain constraints on how many edges must be oriented inwards at each vertex, and in which the moves from state to state reverse the orientation of a single edge.
+
+Puzzles and games
+The quantified Boolean formula problem can be interpreted as a game by two players, a verifier and a falsifier. The players make moves that fill in values for the quantified variables, in the order they are nested, with the verifier filling in existentially quantified variables and the falsifier filling in universally quantified variables; the game is won by the verifier if the filled-in formula becomes true, and by the falsifier otherwise. A quantified formula is true if and only if the verifier has a winning strategy. Similarly, the problem of determining the winner or loser of many other combinatorial games turns out to be PSPACE-complete. Examples of games that are PSPACE-complete (when generalized so that they can be played on an 
+  
+    
+      
+        n
+        ×
+        n
+      
+    
+    {\displaystyle n\times n}
+   board) are the games Hex and Reversi.  Some other generalized games, such as chess, checkers (draughts), and Go are EXPTIME-complete because a game between two perfect players can be very long, so they are unlikely to be in PSPACE. But they will become PSPACE-complete if a polynomial bound on the number of moves is enforced.It is also possible for puzzles played by a single player to be PSPACE-complete. These often can be interpreted as reconfiguration problems, and include the solitaire games Rush Hour, Mahjong, Atomix and Sokoban, and the mechanical computer Turing Tumble.PSPACE-completeness is based on complexity as a function of the input size 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  , in the limit as 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   grows without bound. Puzzles or games with a bounded number of positions such as chess on a conventional 
+  
+    
+      
+        8
+        ×
+        8
+      
+    
+    {\displaystyle 8\times 8}
+   board cannot be PSPACE-complete, because they could be solved in constant time and space using a very large lookup table. To formulate PSPACE-complete versions of these games, they must be modified in a way that makes their number of positions unbounded, such as by playing them on an 
+  
+    
+      
+        n
+        ×
+        n
+      
+    
+    {\displaystyle n\times n}
+   board instead. In some cases, such as for chess, these extensions are artificial.
+
+References
+Further reading
+Sipser, Michael (1997), "Section 8.3: PSPACE-completeness", Introduction to the Theory of Computation, PWS Publishing, pp. 283–294, ISBN 0-534-94728-X

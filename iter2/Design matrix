@@ -1,0 +1,1613 @@
+In statistics and in particular in regression analysis, a design matrix, also known as model matrix or regressor matrix and often denoted by X, is a matrix of values of explanatory variables of a set of objects. Each row represents an individual object, with the successive columns corresponding to the variables and their specific values for that object. The design matrix is used in certain statistical models, e.g., the general linear model. It can contain indicator variables (ones and zeros) that indicate group membership in an ANOVA, or it can contain values of continuous variables.
+The design matrix contains data on the independent variables (also called explanatory variables) in statistical models which attempt to explain observed data on a response variable (often called a dependent variable) in terms of the explanatory variables. The theory relating to such models makes substantial use of matrix manipulations involving the design matrix: see for example linear regression. A notable feature of the concept of a design matrix is that it is able to represent a number of different experimental designs and statistical models, e.g., ANOVA, ANCOVA, and linear regression.
+
+Definition
+The design matrix is defined to be a matrix 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   such that 
+  
+    
+      
+        
+          X
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle X_{ij}}
+   (the jth column of the ith row of 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+  ) represents the value of the jth variable associated with the ith object.
+A regression model may be represented via matrix multiplication as
+
+  
+    
+      
+        y
+        =
+        X
+        β
+        +
+        e
+        ,
+      
+    
+    {\displaystyle y=X\beta +e,}
+  where X is the design matrix, 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+   is a vector of the model's coefficients (one for each variable), 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+   is a vector of random errors with mean zero, and y is the vector of predicted outputs for each object.
+
+Size
+The matrix of data has dimension n-by-p, where n is the number of samples observed, and p is the number of variables (features) measured in all samples.In this representation different rows typically represent different repetitions of an experiment, while columns represent different types of data (say, the results from particular probes).  For example, suppose an experiment is run where 10 people are pulled off the street and asked four questions.  The data matrix M would be a 10×4 matrix (meaning 10 rows and 4 columns).  The datum in row i and column j of this matrix would be the answer of the i th person to the j th question.
+
+Examples
+Arithmetic mean
+The design matrix for an arithmetic mean is a column vector of ones.
+
+Simple linear regression
+This section gives an example of simple linear regression—that is, regression with only a single explanatory variable—with seven observations.
+The seven data points are {yi, xi}, for i = 1, 2, …, 7. The simple linear regression model is
+
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        =
+        
+          β
+          
+            0
+          
+        
+        +
+        
+          β
+          
+            1
+          
+        
+        
+          x
+          
+            i
+          
+        
+        +
+        
+          ε
+          
+            i
+          
+        
+        ,
+        
+      
+    
+    {\displaystyle y_{i}=\beta _{0}+\beta _{1}x_{i}+\varepsilon _{i},\,}
+  where 
+  
+    
+      
+        
+          β
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \beta _{0}}
+   is the y-intercept and 
+  
+    
+      
+        
+          β
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \beta _{1}}
+   is the slope of the regression line. This model can be represented in matrix form as
+
+  
+    
+      
+        
+          
+            [
+            
+              
+                
+                  
+                    y
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      3
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      4
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      5
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      6
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      7
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  
+                    x
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    x
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    x
+                    
+                      3
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    x
+                    
+                      4
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    x
+                    
+                      5
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    x
+                    
+                      6
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    x
+                    
+                      7
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        
+          
+            [
+            
+              
+                
+                  
+                    β
+                    
+                      0
+                    
+                  
+                
+              
+              
+                
+                  
+                    β
+                    
+                      1
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        +
+        
+          
+            [
+            
+              
+                
+                  
+                    ε
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      3
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      4
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      5
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      6
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      7
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle {\begin{bmatrix}y_{1}\\y_{2}\\y_{3}\\y_{4}\\y_{5}\\y_{6}\\y_{7}\end{bmatrix}}={\begin{bmatrix}1&x_{1}\\1&x_{2}\\1&x_{3}\\1&x_{4}\\1&x_{5}\\1&x_{6}\\1&x_{7}\end{bmatrix}}{\begin{bmatrix}\beta _{0}\\\beta _{1}\end{bmatrix}}+{\begin{bmatrix}\varepsilon _{1}\\\varepsilon _{2}\\\varepsilon _{3}\\\varepsilon _{4}\\\varepsilon _{5}\\\varepsilon _{6}\\\varepsilon _{7}\end{bmatrix}}}
+  where the first column of 1s in the design matrix allows estimation of the y-intercept while the second column contains the x-values associated with the corresponding y-values. The matrix whose columns are 1's and x's in this example is the design matrix.
+
+Multiple regression
+This section contains an example of multiple regression with two covariates (explanatory variables): w and x.
+Again suppose that the data consist of seven observations, and that for each observed value to be predicted (
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}}
+  ), values wi and xi of the two covariates are also observed. The model to be considered is
+
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        =
+        
+          β
+          
+            0
+          
+        
+        +
+        
+          β
+          
+            1
+          
+        
+        
+          w
+          
+            i
+          
+        
+        +
+        
+          β
+          
+            2
+          
+        
+        
+          x
+          
+            i
+          
+        
+        +
+        
+          ε
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}=\beta _{0}+\beta _{1}w_{i}+\beta _{2}x_{i}+\varepsilon _{i}}
+  This model can be written in matrix terms as
+
+  
+    
+      
+        
+          
+            [
+            
+              
+                
+                  
+                    y
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      3
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      4
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      5
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      6
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      7
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  
+                    w
+                    
+                      1
+                    
+                  
+                
+                
+                  
+                    x
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    w
+                    
+                      2
+                    
+                  
+                
+                
+                  
+                    x
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    w
+                    
+                      3
+                    
+                  
+                
+                
+                  
+                    x
+                    
+                      3
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    w
+                    
+                      4
+                    
+                  
+                
+                
+                  
+                    x
+                    
+                      4
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    w
+                    
+                      5
+                    
+                  
+                
+                
+                  
+                    x
+                    
+                      5
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    w
+                    
+                      6
+                    
+                  
+                
+                
+                  
+                    x
+                    
+                      6
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    w
+                    
+                      7
+                    
+                  
+                
+                
+                  
+                    x
+                    
+                      7
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        
+          
+            [
+            
+              
+                
+                  
+                    β
+                    
+                      0
+                    
+                  
+                
+              
+              
+                
+                  
+                    β
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    β
+                    
+                      2
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        +
+        
+          
+            [
+            
+              
+                
+                  
+                    ε
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      3
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      4
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      5
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      6
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      7
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle {\begin{bmatrix}y_{1}\\y_{2}\\y_{3}\\y_{4}\\y_{5}\\y_{6}\\y_{7}\end{bmatrix}}={\begin{bmatrix}1&w_{1}&x_{1}\\1&w_{2}&x_{2}\\1&w_{3}&x_{3}\\1&w_{4}&x_{4}\\1&w_{5}&x_{5}\\1&w_{6}&x_{6}\\1&w_{7}&x_{7}\end{bmatrix}}{\begin{bmatrix}\beta _{0}\\\beta _{1}\\\beta _{2}\end{bmatrix}}+{\begin{bmatrix}\varepsilon _{1}\\\varepsilon _{2}\\\varepsilon _{3}\\\varepsilon _{4}\\\varepsilon _{5}\\\varepsilon _{6}\\\varepsilon _{7}\end{bmatrix}}}
+  Here the 7×3 matrix on the right side is the design matrix.
+
+One-way ANOVA (cell means model)
+This section contains an example with a one-way analysis of variance (ANOVA) with three groups and seven observations. The given data set has the first three observations belonging to the first group, the following two observations belonging to the second group and the final two observations belonging to the third group.
+If the model to be fit is just the mean of each group, then the model is
+
+  
+    
+      
+        
+          y
+          
+            i
+            j
+          
+        
+        =
+        
+          μ
+          
+            i
+          
+        
+        +
+        
+          ε
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle y_{ij}=\mu _{i}+\varepsilon _{ij}}
+  which can be written
+
+  
+    
+      
+        
+          
+            [
+            
+              
+                
+                  
+                    y
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      3
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      4
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      5
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      6
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      7
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+              
+                
+                  1
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+              
+                
+                  1
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  1
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  1
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  1
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  1
+                
+              
+            
+            ]
+          
+        
+        
+          
+            [
+            
+              
+                
+                  
+                    μ
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    μ
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  
+                    μ
+                    
+                      3
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        +
+        
+          
+            [
+            
+              
+                
+                  
+                    ε
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      3
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      4
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      5
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      6
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      7
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle {\begin{bmatrix}y_{1}\\y_{2}\\y_{3}\\y_{4}\\y_{5}\\y_{6}\\y_{7}\end{bmatrix}}={\begin{bmatrix}1&0&0\\1&0&0\\1&0&0\\0&1&0\\0&1&0\\0&0&1\\0&0&1\end{bmatrix}}{\begin{bmatrix}\mu _{1}\\\mu _{2}\\\mu _{3}\end{bmatrix}}+{\begin{bmatrix}\varepsilon _{1}\\\varepsilon _{2}\\\varepsilon _{3}\\\varepsilon _{4}\\\varepsilon _{5}\\\varepsilon _{6}\\\varepsilon _{7}\end{bmatrix}}}
+  In this model 
+  
+    
+      
+        
+          μ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \mu _{i}}
+   represents the mean of the 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  th group.
+
+One-way ANOVA (offset from reference group)
+The ANOVA model could be equivalently written as each group parameter 
+  
+    
+      
+        
+          τ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \tau _{i}}
+   being an offset from some overall reference.  Typically this reference point is taken to be one of the groups under consideration. This makes sense in the context of comparing multiple treatment groups to a control group and the control group is considered the "reference". In this example, group 1 was chosen to be the reference group. As such the model to be fit is
+
+  
+    
+      
+        
+          y
+          
+            i
+            j
+          
+        
+        =
+        μ
+        +
+        
+          τ
+          
+            i
+          
+        
+        +
+        
+          ε
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle y_{ij}=\mu +\tau _{i}+\varepsilon _{ij}}
+  with the constraint that 
+  
+    
+      
+        
+          τ
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \tau _{1}}
+   is zero.
+
+  
+    
+      
+        
+          
+            [
+            
+              
+                
+                  
+                    y
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      3
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      4
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      5
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      6
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      7
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+              
+                
+                  1
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+              
+                
+                  1
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  0
+                
+              
+              
+                
+                  1
+                
+                
+                  1
+                
+                
+                  0
+                
+              
+              
+                
+                  1
+                
+                
+                  0
+                
+                
+                  1
+                
+              
+              
+                
+                  1
+                
+                
+                  0
+                
+                
+                  1
+                
+              
+            
+            ]
+          
+        
+        
+          
+            [
+            
+              
+                
+                  μ
+                
+              
+              
+                
+                  
+                    τ
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  
+                    τ
+                    
+                      3
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        +
+        
+          
+            [
+            
+              
+                
+                  
+                    ε
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      3
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      4
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      5
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      6
+                    
+                  
+                
+              
+              
+                
+                  
+                    ε
+                    
+                      7
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle {\begin{bmatrix}y_{1}\\y_{2}\\y_{3}\\y_{4}\\y_{5}\\y_{6}\\y_{7}\end{bmatrix}}={\begin{bmatrix}1&0&0\\1&0&0\\1&0&0\\1&1&0\\1&1&0\\1&0&1\\1&0&1\end{bmatrix}}{\begin{bmatrix}\mu \\\tau _{2}\\\tau _{3}\end{bmatrix}}+{\begin{bmatrix}\varepsilon _{1}\\\varepsilon _{2}\\\varepsilon _{3}\\\varepsilon _{4}\\\varepsilon _{5}\\\varepsilon _{6}\\\varepsilon _{7}\end{bmatrix}}}
+  In this model 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   is the mean of the reference group and 
+  
+    
+      
+        
+          τ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \tau _{i}}
+   is the difference from group 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   to the reference group. 
+  
+    
+      
+        
+          τ
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \tau _{1}}
+   is not included in the matrix because its difference from the reference group (itself) is necessarily zero.
+
+See also
+Moment matrix
+Projection matrix
+Jacobian matrix and determinant
+Scatter matrix
+Gram matrix
+Vandermonde matrix
+
+References
+Further reading
+Verbeek, Albert (1984). "The Geometry of Model Selection in Regression". In Dijkstra, Theo K. (ed.). Misspecification Analysis. New York: Springer. pp. 20–36. ISBN 0-387-13893-5.

@@ -1,0 +1,21 @@
+A unikernel is a computer program statically linked with the operating system code on which it depends. Unikernels are built with a specialized compiler that identifies the operating system services that a program uses and links it with one or more library operating systems that provide them. Such a program requires no separate operating system and can run instead as the guest of a hypervisor.The unikernel architecture builds on concepts developed by Exokernel and Nemesis in the late 1990s.
+
+Design
+In a library operating system, protection boundaries are pushed to the lowest hardware layers, resulting in:
+
+a set of libraries that implement mechanisms such as those needed to drive hardware or talk network protocols;
+a set of policies that enforce access control and isolation in the application layer.The library OS architecture has several advantages and disadvantages compared with conventional OS designs. One of the advantages is that since there is only a single address space, there is no need for repeated privilege transitions to move data between user space and kernel space.  Therefore, a library OS can provide improved performance by allowing direct access to hardware without having to transition between user mode and kernel mode (on a traditional kernel this transition consists of a single TRAP instruction and is not the same as a context switch). Performance gains may be realised by elimination of the need to copy data between user space and kernel space, although this is also possible with Zero-copy device drivers in traditional operating systems.
+A disadvantage is that because there is no separation, trying to run multiple applications side by side in a library OS, but with strong resource isolation, can become complex. In addition, device drivers are required for the specific hardware the library OS runs on. Since hardware is rapidly changing this creates the burden of regularly rewriting drivers to remain up to date.
+OS virtualization can overcome some of these drawbacks on commodity hardware. A modern hypervisor provides virtual machines with CPU time and strongly isolated virtual devices. A library OS running as a virtual machine only needs to implement drivers for these stable virtual hardware devices and can depend on the hypervisor to drive the real physical hardware. However, protocol libraries are still needed to replace the services of a traditional operating system.  Creating these protocol libraries is where the bulk of the work lies when implementing a modern library OS. Additionally, reliance on a hypervisor may reintroduce performance overheads when switching between the unikernel and hypervisor, and when passing data to and from hypervisor virtual devices.
+By reducing the amount of code deployed, unikernels necessarily reduce the likely attack surface and therefore have improved security properties.An example unikernel-based messaging client has around 4% the size of the equivalent code bases using Linux.Due to the nature of their construction, it is possible to perform whole-system optimisation across device drivers and application logic, thus improving on the specialisation. For example, off-the-shelf applications such as nginx, SQLite, and Redis running over a unikernel have shown a 1.7x-2.7x performance improvement.Unikernels have been regularly shown to boot extremely quickly, in time to respond to incoming requests before the requests time-out.Unikernels lend themselves to creating systems that follow the service-oriented or microservices software architectures.
+The high degree of specialisation means that unikernels are unsuitable for the kind of general purpose, multi-user computing that traditional operating systems are used for.  Adding additional functionality or altering a compiled unikernel is generally not possible and instead the approach is to compile and deploy a new unikernel with the desired changes.
+
+See also
+Microkernel
+Container (virtualization)
+Rump kernel
+IncludeOS
+
+References
+External links
+History and business model; coverage of IncludeOS. (LWN.net)

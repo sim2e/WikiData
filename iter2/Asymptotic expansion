@@ -1,0 +1,960 @@
+In mathematics, an asymptotic expansion, asymptotic series or Poincaré expansion (after Henri Poincaré) is a formal series of functions which has the property that truncating the series after a finite number of terms provides an approximation to a given function as the argument of the function tends towards a particular, often infinite, point. Investigations by Dingle (1973) revealed that the divergent part of an asymptotic expansion is latently meaningful, i.e. contains information about the exact value of the expanded function.
+The most common type of asymptotic expansion is a power series in either positive or negative powers. Methods of generating such expansions include the Euler–Maclaurin summation formula and integral transforms such as the Laplace and Mellin transforms. Repeated integration by parts will often lead to an asymptotic expansion.
+Since a convergent Taylor series fits the definition of asymptotic expansion as well, the phrase "asymptotic series" usually implies a non-convergent series. Despite non-convergence, the asymptotic expansion is useful when truncated to a finite number of terms. The approximation may provide benefits by being more mathematically tractable than the function being expanded, or by an increase in the speed of computation of the expanded function. Typically, the best approximation is given when the series is truncated at the smallest term. This way of optimally truncating an asymptotic expansion is known as superasymptotics. The error is then typically of the form ~ exp(−c/ε) where ε is the expansion parameter. The error is thus beyond all orders in the expansion parameter. It is possible to improve on the superasymptotic error, e.g. by employing resummation methods such as Borel resummation to the divergent tail. Such methods are often referred to as hyperasymptotic approximations.
+See asymptotic analysis and big O notation for the notation used in this article.
+
+Formal definition
+First we define an asymptotic scale, and then give the formal definition of an asymptotic expansion.
+If 
+  
+    
+      
+         
+        
+          φ
+          
+            n
+          
+        
+         
+      
+    
+    {\displaystyle \ \varphi _{n}\ }
+   is a sequence of continuous functions on some domain, and if 
+  
+    
+      
+         
+        L
+         
+      
+    
+    {\displaystyle \ L\ }
+   is a limit point of the domain, then the sequence constitutes an asymptotic scale if for every n,
+
+  
+    
+      
+        
+          φ
+          
+            n
+            +
+            1
+          
+        
+        (
+        x
+        )
+        =
+        o
+        (
+        
+          φ
+          
+            n
+          
+        
+        (
+        x
+        )
+        )
+        
+        (
+        x
+        →
+        L
+        )
+         
+        .
+      
+    
+    {\displaystyle \varphi _{n+1}(x)=o(\varphi _{n}(x))\quad (x\to L)\ .}
+  (
+  
+    
+      
+         
+        L
+         
+      
+    
+    {\displaystyle \ L\ }
+   may be taken to be infinity.) In other words, a sequence of functions is an asymptotic scale if each function in the sequence grows strictly slower (in the limit 
+  
+    
+      
+         
+        x
+        →
+        L
+         
+      
+    
+    {\displaystyle \ x\to L\ }
+  ) than the preceding function.
+If 
+  
+    
+      
+         
+        f
+         
+      
+    
+    {\displaystyle \ f\ }
+   is a continuous function on the domain of the asymptotic scale, then f has an asymptotic expansion of order 
+  
+    
+      
+         
+        N
+         
+      
+    
+    {\displaystyle \ N\ }
+   with respect to the scale as a formal series 
+
+  
+    
+      
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            N
+          
+        
+        
+          a
+          
+            n
+          
+        
+        
+          φ
+          
+            n
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle \sum _{n=0}^{N}a_{n}\varphi _{n}(x)}
+  if
+
+  
+    
+      
+        f
+        (
+        x
+        )
+        −
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            N
+            −
+            1
+          
+        
+        
+          a
+          
+            n
+          
+        
+        
+          φ
+          
+            n
+          
+        
+        (
+        x
+        )
+        =
+        O
+        (
+        
+          φ
+          
+            N
+          
+        
+        (
+        x
+        )
+        )
+        
+        (
+        x
+        →
+        L
+        )
+      
+    
+    {\displaystyle f(x)-\sum _{n=0}^{N-1}a_{n}\varphi _{n}(x)=O(\varphi _{N}(x))\quad (x\to L)}
+  or the weaker condition
+
+  
+    
+      
+        f
+        (
+        x
+        )
+        −
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            N
+            −
+            1
+          
+        
+        
+          a
+          
+            n
+          
+        
+        
+          φ
+          
+            n
+          
+        
+        (
+        x
+        )
+        =
+        o
+        (
+        
+          φ
+          
+            N
+            −
+            1
+          
+        
+        (
+        x
+        )
+        )
+        
+        (
+        x
+        →
+        L
+        )
+         
+      
+    
+    {\displaystyle f(x)-\sum _{n=0}^{N-1}a_{n}\varphi _{n}(x)=o(\varphi _{N-1}(x))\quad (x\to L)\ }
+  is satisfied. If one or the other holds for all 
+  
+    
+      
+         
+        N
+         
+      
+    
+    {\displaystyle \ N\ }
+  , then we write
+
+  
+    
+      
+        f
+        (
+        x
+        )
+        ∼
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          a
+          
+            n
+          
+        
+        
+          φ
+          
+            n
+          
+        
+        (
+        x
+        )
+        
+        (
+        x
+        →
+        L
+        )
+         
+        .
+      
+    
+    {\displaystyle f(x)\sim \sum _{n=0}^{\infty }a_{n}\varphi _{n}(x)\quad (x\to L)\ .}
+  In contrast to a convergent series for 
+  
+    
+      
+         
+        f
+         
+      
+    
+    {\displaystyle \ f\ }
+  , wherein the series converges for any fixed 
+  
+    
+      
+         
+        x
+         
+      
+    
+    {\displaystyle \ x\ }
+   in the limit 
+  
+    
+      
+        N
+        →
+        ∞
+      
+    
+    {\displaystyle N\to \infty }
+  , one can think of the asymptotic series as converging for fixed 
+  
+    
+      
+         
+        N
+         
+      
+    
+    {\displaystyle \ N\ }
+   in the limit 
+  
+    
+      
+         
+        x
+        →
+        L
+         
+      
+    
+    {\displaystyle \ x\to L\ }
+   (with 
+  
+    
+      
+         
+        L
+         
+      
+    
+    {\displaystyle \ L\ }
+   possibly infinite).
+
+Examples
+Gamma function (Stirling's approximation)
+Exponential integral
+Logarithmic integral
+Riemann zeta functionwhere 
+  
+    
+      
+        
+          B
+          
+            2
+            m
+          
+        
+      
+    
+    {\displaystyle B_{2m}}
+   are Bernoulli numbers and 
+  
+    
+      
+        
+          s
+          
+            
+              
+                2
+                m
+                −
+                1
+              
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle s^{\overline {2m-1}}}
+   is a rising factorial. This expansion is valid for all complex s and is often used to compute the zeta function by using a large enough value of N, for instance 
+  
+    
+      
+        N
+        >
+        
+          |
+        
+        s
+        
+          |
+        
+      
+    
+    {\displaystyle N>|s|}
+  .
+Error function where (2n − 1)!! is the double factorial.
+
+Worked example
+Asymptotic expansions often occur when an ordinary series is used in a formal expression that forces the taking of values outside of its domain of convergence. Thus, for example, one may start with the ordinary series
+
+  
+    
+      
+        
+          
+            1
+            
+              1
+              −
+              w
+            
+          
+        
+        =
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          w
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle {\frac {1}{1-w}}=\sum _{n=0}^{\infty }w^{n}.}
+  The expression on the left is valid on the entire complex plane 
+  
+    
+      
+        w
+        ≠
+        1
+      
+    
+    {\displaystyle w\neq 1}
+  , while the right hand side converges only for 
+  
+    
+      
+        
+          |
+        
+        w
+        
+          |
+        
+        <
+        1
+      
+    
+    {\displaystyle |w|<1}
+  . Multiplying by 
+  
+    
+      
+        
+          e
+          
+            −
+            w
+            
+              /
+            
+            t
+          
+        
+      
+    
+    {\displaystyle e^{-w/t}}
+   and integrating both sides yields
+
+  
+    
+      
+        
+          ∫
+          
+            0
+          
+          
+            ∞
+          
+        
+        
+          
+            
+              e
+              
+                −
+                
+                  
+                    w
+                    t
+                  
+                
+              
+            
+            
+              1
+              −
+              w
+            
+          
+        
+        
+        d
+        w
+        =
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          t
+          
+            n
+            +
+            1
+          
+        
+        
+          ∫
+          
+            0
+          
+          
+            ∞
+          
+        
+        
+          e
+          
+            −
+            u
+          
+        
+        
+          u
+          
+            n
+          
+        
+        
+        d
+        u
+        ,
+      
+    
+    {\displaystyle \int _{0}^{\infty }{\frac {e^{-{\frac {w}{t}}}}{1-w}}\,dw=\sum _{n=0}^{\infty }t^{n+1}\int _{0}^{\infty }e^{-u}u^{n}\,du,}
+  after the substitution 
+  
+    
+      
+        u
+        =
+        w
+        
+          /
+        
+        t
+      
+    
+    {\displaystyle u=w/t}
+   on the right hand side. The integral on the left hand side, understood as a Cauchy principal value, can be expressed in terms of the exponential integral. The integral on the right hand side may be recognized as the gamma function. Evaluating both, one obtains the asymptotic expansion
+
+  
+    
+      
+        
+          e
+          
+            −
+            
+              
+                1
+                t
+              
+            
+          
+        
+        Ei
+        ⁡
+        
+          (
+          
+            
+              1
+              t
+            
+          
+          )
+        
+        =
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            ∞
+          
+        
+        n
+        !
+        
+          t
+          
+            n
+            +
+            1
+          
+        
+        .
+      
+    
+    {\displaystyle e^{-{\frac {1}{t}}}\operatorname {Ei} \left({\frac {1}{t}}\right)=\sum _{n=0}^{\infty }n!t^{n+1}.}
+  Here, the right hand side is clearly not convergent for any non-zero value of t. However, by truncating the series on the right to a finite number of terms, one may obtain a fairly good approximation to the value of 
+  
+    
+      
+        Ei
+        ⁡
+        
+          (
+          
+            
+              
+                1
+                t
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \operatorname {Ei} \left({\tfrac {1}{t}}\right)}
+   for sufficiently small t. Substituting 
+  
+    
+      
+        x
+        =
+        −
+        
+          
+            
+              1
+              t
+            
+          
+        
+      
+    
+    {\displaystyle x=-{\tfrac {1}{t}}}
+   and noting that 
+  
+    
+      
+        Ei
+        ⁡
+        (
+        x
+        )
+        =
+        −
+        
+          E
+          
+            1
+          
+        
+        (
+        −
+        x
+        )
+      
+    
+    {\displaystyle \operatorname {Ei} (x)=-E_{1}(-x)}
+   results in the asymptotic expansion given earlier in this article.
+
+Integration by parts
+Using integration by parts, we can obtain an explicit formulaFor any fixed 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+  , the absolute value of the error term 
+  
+    
+      
+        
+          |
+        
+        
+          e
+          
+            n
+          
+        
+        (
+        z
+        )
+        
+          |
+        
+      
+    
+    {\displaystyle |e_{n}(z)|}
+   decreases, then increases. The minimum occurs at 
+  
+    
+      
+        n
+        ∼
+        
+          |
+        
+        z
+        
+          |
+        
+      
+    
+    {\displaystyle n\sim |z|}
+  , at which point 
+  
+    
+      
+        |
+        
+          e
+          
+            n
+          
+        
+        (
+        z
+        )
+        |
+        ≤
+        
+          
+            
+              
+                2
+                π
+              
+              
+                |
+                z
+                |
+              
+            
+          
+        
+        
+          e
+          
+            −
+            |
+            z
+            |
+          
+        
+      
+    
+    {\displaystyle \vert e_{n}(z)\vert \leq {\sqrt {\frac {2\pi }{\vert z\vert }}}e^{-\vert z\vert }}
+  . This bound is said to be "asymptotics beyond all orders".
+
+Properties
+Uniqueness for a given asymptotic scale
+For a given asymptotic scale 
+  
+    
+      
+        {
+        
+          φ
+          
+            n
+          
+        
+        (
+        x
+        )
+        }
+      
+    
+    {\displaystyle \{\varphi _{n}(x)\}}
+   the asymptotic expansion of function 
+  
+    
+      
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle f(x)}
+   is unique. That is the coefficients 
+  
+    
+      
+        {
+        
+          a
+          
+            n
+          
+        
+        }
+      
+    
+    {\displaystyle \{a_{n}\}}
+   are uniquely determined in the following way:
+
+where 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   is the limit point of this asymptotic expansion (may be 
+  
+    
+      
+        ±
+        ∞
+      
+    
+    {\displaystyle \pm \infty }
+  ).
+
+Non-uniqueness for a given function
+A given function 
+  
+    
+      
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle f(x)}
+   may have many asymptotic expansions (each with a different asymptotic scale).
+
+Subdominance
+An asymptotic expansion may be an asymptotic expansion to more than one function.
+
+See also
+Related fields
+Asymptotic analysis
+Singular perturbation
+
+Asymptotic methods
+Watson's lemma
+Mellin transform
+Laplace's method
+Stationary phase approximation
+Method of steepest descent
+
+Notes
+References
+Ablowitz, M. J., & Fokas, A. S. (2003). Complex variables: introduction and applications. Cambridge University Press.
+Bender, C. M., & Orszag, S. A. (2013). Advanced mathematical methods for scientists and engineers I: Asymptotic methods and perturbation theory. Springer Science & Business Media.
+Bleistein, N., Handelsman, R. (1975), Asymptotic Expansions of Integrals, Dover Publications.
+Carrier, G. F., Krook, M., & Pearson, C. E. (2005). Functions of a complex variable: Theory and technique. Society for Industrial and Applied Mathematics.
+Copson, E. T. (1965), Asymptotic Expansions, Cambridge University Press.
+Dingle, R. B. (1973), Asymptotic Expansions: Their Derivation and Interpretation, Academic Press.
+Erdélyi, A. (1955), Asymptotic Expansions, Dover Publications.
+Fruchard, A., Schäfke, R. (2013), Composite Asymptotic Expansions, Springer.
+Hardy, G. H. (1949), Divergent Series, Oxford University Press.
+Olver, F. (1997). Asymptotics and Special functions. AK Peters/CRC Press.
+Paris, R. B., Kaminsky, D. (2001), Asymptotics and Mellin-Barnes Integrals, Cambridge University Press.
+Whittaker, E. T., Watson, G. N. (1963), A Course of Modern Analysis, fourth edition, Cambridge University Press.
+
+External links
+"Asymptotic expansion", Encyclopedia of Mathematics, EMS Press, 2001 [1994]
+Wolfram Mathworld: Asymptotic Series

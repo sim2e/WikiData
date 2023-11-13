@@ -1,0 +1,81 @@
+In computer language design, stropping is a method of explicitly marking letter sequences as having a special property, such as being a keyword, or a certain type of variable or storage location, and thus inhabiting a different namespace from ordinary names ("identifiers"), in order to avoid clashes. Stropping is not used in most modern languages – instead, keywords are reserved words and cannot be used as identifiers. Stropping allows the same letter sequence to be used both as a keyword and as an identifier, and simplifies parsing in that case – for example allowing a variable named if without clashing with the keyword if.
+Stropping is primarily associated with ALGOL and related languages in the 1960s. Though it finds some modern use, it is easily confused with other similar techniques that are superficially similar.
+
+History
+The method of stropping and the term "stropping" arose in the development of ALGOL in the 1960s, where it was used to represent typographical distinctions (boldface and underline) found in the publication language which could not directly be represented in the hardware language – a typewriter could have bold characters, but in encoding in punch cards, there were no bold characters. The term "stropping" arose in ALGOL 60, from "apostrophe", as some implementations of ALGOL 60 used apostrophes around text to indicate boldface, such as 'if' to represent the keyword if. Stropping is also important in ALGOL 68, where multiple methods of stropping, known as "stropping regimes", are used; the original matched apostrophes from ALGOL 60 was not widely used, with a leading period or uppercase being more common, as in .IF or IF and the term "stropping" was applied to all of these.
+
+Syntaxes
+A range of different syntaxes for stropping have been used:
+
+Algol 60 commonly used only the convention of single quotes around the word, generally as apostrophes, whence the name "stropping" (e.g. 'BEGIN').
+Algol 68 in some implementations treat letter sequences prefixed by a single quote, ', as being keywords (e.g., 'BEGIN)In fact it was often the case that several stropping conventions might be in use within one language. For example, in ALGOL 68, the choice of stropping convention can be specified by a compiler directive (in ALGOL terminology, a "pragmat"), namely POINT, UPPER, QUOTE, or RES:
+
+POINT for 6-bit (not enough characters for lowercase), as in .FOR – a similar convention is used in FORTRAN 77, where LOGICAL keywords are stropped as .EQ. etc. (see below)
+UPPER for 7-bit, as in FOR – with lowercase used for ordinary identifiers
+QUOTE as in ALGOL 60, as in 'for'
+RES reserved words, as used in modern languages – for is reserved and not available to ordinary identifiersThe various rules regimes are a lexical specification for stropped characters, though in some cases these have simple interpretations: in the single apostrophe and dot regimes, the first character is functioning as an escape character, while in the matched apostrophes regime the apostrophes are functioning as delimiters, as in string literals.
+Other examples:
+
+Atlas Autocode had the choice of three: keywords could be underlined using backspace and overstrike on a Flexowriter keyboard, they could be introduced by a %percent %symbol, or they could be typed in UPPER CASE with no delimiting character ("uppercasedelimiters" mode, in which case all variables had to be in lower case).
+Algol 60 on the Elliott 803 and Elliott 503 computers used underlining. The Flexowriters (producing punched paper tape) had a non-movement key (underline _) so that typing _b_e_g_i_n produced begin which was very readable. The vertical bar | was also a non-movement key so that typing |= produced a good approximation to ≠.
+The Kidsgrove compiler for Algol 60 on the English Electric KDF9 appears to have used at least two other stropping conventions in addition to quotation marks: exclamation marks and Percent characters.
+ALGOL 68RS programs are allowed the use of several stropping variants, even within the one language processor.
+Edinburgh IMP inherited the Atlas Autocode %percent %symbol prefix convention but not its other stropping options
+
+Examples of different ALGOL 68 styles
+Note the leading pr (abbreviation of pragmat) directive, which is itself stropped in POINT or quote style, and the ¢ for comment (from "2¢") – see ALGOL 68: pr & co: Pragmats and Comments for details.
+
+Other languages
+For various reasons Fortran 77 has these "logical" values and operators: .TRUE., .FALSE., .EQ., .NE., .LT., .LE., .GT., .GE., .EQV., .NEQV., .OR., .AND., .NOT..AND., .OR. and .XOR. are also used in combined tests in IF and IFF statements in batch files run under JP Software's command line processors like 4DOS, 4OS2, and 4NT / Take Command.
+
+Modern use
+To indicate identifiers
+Most modern computer languages do not use stropping. However, some languages support optional stropping to specify identifiers that would otherwise collide with reserved words or which contain non-alphanumeric characters.
+For example, the use of many languages in Microsoft's .NET Common Language Infrastructure (CLI) requires a way to use variables in a different language that may be keywords in a calling language. This is sometimes done by prefixes, such as @ in C#, or enclosing the identifier in brackets, in Visual Basic.NET.
+A second major example is in many implementations of Structured Query Language. In those languages reserved words can be used as column, table, or variable names by lexically delimiting them. The standard specifies enclosing reserved words in double quotes, but in practice the exact mechanism varies by implementation; MySQL, for example, allows reserved words to be used in other contexts by enclosing them in backticks, and Microsoft SQL Server uses square brackets.
+In several languages, including Nim, R, and Scala, a reserved word or non-alphanumeric name can be used as an identifier by enclosing it in backticks.
+There are other, more minor examples. For example, Web IDL uses a leading underscore _ to strop identifiers that otherwise collide with reserved words: the value of the identifier strips this leading underscore, making this stropping, rather than a naming convention.
+
+Other purposes
+In Haskell, surrounding a function name by backticks causes it to be parsed as an infix operator.
+
+Unstropping by the compiler
+In a compiler frontend, unstropping originally occurred during an initial line reconstruction phase, which also eliminated whitespace. This was then followed by scannerless parsing (no tokenization); this was standard in the 1960s, notably for ALGOL. In modern use, unstropping is generally done as part of lexical analysis. This is clear if one distinguishes the lexer into two phases of scanner and evaluator: the scanner categorizes the stropped sequence into the correct category, and then the evaluator unstrops when calculating the value. For example, in a language where an initial underscore is used to strop identifiers to avoid collisions with reserved words, the sequence _if would be categorized as an identifier (not as the reserved word if) by the scanner, and then the evaluator would give this the value if, yielding (Identifier, if) as the token type and value.
+
+Similar techniques
+A number of similar techniques exist, generally prefixing or suffixing an identifier to indicate different treatment, but the semantics are varied. Strictly speaking, stropping consists of different representations of the same name (value) in different namespaces, and occurs at the tokenization stage. For example, in ALGOL 60 with matched apostrophe stropping, 'if' is tokenized as (Keyword, if), while if is tokenized as (Identifier, if) – same value in different token classes.
+Using uppercase for keywords remains in use as a convention for writing grammars for lexing and parsing – tokenizing the reserved word if as the token class IF, and then representing an if-then-else clause by the phrase IF Expression THEN Statement ELSE Statement where uppercase terms are keywords and capitalized terms are nonterminal symbols in a production rule (terminal symbols are denoted by lowercase terms, such as identifier or integer, for an integer literal).
+
+Naming conventions
+Most loosely, one may use naming conventions to avoid clashes, commonly prefixing or suffixing with an underscore, as in if_ or _then. A leading underscore is often used to indicate private members in object-oriented programming.
+These names may be interpreted by the compiler and have some effect, though this is generally done at the semantic analysis phase, not the tokenization phase. For example, in Python, a single leading underscore is a weak private indicator, and affects which identifiers are imported on module import, while a double leading underscore (and no more than one trailing underscore) on a class attribute invokes name mangling.
+
+Reserved words
+While modern languages generally use reserved words rather than stropping to distinguish keywords from identifiers – e.g., making if reserved – they also frequently reserve a syntactic class of identifiers as keywords, yielding representations which can be interpreted as a stropping regime, but instead have the semantics of reserved words.
+This is most notable in C, where identifiers that begin with an underscore are reserved, though the precise details of what identifiers are reserved at what scope are involved, and leading double underscores are reserved for any use; similarly in C++ any identifier that contains a double underscore is reserved for any use, while an identifier that begins with an underscore is reserved in the global space. Thus one can add a new keyword foo using the reserved word __foo. While this is superficially similar to stropping, the semantics are different. As a reserved word, the string __foo represents the identifier __foo in the common identifier namespace. In stropping (by prefixing keywords by __), the string __foo represents the keyword foo in a separate keyword namespace. Thus using reserved words, the tokens for __foo and foo are (identifier, __foo) and (identifier, foo) – different values in the same category – while in stropping the tokens for __foo and foo are (keyword, foo) and (identifier, foo) – same values in different categories. These solve the same problem of namespace clashes in a way that is the same for a programmer, but which differs in terms of formal grammar and implementation.
+
+Name mangling
+Name mangling also addresses name clashes by renaming identifiers, but does this much later in compilation, during semantic analysis, not during tokenization. This consists of creating names that include scope and type information, primarily for use by linkers, both to avoid clashes and to include necessary semantic information in the name itself. In these cases the original identifiers may be identical, but the context is different, as in the functions foo(int x) versus foo(char x), in both cases having the same identifier foo, but different signature. These names might be mangled to foo_i and foo_c, for instance, to include the type information.
+
+Sigils
+A syntactically similar but semantically different phenomenon are sigils, which instead indicate properties of variables. These are common in Perl, Ruby, and various other languages to identify characteristics of variables/constants: Perl to designate the type of variable, Ruby both to distinguish variables from constants and to indicate scope. Note that this affects the semantics of the variable, not the syntax of whether it is an identifier or keyword.
+
+Parallels in human language
+Stropping is used in computer programming languages to make the compiler's (or more strictly, the parser's) job easier, i.e. within the capability of the relatively small and slow computers available in early days of computing in the 20th century. However, similar techniques have been commonly used to aid reading comprehension for people too.  Some examples are:
+
+Placing important words in bold, such as the very first mention of stropping at the head of this page, because defining stropping is the very purpose of the page.
+Formatting new words in italic type when they are first introduced in text. This is commonly used in science fiction and fantasy when introducing invented plants, foods, creatures; in travelogue and historical writing when describing unfamiliar foreign words; and so on. Also using a special font, possibly associated with the language in question, for example using a Gothic font for German words.
+Using a different language, typically Latin or Greek to signify technical terms. This is similar to using reserved words, but it is usually combined with italic text to aid readability.  For example:
+the typical binomial nomenclature or "Latin names" of plants and animals helps the reader to see that "Erithacus rubecula" is the special technical name of the Erithacus rubecula, in a way that "Red-breasted European thrush" does not.
+many legal terms where a short Latin phrase refers to a large body of law and precedent, such as habeas corpus, sub judice, in loco parentis.
+logic and mathematical terms such as QED, a priori, vice versa…
+In written Japanese, in addition to Kanji characters, the two distinct alphabets (more strictly, syllabaries) Hiragana and Katakana, both representing the same set of sounds, are used to distinguish phonetically spelled-out Japanese words from imported foreign words, respectively; Katakana is also used for emphasis, much like italics in English.
+
+See also
+Escape character
+
+Notes
+References
+Further reading
+Hansen, W. J.; Boom, H. J. (1978). "Report on the Standard Hardware Representation for Revised ALGOL 68". Acta Informatica. 9 (2): 105–119. doi:10.1007/BF00289072. S2CID 34231916.
+Lindsey, Charles Hodgson (March 1970), "An ISO-Code Representation for ALGOL 68", ALGOL Bulletin, ACM (31): 37–60, AB31.3.6

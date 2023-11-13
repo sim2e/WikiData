@@ -1,0 +1,67 @@
+Hierarchical storage management (HSM), also known as Tiered storage, is a data storage and Data management technique that automatically moves data between high-cost and low-cost storage media. HSM systems exist because high-speed storage devices, such as solid state drive arrays, are more expensive (per byte stored) than slower devices, such as hard disk drives, optical discs and magnetic tape drives. While it would be ideal to have all data available on high-speed devices all the time, this is prohibitively expensive for many organizations. Instead, HSM systems store the bulk of the enterprise's data on slower devices, and then copy data to faster disk drives when needed. The HSM system monitors the way data is used and makes best guesses as to which data can safely be moved to slower devices and which data should stay on the fast devices.
+HSM may also be used where more robust storage is available for long-term archiving, but this is slow to access. This may be as simple as an off-site backup, for protection against a building fire.
+HSM is a long-established concept, dating back to the beginnings of commercial data processing. The techniques used though have changed significantly as new technology becomes available, for both storage and for long-distance communication of large data sets. The scale of measures such as 'size' and 'access time' have changed dramatically. Despite this, many of the underlying concepts keep returning to favour years later, although at much larger or faster scales.
+
+Implementation
+In a typical HSM scenario, data which is frequently used are stored on warm storage device, such as solid state disk (SSD). Data that is infrequently accessed is, after some time migrated to a slower, high capacity cold storage tier. If a user does access data which is on the cold storage tier, it is automatically moved back to warm storage. The advantage is that the total amount of stored data can be much larger than the capacity of the warm storage device, but since only rarely used files are on cold storage, most users will usually not notice any slowdown.
+Conceptually, HSM is analogous to the cache found in most computer CPUs, where small amounts of expensive SRAM memory running at very high speeds is used to store frequently used data, but the least recently used data is evicted to the slower but much larger main DRAM memory when new data has to be loaded.
+In practice, HSM is typically performed by dedicated software, such as IBM Tivoli Storage Manager, or Oracle's SAM-QFS.
+The deletion of files from a higher level of the hierarchy (e.g. magnetic disk) after they have been moved to a lower level (e.g. optical media) is sometimes called file grooming.
+
+History
+Hierarchical Storage Manager (HSM, then DFHSM and finally DFSMShsm) was first implemented by IBM on March 31, 1978 for MVS to reduce the cost of data storage, and to simplify the retrieval of data from slower media. The user would not need to know where the data was stored and how to get it back; the computer would retrieve the data automatically. The only difference to the user was the speed at which data was returned. HSM could originally migrate datasets only to disk volumes and virtual volumes on a IBM 3850 Mass Storage Facility, but a latter release supported magnetic tape volumes for migration level 2 (ML2).
+Later, IBM ported HSM to its AIX operating system, and then to other Unix-like operating systems such as Solaris, HP-UX and Linux.
+CSIRO Australia's Division of Computing Research implemented an HSM in its DAD (Drums and Display) operating system with its Document Region in the 1960s, with copies of documents being written to 7-track tape and automatic retrieval upon access to the documents.
+HSM was also implemented on the DEC VAX/VMS systems and the Alpha/VMS systems. The first implementation date should be readily determined from the VMS System Implementation Manuals or the VMS Product Description Brochures.
+More recently, the development of Serial ATA (SATA) disks has created a significant market for three-stage HSM: files are migrated from high-performance Fibre Channel storage area network devices to somewhat slower but much cheaper SATA disk arrays totaling several terabytes or more, and then eventually from the SATA disks to tape.
+
+Use cases
+HSM is often used for deep archival storage of data to be held long term at low cost. Automated tape robots can silo large quantities of data efficiently with low power consumption.
+Some HSM software products allow the user to place portions of data files on high-speed disk cache and the rest on tape. This is used in applications that stream video over the internet—the initial portion of a video is delivered immediately from disk while a robot finds, mounts and streams the rest of the file to the end user. Such a system greatly reduces disk cost for large content provision systems.
+HSM software is today used also for tiering between hard disk drives and flash memory, with flash memory being over 30 times faster than magnetic disks, but disks being considerably cheaper.
+
+Algorithms
+The key factor behind HSM is a Data migration policy that controls the file transfers in the system. More precisely, the policy decides which tier a file should be stored in, so that the entire storage system can be well-organized and have a shortest response time to requests. There are several algorithms realizing this process, such as Least Recently Used replacement(LRU), Size-Temperature Replacement(STP), Heuristic Threshold(STEP) etc. In research of recent years, there are also some intelligent policies coming up by using machine learning technologies.
+
+Tiering vs. Caching
+While tiering solutions and caching may look the same on the surface, the fundamental differences lie in the way the faster storage is utilized and the algorithms used to detect and accelerate frequently accessed data.Caching operates by making a copy of frequently accessed blocks of data, and storing the copy in the faster storage device and use this copy instead of the original data source on the slower, high capacity backend storage. Every time a storage read occurs, the caching software look to see if a copy of this data already exists on the cache and uses that copy, if available. Otherwise, the data is read from the slower, high capacity storage.Tiering on the other hand operates very differently. Rather than making a copy of frequently accessed data into fast storage, tiering moves data across tiers, for example, by relocating cold data to low cost, high capacity nearline storage devices. The basic idea is, mission-critical and highly accesses or "hot" data is stored in expensive medium such as SSD to take advantage of high I/O performance, while nearline or rarely accessed or "cold" data is stored in nearline storage medium such as HHD and tapes which are inexpensive. Thus, the "data temperature" or activity levels determines the primary storage hierarchy.
+
+Implementations
+Alluxio
+AMASS/DATAMGR from ADIC (Was available on SGI IRIX, Sun and HP-UX)
+IBM 3850 IBM 3850 Mass Storage Facility
+IBM DFSMS for z/VM
+IBM DFSMShsm, originally Hierarchical Storage Manager (HSM), 5740-XRB, and later Data Facility Hierarchical Storage Manager Version 2 (DFHSM), 5665-329
+IBM Tivoli Storage Manager for Space Management (HSM available on UNIX (IBM AIX, HP UX, Solaris) & Linux)
+IBM Tivoli Storage Manager HSM for Windows formerly OpenStore for File Servers (OS4FS) (HSM available on Microsoft Windows Server)
+HPSS by HPSS collaboration
+Infinite Disk, an early PC system (defunct)
+EMC DiskXtender, formerly Legato DiskXtender, formerly OTG DiskXtender
+Moonwalk for Windows, NetApp, OES Linux
+Oracle SAM-QFS (Open source under Opensolaris, then proprietary)
+Oracle HSM (Proprietary, renamed from SAM-QFS)
+Versity Storage Manager for Linux, open-core model license
+Dell Compellent Data Progression
+Zarafa Archiver (component of ZCP, application specific archiving solution marketed as a 'HSM' solution)
+HPE Data Management Framework (DMF, formerly SGI Data Migration Facility) for SLES and RHEL
+Quantum's StorNext
+Apple Fusion Drive for macOS
+Microsoft Storage Spaces since version shipped with Windows Server 2012 R2. An older Microsoft product was Remote Storage, included with Windows 2000 and Windows 2003.
+
+See also
+Active Archive Alliance
+Archive
+Backup
+Hybrid cloud storage
+Data proliferation
+Disk storage
+Information lifecycle management
+Information repository
+Magnetic tape data storage
+Memory hierarchy
+Storage virtualization
+Cloud storage gateway
+
+References
+
+Winnard, Keith; Biondo, Josh (6 June 2016). DFSMS: From Storage Tears to Storage Tiers. IBM Press. ISBN 9780738455372.

@@ -1,0 +1,64 @@
+In formal logic, Horn-satisfiability, or HORNSAT, is the problem of deciding whether a given set of propositional Horn clauses is satisfiable or not. Horn-satisfiability and Horn clauses are named after Alfred Horn.
+
+Basic definitions and terminology
+A Horn clause is a clause with at most one positive literal, called the head of the clause, and any number of negative literals, forming the body of the clause. A Horn formula is a propositional formula formed by conjunction of Horn clauses.
+The problem of Horn satisfiability is solvable in linear time. 
+The problem of deciding the truth of quantified Horn formulas can be also solved in polynomial time.
+A polynomial-time algorithm for Horn satisfiability is based on the rule of unit propagation: if the formula contains a clause composed of a single literal 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   (a unit clause), then all clauses containing 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   (except the unit clause itself) are removed, and all clauses containing 
+  
+    
+      
+        ¬
+        l
+      
+    
+    {\displaystyle \neg l}
+   have this literal removed. The result of the second rule may itself be a unit clause, which is propagated in the same manner. If there are no unit clauses, the formula can be satisfied by simply setting all remaining variables negative. The formula is unsatisfiable if this transformation generates a pair of opposite unit clauses 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   and 
+  
+    
+      
+        ¬
+        l
+      
+    
+    {\displaystyle \neg l}
+  .  Horn satisfiability is actually one of the "hardest" or "most expressive" problems which is known to be computable in polynomial time, in the sense that it is a P-complete problem.This algorithm also allows determining a truth assignment of satisfiable Horn formulae: all variables contained in a unit clause are set to the value satisfying that unit clause; all other literals are set to false. The resulting assignment is the minimal model of the Horn formula, that is, the assignment having a minimal set of variables assigned to true, where comparison is made using set containment.
+Using a linear algorithm for unit propagation, the algorithm is linear in the size of the formula.
+A generalization of the class of Horn formulae is that of renamable-Horn formulae, which is the set of formulae that can be placed in Horn form by replacing some variables with their respective negation. Checking the existence of such a replacement can be done in linear time; therefore, the satisfiability of such formulae is in P as it can be solved by first performing this replacement and then checking the satisfiability of the resulting Horn formula. Horn satisfiability and renamable Horn satisfiability provide one of two important subclasses of satisfiability that are solvable in polynomial time; the other such subclass is 2-satisfiability.
+The Horn satisfiability problem can also be asked for propositional many-valued logics. The algorithms are not usually linear, but some are polynomial; see Hähnle (2001 or 2003) for a survey.
+
+Dual-Horn SAT
+A dual variant of Horn SAT is Dual-Horn SAT, in which each clause has at most one negative literal. Negating all variables transforms an instance of Dual-Horn SAT into Horn SAT. It was proven in 1951 by Horn that Dual-Horn SAT is in P.
+
+See also
+Unit propagation
+Boolean satisfiability problem
+2-satisfiability
+
+References
+Further reading
+Grädel, Erich; Kolaitis, Phokion G.; Libkin, Leonid; Maarten, Marx; Spencer, Joel; Vardi, Moshe Y.; Venema, Yde; Weinstein, Scott (2007). Finite model theory and its applications. Texts in Theoretical Computer Science. An EATCS Series. Berlin: Springer-Verlag. ISBN 978-3-540-00428-8. Zbl 1133.03001.

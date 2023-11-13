@@ -1,0 +1,2524 @@
+The chromatic polynomial is a graph polynomial studied in algebraic graph theory, a branch of mathematics. It counts the number of graph colorings as a function of the number of colors and was originally defined by George David Birkhoff to study the four color problem. It was generalised to the Tutte polynomial by Hassler Whitney and W. T. Tutte, linking it to the Potts model of statistical physics.
+
+History
+George David Birkhoff introduced the chromatic polynomial in 1912, defining it only for planar graphs, in an attempt to prove the four color theorem. If 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        k
+        )
+      
+    
+    {\displaystyle P(G,k)}
+   denotes the number of proper colorings of G with k colors then one could establish the four color theorem by showing 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        4
+        )
+        >
+        0
+      
+    
+    {\displaystyle P(G,4)>0}
+   for all planar graphs G. In this way he hoped to apply the powerful tools of analysis and algebra for studying the roots of polynomials to the combinatorial coloring problem.
+Hassler Whitney generalised Birkhoff’s polynomial from the planar case to general graphs in 1932. In 1968, Ronald C. Read asked which polynomials are the chromatic polynomials of some graph, a question that remains open, and introduced the concept of chromatically equivalent graphs. Today, chromatic polynomials are one of the central objects of algebraic graph theory.
+
+Definition
+For a graph G, 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        k
+        )
+      
+    
+    {\displaystyle P(G,k)}
+   counts the number of its (proper) vertex k-colorings. 
+Other commonly used notations include 
+  
+    
+      
+        
+          P
+          
+            G
+          
+        
+        (
+        k
+        )
+      
+    
+    {\displaystyle P_{G}(k)}
+  , 
+  
+    
+      
+        
+          χ
+          
+            G
+          
+        
+        (
+        k
+        )
+      
+    
+    {\displaystyle \chi _{G}(k)}
+  , or 
+  
+    
+      
+        
+          π
+          
+            G
+          
+        
+        (
+        k
+        )
+      
+    
+    {\displaystyle \pi _{G}(k)}
+  .
+There is a unique polynomial 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+      
+    
+    {\displaystyle P(G,x)}
+   which evaluated at any integer k ≥ 0 coincides with 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        k
+        )
+      
+    
+    {\displaystyle P(G,k)}
+  ; it is called the chromatic polynomial of G.
+For example, to color the path graph 
+  
+    
+      
+        
+          P
+          
+            3
+          
+        
+      
+    
+    {\displaystyle P_{3}}
+   on 3 vertices with k colors, one may choose any of the k colors for the first vertex, any of the 
+  
+    
+      
+        k
+        −
+        1
+      
+    
+    {\displaystyle k-1}
+   remaining colors for the second vertex, and lastly for the third vertex, any of the 
+  
+    
+      
+        k
+        −
+        1
+      
+    
+    {\displaystyle k-1}
+   colors that are different from the second vertex's choice.
+Therefore, 
+  
+    
+      
+        P
+        (
+        
+          P
+          
+            3
+          
+        
+        ,
+        k
+        )
+        =
+        k
+        ⋅
+        (
+        k
+        −
+        1
+        )
+        ⋅
+        (
+        k
+        −
+        1
+        )
+      
+    
+    {\displaystyle P(P_{3},k)=k\cdot (k-1)\cdot (k-1)}
+   is the number of k-colorings of 
+  
+    
+      
+        
+          P
+          
+            3
+          
+        
+      
+    
+    {\displaystyle P_{3}}
+  .
+For a variable x (not necessarily integer), we thus have 
+  
+    
+      
+        P
+        (
+        
+          P
+          
+            3
+          
+        
+        ,
+        x
+        )
+        =
+        x
+        (
+        x
+        −
+        1
+        
+          )
+          
+            2
+          
+        
+        =
+        
+          x
+          
+            3
+          
+        
+        −
+        2
+        
+          x
+          
+            2
+          
+        
+        +
+        x
+      
+    
+    {\displaystyle P(P_{3},x)=x(x-1)^{2}=x^{3}-2x^{2}+x}
+  .
+(Colorings which differ only by permuting colors or by automorphisms of G are still counted as different.)
+
+Deletion–contraction
+The fact that the number of k-colorings is a polynomial in k follows from a recurrence relation called the deletion–contraction recurrence or Fundamental Reduction Theorem. It is based on edge contraction: for a  pair of vertices 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   and 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   the graph 
+  
+    
+      
+        G
+        
+          /
+        
+        u
+        v
+      
+    
+    {\displaystyle G/uv}
+   is obtained by merging the two vertices and removing any edges between them. 
+If 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   and 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   are adjacent in G, let 
+  
+    
+      
+        G
+        −
+        u
+        v
+      
+    
+    {\displaystyle G-uv}
+   denote the graph obtained by removing the edge 
+  
+    
+      
+        u
+        v
+      
+    
+    {\displaystyle uv}
+  .
+Then the numbers of k-colorings of these graphs satisfy:
+
+  
+    
+      
+        P
+        (
+        G
+        ,
+        k
+        )
+        =
+        P
+        (
+        G
+        −
+        u
+        v
+        ,
+        k
+        )
+        −
+        P
+        (
+        G
+        
+          /
+        
+        u
+        v
+        ,
+        k
+        )
+      
+    
+    {\displaystyle P(G,k)=P(G-uv,k)-P(G/uv,k)}
+  Equivalently, if 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   and 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   are not adjacent in G and 
+  
+    
+      
+        G
+        +
+        u
+        v
+      
+    
+    {\displaystyle G+uv}
+   is the graph with the edge 
+  
+    
+      
+        u
+        v
+      
+    
+    {\displaystyle uv}
+   added, then
+
+  
+    
+      
+        P
+        (
+        G
+        ,
+        k
+        )
+        =
+        P
+        (
+        G
+        +
+        u
+        v
+        ,
+        k
+        )
+        +
+        P
+        (
+        G
+        
+          /
+        
+        u
+        v
+        ,
+        k
+        )
+      
+    
+    {\displaystyle P(G,k)=P(G+uv,k)+P(G/uv,k)}
+  This follows from the observation that every k-coloring of G either gives different colors to 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   and 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+  , or the same colors. In the first case this gives a (proper) k-coloring of 
+  
+    
+      
+        G
+        +
+        u
+        v
+      
+    
+    {\displaystyle G+uv}
+  , while in the second case it gives a coloring of 
+  
+    
+      
+        G
+        
+          /
+        
+        u
+        v
+      
+    
+    {\displaystyle G/uv}
+  .
+Conversely, every k-coloring of G can be uniquely obtained from a k-coloring of 
+  
+    
+      
+        G
+        +
+        u
+        v
+      
+    
+    {\displaystyle G+uv}
+   or 
+  
+    
+      
+        G
+        
+          /
+        
+        u
+        v
+      
+    
+    {\displaystyle G/uv}
+   (if 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   and 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   are not adjacent in G).
+The chromatic polynomial can hence be recursively defined as 
+
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+        =
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle P(G,x)=x^{n}}
+   for the edgeless graph on n vertices, and
+
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+        =
+        P
+        (
+        G
+        −
+        u
+        v
+        ,
+        x
+        )
+        −
+        P
+        (
+        G
+        
+          /
+        
+        u
+        v
+        ,
+        x
+        )
+      
+    
+    {\displaystyle P(G,x)=P(G-uv,x)-P(G/uv,x)}
+   for a graph G with an edge 
+  
+    
+      
+        u
+        v
+      
+    
+    {\displaystyle uv}
+   (arbitrarily chosen).Since the number of k-colorings of the edgeless graph is indeed 
+  
+    
+      
+        
+          k
+          
+            n
+          
+        
+      
+    
+    {\displaystyle k^{n}}
+  , it follows by induction on the number of edges that for all G, the polynomial 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+      
+    
+    {\displaystyle P(G,x)}
+   coincides with the number of k-colorings at every integer point x = k. In particular, the chromatic polynomial is the unique interpolating polynomial of degree at most n through the points
+
+  
+    
+      
+        
+          {
+          
+            (
+            0
+            ,
+            P
+            (
+            G
+            ,
+            0
+            )
+            )
+            ,
+            (
+            1
+            ,
+            P
+            (
+            G
+            ,
+            1
+            )
+            )
+            ,
+            …
+            ,
+            (
+            n
+            ,
+            P
+            (
+            G
+            ,
+            n
+            )
+            )
+          
+          }
+        
+        .
+      
+    
+    {\displaystyle \left\{(0,P(G,0)),(1,P(G,1)),\ldots ,(n,P(G,n))\right\}.}
+  Tutte’s curiosity about which other graph invariants satisfied such recurrences led him to discover a bivariate generalization of the chromatic polynomial, the Tutte polynomial 
+  
+    
+      
+        
+          T
+          
+            G
+          
+        
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle T_{G}(x,y)}
+  .
+
+Examples
+Properties
+For fixed G on n vertices, the chromatic polynomial 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+      
+    
+    {\displaystyle P(G,x)}
+   is a monic polynomial of degree exactly n, with integer coefficients.
+The chromatic polynomial includes at least as much information about the colorability of G as does the chromatic number. Indeed, the chromatic number is the smallest positive integer that is not a zero of the chromatic polynomial,
+
+  
+    
+      
+        χ
+        (
+        G
+        )
+        =
+        min
+        {
+        k
+        ∈
+        
+          N
+        
+        :
+        P
+        (
+        G
+        ,
+        k
+        )
+        >
+        0
+        }
+        .
+      
+    
+    {\displaystyle \chi (G)=\min\{k\in \mathbb {N} :P(G,k)>0\}.}
+  The polynomial evaluated at 
+  
+    
+      
+        −
+        1
+      
+    
+    {\displaystyle -1}
+  , that is 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        −
+        1
+        )
+      
+    
+    {\displaystyle P(G,-1)}
+  , yields 
+  
+    
+      
+        (
+        −
+        1
+        
+          )
+          
+            
+              |
+            
+            V
+            (
+            G
+            )
+            
+              |
+            
+          
+        
+      
+    
+    {\displaystyle (-1)^{|V(G)|}}
+   times the number of acyclic orientations of G.The derivative evaluated at 1, 
+  
+    
+      
+        
+          P
+          ′
+        
+        (
+        G
+        ,
+        1
+        )
+      
+    
+    {\displaystyle P'(G,1)}
+   equals the chromatic invariant 
+  
+    
+      
+        θ
+        (
+        G
+        )
+      
+    
+    {\displaystyle \theta (G)}
+   up to sign.
+If G has n vertices and c components 
+  
+    
+      
+        
+          G
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          G
+          
+            c
+          
+        
+      
+    
+    {\displaystyle G_{1},\ldots ,G_{c}}
+  , then
+
+The coefficients of 
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            c
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle x^{0},\ldots ,x^{c-1}}
+   are zeros.
+The coefficients of 
+  
+    
+      
+        
+          x
+          
+            c
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x^{c},\ldots ,x^{n}}
+   are all non-zero and alternate in signs.
+The coefficient of 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x^{n}}
+   is 1 (the polynomial is monic).
+The coefficient of 
+  
+    
+      
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle x^{n-1}}
+   is 
+  
+    
+      
+        −
+        
+          |
+        
+        E
+        (
+        G
+        )
+        
+          |
+        
+      
+    
+    {\displaystyle -|E(G)|}
+  .
+We prove this via induction on the number of edges on a simple graph G with 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   vertices and 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   edges. When 
+  
+    
+      
+        k
+        =
+        0
+      
+    
+    {\displaystyle k=0}
+  , G is an empty graph. Hence per definition 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+        =
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle P(G,x)=x^{n}}
+  . So the coefficient of 
+  
+    
+      
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle x^{n-1}}
+   is 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+  , which implies the statement is true for an empty graph. When 
+  
+    
+      
+        k
+        =
+        1
+      
+    
+    {\displaystyle k=1}
+  , as in G has just a single edge, 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+        =
+        
+          x
+          
+            n
+          
+        
+        −
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle P(G,x)=x^{n}-x^{n-1}}
+  . Thus coefficient of 
+  
+    
+      
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle x^{n-1}}
+   is 
+  
+    
+      
+        −
+        1
+        =
+        −
+        
+          |
+        
+        E
+        (
+        G
+        )
+        
+          |
+        
+      
+    
+    {\displaystyle -1=-|E(G)|}
+  . So the statement holds for k = 1. Using strong induction  assume the statement is true for 
+  
+    
+      
+        k
+        =
+        0
+        ,
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        (
+        k
+        −
+        1
+        )
+      
+    
+    {\displaystyle k=0,1,2,\ldots ,(k-1)}
+  . Let G have 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   edges. By the contraction-deletion principle, 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+        =
+        P
+        (
+        G
+        −
+        e
+        ,
+        x
+        )
+        −
+        P
+        (
+        G
+        
+          /
+        
+        e
+        ,
+        x
+        )
+      
+    
+    {\displaystyle P(G,x)=P(G-e,x)-P(G/e,x)}
+  , Let 
+  
+    
+      
+        P
+        (
+        G
+        −
+        e
+        ,
+        x
+        )
+        =
+        
+          x
+          
+            n
+          
+        
+        −
+        
+          a
+          
+            n
+            −
+            1
+          
+        
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+        +
+        
+          a
+          
+            n
+            −
+            2
+          
+        
+        
+          x
+          
+            n
+            −
+            2
+          
+        
+        −
+        ⋯
+      
+    
+    {\displaystyle P(G-e,x)=x^{n}-a_{n-1}x^{n-1}+a_{n-2}x^{n-2}-\cdots }
+  , and 
+  
+    
+      
+        P
+        (
+        G
+        
+          /
+        
+        e
+        ,
+        x
+        )
+        =
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+        −
+        
+          b
+          
+            n
+            −
+            2
+          
+        
+        
+          x
+          
+            n
+            −
+            2
+          
+        
+        +
+        
+          b
+          
+            n
+            −
+            3
+          
+        
+        
+          x
+          
+            n
+            −
+            3
+          
+        
+        −
+        ⋯
+      
+    
+    {\displaystyle P(G/e,x)=x^{n-1}-b_{n-2}x^{n-2}+b_{n-3}x^{n-3}-\cdots }
+  . Hence 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+        =
+        
+          x
+          
+            n
+          
+        
+        −
+        (
+        
+          a
+          
+            n
+            −
+            1
+          
+        
+        +
+        1
+        )
+        
+          x
+          
+            n
+            −
+            1
+          
+        
+        +
+        ⋯
+      
+    
+    {\displaystyle P(G,x)=x^{n}-(a_{n-1}+1)x^{n-1}+\cdots }
+  .Since 
+  
+    
+      
+        G
+        −
+        e
+      
+    
+    {\displaystyle G-e}
+   is obtained from G by removal of just one edge e, 
+  
+    
+      
+        
+          a
+          
+            n
+            −
+            1
+          
+        
+        =
+        k
+        −
+        1
+      
+    
+    {\displaystyle a_{n-1}=k-1}
+  , so 
+  
+    
+      
+        
+          a
+          
+            n
+            −
+            1
+          
+        
+        +
+        1
+        =
+        k
+      
+    
+    {\displaystyle a_{n-1}+1=k}
+   and thus the statement is true for k.
+The coefficient of 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle x^{1}}
+   is 
+  
+    
+      
+        (
+        −
+        1
+        
+          )
+          
+            n
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle (-1)^{n-1}}
+   times the number of acyclic orientations that have a unique sink, at a specified, arbitrarily chosen vertex.
+The absolute values of coefficients of every chromatic polynomial form a log-concave sequence.
+
+  
+    
+      
+        
+          P
+          (
+          G
+          ,
+          x
+          )
+          =
+          P
+          (
+          
+            G
+            
+              1
+            
+          
+          ,
+          x
+          )
+          P
+          (
+          
+            G
+            
+              2
+            
+          
+          ,
+          x
+          )
+          ⋯
+          P
+          (
+          
+            G
+            
+              c
+            
+          
+          ,
+          x
+          )
+        
+      
+    
+    {\displaystyle \scriptstyle P(G,x)=P(G_{1},x)P(G_{2},x)\cdots P(G_{c},x)}
+  The last property is generalized by the fact that if G is a k-clique-sum of 
+  
+    
+      
+        
+          G
+          
+            1
+          
+        
+      
+    
+    {\displaystyle G_{1}}
+   and 
+  
+    
+      
+        
+          G
+          
+            2
+          
+        
+      
+    
+    {\displaystyle G_{2}}
+   (i.e., a graph obtained by gluing the two at a clique on k vertices), then
+
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+        =
+        
+          
+            
+              P
+              (
+              
+                G
+                
+                  1
+                
+              
+              ,
+              x
+              )
+              P
+              (
+              
+                G
+                
+                  2
+                
+              
+              ,
+              x
+              )
+            
+            
+              x
+              (
+              x
+              −
+              1
+              )
+              ⋯
+              (
+              x
+              −
+              k
+              +
+              1
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle P(G,x)={\frac {P(G_{1},x)P(G_{2},x)}{x(x-1)\cdots (x-k+1)}}.}
+  A graph G with n vertices is a tree if and only if 
+
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+        =
+        x
+        (
+        x
+        −
+        1
+        
+          )
+          
+            n
+            −
+            1
+          
+        
+        .
+      
+    
+    {\displaystyle P(G,x)=x(x-1)^{n-1}.}
+
+Chromatic equivalence
+Two graphs are said to be chromatically equivalent if they have the same chromatic polynomial. Isomorphic graphs have the same chromatic polynomial, but non-isomorphic graphs can be chromatically equivalent. For example, all trees on n vertices have the same chromatic polynomial.
+In particular, 
+  
+    
+      
+        (
+        x
+        −
+        1
+        
+          )
+          
+            3
+          
+        
+        x
+      
+    
+    {\displaystyle (x-1)^{3}x}
+   is the chromatic polynomial of both the claw graph and the path graph on 4 vertices.
+A graph is chromatically unique if it is determined by its chromatic polynomial, up to isomorphism. In other words, G is chromatically unique, then 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+        =
+        P
+        (
+        H
+        ,
+        x
+        )
+      
+    
+    {\displaystyle P(G,x)=P(H,x)}
+   would imply that G and H are isomorphic.
+All cycle graphs are chromatically unique.
+
+Chromatic roots
+A root (or zero) of a chromatic polynomial, called a “chromatic root”, is a value x where 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+        =
+        0
+      
+    
+    {\displaystyle P(G,x)=0}
+  . Chromatic roots have been very well studied, in fact, Birkhoff’s original motivation for defining the chromatic polynomial was to show that for planar graphs, 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+        >
+        0
+      
+    
+    {\displaystyle P(G,x)>0}
+   for x ≥ 4. This would have established the four color theorem.
+No graph can be 0-colored, so 0 is always a chromatic root. Only edgeless graphs can be 1-colored, so 1 is a chromatic root of every graph with at least one edge. On the other hand, except for these two points, no graph can have a chromatic root at a real number smaller than or equal to 32/27. A result of Tutte connects the golden ratio 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   with the study of chromatic roots, showing that chromatic roots exist very close to 
+  
+    
+      
+        
+          ϕ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \phi ^{2}}
+  :
+If 
+  
+    
+      
+        
+          G
+          
+            n
+          
+        
+      
+    
+    {\displaystyle G_{n}}
+   is a planar triangulation of a sphere then
+
+  
+    
+      
+        P
+        (
+        
+          G
+          
+            n
+          
+        
+        ,
+        
+          ϕ
+          
+            2
+          
+        
+        )
+        ≤
+        
+          ϕ
+          
+            5
+            −
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle P(G_{n},\phi ^{2})\leq \phi ^{5-n}.}
+  While the real line thus has large parts that contain no chromatic roots for any graph, every point in the complex plane is arbitrarily close to a chromatic root in the sense that there exists an infinite family of graphs whose chromatic roots are dense in the complex plane.
+
+Colorings using all colors
+For a graph G on n vertices, let 
+  
+    
+      
+        
+          e
+          
+            k
+          
+        
+      
+    
+    {\displaystyle e_{k}}
+   denote the number of colorings using exactly k colors up to renaming colors (so colorings that can be obtained from one another by permuting colors are counted as one; colorings obtained by automorphisms of G are still counted separately).
+In other words, 
+  
+    
+      
+        
+          e
+          
+            k
+          
+        
+      
+    
+    {\displaystyle e_{k}}
+   counts the number of partitions of the vertex set into k (non-empty) independent sets.
+Then 
+  
+    
+      
+        k
+        !
+        ⋅
+        
+          e
+          
+            k
+          
+        
+      
+    
+    {\displaystyle k!\cdot e_{k}}
+   counts the number of colorings using exactly k colors (with distinguishable colors).
+For an integer x, all x-colorings of G can be uniquely obtained by choosing an integer k ≤ x, choosing k colors to be used out of x available, and a coloring using exactly those k (distinguishable) colors.
+Therefore:
+
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+        =
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            x
+          
+        
+        
+          
+            
+              (
+            
+            
+              x
+              k
+            
+            
+              )
+            
+          
+        
+        k
+        !
+        ⋅
+        
+          e
+          
+            k
+          
+        
+        =
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            x
+          
+        
+        (
+        x
+        
+          )
+          
+            k
+          
+        
+        ⋅
+        
+          e
+          
+            k
+          
+        
+      
+    
+    {\displaystyle P(G,x)=\sum _{k=0}^{x}{\binom {x}{k}}k!\cdot e_{k}=\sum _{k=0}^{x}(x)_{k}\cdot e_{k}}
+  ,where 
+  
+    
+      
+        (
+        x
+        
+          )
+          
+            k
+          
+        
+        =
+        x
+        (
+        x
+        −
+        1
+        )
+        (
+        x
+        −
+        2
+        )
+        ⋯
+        (
+        x
+        −
+        k
+        +
+        1
+        )
+      
+    
+    {\displaystyle (x)_{k}=x(x-1)(x-2)\cdots (x-k+1)}
+   denotes the falling factorial.
+Thus the numbers 
+  
+    
+      
+        
+          e
+          
+            k
+          
+        
+      
+    
+    {\displaystyle e_{k}}
+   are the coefficients of the polynomial 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+      
+    
+    {\displaystyle P(G,x)}
+   in the basis 
+  
+    
+      
+        1
+        ,
+        (
+        x
+        
+          )
+          
+            1
+          
+        
+        ,
+        (
+        x
+        
+          )
+          
+            2
+          
+        
+        ,
+        (
+        x
+        
+          )
+          
+            3
+          
+        
+        ,
+        …
+      
+    
+    {\displaystyle 1,(x)_{1},(x)_{2},(x)_{3},\ldots }
+   of falling factorials.
+Let 
+  
+    
+      
+        
+          a
+          
+            k
+          
+        
+      
+    
+    {\displaystyle a_{k}}
+   be the k-th coefficient of 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+      
+    
+    {\displaystyle P(G,x)}
+   in the standard basis 
+  
+    
+      
+        1
+        ,
+        x
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        
+          x
+          
+            3
+          
+        
+        ,
+        …
+      
+    
+    {\displaystyle 1,x,x^{2},x^{3},\ldots }
+  , that is:
+
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+        =
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            n
+          
+        
+        
+          a
+          
+            k
+          
+        
+        
+          x
+          
+            k
+          
+        
+      
+    
+    {\displaystyle P(G,x)=\sum _{k=0}^{n}a_{k}x^{k}}
+  Stirling numbers give a change of basis between the standard basis and the basis of falling factorials.
+This implies:
+
+  
+    
+      
+        
+          a
+          
+            k
+          
+        
+        =
+        
+          ∑
+          
+            j
+            =
+            0
+          
+          
+            n
+          
+        
+        (
+        −
+        1
+        
+          )
+          
+            j
+            −
+            k
+          
+        
+        
+          
+            [
+            
+              
+                
+                  j
+                
+              
+              
+                
+                  k
+                
+              
+            
+            ]
+          
+        
+        
+          e
+          
+            j
+          
+        
+      
+    
+    {\displaystyle a_{k}=\sum _{j=0}^{n}(-1)^{j-k}{\begin{bmatrix}j\\k\end{bmatrix}}e_{j}}
+     and   
+  
+    
+      
+        
+          e
+          
+            k
+          
+        
+        =
+        
+          ∑
+          
+            j
+            =
+            0
+          
+          
+            n
+          
+        
+        
+          
+            {
+            
+              
+                
+                  j
+                
+              
+              
+                
+                  k
+                
+              
+            
+            }
+          
+        
+        
+          a
+          
+            j
+          
+        
+      
+    
+    {\displaystyle e_{k}=\sum _{j=0}^{n}{\begin{Bmatrix}j\\k\end{Bmatrix}}a_{j}}
+  .
+
+Categorification
+The chromatic polynomial is categorified by a homology theory closely related to Khovanov homology.
+
+Algorithms
+Computational problems associated with the chromatic polynomial include
+
+finding the chromatic polynomial 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+      
+    
+    {\displaystyle P(G,x)}
+   of a given graph G;
+evaluating 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+      
+    
+    {\displaystyle P(G,x)}
+   at a fixed x for given G.The first problem is more general because if we knew the coefficients of 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+      
+    
+    {\displaystyle P(G,x)}
+   we could evaluate it at any point in polynomial time because the degree is n. The difficulty of the second type of problem depends strongly on the value of x and has been intensively studied in computational complexity. When x is a natural number, this problem is normally viewed as computing the number of x-colorings of a given graph. For example, this includes the problem #3-coloring of counting the number of 3-colorings, a canonical problem in the study of complexity of counting, complete for the counting class  #P.
+
+Efficient algorithms
+For some basic graph classes, closed formulas for the chromatic polynomial are known. For instance this is true for trees and cliques, as listed in the table above.
+Polynomial time algorithms are known for computing the chromatic polynomial for wider classes of graphs, including chordal graphs and graphs of bounded clique-width. The latter class includes cographs and graphs of bounded tree-width, such as outerplanar graphs.
+
+Deletion–contraction
+The deletion-contraction recurrence gives a way of computing the chromatic polynomial, called the deletion–contraction algorithm. In the first form (with a minus), the recurrence terminates in a collection of empty graphs. In the second form (with a plus), it terminates in a collection of complete graphs. 
+This forms the basis of many algorithms for graph coloring. The ChromaticPolynomial function in the Combinatorica package of the computer algebra system Mathematica uses the second recurrence if the graph is dense, and the first recurrence if the graph is sparse. The worst case running time of either formula satisfies the same recurrence relation as the Fibonacci numbers, so in the worst case, the algorithm runs in time within a polynomial factor of
+
+  
+    
+      
+        
+          ϕ
+          
+            n
+            +
+            m
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  1
+                  +
+                  
+                    
+                      5
+                    
+                  
+                
+                2
+              
+            
+            )
+          
+          
+            n
+            +
+            m
+          
+        
+        ∈
+        O
+        
+          (
+          
+            1.62
+            
+              n
+              +
+              m
+            
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle \phi ^{n+m}=\left({\frac {1+{\sqrt {5}}}{2}}\right)^{n+m}\in O\left(1.62^{n+m}\right),}
+  on a graph with n vertices and m edges. The analysis can be improved to within a polynomial factor of the number 
+  
+    
+      
+        t
+        (
+        G
+        )
+      
+    
+    {\displaystyle t(G)}
+   of spanning trees of the input graph. In practice, branch and bound strategies and graph isomorphism rejection are employed to avoid some recursive calls, the running time depends on the heuristic used to pick the vertex pair.
+
+Cube method
+There is a natural geometric perspective on graph colorings by observing that, as an assignment of natural numbers to each vertex, a graph coloring is a vector in the integer lattice.
+Since two vertices 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   and 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   being given the same color is equivalent to the 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  ’th and 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+  ’th coordinate in the coloring vector being equal, each edge can be associated with a hyperplane of the form 
+  
+    
+      
+        {
+        x
+        ∈
+        
+          R
+          
+            d
+          
+        
+        :
+        
+          x
+          
+            i
+          
+        
+        =
+        
+          x
+          
+            j
+          
+        
+        }
+      
+    
+    {\displaystyle \{x\in R^{d}:x_{i}=x_{j}\}}
+  . The collection of such hyperplanes for a given graph is called its graphic arrangement. The proper colorings of a graph are those lattice points which avoid forbidden hyperplanes.
+Restricting to a set of 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   colors, the lattice points are contained in the cube 
+  
+    
+      
+        [
+        0
+        ,
+        k
+        
+          ]
+          
+            n
+          
+        
+      
+    
+    {\displaystyle [0,k]^{n}}
+  . In this context the chromatic polynomial counts the number of lattice points in the 
+  
+    
+      
+        [
+        0
+        ,
+        k
+        ]
+      
+    
+    {\displaystyle [0,k]}
+  -cube that avoid the graphic arrangement.
+
+Computational complexity
+The problem of computing the number of 3-colorings of a given graph is a canonical example of a #P-complete problem, so the problem of computing the coefficients of the chromatic polynomial is #P-hard. Similarly, evaluating 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        3
+        )
+      
+    
+    {\displaystyle P(G,3)}
+   for given G is #P-complete. On the other hand, for 
+  
+    
+      
+        k
+        =
+        0
+        ,
+        1
+        ,
+        2
+      
+    
+    {\displaystyle k=0,1,2}
+   it is easy to compute 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        k
+        )
+      
+    
+    {\displaystyle P(G,k)}
+  , so the corresponding problems are polynomial-time computable. For integers 
+  
+    
+      
+        k
+        >
+        3
+      
+    
+    {\displaystyle k>3}
+   the problem is #P-hard, which is established similar to the case 
+  
+    
+      
+        k
+        =
+        3
+      
+    
+    {\displaystyle k=3}
+  . In fact, it is known that 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+      
+    
+    {\displaystyle P(G,x)}
+   is #P-hard for all x (including negative integers and even all complex numbers) except for the three “easy points”. Thus, from the perspective of #P-hardness, the complexity of computing the chromatic polynomial is completely understood.
+In the expansion
+
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+        =
+        
+          a
+          
+            1
+          
+        
+        x
+        +
+        
+          a
+          
+            2
+          
+        
+        
+          x
+          
+            2
+          
+        
+        +
+        ⋯
+        +
+        
+          a
+          
+            n
+          
+        
+        
+          x
+          
+            n
+          
+        
+        ,
+      
+    
+    {\displaystyle P(G,x)=a_{1}x+a_{2}x^{2}+\cdots +a_{n}x^{n},}
+  the coefficient 
+  
+    
+      
+        
+          a
+          
+            n
+          
+        
+      
+    
+    {\displaystyle a_{n}}
+   is always equal to 1, and several other properties of the coefficients are known. This raises the question if some of the coefficients are easy to compute. However the computational problem of computing ar for a fixed r ≥ 1 and a given graph G is #P-hard, even for bipartite planar graphs.No approximation algorithms for computing 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+      
+    
+    {\displaystyle P(G,x)}
+   are known for any x except for the three easy points. At the integer points 
+  
+    
+      
+        k
+        =
+        3
+        ,
+        4
+        ,
+        …
+      
+    
+    {\displaystyle k=3,4,\ldots }
+  , the corresponding decision problem of deciding if a given graph can be k-colored is NP-hard. Such problems cannot be approximated to any multiplicative factor by a bounded-error probabilistic algorithm unless NP = RP, because any multiplicative approximation would distinguish the values 0 and 1, effectively solving the decision version in bounded-error probabilistic polynomial time. In particular, under the same assumption, this rules out the possibility of a fully polynomial time randomised approximation scheme (FPRAS). For other points, more complicated arguments are needed, and the question is the focus of active research. As of 2008, it is known that there is no FPRAS for computing 
+  
+    
+      
+        P
+        (
+        G
+        ,
+        x
+        )
+      
+    
+    {\displaystyle P(G,x)}
+   for any x > 2, unless NP = RP holds.
+
+Notes
+References
+External links
+Weisstein, Eric W., "Chromatic polynomial", MathWorld
+PlanetMath Chromatic polynomial
+Code for computing Tutte, Chromatic and Flow Polynomials by Gary Haggard, David J. Pearce and Gordon Royle: [1]

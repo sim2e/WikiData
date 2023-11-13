@@ -1,0 +1,33 @@
+In computing, a page fault (sometimes called PF or hard fault) is an exception that the memory management unit (MMU) raises when a process accesses a memory page without proper preparations. Accessing the page requires a mapping to be added to the process's virtual address space. Besides, the actual page contents may need to be loaded from a backing store, such as a disk. The MMU detects the page fault, but the operating system's kernel handles the exception by making the required page accessible in the physical memory or denying an illegal memory access.
+Valid page faults are common and necessary to increase the amount of memory available to programs in any operating system that uses virtual memory, such as Windows, macOS, and the Linux kernel.
+
+Types
+Minor
+If the page is loaded in  memory at the time the fault is generated, but is not marked in the memory management unit as being loaded in memory, then it is called a minor or soft page fault. The page fault handler in the operating system merely needs to make the entry for that page in the memory management unit point to the page in memory and indicate that the page is loaded in memory; it does not need to read the page into memory. This could happen if the memory is shared by different programs and the page is already brought into memory for other programs.
+The page could also have been removed from the working set of a process, but not yet written to disk or erased, such as in operating systems that use Secondary Page Caching. For example, HP OpenVMS may remove a page that does not need to be written to disk (if it has remained unchanged since it was last read from disk, for example) and place it on a Free Page List if the working set is deemed too large.  However, the page contents are not overwritten until the page is assigned elsewhere, meaning it is still available if it is referenced by the original process before being allocated.  Since these faults do not involve disk latency, they are faster and less expensive than major page faults.
+
+Major
+This is the mechanism used by an operating system to increase the amount of program memory available on demand. The operating system delays loading parts of the program from disk until the program attempts to use it and the page fault is generated.  If the page is not loaded in memory at the time of the fault, then it is called a major or hard page fault. The page fault handler in the OS needs to find a free location: either a free page in memory, or a non-free page in memory. This latter might be used by another process, in which case the OS needs to write out the data in that page (if it has not been written out since it was last modified) and mark that page as not being loaded in memory in its process page table. Once the space has been made available, the OS can read the data for the new page into memory, add an entry to its location in the memory management unit, and indicate that the page is loaded. Thus major faults are more expensive than minor faults and add storage access latency to the interrupted program's execution.
+
+Invalid
+If a page fault occurs for a reference to an address that is not part of the virtual address space, meaning there cannot be a page in memory corresponding to it, then it is called an invalid page fault.  The page fault handler in the operating system will then generally pass a segmentation fault to the offending process, indicating that the access was invalid; this usually results in abnormal termination of the code that made the invalid reference. A null pointer is usually represented as a pointer to address 0 in the address space; many operating systems set up the MMU to indicate that the page that contains that address is not in memory, and do not include that page in the virtual address space, so that attempts to read or write the memory referenced by a null pointer get an invalid page fault.
+
+Invalid conditions
+Illegal accesses and invalid page faults can result in a segmentation fault or bus error, resulting in an app or OS crash. Software bugs are often the causes of these problems, but hardware memory errors, such as those caused by overclocking, may corrupt pointers and cause valid code to fail.
+Operating systems provide differing mechanisms for reporting page fault errors. Microsoft Windows uses structured exception handling to report invalid page faults as access violation exceptions. UNIX-like systems typically use signals, such as SIGSEGV, to report these error conditions to programs. If the program receiving the error does not handle it, the operating system performs a default action, typically involving the termination of the running process that caused the error condition, and notifying the user that the program has malfunctioned. Windows often reports such crashes without going to any details. An experienced user can retrieve detailed information using WinDbg and the minidump that Windows creates during the crash. UNIX-like operating systems report these conditions with such error messages as "segmentation violation" or "bus error", and may produce a core dump.
+
+Performance impact
+Page faults degrade system performance and can cause thrashing. Major page faults on conventional computers using hard disk drives can have a significant impact on their performance, as an average hard disk drive has an average rotational latency of 3 ms, a seek time of 5 ms, and a transfer time of 0.05 ms/page. Therefore, the total time for paging is near 8 ms (= 8,000 μs). If the memory access time is 0.2 μs, then the page fault would make the operation about 40,000 times slower.
+Performance optimization of programs or operating systems often involves reducing the number of page faults. Two primary focuses of the optimization are reducing overall memory usage and improving memory locality. To reduce the page faults, developers must use an appropriate page replacement algorithm that maximizes the page hits. Many have been proposed, such as implementing heuristic algorithms to reduce the incidence of page faults.
+A larger physical memory also reduces page faults.
+
+See also
+Bélády's anomaly
+
+Notes
+References
+External links
+"So What Is A Page Fault?(subscription required)" from OSR Online (a Windows-specific explanation)
+"Virtual Memory Details" from the Red Hat website.
+"UnhandledExceptionFilter (Windows)" from MSDN Online.
+"Page fault overhead" for information about how page faults can crucially affect processing time.

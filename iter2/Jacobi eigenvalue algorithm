@@ -1,0 +1,3060 @@
+In numerical linear algebra, the Jacobi eigenvalue algorithm is an iterative method for the calculation of the eigenvalues and eigenvectors of a real symmetric matrix (a process known as diagonalization). It is named after Carl Gustav Jacob Jacobi, who first proposed the method in 1846, but only became widely used in the 1950s with the advent of computers.
+
+Description
+Let 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   be a symmetric matrix, and 
+  
+    
+      
+        G
+        =
+        G
+        (
+        i
+        ,
+        j
+        ,
+        θ
+        )
+      
+    
+    {\displaystyle G=G(i,j,\theta )}
+   be a Givens rotation matrix. Then:
+
+  
+    
+      
+        
+          S
+          ′
+        
+        =
+        G
+        S
+        
+          G
+          
+            ⊤
+          
+        
+        
+      
+    
+    {\displaystyle S'=GSG^{\top }\,}
+  is symmetric and similar to 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+  .
+Furthermore, 
+  
+    
+      
+        
+          S
+          
+            ′
+          
+        
+      
+    
+    {\displaystyle S^{\prime }}
+   has entries:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  S
+                  
+                    i
+                    i
+                  
+                  ′
+                
+              
+              
+                
+                =
+                
+                  c
+                  
+                    2
+                  
+                
+                
+                
+                  S
+                  
+                    i
+                    i
+                  
+                
+                −
+                2
+                
+                s
+                c
+                
+                
+                  S
+                  
+                    i
+                    j
+                  
+                
+                +
+                
+                  s
+                  
+                    2
+                  
+                
+                
+                
+                  S
+                  
+                    j
+                    j
+                  
+                
+              
+            
+            
+              
+                
+                  S
+                  
+                    j
+                    j
+                  
+                  ′
+                
+              
+              
+                
+                =
+                
+                  s
+                  
+                    2
+                  
+                
+                
+                
+                  S
+                  
+                    i
+                    i
+                  
+                
+                +
+                2
+                s
+                c
+                
+                
+                  S
+                  
+                    i
+                    j
+                  
+                
+                +
+                
+                  c
+                  
+                    2
+                  
+                
+                
+                
+                  S
+                  
+                    j
+                    j
+                  
+                
+              
+            
+            
+              
+                
+                  S
+                  
+                    i
+                    j
+                  
+                  ′
+                
+              
+              
+                
+                =
+                
+                  S
+                  
+                    j
+                    i
+                  
+                  ′
+                
+                =
+                (
+                
+                  c
+                  
+                    2
+                  
+                
+                −
+                
+                  s
+                  
+                    2
+                  
+                
+                )
+                
+                
+                  S
+                  
+                    i
+                    j
+                  
+                
+                +
+                s
+                c
+                
+                (
+                
+                  S
+                  
+                    i
+                    i
+                  
+                
+                −
+                
+                  S
+                  
+                    j
+                    j
+                  
+                
+                )
+              
+            
+            
+              
+                
+                  S
+                  
+                    i
+                    k
+                  
+                  ′
+                
+              
+              
+                
+                =
+                
+                  S
+                  
+                    k
+                    i
+                  
+                  ′
+                
+                =
+                c
+                
+                
+                  S
+                  
+                    i
+                    k
+                  
+                
+                −
+                s
+                
+                
+                  S
+                  
+                    j
+                    k
+                  
+                
+              
+              
+                k
+                ≠
+                i
+                ,
+                j
+              
+            
+            
+              
+                
+                  S
+                  
+                    j
+                    k
+                  
+                  ′
+                
+              
+              
+                
+                =
+                
+                  S
+                  
+                    k
+                    j
+                  
+                  ′
+                
+                =
+                s
+                
+                
+                  S
+                  
+                    i
+                    k
+                  
+                
+                +
+                c
+                
+                
+                  S
+                  
+                    j
+                    k
+                  
+                
+              
+              
+                k
+                ≠
+                i
+                ,
+                j
+              
+            
+            
+              
+                
+                  S
+                  
+                    k
+                    l
+                  
+                  ′
+                
+              
+              
+                
+                =
+                
+                  S
+                  
+                    k
+                    l
+                  
+                
+              
+              
+                k
+                ,
+                l
+                ≠
+                i
+                ,
+                j
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}S'_{ii}&=c^{2}\,S_{ii}-2\,sc\,S_{ij}+s^{2}\,S_{jj}\\S'_{jj}&=s^{2}\,S_{ii}+2sc\,S_{ij}+c^{2}\,S_{jj}\\S'_{ij}&=S'_{ji}=(c^{2}-s^{2})\,S_{ij}+sc\,(S_{ii}-S_{jj})\\S'_{ik}&=S'_{ki}=c\,S_{ik}-s\,S_{jk}&k\neq i,j\\S'_{jk}&=S'_{kj}=s\,S_{ik}+c\,S_{jk}&k\neq i,j\\S'_{kl}&=S_{kl}&k,l\neq i,j\end{aligned}}}
+  where 
+  
+    
+      
+        s
+        =
+        sin
+        ⁡
+        (
+        θ
+        )
+      
+    
+    {\displaystyle s=\sin(\theta )}
+   and 
+  
+    
+      
+        c
+        =
+        cos
+        ⁡
+        (
+        θ
+        )
+      
+    
+    {\displaystyle c=\cos(\theta )}
+  .
+Since 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   is orthogonal, 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   and 
+  
+    
+      
+        
+          S
+          
+            ′
+          
+        
+      
+    
+    {\displaystyle S^{\prime }}
+   have the same Frobenius norm 
+  
+    
+      
+        
+          |
+        
+        
+          |
+        
+        ⋅
+        
+          |
+        
+        
+          
+            |
+          
+          
+            F
+          
+        
+      
+    
+    {\displaystyle ||\cdot ||_{F}}
+   (the square-root sum of squares of all components), however we can choose 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   such that 
+  
+    
+      
+        
+          S
+          
+            i
+            j
+          
+          
+            ′
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle S_{ij}^{\prime }=0}
+  , in which case 
+  
+    
+      
+        
+          S
+          
+            ′
+          
+        
+      
+    
+    {\displaystyle S^{\prime }}
+   has a larger sum of squares on the diagonal:
+
+  
+    
+      
+        
+          S
+          
+            i
+            j
+          
+          ′
+        
+        =
+        cos
+        ⁡
+        (
+        2
+        θ
+        )
+        
+          S
+          
+            i
+            j
+          
+        
+        +
+        
+          
+            
+              1
+              2
+            
+          
+        
+        sin
+        ⁡
+        (
+        2
+        θ
+        )
+        (
+        
+          S
+          
+            i
+            i
+          
+        
+        −
+        
+          S
+          
+            j
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle S'_{ij}=\cos(2\theta )S_{ij}+{\tfrac {1}{2}}\sin(2\theta )(S_{ii}-S_{jj})}
+  Set this equal to 0, and rearrange:
+
+  
+    
+      
+        tan
+        ⁡
+        (
+        2
+        θ
+        )
+        =
+        
+          
+            
+              2
+              
+                S
+                
+                  i
+                  j
+                
+              
+            
+            
+              
+                S
+                
+                  j
+                  j
+                
+              
+              −
+              
+                S
+                
+                  i
+                  i
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle \tan(2\theta )={\frac {2S_{ij}}{S_{jj}-S_{ii}}}}
+  if 
+  
+    
+      
+        
+          S
+          
+            j
+            j
+          
+        
+        =
+        
+          S
+          
+            i
+            i
+          
+        
+      
+    
+    {\displaystyle S_{jj}=S_{ii}}
+  
+
+  
+    
+      
+        θ
+        =
+        
+          
+            π
+            4
+          
+        
+      
+    
+    {\displaystyle \theta ={\frac {\pi }{4}}}
+  In order to optimize this effect, Sij should be the off-diagonal element with the largest absolute value, called the pivot.
+The Jacobi eigenvalue method repeatedly performs rotations until the matrix becomes almost diagonal. Then the elements in the diagonal are approximations of the (real) eigenvalues of S.
+
+Convergence
+If  
+  
+    
+      
+        p
+        =
+        
+          S
+          
+            k
+            l
+          
+        
+      
+    
+    {\displaystyle p=S_{kl}}
+    is a pivot element, then by definition  
+  
+    
+      
+        
+          |
+        
+        
+          S
+          
+            i
+            j
+          
+        
+        
+          |
+        
+        ≤
+        
+          |
+        
+        p
+        
+          |
+        
+      
+    
+    {\displaystyle |S_{ij}|\leq |p|}
+    for  
+  
+    
+      
+        1
+        ≤
+        i
+        ,
+        j
+        ≤
+        n
+        ,
+        i
+        ≠
+        j
+      
+    
+    {\displaystyle 1\leq i,j\leq n,i\neq j}
+   . Let 
+  
+    
+      
+        Γ
+        (
+        S
+        
+          )
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Gamma (S)^{2}}
+   denote the sum of squares of all off-diagonal entries of 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+  . Since 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   has exactly  
+  
+    
+      
+        2
+        N
+        :=
+        n
+        (
+        n
+        −
+        1
+        )
+      
+    
+    {\displaystyle 2N:=n(n-1)}
+    off-diagonal elements, we have  
+  
+    
+      
+        
+          p
+          
+            2
+          
+        
+        ≤
+        Γ
+        (
+        S
+        
+          )
+          
+            2
+          
+        
+        ≤
+        2
+        N
+        
+          p
+          
+            2
+          
+        
+      
+    
+    {\displaystyle p^{2}\leq \Gamma (S)^{2}\leq 2Np^{2}}
+    or 
+  
+    
+      
+        2
+        
+          p
+          
+            2
+          
+        
+        ≥
+        Γ
+        (
+        S
+        
+          )
+          
+            2
+          
+        
+        
+          /
+        
+        N
+      
+    
+    {\displaystyle 2p^{2}\geq \Gamma (S)^{2}/N}
+   . Now 
+  
+    
+      
+        Γ
+        (
+        
+          S
+          
+            J
+          
+        
+        
+          )
+          
+            2
+          
+        
+        =
+        Γ
+        (
+        S
+        
+          )
+          
+            2
+          
+        
+        −
+        2
+        
+          p
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Gamma (S^{J})^{2}=\Gamma (S)^{2}-2p^{2}}
+  . This implies
+	
+  
+    
+      
+        Γ
+        (
+        
+          S
+          
+            J
+          
+        
+        
+          )
+          
+            2
+          
+        
+        ≤
+        (
+        1
+        −
+        1
+        
+          /
+        
+        N
+        )
+        Γ
+        (
+        S
+        
+          )
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Gamma (S^{J})^{2}\leq (1-1/N)\Gamma (S)^{2}}
+     or  
+  
+    
+      
+        Γ
+        (
+        
+          S
+          
+            J
+          
+        
+        )
+        ≤
+        (
+        1
+        −
+        1
+        
+          /
+        
+        N
+        
+          )
+          
+            1
+            
+              /
+            
+            2
+          
+        
+        Γ
+        (
+        S
+        )
+      
+    
+    {\displaystyle \Gamma (S^{J})\leq (1-1/N)^{1/2}\Gamma (S)}
+  ;
+that is, the sequence of Jacobi rotations converges at least linearly by a factor  
+  
+    
+      
+        (
+        1
+        −
+        1
+        
+          /
+        
+        N
+        
+          )
+          
+            1
+            
+              /
+            
+            2
+          
+        
+      
+    
+    {\displaystyle (1-1/N)^{1/2}}
+    to a diagonal matrix.
+A number of 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+   Jacobi rotations is called a sweep; let 
+  
+    
+      
+        
+          S
+          
+            σ
+          
+        
+      
+    
+    {\displaystyle S^{\sigma }}
+   denote the result. The previous estimate yields
+
+  
+    
+      
+        Γ
+        (
+        
+          S
+          
+            σ
+          
+        
+        )
+        ≤
+        
+          
+            (
+            
+              1
+              −
+              
+                
+                  1
+                  N
+                
+              
+            
+            )
+          
+          
+            N
+            
+              /
+            
+            2
+          
+        
+        Γ
+        (
+        S
+        )
+      
+    
+    {\displaystyle \Gamma (S^{\sigma })\leq \left(1-{\frac {1}{N}}\right)^{N/2}\Gamma (S)}
+  ;that is, the sequence of sweeps converges at least linearly with a factor  ≈ 
+  
+    
+      
+        
+          e
+          
+            1
+            
+              /
+            
+            2
+          
+        
+      
+    
+    {\displaystyle e^{1/2}}
+   .
+However the following result of Schönhage yields locally quadratic convergence. To this end let S have m distinct eigenvalues  
+  
+    
+      
+        
+          λ
+          
+            1
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          λ
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \lambda _{1},...,\lambda _{m}}
+    with multiplicities  
+  
+    
+      
+        
+          ν
+          
+            1
+          
+        
+        ,
+        .
+        .
+        .
+        ,
+        
+          ν
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \nu _{1},...,\nu _{m}}
+    and let  d > 0 be the smallest distance of two different eigenvalues. Let us call a number of
+
+  
+    
+      
+        
+          N
+          
+            S
+          
+        
+        :=
+        
+          
+            
+              n
+              (
+              n
+              −
+              1
+              )
+            
+            2
+          
+        
+        −
+        
+          ∑
+          
+            μ
+            =
+            1
+          
+          
+            m
+          
+        
+        
+          
+            1
+            2
+          
+        
+        
+          ν
+          
+            μ
+          
+        
+        (
+        
+          ν
+          
+            μ
+          
+        
+        −
+        1
+        )
+        ≤
+        N
+      
+    
+    {\displaystyle N_{S}:={\frac {n(n-1)}{2}}-\sum _{\mu =1}^{m}{\frac {1}{2}}\nu _{\mu }(\nu _{\mu }-1)\leq N}
+  Jacobi rotations a Schönhage-sweep. If  
+  
+    
+      
+        
+          S
+          
+            s
+          
+        
+      
+    
+    {\displaystyle S^{s}}
+    denotes the result then
+
+  
+    
+      
+        Γ
+        (
+        
+          S
+          
+            s
+          
+        
+        )
+        ≤
+        
+          
+            
+              
+                n
+                2
+              
+            
+            −
+            1
+          
+        
+        
+          (
+          
+            
+              
+                γ
+                
+                  2
+                
+              
+              
+                d
+                −
+                2
+                γ
+              
+            
+          
+          )
+        
+        ,
+        
+        γ
+        :=
+        Γ
+        (
+        S
+        )
+      
+    
+    {\displaystyle \Gamma (S^{s})\leq {\sqrt {{\frac {n}{2}}-1}}\left({\frac {\gamma ^{2}}{d-2\gamma }}\right),\quad \gamma :=\Gamma (S)}
+    .Thus convergence becomes quadratic as soon as 
+
+  
+    
+      
+        Γ
+        (
+        S
+        )
+        <
+        
+          
+            d
+            
+              2
+              +
+              
+                
+                  
+                    
+                      n
+                      2
+                    
+                  
+                  −
+                  1
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle \Gamma (S)<{\frac {d}{2+{\sqrt {{\frac {n}{2}}-1}}}}}
+
+Cost
+Each Jacobi rotation can be done in O(n) steps when the pivot element p is known. However the search for p requires inspection of all N ≈ 1/2 n2 off-diagonal elements. We can reduce this to O(n) complexity too if we introduce an additional index array  
+  
+    
+      
+        
+          m
+          
+            1
+          
+        
+        ,
+        
+        …
+        
+        ,
+        
+        
+          m
+          
+            n
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle m_{1},\,\dots \,,\,m_{n-1}}
+    with the property that 
+  
+    
+      
+        
+          m
+          
+            i
+          
+        
+      
+    
+    {\displaystyle m_{i}}
+    is the index of the largest element in row i, (i = 1, ..., n − 1) of the current S. Then the indices of the pivot (k, l)  must be one of the pairs 
+  
+    
+      
+        (
+        i
+        ,
+        
+          m
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle (i,m_{i})}
+  . Also the updating of the index array can be done in O(n) average-case complexity: First, the maximum entry in the updated rows k and l can be found in O(n) steps. In the other rows i, only the entries in columns k and l change. Looping over these rows, if 
+  
+    
+      
+        
+          m
+          
+            i
+          
+        
+      
+    
+    {\displaystyle m_{i}}
+   is neither k nor l, it suffices to compare the old maximum at 
+  
+    
+      
+        
+          m
+          
+            i
+          
+        
+      
+    
+    {\displaystyle m_{i}}
+   to the new entries and update 
+  
+    
+      
+        
+          m
+          
+            i
+          
+        
+      
+    
+    {\displaystyle m_{i}}
+   if necessary. If 
+  
+    
+      
+        
+          m
+          
+            i
+          
+        
+      
+    
+    {\displaystyle m_{i}}
+   should be equal to k or l and the corresponding entry decreased during the update, the maximum over row i has to be found from scratch in O(n) complexity. However, this will happen on average only once per rotation. Thus, each rotation has  O(n) and one sweep O(n3) average-case complexity, which is equivalent to one matrix multiplication. Additionally the  
+  
+    
+      
+        
+          m
+          
+            i
+          
+        
+      
+    
+    {\displaystyle m_{i}}
+    must be initialized before the process starts, which can be done in n2 steps.
+Typically the Jacobi method converges within numerical precision after a small number of sweeps. Note that multiple eigenvalues reduce the number of iterations since 
+  
+    
+      
+        
+          N
+          
+            S
+          
+        
+        <
+        N
+      
+    
+    {\displaystyle N_{S}<N}
+  .
+
+Algorithm
+The following algorithm is a description of the Jacobi method in math-like notation.
+It calculates a vector e which contains the eigenvalues and a matrix E which contains the corresponding eigenvectors; that is, 
+  
+    
+      
+        
+          e
+          
+            i
+          
+        
+      
+    
+    {\displaystyle e_{i}}
+    is an eigenvalue and the column 
+  
+    
+      
+        
+          E
+          
+            i
+          
+        
+      
+    
+    {\displaystyle E_{i}}
+    an orthonormal eigenvector for 
+  
+    
+      
+        
+          e
+          
+            i
+          
+        
+      
+    
+    {\displaystyle e_{i}}
+  ,  i = 1, ..., n.
+
+procedure jacobi(S ∈ Rn×n; out e ∈ Rn; out E ∈ Rn×n)
+  var
+    i, k, l, m, state ∈ N
+    s, c, t, p, y, d, r ∈ R
+    ind ∈ Nn
+    changed ∈ Ln
+
+  function maxind(k ∈ N) ∈ N ! index of largest off-diagonal element in row k
+    m := k+1
+    for i := k+2 to n do
+      if │Ski│ > │Skm│ then m := i endif
+    endfor
+    return m
+  endfunc
+
+  procedure update(k ∈ N; t ∈ R) ! update ek and its status
+    y := ek; ek := y+t
+    if changedk and (y=ek) then changedk := false; state := state−1
+    elsif (not changedk) and (y≠ek) then changedk := true; state := state+1
+    endif
+  endproc
+
+  procedure rotate(k,l,i,j ∈ N) ! perform rotation of Sij, Skl
+    ┌   ┐    ┌     ┐┌   ┐
+    │Skl│    │c  −s││Skl│
+    │   │ := │     ││   │
+    │Sij│    │s   c││Sij│
+    └   ┘    └     ┘└   ┘
+  endproc
+
+  ! init e, E, and arrays ind, changed
+  E := I; state := n
+  for k := 1 to n do indk := maxind(k); ek := Skk; changedk := true endfor
+  while state≠0 do ! next rotation
+    m := 1 ! find index (k,l) of pivot p
+    for k := 2 to n−1 do
+      if │Sk indk│ > │Sm indm│ then m := k endif
+    endfor
+    k := m; l := indm; p := Skl
+    ! calculate c = cos φ, s = sin φ
+    y := (el−ek)/2; d := │y│+√(p2+y2)
+    r := √(p2+d2); c := d/r; s := p/r; t := p2/d
+    if y<0 then s := −s; t := −t endif
+    Skl := 0.0; update(k,−t); update(l,t)
+    ! rotate rows and columns k and l
+    for i := 1 to k−1 do rotate(i,k,i,l) endfor
+    for i := k+1 to l−1 do rotate(k,i,i,l) endfor
+    for i := l+1 to n do rotate(k,i,l,i) endfor
+    ! rotate eigenvectors
+    for i := 1 to n do
+      ┌   ┐    ┌     ┐┌   ┐
+      │Eik│    │c  −s││Eik│
+      │   │ := │     ││   │
+      │Eil│    │s   c││Eil│
+      └   ┘    └     ┘└   ┘
+    endfor
+    ! update all potentially changed indi
+    for i := 1 to n do indi := maxind(i) endfor
+  loop
+endproc
+
+Notes
+1. The logical array changed holds the status of each eigenvalue. If the numerical value of 
+  
+    
+      
+        
+          e
+          
+            k
+          
+        
+      
+    
+    {\displaystyle e_{k}}
+    or 
+  
+    
+      
+        
+          e
+          
+            l
+          
+        
+      
+    
+    {\displaystyle e_{l}}
+    changes during an iteration, the corresponding component of  changed is set to true, otherwise to false. The integer state  counts the number of components of changed which have the value true. Iteration stops as soon as state = 0. This means that none of the approximations 
+  
+    
+      
+        
+          e
+          
+            1
+          
+        
+        ,
+        
+        .
+        .
+        .
+        
+        ,
+        
+          e
+          
+            n
+          
+        
+      
+    
+    {\displaystyle e_{1},\,...\,,e_{n}}
+    has recently changed its value and thus it is not very likely that this will happen if iteration continues. Here it is assumed that floating point operations are optimally rounded to the nearest floating point number.
+2. The upper triangle of the matrix S is destroyed while the lower triangle and the diagonal are unchanged. Thus it is possible to restore S if necessary according to
+
+for k := 1 to n−1 do ! restore matrix S
+    for l := k+1 to n do
+        Skl := Slk
+    endfor
+endfor
+
+3. The eigenvalues are not necessarily in descending order. This can be achieved by a simple sorting algorithm.
+
+for k := 1 to n−1 do
+    m := k
+    for l := k+1 to n do
+        if el > em then
+            m := l
+        endif
+    endfor
+    if k ≠ m then
+        swap em,ek
+        swap Em,Ek
+    endif
+endfor
+
+4. The algorithm is written using matrix notation (1 based arrays instead of 0 based).
+5. When implementing the algorithm, the part specified using matrix notation must be performed simultaneously.
+6. This implementation does not correctly account for the case in which one dimension is an independent subspace.  For example, if given a diagonal matrix, the above implementation will never terminate, as none of the eigenvalues will change.  Hence, in real implementations, extra logic must be added to account for this case.
+
+Example
+Let 
+
+  
+    
+      
+        S
+        =
+        
+          
+            (
+            
+              
+                
+                  4
+                
+                
+                  −
+                  30
+                
+                
+                  60
+                
+                
+                  −
+                  35
+                
+              
+              
+                
+                  −
+                  30
+                
+                
+                  300
+                
+                
+                  −
+                  675
+                
+                
+                  420
+                
+              
+              
+                
+                  60
+                
+                
+                  −
+                  675
+                
+                
+                  1620
+                
+                
+                  −
+                  1050
+                
+              
+              
+                
+                  −
+                  35
+                
+                
+                  420
+                
+                
+                  −
+                  1050
+                
+                
+                  700
+                
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle S={\begin{pmatrix}4&-30&60&-35\\-30&300&-675&420\\60&-675&1620&-1050\\-35&420&-1050&700\end{pmatrix}}}
+  
+Then jacobi produces the following eigenvalues and eigenvectors after 3 sweeps (19 iterations) :
+
+  
+    
+      
+        
+          e
+          
+            1
+          
+        
+        =
+        2585.25381092892231
+      
+    
+    {\displaystyle e_{1}=2585.25381092892231}
+  
+
+  
+    
+      
+        
+          E
+          
+            1
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  0.0291933231647860588
+                
+              
+              
+                
+                  −
+                  0.328712055763188997
+                
+              
+              
+                
+                  0.791411145833126331
+                
+              
+              
+                
+                  −
+                  0.514552749997152907
+                
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle E_{1}={\begin{pmatrix}0.0291933231647860588\\-0.328712055763188997\\0.791411145833126331\\-0.514552749997152907\end{pmatrix}}}
+  
+
+  
+    
+      
+        
+          e
+          
+            2
+          
+        
+        =
+        37.1014913651276582
+      
+    
+    {\displaystyle e_{2}=37.1014913651276582}
+  
+
+  
+    
+      
+        
+          E
+          
+            2
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  −
+                  0.179186290535454826
+                
+              
+              
+                
+                  0.741917790628453435
+                
+              
+              
+                
+                  −
+                  0.100228136947192199
+                
+              
+              
+                
+                  −
+                  0.638282528193614892
+                
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle E_{2}={\begin{pmatrix}-0.179186290535454826\\0.741917790628453435\\-0.100228136947192199\\-0.638282528193614892\end{pmatrix}}}
+  
+
+  
+    
+      
+        
+          e
+          
+            3
+          
+        
+        =
+        1.4780548447781369
+      
+    
+    {\displaystyle e_{3}=1.4780548447781369}
+  
+
+  
+    
+      
+        
+          E
+          
+            3
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  −
+                  0.582075699497237650
+                
+              
+              
+                
+                  0.370502185067093058
+                
+              
+              
+                
+                  0.509578634501799626
+                
+              
+              
+                
+                  0.514048272222164294
+                
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle E_{3}={\begin{pmatrix}-0.582075699497237650\\0.370502185067093058\\0.509578634501799626\\0.514048272222164294\end{pmatrix}}}
+  
+
+  
+    
+      
+        
+          e
+          
+            4
+          
+        
+        =
+        0.1666428611718905
+      
+    
+    {\displaystyle e_{4}=0.1666428611718905}
+  
+
+  
+    
+      
+        
+          E
+          
+            4
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  0.792608291163763585
+                
+              
+              
+                
+                  0.451923120901599794
+                
+              
+              
+                
+                  0.322416398581824992
+                
+              
+              
+                
+                  0.252161169688241933
+                
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle E_{4}={\begin{pmatrix}0.792608291163763585\\0.451923120901599794\\0.322416398581824992\\0.252161169688241933\end{pmatrix}}}
+
+Applications for real symmetric matrices
+When the eigenvalues (and eigenvectors) of a symmetric matrix are known, the following
+values are easily calculated.
+
+Singular values
+The singular values of a (square) matrix 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   are the square roots of the (non-negative) eigenvalues of 
+  
+    
+      
+        
+          A
+          
+            T
+          
+        
+        A
+      
+    
+    {\displaystyle A^{T}A}
+  . In case of a symmetric matrix 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   we have of 
+  
+    
+      
+        
+          S
+          
+            T
+          
+        
+        S
+        =
+        
+          S
+          
+            2
+          
+        
+      
+    
+    {\displaystyle S^{T}S=S^{2}}
+  , hence the singular values of 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   are the absolute values of the eigenvalues of 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+  2-norm and spectral radius
+The 2-norm of a matrix A is the norm based on the Euclidean vectornorm; that is, the largest value 
+  
+    
+      
+        ‖
+        A
+        x
+        
+          ‖
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \|Ax\|_{2}}
+   when x runs through all vectors with 
+  
+    
+      
+        ‖
+        x
+        
+          ‖
+          
+            2
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle \|x\|_{2}=1}
+  . It is the largest singular value of 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  . In case of a symmetric matrix it is the largest absolute value of its eigenvectors and thus equal to its spectral radius.Condition number
+The condition number of a nonsingular matrix 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is defined as  
+  
+    
+      
+        
+          
+            cond
+          
+        
+        (
+        A
+        )
+        =
+        ‖
+        A
+        
+          ‖
+          
+            2
+          
+        
+        ‖
+        
+          A
+          
+            −
+            1
+          
+        
+        
+          ‖
+          
+            2
+          
+        
+      
+    
+    {\displaystyle {\mbox{cond}}(A)=\|A\|_{2}\|A^{-1}\|_{2}}
+  . In case of a symmetric matrix it is the absolute value of the quotient of the largest and smallest eigenvalue. Matrices with large condition numbers can cause numerically unstable results: small perturbation can result in large errors. Hilbert matrices are the most famous ill-conditioned matrices. For example, the fourth-order Hilbert matrix has a condition of 15514, while for order 8 it is 2.7 × 108.Rank
+A matrix 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   has rank 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   if it has 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   columns that are linearly independent while the remaining columns are linearly dependent on these. Equivalently, 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   is the dimension of the range of 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  . Furthermore it is the number of nonzero singular values.
+In case of a symmetric matrix r is the number of nonzero eigenvalues. Unfortunately because of rounding errors numerical approximations of zero eigenvalues may not be zero (it may also happen that a numerical approximation is zero while the true value is not). Thus one can only calculate the numerical rank by making a decision which of the eigenvalues are close enough to zero.Pseudo-inverse
+The pseudo inverse of a matrix 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is the unique matrix 
+  
+    
+      
+        X
+        =
+        
+          A
+          
+            +
+          
+        
+      
+    
+    {\displaystyle X=A^{+}}
+   for which 
+  
+    
+      
+        A
+        X
+      
+    
+    {\displaystyle AX}
+   and 
+  
+    
+      
+        X
+        A
+      
+    
+    {\displaystyle XA}
+   are symmetric and for which 
+  
+    
+      
+        A
+        X
+        A
+        =
+        A
+        ,
+        X
+        A
+        X
+        =
+        X
+      
+    
+    {\displaystyle AXA=A,XAX=X}
+   holds. If 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is nonsingular, then 
+  
+    
+      
+        
+          A
+          
+            +
+          
+        
+        =
+        
+          A
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle A^{+}=A^{-1}}
+  .
+When procedure jacobi (S, e, E) is called, then the relation 
+  
+    
+      
+        S
+        =
+        
+          E
+          
+            T
+          
+        
+        
+          
+            Diag
+          
+        
+        (
+        e
+        )
+        E
+      
+    
+    {\displaystyle S=E^{T}{\mbox{Diag}}(e)E}
+   holds where Diag(e)  denotes the diagonal matrix with vector e on the diagonal. Let 
+  
+    
+      
+        
+          e
+          
+            +
+          
+        
+      
+    
+    {\displaystyle e^{+}}
+   denote the vector where  
+  
+    
+      
+        
+          e
+          
+            i
+          
+        
+      
+    
+    {\displaystyle e_{i}}
+   is replaced by 
+  
+    
+      
+        1
+        
+          /
+        
+        
+          e
+          
+            i
+          
+        
+      
+    
+    {\displaystyle 1/e_{i}}
+   if  
+  
+    
+      
+        
+          e
+          
+            i
+          
+        
+        ≤
+        0
+      
+    
+    {\displaystyle e_{i}\leq 0}
+   and by 0  if  
+  
+    
+      
+        
+          e
+          
+            i
+          
+        
+      
+    
+    {\displaystyle e_{i}}
+   is (numerically close to) zero. Since matrix E is orthogonal, it follows that the pseudo-inverse of S is given by   
+  
+    
+      
+        
+          S
+          
+            +
+          
+        
+        =
+        
+          E
+          
+            T
+          
+        
+        
+          
+            Diag
+          
+        
+        (
+        
+          e
+          
+            +
+          
+        
+        )
+        E
+      
+    
+    {\displaystyle S^{+}=E^{T}{\mbox{Diag}}(e^{+})E}
+  .Least squares solution
+If matrix 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+    does not have full rank, there may not be a solution of the linear system  
+  
+    
+      
+        A
+        x
+        =
+        b
+      
+    
+    {\displaystyle Ax=b}
+  . However one can look for a vector x for which  
+  
+    
+      
+        ‖
+        A
+        x
+        −
+        b
+        
+          ‖
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \|Ax-b\|_{2}}
+   is minimal. The solution is 
+  
+    
+      
+        x
+        =
+        
+          A
+          
+            +
+          
+        
+        b
+      
+    
+    {\displaystyle x=A^{+}b}
+  . In case of a symmetric matrix S as before, one has 
+  
+    
+      
+        x
+        =
+        
+          S
+          
+            +
+          
+        
+        b
+        =
+        
+          E
+          
+            T
+          
+        
+        
+          
+            Diag
+          
+        
+        (
+        
+          e
+          
+            +
+          
+        
+        )
+        E
+        b
+      
+    
+    {\displaystyle x=S^{+}b=E^{T}{\mbox{Diag}}(e^{+})Eb}
+  .Matrix exponential
+From 
+  
+    
+      
+        S
+        =
+        
+          E
+          
+            T
+          
+        
+        
+          
+            Diag
+          
+        
+        (
+        e
+        )
+        E
+      
+    
+    {\displaystyle S=E^{T}{\mbox{Diag}}(e)E}
+   one finds 
+  
+    
+      
+        exp
+        ⁡
+        S
+        =
+        
+          E
+          
+            T
+          
+        
+        
+          
+            Diag
+          
+        
+        (
+        exp
+        ⁡
+        e
+        )
+        E
+      
+    
+    {\displaystyle \exp S=E^{T}{\mbox{Diag}}(\exp e)E}
+   where  exp 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+    is the vector where 
+  
+    
+      
+        
+          e
+          
+            i
+          
+        
+      
+    
+    {\displaystyle e_{i}}
+   is replaced by 
+  
+    
+      
+        exp
+        ⁡
+        
+          e
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \exp e_{i}}
+  . In the same way, 
+  
+    
+      
+        f
+        (
+        S
+        )
+      
+    
+    {\displaystyle f(S)}
+    can be calculated in an obvious way for any (analytic) function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  .Linear differential equations
+The differential equation  
+  
+    
+      
+        
+          x
+          ′
+        
+        =
+        A
+        x
+        ,
+        x
+        (
+        0
+        )
+        =
+        a
+      
+    
+    {\displaystyle x'=Ax,x(0)=a}
+   has the solution 
+  
+    
+      
+        x
+        (
+        t
+        )
+        =
+        exp
+        ⁡
+        (
+        t
+        A
+        )
+      
+    
+    {\displaystyle x(t)=\exp(tA)}
+  . For a symmetric matrix 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+  , it follows that  
+  
+    
+      
+        x
+        (
+        t
+        )
+        =
+        
+          E
+          
+            T
+          
+        
+        
+          
+            Diag
+          
+        
+        (
+        exp
+        ⁡
+        t
+        e
+        )
+        E
+        a
+      
+    
+    {\displaystyle x(t)=E^{T}{\mbox{Diag}}(\exp te)Ea}
+  . If  
+  
+    
+      
+        a
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          a
+          
+            i
+          
+        
+        
+          E
+          
+            i
+          
+        
+      
+    
+    {\displaystyle a=\sum _{i=1}^{n}a_{i}E_{i}}
+   is the expansion of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+    by the eigenvectors of 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+  , then 
+  
+    
+      
+        x
+        (
+        t
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          a
+          
+            i
+          
+        
+        exp
+        ⁡
+        (
+        t
+        
+          e
+          
+            i
+          
+        
+        )
+        
+          E
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x(t)=\sum _{i=1}^{n}a_{i}\exp(te_{i})E_{i}}
+  .
+Let  
+  
+    
+      
+        
+          W
+          
+            s
+          
+        
+      
+    
+    {\displaystyle W^{s}}
+   be the vector space spanned by the eigenvectors of 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   which correspond to a negative eigenvalue and 
+  
+    
+      
+        
+          W
+          
+            u
+          
+        
+      
+    
+    {\displaystyle W^{u}}
+   analogously for the positive eigenvalues. If  
+  
+    
+      
+        a
+        ∈
+        
+          W
+          
+            s
+          
+        
+      
+    
+    {\displaystyle a\in W^{s}}
+   then 
+  
+    
+      
+        
+          
+            
+              lim
+            
+          
+          
+            t
+            →
+            ∞
+          
+        
+        x
+        (
+        t
+        )
+        =
+        0
+      
+    
+    {\displaystyle {\mbox{lim}}_{t\rightarrow \infty }x(t)=0}
+  ; that is, the equilibrium point 0 is attractive to 
+  
+    
+      
+        x
+        (
+        t
+        )
+      
+    
+    {\displaystyle x(t)}
+  . If 
+  
+    
+      
+        a
+        ∈
+        
+          W
+          
+            u
+          
+        
+      
+    
+    {\displaystyle a\in W^{u}}
+   then 
+  
+    
+      
+        
+          
+            
+              lim
+            
+          
+          
+            t
+            →
+            ∞
+          
+        
+        x
+        (
+        t
+        )
+        =
+        ∞
+      
+    
+    {\displaystyle {\mbox{lim}}_{t\rightarrow \infty }x(t)=\infty }
+  ; that is, 0 is repulsive to  
+  
+    
+      
+        x
+        (
+        t
+        )
+      
+    
+    {\displaystyle x(t)}
+  . 
+  
+    
+      
+        
+          W
+          
+            s
+          
+        
+      
+    
+    {\displaystyle W^{s}}
+   and 
+  
+    
+      
+        
+          W
+          
+            u
+          
+        
+      
+    
+    {\displaystyle W^{u}}
+   are called stable and unstable manifolds for 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+  . If 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   has components in both manifolds, then one component is attracted and one component is repelled. Hence 
+  
+    
+      
+        x
+        (
+        t
+        )
+      
+    
+    {\displaystyle x(t)}
+   approaches 
+  
+    
+      
+        
+          W
+          
+            u
+          
+        
+      
+    
+    {\displaystyle W^{u}}
+   as 
+  
+    
+      
+        t
+        →
+        ∞
+      
+    
+    {\displaystyle t\to \infty }
+  .
+
+Generalizations
+The Jacobi Method has been generalized to complex Hermitian matrices, general nonsymmetric real and complex matrices as well as block matrices.
+Since singular values of a real matrix are the square roots of the eigenvalues of the symmetric matrix 
+  
+    
+      
+        S
+        =
+        
+          A
+          
+            T
+          
+        
+        A
+      
+    
+    {\displaystyle S=A^{T}A}
+   it can also be used for the calculation of these values. For this case, the method is modified in such a way that S must not be explicitly calculated which reduces the danger of round-off errors. Note that 
+  
+    
+      
+        J
+        S
+        
+          J
+          
+            T
+          
+        
+        =
+        J
+        
+          A
+          
+            T
+          
+        
+        A
+        
+          J
+          
+            T
+          
+        
+        =
+        J
+        
+          A
+          
+            T
+          
+        
+        
+          J
+          
+            T
+          
+        
+        J
+        A
+        
+          J
+          
+            T
+          
+        
+        =
+        
+          B
+          
+            T
+          
+        
+        B
+      
+    
+    {\displaystyle JSJ^{T}=JA^{T}AJ^{T}=JA^{T}J^{T}JAJ^{T}=B^{T}B}
+    with  
+  
+    
+      
+        B
+        
+        :=
+        J
+        A
+        
+          J
+          
+            T
+          
+        
+      
+    
+    {\displaystyle B\,:=JAJ^{T}}
+   .
+The Jacobi Method is also well suited for parallelism.
+
+References
+Further reading
+External links
+Matlab implementation of Jacobi algorithm that avoids trigonometric functions
+C++11 implementation

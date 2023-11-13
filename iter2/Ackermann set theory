@@ -1,0 +1,724 @@
+In mathematics and logic, Ackermann set theory (AST) is an axiomatic set theory proposed by Wilhelm Ackermann in 1956.AST differs from Zermelo–Fraenkel set theory (ZF) in that it allows proper classes, that is, objects that are not sets, including a class of all sets.
+It replaces several of the standard ZF axioms for constructing new sets with a principle known as Ackermann's schema. Intuitively, the schema allows a new set to be constructed if it can be defined by a formula which does not refer to the class of all sets.
+In its use of classes, AST differs from other alternative set theories such as Morse–Kelley set theory and Von Neumann–Bernays–Gödel set theory in that a class may be an element of another class.
+William N. Reinhardt established in 1970 that AST is effectively equivalent in strength to ZF, putting it on equal foundations. In particular, AST is consistent if and only if ZF is consistent.
+
+Preliminaries
+AST is formulated in first-order logic. The language 
+  
+    
+      
+        
+          L
+          
+            {
+            ∈
+            ,
+            V
+            }
+          
+        
+      
+    
+    {\displaystyle L_{\{\in ,V\}}}
+   of AST contains one binary relation 
+  
+    
+      
+        ∈
+      
+    
+    {\displaystyle \in }
+   denoting set membership and one constant 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   denoting the class of all sets. Ackermann used a predicate 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   instead of 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  ; this is equivalent as each of 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   and 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   can be defined in terms of the other.We will refer to elements of 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   as sets, and general objects as classes. A class that is not a set is called a proper class.
+
+Axioms
+The following formulation is due to Reinhardt.
+The five axioms include two axiom schemas.
+Ackermann's original formulation included only the first four of these, omitting the axiom of regularity.
+
+1. Axiom of extensionality
+If two classes have the same elements, then they are equal.
+
+  
+    
+      
+        ∀
+        x
+        
+        (
+        x
+        ∈
+        A
+        ↔
+        x
+        ∈
+        B
+        )
+        →
+        A
+        =
+        B
+        .
+      
+    
+    {\displaystyle \forall x\;(x\in A\leftrightarrow x\in B)\to A=B.}
+  This axiom is identical to the axiom of extensionality found in many other set theories, including ZF.
+
+2. Heredity
+Any element or a subset of a set is a set.
+
+  
+    
+      
+        (
+        x
+        ∈
+        y
+        ∨
+        x
+        ⊆
+        y
+        )
+        ∧
+        y
+        ∈
+        V
+        →
+        x
+        ∈
+        V
+        .
+      
+    
+    {\displaystyle (x\in y\lor x\subseteq y)\land y\in V\to x\in V.}
+
+3. Comprehension schema
+For any property, we can form the class of sets satisfying that property. Formally, for any formula 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   where 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   is not free:
+
+  
+    
+      
+        ∃
+        X
+        
+        ∀
+        x
+        
+        (
+        x
+        ∈
+        X
+        ↔
+        x
+        ∈
+        V
+        ∧
+        ϕ
+        )
+        .
+      
+    
+    {\displaystyle \exists X\;\forall x\;(x\in X\leftrightarrow x\in V\land \phi ).}
+  That is, the only restriction is that comprehension is restricted to objects in 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  . But the resulting object is not necessarily a set.
+
+4. Ackermann's schema
+For any formula 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   with free variables 
+  
+    
+      
+        
+          a
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            n
+          
+        
+        ,
+        x
+      
+    
+    {\displaystyle a_{1},\ldots ,a_{n},x}
+   and no occurrences of 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  :
+
+  
+    
+      
+        
+          a
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            n
+          
+        
+        ∈
+        V
+        ∧
+        ∀
+        x
+        
+        (
+        ϕ
+        →
+        x
+        ∈
+        V
+        )
+        →
+        ∃
+        X
+        
+          ∈
+        
+        V
+        
+        ∀
+        x
+        
+        (
+        x
+        ∈
+        X
+        ↔
+        ϕ
+        )
+        .
+      
+    
+    {\displaystyle a_{1},\ldots ,a_{n}\in V\land \forall x\;(\phi \to x\in V)\to \exists X{\in }V\;\forall x\;(x\in X\leftrightarrow \phi ).}
+  Ackermann's schema is a form of set comprehension that is unique to AST. It allows constructing a new set (not just a class) as long as we can define it by a property that does not refer to the symbol 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  . This is the principle that replaces ZF axioms such as pairing, union, and power set.
+
+5. Regularity
+Any set contains an element disjoint from itself:
+
+  
+    
+      
+        ∀
+        x
+        ∈
+        V
+        
+        (
+        x
+        =
+        ∅
+        ∨
+        ∃
+        y
+        (
+        y
+        ∈
+        x
+        ∧
+        y
+        ∩
+        x
+        ≠
+        ∅
+        )
+        )
+        .
+      
+    
+    {\displaystyle \forall x\in V\;(x=\varnothing \lor \exists y(y\in x\land y\cap x\neq \varnothing )).}
+  Here, 
+  
+    
+      
+        y
+        ∩
+        x
+        ≠
+        ∅
+      
+    
+    {\displaystyle y\cap x\neq \varnothing }
+   is shorthand for 
+  
+    
+      
+        ∄
+        z
+        
+        (
+        z
+        ∈
+        x
+        ∧
+        z
+        ∈
+        y
+        )
+      
+    
+    {\displaystyle \not \exists z\;(z\in x\land z\in y)}
+  . This axiom is identical to the axiom of regularity in ZF.
+This axiom is conservative in the sense that without it, we can simply use comprehension (axiom schema 3) to restrict our attention to the subclass of sets that are regular.
+
+Alternative formulations
+Ackermann's original axioms did not include regularity, and used a predicate symbol 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   instead of the constant symbol 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  . We follow Lévy and Reinhardt in replacing instances of 
+  
+    
+      
+        M
+        x
+      
+    
+    {\displaystyle Mx}
+   with 
+  
+    
+      
+        x
+        ∈
+        V
+      
+    
+    {\displaystyle x\in V}
+  . This is equivalent because 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   can be given a definition as 
+  
+    
+      
+        x
+        ∈
+        V
+      
+    
+    {\displaystyle x\in V}
+  , and conversely, the set 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   can be obtained in Ackermann's original formulation by applying comprehension to the predicate 
+  
+    
+      
+        ϕ
+        =
+        
+          True
+        
+      
+    
+    {\displaystyle \phi ={\text{True}}}
+  .In axiomatic set theory, Ralf Schindler replaces Ackermann's schema (axiom schema 4) with the following reflection principle:
+for any formula 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   with free variables 
+  
+    
+      
+        
+          a
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            n
+          
+        
+      
+    
+    {\displaystyle a_{1},\ldots ,a_{n}}
+  ,
+
+  
+    
+      
+        
+          a
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            n
+          
+        
+        
+          ∈
+        
+        V
+        →
+        (
+        ϕ
+        ↔
+        
+          ϕ
+          
+            V
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle a_{1},\ldots ,a_{n}{\in }V\to (\phi \leftrightarrow \phi ^{V}).}
+  Here, 
+  
+    
+      
+        
+          ϕ
+          
+            V
+          
+        
+      
+    
+    {\displaystyle \phi ^{V}}
+   denotes the relativization of 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   to 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  , which replaces all quantifiers in 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   of the form 
+  
+    
+      
+        ∀
+        x
+      
+    
+    {\displaystyle \forall x}
+   and 
+  
+    
+      
+        ∃
+        x
+      
+    
+    {\displaystyle \exists x}
+   by 
+  
+    
+      
+        ∀
+        x
+        
+          ∈
+        
+        V
+      
+    
+    {\displaystyle \forall x{\in }V}
+   and 
+  
+    
+      
+        ∃
+        x
+        
+          ∈
+        
+        V
+      
+    
+    {\displaystyle \exists x{\in }V}
+  , respectively.
+
+Relation to Zermelo–Fraenkel set theory
+Let 
+  
+    
+      
+        
+          L
+          
+            {
+            ∈
+            }
+          
+        
+      
+    
+    {\displaystyle L_{\{\in \}}}
+   be the language of formulas that do not mention 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  .
+In 1959, Azriel Lévy proved that if 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   is a formula of 
+  
+    
+      
+        
+          L
+          
+            {
+            ∈
+            }
+          
+        
+      
+    
+    {\displaystyle L_{\{\in \}}}
+   and AST proves 
+  
+    
+      
+        
+          ϕ
+          
+            V
+          
+        
+      
+    
+    {\displaystyle \phi ^{V}}
+  , then ZF proves 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+  .In 1970, William N. Reinhardt proved that if 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   is a formula of 
+  
+    
+      
+        
+          L
+          
+            {
+            ∈
+            }
+          
+        
+      
+    
+    {\displaystyle L_{\{\in \}}}
+   and ZF proves 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+  , then AST proves 
+  
+    
+      
+        
+          ϕ
+          
+            V
+          
+        
+      
+    
+    {\displaystyle \phi ^{V}}
+  .Therefore, AST and ZF are mutually interpretable in conservative extensions of each other. Thus they are equiconsistent.
+A remarkable feature of AST is that, unlike NBG and its variants, a proper class can be an element of another proper class.
+
+Extensions
+An extension of AST for category theory called ARC was developed by F.A. Muller. Muller stated that ARC "founds Cantorian set-theory as well as category-theory and therefore can pass as a founding theory of the whole of mathematics".
+
+See also
+Foundations of mathematics
+List of alternative set theories
+Zermelo set theory
+
+Notes
+
+
+== References ==

@@ -1,0 +1,1121 @@
+The Bernstein–Vazirani algorithm, which solves the Bernstein–Vazirani problem,  is a quantum algorithm invented by Ethan Bernstein and Umesh Vazirani in 1997. It is a restricted version of the Deutsch–Jozsa algorithm  where instead of distinguishing between two different classes of functions, it tries to learn a string encoded in a function.  The Bernstein–Vazirani algorithm was designed to prove an oracle separation between complexity classes BQP and BPP.
+
+Problem statement
+Given an oracle that implements a function 
+  
+    
+      
+        f
+        :
+        {
+        0
+        ,
+        1
+        
+          }
+          
+            n
+          
+        
+        →
+        {
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle f\colon \{0,1\}^{n}\rightarrow \{0,1\}}
+   in which 
+  
+    
+      
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle f(x)}
+   is promised to be the dot product between 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and a secret string 
+  
+    
+      
+        s
+        ∈
+        {
+        0
+        ,
+        1
+        
+          }
+          
+            n
+          
+        
+      
+    
+    {\displaystyle s\in \{0,1\}^{n}}
+   modulo 2, 
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        x
+        ⋅
+        s
+        =
+        
+          x
+          
+            1
+          
+        
+        
+          s
+          
+            1
+          
+        
+        ⊕
+        
+          x
+          
+            2
+          
+        
+        
+          s
+          
+            2
+          
+        
+        ⊕
+        ⋯
+        ⊕
+        
+          x
+          
+            n
+          
+        
+        
+          s
+          
+            n
+          
+        
+      
+    
+    {\displaystyle f(x)=x\cdot s=x_{1}s_{1}\oplus x_{2}s_{2}\oplus \cdots \oplus x_{n}s_{n}}
+  , find 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  .
+
+Algorithm
+Classically, the most efficient method to find the secret string is by evaluating the function 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   times with the input values 
+  
+    
+      
+        x
+        =
+        
+          2
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x=2^{i}}
+   for all 
+  
+    
+      
+        i
+        ∈
+        {
+        0
+        ,
+        1
+        ,
+        .
+        .
+        .
+        ,
+        n
+        −
+        1
+        }
+      
+    
+    {\displaystyle i\in \{0,1,...,n-1\}}
+  :
+
+  
+    
+      
+        
+          
+            
+              
+                f
+                (
+                1000
+                ⋯
+                
+                  0
+                  
+                    n
+                  
+                
+                )
+              
+              
+                
+                =
+                
+                  s
+                  
+                    1
+                  
+                
+              
+            
+            
+              
+                f
+                (
+                0100
+                ⋯
+                
+                  0
+                  
+                    n
+                  
+                
+                )
+              
+              
+                
+                =
+                
+                  s
+                  
+                    2
+                  
+                
+              
+            
+            
+              
+                f
+                (
+                0010
+                ⋯
+                
+                  0
+                  
+                    n
+                  
+                
+                )
+              
+              
+                
+                =
+                
+                  s
+                  
+                    3
+                  
+                
+              
+            
+            
+              
+              
+                
+                
+                
+                
+                ⋮
+              
+            
+            
+              
+                f
+                (
+                0000
+                ⋯
+                
+                  1
+                  
+                    n
+                  
+                
+                )
+              
+              
+                
+                =
+                
+                  s
+                  
+                    n
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}f(1000\cdots 0_{n})&=s_{1}\\f(0100\cdots 0_{n})&=s_{2}\\f(0010\cdots 0_{n})&=s_{3}\\&\,\,\,\vdots \\f(0000\cdots 1_{n})&=s_{n}\\\end{aligned}}}
+  In contrast to the classical solution which needs at least 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   queries of the function to find 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  , only one query is needed using quantum computing. The quantum algorithm is as follows: Apply a Hadamard transform to the 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   qubit state 
+  
+    
+      
+        
+          |
+        
+        0
+        
+          ⟩
+          
+            ⊗
+            n
+          
+        
+      
+    
+    {\displaystyle |0\rangle ^{\otimes n}}
+   to get 
+
+  
+    
+      
+        
+          
+            1
+            
+              
+                2
+                
+                  n
+                
+              
+            
+          
+        
+        
+          ∑
+          
+            x
+            =
+            0
+          
+          
+            
+              2
+              
+                n
+              
+            
+            −
+            1
+          
+        
+        
+          |
+        
+        x
+        ⟩
+        .
+      
+    
+    {\displaystyle {\frac {1}{\sqrt {2^{n}}}}\sum _{x=0}^{2^{n}-1}|x\rangle .}
+  Next, apply the oracle 
+  
+    
+      
+        
+          U
+          
+            f
+          
+        
+      
+    
+    {\displaystyle U_{f}}
+   which transforms 
+  
+    
+      
+        
+          |
+        
+        x
+        ⟩
+        →
+        (
+        −
+        1
+        
+          )
+          
+            f
+            (
+            x
+            )
+          
+        
+        
+          |
+        
+        x
+        ⟩
+      
+    
+    {\displaystyle |x\rangle \to (-1)^{f(x)}|x\rangle }
+  . This can be simulated through the standard oracle that transforms 
+  
+    
+      
+        
+          |
+        
+        b
+        ⟩
+        
+          |
+        
+        x
+        ⟩
+        →
+        
+          |
+        
+        b
+        ⊕
+        f
+        (
+        x
+        )
+        ⟩
+        
+          |
+        
+        x
+        ⟩
+      
+    
+    {\displaystyle |b\rangle |x\rangle \to |b\oplus f(x)\rangle |x\rangle }
+   by applying this oracle to 
+  
+    
+      
+        
+          
+            
+              
+                |
+              
+              0
+              ⟩
+              −
+              
+                |
+              
+              1
+              ⟩
+            
+            
+              2
+            
+          
+        
+        
+          |
+        
+        x
+        ⟩
+      
+    
+    {\displaystyle {\frac {|0\rangle -|1\rangle }{\sqrt {2}}}|x\rangle }
+  . (
+  
+    
+      
+        ⊕
+      
+    
+    {\displaystyle \oplus }
+   denotes addition mod two.) This transforms the superposition into
+
+  
+    
+      
+        
+          
+            1
+            
+              
+                2
+                
+                  n
+                
+              
+            
+          
+        
+        
+          ∑
+          
+            x
+            =
+            0
+          
+          
+            
+              2
+              
+                n
+              
+            
+            −
+            1
+          
+        
+        (
+        −
+        1
+        
+          )
+          
+            f
+            (
+            x
+            )
+          
+        
+        
+          |
+        
+        x
+        ⟩
+        .
+      
+    
+    {\displaystyle {\frac {1}{\sqrt {2^{n}}}}\sum _{x=0}^{2^{n}-1}(-1)^{f(x)}|x\rangle .}
+  Another Hadamard transform is applied to each qubit which makes it so that for qubits where 
+  
+    
+      
+        
+          s
+          
+            i
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle s_{i}=1}
+  , its state is converted from 
+  
+    
+      
+        
+          |
+        
+        −
+        ⟩
+      
+    
+    {\displaystyle |-\rangle }
+   to 
+  
+    
+      
+        
+          |
+        
+        1
+        ⟩
+      
+    
+    {\displaystyle |1\rangle }
+   and for qubits where 
+  
+    
+      
+        
+          s
+          
+            i
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle s_{i}=0}
+  , its state is converted from 
+  
+    
+      
+        
+          |
+        
+        +
+        ⟩
+      
+    
+    {\displaystyle |+\rangle }
+   to 
+  
+    
+      
+        
+          |
+        
+        0
+        ⟩
+      
+    
+    {\displaystyle |0\rangle }
+  . To obtain 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  , a measurement in the standard basis (
+  
+    
+      
+        {
+        
+          |
+        
+        0
+        ⟩
+        ,
+        
+          |
+        
+        1
+        ⟩
+        }
+      
+    
+    {\displaystyle \{|0\rangle ,|1\rangle \}}
+  ) is performed on the qubits.
+Graphically, the algorithm may be represented by the following diagram, where 
+  
+    
+      
+        
+          H
+          
+            ⊗
+            n
+          
+        
+      
+    
+    {\displaystyle H^{\otimes n}}
+   denotes the Hadamard transform on 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   qubits:
+
+  
+    
+      
+        
+          |
+        
+        0
+        
+          ⟩
+          
+            n
+          
+        
+        
+          →
+          
+            
+              H
+              
+                ⊗
+                n
+              
+            
+          
+        
+        
+          
+            1
+            
+              
+                2
+                
+                  n
+                
+              
+            
+          
+        
+        
+          ∑
+          
+            x
+            ∈
+            {
+            0
+            ,
+            1
+            
+              }
+              
+                n
+              
+            
+          
+        
+        
+          |
+        
+        x
+        ⟩
+        
+          →
+          
+            
+              U
+              
+                f
+              
+            
+          
+        
+        
+          
+            1
+            
+              
+                2
+                
+                  n
+                
+              
+            
+          
+        
+        
+          ∑
+          
+            x
+            ∈
+            {
+            0
+            ,
+            1
+            
+              }
+              
+                n
+              
+            
+          
+        
+        (
+        −
+        1
+        
+          )
+          
+            f
+            (
+            x
+            )
+          
+        
+        
+          |
+        
+        x
+        ⟩
+        
+          →
+          
+            
+              H
+              
+                ⊗
+                n
+              
+            
+          
+        
+        
+          
+            1
+            
+              2
+              
+                n
+              
+            
+          
+        
+        
+          ∑
+          
+            x
+            ,
+            y
+            ∈
+            {
+            0
+            ,
+            1
+            
+              }
+              
+                n
+              
+            
+          
+        
+        (
+        −
+        1
+        
+          )
+          
+            f
+            (
+            x
+            )
+            +
+            x
+            ⋅
+            y
+          
+        
+        
+          |
+        
+        y
+        ⟩
+        =
+        
+          |
+        
+        s
+        ⟩
+      
+    
+    {\displaystyle |0\rangle ^{n}\xrightarrow {H^{\otimes n}} {\frac {1}{\sqrt {2^{n}}}}\sum _{x\in \{0,1\}^{n}}|x\rangle \xrightarrow {U_{f}} {\frac {1}{\sqrt {2^{n}}}}\sum _{x\in \{0,1\}^{n}}(-1)^{f(x)}|x\rangle \xrightarrow {H^{\otimes n}} {\frac {1}{2^{n}}}\sum _{x,y\in \{0,1\}^{n}}(-1)^{f(x)+x\cdot y}|y\rangle =|s\rangle }
+  The reason that the last state is 
+  
+    
+      
+        
+          |
+        
+        s
+        ⟩
+      
+    
+    {\displaystyle |s\rangle }
+   is because, for a particular 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  ,
+
+  
+    
+      
+        
+          
+            1
+            
+              2
+              
+                n
+              
+            
+          
+        
+        
+          ∑
+          
+            x
+            ∈
+            {
+            0
+            ,
+            1
+            
+              }
+              
+                n
+              
+            
+          
+        
+        (
+        −
+        1
+        
+          )
+          
+            f
+            (
+            x
+            )
+            +
+            x
+            ⋅
+            y
+          
+        
+        =
+        
+          
+            1
+            
+              2
+              
+                n
+              
+            
+          
+        
+        
+          ∑
+          
+            x
+            ∈
+            {
+            0
+            ,
+            1
+            
+              }
+              
+                n
+              
+            
+          
+        
+        (
+        −
+        1
+        
+          )
+          
+            x
+            ⋅
+            s
+            +
+            x
+            ⋅
+            y
+          
+        
+        =
+        
+          
+            1
+            
+              2
+              
+                n
+              
+            
+          
+        
+        
+          ∑
+          
+            x
+            ∈
+            {
+            0
+            ,
+            1
+            
+              }
+              
+                n
+              
+            
+          
+        
+        (
+        −
+        1
+        
+          )
+          
+            x
+            ⋅
+            (
+            s
+            ⊕
+            y
+            )
+          
+        
+        =
+        1
+        
+           if 
+        
+        s
+        ⊕
+        y
+        =
+        
+          
+            
+              0
+              →
+            
+          
+        
+        ,
+        
+        0
+        
+           otherwise
+        
+        .
+      
+    
+    {\displaystyle {\frac {1}{2^{n}}}\sum _{x\in \{0,1\}^{n}}(-1)^{f(x)+x\cdot y}={\frac {1}{2^{n}}}\sum _{x\in \{0,1\}^{n}}(-1)^{x\cdot s+x\cdot y}={\frac {1}{2^{n}}}\sum _{x\in \{0,1\}^{n}}(-1)^{x\cdot (s\oplus y)}=1{\text{ if }}s\oplus y={\vec {0}},\,0{\text{ otherwise}}.}
+  Since 
+  
+    
+      
+        s
+        ⊕
+        y
+        =
+        
+          
+            
+              0
+              →
+            
+          
+        
+      
+    
+    {\displaystyle s\oplus y={\vec {0}}}
+   is only true when 
+  
+    
+      
+        s
+        =
+        y
+      
+    
+    {\displaystyle s=y}
+  , this means that the only non-zero amplitude is on 
+  
+    
+      
+        
+          |
+        
+        s
+        ⟩
+      
+    
+    {\displaystyle |s\rangle }
+  . So, measuring the output of the circuit in the computational basis yields the secret string 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  .
+
+See also
+Hidden Linear Function problem
+
+
+== References ==

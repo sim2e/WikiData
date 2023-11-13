@@ -1,0 +1,758 @@
+In lambda calculus, the Church–Rosser theorem states that, when applying reduction rules to terms,  the ordering in which the reductions are chosen does not make a difference to the eventual result.
+More precisely, if there are two distinct reductions or sequences of reductions that can be applied to the same term, then there exists a term that is reachable from both results, by applying (possibly empty) sequences of additional reductions. The theorem was proved in 1936 by Alonzo Church and J. Barkley Rosser, after whom it is named.
+The theorem is symbolized by the adjacent diagram: If term a can be reduced to both b and c, then there must be a further term d (possibly equal to either b or c) to which both b and c can be reduced.
+Viewing the lambda calculus as an abstract rewriting system, the Church–Rosser theorem states that the reduction rules of the lambda calculus are confluent.  As a consequence of the theorem, a term in the lambda calculus has at most one normal form, justifying reference to "the normal form" of a given normalizable term.
+
+History
+In 1936, Alonzo Church and J. Barkley Rosser proved that the theorem holds for β-reduction in the λI-calculus (in which every abstracted variable must appear in the term's body). The proof method is known as "finiteness of developments", and it has additional consequences such as the Standardization Theorem, which relates to a method in which reductions can be performed from left to right to reach a normal form (if one exists). The result for the pure untyped lambda calculus was proved by D. E. Schroer in 1965.
+
+Pure untyped lambda calculus
+One type of reduction in the pure untyped lambda calculus for which the Church–Rosser theorem applies is β-reduction, in which a subterm of the form 
+  
+    
+      
+        (
+        λ
+        x
+        .
+        t
+        )
+        s
+      
+    
+    {\displaystyle (\lambda x.t)s}
+   is contracted by the substitution 
+  
+    
+      
+        t
+        [
+        x
+        :=
+        s
+        ]
+      
+    
+    {\displaystyle t[x:=s]}
+  . If β-reduction is denoted by 
+  
+    
+      
+        
+          →
+          
+            β
+          
+        
+      
+    
+    {\displaystyle \rightarrow _{\beta }}
+   and its reflexive, transitive closure by 
+  
+    
+      
+        
+          ↠
+          
+            β
+          
+        
+      
+    
+    {\displaystyle \twoheadrightarrow _{\beta }}
+   then the Church–Rosser theorem is that:
+
+  
+    
+      
+        ∀
+        M
+        ,
+        
+          N
+          
+            1
+          
+        
+        ,
+        
+          N
+          
+            2
+          
+        
+        ∈
+        Λ
+        :
+        
+          if
+        
+         
+        M
+        
+          ↠
+          
+            β
+          
+        
+        
+          N
+          
+            1
+          
+        
+         
+        
+          and
+        
+         
+        M
+        
+          ↠
+          
+            β
+          
+        
+        
+          N
+          
+            2
+          
+        
+         
+        
+          then
+        
+         
+        ∃
+        X
+        ∈
+        Λ
+        :
+        
+          N
+          
+            1
+          
+        
+        
+          ↠
+          
+            β
+          
+        
+        X
+         
+        
+          and
+        
+         
+        
+          N
+          
+            2
+          
+        
+        
+          ↠
+          
+            β
+          
+        
+        X
+      
+    
+    {\displaystyle \forall M,N_{1},N_{2}\in \Lambda :{\text{if}}\ M\twoheadrightarrow _{\beta }N_{1}\ {\text{and}}\ M\twoheadrightarrow _{\beta }N_{2}\ {\text{then}}\ \exists X\in \Lambda :N_{1}\twoheadrightarrow _{\beta }X\ {\text{and}}\ N_{2}\twoheadrightarrow _{\beta }X}
+  A consequence of this property is that two terms equal in 
+  
+    
+      
+        λ
+        β
+      
+    
+    {\displaystyle \lambda \beta }
+   must reduce to a common term:
+
+  
+    
+      
+        ∀
+        M
+        ,
+        N
+        ∈
+        Λ
+        :
+        
+          if
+        
+         
+        λ
+        β
+        ⊢
+        M
+        =
+        N
+         
+        
+          then
+        
+         
+        ∃
+        X
+        :
+        M
+        
+          ↠
+          
+            β
+          
+        
+        X
+         
+        
+          and
+        
+         
+        N
+        
+          ↠
+          
+            β
+          
+        
+        X
+      
+    
+    {\displaystyle \forall M,N\in \Lambda :{\text{if}}\ \lambda \beta \vdash M=N\ {\text{then}}\ \exists X:M\twoheadrightarrow _{\beta }X\ {\text{and}}\ N\twoheadrightarrow _{\beta }X}
+  The theorem also applies to η-reduction, in which a subterm 
+  
+    
+      
+        λ
+        x
+        .
+        S
+        x
+      
+    
+    {\displaystyle \lambda x.Sx}
+   is replaced by 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+  . It also applies to βη-reduction, the union of the two reduction rules.
+
+Proof
+For β-reduction, one proof method originates from William W. Tait and Per Martin-Löf. Say that a binary relation 
+  
+    
+      
+        →
+      
+    
+    {\displaystyle \rightarrow }
+   satisfies the diamond property if:
+
+  
+    
+      
+        ∀
+        M
+        ,
+        
+          N
+          
+            1
+          
+        
+        ,
+        
+          N
+          
+            2
+          
+        
+        ∈
+        Λ
+        :
+        
+          if
+        
+         
+        M
+        →
+        
+          N
+          
+            1
+          
+        
+         
+        
+          and
+        
+         
+        M
+        →
+        
+          N
+          
+            2
+          
+        
+         
+        
+          then
+        
+         
+        ∃
+        X
+        ∈
+        Λ
+        :
+        
+          N
+          
+            1
+          
+        
+        →
+        X
+         
+        
+          and
+        
+         
+        
+          N
+          
+            2
+          
+        
+        →
+        X
+      
+    
+    {\displaystyle \forall M,N_{1},N_{2}\in \Lambda :{\text{if}}\ M\rightarrow N_{1}\ {\text{and}}\ M\rightarrow N_{2}\ {\text{then}}\ \exists X\in \Lambda :N_{1}\rightarrow X\ {\text{and}}\ N_{2}\rightarrow X}
+  Then the Church–Rosser property is the statement that 
+  
+    
+      
+        
+          ↠
+          
+            β
+          
+        
+      
+    
+    {\displaystyle \twoheadrightarrow _{\beta }}
+   satisfies the diamond property. We introduce a new reduction 
+  
+    
+      
+        
+          →
+          
+            ‖
+          
+        
+      
+    
+    {\displaystyle \rightarrow _{\|}}
+   whose reflexive transitive closure is 
+  
+    
+      
+        
+          ↠
+          
+            β
+          
+        
+      
+    
+    {\displaystyle \twoheadrightarrow _{\beta }}
+   and which satisfies the diamond property. By induction on the number of steps in the reduction, it thus follows that 
+  
+    
+      
+        
+          ↠
+          
+            β
+          
+        
+      
+    
+    {\displaystyle \twoheadrightarrow _{\beta }}
+   satisfies the diamond property.
+The relation 
+  
+    
+      
+        
+          →
+          
+            ‖
+          
+        
+      
+    
+    {\displaystyle \rightarrow _{\|}}
+   has the formation rules:
+
+  
+    
+      
+        M
+        
+          →
+          
+            ‖
+          
+        
+        M
+      
+    
+    {\displaystyle M\rightarrow _{\|}M}
+  
+If 
+  
+    
+      
+        M
+        
+          →
+          
+            ‖
+          
+        
+        
+          M
+          ′
+        
+      
+    
+    {\displaystyle M\rightarrow _{\|}M'}
+   and 
+  
+    
+      
+        N
+        
+          →
+          
+            ‖
+          
+        
+        
+          N
+          ′
+        
+      
+    
+    {\displaystyle N\rightarrow _{\|}N'}
+   then 
+  
+    
+      
+        λ
+        x
+        .
+        M
+        
+          →
+          
+            ‖
+          
+        
+        λ
+        x
+        .
+        
+          M
+          ′
+        
+      
+    
+    {\displaystyle \lambda x.M\rightarrow _{\|}\lambda x.M'}
+   and 
+  
+    
+      
+        M
+        N
+        
+          →
+          
+            ‖
+          
+        
+        
+          M
+          ′
+        
+        
+          N
+          ′
+        
+      
+    
+    {\displaystyle MN\rightarrow _{\|}M'N'}
+   and 
+  
+    
+      
+        (
+        λ
+        x
+        .
+        M
+        )
+        N
+        
+          →
+          
+            ‖
+          
+        
+        
+          M
+          ′
+        
+        [
+        x
+        :=
+        
+          N
+          ′
+        
+        ]
+      
+    
+    {\displaystyle (\lambda x.M)N\rightarrow _{\|}M'[x:=N']}
+  The η-reduction rule can be proved to be Church–Rosser directly. Then, it can be proved that β-reduction and η-reduction commute in the sense that:
+If 
+  
+    
+      
+        M
+        
+          →
+          
+            β
+          
+        
+        
+          N
+          
+            1
+          
+        
+      
+    
+    {\displaystyle M\rightarrow _{\beta }N_{1}}
+   and 
+  
+    
+      
+        M
+        
+          →
+          
+            η
+          
+        
+        
+          N
+          
+            2
+          
+        
+      
+    
+    {\displaystyle M\rightarrow _{\eta }N_{2}}
+   then there exists a term 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   such that 
+  
+    
+      
+        
+          N
+          
+            1
+          
+        
+        
+          →
+          
+            η
+          
+        
+        X
+      
+    
+    {\displaystyle N_{1}\rightarrow _{\eta }X}
+   and 
+  
+    
+      
+        
+          N
+          
+            2
+          
+        
+        
+          →
+          
+            β
+          
+        
+        X
+      
+    
+    {\displaystyle N_{2}\rightarrow _{\beta }X}
+  .Hence we can conclude that βη-reduction is Church–Rosser.
+
+Normalisation
+A reduction rule that satisfies the Church–Rosser property has the property that every term M can have at most one distinct normal form, as follows: if X and Y are normal forms of M then by the Church–Rosser property, they both reduce to an equal term Z. Both terms are already normal forms so 
+  
+    
+      
+        X
+        =
+        Z
+        =
+        Y
+      
+    
+    {\displaystyle X=Z=Y}
+  .If a reduction is strongly normalising (there are no infinite reduction paths) then a weak form of the Church–Rosser property implies the full property (see Newman's lemma). The weak property, for a relation 
+  
+    
+      
+        →
+      
+    
+    {\displaystyle \rightarrow }
+  , is:
+
+  
+    
+      
+        ∀
+        M
+        ,
+        
+          N
+          
+            1
+          
+        
+        ,
+        
+          N
+          
+            2
+          
+        
+        ∈
+        Λ
+        :
+      
+    
+    {\displaystyle \forall M,N_{1},N_{2}\in \Lambda :}
+   if 
+  
+    
+      
+        M
+        →
+        
+          N
+          
+            1
+          
+        
+      
+    
+    {\displaystyle M\rightarrow N_{1}}
+   and 
+  
+    
+      
+        M
+        →
+        
+          N
+          
+            2
+          
+        
+      
+    
+    {\displaystyle M\rightarrow N_{2}}
+   then there exists a term 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   such that 
+  
+    
+      
+        
+          N
+          
+            1
+          
+        
+        ↠
+        X
+      
+    
+    {\displaystyle N_{1}\twoheadrightarrow X}
+   and 
+  
+    
+      
+        
+          N
+          
+            2
+          
+        
+        ↠
+        X
+      
+    
+    {\displaystyle N_{2}\twoheadrightarrow X}
+  .
+
+Variants
+The Church–Rosser theorem also holds for many variants of the lambda calculus, such as the simply-typed lambda calculus, many calculi with advanced type systems, and Gordon Plotkin's beta-value calculus. Plotkin also used a Church–Rosser theorem to prove that the evaluation of functional programs (for both lazy evaluation and eager evaluation) is a function from programs to values (a subset of the lambda terms).
+In older research papers, a rewriting system is said to be Church–Rosser, or to have the Church–Rosser property, when it is confluent.
+
+Notes
+References
+Alama, Jesse (2017). Zalta, Edward N. (ed.). The Stanford Encyclopedia of Philosophy (Fall 2017 ed.). Metaphysics Research Lab, Stanford University.
+Church, Alonzo; Rosser, J. Barkley (May 1936), "Some properties of conversion" (PDF), Transactions of the American Mathematical Society, 39 (3): 472–482, doi:10.2307/1989762, JSTOR 1989762.
+Barendregt, Hendrik Pieter (1984), The Lambda Calculus: Its Syntax and Semantics, Studies in Logic and the Foundations of Mathematics, vol. 103 (Revised ed.), North Holland, Amsterdam, ISBN 0-444-87508-5, archived from the original on 2004-08-23. Errata.

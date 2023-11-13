@@ -1,0 +1,20 @@
+In computational complexity theory, the complexity class FNP is the function problem extension of the decision problem class NP. The name is somewhat of a misnomer, since technically it is a class of binary relations, not functions, as the following formal definition explains:
+
+A binary relation P(x,y), where y is at most polynomially longer than x, is in FNP if and only if there is a deterministic polynomial time algorithm that can determine whether P(x,y) holds given both x and y.This definition does not involve nondeterminism and is analogous to the verifier definition of NP.  
+There is an NP language directly corresponding to every FNP relation, sometimes called the decision problem induced by or corresponding to said FNP relation. It is the language formed by taking all the x for which P(x,y) holds given some y; however, there may be more than one FNP relation for a particular decision problem.
+Many problems in NP, including many NP-complete problems, ask whether a particular object exists, such as a satisfying assignment, a graph coloring, or a clique of a certain size. The FNP versions of these problems ask not only if it exists but what its value is if it does. This means that the FNP version of every NP-complete problem is NP-hard. Bellare and Goldwasser showed in 1994 using some standard assumptions that there exist problems in NP such that their FNP versions are not self-reducible, implying that they are harder than their corresponding decision problem.For each P(x,y) in FNP, the search problem associated with P(x,y) is: given x, find a y such that P(x,y) holds, or state that no such y exists. The search problem for every relation in FNP can be solved in polynomial time if and only if P = NP. This result is usually stated as  "FP = FNP if and only if P = NP"; however, for this statement to be true, it is necessary to redefine FP and FNP so that the members of FP and FNP are not relations, but are instead search problems associated with relations.
+
+Reductions
+Let  P1 and P2 be two problems in FNP, with associated verification algorithms A1, A2. A reduction P1 and P2 is defined as two efficiently-computable functions, f and g, such that
+f maps inputs x to P1 to inputs f(x) to P2 ;
+g maps outputs y to P2 to outputs g(y) to P1 ;
+For all x and y: if A2(f(x),y) returns true, then A1(x, g(y)) returns true;
+For all x: if A2(f(x),y) returns false, then A1(x, g(y)) returns false for all y.
+
+Related complexity classes
+FP is the set of binary relations for which there is a polynomial time algorithm that, given x, finds some y for which P(x,y) holds.  The relation between FNP and FP is analogous to the relation between NP and P.
+TFNP is a subset of FNP: it contains those relations in FNP for which, for every x, there exists at least one y for which P(x,y) holds.
+
+References
+External links
+Complexity Zoo: FNP

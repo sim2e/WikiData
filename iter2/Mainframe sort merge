@@ -1,0 +1,40 @@
+The Sort/Merge utility is a mainframe program to sort records in a file into a specified order, merge pre-sorted files into a sorted file, or copy selected records.  Internally, these utilities use one or more of the standard sorting algorithms, often with proprietary fine-tuned code.
+Mainframes were originally supplied with limited main memory by today's standards and the amount of data to be sorted was frequently very large. Because of this, unlike more recent sort programs, early Sort/Merge programs placed great emphasis on efficient techniques for sorting data on secondary storage, typically tape or disk.  In 1968 the OS/360 Sort/Merge program provided five different "sequence distribution techniques" that could be used depending on the number and type of devices available.Prior to the System/370, all IBM mainframe operating systems included sort/merge utilities. With the announcement of virtual storage operating systems, DOS/VS and OS/VS, IBM unbundled much of the software and offered chargeable sort/merge program products. For OS/VS IBM offered 5740-SM1, OS/VS Sort/Merge, later renamed Data Facility Sort (DFSORT).
+In 1990 IBM introduced a new merge algorithm called BLOCKSET in DFSORT the successor to OS/360 Sort/Merge.  Of historical note, the BLOCKSET algorithm was invented by an IBM Systems Engineer in 1963 and was discovered in IBM's archives and implemented in 1990.Sort/Merge is very frequently used; often the most commonly used application program in a mainframe shop generally consuming about twenty percent of the processing power of the shop.
+Modern Sort/Merge programs also can copy files, select or omit certain records, summarize records, remove duplicates, reformat records, append new data and produce reports. Indeed, most Sort/Merge applications use the wide range of additional processing capabilities, rather than purely sorting or merging records: the Sort/Merge product is a very fast way of performing input to and output from these functions. Quite a number of "user exits" are supported, and these may be load modules (i.e., a member of a library), or object decks (i.e., the output of an assembler), with the Sort/Merge application loading (load modules) or linking (object decks; termed "dynamic link editing" in DFSORT) the exit, as specified and required. Working storage datasets (i.e., SORTWK01, ..., SORTWKnn) may be disk or tape, although the BLOCKSET algorithm is restricted to disk working storage; more working storage datasets generally improves performance.
+Sort/merge is important enough that there are multiple companies each selling their own sort/merge package for IBM mainframes and their z/OS, z/VM and z/VSE operating systems. These programs are largely compatible with IBM's SORT programs, often with some extensions. The major Sort/Merge packages are:
+
+DFSORT sold by IBM.
+SyncSort sold by Syncsort, Inc.
+CA-Sort sold by CA Technologies.(Some of these companies also sell versions for other platforms, such as Unix, Linux, or Windows.)
+Sort/Merge is a critical component of many mainframe environments. When migrating from the mainframe to other platforms such as Unix, Linux or Windows, a Sort/Merge utility is needed. MFSORT from Micro Focus and AHLSORT.  These products emulate the functions of DFSORT outside of the Mainframe environment.
+Historically, the "alias" SORT has been used to refer to an installation's preferred sort program, IBM's Sort/Merge, and third party Sort/Merge programs (i.e., SYNCSORT, CASORT). DFSORT is often referred to by its program name, ICEMAN (component ICE; the original OS/360 Sort/Merge program name was IERRCO00, component IER, also with "alias" SORT).
+
+IBM OS/360 SORT
+Prior to virtual storage operating systems, "The input data set [was] almost always too large to be brought into main storage
+and sorted all at once." SORT used a replacement selection technique to reduce storage usage. The program placed emphasis on sequence distribution techniques, which could be defaulted depending on the number and type of devices available, or could be specified by the user, for making best use of secondary storage "sort work" (SORTWK) files. These techniques were methods of distributing partially sorted sequences of records most efficiently.
+There were five distribution techniques available to the OS/360 SORT:
+Magnetic tape techniques
+Balanced (BALN) - required a minimum of 12,000 bytes of main storage and 2x+1 tape devices for intermediate storage, where x is the number of input tape volumes, up to a maximum of 15 input reels.
+Polyphase (POLY) - required a minimum of 12,000 bytes and 3 intermediate storage tape devices. Only one input reel was allowed.
+Oscillating (OSCL) - required 21,000 bytes and max(x+2,4) intermediate tape devices, where x is the number of input volumes, up to a maximum of 15.
+Direct access techniques
+Balanced (BALN) - required a minimum of 13,000 bytes and 3 to 6 disk work areas. The maximum number of records that could be sorted depended on the main and auxiliary storage available.
+Crisscross (CRCX) - Not available for IBM 2311 or IBM 2301 auxiliary storage devices. Required a minimum of 24,000 bytes of main storage and 6 to 17 auxiliary storage workareas. The maximum number of records that could be sorted depended on the main and auxiliary storage available.
+
+IBM OS/VS SORT
+The distribution techniques listed for tape sorts were retained by the OS/VS SORT program, now called "conventional techniques." The disk sort techniques were replaced by four new ones:
+FLR-Blockset for fixed length records
+VLR-Blockset for variable-length records
+Peerage for fixed length records
+Vale for both fixed and variable-length records
+
+See also
+BatchPipes
+External sort
+
+Notes
+References
+External links
+IBM DFSORT Manuals
+Some basic DFSORT and SyncSort examples

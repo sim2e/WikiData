@@ -1,0 +1,107 @@
+In computer science, pseudocode is a description of the steps in an algorithm using a mix of conventions of programming languages (like assignment operator, conditional operator, loop) with informal, usually self-explanatory, notation of actions and conditions. Although pseudocode shares features with regular programming languages, it is intended for human reading rather than machine control. Pseudocode typically omits details that are essential for machine implementation of the algorithm. The programming language is augmented with natural language description details, where convenient, or with compact mathematical notation. The purpose of using pseudocode is that it is easier for people to understand than conventional programming language code, and that it is an efficient and environment-independent description of the key principles of an algorithm. It is commonly used in textbooks and scientific publications to document algorithms and in planning of software and other algorithms.
+No broad standard for pseudocode syntax exists, as a program in pseudocode is not an executable program; however, certain limited standards exist (such as for academic assessment). Pseudocode resembles skeleton programs, which can be compiled without errors. Flowcharts, drakon-charts and Unified Modelling Language (UML) charts can be thought of as a graphical alternative to pseudocode, but need more space on paper. Languages such as HAGGIS bridge the gap between pseudocode and code written in programming languages.
+
+Application
+Textbooks and scientific publications related to computer science and numerical computation often use pseudocode in description of algorithms, so that all programmers can understand them, even if they do not all know the same programming languages. In textbooks, there is usually an accompanying introduction explaining the particular conventions in use. The level of detail of the pseudocode may in some cases approach that of formalized general-purpose languages.
+A programmer who needs to implement a specific algorithm, especially an unfamiliar one, will often start with a pseudocode description, and then  "translate" that description into the target programming language and modify it to interact correctly with the rest of the program. Programmers may also start a project by sketching out the code in pseudocode on paper before writing it in its actual language, as a top-down structuring approach, with a process of steps to be followed as a refinement.
+The pseudocode is widely used in standardization, with the notable examples provided by the MPEG standards that make a very heavy use of C-like pseudocode and cannot be understood without grasping the details of the code.
+
+Syntax
+Pseudocode generally does not actually obey the syntax rules of any particular language; there is no systematic standard form. Some writers borrow style and syntax from control structures from some conventional programming language, although this is discouraged. Some syntax sources include Fortran, Pascal, BASIC, C, C++, Java, Lisp, and ALGOL. Variable declarations are typically omitted. Function calls and blocks of code, such as code contained within a loop, are often replaced by a one-line natural language sentence.
+Depending on the writer, pseudocode may therefore vary widely in style, from a near-exact imitation of a real programming language at one extreme, to a description approaching formatted prose at the other.
+
+Mathematical style pseudocode
+In numerical computation, pseudocode often consists of mathematical notation, typically from matrix and set theory, mixed with the control structures of a conventional programming language, and perhaps also natural language descriptions. This is a compact and often informal notation that can be understood by a wide range of mathematically trained people, and is frequently used as a way to describe mathematical algorithms. For example, the sum operator (capital-sigma notation) or the product operator (capital-pi notation) may represent a for-loop and a selection structure in one expression:
+
+Return 
+  
+    
+      
+        
+          ∑
+          
+            k
+            ∈
+            S
+          
+        
+        
+          x
+          
+            k
+          
+        
+      
+    
+    {\displaystyle \sum _{k\in S}x_{k}}
+  
+
+Normally non-ASCII typesetting is used for the mathematical equations, for example by means of markup languages, such as TeX or MathML, or proprietary formula editors.
+Mathematical style pseudocode is sometimes referred to as pidgin code, for example pidgin ALGOL (the origin of the concept), pidgin Fortran, pidgin BASIC, pidgin Pascal, pidgin C, and pidgin Lisp.
+
+Common mathematical symbols
+Example
+Here follows a longer example of mathematical-style pseudocode, for the Ford–Fulkerson algorithm:
+
+algorithm ford-fulkerson is
+    input: Graph G with flow capacity c, 
+           source node s, 
+           sink node t
+    output: Flow f such that f is maximal from s to t
+
+    (Note that f(u,v) is the flow from node u to node v, and c(u,v) is the flow capacity from node u to node v)
+
+    for each edge (u, v) in GE do
+        f(u, v) ← 0
+        f(v, u) ← 0
+
+    while there exists a path p from s to t in the residual network Gf do
+        let cf be the flow capacity of the residual network Gf
+        cf(p) ← min{cf(u, v) | (u, v) in p}
+        for each edge (u, v) in p do
+            f(u, v) ←  f(u, v) + cf(p)
+            f(v, u) ← −f(u, v)
+
+    return f
+
+Machine compilation of pseudocode style languages
+Natural language grammar in programming languages
+Various attempts to bring elements of natural language grammar into computer programming have produced programming languages such as HyperTalk, Lingo, AppleScript, SQL, Inform, and to some extent Python. In these languages, parentheses and other special characters are replaced by prepositions, resulting in quite verbose code. These languages are typically dynamically typed, meaning that variable declarations and other boilerplate code can be omitted. Such languages may make it easier for a person without knowledge about the language to understand the code and perhaps also to learn the language. However, the similarity to natural language is usually more cosmetic than genuine. The syntax rules may be just as strict and formal as in conventional programming, and do not necessarily make development of the programs easier.
+
+Mathematical programming languages
+An alternative to using mathematical pseudocode (involving set theory notation or matrix operations) for documentation of algorithms is to use a formal mathematical programming language that is a mix of non-ASCII mathematical notation and program control structures. Then the code can be parsed and interpreted by a machine.
+Several formal specification languages include set theory notation using special characters. Examples are:
+
+Z notation
+Vienna Development Method Specification Language (VDM-SL).Some array programming languages include vectorized expressions and matrix operations as non-ASCII formulas, mixed with conventional control structures. Examples are:
+
+A programming language (APL), and its dialects APLX and A+.
+MathCAD.
+
+Online programming languages
+There are many websites that can run commonly used pseudocode syntax. Examples are:
+
+PseudoEditor.com
+
+See also
+Concept programming
+Drakon-chart
+Flowchart
+Literate programming
+Program Design Language
+Short Code
+Structured English
+
+References
+Further reading
+Zobel, Justin (2013). "Algorithms". Writing for Computer Science (Second ed.). Springer. ISBN 978-1-85233-802-2.
+Roy, Geoffrey G (2006). "Designing and explaining programs with a literate pseudocode". Journal on Educational Resources in Computing. Association for Computing Machinery (ACM). 6 (1): 1. doi:10.1145/1217862.1217863. ISSN 1531-4278.
+Ulate-Caballero, Bryan Alexander; Berrocal-Rojas, Allan; Hidalgo-Cespedes, Jeisson (2021-10-25). Concurrent and Distributed Pseudocode: A Systematic Literature Review. IEEE. doi:10.1109/clei53233.2021.9640222.
+Reisig, Wolfgang (2007). "Abstract State Machines for the Classroom". Logics of Specification Languages. Monographs in Theoretical Computer Science. An EATCS Series. Springer Berlin Heidelberg. pp. 15–46. ISBN 978-3-540-74107-7. Retrieved 2023-10-05.
+Mitchell, Joan L.; Pennebaker, William B.; Fogg, Chad E.; LeGall, Didier J. (1996). "Pseudocode and Flowcharts". MPEG Video Compression Standard. New York, NY: Springer US. pp. 105–116. doi:10.1007/0-306-46983-9_6. ISBN 978-0-412-08771-4.
+
+External links
+
+A pseudocode standard
+Collected Algorithms of the ACM
+Pseudocode Guidelines, PDF file.

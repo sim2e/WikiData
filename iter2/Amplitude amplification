@@ -1,0 +1,1773 @@
+Amplitude amplification is a technique in quantum computing which generalizes the idea behind Grover's search algorithm, and gives rise to a family of quantum algorithms.
+It was discovered by Gilles Brassard and Peter Høyer in 1997, and independently rediscovered by Lov Grover in 1998.In a quantum computer, amplitude amplification can be used to obtain a quadratic speedup over several classical algorithms.
+
+Algorithm
+The derivation presented here roughly follows the one given by Brassard et al. in 2000.
+Assume we have an 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+  -dimensional Hilbert space 
+  
+    
+      
+        
+          
+            H
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}}
+   representing the state space of a quantum system, spanned by the orthonormal computational basis states 
+  
+    
+      
+        B
+        :=
+        {
+        
+          |
+        
+        k
+        ⟩
+        
+          }
+          
+            k
+            =
+            0
+          
+          
+            N
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle B:=\{|k\rangle \}_{k=0}^{N-1}}
+  .
+Furthermore assume we have a Hermitian projection operator 
+  
+    
+      
+        P
+        :
+        
+          
+            H
+          
+        
+        →
+        
+          
+            H
+          
+        
+      
+    
+    {\displaystyle P\colon {\mathcal {H}}\to {\mathcal {H}}}
+  .
+Alternatively, 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   may be given in terms of a Boolean oracle function
+
+  
+    
+      
+        χ
+        :
+        
+          Z
+        
+        →
+        {
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle \chi \colon \mathbb {Z} \to \{0,1\}}
+  
+and an orthonormal operational basis
+
+  
+    
+      
+        
+          B
+          
+            op
+          
+        
+        :=
+        {
+        
+          |
+        
+        
+          ω
+          
+            k
+          
+        
+        ⟩
+        
+          }
+          
+            k
+            =
+            0
+          
+          
+            N
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle B_{\text{op}}:=\{|\omega _{k}\rangle \}_{k=0}^{N-1}}
+  ,
+in which case
+
+  
+    
+      
+        P
+        :=
+        
+          ∑
+          
+            χ
+            (
+            k
+            )
+            =
+            1
+          
+        
+        
+          |
+        
+        
+          ω
+          
+            k
+          
+        
+        ⟩
+        ⟨
+        
+          ω
+          
+            k
+          
+        
+        
+          |
+        
+      
+    
+    {\displaystyle P:=\sum _{\chi (k)=1}|\omega _{k}\rangle \langle \omega _{k}|}
+  .
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   can be used to partition 
+  
+    
+      
+        
+          
+            H
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}}
+   into a direct sum of two mutually orthogonal subspaces, the good subspace 
+  
+    
+      
+        
+          
+            
+              H
+            
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}_{1}}
+   and the bad subspace 
+  
+    
+      
+        
+          
+            
+              H
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}_{0}}
+  :In other words, we are defining a "good subspace" 
+  
+    
+      
+        
+          
+            
+              H
+            
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}_{1}}
+   via the projector 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  . The goal of the algorithm is then to evolve some initial state 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+        ∈
+        
+          
+            H
+          
+        
+      
+    
+    {\displaystyle |\psi \rangle \in {\mathcal {H}}}
+   into a state belonging to 
+  
+    
+      
+        
+          
+            
+              H
+            
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}_{1}}
+  .
+Given a normalized state vector 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+        ∈
+        
+          
+            H
+          
+        
+      
+    
+    {\displaystyle |\psi \rangle \in {\mathcal {H}}}
+   with nonzero overlap with both subspaces, we can uniquely decompose it as
+
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+        =
+        sin
+        ⁡
+        (
+        θ
+        )
+        
+          |
+        
+        
+          ψ
+          
+            1
+          
+        
+        ⟩
+        +
+        cos
+        ⁡
+        (
+        θ
+        )
+        
+          |
+        
+        
+          ψ
+          
+            0
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle =\sin(\theta )|\psi _{1}\rangle +\cos(\theta )|\psi _{0}\rangle }
+  ,where 
+  
+    
+      
+        θ
+        =
+        arcsin
+        ⁡
+        
+          (
+          
+            |
+            
+              P
+              
+                |
+              
+              ψ
+              ⟩
+            
+            |
+          
+          )
+        
+        ∈
+        [
+        0
+        ,
+        π
+        
+          /
+        
+        2
+        ]
+      
+    
+    {\displaystyle \theta =\arcsin \left(\left|P|\psi \rangle \right|\right)\in [0,\pi /2]}
+  ,
+and
+
+  
+    
+      
+        
+          |
+        
+        
+          ψ
+          
+            1
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\psi _{1}\rangle }
+   and 
+  
+    
+      
+        
+          |
+        
+        
+          ψ
+          
+            0
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\psi _{0}\rangle }
+   are the normalized projections of  
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   into the subspaces 
+  
+    
+      
+        
+          
+            
+              H
+            
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}_{1}}
+   and 
+  
+    
+      
+        
+          
+            
+              H
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}_{0}}
+  , respectively. This decomposition defines a two-dimensional subspace
+
+  
+    
+      
+        
+          
+            
+              H
+            
+          
+          
+            ψ
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}_{\psi }}
+  , spanned by the vectors
+
+  
+    
+      
+        
+          |
+        
+        
+          ψ
+          
+            0
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\psi _{0}\rangle }
+   and 
+  
+    
+      
+        
+          |
+        
+        
+          ψ
+          
+            1
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\psi _{1}\rangle }
+  .
+The probability of finding the system in a good state when measured is 
+  
+    
+      
+        
+          sin
+          
+            2
+          
+        
+        ⁡
+        (
+        θ
+        )
+      
+    
+    {\displaystyle \sin ^{2}(\theta )}
+  .
+Define a unitary operator 
+  
+    
+      
+        Q
+        (
+        ψ
+        ,
+        P
+        )
+        :=
+        −
+        
+          S
+          
+            ψ
+          
+        
+        
+          S
+          
+            P
+          
+        
+        
+        
+      
+    
+    {\displaystyle Q(\psi ,P):=-S_{\psi }S_{P}\,\!}
+  , where
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  S
+                  
+                    ψ
+                  
+                
+              
+              
+                
+                =
+                I
+                −
+                2
+                
+                  |
+                
+                ψ
+                ⟩
+                ⟨
+                ψ
+                
+                  |
+                
+                
+                
+                  and
+                
+              
+            
+            
+              
+                
+                  S
+                  
+                    P
+                  
+                
+              
+              
+                
+                =
+                I
+                −
+                2
+                P
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}S_{\psi }&=I-2|\psi \rangle \langle \psi |\quad {\text{and}}\\S_{P}&=I-2P.\end{aligned}}}
+  
+  
+    
+      
+        
+          S
+          
+            P
+          
+        
+      
+    
+    {\displaystyle S_{P}}
+   flips the phase of the states in the good subspace, whereas
+
+  
+    
+      
+        
+          S
+          
+            ψ
+          
+        
+      
+    
+    {\displaystyle S_{\psi }}
+   flips the phase of the initial state 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+  .
+The action of this operator on 
+  
+    
+      
+        
+          
+            
+              H
+            
+          
+          
+            ψ
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}_{\psi }}
+   is given by
+
+  
+    
+      
+        Q
+        
+          |
+        
+        
+          ψ
+          
+            0
+          
+        
+        ⟩
+        =
+        −
+        
+          S
+          
+            ψ
+          
+        
+        
+          |
+        
+        
+          ψ
+          
+            0
+          
+        
+        ⟩
+        =
+        (
+        2
+        
+          cos
+          
+            2
+          
+        
+        ⁡
+        (
+        θ
+        )
+        −
+        1
+        )
+        
+          |
+        
+        
+          ψ
+          
+            0
+          
+        
+        ⟩
+        +
+        2
+        sin
+        ⁡
+        (
+        θ
+        )
+        cos
+        ⁡
+        (
+        θ
+        )
+        
+          |
+        
+        
+          ψ
+          
+            1
+          
+        
+        ⟩
+      
+    
+    {\displaystyle Q|\psi _{0}\rangle =-S_{\psi }|\psi _{0}\rangle =(2\cos ^{2}(\theta )-1)|\psi _{0}\rangle +2\sin(\theta )\cos(\theta )|\psi _{1}\rangle }
+   and
+
+  
+    
+      
+        Q
+        
+          |
+        
+        
+          ψ
+          
+            1
+          
+        
+        ⟩
+        =
+        
+          S
+          
+            ψ
+          
+        
+        
+          |
+        
+        
+          ψ
+          
+            1
+          
+        
+        ⟩
+        =
+        −
+        2
+        sin
+        ⁡
+        (
+        θ
+        )
+        cos
+        ⁡
+        (
+        θ
+        )
+        
+          |
+        
+        
+          ψ
+          
+            0
+          
+        
+        ⟩
+        +
+        (
+        1
+        −
+        2
+        
+          sin
+          
+            2
+          
+        
+        ⁡
+        (
+        θ
+        )
+        )
+        
+          |
+        
+        
+          ψ
+          
+            1
+          
+        
+        ⟩
+      
+    
+    {\displaystyle Q|\psi _{1}\rangle =S_{\psi }|\psi _{1}\rangle =-2\sin(\theta )\cos(\theta )|\psi _{0}\rangle +(1-2\sin ^{2}(\theta ))|\psi _{1}\rangle }
+  .Thus in the 
+  
+    
+      
+        
+          
+            
+              H
+            
+          
+          
+            ψ
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}_{\psi }}
+   subspace 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+   corresponds to a rotation by the angle 
+  
+    
+      
+        2
+        θ
+        
+        
+      
+    
+    {\displaystyle 2\theta \,\!}
+  :
+
+  
+    
+      
+        Q
+        =
+        
+          
+            (
+            
+              
+                
+                  cos
+                  ⁡
+                  (
+                  2
+                  θ
+                  )
+                
+                
+                  −
+                  sin
+                  ⁡
+                  (
+                  2
+                  θ
+                  )
+                
+              
+              
+                
+                  sin
+                  ⁡
+                  (
+                  2
+                  θ
+                  )
+                
+                
+                  cos
+                  ⁡
+                  (
+                  2
+                  θ
+                  )
+                
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle Q={\begin{pmatrix}\cos(2\theta )&-\sin(2\theta )\\\sin(2\theta )&\cos(2\theta )\end{pmatrix}}}
+  .Applying 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+   
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   times on the state
+
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+  
+gives
+
+  
+    
+      
+        
+          Q
+          
+            n
+          
+        
+        
+          |
+        
+        ψ
+        ⟩
+        =
+        cos
+        ⁡
+        (
+        (
+        2
+        n
+        +
+        1
+        )
+        θ
+        )
+        
+          |
+        
+        
+          ψ
+          
+            0
+          
+        
+        ⟩
+        +
+        sin
+        ⁡
+        (
+        (
+        2
+        n
+        +
+        1
+        )
+        θ
+        )
+        
+          |
+        
+        
+          ψ
+          
+            1
+          
+        
+        ⟩
+      
+    
+    {\displaystyle Q^{n}|\psi \rangle =\cos((2n+1)\theta )|\psi _{0}\rangle +\sin((2n+1)\theta )|\psi _{1}\rangle }
+  ,rotating the state between the good and bad subspaces.
+After 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   iterations the probability of finding the
+system in a good state is 
+  
+    
+      
+        
+          sin
+          
+            2
+          
+        
+        ⁡
+        (
+        (
+        2
+        n
+        +
+        1
+        )
+        θ
+        )
+        
+        
+      
+    
+    {\displaystyle \sin ^{2}((2n+1)\theta )\,\!}
+  .The probability is maximized if we choose
+
+  
+    
+      
+        n
+        =
+        
+          ⌊
+          
+            
+              π
+              
+                4
+                θ
+              
+            
+          
+          ⌋
+        
+      
+    
+    {\displaystyle n=\left\lfloor {\frac {\pi }{4\theta }}\right\rfloor }
+  .Up until this point each iteration increases the amplitude of the good states, hence the name of the technique.
+
+Applications
+Assume we have an unsorted database with N elements, and an oracle function 
+  
+    
+      
+        χ
+      
+    
+    {\displaystyle \chi }
+   which can recognize the good entries we are searching for, and 
+  
+    
+      
+        
+          B
+          
+            op
+          
+        
+        =
+        B
+      
+    
+    {\displaystyle B_{\text{op}}=B}
+   for simplicity.
+If there are 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   good entries in the database in total, then we can find them by initializing a quantum register 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   with 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   qubits where 
+  
+    
+      
+        
+          2
+          
+            n
+          
+        
+        =
+        N
+      
+    
+    {\displaystyle 2^{n}=N}
+   into a uniform superposition of all the database elements 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+   such that
+
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+        =
+        
+          
+            1
+            
+              N
+            
+          
+        
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            N
+            −
+            1
+          
+        
+        
+          |
+        
+        k
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle ={\frac {1}{\sqrt {N}}}\sum _{k=0}^{N-1}|k\rangle }
+  and running the above algorithm. In this case the overlap of the initial state with the good subspace is equal to the square root of the frequency of the good entries in the database, 
+  
+    
+      
+        sin
+        ⁡
+        (
+        θ
+        )
+        =
+        
+          |
+        
+        P
+        
+          |
+        
+        ψ
+        ⟩
+        
+          |
+        
+        =
+        
+          
+            G
+            
+              /
+            
+            N
+          
+        
+      
+    
+    {\displaystyle \sin(\theta )=|P|\psi \rangle |={\sqrt {G/N}}}
+  . If 
+  
+    
+      
+        sin
+        ⁡
+        (
+        θ
+        )
+        ≪
+        1
+      
+    
+    {\displaystyle \sin(\theta )\ll 1}
+  , we can approximate the number of required iterations as
+
+  
+    
+      
+        n
+        =
+        
+          ⌊
+          
+            
+              π
+              
+                4
+                θ
+              
+            
+          
+          ⌋
+        
+        ≈
+        
+          ⌊
+          
+            
+              π
+              
+                4
+                sin
+                ⁡
+                (
+                θ
+                )
+              
+            
+          
+          ⌋
+        
+        =
+        
+          ⌊
+          
+            
+              
+                π
+                4
+              
+            
+            
+              
+                
+                  N
+                  G
+                
+              
+            
+          
+          ⌋
+        
+        =
+        O
+        (
+        
+          
+            N
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle n=\left\lfloor {\frac {\pi }{4\theta }}\right\rfloor \approx \left\lfloor {\frac {\pi }{4\sin(\theta )}}\right\rfloor =\left\lfloor {\frac {\pi }{4}}{\sqrt {\frac {N}{G}}}\right\rfloor =O({\sqrt {N}}).}
+  Measuring the state will now give one of the good entries with high probability. Since each application of 
+  
+    
+      
+        
+          S
+          
+            P
+          
+        
+      
+    
+    {\displaystyle S_{P}}
+   requires a single oracle query (assuming that the oracle is implemented as a quantum gate), we can find a good entry with just 
+  
+    
+      
+        O
+        (
+        
+          
+            N
+          
+        
+        )
+      
+    
+    {\displaystyle O({\sqrt {N}})}
+   oracle queries, thus obtaining a quadratic speedup over the best possible classical algorithm. (The classical method for searching the database would be to perform the query for every 
+  
+    
+      
+        e
+        ∈
+        {
+        0
+        ,
+        1
+        ,
+        …
+        ,
+        N
+        −
+        1
+        }
+      
+    
+    {\displaystyle e\in \{0,1,\dots ,N-1\}}
+   until a solution is found, thus costing 
+  
+    
+      
+        O
+        (
+        N
+        )
+      
+    
+    {\displaystyle O(N)}
+   queries.) Moreover, we can find all 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   solutions using 
+  
+    
+      
+        O
+        (
+        
+          
+            G
+            N
+          
+        
+        )
+      
+    
+    {\displaystyle O({\sqrt {GN}})}
+   queries.
+If we set the size of the set 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   to one, the above scenario essentially reduces to the original Grover search.
+
+Quantum counting
+Suppose that the number of good entries is unknown. We aim to estimate 
+  
+    
+      
+        
+          
+            
+              G
+              ~
+            
+          
+        
+      
+    
+    {\displaystyle {\tilde {G}}}
+   such that 
+  
+    
+      
+        (
+        1
+        −
+        δ
+        )
+        G
+        ≤
+        
+          
+            
+              G
+              ~
+            
+          
+        
+        ≤
+        (
+        1
+        +
+        δ
+        )
+        G
+      
+    
+    {\displaystyle (1-\delta )G\leq {\tilde {G}}\leq (1+\delta )G}
+   for small 
+  
+    
+      
+        δ
+        >
+        0
+      
+    
+    {\displaystyle \delta >0}
+  .  We can solve for 
+  
+    
+      
+        
+          
+            
+              G
+              ~
+            
+          
+        
+      
+    
+    {\displaystyle {\tilde {G}}}
+   by applying the quantum phase estimation algorithm on unitary operator 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+  . 
+Since 
+  
+    
+      
+        
+          e
+          
+            2
+            i
+            θ
+          
+        
+      
+    
+    {\displaystyle e^{2i\theta }}
+   and 
+  
+    
+      
+        
+          e
+          
+            −
+            2
+            i
+            θ
+          
+        
+      
+    
+    {\displaystyle e^{-2i\theta }}
+   are the only two eigenvalues of 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+  , we can let their corresponding eigenvectors be 
+  
+    
+      
+        
+          |
+        
+        
+          ψ
+          
+            1
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\psi _{1}\rangle }
+   and 
+  
+    
+      
+        
+          |
+        
+        
+          ψ
+          
+            2
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\psi _{2}\rangle }
+  . We can find the eigenvalue 
+  
+    
+      
+        
+          e
+          
+            2
+            i
+            θ
+          
+        
+      
+    
+    {\displaystyle e^{2i\theta }}
+   of 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+  , which in this case is equivalent to estimating the phase 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+  . This can be done by applying Fourier transforms and controlled unitary operations, as described in the quantum phase estimation algorithm. With the estimate 
+  
+    
+      
+        
+          
+            
+              θ
+              ~
+            
+          
+        
+      
+    
+    {\displaystyle {\tilde {\theta }}}
+  , we can estimate 
+  
+    
+      
+        sin
+        ⁡
+        
+          θ
+        
+      
+    
+    {\displaystyle \sin {\theta }}
+  , which in turn estimates 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  .
+Suppose we want to estimate 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   with arbitrary starting state 
+  
+    
+      
+        
+          |
+        
+        s
+        ⟩
+      
+    
+    {\displaystyle |s\rangle }
+  , instead of the eigenvectors 
+  
+    
+      
+        
+          |
+        
+        
+          ψ
+          
+            1
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\psi _{1}\rangle }
+   and 
+  
+    
+      
+        
+          |
+        
+        
+          ψ
+          
+            2
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\psi _{2}\rangle }
+  . We can do this by decomposing 
+  
+    
+      
+        
+          |
+        
+        s
+        ⟩
+      
+    
+    {\displaystyle |s\rangle }
+   into a linear combination of 
+  
+    
+      
+        
+          |
+        
+        
+          ψ
+          
+            1
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\psi _{1}\rangle }
+   and 
+  
+    
+      
+        
+          |
+        
+        
+          ψ
+          
+            2
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\psi _{2}\rangle }
+  , and then applying the phase estimation algorithm.
+
+
+== References ==

@@ -1,0 +1,24 @@
+In mathematics, the Bareiss algorithm, named after Erwin Bareiss, is an algorithm to calculate the determinant or the echelon form of a matrix with integer entries using only integer arithmetic; any divisions that are performed are guaranteed to be exact (there is no remainder). The method can also be used to compute the determinant of matrices with (approximated) real entries, avoiding the introduction of any round-off errors beyond those already present in the input.
+
+History
+The general Bareiss algorithm is distinct from the Bareiss algorithm for Toeplitz matrices.
+In some Spanish-speaking countries, this algorithm is also known as Bareiss-Montante, because of René Mario Montante Pardo, a professor of the Universidad Autónoma de Nuevo León, Mexico, who popularized the method among his students.
+
+Overview
+Determinant definition has only multiplication, addition and subtraction operations. Obviously the determinant is integer if all matrix entries are integer. However actual computation of the determinant using the definition or Leibniz formula is impractical, as it requires O(n!) operations.
+Gaussian elimination has O(n3) complexity, but introduces division, which results in round-off errors when implemented using floating point numbers.
+Round-off errors can be avoided if all the numbers are kept as integer fractions instead of floating point. But then the size of each element grows in size exponentially with the number of rows.Bareiss brings up a question of performing an integer-preserving elimination while keeping the magnitudes of the intermediate coefficients reasonably small. Two algorithms are suggested:
+Division-free algorithm — performs matrix reduction to triangular form without any division operation.
+Fraction-free algorithm — uses division to keep the intermediate entries smaller, but due to the Sylvester's Identity the transformation is still integer-preserving (the division has zero remainder).For completeness Bareiss also suggests fraction-producing multiplication-free elimination methods.
+
+The algorithm
+The program structure of this algorithm is a simple triple-loop, as in the standard Gaussian elimination. However in this case the matrix is modified so that each Mk,k entry contains the leading principal minor [M]k,k. Algorithm correctness is easily shown by induction on k.
+
+If the assumption about principal minors turns out to be false, e.g. if Mk−1,k−1 = 0 and some Mi,k−1 ≠ 0 (i = k,...,n) then we can exchange the k−1-th row with the i-th row and change the sign of the final answer.
+
+Analysis
+During execution of the Bareiss algorithm, every integer that is computed is the determinant of a submatrix of the input matrix. This allows, using the Hadamard inequality, to bound the size of these integers. Otherwise, the Bareiss algorithm may be viewed as a variant of Gaussian elimination and needs roughly the same number of arithmetic operations.
+It follows that, for an n × n matrix of maximum (absolute) value 2L for each entry, the Bareiss algorithm runs in O(n3) elementary operations with an O(nn/2 2nL) bound on the absolute value of intermediate values needed. Its computational complexity is thus O(n5L2 (log(n)2 + L2)) when using elementary arithmetic or O(n4L (log(n) + L) log(log(n) + L))) by using fast multiplication.
+
+
+== References ==

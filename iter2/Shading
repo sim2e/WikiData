@@ -1,0 +1,95 @@
+Shading refers to the depiction of depth perception in 3D models (within the field of 3D computer graphics) or illustrations (in visual art) by varying the level of darkness. Shading tries to approximate local behavior of light on the object's surface and is not to be confused with techniques of adding shadows, such as shadow mapping or shadow volumes, which fall under global behavior of light.
+
+In drawing
+Shading is used traditionally in drawing for depicting a range of darkness by applying media more densely or with a darker shade for darker areas, and less densely or with a lighter shade for lighter areas. Light patterns, such as objects having light and shaded areas, help when creating the illusion of depth on paper.There are various techniques of shading, including cross hatching, where perpendicular lines of varying closeness are drawn in a grid pattern to shade an area. The closer the lines are together, the darker the area appears. Likewise, the farther apart the lines are, the lighter the area appears.
+Powder shading is a sketching shading method. In this style, stumping powder and paper stumps are used to draw a picture. (This can be in color.) The stumping powder is smooth and doesn't have any shiny particles. The paper to be used should have small grains on it so that the powder remains on the paper.
+
+In computer graphics
+In computer graphics, shading refers to the process of altering the color of an object/surface/polygon in the 3D scene, based on things like (but not limited to) the surface's angle to lights, its distance from lights, its angle to the camera and material properties (e.g. bidirectional reflectance distribution function) to create a photorealistic effect.
+Shading is performed during the rendering process by a program called a shader.
+
+Surface angle to a light source
+Shading alters the colors of faces in a 3D model based on the angle of the surface to a light source or light sources.
+The first image below has the faces of the box rendered, but all in the same color. Edge lines have been rendered here as well which makes the image easier to see.
+The second image is the same model rendered without edge lines. It is difficult to tell where one face of the box ends and the next begins.
+The third image has shading enabled, which makes the image more realistic and makes it easier to see which face is which.
+
+Types of lighting
+When a shader computes the result color, it uses a lighting model to determine the amount of light reflected at specific points on the surface. Different lighting models can be combined with different shading techniques — while lighting says how much light is reflected, shading determines how this information is used in order to compute the final result. It may for example compute lighting only at specific points and use interpolation to fill in the rest. The shader may also decide about how many light sources to take into account etc.
+
+Ambient lighting
+An ambient light source represents an omni-directional, fixed-intensity and fixed-color light source that affects all objects in the scene equally (is omni-present). During rendering, all objects in the scene are brightened with the specified intensity and color. This type of light source is mainly used to provide the scene with a basic view of the different objects in it. This is the simplest type of lighting to implement, and models how light can be scattered or reflected many times, thereby producing a uniform effect.
+Ambient lighting can be combined with ambient occlusion to represent how exposed each point of the scene is, affecting the amount of ambient light it can reflect. This produces diffused, non-directional lighting throughout the scene, casting no clear shadows, but with enclosed and sheltered areas darkened. The result is usually visually similar to an overcast day.
+
+Point lighting
+Light originates from a single point and spreads outward in all directions.
+
+Spotlighting
+Models a spotlight: light originates from a single point and spreads outward in a cone.
+
+Area lighting
+Light originates from a small area on a single plane. (A more realistic model than a point light source.)
+
+Directional lighting
+A directional light source illuminates all objects equally from a given direction, like an area light of infinite size and infinite distance from the scene; there is shading, but cannot be any distance falloff. This is like the sun.
+
+Distance falloff
+Theoretically, two surfaces which are parallel are illuminated virtually the same amount from a distant unblocked light source such as the sun. The distance falloff effect produces images which have more shading and so would be realistic for proximal light sources.
+The left image doesn't use distance falloff. Notice that the colors on the front faces of the two boxes are exactly the same. It may appear that there is a slight difference where the two faces directly overlap, but this is an optical illusion caused by the vertical edge below where the two faces meet.
+The right image does use distance falloff. Notice that the front face of the closer box is brighter than the front face of the back box. Also, the floor goes from light to dark as it gets farther away.
+
+Calculation
+Distance falloff can be calculated in a number of ways:
+
+Power of the distance – For a given point at a distance x from the light source, the light intensity received is proportional to 1/xn.
+None (n = 0) – The light intensity received is the same regardless of the distance between the point and the light source.
+Linear (n = 1) – For a given point at a distance x from the light source, the light intensity received is proportional to 1/x.
+Quadratic (n = 2) – This is how light intensity decreases in reality if the light has a free path (i.e. no fog or any other thing in the air that can absorb or scatter the light). For a given point at a distance x from the light source, the light intensity received is proportional to 1/x2.
+Any number of other mathematical functions may also be used.
+
+Shading techniques
+During shading a surface normal is often needed for lighting computation. The normals can be precomputed and stored for each vertex of the model.
+
+Flat shading
+Here, the lighting is evaluated only once for each polygon (usually for the first vertex in the polygon, but sometimes for the centroid for triangle meshes), based on the polygon's surface normal and on the assumption that all polygons are flat. The computed color is used for the whole polygon, making the corners look sharp. This is usually used when more advanced shading techniques are too computationally expensive. Specular highlights are rendered poorly with flat shading: If there happens to be a large specular component at the representative vertex, that brightness is drawn uniformly over the entire face. If a specular highlight doesn't fall on the representative point, it is missed entirely. Consequently, the specular reflection component is usually not included in flat shading computation.
+
+Smooth shading
+In contrast to flat shading where the colors change discontinuously at polygon borders, with smooth shading the color changes from pixel to pixel, resulting in a smooth color transition between two adjacent polygons. Usually, values are first calculated in the vertices and bilinear interpolation is used to calculate the values of pixels between the vertices of the polygons. Types of smooth shading include Gouraud shading and Phong shading.
+
+Gouraud shading
+Determine the normal at each polygon vertex.
+Apply an illumination model to each vertex to calculate the light intensity from the vertex normal.
+Interpolate the vertex intensities using bilinear interpolation over the surface polygon.Problems:
+
+Due to lighting being computed only at vertices, the inaccuracies (especially of specular highlights on large triangles) can become too apparent.
+T-junctions with adjoining polygons can sometimes result in visual anomalies. In general, T-junctions should be avoided.
+
+Phong shading
+Phong shading is similar to Gouraud shading, except that instead of interpolating the light intensities the normals are interpolated between the vertices and the lighting is evaluated per-pixel. Thus, the specular highlights are computed much more precisely than in the Gouraud shading model.
+
+Compute a normal N for each vertex of the polygon.
+Using bilinear interpolation compute a normal, Ni for each pixel. (Normal has to be renormalized each time.)
+Apply an illumination model to each pixel to calculate the light intensity from Ni.
+
+Deferred shading
+Deferred shading is a shading technique by which computation of shading is deferred to later stage by rendering in two passes, potentially increasing performance by not discarding expensively shaded pixels. The first pass only captures surface parameters (such as depth, normals and material parameters), the second one performs the actual shading and computes the final colors.: 884
+
+Other approaches
+Both Gouraud shading and Phong shading can be implemented using bilinear interpolation. Bishop and Weimer  proposed to use a Taylor series expansion of the resulting expression from applying an illumination model and bilinear interpolation of the normals. Hence, second-degree polynomial interpolation  was used. This type of biquadratic interpolation was further elaborated by Barrera et al., where one second-order polynomial was used to interpolate the diffuse light of the Phong reflection model and another second-order polynomial was used for the specular light.
+Spherical linear interpolation (Slerp) was used by Kuij and Blake for computing both the normal over the polygon, as well as the vector in the direction to the light source. A similar approach was proposed by Hast, which uses quaternion interpolation of the normals with the advantage that the normal will always have unit length and the computationally heavy normalization is avoided.
+
+Flat vs. smooth shading
+Computer vision
+In computer vision, some methods for 3D reconstruction are based on shading, or shape-from-shading. Based on an image's shading, a three-dimensional model can be reconstructed from a single photograph.
+
+See also
+Computer graphics lighting
+Lambertian reflectance
+List of art techniques
+List of common shading algorithms
+Shader
+Zebra striping to visualize curvature
+
+References
+Further reading
+Introduction to Shading.

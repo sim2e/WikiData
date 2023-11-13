@@ -1,0 +1,35 @@
+A Browser Helper Object (BHO) is a DLL module designed as a plugin for the Microsoft Internet Explorer web browser to provide added functionality. BHOs were introduced in October 1997 with the release of version 4 of Internet Explorer. Most BHOs are loaded once by each new instance of Internet Explorer. However, in the case of Windows Explorer, a new instance is launched for each window.
+BHOs are still supported as of Windows 10, through Internet Explorer 11, while BHOs are not supported in Microsoft Edge.
+
+Implementation
+Each time a new instance of Internet Explorer starts, it checks the Windows Registry for the key HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects. If Internet Explorer finds this key in the registry, it looks for a CLSID key listed below the key. The CLSID keys under Browser Helper Objects tell the browser which BHOs to load. Removing the registry key prevents the BHO from being loaded. For each CLSID that is listed below the BHO key, Internet Explorer calls CoCreateInstance to start the instance of the BHO in the same process space as the browser. If the BHO is started and implements the IObjectWithSite interface, it can control and receive events from Internet Explorer. BHOs can be created in any language that supports COM.
+
+Examples
+Some modules enable the display of different file formats not ordinarily interpretable by the browser.  The Adobe Acrobat plug-in that allows Internet Explorer users to read PDF files within their browser is a BHO.
+Other modules add toolbars to Internet Explorer, such as the Alexa Toolbar that provides a list of web sites related to the one you are currently browsing, or the Google Toolbar that adds a toolbar with a Google search box to the browser user interface.
+The Conduit toolbars are based on a BHO that can be used on Internet Explorer 7 and up. This BHO provides a search facility that connects to Microsoft's Bing search.
+
+Concerns
+The BHO API exposes hooks that allow the BHO to access the Document Object Model (DOM) of the current page and to control navigation. Because BHOs have unrestricted access to the Internet Explorer event model, some forms of malware (such as adware and spyware) have also been created as BHOs.For example, the Download.ject malware is a BHO that is activated when a secure HTTP connection is made to a financial institution, then begins to record keystrokes for the purpose of capturing user passwords. The MyWay Searchbar tracks users' browsing patterns and passes the information it records to third parties. The C2.LOP malware adds links and popups of its own to web pages in order to drive users to pay-per-click websites.Many BHOs introduce visible changes to a browser's interface, such as installing toolbars in Internet Explorer and the like, but others run without any change to the interface.  This renders it easy for malicious coders to conceal the actions of their browser add-on, especially since, after being installed, the BHO seldom requires permission before performing further actions.  For instance, variants of the ClSpring trojan use BHOs to install scripts to provide a number of instructions to be performed such as adding and deleting registry values and downloading additional executable files, all completely transparently to the user. The DyFuCA spyware even replaces Internet Explorer's general error page with an ad page.
+In response to the problems associated with BHOs and similar extensions to Internet Explorer, Microsoft debuted an Add-on Manager in Internet Explorer 6 with the release of Service Pack 2 for Windows XP (updating it to IE6 Security Version 1, a.k.a. SP2).  This utility displays a list of all installed BHOs, browser extensions and ActiveX controls, and allows the user to enable or disable them at will.  There are also free tools (such as BHODemon) that list installed BHOs and allow the user to disable malicious extensions.  Spybot S&D advanced  mode has a similar tool built in to allow the user to disable installed BHO.
+
+See also
+Browser extension
+Plug-in (computing)
+HTML Components
+Add-on (Mozilla)
+Google Chrome Extensions
+
+References
+External links
+Sites.google.com Archived 2014-12-24 at the Wayback Machine
+
+Microsoft sites
+IEHelper-Attaching to Internet Explorer 4.0 by Using a Browser Helper Object
+Control Internet Explorer Add-ons with Add-on Manager – an article on Microsoft.com that explains this new feature of Windows XP Service Pack 2
+Building Browser Helper Objects with Visual Studio 2005 – an October 2006 MSDN article by Tony Schreiner and John Sudds
+
+Listings and examples
+CLSID List – master list created by Tony Kleinkramer, which attempts to record and identify every BHO available (previously located at – the now defunct – castlecops.com) – also includes Toolbar, Explorer Bar and URLSearchHook GUIDs
+C++ example code for a BHO
+C# example code for a BHO

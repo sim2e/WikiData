@@ -1,0 +1,37 @@
+In computing, a task is a unit of execution or a unit of work. The term is ambiguous; precise alternative terms include process, light-weight process, thread (for execution), step, request, or query (for work). In the adjacent diagram, there are queues of incoming work to do and outgoing completed work, and a thread pool of threads to perform this work. Either the work units themselves or the threads that perform the work can be referred to as "tasks", and these can be referred to respectively as requests/responses/threads, incoming tasks/completed tasks/threads (as illustrated), or requests/responses/tasks.
+
+Terminology
+In the sense of "unit of execution", in some operating systems, a task is synonymous with a process, and in others with a thread. In non-interactive execution (batch processing), a task is a unit of execution within a job, with the task itself typically a process. The term "multitasking" primarily refers to the processing sense – multiple tasks executing at the same time – but has nuances of the work sense of multiple tasks being performed at the same time.
+In the sense of "unit of work", in a job (meaning "one-off piece of work") a task can correspond to a single step (the step itself, not the execution thereof), while in batch processing individual tasks can correspond to a single step of processing a single item in a batch, or to a single step of processing all items in the batch. In online systems, tasks most commonly correspond to a single request (in request–response architectures) or a query (in information retrieval), either a single stage of handling, or the whole system-wide handling.
+
+Examples
+In the Java programming language, these two concepts (unit of work and unit of execution) are conflated when working directly with threads, but clearly distinguished in the Executors framework:
+
+When you work directly with threads, a Thread serves as both a unit of work and the mechanism for executing it. In the executor framework, the unit of work and the execution mechanism are separate. The key abstraction is the unit of work, which is called a task.
+
+IBM terminology
+IBM's use of the term has been influential, though underlining the ambiguity of the term, in IBM terminology, "task" has dozens of specific meanings, including:
+A unit of work representing one of the steps in a process.
+A unit of work to be accomplished by a device or process.
+A process and the procedures that run the process.
+A set of actions designed to achieve a particular result. A task is performed on a set of targets on a specific schedule.
+A unit of computation. In a parallel job, two or more concurrent tasks work together through message passing and shared memory. Although it is common to allocate one task per physical or logical processor, the terms "task" and "processor" are not interchangeable.
+An activity that has business value, is initiated by a user, and is performed by software.In z/OS specifically, it is defined precisely as:
+"In a multiprogramming or multiprocessing environment, one or more sequences of instructions treated by a control program as an element of work to be accomplished by a computer."The term task in OS/360 through z/OS is roughly equivalent to light-weight process; the tasks in a job step share an address space. However, in MVS/ESA through z/OS, a task or Service Request Block (SRB) may have access to other address spaces via its access list.
+
+Linux kernel
+The term task is used in the Linux kernel (at least since v2.6.13, up to and including v4.8) to refer to a unit of execution, which may share various system resources with other tasks on the system. Depending on the level of sharing, the task may be regarded as a conventional thread or process. Tasks are brought into existence using the clone() system call, where a user can specify the desired level of resource sharing.
+
+History
+The term task for a part of a job dates to multiprogramming in the early 1960s, as in this example from 1961:
+
+The serial model has the ability to process tasks of one job in an independent manner similar to the functioning of the IBM 709.
+The term was popularized with the introduction of OS/360 (announced 1964), which featured Multiprogramming with a Fixed number of Tasks (MFT) and Multiprogramming with a Variable number of Tasks (MVT). In this case tasks were identified with light-weight processes, a job consisted of a number of tasks, and, later, tasks could have sub-tasks (in modern terminology, child processes).
+Today the term "task" is used very ambiguously. For example, the Windows Task Manager manages (running) processes, while Windows Task Scheduler schedules programs to execute in future, what is traditionally known as a job scheduler, and uses the .job extension. By contrast, the term "task queue" is commonly used in the sense of "units of work".
+
+See also
+Task parallelism
+Task queue
+
+
+== References ==

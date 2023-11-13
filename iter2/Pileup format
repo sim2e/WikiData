@@ -1,0 +1,43 @@
+Pileup format is a text-based format for summarizing the base calls of aligned reads to a reference sequence. This format facilitates visual display of SNP/indel calling and alignment. It was first used by
+Tony Cox and Zemin Ning at the Wellcome Trust Sanger Institute, and became widely known through its implementation within the SAMtools software suite.
+
+Format
+Example
+The columns
+Each line consists of 5 (or optionally 6) tab-separated columns:
+
+Sequence identifier
+Position in sequence (starting from 1)
+Reference nucleotide at that position
+Number of aligned reads covering that position (depth of coverage)
+Bases at that position from aligned reads
+Phred Quality of those bases, represented in ASCII with -33 offset (OPTIONAL)
+
+Column 5: The bases string
+. (dot) means a base that matched the reference on the forward strand
+, (comma) means a base that matched the reference on the reverse strand
+</> (less-/greater-than sign) denotes a reference skip. This occurs, for example, if a base in the reference genome is intronic and a read maps to two flanking exons. If quality scores are given in a sixth column, they refer to the quality of the read and not the specific base.
+AGTCN (upper case) denotes a base that did not match the reference on the forward strand
+agtcn (lower case) denotes a base that did not match the reference on the reverse strand
+A sequence matching the regular expression \+[0-9]+[ACGTNacgtn]+ denotes an insertion of one or more bases starting from the next position. For example, +2AG means insertion of AG in the forward strand
+A sequence matching the regular expression \-[0-9]+[ACGTNacgtn]+ denotes a deletion of one or more bases starting from the next position. For example, -2ct means deletion of CT in the reverse strand
+^ (caret) marks the start of a read segment and the ASCII of the character following `^' minus 33 gives the mapping quality
+$ (dollar) marks the end of a read segment
+* (asterisk) is a placeholder for a deleted base in a multiple basepair deletion that was mentioned in a previous line by the -[0-9]+[ACGTNacgtn]+ notation
+
+Column 6: The base quality string
+This is an optional column. If present, the ASCII value of the character minus 33 gives the mapping Phred quality of each of the bases in the previous column 5. This is similar to quality encoding in the FASTQ format.
+
+File extension
+There is no standard file extension for a Pileup file, but .msf (multiple sequence file), .pup and .pileup are used.
+
+See also
+Variant Call Format
+FASTQ format
+List of file formats for molecular biology
+
+References
+External links
+SAMtools pileup description
+bioruby-pileup_iterator (A Ruby pileup parser)
+pysam (A Python pileup parser)

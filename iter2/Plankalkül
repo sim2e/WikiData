@@ -1,0 +1,631 @@
+Plankalkül (German pronunciation: [ˈplaːnkalkyːl]) is a programming language designed for engineering purposes by Konrad Zuse between 1942 and 1945. It was the first high-level programming language to be designed for a computer.
+Kalkül is the German term for a formal system—as in Hilbert-Kalkül, the original name for the Hilbert-style deduction system—so Plankalkül refers to a formal system for planning.
+
+History of programming
+In the domain of creating computing machines, Zuse was self-taught, and developed them without knowledge about other mechanical computing machines that existed already – although later on (building the Z3) being inspired by Hilbert's and Ackermann's book on elementary mathematical logic (see Principles of Mathematical Logic).: 113, 152, 216  To describe logical circuits, Zuse invented his own diagram and notation system, which he called "combinatorics of conditionals" (German: Bedingungskombinatorik). After finishing the Z1 in 1938, Zuse discovered that the calculus he had independently devised already existed and was known as propositional calculus.: 3  What Zuse had in mind, however, needed to be much more powerful (propositional calculus is not Turing-complete and is not able to describe even simple arithmetic calculations). In May 1939, he described his plans for the development of what would become Plankalkül.: 113, 152, 216  He wrote the following in his notebook:
+
+While working on his doctoral dissertation, Zuse developed the first known formal system of algorithm notation: 9  capable of handling branches and loops.: 18 : 56  In 1942 he began writing a chess program in Plankalkül.: 216–217  In 1944, Zuse met with the German logician and philosopher Heinrich Scholz, who expressed appreciation for Zuse's utilization of logical calculus. In 1945, Zuse described Plankalkül in an unpublished book. The collapse of Nazi Germany, however, prevented him from submitting his manuscript.: 18 At that time the only two working computers in the world were ENIAC and Harvard Mark I, neither of which used a compiler, and ENIAC needed to be reprogrammed for each task by changing how the wires were connected.: 3 Although most of his computers were destroyed by Allied bombs, Zuse was able to rescue one machine, the Z4, and move it to the Alpine village of Hinterstein: 8  (part of Bad Hindelang).
+
+The very first attempt to devise an algorithmic language was undertaken in 1948 by K. Zuse. His notation was quite general, but the proposal never attained the consideration it deserved.
+Unable to continue building computers – which was also forbidden by the Allied Powers – Zuse devoted his time to the development of a higher-level programming model and language.: 18  In 1948, he published a paper in the Archiv der Mathematik and presented at the Annual Meeting of the GAMM.: 89  His work failed to attract much attention. In a 1957 lecture, Zuse expressed his hope that Plankalkül, "after some time as a Sleeping Beauty, will yet come to life.": 3  He expressed disappointment that the designers of ALGOL 58 never acknowledged the influence of Plankalkül on their own work.: 18 : 15 Plankalkül was republished with commentary in 1972. The first compiler was implemented by Joachim Hohmann in his 1975 dissertation. Other independent implementations followed in 1998 and 2000 at the Free University of Berlin.: 2
+
+Description
+Plankalkül has drawn comparisons to the language APL, and to relational algebra. It includes assignment statements, subroutines, conditional statements, iteration, floating-point arithmetic, arrays, hierarchical record structures, assertions, exception handling, and other advanced features such as goal-directed execution. The Plankalkül provides a data structure called generalized graph (verallgemeinerter Graph), which can be used to represent geometrical structures.Many features of the Plankalkül reappear in later programming languages; an exception is its idiosyncratic two-dimensional notation using multiple lines.  
+Some features of the Plankalkül:: 217 
+only local variables
+functions do not support recursion
+only supports call by value
+composite types are arrays and tuples
+contains conditional expressions
+contains a for loop and a while loop
+no goto
+
+Data types
+The only primitive data type in the Plankalkül is a single bit or Boolean (German: Ja-Nein-Werte – yes-no value in Zuse's terminology). It is denoted by the identifier 
+  
+    
+      
+        S
+        0
+      
+    
+    {\displaystyle S0}
+  . All the further data types are composite, and build up from primitive by means of "arrays" and "records".: 679 So, a sequence of eight bits (which in modern computing could be regarded as byte) is denoted by 
+  
+    
+      
+        8
+        ×
+        S
+        0
+      
+    
+    {\displaystyle 8\times S0}
+  , and Boolean matrix of size 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   by 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+    is described by 
+  
+    
+      
+        m
+        ×
+        n
+        ×
+        S
+        0
+      
+    
+    {\displaystyle m\times n\times S0}
+  . There also exists a shortened notation, so one could write 
+  
+    
+      
+        S
+        1
+        ⋅
+        n
+      
+    
+    {\displaystyle S1\cdot n}
+   instead of 
+  
+    
+      
+        n
+        ×
+        S
+        0
+      
+    
+    {\displaystyle n\times S0}
+  .: 679 Type 
+  
+    
+      
+        S
+        0
+      
+    
+    {\displaystyle S0}
+   could have two possible values 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+   and 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+  . So 4-bit sequence could be written like L00L, but in cases where such a sequence represents a number, the programmer could use the decimal representation 9.: 679 Record of two components 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   and 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+   is written as 
+  
+    
+      
+        (
+        σ
+        ,
+        τ
+        )
+      
+    
+    {\displaystyle (\sigma ,\tau )}
+  .: 679 Type (German: Art) in Plankalkül consists of 3 elements: structured value (German: Struktur), pragmatic meaning (German: Typ) and possible restriction on possible values (German: Beschränkung).: 679  User defined types are identified by letter A with number, like 
+  
+    
+      
+        A
+        1
+      
+    
+    {\displaystyle A1}
+   – first user defined type.
+
+Examples
+Zuse used a lot of examples from chess theory:: 680
+
+Identifiers
+Identifiers are alphanumeric characters with a number.: 679  There are the following kinds of identifiers for variables:: 10 
+Input values (German: Eingabewerte, Variablen) — marked with a letter V.
+Intermediate, temporary values (German: Zwischenwerte) — marked with a letter Z.
+Constants (German: Constanten) — marked with a letter С.
+Output values (German: Resultatwerte) — marked with a letter R.Particular variable of some kind is identified by number, written under the kind.: 679  For example:
+
+  
+    
+      
+        
+          
+            
+              
+                V
+              
+            
+            
+              
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{matrix}V\\0\end{matrix}}}
+  , 
+  
+    
+      
+        
+          
+            
+              
+                Z
+              
+            
+            
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{matrix}Z\\2\end{matrix}}}
+  , 
+  
+    
+      
+        
+          
+            
+              
+                C
+              
+            
+            
+              
+                31
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{matrix}C\\31\end{matrix}}}
+   etc.Programs and subprograms are marked with a letter P, followed by a program (and optionally a subprogram) number. For example 
+  
+    
+      
+        P
+        13
+      
+    
+    {\displaystyle P13}
+  , 
+  
+    
+      
+        P
+        5
+        ⋅
+        7
+      
+    
+    {\displaystyle P5\cdot 7}
+  .: 679 Output value of program  
+  
+    
+      
+        P
+        13
+      
+    
+    {\displaystyle P13}
+   saved there in variable 
+  
+    
+      
+        
+          
+            
+              
+                R
+              
+            
+            
+              
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{matrix}R\\0\end{matrix}}}
+   is available for other subprograms under the identifier 
+  
+    
+      
+        
+          
+            
+              
+                R
+                17
+              
+            
+            
+              
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{matrix}R17\\0\end{matrix}}}
+  , and reading value of that variable also means executing related subprogram.: 680
+
+Accessing elements by index
+Plankalkül allows access for separate elements of variable by using "component index" (German: Komponenten-Index). When, for example, program receives input in variable 
+  
+    
+      
+        
+          
+            
+              
+                V
+              
+            
+            
+              
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{matrix}V\\0\end{matrix}}}
+   of type 
+  
+    
+      
+        A
+        10
+      
+    
+    {\displaystyle A10}
+   (game state), then 
+  
+    
+      
+        
+          
+            
+              
+                V
+              
+            
+            
+              
+                0
+              
+            
+            
+              
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{matrix}V\\0\\0\end{matrix}}}
+   — gives board state, 
+  
+    
+      
+        
+          
+            
+              
+                V
+              
+            
+            
+              
+                0
+              
+            
+            
+              
+                0
+                ⋅
+                i
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{matrix}V\\0\\0\cdot i\end{matrix}}}
+   — piece on square number i, and 
+  
+    
+      
+        
+          
+            
+              
+                V
+              
+            
+            
+              
+                0
+              
+            
+            
+              
+                0
+                ⋅
+                i
+                ⋅
+                j
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{matrix}V\\0\\0\cdot i\cdot j\end{matrix}}}
+   bit number j of  that piece.: 680 In modern programming languages, that would be described by notation similar to V0[0], V0[0][i], V0[0][i][j] (although to access a single bit in modern programming languages a bitmask is typically used).
+
+Two-dimensional syntax
+Because indexes of variables are written vertically, each Plankalkül instruction requires multiple rows to write down.First row contains variable kind, then variable number marked with letter V (German: Variablen-Index), then indexes of variable subcomponents marked with K (German: Komponenten-Index), and then (German: Struktur-Index) marked with S, which describes variable type. Type is not required, but Zuse notes that this helps with reading and understanding the program.: 681 In the line 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   types 
+  
+    
+      
+        S
+        0
+      
+    
+    {\displaystyle S0}
+   and 
+  
+    
+      
+        S
+        1
+      
+    
+    {\displaystyle S1}
+   could be shortened to 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+   and 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+  .: 681 Examples:
+
+Indexes could be not only constants. Variables could be used as indexes for other variables, and that is marked with a line, which shows in which component index would value of variable be used:
+
+Assignment operation
+Zuse introduced in his calculus an assignment operator, unknown in mathematics before him. He marked it with «
+  
+    
+      
+        ⇒
+      
+    
+    {\displaystyle \Rightarrow }
+  », and called it yields-sign (German: Ergibt-Zeichen). Use of concept of assignment is one of the key differences between mathematics and computer science.: 14 Zuse wrote that the expression:
+
+  
+    
+      
+        
+          
+            
+              
+              
+                Z
+                +
+                1
+              
+              
+                ⇒
+              
+              
+                Z
+              
+            
+            
+              
+                V
+              
+              
+                1
+              
+              
+              
+                1
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{r|lll}&Z+1&\Rightarrow &Z\\V&1&&1\\\end{array}}}
+  is analogous to the more traditional mathematical equation:
+
+  
+    
+      
+        
+          
+            
+              
+              
+                Z
+                +
+                1
+              
+              
+                =
+              
+              
+                Z
+              
+            
+            
+              
+                V
+              
+              
+                1
+              
+              
+              
+                1
+              
+            
+            
+              
+                K
+              
+              
+                i
+              
+              
+              
+                i
+                +
+                1
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{r|lll}&Z+1&=&Z\\V&1&&1\\K&i&&i+1\\\end{array}}}
+  There are claims that Konrad Zuse initially used the glyph  as a sign for assignment, and started to use 
+  
+    
+      
+        ⇒
+      
+    
+    {\displaystyle \Rightarrow }
+   under the influence of Heinz Rutishauser.: 681  Knuth and Pardo believe that Zuse always wrote 
+  
+    
+      
+        ⇒
+      
+    
+    {\displaystyle \Rightarrow }
+  , and that  was introduced by publishers of «Über den allgemeinen Plankalkül als Mittel zur Formulierung schematisch-kombinativer Aufgaben» in 1948.: 14  In the ALGOL 58 conference in Zürich, European participants proposed to use the assignment character introduced by Zuse, but the American delegation insisted on :=.: 681 The variable that stores the result of an assignment (l-value) is written to the right side of assignment operator.: 14  The first assignment to the variable is considered to be a declaration.: 681 The left side of assignment operator is used for an expression (German: Ausdruck), that defines which value will be assigned to the variable. Expressions could use arithmetic operators, Boolean operators, and comparison operators (
+  
+    
+      
+        =
+        ,
+        ≠
+        ,
+        ≤
+      
+    
+    {\displaystyle =,\neq ,\leq }
+   etc.).: 682 The exponentiation operation is written similarly to the indexing operation - using lines in the two-dimensional notation:: 45
+
+Control flow
+Boolean values were represented as integers with FALSE=0 and TRUE=1. Conditional control flow took the form of a guarded statement A -> B, which executed the block B if A was true. There was also an iteration operator, of the form W { A -> X; B -> Y} which repeats until all guards are false.
+
+Terminology
+Zuse called a single program a Rechenplan ("computation plan"). He envisioned what he called a Planfertigungsgerät ("plan assembly device"), which would automatically translate the mathematical formulation of a program into machine-readable punched film stock, something today would be called a translator or compiler.: 45, 104, 105
+
+Example
+The original notation was two-dimensional. For a later implementation in the 1990s, a linear notation was developed.
+The following example defines a function max3 (in a linear transcription) that calculates the maximum of three variables:
+
+P1 max3 (V0[:8.0],V1[:8.0],V2[:8.0]) → R0[:8.0]
+max(V0[:8.0],V1[:8.0]) → Z1[:8.0]
+max(Z1[:8.0],V2[:8.0]) → R0[:8.0]
+END
+P2 max (V0[:8.0],V1[:8.0]) → R0[:8.0]
+V0[:8.0] → Z1[:8.0]
+(Z1[:8.0] < V1[:8.0]) → V1[:8.0] → Z1[:8.0]
+Z1[:8.0] → R0[:8.0]
+END
+
+See also
+History of programming languages
+Timeline of programming languages
+List of programming languages
+
+References
+Further reading
+Zuse, Konrad (1943). Ansätze einer Theorie des allgemeinen Rechnens unter besonderer Berücksichtigung des Aussagenkalküls und dessen Anwendung auf Relaisschaltungen [Inception of a universal theory of computation with special consideration of the propositional calculus and its application to relay circuits] (unpublished manuscript) (in German). Zuse Papers 045/018.
+Zuse, Konrad (1948-12-06) [November 1948].  Written at Hopferau bei Füssen, Germany. "Über den allgemeinen Plankalkül als Mittel zur Formulierung schematisch-kombinativer Aufgaben". Archiv der Mathematik (in German). Karlsruhe / Stuttgart / Basel, Germany: Birkhäuser Verlag. 1 (6): 441–449. doi:10.1007/BF02038459. eISSN 1420-8938. ISSN 0003-889X. (9 pages)
+Rojas, Raúl; Göktekin, Cüneyt; Friedland, Gerald; Krüger, Mike; Kuniß, Denis; Langmack, Olaf (February 2000). Plankalkül: The First High-Level Programming Language and its Implementation (PDF). Berlin, Germany: Institut für Informatik, Freie Universität Berlin & Feinarbeit.de. Technical Report B-3/2000. Archived from the original on 2006-05-01.[2] (22 pages)
+Bruines, Bram (2010-01-08). "Plankalkül" (PDF) (Thesis). Archived (PDF) from the original on 2023-11-02. Retrieved 2023-11-02. (24 pages)
+
+External links
+"Plankalkül-Programme". Konrad Zuse Internet Archive (in German and English). 2014-08-21. Archived from the original on 2014-08-21. Retrieved 2017-10-04. (NB. Plankalkül Java applets and documents.)

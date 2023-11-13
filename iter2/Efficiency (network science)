@@ -1,0 +1,761 @@
+In network science, the efficiency of a network is a measure of how efficiently it exchanges information   and it is also called communication efficiency. The underlying idea (and main assumption) is that the more distant two nodes are in the network, the less efficient their communication will be. The concept of efficiency can be applied to both local and global scales in a network. On a global scale, efficiency quantifies the exchange of information across the whole network where information is concurrently exchanged. The local efficiency quantifies a network's resistance to failure on a small scale. That is the local efficiency of a node 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   characterizes how well information is exchanged by its neighbors when it is removed.
+
+Definition
+The definition of communication efficiency assumes that the efficiency is inversely proportional to the distance, so in mathematical terms
+
+  
+    
+      
+        
+          ϵ
+          
+            i
+            j
+          
+        
+        =
+        
+          
+            1
+            
+              d
+              
+                i
+                j
+              
+            
+          
+        
+      
+    
+    {\displaystyle \epsilon _{ij}={\frac {1}{d_{ij}}}}
+  where 
+  
+    
+      
+        
+          ϵ
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle \epsilon _{ij}}
+   is the pairwise efficiency of nodes 
+  
+    
+      
+        i
+        ,
+        j
+        ∈
+        V
+      
+    
+    {\displaystyle i,j\in V}
+   in network 
+  
+    
+      
+        G
+        =
+        (
+        V
+        ,
+        E
+        )
+      
+    
+    {\displaystyle G=(V,E)}
+   and 
+  
+    
+      
+        
+          d
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle d_{ij}}
+   is their distance.
+The average communication efficiency of the network 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   is then defined as the average over the pairwise efficiencies:
+
+  
+    
+      
+        E
+        (
+        G
+        )
+        =
+        
+          
+            1
+            
+              N
+              (
+              N
+              −
+              1
+              )
+            
+          
+        
+        
+          ∑
+          
+            i
+            ≠
+            j
+            ∈
+            V
+          
+        
+        
+          
+            1
+            
+              d
+              
+                i
+                j
+              
+            
+          
+        
+      
+    
+    {\displaystyle E(G)={\frac {1}{N(N-1)}}\sum _{i\neq j\in V}{\frac {1}{d_{ij}}}}
+  where 
+  
+    
+      
+        N
+        =
+        
+          |
+        
+        V
+        
+          |
+        
+      
+    
+    {\displaystyle N=|V|}
+   denotes the number of nodes in the network. 
+Distances can be measured in different ways, depending on the type of networks. The most natural distance for unweighted networks is the length of a shortest path between a nodes 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   and 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+  , i.e. a shortest path between 
+  
+    
+      
+        i
+        ,
+        j
+      
+    
+    {\displaystyle i,j}
+   is a path with minimum number of edges and the number of edges is its length. Observe that if 
+  
+    
+      
+        i
+        =
+        j
+      
+    
+    {\displaystyle i=j}
+   then 
+  
+    
+      
+        
+          d
+          
+            i
+            j
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle d_{ij}=0}
+  —and that is why the sum above is over 
+  
+    
+      
+        i
+        ≠
+        j
+      
+    
+    {\displaystyle i\neq j}
+  — while if there is no path connecting 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   and 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+  , 
+  
+    
+      
+        
+          d
+          
+            i
+            j
+          
+        
+        =
+        ∞
+      
+    
+    {\displaystyle d_{ij}=\infty }
+   and their pairwise efficiency is zero. Being 
+  
+    
+      
+        
+          d
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle d_{ij}}
+   a count, for 
+  
+    
+      
+        i
+        ≠
+        j
+      
+    
+    {\displaystyle i\neq j}
+   
+  
+    
+      
+        
+          d
+          
+            i
+            j
+          
+        
+        ≥
+        1
+      
+    
+    {\displaystyle d_{ij}\geq 1}
+   and so 
+  
+    
+      
+        E
+        (
+        G
+        )
+      
+    
+    {\displaystyle E(G)}
+   is bounded between 0 and 1, i.e. it is a normalised descriptor.
+
+Weighted networks
+The shortest path distance can also be generalised to weighted networks, see the weighted shortest path distance, but in this case 
+  
+    
+      
+        
+          d
+          
+            i
+            j
+          
+          
+            W
+          
+        
+        ∈
+        [
+        0
+        ,
+        +
+        ∞
+        ]
+      
+    
+    {\displaystyle d_{ij}^{W}\in [0,+\infty ]}
+   and the average communication efficiency needs to be properly normalised in order to be comparable among different networks.In  the authors proposed to normalise 
+  
+    
+      
+        E
+        (
+        G
+        )
+      
+    
+    {\displaystyle E(G)}
+   dividing it by the efficiency of an idealised version of the network 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  :
+
+  
+    
+      
+        
+          E
+          
+            glob
+          
+        
+        (
+        G
+        )
+        =
+        
+          
+            
+              E
+              (
+              G
+              )
+            
+            
+              E
+              (
+              
+                G
+                
+                  ideal
+                
+              
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle E_{\text{glob}}(G)={\frac {E(G)}{E(G^{\text{ideal}})}}.}
+  
+  
+    
+      
+        
+          G
+          
+            ideal
+          
+        
+      
+    
+    {\displaystyle G^{\text{ideal}}}
+   is the "ideal" graph on 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+   nodes wherein all possible edges are present. In the unweighted case every edge has unitary weight, 
+  
+    
+      
+        
+          G
+          
+            ideal
+          
+        
+      
+    
+    {\displaystyle G^{\text{ideal}}}
+   is a clique, a full network, and 
+  
+    
+      
+        E
+        (
+        
+          G
+          
+            ideal
+          
+        
+        )
+        =
+        1
+      
+    
+    {\displaystyle E(G^{\text{ideal}})=1}
+  . When the edges are weighted, a sufficient condition (for having a proper normalisation, i.e. 
+  
+    
+      
+        
+          E
+          
+            glob
+          
+        
+        (
+        G
+        )
+        ∈
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle E_{\text{glob}}(G)\in [0,1]}
+  ) on the distances in the ideal network, called this time 
+  
+    
+      
+        
+          l
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle l_{ij}}
+  , is 
+
+  
+    
+      
+        
+          l
+          
+            i
+            j
+          
+        
+        ≤
+        
+          d
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle l_{ij}\leq d_{ij}}
+  for 
+  
+    
+      
+        i
+        ,
+        j
+        =
+        1
+        ,
+        .
+        .
+        .
+        ,
+        N
+      
+    
+    {\displaystyle i,j=1,...,N}
+  . 
+  
+    
+      
+        
+          l
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle l_{ij}}
+   should be known (and different from zero) for all node pairs. 
+A common choice is to take them as the geographical or physical distances in spatial networks or as the maximum cost over all links, e.g. 
+  
+    
+      
+        
+          l
+          
+            i
+            j
+          
+        
+        =
+        
+          
+            1
+            
+              w
+              
+                max
+              
+            
+          
+        
+      
+    
+    {\displaystyle l_{ij}={\frac {1}{w_{\max }}}}
+   where 
+  
+    
+      
+        
+          w
+          
+            max
+          
+        
+      
+    
+    {\displaystyle w_{\max }}
+   indicates the maximum interaction strength in the network. However, in  the authors highlight the issues of these choices when dealing with real world networks, which are characterised by heterogeneous structure and flows. For instance, choosing 
+  
+    
+      
+        
+          l
+          
+            i
+            j
+          
+        
+        =
+        
+          
+            1
+            
+              w
+              
+                max
+              
+            
+          
+        
+      
+    
+    {\displaystyle l_{ij}={\frac {1}{w_{\max }}}}
+   makes the global measure very sensitive to outliers in the distribution of weights and tends to under-estimate the actual efficiency of a network. The authors also propose a normalising procedure, i.e. a way for building 
+  
+    
+      
+        
+          G
+          
+            ideal
+          
+        
+      
+    
+    {\displaystyle G^{\text{ideal}}}
+   using all and only the information contained in the edge weights (and no other meta-data such as geographical distances), which is statistically robust and physically grounded.
+
+Efficiency and small-world behaviour
+The global efficiency of a network is a measure comparable to 
+  
+    
+      
+        1
+        
+          /
+        
+        L
+      
+    
+    {\displaystyle 1/L}
+  , rather than just the average path length 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   itself. The key distinction is that, while 
+  
+    
+      
+        1
+        
+          /
+        
+        L
+      
+    
+    {\displaystyle 1/L}
+   measures efficiency in a system where only one packet of information is being moved through the network, 
+  
+    
+      
+        
+          E
+          
+            glob
+          
+        
+        (
+        G
+        )
+      
+    
+    {\displaystyle E_{\text{glob}}(G)}
+   measures the efficiency of parallel communication, that is when all the nodes are exchanging packets of information with each other concurrently.
+A local average of pairwise communication efficiencies can be used as an alternative to the clustering coefficient of a network. The local efficiency of a network 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   is defined as:
+
+  
+    
+      
+        
+          E
+          
+            l
+            o
+            c
+          
+        
+        (
+        G
+        ,
+        i
+        )
+        =
+        
+          
+            1
+            N
+          
+        
+        
+          ∑
+          
+            i
+            ∈
+            G
+          
+        
+        E
+        (
+        
+          G
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle E_{loc}(G,i)={\frac {1}{N}}\sum _{i\in G}E(G_{i})}
+  where 
+  
+    
+      
+        
+          G
+          
+            i
+          
+        
+      
+    
+    {\displaystyle G_{i}}
+   is the local subgraph consisting only of a node 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  's immediate neighbors, but not the node 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   itself.
+
+Applications
+Broadly speaking, the efficiency of a network can be used to quantify small world behavior in networks. Efficiency can also be used to determine cost-effective structures in weighted and unweighted networks. Comparing the two measures of efficiency in a network to a random network of the same size to see how economically a network is constructed. Furthermore, global efficiency is easier to use numerically than its counterpart, path length.For these reasons the concept of efficiency has been used across the many diverse applications of network science. Efficiency is useful in analysis of man-made networks such as transportation networks and communications networks. It is used to help determine how cost-efficient a particular network construction is, as well as how fault tolerant it is. Studies of such networks reveal that they tend to have high global efficiency, implying good use of resources, but low local efficiency. This is because, for example, a subway network is not closed, and passengers can be re-routed, by buses for example, even if a particular line in the network is down.Beyond human constructed networks, efficiency is a useful metric when talking about physical biological networks. In any facet of biology, the scarcity of resource plays a key role, and biological networks are no exception. Efficiency is used in neuroscience to discuss information transfer across neural networks, where the physical space and resource constraints are a major factor. Efficiency has also been used in the study of ant colony tunnel systems, which are usually composed of large rooms as well as many sprawling tunnels. This application to ant colonies is not too surprising because the large structure of a colony must serve as a transportation network for various resources, most namely food.
+
+
+== References ==

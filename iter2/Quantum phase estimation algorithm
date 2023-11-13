@@ -1,0 +1,2089 @@
+In quantum computing, the quantum phase estimation algorithm is a quantum algorithm to estimate the phase corresponding to an eigenvalue of a given unitary operator. Because the eigenvalues of a unitary operator always have unit modulus, they are characterized by their phase, and therefore the algorithm can be equivalently described as retrieving either the phase or the eigenvalue itself. The algorithm was initially introduced by Alexei Kitaev in 1995.: 246 Phase estimation is frequently used as a subroutine in other quantum algorithms, such as Shor's algorithm,: 131  the quantum algorithm for linear systems of equations, and the quantum counting algorithm.
+
+Formal description of the problem
+Let 
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+   be a unitary operator acting on an 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  -qubit register. Unitarity implies that all the eigenvalues of 
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+   have unit modulus, and can therefore be characterized by their phase. Thus if 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   is an eigenvector of 
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+  , then 
+  
+    
+      
+        U
+        
+          |
+        
+        ψ
+        ⟩
+        =
+        
+          e
+          
+            2
+            π
+            i
+            θ
+          
+        
+        
+          |
+          ψ
+          ⟩
+        
+      
+    
+    {\displaystyle U|\psi \rangle =e^{2\pi i\theta }\left|\psi \right\rangle }
+   for some 
+  
+    
+      
+        θ
+        ∈
+        
+          R
+        
+      
+    
+    {\displaystyle \theta \in \mathbb {R} }
+  . Due to the periodicity of the complex exponential, we can always assume 
+  
+    
+      
+        0
+        ≤
+        θ
+        <
+        1
+      
+    
+    {\displaystyle 0\leq \theta <1}
+  .
+Our goal is to find a good approximation to 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   with a small number of gates and with high probability. The quantum phase estimation algorithm achieves this under the assumptions of having oracular access to 
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+  , and having 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   available as a quantum state.
+More precisely, the algorithm returns an approximation for 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+  , with high probability within additive error 
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+  , using 
+  
+    
+      
+        O
+        (
+        log
+        ⁡
+        (
+        1
+        
+          /
+        
+        ε
+        )
+        )
+      
+    
+    {\displaystyle O(\log(1/\varepsilon ))}
+   qubits (without counting the ones used to encode the eigenvector state) and 
+  
+    
+      
+        O
+        (
+        1
+        
+          /
+        
+        ε
+        )
+      
+    
+    {\displaystyle O(1/\varepsilon )}
+   controlled-U operations. Furthermore, we can improve the success probability to 
+  
+    
+      
+        1
+        −
+        Δ
+      
+    
+    {\displaystyle 1-\Delta }
+   for any 
+  
+    
+      
+        Δ
+        >
+        0
+      
+    
+    {\displaystyle \Delta >0}
+   by using a total of 
+  
+    
+      
+        O
+        (
+        log
+        ⁡
+        (
+        1
+        
+          /
+        
+        Δ
+        )
+        
+          /
+        
+        ε
+        )
+      
+    
+    {\displaystyle O(\log(1/\Delta )/\varepsilon )}
+   uses of controlled-U, and this is optimal.
+
+The algorithm
+Setup
+The input consists of two  registers  (namely, two parts): the upper 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   qubits comprise the first register, and the lower 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   qubits are the second register.
+The initial state of the system is:
+
+  
+    
+      
+        
+          |
+        
+        0
+        
+          ⟩
+          
+            ⊗
+            n
+          
+        
+        
+          |
+        
+        ψ
+        ⟩
+        .
+      
+    
+    {\displaystyle |0\rangle ^{\otimes n}|\psi \rangle .}
+  After applying n-bit  Hadamard gate operation 
+  
+    
+      
+        
+          H
+          
+            ⊗
+            n
+          
+        
+      
+    
+    {\displaystyle H^{\otimes n}}
+   on the first register, the state becomes:
+
+  
+    
+      
+        
+          
+            1
+            
+              2
+              
+                
+                  n
+                  2
+                
+              
+            
+          
+        
+        (
+        
+          |
+        
+        0
+        ⟩
+        +
+        
+          |
+        
+        1
+        ⟩
+        
+          )
+          
+            ⊗
+            n
+          
+        
+        
+          |
+        
+        ψ
+        ⟩
+        =
+        
+          
+            1
+            
+              2
+              
+                n
+                
+                  /
+                
+                2
+              
+            
+          
+        
+        
+          ∑
+          
+            j
+            =
+            0
+          
+          
+            
+              2
+              
+                n
+              
+            
+            −
+            1
+          
+        
+        
+          |
+        
+        j
+        ⟩
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle {\frac {1}{2^{\frac {n}{2}}}}(|0\rangle +|1\rangle )^{\otimes n}|\psi \rangle ={\frac {1}{2^{n/2}}}\sum _{j=0}^{2^{n}-1}|j\rangle |\psi \rangle }
+  .Let 
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+   be a unitary operator with eigenvector 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   such that 
+  
+    
+      
+        U
+        
+          |
+        
+        ψ
+        ⟩
+        =
+        
+          e
+          
+            2
+            π
+            i
+            θ
+          
+        
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle U|\psi \rangle =e^{2\pi i\theta }|\psi \rangle }
+  . Thus, 
+
+  
+    
+      
+        
+          U
+          
+            
+              2
+              
+                j
+              
+            
+          
+        
+        
+          |
+        
+        ψ
+        ⟩
+        =
+        
+          e
+          
+            2
+            π
+            i
+            
+              2
+              
+                j
+              
+            
+            θ
+          
+        
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle U^{2^{j}}|\psi \rangle =e^{2\pi i2^{j}\theta }|\psi \rangle }
+  .Overall, the transformation implemented on the two registers by the controlled gates applying 
+  
+    
+      
+        U
+        ,
+        
+          U
+          
+            2
+          
+        
+        ,
+        
+          U
+          
+            
+              2
+              
+                2
+              
+            
+          
+        
+        ,
+        …
+        ,
+        
+          U
+          
+            
+              2
+              
+                n
+                −
+                1
+              
+            
+          
+        
+      
+    
+    {\displaystyle U,U^{2},U^{2^{2}},\ldots ,U^{2^{n-1}}}
+   isThis can be seen by the decomposition of 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   into its bitstring 
+  
+    
+      
+        
+          k
+          
+            n
+            −
+            1
+          
+        
+        
+          k
+          
+            n
+            −
+            2
+          
+        
+        …
+        
+          k
+          
+            1
+          
+        
+        
+          k
+          
+            0
+          
+        
+      
+    
+    {\displaystyle k_{n-1}k_{n-2}\ldots k_{1}k_{0}}
+   and binary representation 
+  
+    
+      
+        
+          2
+          
+            n
+            −
+            1
+          
+        
+        
+          k
+          
+            n
+            −
+            1
+          
+        
+        +
+        
+          2
+          
+            n
+            −
+            2
+          
+        
+        
+          k
+          
+            n
+            −
+            2
+          
+        
+        +
+        …
+        +
+        2
+        
+          k
+          
+            1
+          
+        
+        +
+        
+          k
+          
+            0
+          
+        
+      
+    
+    {\displaystyle 2^{n-1}k_{n-1}+2^{n-2}k_{n-2}+\ldots +2k_{1}+k_{0}}
+  , where 
+  
+    
+      
+        
+          k
+          
+            n
+            −
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          k
+          
+            1
+          
+        
+        ,
+        
+          k
+          
+            0
+          
+        
+        ∈
+        {
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle k_{n-1},\ldots ,k_{1},k_{0}\in \{0,1\}}
+  . Clearly, 
+  
+    
+      
+        
+          U
+          
+            k
+          
+        
+      
+    
+    {\displaystyle U^{k}}
+   becomesEach 
+  
+    
+      
+        
+          U
+          
+            
+              2
+              
+                j
+              
+            
+            
+              k
+              
+                j
+              
+            
+          
+        
+      
+    
+    {\displaystyle U^{2^{j}k_{j}}}
+   will only apply if the qubit 
+  
+    
+      
+        
+          k
+          
+            j
+          
+        
+      
+    
+    {\displaystyle k_{j}}
+   is 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+  , implying that it is controlled by that bit. Therefore the overall transformation to 
+  
+    
+      
+        
+          |
+        
+        k
+        ⟩
+        
+          U
+          
+            k
+          
+        
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |k\rangle U^{k}|\psi \rangle }
+   is equivalent to the controlled 
+  
+    
+      
+        
+          U
+          
+            
+              2
+              
+                j
+              
+            
+          
+        
+      
+    
+    {\displaystyle U^{2^{j}}}
+   gates from each 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+  -th qubit. 
+Therefore, the state will be transformed by the controlled 
+  
+    
+      
+        
+          U
+          
+            
+              2
+              
+                j
+              
+            
+          
+        
+      
+    
+    {\displaystyle U^{2^{j}}}
+   gates like so:At this point, the second register with the eigenvector is not needed. It can be reused again in another run of phase estimation. The state without 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   is
+
+  
+    
+      
+        
+          
+            1
+            
+              
+                2
+                
+                  n
+                
+              
+            
+          
+        
+        
+          ∑
+          
+            j
+            =
+            0
+          
+          
+            
+              2
+              
+                n
+              
+            
+            −
+            1
+          
+        
+        
+          e
+          
+            2
+            π
+            i
+            j
+            θ
+          
+        
+        
+          |
+        
+        j
+        ⟩
+      
+    
+    {\displaystyle {\frac {1}{\sqrt {2^{n}}}}\sum _{j=0}^{2^{n}-1}e^{2\pi ij\theta }|j\rangle }
+
+Apply inverse quantum Fourier transform
+Applying the inverse quantum Fourier transform on 
+
+  
+    
+      
+        
+          
+            1
+            
+              2
+              
+                
+                  n
+                  2
+                
+              
+            
+          
+        
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            
+              2
+              
+                n
+              
+            
+            −
+            1
+          
+        
+        
+          e
+          
+            2
+            π
+            i
+            θ
+            k
+          
+        
+        
+          |
+        
+        k
+        ⟩
+      
+    
+    {\displaystyle {\frac {1}{2^{\frac {n}{2}}}}\sum _{k=0}^{2^{n}-1}e^{2\pi i\theta k}|k\rangle }
+  yields 
+
+  
+    
+      
+        
+          
+            1
+            
+              2
+              
+                
+                  n
+                  2
+                
+              
+            
+          
+        
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            
+              2
+              
+                n
+              
+            
+            −
+            1
+          
+        
+        
+          e
+          
+            2
+            π
+            i
+            θ
+            k
+          
+        
+        
+          (
+          
+            
+              
+                1
+                
+                  2
+                  
+                    
+                      n
+                      2
+                    
+                  
+                
+              
+            
+            
+              ∑
+              
+                x
+                =
+                0
+              
+              
+                
+                  2
+                  
+                    n
+                  
+                
+                −
+                1
+              
+            
+            
+              e
+              
+                
+                  
+                    −
+                    2
+                    π
+                    i
+                    k
+                    x
+                  
+                  
+                    2
+                    
+                      n
+                    
+                  
+                
+              
+            
+            
+              |
+            
+            x
+            ⟩
+          
+          )
+        
+        =
+        
+          
+            1
+            
+              2
+              
+                n
+              
+            
+          
+        
+        
+          ∑
+          
+            x
+            =
+            0
+          
+          
+            
+              2
+              
+                n
+              
+            
+            −
+            1
+          
+        
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            
+              2
+              
+                n
+              
+            
+            −
+            1
+          
+        
+        
+          e
+          
+            −
+            
+              
+                
+                  2
+                  π
+                  i
+                  k
+                
+                
+                  2
+                  
+                    n
+                  
+                
+              
+            
+            
+              (
+              
+                x
+                −
+                
+                  2
+                  
+                    n
+                  
+                
+                θ
+              
+              )
+            
+          
+        
+        
+          |
+        
+        x
+        ⟩
+        .
+      
+    
+    {\displaystyle {\frac {1}{2^{\frac {n}{2}}}}\sum _{k=0}^{2^{n}-1}e^{2\pi i\theta k}\left({\frac {1}{2^{\frac {n}{2}}}}\sum _{x=0}^{2^{n}-1}e^{\frac {-2\pi ikx}{2^{n}}}|x\rangle \right)={\frac {1}{2^{n}}}\sum _{x=0}^{2^{n}-1}\sum _{k=0}^{2^{n}-1}e^{-{\frac {2\pi ik}{2^{n}}}\left(x-2^{n}\theta \right)}|x\rangle .}
+  We can approximate the value of 
+  
+    
+      
+        θ
+        ∈
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle \theta \in [0,1]}
+   by rounding 
+  
+    
+      
+        
+          2
+          
+            n
+          
+        
+        θ
+      
+    
+    {\displaystyle 2^{n}\theta }
+   to the nearest integer. This means that 
+  
+    
+      
+        
+          2
+          
+            n
+          
+        
+        θ
+        =
+        a
+        +
+        
+          2
+          
+            n
+          
+        
+        δ
+        ,
+      
+    
+    {\displaystyle 2^{n}\theta =a+2^{n}\delta ,}
+   where 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is the nearest integer to 
+  
+    
+      
+        
+          2
+          
+            n
+          
+        
+        θ
+        ,
+      
+    
+    {\displaystyle 2^{n}\theta ,}
+   and the difference 
+  
+    
+      
+        
+          2
+          
+            n
+          
+        
+        δ
+      
+    
+    {\displaystyle 2^{n}\delta }
+   satisfies 
+  
+    
+      
+        0
+        ⩽
+        
+          |
+        
+        
+          2
+          
+            n
+          
+        
+        δ
+        
+          |
+        
+        ⩽
+        
+          
+            
+              1
+              2
+            
+          
+        
+      
+    
+    {\displaystyle 0\leqslant |2^{n}\delta |\leqslant {\tfrac {1}{2}}}
+  .
+Using this decomposition we can rewrite the state as 
+  
+    
+      
+        
+          ∑
+          
+            x
+            =
+            0
+          
+          
+            
+              2
+              
+                n
+              
+            
+            −
+            1
+          
+        
+        
+          c
+          
+            x
+          
+        
+        
+          |
+        
+        x
+        ⟩
+        ,
+      
+    
+    {\textstyle \sum _{x=0}^{2^{n}-1}c_{x}|x\rangle ,}
+   where 
+
+  
+    
+      
+        
+          c
+          
+            x
+          
+        
+        ≡
+        
+          
+            1
+            
+              2
+              
+                n
+              
+            
+          
+        
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            
+              2
+              
+                n
+              
+            
+            −
+            1
+          
+        
+        
+          e
+          
+            −
+            
+              
+                
+                  2
+                  π
+                  i
+                  k
+                
+                
+                  2
+                  
+                    n
+                  
+                
+              
+            
+            (
+            x
+            −
+            
+              2
+              
+                n
+              
+            
+            θ
+            )
+          
+        
+        =
+        
+          
+            1
+            
+              2
+              
+                n
+              
+            
+          
+        
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            
+              2
+              
+                n
+              
+            
+            −
+            1
+          
+        
+        
+          e
+          
+            −
+            
+              
+                
+                  2
+                  π
+                  i
+                  k
+                
+                
+                  2
+                  
+                    n
+                  
+                
+              
+            
+            
+              (
+              
+                x
+                −
+                a
+              
+              )
+            
+          
+        
+        
+          e
+          
+            2
+            π
+            i
+            δ
+            k
+          
+        
+        .
+      
+    
+    {\displaystyle c_{x}\equiv {\frac {1}{2^{n}}}\sum _{k=0}^{2^{n}-1}e^{-{\frac {2\pi ik}{2^{n}}}(x-2^{n}\theta )}={\frac {1}{2^{n}}}\sum _{k=0}^{2^{n}-1}e^{-{\frac {2\pi ik}{2^{n}}}\left(x-a\right)}e^{2\pi i\delta k}.}
+
+Measurement
+Performing a measurement in the computational basis on the first register yields the outcome 
+  
+    
+      
+        
+          |
+        
+        y
+        ⟩
+      
+    
+    {\displaystyle |y\rangle }
+   with probabilityIt follows that 
+  
+    
+      
+        Pr
+        ⁡
+        (
+        a
+        )
+        =
+        1
+      
+    
+    {\displaystyle \operatorname {Pr} (a)=1}
+   if 
+  
+    
+      
+        δ
+        =
+        0
+      
+    
+    {\displaystyle \delta =0}
+  , that is, when 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   can be written as 
+  
+    
+      
+        θ
+        =
+        a
+        
+          /
+        
+        
+          2
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \theta =a/2^{n}}
+  , one always finds the outcome 
+  
+    
+      
+        y
+        =
+        a
+      
+    
+    {\displaystyle y=a}
+  . On the other hand, if 
+  
+    
+      
+        δ
+        ≠
+        0
+      
+    
+    {\displaystyle \delta \neq 0}
+  , the probability readsFrom this expression we can see that 
+  
+    
+      
+        Pr
+        (
+        a
+        )
+        ⩾
+        
+          
+            4
+            
+              π
+              
+                2
+              
+            
+          
+        
+        ≈
+        0.405
+      
+    
+    {\displaystyle \Pr(a)\geqslant {\frac {4}{\pi ^{2}}}\approx 0.405}
+   when 
+  
+    
+      
+        δ
+        ≠
+        0
+      
+    
+    {\displaystyle \delta \neq 0}
+  . To see this, we observe that from the definition of 
+  
+    
+      
+        δ
+      
+    
+    {\displaystyle \delta }
+   we have the inequality 
+  
+    
+      
+        
+          |
+        
+        δ
+        
+          |
+        
+        ⩽
+        
+          
+            
+              1
+              
+                2
+                
+                  n
+                  +
+                  1
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle |\delta |\leqslant {\tfrac {1}{2^{n+1}}}}
+  , and thus:: 157 : 348 
+We conclude that the algorithm provides a good 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -bit estimate (i.e., one that is within 
+  
+    
+      
+        1
+        
+          /
+        
+        
+          2
+          
+            n
+          
+        
+      
+    
+    {\displaystyle 1/2^{n}}
+   of the correct answer) of 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   with probability at least 
+  
+    
+      
+        4
+        
+          /
+        
+        
+          π
+          
+            2
+          
+        
+      
+    
+    {\displaystyle 4/\pi ^{2}}
+  . By adding a number of extra qubits on the order of 
+  
+    
+      
+        O
+        (
+        log
+        ⁡
+        (
+        1
+        
+          /
+        
+        ϵ
+        )
+        )
+      
+    
+    {\displaystyle O(\log(1/\epsilon ))}
+   and truncating the extra qubits the probability can increase to 
+  
+    
+      
+        1
+        −
+        ϵ
+      
+    
+    {\displaystyle 1-\epsilon }
+  .
+
+Toy examples
+Consider the simplest possible instance of the algorithm, where only 
+  
+    
+      
+        n
+        =
+        1
+      
+    
+    {\displaystyle n=1}
+   qubit, on top of the qubits required to encode 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+  , is involved. Suppose the eigenvalue of 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   reads 
+  
+    
+      
+        λ
+        =
+        
+          e
+          
+            2
+            π
+            i
+            θ
+          
+        
+      
+    
+    {\displaystyle \lambda =e^{2\pi i\theta }}
+  . The first part of the algorithm generates the one-qubit state 
+  
+    
+      
+        
+          |
+        
+        ϕ
+        ⟩
+        ≡
+        
+          
+            1
+            
+              2
+            
+          
+        
+        (
+        
+          |
+        
+        0
+        ⟩
+        +
+        λ
+        
+          |
+        
+        1
+        ⟩
+        )
+      
+    
+    {\textstyle |\phi \rangle \equiv {\frac {1}{\sqrt {2}}}(|0\rangle +\lambda |1\rangle )}
+  . Applying the inverse QFT amounts in this case to applying a Hadamard gate. The final outcome probabilities are thus 
+  
+    
+      
+        
+          p
+          
+            ±
+          
+        
+        =
+        
+          |
+        
+        ⟨
+        ±
+        
+          |
+        
+        ϕ
+        ⟩
+        
+          
+            |
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle p_{\pm }=|\langle \pm |\phi \rangle |^{2}}
+   where 
+  
+    
+      
+        
+          |
+        
+        ±
+        ⟩
+        ≡
+        
+          
+            1
+            
+              2
+            
+          
+        
+        (
+        
+          |
+        
+        0
+        ⟩
+        ±
+        
+          |
+        
+        1
+        ⟩
+        )
+      
+    
+    {\textstyle |\pm \rangle \equiv {\frac {1}{\sqrt {2}}}(|0\rangle \pm |1\rangle )}
+  , or more explicitly,Suppose 
+  
+    
+      
+        λ
+        =
+        1
+      
+    
+    {\displaystyle \lambda =1}
+  , meaning 
+  
+    
+      
+        
+          |
+        
+        ϕ
+        ⟩
+        =
+        
+          |
+        
+        +
+        ⟩
+      
+    
+    {\displaystyle |\phi \rangle =|+\rangle }
+  . Then 
+  
+    
+      
+        
+          p
+          
+            +
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle p_{+}=1}
+  , 
+  
+    
+      
+        
+          p
+          
+            −
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle p_{-}=0}
+  , and we recover deterministically the precise value of 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   from the measurement outcomes. The same applies if 
+  
+    
+      
+        λ
+        =
+        −
+        1
+      
+    
+    {\displaystyle \lambda =-1}
+  .
+If on the other hand 
+  
+    
+      
+        λ
+        =
+        
+          e
+          
+            2
+            π
+            i
+            
+              /
+            
+            3
+          
+        
+      
+    
+    {\displaystyle \lambda =e^{2\pi i/3}}
+  , then 
+  
+    
+      
+        
+          p
+          
+            ±
+          
+        
+        =
+        [
+        1
+        ±
+        cos
+        ⁡
+        (
+        2
+        π
+        
+          /
+        
+        3
+        )
+        ]
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle p_{\pm }=[1\pm \cos(2\pi /3)]/2}
+  , that is, 
+  
+    
+      
+        
+          p
+          
+            +
+          
+        
+        =
+        1
+        
+          /
+        
+        4
+      
+    
+    {\displaystyle p_{+}=1/4}
+   and 
+  
+    
+      
+        
+          p
+          
+            −
+          
+        
+        =
+        3
+        
+          /
+        
+        4
+      
+    
+    {\displaystyle p_{-}=3/4}
+  . In this case the result is not deterministic, but we still find the outcome 
+  
+    
+      
+        
+          |
+        
+        −
+        ⟩
+      
+    
+    {\displaystyle |-\rangle }
+   as more likely, compatibly with the fact that 
+  
+    
+      
+        2
+        
+          /
+        
+        3
+      
+    
+    {\displaystyle 2/3}
+   is close to 1 than to 0.
+More generally, if 
+  
+    
+      
+        λ
+        =
+        
+          e
+          
+            2
+            π
+            i
+            θ
+          
+        
+      
+    
+    {\displaystyle \lambda =e^{2\pi i\theta }}
+  , then 
+  
+    
+      
+        
+          p
+          
+            +
+          
+        
+        ≥
+        1
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle p_{+}\geq 1/2}
+   if and only if 
+  
+    
+      
+        
+          |
+        
+        θ
+        
+          |
+        
+        ≤
+        1
+        
+          /
+        
+        4
+      
+    
+    {\displaystyle |\theta |\leq 1/4}
+  . This is consistent with the results above because in the cases 
+  
+    
+      
+        λ
+        =
+        ±
+        1
+      
+    
+    {\displaystyle \lambda =\pm 1}
+  , corresponding to 
+  
+    
+      
+        θ
+        =
+        0
+        ,
+        1
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle \theta =0,1/2}
+  , the phase is retrieved deterministically, and the other phases are retrieved with higher accuracy the closer they are to these two.
+
+See also
+Shor's algorithm
+ Quantum counting algorithm
+Parity measurement
+
+
+== References ==

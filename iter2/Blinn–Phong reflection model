@@ -1,0 +1,257 @@
+The Blinn–Phong reflection model, also called the modified Phong reflection model, is a modification developed by Jim Blinn to the Phong reflection model.Blinn–Phong is a shading model used in OpenGL and Direct3D's fixed-function pipeline (before Direct3D 10 and OpenGL 3.1), and is carried out on each vertex as it passes down the graphics pipeline; pixel values between vertices are interpolated by Gouraud shading by default, rather than the more computationally-expensive Phong shading.
+
+Description
+In Phong shading, one must continually recalculate the dot product 
+  
+    
+      
+        R
+        ⋅
+        V
+      
+    
+    {\displaystyle R\cdot V}
+   between a viewer (V) and the beam from a light-source (L) reflected (R) on a surface.
+If, instead, one calculates a halfway vector between the viewer and light-source vectors,
+
+  
+    
+      
+        H
+        =
+        
+          
+            
+              L
+              +
+              V
+            
+            
+              ‖
+              
+                L
+                +
+                V
+              
+              ‖
+            
+          
+        
+      
+    
+    {\displaystyle H={\frac {L+V}{\left\|L+V\right\|}}}
+  
+  
+    
+      
+        R
+        ⋅
+        V
+      
+    
+    {\displaystyle R\cdot V}
+   can be replaced with 
+  
+    
+      
+        N
+        ⋅
+        H
+      
+    
+    {\displaystyle N\cdot H}
+  , where 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+   is the normalized surface normal. In the above equation, 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   and 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   are both normalized vectors, and 
+  
+    
+      
+        H
+      
+    
+    {\displaystyle H}
+   is a solution to the equation 
+  
+    
+      
+        V
+        =
+        
+          P
+          
+            H
+          
+        
+        (
+        −
+        L
+        )
+        ,
+      
+    
+    {\displaystyle V=P_{H}(-L),}
+   where 
+  
+    
+      
+        
+          P
+          
+            H
+          
+        
+      
+    
+    {\displaystyle P_{H}}
+   is the Householder matrix that reflects a point in the hyperplane that contains the origin and has the normal 
+  
+    
+      
+        H
+        .
+      
+    
+    {\displaystyle H.}
+  
+This dot product represents the cosine of an angle that is half of the angle represented by Phong's dot product if V, L, N and R all lie in the same plane. This relation between the angles remains approximately true when the vectors don't lie in the same plane, especially when the angles are small. The angle between N and H is therefore sometimes called the halfway angle.
+Considering that the angle between the halfway vector and the surface normal is likely to be smaller than the angle between R and V used in Phong's model (unless the surface is viewed from a very steep angle for which it is likely to be larger), and since Phong is using 
+  
+    
+      
+        
+          
+            (
+            
+              R
+              ⋅
+              V
+            
+            )
+          
+          
+            α
+          
+        
+        ,
+      
+    
+    {\displaystyle \left(R\cdot V\right)^{\alpha },}
+   an exponent can be set 
+  
+    
+      
+        
+          α
+          
+            ′
+          
+        
+        >
+        α
+      
+    
+    {\displaystyle \alpha ^{\prime }>\alpha }
+   such that 
+  
+    
+      
+        
+          
+            (
+            
+              N
+              ⋅
+              H
+            
+            )
+          
+          
+            
+              α
+              
+                ′
+              
+            
+          
+        
+      
+    
+    {\displaystyle \left(N\cdot H\right)^{\alpha ^{\prime }}}
+   is closer to the former expression.
+For front-lit surfaces (specular reflections on surfaces facing the viewer), 
+  
+    
+      
+        
+          α
+          
+            ′
+          
+        
+        =
+        4
+        
+        α
+      
+    
+    {\displaystyle \alpha ^{\prime }=4\,\alpha }
+   will result in specular highlights that very closely match the corresponding Phong reflections. However, while the Phong reflections are always round for a flat surface, the Blinn–Phong reflections become elliptical when the surface is viewed from a steep angle. This can be compared to the case where the sun is reflected in the sea close to the horizon, or where a far away street light is reflected in wet pavement, where the reflection will always be much more extended vertically than horizontally.
+Additionally, while it can be seen as an approximation to the Phong model, it produces more accurate models of empirically determined bidirectional reflectance distribution functions than Phong for many types of surfaces.
+
+Efficiency
+Blinn-Phong will be faster than Phong in the case where the viewer and light are treated to be very remote, such as approaching or at infinity. This is the case for directional lights and orthographic/isometric cameras. In this case, the halfway vector is independent of position and surface curvature simply because the halfway vector is dependent on the direction to viewer's position and the direction to the light's position, which individually converge at this remote distance, hence the halfway vector can be thought of as constant in this case. 
+  
+    
+      
+        H
+      
+    
+    {\displaystyle H}
+   therefore can be computed once for each light and then used for the entire frame, or indeed while light and viewpoint remain in the same relative position. The same is not true with Phong's method of using the reflection vector which depends on the surface curvature and must be recalculated for each pixel of the image (or for each vertex of the model in the case of vertex lighting). In 3D scenes with perspective cameras, this optimization is not possible.
+
+Code samples
+High-Level Shading Language code sample
+This sample in High-Level Shading Language is a method of determining the diffuse and specular light from a point light. The light structure, position in space of the surface, view direction vector and the normal of the surface are passed through. A Lighting structure is returned;
+The below also needs to clamp certain dot products to zero in the case of negative answers.  Without that, light heading away from the camera is treated the same way as light heading towards it.  For the specular calculation, an incorrect "halo" of light glancing off the edges of an object and away from the camera might appear as bright as the light directly being reflected towards the camera.
+
+OpenGL Shading Language code sample
+This sample in the OpenGL Shading Language consists of two code files, or shaders. The first one is a so-called vertex shader and implements Phong shading, which is used to interpolate the surface normal between vertices. The second shader is a so-called fragment shader and implements the Blinn–Phong shading model in order to determine the diffuse and specular light from a point light source.
+
+Vertex shader
+This vertex shader implements Phong shading:
+
+Fragment shader
+This fragment shader implements the Blinn–Phong shading model and gamma correction:
+
+The colors ambientColor, diffuseColor and specColor are not supposed to be gamma corrected. If they are colors obtained from gamma-corrected image files (JPEG, PNG, etc.), they need to be linearized before working with them, which is done by scaling the channel values to the range [0, 1] and raising them to the gamma value of the image, which for images in the sRGB color space can be assumed to be about 2.2 (even though for this specific color space, a simple power relation is just an approximation of the actual transformation). Modern graphics APIs have the ability to perform this gamma correction automatically when sampling from a texture or writing to a framebuffer.
+
+See also
+List of common shading algorithms
+Phong reflection model for Phong's corresponding model
+Gamma correction
+Specular highlight
+
+
+== References ==

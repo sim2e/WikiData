@@ -1,0 +1,660 @@
+In computational chemistry and molecular physics, Gaussian orbitals (also known as Gaussian type orbitals, GTOs or Gaussians) are functions used as atomic orbitals in the LCAO method for the representation of electron orbitals in molecules and numerous properties that depend on these.
+
+Rationale
+The use of Gaussian orbitals in electronic structure theory (instead of the more physical Slater-type orbitals) was first proposed by Boys in 1950. The principal reason for the use of Gaussian basis functions in molecular quantum chemical calculations is the 'Gaussian Product Theorem', which guarantees that the product of two GTOs centered on two different atoms is a finite sum of Gaussians centered on a point along the axis connecting them. In this manner, four-center integrals can be reduced to finite sums of two-center integrals, and in a next step to finite sums of one-center integrals. The speedup by 4-5 orders of magnitude compared to Slater orbitals outweighs the extra cost entailed by the larger number of basis functions generally required in a Gaussian calculation.
+For reasons of convenience, many quantum chemistry programs work in a basis of Cartesian Gaussians even when spherical Gaussians are requested, as integral evaluation is much easier in the cartesian basis, and the spherical functions can be simply expressed using the cartesian functions.
+
+Mathematical form
+The Gaussian basis functions obey the usual radial-angular decomposition
+
+  
+    
+      
+         
+        Φ
+        (
+        
+          r
+        
+        )
+        =
+        
+          R
+          
+            l
+          
+        
+        (
+        r
+        )
+        
+          Y
+          
+            l
+            m
+          
+        
+        (
+        θ
+        ,
+        ϕ
+        )
+      
+    
+    {\displaystyle \ \Phi (\mathbf {r} )=R_{l}(r)Y_{lm}(\theta ,\phi )}
+  ,where 
+  
+    
+      
+        
+          Y
+          
+            l
+            m
+          
+        
+        (
+        θ
+        ,
+        ϕ
+        )
+      
+    
+    {\displaystyle Y_{lm}(\theta ,\phi )}
+   is a spherical harmonic, 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   and 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   are the angular momentum and its 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+   component, and 
+  
+    
+      
+        r
+        ,
+        θ
+        ,
+        ϕ
+      
+    
+    {\displaystyle r,\theta ,\phi }
+   are spherical coordinates.
+While for Slater orbitals the radial part is
+
+  
+    
+      
+         
+        
+          R
+          
+            l
+          
+        
+        (
+        r
+        )
+        =
+        A
+        (
+        l
+        ,
+        α
+        )
+        
+          r
+          
+            l
+          
+        
+        
+          e
+          
+            −
+            α
+            r
+          
+        
+        ,
+      
+    
+    {\displaystyle \ R_{l}(r)=A(l,\alpha )r^{l}e^{-\alpha r},}
+  
+  
+    
+      
+        A
+        (
+        l
+        ,
+        α
+        )
+      
+    
+    {\displaystyle A(l,\alpha )}
+   being a normalization constant, for Gaussian primitives the radial part is
+
+  
+    
+      
+         
+        
+          R
+          
+            l
+          
+        
+        (
+        r
+        )
+        =
+        B
+        (
+        l
+        ,
+        α
+        )
+        
+          r
+          
+            l
+          
+        
+        
+          e
+          
+            −
+            α
+            
+              r
+              
+                2
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle \ R_{l}(r)=B(l,\alpha )r^{l}e^{-\alpha r^{2}},}
+  where 
+  
+    
+      
+        B
+        (
+        l
+        ,
+        α
+        )
+      
+    
+    {\displaystyle B(l,\alpha )}
+   is the normalization constant corresponding to the Gaussian.
+The normalization condition which determines 
+  
+    
+      
+        A
+        (
+        l
+        ,
+        α
+        )
+      
+    
+    {\displaystyle A(l,\alpha )}
+   or 
+  
+    
+      
+        B
+        (
+        l
+        ,
+        α
+        )
+      
+    
+    {\displaystyle B(l,\alpha )}
+   is
+
+  
+    
+      
+        
+          ∫
+          
+            0
+          
+          
+            ∞
+          
+        
+        
+          d
+        
+        r
+        
+        
+          r
+          
+            2
+          
+        
+        
+          
+            |
+            
+              
+                R
+                
+                  l
+                
+              
+              (
+              r
+              )
+            
+            |
+          
+          
+            2
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle \int _{0}^{\infty }\mathrm {d} r\,r^{2}\left|R_{l}(r)\right|^{2}=1}
+  which in general does not impose orthogonality in 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+  .
+Because an individual primitive Gaussian function gives a rather poor description for the electronic wave function near the nucleus, Gaussian basis sets are almost always contracted:
+
+  
+    
+      
+         
+        
+          R
+          
+            l
+          
+        
+        (
+        r
+        )
+        =
+        
+          r
+          
+            l
+          
+        
+        
+          ∑
+          
+            p
+            =
+            1
+          
+          
+            P
+          
+        
+        
+          c
+          
+            p
+          
+        
+        B
+        (
+        l
+        ,
+        
+          α
+          
+            p
+          
+        
+        )
+        exp
+        ⁡
+        (
+        −
+        
+          α
+          
+            p
+          
+        
+        
+          r
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle \ R_{l}(r)=r^{l}\sum _{p=1}^{P}c_{p}B(l,\alpha _{p})\exp(-\alpha _{p}r^{2})}
+  ,where 
+  
+    
+      
+        
+          c
+          
+            p
+          
+        
+      
+    
+    {\displaystyle c_{p}}
+   is the contraction coefficient for the primitive with exponent 
+  
+    
+      
+        
+          α
+          
+            p
+          
+        
+      
+    
+    {\displaystyle \alpha _{p}}
+  . The coefficients are given with respect to normalized primitives, because coefficients for unnormalized primitives would differ by many orders of magnitude. The exponents are reported in atomic units. There is a large library of published Gaussian basis sets optimized for a variety of criteria available at the Basis Set Exchange portal.
+
+Cartesian coordinates
+In Cartesian coordinates, Gaussian-type orbitals can be written in terms of exponential factors in the 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  , 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  , and 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+   directions as well as an exponential factor 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   controlling the width of the orbital. The expression for a Cartesian Gaussian-type orbital, with the appropriate normalization coefficient is
+
+  
+    
+      
+        Φ
+        (
+        x
+        ,
+        y
+        ,
+        z
+        ;
+        α
+        ,
+        i
+        ,
+        j
+        ,
+        k
+        )
+        =
+        
+          
+            (
+            
+              
+                
+                  2
+                  α
+                
+                π
+              
+            
+            )
+          
+          
+            3
+            
+              /
+            
+            4
+          
+        
+        
+          
+            [
+            
+              
+                
+                  (
+                  8
+                  α
+                  
+                    )
+                    
+                      i
+                      +
+                      j
+                      +
+                      k
+                    
+                  
+                  i
+                  !
+                  j
+                  !
+                  k
+                  !
+                
+                
+                  (
+                  2
+                  i
+                  )
+                  !
+                  (
+                  2
+                  j
+                  )
+                  !
+                  (
+                  2
+                  k
+                  )
+                  !
+                
+              
+            
+            ]
+          
+          
+            1
+            
+              /
+            
+            2
+          
+        
+        
+          x
+          
+            i
+          
+        
+        
+          y
+          
+            j
+          
+        
+        
+          z
+          
+            k
+          
+        
+        
+          e
+          
+            −
+            α
+            (
+            
+              x
+              
+                2
+              
+            
+            +
+            
+              y
+              
+                2
+              
+            
+            +
+            
+              z
+              
+                2
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle \Phi (x,y,z;\alpha ,i,j,k)=\left({\frac {2\alpha }{\pi }}\right)^{3/4}\left[{\frac {(8\alpha )^{i+j+k}i!j!k!}{(2i)!(2j)!(2k)!}}\right]^{1/2}x^{i}y^{j}z^{k}e^{-\alpha (x^{2}+y^{2}+z^{2})}}
+  In the above expression, 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  , 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+  , and 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   must be integers. If 
+  
+    
+      
+        i
+        +
+        j
+        +
+        k
+        =
+        0
+      
+    
+    {\displaystyle i+j+k=0}
+  , then the orbital has spherical symmetry and is considered an s-type GTO. If 
+  
+    
+      
+        i
+        +
+        j
+        +
+        k
+        =
+        1
+      
+    
+    {\displaystyle i+j+k=1}
+  , the GTO possesses axial symmetry along one axis and is considered a p-type GTO. When 
+  
+    
+      
+        i
+        +
+        j
+        +
+        k
+        =
+        2
+      
+    
+    {\displaystyle i+j+k=2}
+  , there are six possible GTOs that may be constructed; this is one more than the five canonical d orbital functions for a given angular quantum number. To address this, a linear combination of two d-type GTOs can be used to reproduce a canonical d function. Similarly, there exist 10 f-type GTOs, but only 7 canonical f orbital functions; this pattern continues for higher angular quantum numbers.
+
+Molecular integrals
+Taketa et al. (1966) presented the necessary mathematical equations for obtaining matrix elements in the Gaussian basis. Since then much work has been done to speed up the evaluation of these integrals which are the slowest part of many quantum chemical calculations. Živković and Maksić (1968) suggested using Hermite Gaussian functions, as this simplifies the equations. McMurchie and Davidson (1978) introduced recursion relations, which greatly reduces the amount of calculations.  Pople and Hehre (1978) developed a local coordinate method.  Obara and Saika introduced efficient recursion relations in 1985,  which was followed by the development of other important recurrence relations. Gill and Pople (1990) introduced a 'PRISM' algorithm which allowed efficient use of 20 different calculation paths.
+
+The POLYATOM System
+The POLYATOM System was the first package for ab initio calculations using Gaussian orbitals that was applied to a wide variety of molecules. It was developed in Slater's Solid State and Molecular Theory Group (SSMTG) at MIT using the resources of the Cooperative Computing Laboratory. The mathematical infrastructure and operational software were developed by Imre Csizmadia, Malcolm Harrison, Jules Moskowitz and Brian Sutcliffe.
+
+See also
+Quantum chemistry computer programs
+
+References
+External links
+A visualization of all common and uncommon atomic orbitals, from 1s to 7g (Note that the radial part of the expressions given corresponds to Slater orbitals rather than Gaussians. The angular parts, and hence their shapes as displayed in figures, are the same as those of spherical Gaussians.)
+Explanation of Gaussian basis set
+Basis set exchange
+Petersson, T; Hellsing, B. (2010). "Detailed derivation of Gaussian orbital based matrix elements in electron structure calculations". Eur. J. Phys. 31 (1): 37. Bibcode:2010EJPh...31...37P. doi:10.1088/0143-0807/31/1/004. S2CID 122528581.

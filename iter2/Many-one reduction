@@ -1,0 +1,1140 @@
+In computability theory and  computational complexity theory, a many-one reduction (also called mapping reduction) is a reduction which converts instances of one decision problem (whether an instance is in 
+  
+    
+      
+        
+          L
+          
+            1
+          
+        
+      
+    
+    {\displaystyle L_{1}}
+  ) to another decision problem (whether an instance is in 
+  
+    
+      
+        
+          L
+          
+            2
+          
+        
+      
+    
+    {\displaystyle L_{2}}
+  ) using an effective function. The reduced instance is in the language 
+  
+    
+      
+        
+          L
+          
+            2
+          
+        
+      
+    
+    {\displaystyle L_{2}}
+   if and only if the initial instance is in its language 
+  
+    
+      
+        
+          L
+          
+            1
+          
+        
+      
+    
+    {\displaystyle L_{1}}
+  . Thus if we can decide whether 
+  
+    
+      
+        
+          L
+          
+            2
+          
+        
+      
+    
+    {\displaystyle L_{2}}
+   instances are in the language 
+  
+    
+      
+        
+          L
+          
+            2
+          
+        
+      
+    
+    {\displaystyle L_{2}}
+  , we can decide whether 
+  
+    
+      
+        
+          L
+          
+            1
+          
+        
+      
+    
+    {\displaystyle L_{1}}
+   instances are in its language by applying the reduction and solving for 
+  
+    
+      
+        
+          L
+          
+            2
+          
+        
+      
+    
+    {\displaystyle L_{2}}
+  . Thus, reductions can be used to measure the relative computational difficulty of two problems. It is said that 
+  
+    
+      
+        
+          L
+          
+            1
+          
+        
+      
+    
+    {\displaystyle L_{1}}
+   reduces to 
+  
+    
+      
+        
+          L
+          
+            2
+          
+        
+      
+    
+    {\displaystyle L_{2}}
+   if, in layman's terms 
+  
+    
+      
+        
+          L
+          
+            2
+          
+        
+      
+    
+    {\displaystyle L_{2}}
+   is at least as hard to solve as 
+  
+    
+      
+        
+          L
+          
+            1
+          
+        
+      
+    
+    {\displaystyle L_{1}}
+  . This means that any algorithm that solves 
+  
+    
+      
+        
+          L
+          
+            2
+          
+        
+      
+    
+    {\displaystyle L_{2}}
+   can also be used as part of a (otherwise relatively simple) program that solves 
+  
+    
+      
+        
+          L
+          
+            1
+          
+        
+      
+    
+    {\displaystyle L_{1}}
+  .
+Many-one reductions are a special case and stronger form of Turing reductions. With many-one reductions, the oracle (that is, our solution for 
+  
+    
+      
+        
+          L
+          
+            2
+          
+        
+      
+    
+    {\displaystyle L_{2}}
+  ) can be invoked only once at the end, and the answer cannot be modified. This means that if we want to show that problem 
+  
+    
+      
+        
+          L
+          
+            1
+          
+        
+      
+    
+    {\displaystyle L_{1}}
+   can be reduced to problem 
+  
+    
+      
+        
+          L
+          
+            2
+          
+        
+      
+    
+    {\displaystyle L_{2}}
+  , we can use our solution for 
+  
+    
+      
+        
+          L
+          
+            2
+          
+        
+      
+    
+    {\displaystyle L_{2}}
+   only once in our solution for 
+  
+    
+      
+        
+          L
+          
+            1
+          
+        
+      
+    
+    {\displaystyle L_{1}}
+  , unlike in Turing reductions, where we can use our solution for 
+  
+    
+      
+        
+          L
+          
+            2
+          
+        
+      
+    
+    {\displaystyle L_{2}}
+   as many times as needed in order to solve the membership problem for the given instance of 
+  
+    
+      
+        
+          L
+          
+            1
+          
+        
+      
+    
+    {\displaystyle L_{1}}
+  .
+Many-one reductions were first used by Emil Post in a paper published in 1944. Later Norman Shapiro used the same concept in 1956 under the name strong reducibility.
+
+Definitions
+Formal languages
+Suppose 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   and 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   are formal languages over the alphabets 
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+   and 
+  
+    
+      
+        Γ
+      
+    
+    {\displaystyle \Gamma }
+  , respectively. A many-one reduction from 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   to 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   is a total computable function 
+  
+    
+      
+        f
+        :
+        
+          Σ
+          
+            ∗
+          
+        
+        →
+        
+          Γ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle f:\Sigma ^{*}\rightarrow \Gamma ^{*}}
+   that has the property that each word 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   is in 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   if and only if 
+  
+    
+      
+        f
+        (
+        w
+        )
+      
+    
+    {\displaystyle f(w)}
+   is in 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+  .
+If such a function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   exists, one says that 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is many-one reducible or m-reducible to 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   and writes
+
+  
+    
+      
+        A
+        
+          ≤
+          
+            
+              m
+            
+          
+        
+        B
+        .
+      
+    
+    {\displaystyle A\leq _{\mathrm {m} }B.}
+
+Subsets of natural numbers
+Given two sets 
+  
+    
+      
+        A
+        ,
+        B
+        ⊆
+        
+          N
+        
+      
+    
+    {\displaystyle A,B\subseteq \mathbb {N} }
+   one says 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is many-one reducible to 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   and writes
+
+  
+    
+      
+        A
+        
+          ≤
+          
+            
+              m
+            
+          
+        
+        B
+      
+    
+    {\displaystyle A\leq _{\mathrm {m} }B}
+  if there exists a total computable function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   with 
+  
+    
+      
+        x
+        ∈
+        A
+      
+    
+    {\displaystyle x\in A}
+   iff 
+  
+    
+      
+        f
+        (
+        x
+        )
+        ∈
+        B
+      
+    
+    {\displaystyle f(x)\in B}
+  . 
+If the many-one reduction 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is injective, one speaks of a one-one reduction and writes 
+  
+    
+      
+        A
+        
+          ≤
+          
+            1
+          
+        
+        B
+      
+    
+    {\displaystyle A\leq _{1}B}
+  .
+If the many-one reduction 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is surjective, one says 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is recursively isomorphic to 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   and writesp.324
+
+  
+    
+      
+        A
+        ≡
+        B
+      
+    
+    {\displaystyle A\equiv B}
+
+Many-one equivalence
+If both 
+  
+    
+      
+        A
+        
+          ≤
+          
+            
+              m
+            
+          
+        
+        B
+      
+    
+    {\displaystyle A\leq _{\mathrm {m} }B}
+   and 
+  
+    
+      
+        B
+        
+          ≤
+          
+            
+              m
+            
+          
+        
+        A
+      
+    
+    {\displaystyle B\leq _{\mathrm {m} }A}
+  , one says 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is many-one equivalent or m-equivalent to 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   and writes
+
+  
+    
+      
+        A
+        
+          ≡
+          
+            
+              m
+            
+          
+        
+        B
+        .
+      
+    
+    {\displaystyle A\equiv _{\mathrm {m} }B.}
+
+Many-one completeness (m-completeness)
+A set 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   is called many-one complete, or simply m-complete, iff 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   is recursively enumerable and every recursively enumerable set 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is m-reducible to 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+  .
+
+Degrees
+The relation 
+  
+    
+      
+        
+          ≡
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \equiv _{m}}
+   indeed is an equivalence, its equivalence classes are called m-degrees and form a poset 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}_{m}}
+   with the order induced by 
+  
+    
+      
+        
+          ≤
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \leq _{m}}
+  .p.257Some properties of the m-degrees, some of which differ from analogous properties of Turing degrees:pp.555--581
+There is a well-defined jump operator on the m-degrees.
+The only m-degree with jump 0m′ is 0m.
+There are m-degrees 
+  
+    
+      
+        
+          a
+        
+        
+          >
+          
+            m
+          
+        
+        
+          
+            0
+          
+          
+            m
+          
+          ′
+        
+      
+    
+    {\displaystyle \mathbf {a} >_{m}{\boldsymbol {0}}_{m}'}
+   where there does not exist 
+  
+    
+      
+        
+          b
+        
+      
+    
+    {\displaystyle \mathbf {b} }
+   where 
+  
+    
+      
+        
+          
+            b
+          
+          ′
+        
+        =
+        
+          a
+        
+      
+    
+    {\displaystyle \mathbf {b} '=\mathbf {a} }
+  .
+Every countable linear order with a least element embeds into 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}_{m}}
+  .
+The first order theory of 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}_{m}}
+   is isomorphic to the theory of second-order arithmetic.There is a characterization of 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}_{m}}
+   as the unique poset satisfying several explicit properties of its ideals, a similar characterization has eluded the Turing degrees.pp.574--575Myhill's isomorphism theorem can be stated as follows: "For all sets 
+  
+    
+      
+        A
+        ,
+        B
+      
+    
+    {\displaystyle A,B}
+   of natural numbers, 
+  
+    
+      
+        A
+        ≡
+        B
+        
+        ⟺
+        
+        A
+        
+          ≡
+          
+            1
+          
+        
+        B
+      
+    
+    {\displaystyle A\equiv B\iff A\equiv _{1}B}
+  ." As a corollary, 
+  
+    
+      
+        ≡
+      
+    
+    {\displaystyle \equiv }
+   and 
+  
+    
+      
+        
+          ≡
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \equiv _{1}}
+   have the same equivalence classes.p.325 The equivalences classes of 
+  
+    
+      
+        
+          ≡
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \equiv _{1}}
+   are called the 1-degrees.
+
+Many-one reductions with resource limitations
+Many-one reductions are often subjected to resource restrictions, for example that the reduction function is computable in polynomial time, logarithmic space, by 
+  
+    
+      
+        A
+        
+          C
+          
+            0
+          
+        
+      
+    
+    {\displaystyle AC_{0}}
+   or 
+  
+    
+      
+        N
+        
+          C
+          
+            0
+          
+        
+      
+    
+    {\displaystyle NC_{0}}
+   circuits, or polylogarithmic projections where each subsequent reduction notion is weaker than the prior; see polynomial-time reduction and log-space reduction for details.
+Given decision problems 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   and 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   and an algorithm N which solves instances of 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+  , we can use a many-one reduction from 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   to 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   to solve instances of 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   in:
+
+the time needed for N plus the time needed for the reduction
+the maximum of the space needed for N and the space needed for the reductionWe say that a class C of languages (or a subset of the power set of the natural numbers) is closed under many-one reducibility if there exists no reduction from a language outside C to a language in C. If a class is closed under many-one reducibility, then many-one reduction can be used to show that a problem is in C by reducing it to a problem in C. Many-one reductions are valuable because most well-studied complexity classes are closed under some type of many-one reducibility, including P, NP, L, NL, co-NP, PSPACE, EXP, and many others. It is known for example that the first four listed are closed up to the very weak reduction notion of polylogarithmic time projections.  These classes are not closed under arbitrary many-one reductions, however.
+
+Many-one reductions extended
+One may also ask about generalized cases of many-one reduction. One such example is e-reduction, where we consider 
+  
+    
+      
+        f
+        :
+        A
+        →
+        B
+      
+    
+    {\displaystyle f:A\to B}
+   that are recursively enumerable instead of restricting to recursive 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  . The resulting reducibility relation is denoted 
+  
+    
+      
+        
+          ≤
+          
+            e
+          
+        
+      
+    
+    {\displaystyle \leq _{e}}
+  , and its poset has been studied in a similar vein to that of the Turing degrees. For example, there is a jump set 
+  
+    
+      
+        
+          
+            0
+          
+          
+            e
+          
+          
+            
+              
+              ′
+            
+          
+        
+      
+    
+    {\displaystyle {\boldsymbol {0}}_{e}^{'}}
+   for e-degrees. The e-degrees do admit some properties differing from those of the poset of Turing degrees, e.g. an embedding of the diamond graph into the degrees below 
+  
+    
+      
+        
+          
+            
+              
+              ′
+            
+          
+          
+            e
+          
+        
+      
+    
+    {\displaystyle {\boldsymbol {'}}_{e}}
+  .
+
+Properties
+The relations of many-one reducibility and 1-reducibility are transitive and reflexive and thus induce a preorder on the powerset of the natural numbers.
+
+  
+    
+      
+        A
+        
+          ≤
+          
+            
+              m
+            
+          
+        
+        B
+      
+    
+    {\displaystyle A\leq _{\mathrm {m} }B}
+   if and only if 
+  
+    
+      
+        
+          N
+        
+        ∖
+        A
+        
+          ≤
+          
+            
+              m
+            
+          
+        
+        
+          N
+        
+        ∖
+        B
+        .
+      
+    
+    {\displaystyle \mathbb {N} \setminus A\leq _{\mathrm {m} }\mathbb {N} \setminus B.}
+  
+A set is many-one reducible to the halting problem if and only if it is recursively enumerable. This says that with regards to many-one reducibility, the halting problem is the most complicated of all recursively enumerable problems. Thus the halting problem is r.e. complete. Note that it is not the only r.e. complete problem.
+The specialized halting problem for an individual Turing machine T (i.e., the set of inputs for which T eventually halts) is many-one complete iff T is a universal Turing machine.  Emil Post showed that there exist recursively enumerable sets that are neither decidable nor m-complete, and hence that there exist nonuniversal Turing machines whose individual halting problems are nevertheless undecidable.
+
+Karp reductions
+A polynomial-time many-one reduction from a problem A to a problem B (both of which are usually required to be decision problems) is a polynomial-time algorithm for transforming inputs to problem A into inputs to problem B, such that the transformed problem has the same output as the original problem. An instance x of problem A can be solved by applying this transformation to produce an instance y of problem B, giving y as the input to an algorithm for problem B, and returning its output. Polynomial-time many-one reductions may also be known as polynomial transformations or Karp reductions, named after Richard Karp. A reduction of this type is denoted by 
+  
+    
+      
+        A
+        
+          ≤
+          
+            m
+          
+          
+            P
+          
+        
+        B
+      
+    
+    {\displaystyle A\leq _{m}^{P}B}
+   or 
+  
+    
+      
+        A
+        
+          ≤
+          
+            p
+          
+        
+        B
+      
+    
+    {\displaystyle A\leq _{p}B}
+  .
+
+
+== References ==

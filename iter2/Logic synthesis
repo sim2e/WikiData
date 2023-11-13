@@ -1,0 +1,42 @@
+In computer engineering, logic synthesis is a process by which an abstract specification of desired circuit behavior, typically at register transfer level (RTL), is turned into a design implementation in terms of logic gates, typically by a computer program called a synthesis tool. Common examples of this process include synthesis of designs specified in hardware description languages, including VHDL and Verilog. Some synthesis tools generate bitstreams for programmable logic devices such as PALs or FPGAs, while others target the creation of ASICs. Logic synthesis is one step in circuit design in the electronic design automation, the others are place and route and verification and validation.
+
+History
+The roots of logic synthesis can be traced to the treatment of logic by George Boole (1815 to 1864), in what is now termed Boolean algebra. In 1938, Claude Shannon showed that the two-valued Boolean algebra can describe the operation of switching circuits.  In the early days, logic design involved manipulating the truth table representations as Karnaugh maps. The Karnaugh map-based minimization of logic is guided by a set of rules on how entries in the maps can be combined. A human designer can typically only work with Karnaugh maps containing up to four to six variables.
+The first step toward automation of logic minimization was the introduction of the Quine–McCluskey algorithm that could be implemented on a computer. This exact minimization technique presented the notion of prime implicants and minimum cost covers that would become the cornerstone of two-level minimization. Nowadays, the much more efficient Espresso heuristic logic minimizer has become the standard tool for this operation. Another area of early research was in state minimization and encoding of finite-state machines (FSMs), a task that was the bane of designers. The applications for logic synthesis lay primarily in digital computer design. Hence, IBM and Bell Labs played a pivotal role in the early automation of logic synthesis. The evolution from discrete logic components to programmable logic arrays (PLAs) hastened the need for efficient two-level minimization, since minimizing terms in a two-level representation reduces the area in a PLA.
+Two-level logic circuits are of limited importance in a very-large-scale integration (VLSI) design; most designs use multiple levels of logic. Almost any circuit representation in RTL or Behavioural Description is a multi-level representation. An early system that was used to design multilevel circuits was LSS from IBM. It used local transformations to simplify logic. Work on LSS and the Yorktown Silicon Compiler spurred rapid research progress in logic synthesis in the 1980s. Several universities contributed by making their research available to the public, most notably SIS from University of California, Berkeley, RASP from University of California, Los Angeles and BOLD from University of Colorado, Boulder. Within a decade, the technology migrated to commercial logic synthesis products offered by electronic design automation companies.
+
+Commercial tools
+The leading developers and providers of logic synthesis software packages are Synopsys, Cadence, and Siemens. Their synthesis tools are  Synopsys Design Compile, Cadence First Encounter and Siemens Precision RTL.
+
+Logic elements
+Logic design is a step in the standard design cycle in which the functional design of an electronic circuit is converted into the representation which captures logic operations, arithmetic operations, control flow, etc. A common output of this step is RTL description. Logic design is commonly followed by the circuit design step. In modern electronic design automation parts of the logical design may be automated using high-level synthesis tools based on the behavioral description of the circuit.
+Logic operations usually consist of boolean AND, OR, XOR and NAND operations, and are the most basic forms of operations in an electronic circuit. Arithmetic operations are usually implemented with the use of logic operators.
+
+High-level or behavioral
+With a goal of increasing designer productivity, research efforts on the synthesis of circuits specified at the behavioral level have led to the emergence of commercial solutions in 2004, which are used for complex ASIC and FPGA design. These tools automatically synthesize circuits specified using high-level languages, like ANSI C/C++ or SystemC, to a register transfer level (RTL) specification, which can be used as input to a gate-level logic synthesis flow. Using high-level synthesis, also known as ESL synthesis, the allocation of work to clock cycles and across structural components, such as floating-point ALUs, is done by the compiler using an optimisation procedure, whereas with RTL logic synthesis (even from behavioural Verilog or VHDL, where a thread of execution can make multiple reads and writes to a variable within a clock cycle) those allocation decisions have already been made.
+
+Multi-level logic minimization
+Typical practical implementations of a logic function utilize a multi-level network of logic elements. Starting from an RTL description of a design, the synthesis tool constructs a corresponding multilevel Boolean network.
+Next, this network is optimized using several technology-independent techniques before technology-dependent optimizations are performed. The typical cost function during technology-independent optimizations is total literal count of the factored representation of the logic function (which correlates quite well with circuit area).
+Finally, technology-dependent optimization transforms the technology-independent circuit into a network of gates in a given technology. The simple cost estimates are replaced by more concrete, implementation-driven estimates during and after technology mapping.  Mapping is constrained by factors such as the available gates (logic functions) in the technology library, the drive sizes for each gate, and the delay, power, and area characteristics of each gate.
+
+See also
+Silicon compiler
+Binary decision diagram
+Functional verification
+Boolean differential calculus
+Synthesis of Integral Design by DEC, a 1980s tool used to design VAX 9000 mainframe CPUs and others ICs
+
+References
+Electronic Design Automation For Integrated Circuits Handbook, by Lavagno, Martin, and Scheffer, ISBN 0-8493-3096-3 A survey of the field of Electronic design automation. The above summary was derived, with permission, from Volume 2, Chapter 2, Logic Synthesis by Sunil Khatri and Narendra Shenoy.
+
+Further reading
+Burgun, Luc; Greiner, Alain; Prado Lopes Eudes (October 1994). "A Consistent Approach in Logic Synthesis for FPGA Architectures". Proceedings of the International Conference on ASIC (ASICON). Pekin: 104–107.
+Jiang, Jie-Hong "Roland"; Devadas, Srinivas (2009). "Chapter 6: Logic synthesis in a nutshell". In Wang, Laung-Terng; Chang, Yao-Wen; Cheng, Kwang-Ting (eds.). Electronic design automation: synthesis, verification, and test. Morgan Kaufmann. ISBN 978-0-12-374364-0.
+Hachtel, Gary D.; Somenzi, Fabio (2006) [1996]. Logic Synthesis and Verification Algorithms. Springer Science & Business Media. ISBN 0-7923-9746-0.
+Hassoun, Soha; Sasao, Tsutomu, eds. (2002). Logic synthesis and verification. Kluwer. ISBN 978-0-7923-7606-4.
+Perkowski, Marek A.; Grygiel, Stanislaw (1995-11-20). "6. Historical Overview of the Research on Decomposition". A Survey of Literature on Function Decomposition (PDF). Version IV. Functional Decomposition Group, Department of Electrical Engineering, Portland University, Portland, Oregon, USA. CiteSeerX 10.1.1.64.1129. Archived (PDF) from the original on 2021-03-28. Retrieved 2021-03-28. (188 pages)
+Stanković, Radomir S. [in German]; Sasao, Tsutomu; Astola, Jaakko Tapio [in Finnish] (August 2001). "Publications in the First Twenty Years of Switching Theory and Logic Design" (PDF). Tampere International Center for Signal Processing (TICSP) Series. Tampere University of Technology / TTKK, Monistamo, Finland. ISSN 1456-2774. S2CID 62319288. #14. Archived (PDF) from the original on 2017-08-09. Retrieved 2021-03-28. (4+60 pages)
+
+External links
+ Media related to Logic design at Wikimedia Commons

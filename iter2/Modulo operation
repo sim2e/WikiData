@@ -1,0 +1,324 @@
+In computing, the modulo operation returns the remainder or signed remainder of a division, after one number is divided by another (called the modulus of the operation).
+Given two positive numbers a and n, a modulo n (often abbreviated as a mod n) is the remainder of the Euclidean division of a by n, where a is the dividend and n is the divisor.For example, the expression "5 mod 2" evaluates to 1, because 5 divided by 2 has a quotient of 2 and a remainder of 1, while "9 mod 3" would evaluate to 0, because 9 divided by 3 has a quotient of 3 and a remainder of 0.
+Although typically performed with a and n both being integers, many computing systems now allow other types of numeric operands. The range of values for an integer modulo operation of n is 0 to n − 1 (a mod 1 is always 0; a mod 0 is undefined, being a division by zero).
+When exactly one of a or n is negative, the basic definition breaks down, and programming languages differ in how these values are defined.
+
+Variants of the definition
+In mathematics, the result of the modulo operation is an equivalence class, and any member of the class may be chosen as representative; however, the usual representative is the least positive residue, the smallest non-negative integer that belongs to that class (i.e., the remainder of the Euclidean division). However, other conventions are possible. Computers and calculators have various ways of storing and representing numbers; thus their definition of the modulo operation depends on the programming language or the underlying hardware.
+In nearly all computing systems, the quotient q and the remainder r of a divided by n satisfy the following conditions:
+
+This still leaves a sign ambiguity if the remainder is non-zero: two possible choices for the remainder occur, one negative and the other positive, and two possible choices for the quotient occur. In number theory, the positive remainder is always chosen, but in computing, programming languages choose depending on the language and the signs of a or n. Standard Pascal and ALGOL 68, for example, give a positive remainder (or 0) even for negative divisors, and some programming languages, such as C90, leave it to the implementation when either of n or a is negative (see the table under § In programming languages for details). a modulo 0 is undefined in most systems, although some do define it as a.
+
+If both the dividend and divisor are positive, then the truncated, floored, and Euclidean definitions agree.
+If the dividend is positive and the divisor is negative, then the truncated and Euclidean definitions agree.
+If the dividend is negative and the divisor is positive, then the floored and Euclidean definitions agree.
+If both the dividend and divisor are negative, then the truncated and floored definitions agree.
+As described by Leijen,
+
+Boute argues that Euclidean division is superior to the other ones in terms of regularity and useful mathematical properties, although floored division, promoted by Knuth, is also a good definition. Despite its widespread use, truncated division is shown to be inferior to the other definitions.
+However, truncated division satisfies the identity 
+  
+    
+      
+        (
+        
+          −
+          a
+        
+        )
+        
+          /
+        
+        b
+        =
+        
+          −
+          (
+          a
+          
+            /
+          
+          b
+          )
+        
+        =
+        a
+        
+          /
+        
+        (
+        
+          −
+          b
+        
+        )
+      
+    
+    {\displaystyle ({-a})/b={-(a/b)}=a/({-b})}
+  .
+
+Notation
+Some calculators have a mod() function button, and many programming languages have a similar function, expressed as mod(a, n), for example. Some also support expressions that use "%", "mod", or "Mod" as a modulo or remainder operator, such as a % n or a mod n.
+For environments lacking a similar function, any of the three definitions above can be used.
+
+Common pitfalls
+When the result of a modulo operation has the sign of the dividend (truncated definition), it can lead to surprising mistakes.
+For example, to test if an integer is odd, one might be inclined to test if the remainder by 2 is equal to 1:
+
+But in a language where modulo has the sign of the dividend, that is incorrect, because when n (the dividend) is negative and odd, n mod 2 returns −1, and the function returns false.
+One correct alternative is to test that the remainder is not 0 (because remainder 0 is the same regardless of the signs):
+
+Another alternative is to use the fact that for any odd number, the remainder may be either 1 or −1:
+
+A simpler alternative is to treat the result of n % 2 as if it is a boolean value, where any non-zero value is true:
+
+Performance issues
+Modulo operations might be implemented such that a division with a remainder is calculated each time. For special cases, on some hardware, faster alternatives exist. For example, the modulo of powers of 2 can alternatively be expressed as a bitwise AND operation (assuming x is a positive integer, or using a non-truncating definition):
+
+x % 2n == x & (2n - 1)Examples:
+
+x % 2 == x & 1
+x % 4 == x & 3
+x % 8 == x & 7In devices and software that implement bitwise operations more efficiently than modulo, these alternative forms can result in faster calculations.Compiler optimizations may recognize expressions of the form expression % constant where constant is a power of two and automatically implement them as expression & (constant-1), allowing the programmer to write clearer code without compromising performance. This simple optimization is not possible for languages in which the result of the modulo operation has the sign of the dividend (including C), unless the dividend is of an unsigned integer type. This is because, if the dividend is negative, the modulo will be negative, whereas expression & (constant-1) will always be positive. For these languages, the equivalence x % 2n == x < 0 ? x | ~(2n - 1) : x & (2n - 1) has to be used instead, expressed using bitwise OR, NOT and AND operations.
+Optimizations for general constant-modulus operations also exist by calculating the division first using the constant-divisor optimization.
+
+Properties (identities)
+Some modulo operations can be factored or expanded similarly to other mathematical operations. This may be useful in cryptography proofs, such as the Diffie–Hellman key exchange. Some of these properties require that a and n are integers.
+
+Identity:
+(a mod n) mod n = a mod n.
+nx mod n = 0 for all positive integer values of x.
+If p is a prime number which is not a divisor of b, then abp−1 mod p = a mod p, due to Fermat's little theorem.
+Inverse:
+[(−a mod n) + (a mod n)] mod n = 0.
+b−1 mod n denotes the modular multiplicative inverse, which is defined if and only if b and n are relatively prime, which is the case when the left hand side is defined: [(b−1 mod n)(b mod n)] mod n = 1.
+Distributive:
+(a + b) mod n = [(a mod n) + (b mod n)] mod n.
+ab mod n = [(a mod n)(b mod n)] mod n.
+Division (definition):  a/b mod n = [(a mod n)(b−1 mod n)] mod n, when the right hand side is defined (that is when b and n are coprime), and undefined otherwise.
+Inverse multiplication:  [(ab mod n)(b−1 mod n)] mod n = a mod n.
+
+In programming languages
+In addition, many computer systems provide a divmod functionality, which produces the quotient and the remainder at the same time. Examples include the x86 architecture's IDIV instruction, the C programming language's div() function, and Python's divmod() function.
+
+Generalizations
+Modulo with offset
+Sometimes it is useful for the result of a modulo n to lie not between 0 and n − 1, but between some number d and d + n − 1. In that case, d is called an offset and d = 1 is particularly common. 
+There does not seem to be a standard notation for this operation, so let us tentatively use a modd n. We thus have the following definition: x = a modd n just in case d ≤ x ≤ d + n − 1 and x mod n = a mod n. Clearly, the usual modulo operation corresponds to zero offset: a mod n = a mod0 n. 
+The operation of modulo with offset is related to the floor function as follows:
+
+  
+    
+      
+        a
+        
+          mod
+          
+            d
+          
+        
+        ⁡
+        n
+        =
+        a
+        −
+        n
+        
+          ⌊
+          
+            
+              
+                a
+                −
+                d
+              
+              n
+            
+          
+          ⌋
+        
+        .
+      
+    
+    {\displaystyle a\operatorname {mod} _{d}n=a-n\left\lfloor {\frac {a-d}{n}}\right\rfloor .}
+  To see this, let 
+  
+    
+      
+        x
+        =
+        a
+        −
+        n
+        
+          ⌊
+          
+            
+              
+                a
+                −
+                d
+              
+              n
+            
+          
+          ⌋
+        
+      
+    
+    {\textstyle x=a-n\left\lfloor {\frac {a-d}{n}}\right\rfloor }
+  . We first show that x mod n = a mod n. It is in general true that (a + bn) mod n = a mod n for all integers b; thus, this is true also in the particular case when 
+  
+    
+      
+        b
+        =
+        −
+        
+        
+          ⌊
+          
+            
+              
+                a
+                −
+                d
+              
+              n
+            
+          
+          ⌋
+        
+      
+    
+    {\textstyle b=-\!\left\lfloor {\frac {a-d}{n}}\right\rfloor }
+  ; but that means that 
+  
+    
+      
+        x
+        
+          mod
+          
+            n
+          
+        
+        =
+        
+          (
+          
+            a
+            −
+            n
+            
+              ⌊
+              
+                
+                  
+                    a
+                    −
+                    d
+                  
+                  n
+                
+              
+              ⌋
+            
+          
+          )
+        
+        
+        
+          mod
+          
+            n
+          
+        
+        =
+        a
+        
+          mod
+          
+            n
+          
+        
+      
+    
+    {\textstyle x{\bmod {n}}=\left(a-n\left\lfloor {\frac {a-d}{n}}\right\rfloor \right)\!{\bmod {n}}=a{\bmod {n}}}
+  , which is what we wanted to prove. It remains to be shown that d ≤ x ≤ d + n − 1. Let k and r be the integers such that a − d = kn + r with 0 ≤ r ≤ n − 1 (see Euclidean division). Then 
+  
+    
+      
+        
+          ⌊
+          
+            
+              
+                a
+                −
+                d
+              
+              n
+            
+          
+          ⌋
+        
+        =
+        k
+      
+    
+    {\textstyle \left\lfloor {\frac {a-d}{n}}\right\rfloor =k}
+  , thus 
+  
+    
+      
+        x
+        =
+        a
+        −
+        n
+        
+          ⌊
+          
+            
+              
+                a
+                −
+                d
+              
+              n
+            
+          
+          ⌋
+        
+        =
+        a
+        −
+        n
+        k
+        =
+        d
+        +
+        r
+      
+    
+    {\textstyle x=a-n\left\lfloor {\frac {a-d}{n}}\right\rfloor =a-nk=d+r}
+  . Now take 0 ≤ r ≤ n − 1 and add d to both sides, obtaining d ≤ d + r ≤ d + n − 1. But we've seen that x = d + r, so we are done.
+The modulo with offset a modd n is implemented in Mathematica as Mod[a, n, d] .
+
+Implementing other modulo definitions using truncation
+Despite the mathematical elegance of Knuth's floored division and Euclidean division, it is generally much more common to find a truncated division-based modulo in programming languages. Leijen provides the following algorithms for calculating the two divisions given a truncated integer division:
+
+For both cases, the remainder can be calculated independently of the quotient, but not vice versa. The operations are combined here to save screen space, as the logical branches are the same.
+
+See also
+Modulo (disambiguation) – many uses of the word modulo, all of which grew out of Carl F. Gauss's introduction of modular arithmetic in 1801.
+Modulo (mathematics), general use of the term in mathematics
+Modular exponentiation
+Turn (angle)
+
+Notes
+References
+External links
+Different kinds of integer division
+Modulorama, animation of a cyclic representation of multiplication tables (explanation in French)

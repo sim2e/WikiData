@@ -1,0 +1,52 @@
+In computer graphics, rasterisation (British English) or rasterization (American English) is the task of taking an image described in a vector graphics format (shapes) and converting it into a raster image (a series of pixels, dots or lines, which, when displayed together, create the image which was represented via shapes). The rasterized image may then be displayed on a computer display, video display or printer, or stored in a bitmap file format. Rasterization may refer to the technique of drawing 3D models, or the conversion of 2D rendering primitives such as polygons, line segments into a rasterized format.
+
+Etymology
+The term "rasterisation" comes from German  Raster 'grid, pattern, schema', and Latin  rāstrum 'scraper, rake'.
+
+2D images
+Line primitives
+Bresenham's line algorithm is an example of an algorithm used to rasterize lines.
+
+Circle primitives
+Algorithms such as Midpoint circle algorithm are used to render circle onto a pixelated canvas.
+
+3D images
+Rasterization is one of the typical techniques of rendering 3D models. Compared with other rendering techniques such as ray tracing, rasterization is extremely fast and therefore used in most realtime 3D engines. However, rasterization is simply the process of computing the mapping from scene geometry to pixels and does not prescribe a particular way to compute the color of those pixels. The specific color of each pixel is assigned by a pixel shader (which in modern GPUs is completely programmable). Shading may take into account physical effects such as light position, their approximations or purely artistic intent.
+The process of rasterizing 3D models onto a 2D plane for display on a computer screen ("screen space") is often carried out by fixed function (non-programmable) hardware within the graphics pipeline. This is because there is no motivation for modifying the techniques for rasterization used at render time  and a special-purpose system allows for high efficiency.
+
+Triangle rasterization
+Polygons are a common representation of digital 3D models. Before rasterization, individual polygons are typically broken down into triangles; therefore, a typical problem to solve in 3D rasterization is rasterization of a triangle. Properties that are usually required from triangle rasterization algorithms are that rasterizing two adjacent triangles (i.e. those that share an edge)
+
+leaves no holes (non-rasterized pixels) between the triangles, so that the rasterized area is completely filled (just as the surface of adjacent triangles). And
+no pixel is rasterized more than once, i.e. the rasterized triangles don't overlap. This is to guarantee that the result doesn't depend on the order in which the triangles are rasterized. Overdrawing pixels can also mean wasting computing power on pixels that would be overwritten.This leads to establishing rasterization rules to guarantee the above conditions. One set of such rules is called a top-left rule, which states that a pixel is rasterized if and only if
+
+its center lies completely inside the triangle. Or
+its center lies exactly on the triangle edge (or multiple edges in case of corners) that is (or, in case of corners, all are) either top or left edge.A top edge is an edge that is exactly horizontal and lies above other edges, and a left edge is a non-horizontal edge that is on the left side of the triangle.
+This rule is implemented e.g. by Direct3D and many OpenGL implementations (even though the specification doesn't define it and only requires a consistent rule).
+
+Quality
+The quality of rasterization can be improved by antialiasing, which creates "smooth" edges. Sub-pixel precision is a method which takes into account positions on a finer scale than the pixel grid and can produce different results even if the endpoints of a primitive fall into same pixel coordinates, producing smoother movement animations. Simple or older hardware, such as PlayStation 1, lacked sub-pixel precision in 3D rasterization.
+
+See also
+Font rasterization
+Sub-pixel resolution
+Image tracing
+Hidden-surface determination
+Bresenham's line algorithm for a typical method in rasterization
+Scanline rendering for line-by-line rasterization
+Rendering (computer graphics) for more general information
+Graphics pipeline for rasterization in commodity graphics hardware
+Raster image processor for 2D rasterization in printing systems
+Vector graphics for the source art
+Raster graphics for the result
+Raster to vector for conversion in the opposite direction
+Triangulated irregular network, a vector source for topography data, often rasterized as a (raster) digital elevation model.
+Display list
+
+References
+External links
+Michael Abrash’s articles on computer graphics
+Microsoft’s DirectX API
+OpenGL API
+Matrices (including transformation matrices) from MathWorld
+Rasterization, a Practical Implementation

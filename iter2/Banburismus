@@ -1,0 +1,156 @@
+Banburismus was a cryptanalytic process developed by Alan Turing at Bletchley Park in Britain during the Second World War. It was used by Bletchley Park's Hut 8 to help break German Kriegsmarine (naval) messages enciphered on Enigma machines. The process used sequential conditional probability to infer information about the likely settings of the Enigma machine. It gave rise to Turing's invention of the ban as a measure of the weight of evidence in favour of a hypothesis. This concept was later applied in Turingery and all the other methods used for breaking the Lorenz cipher.
+
+Overview
+The aim of Banburismus was to reduce the time required of the electromechanical Bombe machines by identifying the most likely right-hand and middle wheels of the Enigma. Hut 8 performed the procedure continuously for two years, stopping only in 1943 when sufficient bombe time became readily available. Banburismus was a development of the "clock method" invented by the Polish cryptanalyst Jerzy Różycki.Hugh Alexander was regarded as the best of the Banburists. He and I. J. Good considered the process more an intellectual game than a job. It was "not easy enough to be trivial, but not difficult enough to cause a nervous breakdown".
+
+History
+In the first few months after arriving at Bletchley Park in September 1939, Alan Turing correctly deduced that the message-settings of Kriegsmarine Enigma signals were enciphered on a common Grundstellung (starting position of the rotors), and were then super-enciphered with a bigram and a trigram lookup table. These trigram tables were in a book called the Kenngruppenbuch (K book). However, without the bigram tables, Hut 8 were unable to start attacking the traffic. A breakthrough was achieved after the Narvik pinch in which the disguised armed trawler Polares, which was on its way to Narvik in Norway, was seized by HMS Griffin in the North Sea on 26 April 1940. The Germans did not have time to destroy all their cryptographic documents, and the captured material revealed the precise form of the indicating system, supplied the plugboard connections and Grundstellung for 23 and 24 April and the operators' log, which gave a long stretch of paired plaintext and enciphered message for the 25th and 26th.The bigram tables themselves were not part of the capture, but Hut 8 were able to use the settings-lists to read retrospectively, all the Kriegsmarine traffic that had been intercepted from 22 to 27 April. This allowed them do a partial reconstruction of the bigram tables and start the first attempt to use Banburismus to attack Kriegsmarine traffic, from 30 April onwards. Eligible days were those where at least 200 messages were received, and for which the partial bigram-tables deciphered the indicators. The first day to be broken was 8 May 1940, thereafter celebrated as "Foss's Day" in honour of Hugh Foss, the cryptanalyst who achieved the feat.
+This task took until November that year, by which time the intelligence was very out of date, but it did show that Banburismus could work. It also allowed much more of the bigram tables to be reconstructed, which in turn allowed 14 April and 26 June to be broken. However, the Kriegsmarine had changed the bigram tables on 1 July. By the end of 1940, much of the theory of the Banburismus scoring system had been worked out.
+The First Lofoten pinch from the trawler Krebs on 3 March 1941 provided the complete keys for February – but no bigram tables or K book. The consequent decrypts allowed the statistical scoring system to be refined so that Banburismus could become the standard procedure against Kriegsmarine Enigma until mid-1943.
+
+Principles
+Banburismus utilised a weakness in the indicator procedure (the encrypted message settings) of Kriegsmarine Enigma traffic. Unlike the German Army and Airforce Enigma procedures, the Kriegsmarine used a Grundstellung provided by key lists, and so it was the same for all messages on a particular day (or pair of days). This meant that the three-letter indicators were all enciphered with the same rotor settings so that they were all in depth with each other. Normally, the indicators for two messages were never the same, but it could happen that, part-way through a message, the rotor positions became the same as the starting position of the rotors for another message, the parts of the two messages that overlapped in this way were in depth.
+
+The principle behind Banburismus is relatively simple (and seems to be rather similar to the Index of Coincidence). If two sentences in English or German are written down one above the other, and a count is made of how often a letter in one message is the same as the corresponding letter in the other message; there will be more matches than would occur if the sentences were random strings of letters. For a random sequence, the repeat rate for single letters is expected to be 1 in 26 (around 3.8%), and for the German Navy messages it was shown to be 1 in 17 (5.9%). If the two messages were in depth, then the matches occur just as they did in the plaintexts. However, if the messages were not in depth, then the two ciphertexts will compare as if they were random, giving a repeat rate of about 1 in 26. This allows an attacker to take two messages whose indicators differ only in the third character, and slide them against each other looking for the giveaway repeat pattern that shows where they align in depth.
+The comparison of two messages to look for repeats was made easier by punching the messages onto thin cards about 250 millimetres (9.8 in) high by several metres (yards) wide, depending on the length of message. A hole at the top of a column on the card represented an 'A' at that position, a hole at the bottom represented a 'Z'. The two message-cards were laid on top of each other on a light-box and where the light shone through, there was a repeat. This made it much simpler to detect and count the repeats. The cards were printed in Banbury in Oxfordshire. They became known as 'banburies' at Bletchley Park, and hence the procedure using them: Banburismus.The application of the scritchmus procedure (see below) gives a clue as to the possible right-hand rotor.
+
+Example
+Message with indicator "VFG": XCYBGDSLVWBDJLKWIPEHVYGQZWDTHRQXIKEESQSSPZXARIXEABQIRUCKHGWUEBPF
+Message with indicator "VFX":
+YNSCFCCPVIPEMSGIZWFLHESCIYSPVRXMCFQAXVXDVUQILBJUABNLKMKDJMENUNQ
+Hut 8 would punch these onto banburies and count the repeats for all valid offsets −25 letters to +25 letters. There are two promising positions:
+
+XCYBGDSLVWBDJLKWIPEHVYGQZWDTHRQXIKEESQSSPZXARIXEABQIRUCKHGWUEBPF
+        YNSCFCCPVIPEMSGIZWFLHESCIYSPVRXMCFQAXVXDVUQILBJUABNLKMKDJMENUNQ
+                      - --  -   -          -  -   --
+
+This offset of eight letters shows nine repeats, including two bigrams, in an overlap of 56 letters (16%).
+The other promising position looks like this:
+
+XCYBGDSLVWBDJLKWIPEHVYGQZWDTHRQXIKEESQSSPZXARIXEABQIRUCKHGWUEBPF
+       YNSCFCCPVIPEMSGIZWFLHESCIYSPVRXMCFQAXVXDVUQILBJUABNLKMKDJMENUNQ
+                ---
+
+This offset of seven shows just a single trigram in an overlap of 57 letters.
+Turing's method of accumulating a score of a number of decibans allows the calculation of which of these situations is most likely to represent messages in depth. As might be expected, the former is the winner with odds of 5:1 on, the latter is only 2:1 on.Turing calculated the scores for the number of single repeats in overlaps of so many letters, and the number of bigrams and trigrams. Tetragrams often represented German words in the plaintext and their scores were calculated according to the type of message (from traffic analysis), and even their position within the message. These were tabulated and the relevant values summed by Banburists in assessing pairs of messages to see which were likely to be in depth.
+Bletchley Park used the convention that the indicator plaintext of "VFX", being eight characters ahead of "VFG", or (in terms of just the third, differing, letter) that "X = G+8".
+
+Scritchmus
+Scritchmus was the part of the Banburismus procedure that could lead to the identification of the right-hand (fast) wheel. The Banburist might have evidence from various message-pairs (with only the third indicator letter differing) showing that "X = Q−2", "H = X−4" and "B = G+3". He or she would search the deciban sheets for all distances with odds of better than 1:1 (i.e. with scores ≥ +34). An attempt was then made to construct the 'end wheel alphabet' by forming 'chains' of end-wheel letters out of these repeats.
+They could then construct a "chain" as follows:
+
+G--B-H---X-Q
+
+If this is then compared at progressive offsets with the known letter-sequence of an Enigma rotor, quite a few possibilities are discounted due to violating either the "reciprocal" property or the "no-self-ciphering" property of the Enigma machine:
+
+G--B-H---X-Q
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is possible
+
+ G--B-H---X-Q
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is impossible (G enciphers to B, yet B enciphers to E)
+
+  G--B-H---X-Q
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is impossible (H apparently enciphers to H)
+
+   G--B-H---X-Q
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is impossible (G enciphers to D, yet B enciphers to G)
+
+    G--B-H---X-Q
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is impossible (B enciphers to H, yet H enciphers to J)
+
+     G--B-H---X-Q
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is impossible (Q apparently enciphers to Q)
+
+      G--B-H---X-Q
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is impossible (G apparently enciphers to G)
+
+       G--B-H---X-Q
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is impossible (G enciphers to H, yet H enciphers to M)
+
+        G--B-H---X-Q
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is possible
+
+         G--B-H---X-Q
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is possible
+
+          G--B-H---X-Q
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is possible
+
+           G--B-H---X-Q
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is impossible (H enciphers to Q, yet Q enciphers to W)
+
+            G--B-H---X-Q
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is impossible (X enciphers to V, yet Q enciphers to X)
+
+             G--B-H---X-Q
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is impossible (B enciphers to Q, yet Q enciphers to Y)
+
+              G--B-H---X-Q
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is impossible (X enciphers to X)
+
+Q              G--B-H---X->
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is possible
+
+-Q              G--B-H---X->
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is impossible (Q enciphers to B, yet B enciphers to T)
+
+X-Q              G--B-H--->
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is possible
+
+-X-Q              G--B-H-->
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is impossible (X enciphers to B, yet B enciphers to V)
+
+--X-Q              G--B-H->
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is possible
+
+---X-Q              G--B-H->
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is impossible (X enciphers to D, yet B enciphers to X)
+
+H---X-Q              G--B->
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is impossible (Q enciphers to G, yet G enciphers to V)
+
+-H---X-Q              G--B->
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is impossible (H enciphers to B, yet Q enciphers to H)
+
+B-H---X-Q              G-->
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is possible (note the G enciphers to X, X enciphers to G property)
+
+-B-H---X-Q              G->
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is impossible (B enciphers to B)
+
+--B-H---X-Q              G->
+ABCDEFGHIJKLMNOPQRSTUVWXYZ  ......... is possible
+
+The so-called "end-wheel alphabet" is already limited to just nine possibilities, merely by establishing a letter-chain of five letters derived from a mere four message-pairs. Hut 8 would now try fitting other letter-chains — ones with no letters in common with the first chain — into these nine candidate end-wheel alphabets.
+Eventually they will hope to be left with just one candidate, maybe looking like this:
+
+         NUP
+F----A--D---O
+--X-Q              G--B-H->
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+Not only this, but such an end-wheel alphabet forces the conclusion that the end wheel is in fact "Rotor I". This is because "Rotor II" would have caused a mid-wheel turnover as it stepped from "E" to "F", yet that's in the middle of the span of the letter-chain "F----A--D---O". Likewise, all the other possible mid-wheel turnovers are precluded. Rotor I does its turnover between "Q" and "R", and that's the only part of the alphabet not spanned by a chain.
+That the different Enigma wheels had different turnover points was, presumably, a measure by the designers of the machine to improve its security. However, this very complication allowed Bletchley Park to deduce the identity of the end wheel.
+
+Middle wheel
+Once the end wheel is identified, these same principles can be extended to handle the middle rotor, though with the added complexity that the search is for overlaps in message-pairs sharing just the first indicator letter, and that the overlaps could therefore occur at up to 650 characters apart.The workload of doing this is beyond manual labour, so BP punched the messages onto 80-column cards and used Hollerith machines to scan for tetragram repeats or better. That told them which banburies to set up on the light boxes (and with what overlap) to evaluate the whole repeat pattern.
+Armed with a set of probable mid-wheel overlaps, Hut 8 could compose letter-chains for the middle wheel much in the same way as was illustrated above for the end wheel. That in turn (after Scritchmus) would give at least a partial middle wheel alphabet, and hopefully at least some of the possible choices of rotor for the middle wheel could be eliminated from turnover knowledge (as was done in identifying the end wheel).
+Taken together, the probable right hand and middle wheels would give a set of bombe runs for the day, that would be significantly reduced from the 336 possible.
+
+See also
+Sequential analysis
+
+References
+Bibliography
+Alexander, C. Hugh O'D. (c. 1945), Cryptographic History of Work on the German Naval Enigma, The National Archives, Kew, Reference HW 25/1
+Good, Jack (1993), "Enigma and Fish", in Hinsley, F.H.; Stripp, Alan (eds.), Codebreakers: The inside story of Bletchley Park, Oxford: Oxford University Press, ISBN 978-0-19-280132-6
+Hosgood, Steven (2008). "All You Ever Wanted to Know About Banburismus but were Afraid to Ask". Archived from the original on 9 March 2016. Retrieved 9 March 2016.
+MacKay, David J. C. Information Theory, Inference, and Learning Algorithms Cambridge: Cambridge University Press, 2003. ISBN 0-521-64298-1. This on-line textbook includes a chapter discussing information theory aspects of Banburismus.
+Mahon, A.P. (1945). "The History of Hut Eight 1939 – 1945". Retrieved 21 October 2009.
+
+Further reading
+Sebag-Montefiore, Hugh. Enigma — the battle for the code. Cassell Military Paperbacks, London, 2004. ISBN 978-1-4072-2129-8
+
+External links
+The 1944 Bletchley Park Cryptographic Dictionary
+"All You Ever Wanted to Know About Banburismus but were Afraid to Ask" — the whole procedure researched in detail, with a worked example.

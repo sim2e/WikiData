@@ -1,0 +1,64 @@
+rsync is a utility for efficiently transferring and synchronizing files between a computer and a storage drive and across networked computers by comparing the modification times and sizes of files. It is commonly found on Unix-like operating systems and is under the GPL-3.0-or-later license.rsync is written in C as a single threaded application. The rsync algorithm is a type of delta encoding, and is used for minimizing network usage. Zstandard, LZ4, or Zlib may be used for additional data compression, and SSH or stunnel can be used for security.
+rsync is typically used for synchronizing files and directories between two different systems. For example, if the command rsync local-file user@remote-host:remote-file is run, rsync will use SSH to connect as user to remote-host. Once connected, it will invoke the remote host's rsync and then the two programs will determine what parts of the local file need to be transferred so that the remote file matches the local one.  One application of rsync is the synchronization of software repositories on mirror sites used by package management systems.rsync can also operate in a daemon mode (rsyncd), serving and receiving files in the native rsync protocol (using the "rsync://" syntax).
+
+History
+Andrew Tridgell and Paul Mackerras wrote the original rsync, which was first announced on 19 June 1996. It is similar in function and invocation to rdist (rdist -c), created by Ralph Campbell in 1983 and released under the Berkeley Software Distribution. Tridgell discusses the design, implementation, and performance of rsync in chapters 3 through 5 of his 1999 Ph.D. thesis. As of 2023, it is maintained by Wayne Davison.Because of the flexibility, speed, and scriptability of rsync, it has become a standard Linux utility, included in all popular Linux distributions. It has been ported to Windows (via Cygwin, Grsync, or SFU), FreeBSD, NetBSD, OpenBSD, and macOS.
+
+Use
+Similar to cp, rcp and scp, rsync requires the specification of a source and of a destination, of which at least one must be local.Generic syntax:
+
+where SRC is the file or directory (or a list of multiple files and directories) to copy from, DEST is the file or directory to copy to, and square brackets indicate optional parameters.
+rsync can synchronize Unix clients to a central Unix server using rsync/ssh and standard Unix accounts. It can be used in desktop environments, for example to efficiently synchronize files with a backup copy on an external hard drive. A scheduling utility such as cron can carry out tasks such as automated encrypted rsync-based mirroring between multiple hosts and a central server.
+
+Examples
+A command line to mirror FreeBSD might look like:
+
+$ rsync -avz --delete ftp4.de.FreeBSD.org::FreeBSD/ /pub/FreeBSD/
+The Apache HTTP Server supports rsync only for updating mirrors.
+
+$ rsync -avz --delete --safe-links rsync.apache.org::apache-dist /path/to/mirror
+The preferred (and simplest) way to mirror a PuTTY website to the current directory is to use rsync.
+
+$ rsync -auH rsync://rsync.chiark.greenend.org.uk/ftp/users/sgtatham/putty-website-mirror/ .
+A way to mimic the capabilities of Time Machine (macOS);
+see also  Time rsYnc Machine (tym).
+
+Make a full backup of system root directory:
+
+Delete all files and directories, within a directory, extremely fast:
+
+Connection
+An rsync process operates by communicating with another rsync process, a sender and a receiver. At startup, an rsync client connects to a peer process. If the transfer is local (that is, between file systems mounted on the same host) the peer can be created with fork, after setting up suitable pipes for the connection. If a remote host is involved, rsync starts a process to handle the connection, typically Secure Shell. Upon connection, a command is issued to start an rsync process on the remote host, which uses the connection thus established. As an alternative, if the remote host runs an rsync daemon, rsync clients can connect by opening a socket on TCP port 873, possibly using a proxy.Rsync has numerous command line options and configuration files to specify alternative shells, options, commands, possibly with full path, and port numbers.  Besides using remote shells, tunnelling can be used to have remote ports appear as local on the server where an rsync daemon runs. Those possibilities allow adjusting security levels to the state of the art, while a naive rsync daemon can be enough for a local network.
+One option is the "--dry-run" option, which allows users to validate their command-line arguments and to simulate what would happen when copying the data without actually making any changes or transferring any data.
+
+Algorithm
+Determining which files to send
+By default, rsync determines which files differ between the sending and receiving systems by checking the modification time and size of each file. If time or size is different between the systems, it transfers the file from the sending to the receiving system. As this only requires reading file directory information, it is quick, but it will miss unusual modifications which change neither.Rsync performs a slower but comprehensive check if invoked with --checksum. This forces a full checksum comparison on every file present on both systems. Barring rare checksum collisions, this avoids the risk of missing changed files at the cost of reading every file present on both systems.
+
+Determining which parts of a file have changed
+The rsync utility uses an algorithm invented by Australian computer programmer Andrew Tridgell for efficiently transmitting a structure (such as a file) across a communications link when the receiving computer already has a similar, but not identical, version of the same structure.The recipient splits its copy of the file into chunks and computes two checksums for each chunk: the MD5 hash, and a weaker but easier to compute 'rolling checksum'. It sends these checksums to the sender.
+The sender computes the checksum for each rolling section in its version of the file having the same size as the chunks used by the recipient's. While the recipient calculates the checksum only for chunks starting at full multiples of the chunk size, the sender calculates the checksum for all sections starting at any address. If any such rolling checksum calculated by the sender matches a checksum calculated by the recipient, then this section is a candidate for not transmitting the content of the section, but only the location in the recipient's file instead. In this case, the sender uses the more computationally expensive MD5 hash to verify that the sender's section and recipient's chunk are equal. Note that the section in the sender may not be at the same start address as the chunk at the recipient. This allows efficient transmission of files which differ by insertions and deletions. The sender then sends the recipient those parts of its file that did not match, along with information on where to merge existing blocks into the recipient's version. This makes the copies identical.
+The rolling checksum used in rsync is based on Mark Adler's adler-32 checksum, which is used in zlib, and is itself based on Fletcher's checksum.
+If the sender's and recipient's versions of the file have many sections in common, the utility needs to transfer relatively little data to synchronize the files. If typical data compression algorithms are used, files that are similar when uncompressed may be very different when compressed, and thus the entire file will need to be transferred. Some compression programs, such as gzip, provide a special "rsyncable" mode which allows these files to be efficiently rsynced, by ensuring that local changes in the uncompressed file yield only local changes in the compressed file.
+Rsync supports other key features that aid significantly in data transfers or backup. They include compression and decompression of data block by block using Zstandard, LZ4, or zlib, and support for protocols such as ssh and stunnel.
+
+Variations
+The rdiff utility uses the rsync algorithm to generate delta files with the difference from file A to file B (like the utility diff, but in a different delta format). The delta file can then be applied to file A, turning it into file B (similar to the patch utility). rdiff works well with binary files.
+The rdiff-backup script maintains a backup mirror of a file or directory either locally or remotely over the network on another server. rdiff-backup stores incremental rdiff deltas with the backup, with which it is possible to recreate any backup point.The librsync library used by rdiff is an independent implementation of the rsync algorithm. It does not use the rsync network protocol and does not share any code with the rsync application. It is used by Dropbox, rdiff-backup, duplicity, and other utilities.The acrosync library is an independent, cross-platform implementation of the rsync network protocol.  Unlike librsync, it is wire-compatible with rsync (protocol version 29 or 30). It is released under the Reciprocal Public License and used by the commercial rsync software Acrosync.The duplicity backup software written in python allows for incremental backups with simple storage backend services like local file system, sftp, Amazon S3 and many others. It utilizes librsync to generate delta data against signatures of the previous file versions, encrypting them using gpg, and storing them on the backend. For performance reasons a local archive-dir is used to cache backup chain signatures, but can be re-downloaded from the backend if needed.
+As of macOS 10.5 and later, there is a special -E or --extended-attributes switch which allows retaining much of the HFS+ file metadata when syncing between two machines supporting this feature. This is achieved by transmitting the Resource Fork along with the Data Fork.zsync is an rsync-like tool optimized for many downloads per file version. zsync is used by Linux distributions such as Ubuntu for distributing fast changing beta ISO image files. zsync uses the HTTP protocol and .zsync files with pre-calculated rolling hash to minimize server load yet permit diff transfer for network optimization.Rclone is an open-source tool inspired by rsync that focuses on cloud and other high latency storage. It supports more than 50 different providers and provides an rsync-like interface for cloud storage. However, Rclone does not support rolling checksums for partial file syncing (binary diffs) because cloud storage providers do not usually offer the feature and Rclone avoids storing additional metadata.
+
+rsync applications
+See also
+casync
+Remote Differential Compression
+List of TCP and UDP port numbers
+Grsync – App based on RSync but with Graphical User Interface
+Comparison of file synchronization software
+
+Notes
+References
+External links
+Official website 
+Rsync algorithm – 1998-11-09
+Doctoral thesis introducing the Rsync algorithm
+Rsync examples in Linux (How to use rsync)

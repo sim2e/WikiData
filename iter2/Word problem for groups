@@ -1,0 +1,1730 @@
+In mathematics, especially in the area of abstract algebra known as combinatorial group theory, the word problem for a finitely generated group G is the algorithmic problem of deciding whether two words in the generators represent the same element. More precisely, if A is a finite set of generators for G then the word problem is the membership problem for the formal language of all words in A and a formal set of inverses that map to the identity under the natural map from the free monoid with involution on A to the group G.  If B is another finite generating set for G, then the word problem over the generating set B is equivalent to the word problem over the generating set A. Thus one can speak unambiguously of the decidability of the word problem for the finitely generated group G.
+The related but different uniform word problem for a class K of recursively presented groups is the algorithmic problem of deciding, given as input a presentation P for a group G in the class K and two words in the generators of G, whether the words represent the same element of G. Some authors require the class K to be definable by a recursively enumerable set of presentations.
+
+History
+Throughout the history of the subject, computations in groups have been carried out using various normal forms. These usually implicitly solve the word problem for the groups in question. In 1911 Max Dehn proposed that the word problem was an important area of study in its own right, together with the conjugacy problem and the group isomorphism problem. In 1912 he gave an algorithm that solves both the word and conjugacy problem for the fundamental groups of closed orientable two-dimensional manifolds of genus greater than or equal to 2.  Subsequent authors have greatly extended Dehn's algorithm and applied it to a wide range of group theoretic decision problems.It was shown by Pyotr Novikov in 1955 that there exists a finitely presented group G such that the word problem for G is undecidable. It follows immediately that the uniform word problem is also undecidable. A different proof was obtained by William Boone in 1958.The word problem was one of the first examples of an unsolvable problem to be found not in mathematical logic or the theory of algorithms, but in one of the central branches of classical mathematics, algebra. As a result of its unsolvability, several other problems in combinatorial group theory have been shown to be unsolvable as well.
+It is important to realize that the word problem is in fact solvable for many groups G. For example, polycyclic groups have solvable word problems since the normal form of an arbitrary word in a polycyclic presentation is readily computable; other algorithms for groups may, in suitable circumstances, also solve the word problem, see the Todd–Coxeter algorithm and the Knuth–Bendix completion algorithm. On the other hand, the fact that a particular algorithm does not solve the word problem for a particular group does not show that the group has an unsolvable word problem. For instance Dehn's algorithm does not solve the word problem for the fundamental group of the torus. However this group is the direct product of two infinite cyclic groups and so has a solvable word problem.
+
+A more concrete description
+In more concrete terms, the uniform word problem can be expressed as a rewriting question, for literal strings. For a presentation P of a group G, P will specify a certain number of generators
+
+x, y, z, ...for G. We need to introduce one letter for x and another (for convenience) for the group element represented by x−1. Call these letters (twice as many as the generators) the alphabet 
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+   for our problem. Then each element in G is represented in some way by a product
+
+abc ... pqrof symbols from 
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+  , of some length, multiplied in G. The string of length 0 (null string) stands for the identity element e of G. The crux of the whole problem is to be able to recognise all the ways e can be represented, given some relations.
+The effect of the relations in G is to make various such strings represent the same element of G. In fact the relations provide a list of strings that can be either introduced where we want, or cancelled out whenever we see them, without changing the 'value', i.e. the group element that is the result of the multiplication.
+For a simple example, take the presentation {a | a3}. Writing A for the inverse of a, we have possible strings combining any number of the symbols a and A. Whenever we see aaa, or aA or Aa we may strike these out. We should also remember to strike out AAA; this says that since the cube of a is the identity element of G, so is the cube of the inverse of a. Under these conditions the word problem becomes easy. First reduce strings to the empty string, a, aa, A or AA. Then note that we may also multiply by aaa, so we can convert A to aa and convert AA to a. The result is that the word problem, here for the cyclic group of order three, is solvable.
+This is not, however, the typical case. For the example, we have a canonical form available that reduces any string to one of length at most three, by decreasing the length monotonically. In general, it is not true that one can get a canonical form for the elements, by stepwise cancellation. One may have to use relations to expand a string many-fold, in order eventually to find a cancellation that brings the length right down.
+The upshot is, in the worst case, that the relation between strings that says they are equal in G is an Undecidable problem.
+
+Examples
+The following groups have a solvable word problem:
+
+Automatic groups, including:
+Finite groups
+Negatively curved (aka. hyperbolic) groups
+Euclidean groups
+Coxeter groups
+Braid groups
+Geometrically finite groups
+Finitely generated free groups
+Finitely generated free abelian groups
+Polycyclic groups
+Finitely generated recursively absolutely presented groups, including:
+Finitely presented simple groups.
+Finitely presented residually finite groups
+One relator groups (this is a theorem of Magnus), including:
+Fundamental groups of closed orientable two-dimensional manifolds.
+Combable groups
+Autostackable groupsExamples with unsolvable word problems are also known:
+
+Given a recursively enumerable set A of positive integers that has insoluble membership problem, ⟨a,b,c,d | anban = cndcn : n ∈ A⟩ is a finitely generated group with a recursively enumerable presentation whose word problem is insoluble
+Every finitely generated group with a recursively enumerable presentation and insoluble word problem is a subgroup of a finitely presented group with insoluble word problem
+The number of relators in a finitely presented group with insoluble word problem may be as low as 14  or even 12.
+An explicit example of a reasonable short presentation with insoluble word problem is given in Collins 1986:
+  
+    
+      
+        
+          
+            
+              
+                ⟨
+              
+              
+                a
+                ,
+                b
+                ,
+                c
+                ,
+                d
+                ,
+                e
+                ,
+                p
+                ,
+                q
+                ,
+                r
+                ,
+                t
+                ,
+                k
+              
+              
+                
+                  |
+                
+              
+              
+              
+            
+            
+              
+              
+                
+                  p
+                  
+                    10
+                  
+                
+                a
+                =
+                a
+                p
+                ,
+              
+              
+                p
+                a
+                c
+                q
+                r
+                =
+                r
+                p
+                c
+                a
+                q
+                ,
+              
+              
+                r
+                a
+                =
+                a
+                r
+                ,
+              
+              
+            
+            
+              
+              
+                
+                  p
+                  
+                    10
+                  
+                
+                b
+                =
+                b
+                p
+                ,
+              
+              
+                
+                  p
+                  
+                    2
+                  
+                
+                a
+                d
+                
+                  q
+                  
+                    2
+                  
+                
+                r
+                =
+                r
+                
+                  p
+                  
+                    2
+                  
+                
+                d
+                a
+                
+                  q
+                  
+                    2
+                  
+                
+                ,
+              
+              
+                r
+                b
+                =
+                b
+                r
+                ,
+              
+              
+            
+            
+              
+              
+                
+                  p
+                  
+                    10
+                  
+                
+                c
+                =
+                c
+                p
+                ,
+              
+              
+                
+                  p
+                  
+                    3
+                  
+                
+                b
+                c
+                
+                  q
+                  
+                    3
+                  
+                
+                r
+                =
+                r
+                
+                  p
+                  
+                    3
+                  
+                
+                c
+                b
+                
+                  q
+                  
+                    3
+                  
+                
+                ,
+              
+              
+                r
+                c
+                =
+                c
+                r
+                ,
+              
+              
+            
+            
+              
+              
+                
+                  p
+                  
+                    10
+                  
+                
+                d
+                =
+                d
+                p
+                ,
+              
+              
+                
+                  p
+                  
+                    4
+                  
+                
+                b
+                d
+                
+                  q
+                  
+                    4
+                  
+                
+                r
+                =
+                r
+                
+                  p
+                  
+                    4
+                  
+                
+                d
+                b
+                
+                  q
+                  
+                    4
+                  
+                
+                ,
+              
+              
+                r
+                d
+                =
+                d
+                r
+                ,
+              
+              
+            
+            
+              
+              
+                
+                  p
+                  
+                    10
+                  
+                
+                e
+                =
+                e
+                p
+                ,
+              
+              
+                
+                  p
+                  
+                    5
+                  
+                
+                c
+                e
+                
+                  q
+                  
+                    5
+                  
+                
+                r
+                =
+                r
+                
+                  p
+                  
+                    5
+                  
+                
+                e
+                c
+                a
+                
+                  q
+                  
+                    5
+                  
+                
+                ,
+              
+              
+                r
+                e
+                =
+                e
+                r
+                ,
+              
+              
+            
+            
+              
+              
+                a
+                
+                  q
+                  
+                    10
+                  
+                
+                =
+                q
+                a
+                ,
+              
+              
+                
+                  p
+                  
+                    6
+                  
+                
+                d
+                e
+                
+                  q
+                  
+                    6
+                  
+                
+                r
+                =
+                r
+                
+                  p
+                  
+                    6
+                  
+                
+                e
+                d
+                b
+                
+                  q
+                  
+                    6
+                  
+                
+                ,
+              
+              
+                p
+                t
+                =
+                t
+                p
+                ,
+              
+              
+            
+            
+              
+              
+                b
+                
+                  q
+                  
+                    10
+                  
+                
+                =
+                q
+                b
+                ,
+              
+              
+                
+                  p
+                  
+                    7
+                  
+                
+                c
+                d
+                c
+                
+                  q
+                  
+                    7
+                  
+                
+                r
+                =
+                r
+                
+                  p
+                  
+                    7
+                  
+                
+                c
+                d
+                c
+                e
+                
+                  q
+                  
+                    7
+                  
+                
+                ,
+              
+              
+                q
+                t
+                =
+                t
+                q
+                ,
+              
+              
+            
+            
+              
+              
+                c
+                
+                  q
+                  
+                    10
+                  
+                
+                =
+                q
+                c
+                ,
+              
+              
+                
+                  p
+                  
+                    8
+                  
+                
+                c
+                
+                  a
+                  
+                    3
+                  
+                
+                
+                  q
+                  
+                    8
+                  
+                
+                r
+                =
+                r
+                
+                  p
+                  
+                    8
+                  
+                
+                
+                  a
+                  
+                    3
+                  
+                
+                
+                  q
+                  
+                    8
+                  
+                
+                ,
+              
+              
+              
+            
+            
+              
+              
+                d
+                
+                  q
+                  
+                    10
+                  
+                
+                =
+                q
+                d
+                ,
+              
+              
+                
+                  p
+                  
+                    9
+                  
+                
+                d
+                
+                  a
+                  
+                    3
+                  
+                
+                
+                  q
+                  
+                    9
+                  
+                
+                r
+                =
+                r
+                
+                  p
+                  
+                    9
+                  
+                
+                
+                  a
+                  
+                    3
+                  
+                
+                
+                  q
+                  
+                    9
+                  
+                
+                ,
+              
+              
+              
+            
+            
+              
+              
+                e
+                
+                  q
+                  
+                    10
+                  
+                
+                =
+                q
+                e
+                ,
+              
+              
+                
+                  a
+                  
+                    −
+                    3
+                  
+                
+                t
+                
+                  a
+                  
+                    3
+                  
+                
+                k
+                =
+                k
+                
+                  a
+                  
+                    −
+                    3
+                  
+                
+                t
+                
+                  a
+                  
+                    3
+                  
+                
+              
+              
+              
+                ⟩
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{lllll}\langle &a,b,c,d,e,p,q,r,t,k&|&&\\&p^{10}a=ap,&pacqr=rpcaq,&ra=ar,&\\&p^{10}b=bp,&p^{2}adq^{2}r=rp^{2}daq^{2},&rb=br,&\\&p^{10}c=cp,&p^{3}bcq^{3}r=rp^{3}cbq^{3},&rc=cr,&\\&p^{10}d=dp,&p^{4}bdq^{4}r=rp^{4}dbq^{4},&rd=dr,&\\&p^{10}e=ep,&p^{5}ceq^{5}r=rp^{5}ecaq^{5},&re=er,&\\&aq^{10}=qa,&p^{6}deq^{6}r=rp^{6}edbq^{6},&pt=tp,&\\&bq^{10}=qb,&p^{7}cdcq^{7}r=rp^{7}cdceq^{7},&qt=tq,&\\&cq^{10}=qc,&p^{8}ca^{3}q^{8}r=rp^{8}a^{3}q^{8},&&\\&dq^{10}=qd,&p^{9}da^{3}q^{9}r=rp^{9}a^{3}q^{9},&&\\&eq^{10}=qe,&a^{-3}ta^{3}k=ka^{-3}ta^{3}&&\rangle \end{array}}}
+
+Partial solution of the word problem
+The word problem for a recursively presented group can be partially solved in the following sense:
+
+Given a recursive presentation P = ⟨X|R⟩ for a group G, define:
+
+  
+    
+      
+        S
+        =
+        {
+        ⟨
+        u
+        ,
+        v
+        ⟩
+        :
+        u
+        
+           and 
+        
+        v
+        
+           are words in 
+        
+        X
+        
+           and 
+        
+        u
+        =
+        v
+        
+           in 
+        
+        G
+         
+        }
+      
+    
+    {\displaystyle S=\{\langle u,v\rangle :u{\text{ and }}v{\text{ are words in }}X{\text{ and }}u=v{\text{ in }}G\ \}}
+  
+then there is a partial recursive function fP such that:
+
+  
+    
+      
+        
+          f
+          
+            P
+          
+        
+        (
+        ⟨
+        u
+        ,
+        v
+        ⟩
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  0
+                
+                
+                  
+                    if
+                  
+                   
+                  ⟨
+                  u
+                  ,
+                  v
+                  ⟩
+                  ∈
+                  S
+                
+              
+              
+                
+                  
+                    undefined/does not halt
+                  
+                   
+                
+                
+                  
+                    if
+                  
+                   
+                  ⟨
+                  u
+                  ,
+                  v
+                  ⟩
+                  ∉
+                  S
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle f_{P}(\langle u,v\rangle )={\begin{cases}0&{\text{if}}\ \langle u,v\rangle \in S\\{\text{undefined/does not halt}}\ &{\text{if}}\ \langle u,v\rangle \notin S\end{cases}}}
+  More informally, there is an algorithm that halts if u=v, but does not do so otherwise.
+It follows that to solve the word problem for P it is sufficient to construct a recursive function g such that:
+
+  
+    
+      
+        g
+        (
+        ⟨
+        u
+        ,
+        v
+        ⟩
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  0
+                
+                
+                  
+                    if
+                  
+                   
+                  ⟨
+                  u
+                  ,
+                  v
+                  ⟩
+                  ∉
+                  S
+                
+              
+              
+                
+                  
+                    undefined/does not halt
+                  
+                   
+                
+                
+                  
+                    if
+                  
+                   
+                  ⟨
+                  u
+                  ,
+                  v
+                  ⟩
+                  ∈
+                  S
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle g(\langle u,v\rangle )={\begin{cases}0&{\text{if}}\ \langle u,v\rangle \notin S\\{\text{undefined/does not halt}}\ &{\text{if}}\ \langle u,v\rangle \in S\end{cases}}}
+  However u=v in G if and only if uv−1=1 in G. It follows that to solve the word problem for P it is sufficient to construct a recursive function h such that:
+
+  
+    
+      
+        h
+        (
+        x
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  0
+                
+                
+                  
+                    if
+                  
+                   
+                  x
+                  ≠
+                  1
+                   
+                  
+                    in
+                  
+                   
+                  G
+                
+              
+              
+                
+                  
+                    undefined/does not halt
+                  
+                   
+                
+                
+                  
+                    if
+                  
+                   
+                  x
+                  =
+                  1
+                   
+                  
+                    in
+                  
+                   
+                  G
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle h(x)={\begin{cases}0&{\text{if}}\ x\neq 1\ {\text{in}}\ G\\{\text{undefined/does not halt}}\ &{\text{if}}\ x=1\ {\text{in}}\ G\end{cases}}}
+
+Example
+The following will be proved as an example of the use of this technique:
+
+Theorem: A finitely presented residually finite group has solvable word problem.Proof: Suppose G = ⟨X|R⟩ is a finitely presented, residually finite group.
+Let S be the group of all permutations of N, the natural numbers, that fixes all but finitely many numbers then:
+
+S is locally finite and contains a copy of every finite group.
+The word problem in S is solvable by calculating products of permutations.
+There is a recursive enumeration of all mappings of the finite set X into S.
+Since G is residually finite, if w is a word in the generators X of G then w ≠ 1 in G if and only of some mapping of X into S induces a homomorphism such that w ≠ 1 in S.Given these facts, algorithm defined by the following pseudocode:
+
+For every mapping of X into S
+    If every relator in R is satisfied in S
+        If w ≠ 1 in S
+            return 0
+        End if
+    End if
+End for
+
+defines a recursive function h such that:
+
+  
+    
+      
+        h
+        (
+        x
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  0
+                
+                
+                  
+                    if
+                  
+                   
+                  x
+                  ≠
+                  1
+                   
+                  
+                    in
+                  
+                   
+                  G
+                
+              
+              
+                
+                  
+                    undefined/does not halt
+                  
+                   
+                
+                
+                  
+                    if
+                  
+                   
+                  x
+                  =
+                  1
+                   
+                  
+                    in
+                  
+                   
+                  G
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle h(x)={\begin{cases}0&{\text{if}}\ x\neq 1\ {\text{in}}\ G\\{\text{undefined/does not halt}}\ &{\text{if}}\ x=1\ {\text{in}}\ G\end{cases}}}
+  This shows that G has solvable word problem.
+
+Unsolvability of the uniform word problem
+The criterion given above, for the solvability of the word problem in a single group, can be extended by a straightforward argument. This gives the following criterion for the uniform solvability of the word problem for a class of finitely presented groups:
+
+To solve the uniform word problem for a class K of groups, it is sufficient to find a recursive function 
+  
+    
+      
+        f
+        (
+        P
+        ,
+        w
+        )
+      
+    
+    {\displaystyle f(P,w)}
+   that takes a finite presentation P for a group G and a word 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   in the generators of G, such that whenever G ∈ K:
+
+  
+    
+      
+        f
+        (
+        P
+        ,
+        w
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  0
+                
+                
+                  
+                    if
+                  
+                   
+                  w
+                  ≠
+                  1
+                   
+                  
+                    in
+                  
+                   
+                  G
+                
+              
+              
+                
+                  
+                    undefined/does not halt
+                  
+                   
+                
+                
+                  
+                    if
+                  
+                   
+                  w
+                  =
+                  1
+                   
+                  
+                    in
+                  
+                   
+                  G
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle f(P,w)={\begin{cases}0&{\text{if}}\ w\neq 1\ {\text{in}}\ G\\{\text{undefined/does not halt}}\ &{\text{if}}\ w=1\ {\text{in}}\ G\end{cases}}}
+  Boone-Rogers Theorem: There is no uniform partial algorithm that solves the word problem in all finitely presented groups with solvable word problem.In other words, the uniform word problem for the class of all finitely presented groups with solvable word problem is unsolvable. This has some interesting consequences. For instance, the Higman embedding theorem can be used to construct a group containing an isomorphic copy of every finitely presented group with solvable word problem. It seems natural to ask whether this group can have solvable word problem. But it is a consequence of the Boone-Rogers result that:
+
+Corollary: There is no universal solvable word problem group. That is, if G is a finitely presented group that contains an isomorphic copy of every finitely presented group with solvable word problem, then G itself must have unsolvable word problem.Remark: Suppose G = ⟨X|R⟩ is a finitely presented group with solvable word problem and H is a finite subset of G. Let H* = ⟨H⟩, be the group generated by H. Then the word problem in H* is solvable: given two words h, k in the generators H of H*, write them as words in X and compare them using the solution to the word problem in G. It is easy to think that this demonstrates a uniform solution of the word problem for the class K (say) of finitely generated groups that can be embedded in G. If this were the case, the non-existence of a universal solvable word problem group would follow easily from Boone-Rogers. However, the solution just exhibited for the word problem for groups in K is not uniform. To see this, consider a group J = ⟨Y|T⟩ ∈ K; in order to use the above argument to solve the word problem in J, it is first necessary to exhibit a mapping  e: Y → G that extends to an embedding e*:  J → G. If there were a recursive function that mapped (finitely generated) presentations of groups in K to embeddings into G, then a uniform solution of the word problem in K could indeed be constructed. But there is no reason, in general, to suppose that such a recursive function exists. However, it turns out that, using a more sophisticated argument, the word problem in J can be solved without using an embedding e: J → G. Instead an enumeration of homomorphisms is used, and since such an enumeration can be constructed uniformly, it results in a uniform solution to the word problem in K.
+
+Proof that there is no universal solvable word problem group
+Suppose G were a universal solvable word problem group. Given a finite presentation P = ⟨X|R⟩ of a group H, one can recursively enumerate all homomorphisms h: H → G by first enumerating all mappings h†: X → G. Not all of these mappings extend to homomorphisms, but, since h†(R) is finite, it is possible to distinguish between homomorphisms and non-homomorphisms, by using the solution to the word problem in G. "Weeding out" non-homomorphisms gives the required recursive enumeration: h1, h2, ..., hn, ... .
+If H has solvable word problem, then at least one of these homomorphisms must be an embedding. So given a word w in the generators of H:
+
+  
+    
+      
+        
+          If
+        
+         
+        w
+        ≠
+        1
+         
+        
+          in
+        
+         
+        H
+        ,
+         
+        
+          h
+          
+            n
+          
+        
+        (
+        w
+        )
+        ≠
+        1
+         
+        
+          in
+        
+         
+        G
+         
+        
+          for some
+        
+         
+        
+          h
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\text{If}}\ w\neq 1\ {\text{in}}\ H,\ h_{n}(w)\neq 1\ {\text{in}}\ G\ {\text{for some}}\ h_{n}}
+  
+
+  
+    
+      
+        
+          If
+        
+         
+        w
+        =
+        1
+         
+        
+          in
+        
+         
+        H
+        ,
+         
+        
+          h
+          
+            n
+          
+        
+        (
+        w
+        )
+        =
+        1
+         
+        
+          in
+        
+         
+        G
+         
+        
+          for all
+        
+         
+        
+          h
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\text{If}}\ w=1\ {\text{in}}\ H,\ h_{n}(w)=1\ {\text{in}}\ G\ {\text{for all}}\ h_{n}}
+  Consider the algorithm described by the pseudocode:
+
+Let n = 0
+    Let repeatable = TRUE
+        while (repeatable)
+            increase n by 1
+            if (solution to word problem in G reveals hn(w) ≠ 1 in G)
+                Let repeatable = FALSE
+output 0.
+
+This describes a recursive function:
+
+  
+    
+      
+        f
+        (
+        w
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  0
+                
+                
+                  
+                    if
+                  
+                   
+                  w
+                  ≠
+                  1
+                   
+                  
+                    in
+                  
+                   
+                  H
+                
+              
+              
+                
+                  
+                    undefined/does not halt
+                  
+                   
+                
+                
+                  
+                    if
+                  
+                   
+                  w
+                  =
+                  1
+                   
+                  
+                    in
+                  
+                   
+                  H
+                  .
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle f(w)={\begin{cases}0&{\text{if}}\ w\neq 1\ {\text{in}}\ H\\{\text{undefined/does not halt}}\ &{\text{if}}\ w=1\ {\text{in}}\ H.\end{cases}}}
+  The function f clearly depends on the presentation P. Considering it to be a function of the two variables, a recursive function 
+  
+    
+      
+        f
+        (
+        P
+        ,
+        w
+        )
+      
+    
+    {\displaystyle f(P,w)}
+   has been constructed that takes a finite presentation P for a group H and a word w in the generators of a group G, such that whenever G has soluble word problem:
+
+  
+    
+      
+        f
+        (
+        P
+        ,
+        w
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  0
+                
+                
+                  
+                    if
+                  
+                   
+                  w
+                  ≠
+                  1
+                   
+                  
+                    in
+                  
+                   
+                  H
+                
+              
+              
+                
+                  
+                    undefined/does not halt
+                  
+                   
+                
+                
+                  
+                    if
+                  
+                   
+                  w
+                  =
+                  1
+                   
+                  
+                    in
+                  
+                   
+                  H
+                  .
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle f(P,w)={\begin{cases}0&{\text{if}}\ w\neq 1\ {\text{in}}\ H\\{\text{undefined/does not halt}}\ &{\text{if}}\ w=1\ {\text{in}}\ H.\end{cases}}}
+  But this uniformly solves the word problem for the class of all finitely presented groups with solvable word problem, contradicting Boone-Rogers. This contradiction proves G cannot exist.
+
+Algebraic structure and the word problem
+There are a number of results that relate solvability of the word problem and algebraic structure. The most significant of these is the Boone-Higman theorem:
+
+A finitely presented group has solvable word problem if and only if it can be embedded in a simple group that can be embedded in a finitely presented group.It is widely believed that it should be possible to do the construction so that the simple group itself is finitely presented. If so one would expect it to be difficult to prove as the mapping from presentations to simple groups would have to be non-recursive.
+The following has been proved by Bernhard Neumann and Angus Macintyre:
+
+A finitely presented group has solvable word problem if and only if it can be embedded in every algebraically closed groupWhat is remarkable about this is that the algebraically closed groups are so wild that none of them has a recursive presentation.
+The oldest result relating algebraic structure to solvability of the word problem is Kuznetsov's theorem:
+
+A recursively presented simple group S has solvable word problem.To prove this let ⟨X|R⟩ be a recursive presentation for S. Choose a ∈ S such that a ≠ 1 in S.
+If w is a word on the generators X of S, then let:
+
+  
+    
+      
+        
+          S
+          
+            w
+          
+        
+        =
+        ⟨
+        X
+        
+          |
+        
+        R
+        ∪
+        {
+        w
+        }
+        ⟩
+        .
+      
+    
+    {\displaystyle S_{w}=\langle X|R\cup \{w\}\rangle .}
+  There is a recursive function 
+  
+    
+      
+        
+          f
+          
+            ⟨
+            X
+            
+              |
+            
+            R
+            ∪
+            {
+            w
+            }
+            ⟩
+          
+        
+      
+    
+    {\displaystyle f_{\langle X|R\cup \{w\}\rangle }}
+   such that:
+
+  
+    
+      
+        
+          f
+          
+            ⟨
+            X
+            
+              |
+            
+            R
+            ∪
+            {
+            w
+            }
+            ⟩
+          
+        
+        (
+        x
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  0
+                
+                
+                  
+                    if
+                  
+                   
+                  x
+                  =
+                  1
+                   
+                  
+                    in
+                  
+                   
+                  
+                    S
+                    
+                      w
+                    
+                  
+                
+              
+              
+                
+                  
+                    undefined/does not halt
+                  
+                   
+                
+                
+                  
+                    if
+                  
+                   
+                  x
+                  ≠
+                  1
+                   
+                  
+                    in
+                  
+                   
+                  
+                    S
+                    
+                      w
+                    
+                  
+                  .
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle f_{\langle X|R\cup \{w\}\rangle }(x)={\begin{cases}0&{\text{if}}\ x=1\ {\text{in}}\ S_{w}\\{\text{undefined/does not halt}}\ &{\text{if}}\ x\neq 1\ {\text{in}}\ S_{w}.\end{cases}}}
+  Write:
+
+  
+    
+      
+        g
+        (
+        w
+        ,
+        x
+        )
+        =
+        
+          f
+          
+            ⟨
+            X
+            
+              |
+            
+            R
+            ∪
+            {
+            w
+            }
+            ⟩
+          
+        
+        (
+        x
+        )
+        .
+      
+    
+    {\displaystyle g(w,x)=f_{\langle X|R\cup \{w\}\rangle }(x).}
+  Then because the construction of f was uniform, this is a recursive function of two variables.
+It follows that: 
+  
+    
+      
+        h
+        (
+        w
+        )
+        =
+        g
+        (
+        w
+        ,
+        a
+        )
+      
+    
+    {\displaystyle h(w)=g(w,a)}
+   is recursive. By construction:
+
+  
+    
+      
+        h
+        (
+        w
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  0
+                
+                
+                  
+                    if
+                  
+                   
+                  a
+                  =
+                  1
+                   
+                  
+                    in
+                  
+                   
+                  
+                    S
+                    
+                      w
+                    
+                  
+                
+              
+              
+                
+                  
+                    undefined/does not halt
+                  
+                   
+                
+                
+                  
+                    if
+                  
+                   
+                  a
+                  ≠
+                  1
+                   
+                  
+                    in
+                  
+                   
+                  
+                    S
+                    
+                      w
+                    
+                  
+                  .
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle h(w)={\begin{cases}0&{\text{if}}\ a=1\ {\text{in}}\ S_{w}\\{\text{undefined/does not halt}}\ &{\text{if}}\ a\neq 1\ {\text{in}}\ S_{w}.\end{cases}}}
+  Since S is a simple group, its only quotient groups are itself and the trivial group. Since a ≠ 1 in S, we see a = 1 in Sw if and only if Sw is trivial if and only if w ≠ 1 in S. Therefore:
+
+  
+    
+      
+        h
+        (
+        w
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  0
+                
+                
+                  
+                    if
+                  
+                   
+                  w
+                  ≠
+                  1
+                   
+                  
+                    in
+                  
+                   
+                  S
+                
+              
+              
+                
+                  
+                    undefined/does not halt
+                  
+                   
+                
+                
+                  
+                    if
+                  
+                   
+                  w
+                  =
+                  1
+                   
+                  
+                    in
+                  
+                   
+                  S
+                  .
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle h(w)={\begin{cases}0&{\text{if}}\ w\neq 1\ {\text{in}}\ S\\{\text{undefined/does not halt}}\ &{\text{if}}\ w=1\ {\text{in}}\ S.\end{cases}}}
+  The existence of such a function is sufficient to prove the word problem is solvable for S.
+This proof does not prove the existence of a uniform algorithm for solving the word problem for this class of groups. The non-uniformity resides in choosing a non-trivial element of the simple group. There is no reason to suppose that there is a recursive function that maps a presentation of a simple groups to a non-trivial element of the group. However, in the case of a finitely presented group we know that not all the generators can be trivial (Any individual generator could be, of course). Using this fact it is possible to modify the proof to show:
+
+The word problem is uniformly solvable for the class of finitely presented simple groups.
+
+See also
+Combinatorics on words
+SQ-universal group
+Word problem (mathematics)
+Reachability problem
+Nested stack automata (have been used to solve the word problem for groups)
+
+Notes
+References
+Boone, W.W.; Cannonito, F.B.; Lyndon, Roger C. (1973). Word problems : decision problems and the Burnside problem in group theory. Studies in logic and the foundations of mathematics. Vol. 71. North-Holland. ISBN 9780720422719.
+Boone, W. W.; Higman, G. (1974). "An algebraic characterization of the solvability of the word problem". J. Austral. Math. Soc. 18: 41–53. doi:10.1017/s1446788700019108.
+Boone, W. W.; Rogers Jr, H. (1966). "On a problem of J. H. C. Whitehead and a problem of Alonzo Church". Math. Scand. 19: 185–192. doi:10.7146/math.scand.a-10808.
+Borisov, V. V. (1969), "Simple examples of groups with unsolvable word problem", Akademiya Nauk SSSR. Matematicheskie Zametki, 6: 521–532, ISSN 0025-567X, MR 0260851
+Collins, Donald J. (1969), "Word and conjugacy problems in groups with only a few defining relations", Zeitschrift für Mathematische Logik und Grundlagen der Mathematik, 15 (20–22): 305–324, doi:10.1002/malq.19690152001, MR 0263903
+Collins, Donald J. (1972), "On a group embedding theorem of V. V. Borisov", Bulletin of the London Mathematical Society, 4 (2): 145–147, doi:10.1112/blms/4.2.145, ISSN 0024-6093, MR 0314998
+Collins, Donald J. (1986), "A simple presentation of a group with unsolvable word problem", Illinois Journal of Mathematics, 30 (2): 230–234, doi:10.1215/ijm/1256044631, ISSN 0019-2082, MR 0840121
+Collins, Donald J.; Zieschang, H. (1990), Combinatorial group theory and fundamental groups, Springer-Verlag, p. 166, MR 1099152
+Dehn, Max (1911), "Über unendliche diskontinuierliche Gruppen", Mathematische Annalen, 71 (1): 116–144, doi:10.1007/BF01456932, ISSN 0025-5831, MR 1511645, S2CID 123478582
+Dehn, Max (1912), "Transformation der Kurven auf zweiseitigen Flächen", Mathematische Annalen, 72 (3): 413–421, doi:10.1007/BF01456725, ISSN 0025-5831, MR 1511705, S2CID 122988176
+Kuznetsov, A.V. (1958). "Algorithms as operations in algebraic systems". Izvestia Akad. Nauk SSSR Ser Mat. 13 (3): 81.
+Miller, C.F. (1991). "Decision problems for groups — survey and reflections". Algorithms and Classification in Combinatorial Group Theory. Mathematical Sciences Research Institute Publications. Vol. 23. Springer. pp. 1–60. doi:10.1007/978-1-4613-9730-4_1. ISBN 978-1-4613-9730-4.
+Nyberg-Brodda, Carl-Fredrik (2021), "The word problem for one-relation monoids: a survey", Semigroup Forum, 103 (2): 297–355, arXiv:2105.02853, doi:10.1007/s00233-021-10216-8
+Rotman, Joseph (1994), An introduction to the theory of groups, Springer-Verlag, ISBN 978-0-387-94285-8
+Stillwell, J. (1982). "The word problem and the isomorphism problem for groups". Bulletin of the AMS. 6: 33–56. doi:10.1090/s0273-0979-1982-14963-1.

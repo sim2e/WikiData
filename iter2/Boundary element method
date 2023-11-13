@@ -1,0 +1,56 @@
+The boundary element method (BEM) is a numerical computational method of solving linear partial differential equations which have been formulated as integral equations (i.e. in boundary integral form), including fluid mechanics, acoustics, electromagnetics (where the technique is known as method of moments or abbreviated as MoM), fracture mechanics, and contact mechanics.
+
+Mathematical basis
+The integral equation may be regarded as an exact solution of the governing partial differential equation. The boundary element method attempts to use the given boundary conditions to fit boundary values into the integral equation, rather than values throughout the space defined by a partial differential equation. Once this is done, in the post-processing stage, the integral equation can then be used again to calculate numerically the solution directly at any desired point in the interior of the solution domain.
+BEM is applicable to problems for which Green's functions can be calculated.  These usually involve fields in linear homogeneous media.  This places considerable restrictions on the range and generality of problems to which  boundary elements can usefully be applied.  Nonlinearities can be included in the formulation, although they will generally introduce volume integrals which then require the volume to be discretised before solution can be attempted, removing one of the most often cited advantages of BEM. A useful technique for treating the volume integral without discretising the volume is the dual-reciprocity method. The technique approximates part of the integrand using radial basis functions (local interpolating functions) and converts the volume integral into boundary integral after collocating at selected points distributed throughout the volume domain (including the boundary). In the dual-reciprocity BEM, although there is no need to discretize the volume into meshes, unknowns at chosen points inside the solution domain are involved in the linear algebraic equations approximating the problem being considered.
+The Green's function elements connecting pairs of source and field patches defined by the mesh form a matrix, which is solved numerically.  Unless the Green's function is well behaved, at least for pairs of patches near each other, the Green's function must be integrated over either or both the source patch and the field patch.  The form of the method in which the integrals over the source and field patches are the same is called "Galerkin's method". Galerkin's method is the obvious approach for problems which are symmetrical with respect to exchanging the source and field points. In frequency domain electromagnetics, this is assured by electromagnetic reciprocity. The cost of computation involved in naive Galerkin implementations is typically quite severe. One must loop over each pair of elements (so we get n2 interactions) and for each pair of elements we loop through Gauss points in the elements producing a multiplicative factor proportional to the number of Gauss-points squared.  Also, the function evaluations required are typically quite expensive, involving trigonometric/hyperbolic function calls.  Nonetheless, the principal source of the computational cost is this double-loop over elements producing a fully populated matrix.
+The Green's functions, or fundamental solutions, are often problematic to integrate as they are based on a solution of the system equations subject to a singularity load (e.g. the electrical field arising from a point charge). Integrating such singular fields is not easy.  For simple element geometries (e.g. planar triangles) analytical integration can be used.  For more general elements, it is possible to design purely numerical schemes that adapt to the singularity, but at great computational cost.  Of course, when source point and target element (where the integration is done) are far-apart, the local gradient surrounding the point need not be quantified exactly and it becomes possible to integrate easily due to the smooth decay of the fundamental solution.  It is this feature that is typically employed in schemes designed to accelerate boundary element problem calculations.
+Derivation of closed-form Green's functions is of particular interest in boundary element method, especially in electromagnetics. Specifically in the analysis of layered media, derivation of spatial-domain Green's function necessitates the inversion of analytically-derivable spectral-domain Green's function through Sommerfeld path integral. This integral can not be evaluated analytically and its numerical integration is costly due to its oscillatory and slowly-converging behaviour. For a robust analysis, spatial Green's functions are approximated as complex exponentials with methods such as Prony's method or generalized pencil of function, and the integral is evaluated with Sommerfeld identity. This method is known as discrete complex image method.
+
+Comparison to other methods
+The boundary element method is often more efficient than other methods, including finite elements, in terms of computational resources for problems where there is a small surface/volume ratio. Conceptually, it works by constructing a "mesh" over the modelled surface.  However, for many problems boundary element methods are significantly less efficient than volume-discretisation methods (finite element method, finite difference method, finite volume method). A good example of application of the boundary element method is efficient calculation of natural frequencies of liquid sloshing in tanks. Boundary element method is one of the most effective methods for numerical simulation of contact problems, in particular for simulation of adhesive contacts.Boundary element formulations typically give rise to fully populated matrices.  This means that the storage requirements and computational time will tend to grow according to the square of the problem size.  By contrast, finite element matrices are typically banded (elements are only locally connected) and the storage requirements for the system matrices typically grow quite linearly with the problem size.  Compression techniques (e.g. multipole expansions or adaptive cross approximation/hierarchical matrices) can be used to ameliorate these problems, though at the cost of added complexity and with a success-rate that depends heavily on the nature of the problem being solved and the geometry involved.
+
+See also
+Analytic element method
+Computational electromagnetics
+Meshfree methods
+Immersed boundary method
+Stretched grid method
+Modified radial integration method
+
+References
+Bibliography
+Ang, Whye-Teong (2007), A Beginner's Course in Boundary Element Methods, Boca Raton, Fl: Universal Publishers, ISBN 978-1-58112-974-8.
+Ang, Whye-Teong (2013), Hypersingular Integral Equations in Fracture Analysis, Oxford: Woodhead Publishing, ISBN 978-0-85709-479-7.
+Banerjee, Prasanta Kumar (1994), The Boundary Element Methods in Engineering (2nd ed.), London, etc.: McGraw-Hill, ISBN 978-0-07-707769-3.
+Beer, Gernot; Smith, Ian; Duenser, Christian (8 April 2008), The Boundary Element Method with Programming: For Engineers and Scientists, Berlin – Heidelberg – New York: Springer-Verlag, pp. XIV+494, ISBN 978-3-211-71574-1
+Cheng, Alexander H.-D.; Cheng, Daisy T. (2005), "Heritage and early history of the boundary element method", Engineering Analysis with Boundary Elements, 29 (3): 268–302, doi:10.1016/j.enganabound.2004.12.001, Zbl 1182.65005, available also here.
+Gibson, Walton C (2008), The Method of Moments in Electromagnetics, Boca Raton, Florida: Chapman & Hall/CRC Press, pp. xv+272, ISBN 978-1-4200-6145-1, MR 2503144, Zbl 1175.78002.
+Katsikadelis, John T. (2002), Boundary Elements Theory and Applications, Amsterdam: Elsevier, pp. XIV+336, ISBN 978-0-080-44107-8.
+Wrobel, L. C.; Aliabadi, M. H. (2002), The Boundary Element Method, New York: John Wiley & Sons, p. 1066, ISBN 978-0-470-84139-6 (in two volumes).
+
+Further reading
+Constanda, Christian; Doty, Dale; Hamill, William (2016). Boundary Integral Equation Methods and Numerical Solutions: Thin Plates on an Elastic Foundation. New York: Springer. ISBN 978-3-319-26307-6.
+
+External links
+An Online Resource for Boundary Elements
+What lies beneath the surface? A guide to the Boundary Element Method and Green's functions for the students and professionals
+An introductory BEM course (with a chapter on Green's functions)
+Boundary elements for plane crack problems
+Electromagnetic Modeling web site at Clemson University (includes list of currently available software)
+Concept Analyst Boundary Element Analysis software
+Klimpke, Bruce A Hybrid Magnetic Field Solver Using a Combined Finite Element/Boundary Element Field Solver, U.K. Magnetics Society Conference, 2003 which compares FEM and BEM methods as well as hybrid approaches
+
+Free software
+Bembel A 3D, isogeometric, higher-order, open-source BEM software for Laplace, Helmholtz and Maxwell problems utilizing a fast multipole method for compression and reduction of computational cost
+boundary-element-method.com An open-source BEM software for solving acoustics / Helmholtz and Laplace problems
+Puma-EM An open-source and high-performance Method of Moments / Multilevel Fast Multipole Method parallel program
+AcouSTO Acoustics Simulation TOol, a free and open-source parallel BEM solver for the Kirchhoff-Helmholtz Integral Equation (KHIE)
+FastBEM Free fast multipole boundary element programs for solving 2D/3D potential, elasticity, Stokes flow and acoustic problems
+ParaFEM Includes the free and open-source parallel BEM solver for elasticity problems described in Gernot Beer, Ian Smith, Christian Duenser, The Boundary Element Method with Programming: For Engineers and Scientists, Springer, ISBN 978-3-211-71574-1 (2008)
+Boundary Element Template Library (BETL) A general purpose C++ software library for the discretisation of boundary integral operators
+Nemoh An open source hydrodynamics BEM software dedicated to the computation of first-order wave loads on offshore structures (added mass, radiation damping, diffraction forces)
+Bempp, An open-source BEM software for 3D Laplace, Helmholtz and Maxwell problems
+MNPBEM, An open-source Matlab toolbox to solve Maxwell's equations for arbitrarily shaped nanostructures
+Contact Mechanics and Tribology Simulator, Free, BEM based software
+MultiFEBE, BEM-FEM solver for computational mechanics, allowing coupling of 2D and 3D viscoelastic or poroelastic media with beam and shell structural elements (for dynamic soil-structure interaction problems, for instance).

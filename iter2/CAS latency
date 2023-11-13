@@ -1,0 +1,28 @@
+Column address strobe latency, also called CAS latency or CL, is the delay in clock cycles between the READ command and the moment data is available. In asynchronous DRAM, the interval is specified in nanoseconds (absolute time).  In synchronous DRAM, the interval is specified in clock cycles. Because the latency is dependent upon a number of clock ticks instead of absolute time, the actual time for an SDRAM module to respond to a CAS event might vary between uses of the same module if the clock rate differs.
+
+RAM operation background
+Dynamic RAM is arranged in a rectangular array.  Each row is selected by a horizontal word line. Sending a logical high signal along a given row enables the MOSFETs present in that row, connecting each storage capacitor to its corresponding vertical bit line.  Each bit line is connected to a sense amplifier that amplifies the small voltage change produced by the storage capacitor. This amplified signal is then output from the DRAM chip as well as driven back up the bit line to refresh the row.
+When no word line is active, the array is idle and the bit lines are held in a precharged state, with a voltage halfway between high and low. This indeterminate signal is deflected towards high or low by the storage capacitor when a row is made active.
+To access memory, a row must first be selected and loaded into the sense amplifiers.  This row is then active, and columns may be accessed for read or write.
+The CAS latency is the delay between the time at which the column address and the column address strobe signal are presented to the memory module and the time at which the corresponding data is made available by the memory module.  The desired row must already be active; if it is not, additional time is required.
+As an example, a typical 1 GiB SDRAM memory module might contain eight separate one-gibibit DRAM chips, each offering 128 MiB of storage space.  Each chip is divided internally into eight banks of 227=128 Mibits, each of which composes a separate DRAM array.  Each bank contains 214=16384 rows of 213=8192 bits each.  One byte of memory (from each chip; 64 bits total from the whole DIMM) is accessed by supplying a 3-bit bank number, a 14-bit row address, and a 13-bit column address.
+
+Effect on memory access speed
+With asynchronous DRAM, memory was accessed by a memory controller on the memory bus based on a set timing rather than a clock, and was separate from the system bus. Synchronous DRAM, however, has a CAS latency that is dependent upon the clock rate. Accordingly, the CAS latency of an SDRAM memory module is specified in clock ticks instead of absolute time.Because memory modules have multiple internal banks, and data can be output from one during access latency for another, the output pins can be kept 100% busy regardless of the CAS latency through pipelining; the maximum attainable bandwidth is determined solely by the clock speed.  Unfortunately, this maximum bandwidth can only be attained if the address of the data to be read is known long enough in advance; if the address of the data being accessed is not predictable, pipeline stalls can occur, resulting in a loss of bandwidth.  For a completely unknown memory access (AKA Random access), the relevant latency is the time to close any open row, plus the time to open the desired row, followed by the CAS latency to read data from it.  Due to spatial locality, however, it is common to access several words in the same row.  In this case, the CAS latency alone determines the elapsed time.
+Because modern DRAM modules' CAS latencies are specified in clock ticks instead of time, when comparing latencies at different clock speeds, latencies must be translated into absolute times to make a fair comparison; a higher numerical CAS latency may still be less time if the clock is faster.  Likewise, a memory module which is underclocked could have its CAS latency cycle count reduced to preserve the same CAS latency time.Double data rate (DDR) RAM performs two transfers per clock cycle, and it is usually described by this transfer rate. Because the CAS latency is specified in clock cycles, and not transfers (which occur on both the rising and falling edges of the clock), it is important to ensure it is the clock rate (half of the transfer rate) which is being used to compute CAS latency times.Another complicating factor is the use of burst transfers.  A modern microprocessor might have a cache line size of 64 bytes, requiring eight transfers from a 64-bit-wide (eight bytes) memory to fill.  The CAS latency can only accurately measure the time to transfer the first word of memory; the time to transfer all eight words depends on the data transfer rate as well.  Fortunately, the processor typically does not need to wait for all eight words; the burst is usually sent in critical word first order, and the first critical word can be used by the microprocessor immediately.
+In the table below, data rates are given in million transfers—also known as megatransfers—per second (MT/s), while clock rates are given in MHz, million cycles per second.
+
+Memory timing examples
+Notes
+See also
+Memory timings
+
+References
+External links
+Google Sheet:  User-entered Memory Timing Comparisons and Memory timing examples (CAS latency only)
+Google Sheet:  DDR4 RAM Actual Timings Full Comparison Grid
+PCSTATS: Memory Bandwidth vs. Latency Timings
+How Memory Access Works
+Tom's Hardware Guide: Tight Timings vs High Clock Frequencies
+Understanding RAM Timings
+AnandTech: Everything You Always Wanted To Know About SDRAM Memory But Were Afraid To Ask

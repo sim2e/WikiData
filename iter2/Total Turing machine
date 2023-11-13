@@ -1,0 +1,161 @@
+In computability theory, a decider is a Turing machine that halts for every input. A decider is also called a total Turing machine as it represents a total function.
+Because it always halts, such a machine is able to decide whether a given string is a member of a formal language.  The class of languages which can be decided by such machines is the set of recursive languages.
+Given an arbitrary Turing machine, determining whether it is a decider is an undecidable problem. This is a variant of the halting problem, which asks for whether a Turing machine halts on a specific input.
+
+Functions computable by total Turing machines
+In practice, many functions of interest are computable by machines that always halt.   A machine that uses only finite memory on any particular input can be forced to halt for every input by restricting its flow control capabilities so that no input will ever cause the machine to enter an infinite loop.  As a trivial example, a machine implementing a finitary decision tree will always halt.
+It is not required that the machine be entirely free of looping capabilities, however, to guarantee halting.  If we restrict loops to be of a predictably finite size (like the FOR loop in BASIC), we can express all of the primitive recursive functions (Meyer and Ritchie, 1967). An example of such a machine is provided by the toy programming language PL-{GOTO} of Brainerd and Landweber (1974).
+We can further define a programming language in which we can ensure that even more sophisticated functions always halt.  For example, the Ackermann function, which is not primitive recursive, nevertheless is a total computable function computable by a term rewriting system with a reduction ordering on its arguments (Ohlebusch, 2002, pp. 67).
+Despite the above examples of programming languages which guarantee termination of the programs, there exists no programming language which captures exactly the total recursive functions, i.e. the functions which can be computed by a Turing machine that always halts. This is because existence of such a programming language would be a contradiction to the non-semi-decidability of the problem whether a Turing machine halts on every input.
+
+Relationship to partial Turing machines
+A general Turing machine will compute a partial function.  Two questions can be asked about the relationship between partial Turing machines and total Turing machines:
+
+Can every partial function computable by a partial Turing machine be extended (that is, have its domain enlarged) to become a total computable function?
+Is it possible to change the definition of a Turing machine so that a particular class of total Turing machines, computing all the total computable functions, can be found?The answer to each of these questions is no.
+The following theorem shows that the functions computable by machines that always halt do not include extensions of all partial computable functions, which implies the first question above has a negative answer.   This fact is closely related to the algorithmic unsolvability of the halting problem.
+
+Indeed, if g were a total computable function extending f then g would be computable by some Turing machine; fix e as the index of such a machine.   Build a Turing machine M, using Kleene's recursion theorem, which on input 0 simulates the machine with index e running on an index nM for M (thus the machine M can produce an index of itself; this is the role of the recursion theorem).   By assumption, this simulation will eventually return an answer. Define M so that if g(nM) = m then the return value of M is 
+  
+    
+      
+        m
+        +
+        1
+      
+    
+    {\displaystyle m+1}
+  .  Thus f(nM), the true return value of M on input 0, will not equal g(nM).  Hence g does not extend f.
+The second question asks, in essence, whether there is another reasonable model of computation which computes only total functions and computes all the total computable functions.  Informally, if such a model existed then each of its computers could be simulated by a Turing machine.  Thus if this new model of computation consisted of a sequence 
+  
+    
+      
+        
+          M
+          
+            1
+          
+        
+        ,
+        
+          M
+          
+            2
+          
+        
+        ,
+        …
+      
+    
+    {\displaystyle M_{1},M_{2},\ldots }
+   of machines, there would be a recursively enumerable sequence 
+  
+    
+      
+        
+          T
+          
+            1
+          
+        
+        ,
+        …
+        
+          T
+          
+            2
+          
+        
+        ,
+        …
+      
+    
+    {\displaystyle T_{1},\ldots T_{2},\ldots }
+   of Turing machines that compute total functions and so that every total computable function is computable by one of the machines Ti.  This is impossible, because a machine T could be constructed such that on input i the machine T returns 
+  
+    
+      
+        
+          T
+          
+            i
+          
+        
+        (
+        i
+        )
+        +
+        1
+        
+      
+    
+    {\displaystyle T_{i}(i)+1\,}
+  .  This machine cannot be equivalent to any machine T on the list: suppose it were on the list at index j.  Then 
+  
+    
+      
+        
+          T
+          
+            j
+          
+        
+        (
+        j
+        )
+        =
+        
+          T
+          
+            j
+          
+        
+        (
+        j
+        )
+        +
+        1
+        
+      
+    
+    {\displaystyle T_{j}(j)=T_{j}(j)+1\,}
+  , which does not return an integer result.  Therefore, it cannot be total, but the function by construction must be total (if total functions are recursively enumerable, then this function can be constructed), which is a contradiction.  This shows that the second question has a negative answer.
+
+The set of indices of total Turing machines
+The decision problem of whether the Turing machine with index e will halt on every input is not decidable.  In fact, this problem is at level 
+  
+    
+      
+        
+          Π
+          
+            2
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \Pi _{2}^{0}}
+   of the arithmetical hierarchy.  Thus this problem is strictly more difficult than the Halting problem, which asks whether the machine with index e halts on input 0.   Intuitively, this difference in unsolvability is because each instance of the "total machine" problem represents infinitely many instances of the Halting problem.
+
+Provability
+One may be interested not only in whether a Turing machine is total, but also in whether this can be proven in a certain logical system, such as first order Peano arithmetic.
+In a sound proof system, every provably total Turing machine is indeed total, but the converse is not true: informally, for every first-order proof system that is strong enough (including Peano arithmetic), there are Turing machines which are assumed to be total, but cannot be proven as such, unless the system is inconsistent (in which case one can prove anything). The proof of their totality either rests on some assumptions or require another proof system.
+Thus, as one can enumerate all the proofs in the proof system, one can build a Turing machine on input n that goes through the first n proofs and look for a contradiction. If it finds one, it gets into an infinite loop and never halts; otherwise, it halts. If the system is consistent, the Turing machine will halt on every input, but one cannot prove this in a strong enough proof system due to Gödel's incompleteness theorems.
+One can also create a Turing machine that will halt if and only if the proof system is inconsistent, and is thus non-total for a consistent system but cannot be proven such: This is a Turing machine that, regardless of input, enumerates all proofs and halts on a contradiction.
+A Turing machine that goes through Goodstein sequences and halts at zero is total but cannot be proven as such in Peano arithmetic.
+
+See also
+BlooP and FlooP
+Total functional programming
+Termination analysis
+
+References
+
+Brainerd, W.S., Landweber, L.H. (1974), Theory of Computation, Wiley.
+Meyer, A.R., Ritchie, D.M. (1967), The complexity of loop programs, Proc. of the ACM National Meetings, 465.
+Sipser, M. (2006), Introduction to the Theory of Computation, PWS Publishing Co.
+Kozen, D.C. (1997), Automata and Computability, Springer.
+Ohlebusch, E. (2002), Advanced Topics in Term Rewriting, Springer.

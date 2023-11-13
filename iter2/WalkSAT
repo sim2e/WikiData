@@ -1,0 +1,18 @@
+In computer science, GSAT and WalkSAT are local search algorithms to solve Boolean satisfiability problems.
+Both algorithms work on formulae in Boolean logic that are in, or have been converted into conjunctive normal form. They start by assigning a random value to each variable in the formula. If the assignment satisfies all clauses, the algorithm terminates, returning the assignment. Otherwise, a variable is flipped and the above is then repeated until all the clauses are satisfied. WalkSAT and GSAT differ in the methods used to select which variable to flip.
+
+GSAT makes the change which minimizes the number of unsatisfied clauses in the new assignment, or with some probability picks a variable at random.
+WalkSAT first picks a clause which is unsatisfied by the current assignment, then flips a variable within that clause. The clause is picked at random among unsatisfied clauses. The variable is picked that will result in the fewest previously satisfied clauses becoming unsatisfied, with some probability of picking one of the variables at random. When picking at random, WalkSAT is guaranteed at least a chance of one out of the number of variables in the clause of fixing a currently incorrect assignment. When picking a guessed-to-be-optimal variable, WalkSAT has to do less calculation than GSAT because it is considering fewer possibilities.Both algorithms may restart with a new random assignment if no solution has been found for too long, as a way of getting out of local minima of numbers of unsatisfied clauses.
+Many versions of GSAT and WalkSAT exist. WalkSAT has been proven particularly useful in solving satisfiability problems produced by conversion from automated planning problems. The approach to planning that converts planning problems into Boolean satisfiability problems is called satplan.
+MaxWalkSAT is a variant of WalkSAT designed to solve the weighted satisfiability problem, in which each clause has associated with a weight, and the goal is to find an assignment—one which may or may not satisfy the entire formula—that maximizes the total weight of the clauses satisfied by that assignment.
+
+References
+Henry Kautz and B. Selman (1996). Pushing the envelope: planning, propositional logic, and stochastic search. In Proceedings of the Thirteenth National Conference on Artificial Intelligence (AAAI'96), pages 1194–1201.
+Papadimitriou, Christos H. (1991), "On selecting a satisfying truth assignment", Proceedings of the 32nd Annual Symposium on Foundations of Computer Science, pp. 163–169, doi:10.1109/SFCS.1991.185365, ISBN 978-0-8186-2445-2.
+Schöning, U. (1999), "A probabilistic algorithm for k-SAT and constraint satisfaction problems", Proceedings of 40th Annual Symposium on Foundations of Computer Science, pp. 410–414, CiteSeerX 10.1.1.132.6306, doi:10.1109/SFFCS.1999.814612, ISBN 978-0-7695-0409-4.
+B. Selman and Henry Kautz (1993). Domain-Independent Extension to GSAT: Solving Large Structured Satisfiability Problems. In Proceedings of the Thirteenth International Joint Conference on Artificial Intelligence (IJCAI'93), pages 290–295.
+Bart Selman, Henry Kautz, and Bram Cohen.  "Local Search Strategies for Satisfiability Testing."  Final version appears in Cliques, Coloring, and Satisfiability: Second DIMACS Implementation Challenge, October 11–13, 1993. David S. Johnson and Michael A. Trick, eds. DIMACS Series in Discrete Mathematics and Theoretical Computer Science, vol. 26, AMS, 1996.
+B. Selman, H. Levesque, and D. Mitchell (1992). A new method for solving hard satisfiability problems. In Proceedings of the Tenth National Conference on Artificial Intelligence (AAAI'92), pages 440–446.
+
+External links
+WalkSAT Home Page

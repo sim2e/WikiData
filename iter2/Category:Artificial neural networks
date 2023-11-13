@@ -1,0 +1,1 @@
+This category are for articles about artificial neural networks (ANN).

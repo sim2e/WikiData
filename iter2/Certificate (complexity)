@@ -1,0 +1,46 @@
+In computational complexity theory, a certificate (also called a witness) is a string that certifies the answer to a computation, or certifies the membership of some string in a language. A certificate is often thought of as a solution path within a verification process, which is used to check whether a problem gives the answer "Yes" or "No". 
+In the decision tree model of computation, certificate complexity is the minimum number of the 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   input variables of a decision tree that need to be assigned a value in order to definitely establish the value of the Boolean function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  .
+
+Use in definitions
+The notion of certificate is used to define semi-decidability: a formal language L is semi-decidable if there is a two-place predicate relation R ⊆ Σ∗ × Σ∗ such that R is computable, and such that for all x ∈ Σ∗:
+
+   x ∈ L ⇔ there exists y such that R(x, y)
+
+Certificates also give definitions for some complexity classes which can alternatively be characterised in terms of nondeterministic Turing machines. A language L is in NP if and only if there exists a polynomial p and a polynomial-time bounded Turing machine M such that every word x is in the language L precisely if there exists a certificate c of length at most p(|x|) such that M accepts the pair (x, c). The class co-NP has a similar definition, except that there are certificates for the words not in the language.
+The class NL has a certificate definition: a problem in the language has a certificate of polynomial length, which can be verified by a deterministic logarithmic-space bounded Turing machine that can read each bit of the certificate once only. Alternatively, the deterministic logarithmic-space Turing machine in the statement above can be replaced by a bounded-error probabilistic constant-space Turing machine that is allowed to use only a constant number of random bits.
+
+Examples
+The problem of determining, for a given graph G and number k, if the graph contains an independent set of size k is in NP. Given a pair (G, k) in the language, a certificate is a set of k vertices which are pairwise not adjacent (and hence are an independent set of size k).A more general example, for the problem of determining if a given Turing machine accepts an input in a certain number of steps, is as follows:
+
+ L = {<<M>, x, w> | does <M> accept x in |w| steps?}
+ Show L ∈ NP.
+ verifier:
+   gets string c = <M>, x, w such that |c| <= P(|w|)
+   check if c is an accepting computation of M on x with at most |w| steps
+   |c| <= O(|w|3)
+   if we have a computation of a TM with k steps the total size of the computation string is k2
+   Thus, <<M>, x, w> ∈ L ⇔ there exists c <= a|w|3 such that <<M>, x, w, c> ∈ V ∈ P
+
+See also
+Witness (mathematics), an analogous concept in mathematical logic
+
+References
+External links
+Buhrman, Harry; de Wolf, Ronald (2002), Complexity Measures and Decision Tree Complexity:A Survey.
+Computational Complexity: a Modern Approach by Sanjeev Arora and Boaz Barak

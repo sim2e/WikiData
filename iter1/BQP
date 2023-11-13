@@ -1,0 +1,1309 @@
+In computational complexity theory, bounded-error quantum polynomial time (BQP) is the class of decision problems solvable by a quantum computer in polynomial time, with an error probability of at most 1/3 for all instances. It is the quantum analogue to the complexity class BPP.
+A decision problem is a member of  BQP if there exists a quantum algorithm (an algorithm that runs on a quantum computer) that solves the decision problem with high probability and is guaranteed to run in polynomial time. A run of the algorithm will correctly solve the decision problem with  a probability of at least 2/3.
+
+Definition
+BQP can be viewed as the languages associated with certain bounded-error uniform families of quantum circuits. A language L is in BQP if and only if there exists a polynomial-time uniform family of quantum circuits 
+  
+    
+      
+        {
+        
+          Q
+          
+            n
+          
+        
+        :
+        n
+        ∈
+        
+          N
+        
+        }
+      
+    
+    {\displaystyle \{Q_{n}\colon n\in \mathbb {N} \}}
+  , such that
+
+For all 
+  
+    
+      
+        n
+        ∈
+        
+          N
+        
+      
+    
+    {\displaystyle n\in \mathbb {N} }
+  , Qn takes n qubits as input and outputs 1 bit
+For all x in L, 
+  
+    
+      
+        
+          P
+          r
+        
+        (
+        
+          Q
+          
+            
+              |
+            
+            x
+            
+              |
+            
+          
+        
+        (
+        x
+        )
+        =
+        1
+        )
+        ≥
+        
+          
+            
+              2
+              3
+            
+          
+        
+      
+    
+    {\displaystyle \mathrm {Pr} (Q_{|x|}(x)=1)\geq {\tfrac {2}{3}}}
+  
+For all x not in L, 
+  
+    
+      
+        
+          P
+          r
+        
+        (
+        
+          Q
+          
+            
+              |
+            
+            x
+            
+              |
+            
+          
+        
+        (
+        x
+        )
+        =
+        0
+        )
+        ≥
+        
+          
+            
+              2
+              3
+            
+          
+        
+      
+    
+    {\displaystyle \mathrm {Pr} (Q_{|x|}(x)=0)\geq {\tfrac {2}{3}}}
+  Alternatively, one can define BQP in terms of quantum Turing machines. A language L is in BQP if and only if there exists a polynomial quantum Turing machine that accepts L with an error probability of at most 1/3 for all instances.Similarly to other "bounded error" probabilistic classes the choice of 1/3 in the definition is arbitrary. We can run the algorithm a constant number of times and take a majority vote to achieve any desired probability of correctness less than 1, using the Chernoff bound. The complexity class is unchanged by allowing error as high as 1/2 − n−c on the one hand, or requiring error as small as 2−nc on the other hand, where c is any positive constant, and n is the length of input.
+
+A complete problem for Promise-BQP
+Similar to the notion of NP-completeness and other complete problems, we can define a complete problem as a problem that is in Promise-BQP and that every problem in Promise-BQP reduces to it in polynomial time.
+Here is an intuitive problem that is complete for efficient quantum computation, which stems directly from the definition of Promise-BQP.  Note that for technical reasons, completeness proofs focus on the promise problem version of BQP.  We show that the problem below is complete for the Promise-BQP complexity class (and not for the total BQP complexity class having a trivial promise, for which no complete problems are known).
+
+APPROX-QCIRCUIT-PROB problem
+Given a description of a quantum circuit 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   acting on  
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   qubits with 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   gates, where  
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   is a polynomial in  
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   and each gate acts on one or two qubits, and two numbers 
+  
+    
+      
+        α
+        ,
+        β
+        ∈
+        [
+        0
+        ,
+        1
+        ]
+        ,
+        α
+        >
+        β
+      
+    
+    {\displaystyle \alpha ,\beta \in [0,1],\alpha >\beta }
+  , distinguish between the following two cases:
+
+measuring the first qubit of the state 
+  
+    
+      
+        C
+        
+          |
+        
+        0
+        
+          ⟩
+          
+            ⊗
+            n
+          
+        
+      
+    
+    {\displaystyle C|0\rangle ^{\otimes n}}
+   yields 
+  
+    
+      
+        
+          |
+        
+        1
+        ⟩
+      
+    
+    {\displaystyle |1\rangle }
+   with probability 
+  
+    
+      
+        ≥
+        α
+      
+    
+    {\displaystyle \geq \alpha }
+  
+measuring the first qubit of the state 
+  
+    
+      
+        C
+        
+          |
+        
+        0
+        
+          ⟩
+          
+            ⊗
+            n
+          
+        
+      
+    
+    {\displaystyle C|0\rangle ^{\otimes n}}
+   yields 
+  
+    
+      
+        
+          |
+        
+        1
+        ⟩
+      
+    
+    {\displaystyle |1\rangle }
+   with probability 
+  
+    
+      
+        ≤
+        β
+      
+    
+    {\displaystyle \leq \beta }
+  Here, there is a promise on the inputs as the problem does not specify the behavior if an instance is not covered by these two cases.
+Claim. Any BQP problem reduces to APPROX-QCIRCUIT-PROB. 
+Proof. 
+Suppose we have an algorithm  
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   that solves APPROX-QCIRCUIT-PROB, i.e., given a quantum circuit 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   acting on  
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   qubits, and two numbers 
+  
+    
+      
+        α
+        ,
+        β
+        ∈
+        [
+        0
+        ,
+        1
+        ]
+        ,
+        α
+        >
+        β
+      
+    
+    {\displaystyle \alpha ,\beta \in [0,1],\alpha >\beta }
+  , 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   distinguishes between the above two cases. We can solve any problem in BQP with this oracle, by setting 
+  
+    
+      
+        α
+        =
+        2
+        
+          /
+        
+        3
+        ,
+        β
+        =
+        1
+        
+          /
+        
+        3
+      
+    
+    {\displaystyle \alpha =2/3,\beta =1/3}
+  .
+For any 
+  
+    
+      
+        L
+        ∈
+        
+          B
+          Q
+          P
+        
+      
+    
+    {\displaystyle L\in \mathrm {BQP} }
+  , there exists family of quantum circuits 
+  
+    
+      
+        {
+        
+          Q
+          
+            n
+          
+        
+        :
+        n
+        ∈
+        
+          N
+        
+        }
+      
+    
+    {\displaystyle \{Q_{n}\colon n\in \mathbb {N} \}}
+   such that for all 
+  
+    
+      
+        n
+        ∈
+        
+          N
+        
+      
+    
+    {\displaystyle n\in \mathbb {N} }
+  , a state 
+  
+    
+      
+        
+          |
+        
+        x
+        ⟩
+      
+    
+    {\displaystyle |x\rangle }
+   of  
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+    qubits, if 
+  
+    
+      
+        x
+        ∈
+        L
+        ,
+        P
+        r
+        (
+        
+          Q
+          
+            n
+          
+        
+        (
+        
+          |
+        
+        x
+        ⟩
+        )
+        =
+        1
+        )
+        ≥
+        2
+        
+          /
+        
+        3
+      
+    
+    {\displaystyle x\in L,Pr(Q_{n}(|x\rangle )=1)\geq 2/3}
+  ; else if  
+  
+    
+      
+        x
+        ∉
+        L
+        ,
+        P
+        r
+        (
+        
+          Q
+          
+            n
+          
+        
+        (
+        
+          |
+        
+        x
+        ⟩
+        )
+        =
+        0
+        )
+        ≥
+        2
+        
+          /
+        
+        3
+      
+    
+    {\displaystyle x\notin L,Pr(Q_{n}(|x\rangle )=0)\geq 2/3}
+  . Fix an input 
+  
+    
+      
+        
+          |
+        
+        x
+        ⟩
+      
+    
+    {\displaystyle |x\rangle }
+   of  
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+    qubits, and the corresponding quantum circuit 
+  
+    
+      
+        
+          Q
+          
+            n
+          
+        
+      
+    
+    {\displaystyle Q_{n}}
+  . We can first construct a circuit 
+  
+    
+      
+        
+          C
+          
+            x
+          
+        
+      
+    
+    {\displaystyle C_{x}}
+   such that 
+  
+    
+      
+        
+          C
+          
+            x
+          
+        
+        
+          |
+        
+        0
+        
+          ⟩
+          
+            ⊗
+            n
+          
+        
+        =
+        
+          |
+        
+        x
+        ⟩
+      
+    
+    {\displaystyle C_{x}|0\rangle ^{\otimes n}=|x\rangle }
+  . This can be done easily by hardwiring 
+  
+    
+      
+        
+          |
+        
+        x
+        ⟩
+      
+    
+    {\displaystyle |x\rangle }
+   and apply a sequence of CNOT gates to flip the qubits. Then we can combine two circuits to get 
+  
+    
+      
+        
+          C
+          ′
+        
+        =
+        
+          Q
+          
+            n
+          
+        
+        
+          C
+          
+            x
+          
+        
+      
+    
+    {\displaystyle C'=Q_{n}C_{x}}
+  , and now 
+  
+    
+      
+        
+          C
+          ′
+        
+        
+          |
+        
+        0
+        
+          ⟩
+          
+            ⊗
+            n
+          
+        
+        =
+        
+          Q
+          
+            n
+          
+        
+        
+          |
+        
+        x
+        ⟩
+      
+    
+    {\displaystyle C'|0\rangle ^{\otimes n}=Q_{n}|x\rangle }
+  . And finally, necessarily the results of 
+  
+    
+      
+        
+          Q
+          
+            n
+          
+        
+      
+    
+    {\displaystyle Q_{n}}
+   is obtained by measuring several qubits and apply some (classical) logic gates to them. We can always defer the measurement and reroute the circuits so that by measuring the first qubit of 
+  
+    
+      
+        
+          C
+          ′
+        
+        
+          |
+        
+        0
+        
+          ⟩
+          
+            ⊗
+            n
+          
+        
+        =
+        
+          Q
+          
+            n
+          
+        
+        
+          |
+        
+        x
+        ⟩
+      
+    
+    {\displaystyle C'|0\rangle ^{\otimes n}=Q_{n}|x\rangle }
+  , we get the output. This will be our circuit 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+  , and we decide the membership of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   in  
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   by running  
+  
+    
+      
+        A
+        (
+        C
+        )
+      
+    
+    {\displaystyle A(C)}
+   with 
+  
+    
+      
+        α
+        =
+        2
+        
+          /
+        
+        3
+        ,
+        β
+        =
+        1
+        
+          /
+        
+        3
+      
+    
+    {\displaystyle \alpha =2/3,\beta =1/3}
+  . By definition of BQP, we will either fall into the first case (acceptance), or the second case (rejection), so 
+  
+    
+      
+        L
+        ∈
+        
+          B
+          Q
+          P
+        
+      
+    
+    {\displaystyle L\in \mathrm {BQP} }
+   reduces to APPROX-QCIRCUIT-PROB.
+APPROX-QCIRCUIT-PROB comes handy when we try to prove the relationships between some well-known complexity classes and BQP.
+
+Relationship to other complexity classes
+BQP is defined for quantum computers; the corresponding complexity class for classical computers (or more formally for probabilistic Turing machines) is BPP. Just like P and BPP, BQP is low for itself, which means BQPBQP = BQP. Informally, this is true because polynomial time algorithms are closed under composition. If a polynomial time algorithm calls polynomial time algorithms as subroutines, the resulting algorithm is still polynomial time.
+BQP contains P and BPP and is contained in AWPP, PP and PSPACE.
+In fact, BQP is low for PP, meaning that a PP machine achieves no benefit from being able to solve BQP problems instantly, an indication of the possible difference in power between these similar classes. The known relationships with classic complexity classes are:
+
+  
+    
+      
+        
+          
+            P
+            ⊆
+            B
+            P
+            P
+            ⊆
+            B
+            Q
+            P
+            ⊆
+            A
+            W
+            P
+            P
+            ⊆
+            P
+            P
+            ⊆
+            P
+            S
+            P
+            A
+            C
+            E
+            ⊆
+            E
+            X
+            P
+          
+        
+      
+    
+    {\displaystyle {\mathsf {P\subseteq BPP\subseteq BQP\subseteq AWPP\subseteq PP\subseteq PSPACE\subseteq EXP}}}
+  
+As the problem of P ≟ PSPACE has not yet been solved, the proof of inequality between BQP and classes mentioned above is supposed to be difficult. The relation between BQP and NP is not known. In May 2018, computer scientists Ran Raz of Princeton University and Avishay Tal of Stanford University published a paper which showed that, relative to an oracle, BQP was not contained in PH. It can be proven that there exists an oracle A such that BQPA 
+  
+    
+      
+        ⊈
+      
+    
+    {\displaystyle \nsubseteq }
+    PHA. In an extremely informal sense, this can be thought of as giving PH and BQP an identical, but additional, capability and verifying that BQP with the oracle (BQPA) can do things PHA cannot. While an oracle separation has been proven, the fact that BQP is not contained in PH has not been proven. An oracle separation does not prove whether or not complexity classes are the same. The oracle separation gives intuition that BQP may not be contained in PH.
+It has been suspected for many years that Fourier Sampling is a problem that exists within BQP, but not within the polynomial hierarchy. Recent conjectures have provided evidence that a similar problem, Fourier Checking, also exists in the class BQP without being contained in the polynomial hierarchy. This conjecture is especially notable because it suggests that problems existing in BQP could be classified as harder than NP-Complete problems. Paired with the fact that many practical BQP problems are suspected to exist outside of P (it is suspected and not verified because there is no proof that P ≠ NP), this illustrates the potential power of quantum computing in relation to classical computing.Adding postselection to BQP results in the complexity class PostBQP which is equal to PP.We will prove or discuss some of these results below.
+
+BQP and EXP
+We begin with an easier containment. To show that 
+  
+    
+      
+        
+          
+            B
+            Q
+            P
+          
+        
+        ⊆
+        
+          
+            E
+            X
+            P
+          
+        
+      
+    
+    {\displaystyle {\mathsf {BQP}}\subseteq {\mathsf {EXP}}}
+  , it suffices to show that APPROX-QCIRCUIT-PROB is in EXP since APPROX-QCIRCUIT-PROB is BQP-complete.
+
+Note that this algorithm also requires 
+  
+    
+      
+        
+          2
+          
+            O
+            (
+            n
+            )
+          
+        
+      
+    
+    {\displaystyle 2^{O(n)}}
+   space to store the vectors and the matrices. We will show in the following section that we can improve upon the space complexity.
+
+BQP and PSPACE
+To prove 
+  
+    
+      
+        
+          
+            B
+            Q
+            P
+          
+        
+        ⊆
+        
+          
+            P
+            S
+            P
+            A
+            C
+            E
+          
+        
+      
+    
+    {\displaystyle {\mathsf {BQP}}\subseteq {\mathsf {PSPACE}}}
+  , we first introduce a technique called the sum of histories.
+
+Sum of Histories
+Source:Sum of histories is a technique introduced by physicist Richard Feynman for path integral formulation. We apply this technique to quantum computing to solve APPROX-QCIRCUIT-PROB.
+
+Consider a quantum circuit C, which consists of t gates, 
+  
+    
+      
+        
+          g
+          
+            1
+          
+        
+        ,
+        
+          g
+          
+            2
+          
+        
+        ,
+        ⋯
+        ,
+        
+          g
+          
+            m
+          
+        
+      
+    
+    {\displaystyle g_{1},g_{2},\cdots ,g_{m}}
+  , where each 
+  
+    
+      
+        
+          g
+          
+            j
+          
+        
+      
+    
+    {\displaystyle g_{j}}
+   comes from a universal gate set and acts on at most two qubits.
+To understand what the sum of histories is, we visualize the evolution of a quantum state given a quantum circuit as a tree. The root is the input 
+  
+    
+      
+        
+          |
+        
+        0
+        
+          ⟩
+          
+            ⊗
+            n
+          
+        
+      
+    
+    {\displaystyle |0\rangle ^{\otimes n}}
+  , and each node in the tree has 
+  
+    
+      
+        
+          2
+          
+            n
+          
+        
+      
+    
+    {\displaystyle 2^{n}}
+   children, each representing a state in 
+  
+    
+      
+        
+          
+            C
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \mathbb {C} ^{n}}
+  . The weight on a tree edge from a node in j-th level representing a state 
+  
+    
+      
+        
+          |
+        
+        x
+        ⟩
+      
+    
+    {\displaystyle |x\rangle }
+   to a node in 
+  
+    
+      
+        j
+        +
+        1
+      
+    
+    {\displaystyle j+1}
+  -th level  representing a state 
+  
+    
+      
+        
+          |
+        
+        y
+        ⟩
+      
+    
+    {\displaystyle |y\rangle }
+   is 
+  
+    
+      
+        ⟨
+        y
+        
+          |
+        
+        
+          g
+          
+            j
+            +
+            1
+          
+        
+        
+          |
+        
+        x
+        ⟩
+      
+    
+    {\displaystyle \langle y|g_{j+1}|x\rangle }
+  , the amplitude of 
+  
+    
+      
+        
+          |
+        
+        y
+        ⟩
+      
+    
+    {\displaystyle |y\rangle }
+   after applying 
+  
+    
+      
+        
+          g
+          
+            j
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle g_{j+1}}
+   on 
+  
+    
+      
+        
+          |
+        
+        x
+        ⟩
+      
+    
+    {\displaystyle |x\rangle }
+  . The transition amplitude of a root-to-leaf path is the product of all the weights on the edges along the path. To get the probability of the final state being 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+  , we sum up the amplitudes of all root-to-leave paths that ends at a node representing 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+  .
+More formally, for the quantum circuit C, its sum over histories tree is a tree of depth m, with one level for each gate 
+  
+    
+      
+        
+          g
+          
+            i
+          
+        
+      
+    
+    {\displaystyle g_{i}}
+   in addition to the root, and with branching factor 
+  
+    
+      
+        
+          2
+          
+            n
+          
+        
+      
+    
+    {\displaystyle 2^{n}}
+  .
+
+Notice in the sum over histories algorithm to compute some amplitude 
+  
+    
+      
+        
+          α
+          
+            x
+          
+        
+      
+    
+    {\displaystyle \alpha _{x}}
+  , only one history is stored at any point in the computation. Hence, the sum over histories algorithm uses 
+  
+    
+      
+        O
+        (
+        n
+        m
+        )
+      
+    
+    {\displaystyle O(nm)}
+   space to compute 
+  
+    
+      
+        
+          α
+          
+            x
+          
+        
+      
+    
+    {\displaystyle \alpha _{x}}
+   for any x since 
+  
+    
+      
+        O
+        (
+        n
+        m
+        )
+      
+    
+    {\displaystyle O(nm)}
+   bits are needed to store the histories in addition to some workspace variables.
+Therefore, in polynomial space, we may compute 
+  
+    
+      
+        
+          ∑
+          
+            x
+          
+        
+        
+          |
+        
+        
+          α
+          
+            x
+          
+        
+        
+          
+            |
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \sum _{x}|\alpha _{x}|^{2}}
+   over all x with the first qubit being 1, which is the probability that the first qubit is measured to be 1 by the end of the circuit.
+Notice that compared with the simulation given for the proof that 
+  
+    
+      
+        
+          
+            B
+            Q
+            P
+          
+        
+        ⊆
+        
+          
+            E
+            X
+            P
+          
+        
+      
+    
+    {\displaystyle {\mathsf {BQP}}\subseteq {\mathsf {EXP}}}
+  , our algorithm here takes far less space but far more time instead. In fact it takes 
+  
+    
+      
+        O
+        (
+        m
+        
+          2
+          
+            m
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle O(m2^{mn})}
+   time to calculate a single amplitude!
+
+BQP and PP
+A similar sum-over-histories argument can be used to show that 
+  
+    
+      
+        
+          
+            B
+            Q
+            P
+          
+        
+        ⊆
+        
+          
+            P
+            P
+          
+        
+      
+    
+    {\displaystyle {\mathsf {BQP}}\subseteq {\mathsf {PP}}}
+  .
+
+P and BQP
+We know  
+  
+    
+      
+        
+          
+            P
+          
+        
+        ⊆
+        
+          
+            B
+            Q
+            P
+          
+        
+      
+    
+    {\displaystyle {\mathsf {P}}\subseteq {\mathsf {BQP}}}
+  , since every classical circuit can be simulated by a quantum circuit. It is conjectured that BQP solves hard problems outside of P, specifically, problems in NP. The claim is indefinite because we don't know if P=NP, so we don't know if those problems are actually in P. Below are some evidence of the conjecture:
+
+Integer factorization (see Shor's algorithm)
+Discrete logarithm
+Simulation of quantum systems (see universal quantum simulator)
+Approximating the Jones polynomial at certain roots of unity
+Harrow-Hassidim-Lloyd (HHL) algorithm
+
+See also
+Hidden subgroup problem
+Polynomial hierarchy (PH)
+Quantum complexity theory
+QMA, the quantum equivalent to NP.
+QIP, the quantum equivalent to IP.
+
+References
+External links
+Complexity Zoo link to BQP Archived 2013-06-03 at the Wayback Machine

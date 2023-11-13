@@ -1,0 +1,794 @@
+In cybernetics, the term variety denotes the total number of distinguishable elements of a  set, most often the set of states, inputs, or outputs of a finite-state machine or  transformation, or the binary logarithm of the same quantity. Variety is used in cybernetics as an information theory that is easily related to deterministic finite automata, and less formally as a conceptual tool for thinking about organization, regulation, and stability. It is an early theory of complexity in automata, complex systems,: 6  and operations research.
+
+Overview
+The term "variety" was introduced by W. Ross Ashby to extend his analysis of machines to their set of possible behaviors.: 121  Ashby says:: 126 
+
+The word variety, in relation to a set of distinguishable elements, will be used to mean either (i) the number of distinct elements, or (ii) the logarithm to the base 2 of the number, the context indicating the sense used. 
+
+In the second case, variety is measured in bits. For example, a machine with states 
+  
+    
+      
+        {
+        a
+        ,
+        b
+        ,
+        c
+        ,
+        d
+        }
+      
+    
+    {\displaystyle \{a,b,c,d\}}
+   has a variety of four states or two bits. The variety of a sequence or multiset is the number of distinct symbols in it. For example, the sequence 
+  
+    
+      
+        a
+        ,
+        b
+        ,
+        c
+        ,
+        c
+        ,
+        c
+        ,
+        d
+      
+    
+    {\displaystyle a,b,c,c,c,d}
+   has a variety of four. As a measure of uncertainty, variety is directly related to information: 
+  
+    
+      
+        
+          Uncertainty
+        
+        =
+        −
+        
+          Information
+        
+      
+    
+    {\displaystyle {\text{Uncertainty}}=-{\text{Information}}}
+  .: 26 Since the number of distinguishable elements depends on both the observer and the set, "the observer and his powers of discrimination may have to be specified if the variety is to be well defined".: 125  Gordon Pask distinguished between the variety of the chosen reference frame and the variety of the system the observer builds up within the reference frame. The reference frame consists of a state space and the set of measurements available to the observer, which have total variety 
+  
+    
+      
+        
+          log
+          
+            2
+          
+        
+        ⁡
+        (
+        n
+        )
+      
+    
+    {\displaystyle \log _{2}(n)}
+  , where 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is the number of states in the state space. The system the observer builds up begins with the full variety 
+  
+    
+      
+        
+          log
+          
+            2
+          
+        
+        ⁡
+        (
+        n
+        )
+      
+    
+    {\displaystyle \log _{2}(n)}
+  , which is reduced as the observer loses uncertainty about the state by learning to predict the system. If the observer can perceive the system as a deterministic machine in the given reference frame, observation may reduce the variety to zero as the machine becomes completely predictable.: 27 Laws of nature constrain the variety of phenomena by disallowing certain behavior.: 130  Ashby made two observations he considered laws of nature, the law of experience and the law of requisite variety. The law of experience holds that machines under input tend to lose information about their original state, and the law of requisite variety states a necessary, though not sufficient, condition for a regulator to exert anticipatory control by responding to its current input (rather than the previous output as in error-controlled regulation).
+
+Law of experience
+The law of experience refers to the observation that the variety of states exhibited by a deterministic machine in isolation cannot increase, and a set of identical machines fed the same inputs cannot exhibit increasing variety of states, and tend to synchronize instead.
+
+Some name is necessary by which this phenomenon can be referred to. I shall call it the law of Experience. It can be described more vividly by the statement that information put in by change at a parameter tends to destroy and replace information about the system's initial state.: 139 
+
+This is a consequence of the decay of variety: a deterministic transformation cannot increase the variety of a set. As a result, an observer's uncertainty about the state of the machine either remains constant or decreases with time. Ashby shows that this holds for machines with inputs as well. Under any constant input 
+  
+    
+      
+        
+          P
+          
+            1
+          
+        
+      
+    
+    {\displaystyle P_{1}}
+   the machines' states move toward any  attractors that exist in the corresponding transformation and some may synchronize at these points. If the input changes to some other input 
+  
+    
+      
+        
+          P
+          
+            2
+          
+        
+      
+    
+    {\displaystyle P_{2}}
+   and the machines' behavior enacts a different transformation, more than one of these attractors may sit in the same basin of attraction under 
+  
+    
+      
+        
+          P
+          
+            2
+          
+        
+      
+    
+    {\displaystyle P_{2}}
+  . States which arrived and possibly synchronized at those attractors under 
+  
+    
+      
+        
+          P
+          
+            1
+          
+        
+      
+    
+    {\displaystyle P_{1}}
+   then synchronize further under 
+  
+    
+      
+        
+          P
+          
+            2
+          
+        
+      
+    
+    {\displaystyle P_{2}}
+  . "In other words," Ashby says, "changes at the input of a transducer tend to make the system's state (at a given moment) less dependent on the transducer's individual initial state and more dependent on the particular sequence of parameter-values used as input.": 136–138 While there is a law of non-increase, there is only a tendency to decrease, since the variety can hold steady without decreasing if the set undergoes a  one-to-one transformation, or if the states have synchronized into a subset for which this is the case. In the formal language analysis of finite machines, an input sequence that synchronizes identical machines (no matter the variety of their initial states) is called a synchronizing word.
+
+Law of requisite variety
+Ashby used variety to analyze the problem of regulation by considering a two-player  game, where one player, 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+  , supplies disturbances which another player, 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+  , must regulate to ensure acceptable outcomes. 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+   and 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   each have a set of available moves, which choose the outcome from a table with as many rows as 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+   has moves and as many columns as 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   has moves. 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   is allowed full knowledge of 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+  's move, and must pick moves in response so that the outcome is acceptable.: 202 Since many games pose no difficulty for 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+  , the table is chosen so that no outcome is repeated in any column, which ensures that in the corresponding game any change in 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+  's move means a change in outcome, unless 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   has a move to keep the outcome from changing. With this restriction, if 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   never changes moves, the outcome fully depends on 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+  's choice, while if multiple moves are available to 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   it can reduce the variety of outcomes, if the table allows it, dividing by as much as its own variety of moves.: 204 
+  
+    
+      
+        
+          
+            
+              
+              
+              
+                R
+              
+            
+            
+              
+              
+              
+                
+                  
+                    
+                      
+                        α
+                      
+                      
+                        β
+                      
+                      
+                        γ
+                      
+                    
+                  
+                
+              
+            
+            
+              
+                D
+              
+              
+                
+                  
+                    
+                      
+                        1
+                      
+                    
+                    
+                      
+                        2
+                      
+                    
+                    
+                      
+                        3
+                      
+                    
+                    
+                      
+                        4
+                      
+                    
+                    
+                      
+                        5
+                      
+                    
+                    
+                      
+                        6
+                      
+                    
+                  
+                
+              
+              
+                
+                  
+                    
+                      
+                        
+                          a
+                        
+                      
+                      
+                        f
+                      
+                      
+                        d
+                      
+                    
+                    
+                      
+                        
+                          b
+                        
+                      
+                      
+                        e
+                      
+                      
+                        c
+                      
+                    
+                    
+                      
+                        c
+                      
+                      
+                        d
+                      
+                      
+                        
+                          b
+                        
+                      
+                    
+                    
+                      
+                        d
+                      
+                      
+                        c
+                      
+                      
+                        
+                          a
+                        
+                      
+                    
+                    
+                      
+                        e
+                      
+                      
+                        
+                          b
+                        
+                      
+                      
+                        f
+                      
+                    
+                    
+                      
+                        f
+                      
+                      
+                        
+                          a
+                        
+                      
+                      
+                        e
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{array}{c c | c}&&R\\&&{\begin{array}{c c c }\alpha &\beta &\gamma \end{array}}\\\hline D&{\begin{array}{c | c c c }1\\2\\3\\4\\5\\6\end{array}}&{\begin{array}{c c c }\mathbf {a} &f&d\\\mathbf {b} &e&c\\c&d&\mathbf {b} \\d&c&\mathbf {a} \\e&\mathbf {b} &f\\f&\mathbf {a} &e\\\end{array}}\end{array}}}
+  
+The law of requisite variety is that a deterministic strategy for 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   can at best limit the variety in outcomes to 
+  
+    
+      
+        
+          
+            
+              
+                D
+                
+                  's variety
+                
+              
+              
+                R
+                
+                  's variety
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\tfrac {D{\text{'s variety}}}{R{\text{'s variety}}}}}
+  , and only adding variety in 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+  's moves can reduce the variety of outcomes: "only variety can destroy variety".: 207  For example, in the table above, 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   has a strategy (shown in bold) to reduce the variety in outcomes to 
+  
+    
+      
+        
+          |
+        
+        {
+        a
+        ,
+        b
+        }
+        
+          |
+        
+        =
+        2
+        =
+        
+          
+            
+              6
+              3
+            
+          
+        
+      
+    
+    {\displaystyle |\{a,b\}|=2={\tfrac {6}{3}}}
+  , which is 
+  
+    
+      
+        
+          
+            
+              
+                D
+                
+                  's variety
+                
+              
+              
+                R
+                
+                  's variety
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\tfrac {D{\text{'s variety}}}{R{\text{'s variety}}}}}
+   in this case. Ashby considered this a fundamental observation to the theory of regulation.
+It is not possible for 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   to reduce the outcomes any further and still respond to all potential moves from 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+  , but it is possible that another table of the same shape would not allow 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   to do so well. Requisite variety is necessary, but not sufficient to control the outcomes. If 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   and 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+   are machines, they cannot possibly choose more moves than they have states. Thus, a perfect regulator must have at least as many distinguishable states as the phenomenon it is intended to regulate (the table must be square, or wider). 
+Stated in bits, the law is 
+  
+    
+      
+        
+          V
+          
+            O
+          
+        
+        ≥
+        
+          V
+          
+            D
+          
+        
+        −
+        
+          V
+          
+            R
+          
+        
+      
+    
+    {\displaystyle V_{O}\geq V_{D}-V_{R}}
+  . In Shannon's information theory, 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+  , 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+  , and 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   are information sources. The condition that if 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   never changes moves, the uncertainty in outcomes is no less than the uncertainty in 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+  's move is expressed as 
+  
+    
+      
+        H
+        (
+        E
+        
+          |
+        
+        R
+        )
+        ≥
+        H
+        (
+        D
+        
+          |
+        
+        R
+        )
+      
+    
+    {\displaystyle H(E|R)\geq H(D|R)}
+  , and since 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+  's strategy is a deterministic function of 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+   set 
+  
+    
+      
+        H
+        (
+        R
+        
+          |
+        
+        D
+        )
+        =
+        0
+      
+    
+    {\displaystyle H(R|D)=0}
+  . With the rules of the game expressed this way, it can be shown that 
+  
+    
+      
+        H
+        (
+        E
+        )
+        ≥
+        H
+        (
+        D
+        )
+        −
+        H
+        (
+        R
+        )
+      
+    
+    {\displaystyle H(E)\geq H(D)-H(R)}
+  .: 207–208  Ashby described the law of requisite variety as related to the tenth theorem in Shannon's Mathematical Theory of Communication (1948):
+
+This law (of which Shannon's theorem 10 relating to the suppression of noise is a special case) says that if a certain quantity of disturbance is prevented by a regulator from reaching some essential variables, then that regulator must be capable of exerting at least that quantity of selection.
+
+Ashby also postulated that the law of requisite variety allows for the measurement of regulation, namely that the requirement for a well-functioning regulation is that the regulator or regulators in place are designed to account for all the possible states in which the variable or variables to be regulated may fall within, so as to ensure that the outcome is always within acceptable range.: 209  Ashby saw this law as relevant to problems in biology such as homeostasis, and a "wealth of possible applications". Later, in 1970, Conant working with Ashby produced the good regulator theorem which required autonomous systems to acquire an internal model of their environment to persist and achieve stability (e.g. Nyquist stability criterion) or dynamic equilibrium. 
+Boisot and McKelvey updated this law to the "law of requisite complexity", that holds that, in order to be efficaciously adaptive, the internal complexity of a system must match the external complexity it confronts. A further practical application of this law is the view that information systems (IS) alignment is a continuous coevolutionary process that reconciles top-down ‘rational designs’ and bottom-up ‘emergent processes’ of consciously and coherently interrelating all components of the Business/IS relationships in order to contribute to an organization’s performance over time. 
+The application in project management of the law of requisite complexity is the model of positive, appropriate and negative complexity proposed by Stefan Morcov.
+
+Applications
+Applications to organization and management were immediately apparent to Ashby. One implication is that individuals have a finite capacity for processing information, and beyond this limit what matters is the organization between individuals.
+
+Thus the limitation which holds over a team of n men may be much higher, perhaps n times as high, as the limitation holding over the individual man. To make use of the higher limit, however, the team must be efficiently organized; and until recently our understanding of organization has been pitifully small.
+
+Stafford Beer took up this analysis in his writings on management cybernetics. Beer defines variety as "the total number of possible states of a system, or of an element of a system". Beer restates the Law of Requisite Variety as "Variety absorbs variety." Stated more simply, the logarithmic measure of variety represents the minimum number of choices (by binary chop) needed to resolve uncertainty. Beer used this to allocate the management resources necessary to maintain process viability.
+The cybernetician Frank George discussed the variety of teams competing in games like football or rugby to produce goals or tries. A winning chess player might be said to have more variety than his losing opponent. Here a simple ordering is implied. The attenuation and amplification of variety were major themes in Stafford Beer's work in management  (the profession of control, as he called it).  The number of staff needed to answer telephones, control crowds or tend to patients are clear examples.
+The application of natural and analogue signals to variety analysis require an estimate of Ashby's "powers of discrimination" (see above quote). Given the butterfly effect of dynamical systems care must be taken before quantitative measures can be produced. Small quantities, which might be overlooked, can have big effects. In his Designing Freedom Stafford Beer discusses the patient in a hospital with a temperature denoting fever. Action must be taken immediately to isolate the patient. Here no amount of variety recording the patients' average temperature would detect this small signal which might have a big effect. Monitoring is required on individuals thus amplifying variety (see Algedonic alerts in the viable system model or VSM). Beer's work in management cybernetics and VSM is largely based on variety engineering.
+Further applications involving Ashby's view of state counting include the analysis of digital bandwidth requirements, redundancy and software bloat, the bit representation of data types and indexes, analogue to digital conversion, the bounds on finite state machines and data compression. See also, e.g., Excited state, State (computer science), State pattern, State (controls) and Cellular automaton. Requisite Variety can be seen in Chaitin's Algorithmic information theory where a longer, higher variety program or finite state machine produces incompressible output with more variety or information content.
+In general a description of the required inputs and outputs is established then encoded with the minimum variety necessary. The mapping of input bits to output bits can then produce an estimate of the minimum hardware or software components necessary to produce the desired control behaviour; for example, in a piece of computer software or computer hardware.
+Variety is one of nine requisites that are required by an ethical regulator.
+
+See also
+Cardinality
+Complexity
+Degrees of freedom
+Power set
+Practopoiesis
+Waterbed theory
+Good regulator
+Ethical regulator
+State (Computer Science)
+Myhill-Nerode Theorem
+Space complexity
+Project Complexity
+
+References
+Further reading
+Ashby, W. R. 1956, An Introduction to Cybernetics, Chapman & Hall, 1956, ISBN 0-416-68300-2 (also available in electronic form as a PDF from Principia Cybernetica)
+Ashby, W. R. 1958, Requisite Variety and its implications for the control of complex systems, Cybernetica (Namur) Vol. 1, No. 2, 1958.
+Ashby, W. R. 1960, Design for a brain; the origin of adaptive behavior, 2nd ed. (Electronic versions on Internet Archive).
+Beer, S. 1974, Designing Freedom, CBC Learning Systems, Toronto, 1974; and John Wiley, London and New York, 1975. Translated into Spanish and Japanese.
+Beer, S. 1975, Platform for Change, John Wiley, London and New York. Reprinted with corrections 1978.
+Beer, S. 1979, The Heart of Enterprise, John Wiley, London and New York. Reprinted with corrections 1988.
+Beer, S. 1981, Brain of the Firm; Second Edition (much extended), John Wiley, London and New York. Reprinted 1986, 1988. Translated into Russian.
+Beer, S. 1985, Diagnosing the System for Organisations; John Wiley, London and New York. Translated into Italian and Japanese. Reprinted 1988, 1990, 1991.
+Conant, R. 1981, Mechanisms of Intelligence: Ross Ashby's papers and writings, Intersystems Publications, ISBN 1-127-19770-3.
+
+External links
+
+The Law of Requisite Variety in the Principia Cybernetica Web, 2001.
+Systems concepts and 9/11 Allenna Leonard on Requisite Variety
+All references to The Law of Requisite Variety in Ross Ashby's journal 1953–1961.
+Management Cybernetics: The Law of Requisite Variety Livas short introductory videos on YouTube
+Practopoiesis: How biological systems get their variety
+The 1973 CBC Massey Lectures, "Designing Freedom"

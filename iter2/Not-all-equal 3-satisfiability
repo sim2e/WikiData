@@ -1,0 +1,250 @@
+In computational complexity, not-all-equal 3-satisfiability (NAE3SAT) is an NP-complete variant of the Boolean satisfiability problem, often used in proofs of NP-completeness.
+
+Definition
+Like 3-satisfiability, an instance of the problem consists of a collection of Boolean variables and a collection of clauses, each of which combines three variables or negations of variables. However, unlike 3-satisfiability, which requires each clause to have at least one true Boolean value, NAE3SAT requires that the three values in each clause are not all equal to each other (in other words, at least one is true, and at least one is false).
+
+Hardness
+The NP-completeness of NAE3SAT can be proven by a reduction from 3-satisfiability (3SAT). First the nonsymmetric 3SAT is reduced to the symmetric NAE4SAT by adding a common dummy literal 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   to every clause, then NAE4SAT is reduced to NAE3SAT by splitting clauses as in the reduction of general 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -satisfiability to 3SAT.
+In more detail, a 3SAT instance 
+  
+    
+      
+        Φ
+        =
+        
+          ⋀
+          
+            i
+            =
+            1
+          
+          
+            m
+          
+        
+        (
+        
+          l
+          
+            i
+            ,
+            1
+          
+        
+        ∨
+        
+          l
+          
+            i
+            ,
+            2
+          
+        
+        ∨
+        
+          l
+          
+            i
+            ,
+            3
+          
+        
+        )
+      
+    
+    {\displaystyle \Phi =\bigwedge _{i=1}^{m}(l_{i,1}\vee l_{i,2}\vee l_{i,3})}
+   (where the 
+  
+    
+      
+        
+          l
+          
+            i
+            ,
+            j
+          
+        
+      
+    
+    {\displaystyle l_{i,j}}
+   are arbitrary literals) is reduced to the NAE4SAT instance 
+  
+    
+      
+        Ψ
+        =
+        
+          ⋀
+          
+            i
+            =
+            1
+          
+          
+            m
+          
+        
+        (
+        
+          l
+          
+            i
+            ,
+            1
+          
+        
+        ,
+        
+          l
+          
+            i
+            ,
+            2
+          
+        
+        ,
+        
+          l
+          
+            i
+            ,
+            3
+          
+        
+        ,
+        s
+        )
+      
+    
+    {\displaystyle \Psi =\bigwedge _{i=1}^{m}(l_{i,1},l_{i,2},l_{i,3},s)}
+   where 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   is a new variable. A satisfying assignment for 
+  
+    
+      
+        Φ
+      
+    
+    {\displaystyle \Phi }
+   becomes a satisfying assignment for 
+  
+    
+      
+        Ψ
+      
+    
+    {\displaystyle \Psi }
+   by setting 
+  
+    
+      
+        s
+        =
+        0
+      
+    
+    {\displaystyle s=0}
+  . Conversely a satisfying assignment with 
+  
+    
+      
+        s
+        =
+        0
+      
+    
+    {\displaystyle s=0}
+   for 
+  
+    
+      
+        Ψ
+      
+    
+    {\displaystyle \Psi }
+   must have at least one other literal true in each clause and thus be a satisfying assignment for 
+  
+    
+      
+        Φ
+      
+    
+    {\displaystyle \Phi }
+  . Finally a satisfying assignment with 
+  
+    
+      
+        s
+        =
+        1
+      
+    
+    {\displaystyle s=1}
+   for 
+  
+    
+      
+        Ψ
+      
+    
+    {\displaystyle \Psi }
+   can because of symmetry of 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+   and 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+   be flipped to produce a satisfying assignment with 
+  
+    
+      
+        s
+        =
+        0
+      
+    
+    {\displaystyle s=0}
+  . 
+NAE3SAT remains NP-complete when all clauses are monotone (meaning that variables are never negated), by Schaefer's dichotomy theorem.
+Monotone NAE3SAT can also be interpreted as an instance of the set splitting problem, or as a generalization
+of graph bipartiteness testing to 3-uniform hypergraphs: it asks whether the vertices of a hypergraph can be colored with two colors so that no hyperedge is monochromatic. More strongly, it is NP-hard to find colorings of 3-uniform hypergraphs with any constant number of colors, even when a 2-coloring exists.
+
+Easy cases
+Unlike 3SAT, some variants of NAE3SAT in which graphs representing the structure of variables and clauses are planar graphs can be solved in polynomial time. In particular this is true when there exists a planar graph with one vertex per variable, one vertex per clause, an edge for each variable–clause incidence, and a cycle of edges connecting all the variable vertices.
+
+
+== References ==

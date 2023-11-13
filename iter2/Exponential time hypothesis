@@ -1,0 +1,1374 @@
+In computational complexity theory, the exponential time hypothesis is an unproven computational hardness assumption that was formulated by Impagliazzo & Paturi (1999). It states that satisfiability of 3-CNF Boolean formulas cannot be solved in subexponential time, 
+  
+    
+      
+        
+          2
+          
+            o
+            (
+            n
+            )
+          
+        
+      
+    
+    {\displaystyle 2^{o(n)}}
+  . More precisely, the usual form of the hypothesis asserts the existence of a number 
+  
+    
+      
+        
+          s
+          
+            3
+          
+        
+        >
+        0
+      
+    
+    {\displaystyle s_{3}>0}
+   such that all algorithms that correctly solve this problem require time at least 
+  
+    
+      
+        
+          2
+          
+            
+              s
+              
+                3
+              
+            
+            n
+          
+        
+      
+    
+    {\displaystyle 2^{s_{3}n}}
+  . The exponential time hypothesis, if true, would imply that P ≠ NP, but it is a stronger statement. It implies that many computational problems are equivalent in complexity, in the sense that if one of them has a subexponential time algorithm then they all do, and that many known algorithms for these problems have optimal or near-optimal time complexity.
+
+Definition
+The 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -SAT problem is a version of the Boolean satisfiability problem in which the input to the problem is a Boolean expression in conjunctive normal form (that is, an and of ors of variables and their negations) with at most 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   variables per clause. The goal is to determine whether this expression can be made to be true by some assignment of Boolean values to its variables. 2-SAT has a linear time algorithm, but all known algorithms for larger 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   take exponential time, with the base of the exponential function depending on 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  . For instance, the WalkSAT probabilistic algorithm can solve 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -SAT in average time  where 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is the number of variables in the given 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -SAT instance. For each integer 
+  
+    
+      
+        k
+        ≥
+        3
+      
+    
+    {\displaystyle k\geq 3}
+  , define 
+  
+    
+      
+        
+          s
+          
+            k
+          
+        
+      
+    
+    {\displaystyle s_{k}}
+   to be the smallest number such that 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -SAT can be solved in time 
+  
+    
+      
+        
+          2
+          
+            
+              s
+              
+                k
+              
+            
+            n
+            +
+            o
+            (
+            n
+            )
+          
+        
+      
+    
+    {\displaystyle 2^{s_{k}n+o(n)}}
+  . This minimum might not exist, if a sequence of better and better algorithms have correspondingly smaller exponential growth in their time bounds; in that case, define 
+  
+    
+      
+        
+          s
+          
+            k
+          
+        
+      
+    
+    {\displaystyle s_{k}}
+   to be the infimum of the real numbers 
+  
+    
+      
+        δ
+      
+    
+    {\displaystyle \delta }
+   for which 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -SAT can be solved in time 
+  
+    
+      
+        O
+        (
+        
+          2
+          
+            δ
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle O(2^{\delta n})}
+  . Because problems with larger 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   cannot be easier, these numbers are ordered as 
+  
+    
+      
+        
+          s
+          
+            3
+          
+        
+        ≤
+        
+          s
+          
+            4
+          
+        
+        ≤
+        ⋯
+      
+    
+    {\displaystyle s_{3}\leq s_{4}\leq \cdots }
+  , and because of WalkSAT they are at most  The exponential time hypothesis is the conjecture that they are all nonzero, or equivalently, that the smallest of them, 
+  
+    
+      
+        
+          s
+          
+            3
+          
+        
+      
+    
+    {\displaystyle s_{3}}
+  , is nonzero.
+Some sources define the exponential time hypothesis to be the slightly weaker statement that 3-SAT cannot be solved in time 
+  
+    
+      
+        
+          2
+          
+            o
+            (
+            n
+            )
+          
+        
+      
+    
+    {\displaystyle 2^{o(n)}}
+  . If there existed an algorithm to solve 3-SAT in time 
+  
+    
+      
+        
+          2
+          
+            o
+            (
+            n
+            )
+          
+        
+      
+    
+    {\displaystyle 2^{o(n)}}
+  , then 
+  
+    
+      
+        
+          s
+          
+            3
+          
+        
+      
+    
+    {\displaystyle s_{3}}
+   would equal zero.  However, it is consistent with current knowledge that there could be a sequence of 3-SAT algorithms, each with running time 
+  
+    
+      
+        O
+        (
+        
+          2
+          
+            
+              δ
+              
+                i
+              
+            
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle O(2^{\delta _{i}n})}
+   for a sequence of numbers 
+  
+    
+      
+        
+          δ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \delta _{i}}
+   tending towards zero, but where the descriptions of these algorithms are so quickly growing that a single algorithm could not automatically select and run the most appropriate one. If this were to be the case, then 
+  
+    
+      
+        
+          s
+          
+            3
+          
+        
+      
+    
+    {\displaystyle s_{3}}
+   would equal zero even though there would be no single algorithm running in time 
+  
+    
+      
+        
+          2
+          
+            o
+            (
+            n
+            )
+          
+        
+      
+    
+    {\displaystyle 2^{o(n)}}
+  . A related variant of the exponential time hypothesis is the non-uniform exponential time hypothesis, which posits that there is no family of algorithms (one for each length of the input, in the spirit of advice) that can solve 3-SAT in time 
+  
+    
+      
+        
+          2
+          
+            o
+            (
+            n
+            )
+          
+        
+      
+    
+    {\displaystyle 2^{o(n)}}
+  .
+Because the numbers 
+  
+    
+      
+        
+          s
+          
+            3
+          
+        
+        ,
+        
+          s
+          
+            4
+          
+        
+        ,
+        …
+      
+    
+    {\displaystyle s_{3},s_{4},\dots }
+   form a monotonic sequence that is bounded above by one, they must converge to a limit  The strong exponential time hypothesis (SETH) is the conjecture that 
+  
+    
+      
+        
+          s
+          
+            ∞
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle s_{\infty }=1}
+  .
+
+Implications
+Satisfiability
+It is not possible for 
+  
+    
+      
+        
+          s
+          
+            k
+          
+        
+      
+    
+    {\displaystyle s_{k}}
+   to equal 
+  
+    
+      
+        
+          s
+          
+            ∞
+          
+        
+      
+    
+    {\displaystyle s_{\infty }}
+   for any finite 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  : as Impagliazzo, Paturi & Zane (2001) showed, there exists a constant 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   such that 
+  
+    
+      
+        
+          s
+          
+            k
+          
+        
+        ≤
+        
+          s
+          
+            ∞
+          
+        
+        (
+        1
+        −
+        α
+        
+          /
+        
+        k
+        )
+      
+    
+    {\displaystyle s_{k}\leq s_{\infty }(1-\alpha /k)}
+  . Therefore, if the exponential time hypothesis is true, there must be infinitely many values of 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   for which 
+  
+    
+      
+        
+          s
+          
+            k
+          
+        
+      
+    
+    {\displaystyle s_{k}}
+   differs from 
+  
+    
+      
+        
+          s
+          
+            k
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle s_{k+1}}
+  .
+An important tool in this area is the sparsification lemma of Impagliazzo, Paturi & Zane (2001), which shows that, for every 
+  
+    
+      
+        ε
+        >
+        0
+      
+    
+    {\displaystyle \varepsilon >0}
+  , any 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -CNF formula can be replaced by 
+  
+    
+      
+        O
+        (
+        
+          2
+          
+            ε
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle O(2^{\varepsilon n})}
+   simpler 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -CNF formulas in which each variable appears only a constant number of times, and therefore in which the number of clauses is linear. The sparsification lemma is proven by repeatedly finding large sets of clauses that have a nonempty common intersection in a given formula, and replacing the formula by two simpler formulas, one of which has each of these clauses replaced by their common intersection and the other of which has the intersection removed from each clause. By applying the sparsification lemma and then using new variables to split the clauses, one may then obtain a set of 
+  
+    
+      
+        O
+        (
+        
+          2
+          
+            ε
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle O(2^{\varepsilon n})}
+   3-CNF formulas, each with a linear number of variables, such that the original 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -CNF formula is satisfiable if and only if at least one of these 3-CNF formulas is satisfiable. Therefore, if 3-SAT could be solved in subexponential time, one could use this reduction to solve 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -SAT in subexponential time as well. Equivalently, if 
+  
+    
+      
+        
+          s
+          
+            k
+          
+        
+        >
+        0
+      
+    
+    {\displaystyle s_{k}>0}
+   for any 
+  
+    
+      
+        k
+        >
+        0
+      
+    
+    {\displaystyle k>0}
+  , then 
+  
+    
+      
+        
+          s
+          
+            3
+          
+        
+        >
+        0
+      
+    
+    {\displaystyle s_{3}>0}
+   as well, and the exponential time hypothesis would be true.
+The limiting value  
+  
+    
+      
+        
+          s
+          
+            ∞
+          
+        
+      
+    
+    {\displaystyle s_{\infty }}
+   of the sequence of numbers 
+  
+    
+      
+        
+          s
+          
+            k
+          
+        
+      
+    
+    {\displaystyle s_{k}}
+   is at most equal to 
+  
+    
+      
+        
+          s
+          
+            CNF
+          
+        
+      
+    
+    {\displaystyle s_{\operatorname {CNF} }}
+  , where 
+  
+    
+      
+        
+          s
+          
+            CNF
+          
+        
+      
+    
+    {\displaystyle s_{\operatorname {CNF} }}
+   is the infimum of the numbers 
+  
+    
+      
+        δ
+      
+    
+    {\displaystyle \delta }
+   such that satisfiability of conjunctive normal form formulas without clause length limits can be solved in time 
+  
+    
+      
+        O
+        (
+        
+          2
+          
+            δ
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle O(2^{\delta n})}
+  . Therefore, if the strong exponential time hypothesis is true, then there would be no algorithm for general CNF satisfiability that is significantly faster than a brute-force search over all possible truth assignments. However, if the strong exponential time hypothesis fails, it would still be possible for 
+  
+    
+      
+        
+          s
+          
+            CNF
+          
+        
+      
+    
+    {\displaystyle s_{\operatorname {CNF} }}
+   to equal one.
+
+Other search problems
+The exponential time hypothesis implies that many other problems in the complexity class SNP do not have algorithms whose running time is faster than 
+  
+    
+      
+        
+          c
+          
+            n
+          
+        
+      
+    
+    {\displaystyle c^{n}}
+   for some constant 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+  . These problems include graph k-colorability, finding Hamiltonian cycles, maximum cliques, maximum independent sets, and vertex cover on 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -vertex graphs. Conversely, if any of these problems has a subexponential algorithm, then the exponential time hypothesis could be shown to be false.
+If cliques or independent sets of logarithmic size could be found in polynomial time, the exponential time hypothesis would be false. Therefore, even though finding cliques or independent sets of such small size is unlikely to be NP-complete, the exponential time hypothesis implies that these problems are non-polynomial. More generally, the exponential time hypothesis implies that it is not possible to find cliques or independent sets of size 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   in time 
+  
+    
+      
+        
+          n
+          
+            o
+            (
+            k
+            )
+          
+        
+      
+    
+    {\displaystyle n^{o(k)}}
+  . The exponential time hypothesis also implies that it is not possible to solve the k-SUM problem (given 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   real numbers, find 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   of them that add to zero) in time 
+  
+    
+      
+        
+          n
+          
+            o
+            (
+            k
+            )
+          
+        
+      
+    
+    {\displaystyle n^{o(k)}}
+  .
+The strong exponential time hypothesis implies that it is not possible to find 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -vertex dominating sets more quickly than in time 
+  
+    
+      
+        
+          n
+          
+            k
+            −
+            o
+            (
+            1
+            )
+          
+        
+      
+    
+    {\displaystyle n^{k-o(1)}}
+  .
+The exponential time hypothesis implies also that the weighted feedback arc set problem on tournaments does not have a parametrized algorithm with running time 
+  
+    
+      
+        O
+        (
+        
+          2
+          
+            o
+            (
+            
+              
+                OPT
+              
+            
+            )
+          
+        
+        
+          n
+          
+            O
+            (
+            1
+            )
+          
+        
+        )
+      
+    
+    {\textstyle O(2^{o({\sqrt {\operatorname {OPT} }})}n^{O(1)})}
+  . It does however have a parameterized algorithm with running time 
+  
+    
+      
+        O
+        (
+        
+          2
+          
+            O
+            (
+            
+              
+                OPT
+              
+            
+            )
+          
+        
+        
+          n
+          
+            O
+            (
+            1
+            )
+          
+        
+        )
+      
+    
+    {\textstyle O(2^{O({\sqrt {\operatorname {OPT} }})}n^{O(1)})}
+  .
+The strong exponential time hypothesis leads to tight bounds on the parameterized complexity of several graph problems on graphs of bounded treewidth. In particular, if the strong exponential time hypothesis is true, then the optimal time bound for finding independent sets on graphs of treewidth 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   is 
+  
+    
+      
+        
+          
+            (
+          
+        
+        2
+        −
+        o
+        (
+        1
+        )
+        
+          
+            
+              )
+            
+          
+          
+            w
+          
+        
+        
+          n
+          
+            O
+            (
+            1
+            )
+          
+        
+      
+    
+    {\textstyle {\bigl (}2-o(1){\bigr )}^{w}n^{O(1)}}
+  , the optimal time for the dominating set problem is 
+  
+    
+      
+        
+          
+            (
+          
+        
+        3
+        −
+        o
+        (
+        1
+        )
+        
+          
+            
+              )
+            
+          
+          
+            w
+          
+        
+        
+          n
+          
+            O
+            (
+            1
+            )
+          
+        
+      
+    
+    {\textstyle {\bigl (}3-o(1){\bigr )}^{w}n^{O(1)}}
+  , the optimum time for maximum cut is 
+  
+    
+      
+        
+          
+            (
+          
+        
+        2
+        −
+        o
+        (
+        1
+        )
+        
+          
+            
+              )
+            
+          
+          
+            w
+          
+        
+        
+          n
+          
+            O
+            (
+            1
+            )
+          
+        
+      
+    
+    {\textstyle {\bigl (}2-o(1){\bigr )}^{w}n^{O(1)}}
+  , and the optimum time for 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -coloring is 
+  
+    
+      
+        
+          
+            (
+          
+        
+        k
+        −
+        o
+        (
+        1
+        )
+        
+          
+            
+              )
+            
+          
+          
+            w
+          
+        
+        
+          n
+          
+            O
+            (
+            1
+            )
+          
+        
+      
+    
+    {\textstyle {\bigl (}k-o(1){\bigr )}^{w}n^{O(1)}}
+  . Equivalently, any improvement on these running times would falsify the strong exponential time hypothesis. The exponential time hypothesis also implies that any fixed-parameter tractable algorithm for edge clique cover must have double exponential dependence on the parameter.
+
+Communication complexity
+In the three-party set disjointness problem in communication complexity, three subsets of the integers in some range 
+  
+    
+      
+        [
+        1
+        ,
+        m
+        ]
+      
+    
+    {\displaystyle [1,m]}
+   are specified, and three communicating parties each know two of the three subsets. The goal is for the parties to transmit as few bits to each other on a shared communications channel in order for one of the parties to be able to determine whether the intersection of the three sets is empty or nonempty. A trivial 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  -bit communications protocol would be for one of the three parties to transmit a bitvector describing the intersection of the two sets known to that party, after which either of the two remaining parties can determine the emptiness of the intersection. However, if there exists a protocol that solves the problem with 
+  
+    
+      
+        o
+        (
+        m
+        )
+      
+    
+    {\displaystyle o(m)}
+   communication and 
+  
+    
+      
+        
+          2
+          
+            o
+            (
+            m
+            )
+          
+        
+      
+    
+    {\displaystyle 2^{o(m)}}
+   computation, it could be transformed into an algorithm for solving 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -SAT in time 
+  
+    
+      
+        O
+        (
+        
+          1.74
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle O(1.74^{n})}
+   for any fixed constant 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  , violating the strong exponential time hypothesis. Therefore, the strong exponential time hypothesis implies either that the trivial protocol for three-party set disjointness is optimal, or that any better protocol requires an exponential amount of computation.
+
+Structural complexity
+If the exponential time hypothesis is true, then 3-SAT would not have a polynomial time algorithm, and therefore it would follow that P ≠ NP. More strongly, in this case, 3-SAT could not even have a quasi-polynomial time algorithm, so NP could not be a subset of QP. However, if the exponential time hypothesis fails, it would have no implication for the P versus NP problem. A padding argument proves the existence of NP-complete problems for which the best known running times have the form 
+  
+    
+      
+        O
+        (
+        
+          2
+          
+            
+              n
+              
+                c
+              
+            
+          
+        
+        )
+      
+    
+    {\textstyle O(2^{n^{c}})}
+   for 
+  
+    
+      
+        c
+        <
+        1
+      
+    
+    {\displaystyle c<1}
+  , and if the best possible running time for 3-SAT were of this form, then P would be unequal to NP (because 3-SAT is NP-complete and this time bound is not polynomial) but the exponential time hypothesis would be false.
+In parameterized complexity theory, because the exponential time hypothesis implies that there does not exist a fixed-parameter-tractable algorithm for maximum clique, it also implies that W[1] ≠ FPT. It is an important open problem in this area whether this implication can be reversed: does W[1] ≠ FPT imply the exponential time hypothesis? There is a hierarchy of parameterized complexity classes called the M-hierarchy that interleaves the W-hierarchy in the sense that, for all 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  , 
+  
+    
+      
+        
+          
+            M
+          
+        
+        [
+        i
+        ]
+        ⊆
+        
+          
+            W
+          
+        
+        [
+        i
+        ]
+        ⊆
+        
+          
+            M
+          
+        
+        [
+        i
+        +
+        1
+        ]
+      
+    
+    {\displaystyle {\mathsf {M}}[i]\subseteq {\mathsf {W}}[i]\subseteq {\mathsf {M}}[i+1]}
+  ; for instance, the problem of finding a vertex cover of size 
+  
+    
+      
+        k
+        log
+        ⁡
+        n
+      
+    
+    {\displaystyle k\log n}
+   in an 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -vertex graph with parameter 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   is complete for M[1]. The exponential time hypothesis is equivalent to the statement that M[1] ≠ FPT, and the question of whether 
+  
+    
+      
+        
+          
+            M
+          
+        
+        [
+        i
+        ]
+        ⊆
+        
+          
+            W
+          
+        
+        [
+        i
+        ]
+      
+    
+    {\displaystyle {\mathsf {M}}[i]\subseteq {\mathsf {W}}[i]}
+   for 
+  
+    
+      
+        i
+        >
+        1
+      
+    
+    {\displaystyle i>1}
+   is also open.
+It is also possible to prove implications in the other direction, from the failure of a variation of the strong exponential time hypothesis to separations of complexity classes.
+As Williams (2010) shows, if there exists an algorithm 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   that solves Boolean circuit satisfiability in time 
+  
+    
+      
+        
+          2
+          
+            n
+          
+        
+        
+          /
+        
+        f
+        (
+        n
+        )
+      
+    
+    {\displaystyle 2^{n}/f(n)}
+   for some superpolynomially growing function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  , then NEXPTIME is not a subset of P/poly. Williams shows that, if algorithm 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   exists, and a family of circuits simulating NEXPTIME in P/poly also existed, then algorithm 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   could be composed with the circuits to simulate NEXPTIME problems nondeterministically in a smaller amount of time, violating the time hierarchy theorem. Therefore, the existence of algorithm 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   proves the nonexistence of the family of circuits and the separation of these two complexity classes.
+
+See also
+Savitch's theorem, showing that a similar exponential gap cannot hold for space complexity
+
+Notes
+
+
+== Further reading ==

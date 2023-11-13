@@ -1,0 +1,711 @@
+In linear algebra, a convergent matrix is a matrix that converges to the zero matrix under matrix exponentiation.
+
+Background
+When successive powers of a matrix T become small (that is, when all of the entries of T approach zero, upon raising T to successive powers), the matrix T converges to the zero matrix.  A regular splitting of a non-singular matrix A results in a convergent matrix T.  A semi-convergent splitting of a matrix A results in a semi-convergent matrix T.  A general iterative method converges for every initial vector if T is convergent, and under certain conditions if T is semi-convergent.
+
+Definition
+We call an n × n matrix T a convergent matrix if
+
+for each i = 1, 2, ..., n and j = 1, 2, ..., n.
+
+Example
+Let
+
+  
+    
+      
+        
+          
+            
+              
+              
+                
+                  T
+                
+                =
+                
+                  
+                    (
+                    
+                      
+                        
+                          
+                            
+                              1
+                              4
+                            
+                          
+                        
+                        
+                          
+                            
+                              1
+                              2
+                            
+                          
+                        
+                      
+                      
+                        
+                          0
+                        
+                        
+                          
+                            
+                              1
+                              4
+                            
+                          
+                        
+                      
+                    
+                    )
+                  
+                
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}&\mathbf {T} ={\begin{pmatrix}{\frac {1}{4}}&{\frac {1}{2}}\\[4pt]0&{\frac {1}{4}}\end{pmatrix}}.\end{aligned}}}
+  Computing successive powers of T, we obtain
+
+  
+    
+      
+        
+          
+            
+              
+              
+                
+                  
+                    T
+                  
+                  
+                    2
+                  
+                
+                =
+                
+                  
+                    (
+                    
+                      
+                        
+                          
+                            
+                              1
+                              16
+                            
+                          
+                        
+                        
+                          
+                            
+                              1
+                              4
+                            
+                          
+                        
+                      
+                      
+                        
+                          0
+                        
+                        
+                          
+                            
+                              1
+                              16
+                            
+                          
+                        
+                      
+                    
+                    )
+                  
+                
+                ,
+                
+                
+                  
+                    T
+                  
+                  
+                    3
+                  
+                
+                =
+                
+                  
+                    (
+                    
+                      
+                        
+                          
+                            
+                              1
+                              64
+                            
+                          
+                        
+                        
+                          
+                            
+                              3
+                              32
+                            
+                          
+                        
+                      
+                      
+                        
+                          0
+                        
+                        
+                          
+                            
+                              1
+                              64
+                            
+                          
+                        
+                      
+                    
+                    )
+                  
+                
+                ,
+                
+                
+                  
+                    T
+                  
+                  
+                    4
+                  
+                
+                =
+                
+                  
+                    (
+                    
+                      
+                        
+                          
+                            
+                              1
+                              256
+                            
+                          
+                        
+                        
+                          
+                            
+                              1
+                              32
+                            
+                          
+                        
+                      
+                      
+                        
+                          0
+                        
+                        
+                          
+                            
+                              1
+                              256
+                            
+                          
+                        
+                      
+                    
+                    )
+                  
+                
+                ,
+                
+                
+                  
+                    T
+                  
+                  
+                    5
+                  
+                
+                =
+                
+                  
+                    (
+                    
+                      
+                        
+                          
+                            
+                              1
+                              1024
+                            
+                          
+                        
+                        
+                          
+                            
+                              5
+                              512
+                            
+                          
+                        
+                      
+                      
+                        
+                          0
+                        
+                        
+                          
+                            
+                              1
+                              1024
+                            
+                          
+                        
+                      
+                    
+                    )
+                  
+                
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}&\mathbf {T} ^{2}={\begin{pmatrix}{\frac {1}{16}}&{\frac {1}{4}}\\[4pt]0&{\frac {1}{16}}\end{pmatrix}},\quad \mathbf {T} ^{3}={\begin{pmatrix}{\frac {1}{64}}&{\frac {3}{32}}\\[4pt]0&{\frac {1}{64}}\end{pmatrix}},\quad \mathbf {T} ^{4}={\begin{pmatrix}{\frac {1}{256}}&{\frac {1}{32}}\\[4pt]0&{\frac {1}{256}}\end{pmatrix}},\quad \mathbf {T} ^{5}={\begin{pmatrix}{\frac {1}{1024}}&{\frac {5}{512}}\\[4pt]0&{\frac {1}{1024}}\end{pmatrix}},\end{aligned}}}
+  
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    T
+                  
+                  
+                    6
+                  
+                
+                =
+                
+                  
+                    (
+                    
+                      
+                        
+                          
+                            
+                              1
+                              4096
+                            
+                          
+                        
+                        
+                          
+                            
+                              3
+                              1024
+                            
+                          
+                        
+                      
+                      
+                        
+                          0
+                        
+                        
+                          
+                            
+                              1
+                              4096
+                            
+                          
+                        
+                      
+                    
+                    )
+                  
+                
+                ,
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\mathbf {T} ^{6}={\begin{pmatrix}{\frac {1}{4096}}&{\frac {3}{1024}}\\[4pt]0&{\frac {1}{4096}}\end{pmatrix}},\end{aligned}}}
+  and, in general,
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    T
+                  
+                  
+                    k
+                  
+                
+                =
+                
+                  
+                    (
+                    
+                      
+                        
+                          (
+                          
+                            
+                              1
+                              4
+                            
+                          
+                          
+                            )
+                            
+                              k
+                            
+                          
+                        
+                        
+                          
+                            
+                              k
+                              
+                                2
+                                
+                                  2
+                                  k
+                                  −
+                                  1
+                                
+                              
+                            
+                          
+                        
+                      
+                      
+                        
+                          0
+                        
+                        
+                          (
+                          
+                            
+                              1
+                              4
+                            
+                          
+                          
+                            )
+                            
+                              k
+                            
+                          
+                        
+                      
+                    
+                    )
+                  
+                
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\mathbf {T} ^{k}={\begin{pmatrix}({\frac {1}{4}})^{k}&{\frac {k}{2^{2k-1}}}\\[4pt]0&({\frac {1}{4}})^{k}\end{pmatrix}}.\end{aligned}}}
+  Since
+
+  
+    
+      
+        
+          lim
+          
+            k
+            →
+            ∞
+          
+        
+        
+          
+            (
+            
+              
+                1
+                4
+              
+            
+            )
+          
+          
+            k
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle \lim _{k\to \infty }\left({\frac {1}{4}}\right)^{k}=0}
+  and
+
+  
+    
+      
+        
+          lim
+          
+            k
+            →
+            ∞
+          
+        
+        
+          
+            k
+            
+              2
+              
+                2
+                k
+                −
+                1
+              
+            
+          
+        
+        =
+        0
+        ,
+      
+    
+    {\displaystyle \lim _{k\to \infty }{\frac {k}{2^{2k-1}}}=0,}
+  T is a convergent matrix.  Note that ρ(T) = 1/4, where ρ(T) represents the spectral radius of T, since 1/4 is the only eigenvalue of T.
+
+Characterizations
+Let T be an n × n matrix.  The following properties are equivalent to T being a convergent matrix:
+
+  
+    
+      
+        
+          lim
+          
+            k
+            →
+            ∞
+          
+        
+        ‖
+        
+          
+            T
+          
+          
+            k
+          
+        
+        ‖
+        =
+        0
+        ,
+      
+    
+    {\displaystyle \lim _{k\to \infty }\|\mathbf {T} ^{k}\|=0,}
+   for some natural norm;
+
+  
+    
+      
+        
+          lim
+          
+            k
+            →
+            ∞
+          
+        
+        ‖
+        
+          
+            T
+          
+          
+            k
+          
+        
+        ‖
+        =
+        0
+        ,
+      
+    
+    {\displaystyle \lim _{k\to \infty }\|\mathbf {T} ^{k}\|=0,}
+   for all natural norms;
+
+  
+    
+      
+        ρ
+        (
+        
+          T
+        
+        )
+        <
+        1
+      
+    
+    {\displaystyle \rho (\mathbf {T} )<1}
+  ;
+
+  
+    
+      
+        
+          lim
+          
+            k
+            →
+            ∞
+          
+        
+        
+          
+            T
+          
+          
+            k
+          
+        
+        
+          x
+        
+        =
+        
+          0
+        
+        ,
+      
+    
+    {\displaystyle \lim _{k\to \infty }\mathbf {T} ^{k}\mathbf {x} =\mathbf {0} ,}
+   for every x.
+
+Iterative methods
+A general iterative method involves a process that converts the system of linear equations
+
+into an equivalent system of the form
+
+for some matrix T and vector c.  After the initial vector x(0) is selected, the sequence of approximate solution vectors is generated by computing
+
+for each k ≥ 0.   For any initial vector x(0) ∈ 
+  
+    
+      
+        
+          
+            R
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \mathbb {R} ^{n}}
+  , the sequence 
+  
+    
+      
+        {
+        
+          
+            x
+          
+          
+            
+              (
+              k
+              )
+            
+          
+        
+        
+          }
+          
+            k
+            =
+            0
+          
+          
+            ∞
+          
+        
+      
+    
+    {\displaystyle \lbrace \mathbf {x} ^{\left(k\right)}\rbrace _{k=0}^{\infty }}
+   defined by (4), for each k ≥ 0 and c ≠ 0, converges to the unique solution of (3) if and only if ρ(T) < 1, that is, T is a convergent matrix.
+
+Regular splitting
+A  matrix splitting is an expression which represents a given matrix as a sum or difference of matrices.  In the system of linear equations (2) above, with A non-singular, the matrix A can be split, that is, written as a difference
+
+so that (2) can be re-written as (4) above.  The expression (5) is a regular splitting of A if and only if B−1 ≥ 0 and C ≥ 0, that is, B−1 and C have only nonnegative entries.  If the splitting (5) is a regular splitting of the matrix A and A−1 ≥ 0, then ρ(T) < 1 and T is a convergent matrix.  Hence the method (4) converges.
+
+Semi-convergent matrix
+We call an n × n matrix T a semi-convergent matrix if the limit
+
+exists.  If A is possibly singular but (2) is consistent, that is, b is in the range of A, then the sequence defined by (4) converges to a solution to (2) for every x(0) ∈ 
+  
+    
+      
+        
+          
+            R
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \mathbb {R} ^{n}}
+   if and only if T is semi-convergent.  In this case, the splitting (5) is called a semi-convergent splitting of A.
+
+See also
+Gauss–Seidel method
+Jacobi method
+List of matrices
+Nilpotent matrix
+Successive over-relaxation
+
+Notes
+References
+Burden, Richard L.; Faires, J. Douglas (1993), Numerical Analysis (5th ed.), Boston: Prindle, Weber and Schmidt, ISBN 0-534-93219-3.
+Isaacson, Eugene; Keller, Herbert Bishop (1994), Analysis of Numerical Methods, New York: Dover, ISBN 0-486-68029-0.
+Carl D. Meyer, Jr.; R. J. Plemmons (Sep 1977). "Convergent Powers of a Matrix with Applications to Iterative Methods for Singular Linear Systems". SIAM Journal on Numerical Analysis. 14 (4): 699–705. doi:10.1137/0714047.
+Varga, Richard S. (1960). "Factorization and Normalized Iterative Methods". In Langer, Rudolph E. (ed.). Boundary Problems in Differential Equations. Madison: University of Wisconsin Press. pp. 121–142. LCCN 60-60003.
+Varga, Richard S. (1962), Matrix Iterative Analysis, New Jersey: Prentice–Hall, LCCN 62-21277.

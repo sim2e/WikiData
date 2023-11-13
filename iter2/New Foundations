@@ -1,0 +1,3119 @@
+In mathematical logic, New Foundations (NF) is an axiomatic set theory, conceived by Willard Van Orman Quine as a simplification of the theory of types of Principia Mathematica. Quine first proposed NF in a 1937 article titled "New Foundations for Mathematical Logic"; hence the name. Much of this entry discusses NF with urelements (NFU), an important variant of NF due to Jensen and clarified by Holmes. In 1940 and in a revision in 1951, Quine introduced an extension of NF sometimes called "Mathematical Logic" or "ML", that included proper classes as well as sets.
+New Foundations has a universal set, so it is a non-well-founded set theory. That is to say, it is an axiomatic set theory that allows infinite descending chains of membership, such as
+...  xn ∈ xn-1 ∈ ... ∈ x2 ∈ x1. It avoids Russell's paradox by permitting only stratifiable formulas to be defined using the axiom schema of comprehension. For instance, x ∈ y is a stratifiable formula, but x ∈ x is not.
+New Foundations is closely related to Russellian unramified typed set theory (TST), a streamlined version of the theory of types of Principia Mathematica with a linear hierarchy of types.
+
+The Type Theory TST
+The primitive predicates of TST are equality (
+  
+    
+      
+        =
+      
+    
+    {\displaystyle =}
+  ) and membership (
+  
+    
+      
+        ∈
+      
+    
+    {\displaystyle \in }
+  ). TST has a linear hierarchy of types: type 0 consists of individuals otherwise undescribed. For each (meta-) natural number n, type n+1 objects are sets of type n objects; sets of type n have members of type n-1. Objects connected by identity must have the same type.
+When writing formulas in a many-sorted theory such as TST, some annotations are usually added to variables to denote their types. In TST it is customary to write the type indices as superscripts: 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x^{n}}
+   denotes a variable of type n. Thus the following two atomic formulas succinctly describe the typing rules: 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+        =
+        
+          y
+          
+            n
+          
+        
+        
+      
+    
+    {\displaystyle x^{n}=y^{n}\!}
+   and 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+        ∈
+        
+          y
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle x^{n}\in y^{n+1}}
+  . (Quinean set theory seeks to eliminate the need to write out these type indices explicitly.)
+The axioms of TST are:
+
+Extensionality: sets of the same (positive) type with the same members are equal;
+An axiom schema of comprehension, namely:If 
+  
+    
+      
+        ϕ
+        (
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle \phi (x^{n})}
+   is a formula, then the set 
+  
+    
+      
+        {
+        
+          x
+          
+            n
+          
+        
+        ∣
+        ϕ
+        (
+        
+          x
+          
+            n
+          
+        
+        )
+        
+          }
+          
+            n
+            +
+            1
+          
+        
+        
+      
+    
+    {\displaystyle \{x^{n}\mid \phi (x^{n})\}^{n+1}\!}
+   exists.
+In other words, given any formula 
+  
+    
+      
+        ϕ
+        (
+        
+          x
+          
+            n
+          
+        
+        )
+        
+      
+    
+    {\displaystyle \phi (x^{n})\!}
+  , the formula 
+  
+    
+      
+        ∃
+        
+          A
+          
+            n
+            +
+            1
+          
+        
+        ∀
+        
+          x
+          
+            n
+          
+        
+        [
+        
+          x
+          
+            n
+          
+        
+        ∈
+        
+          A
+          
+            n
+            +
+            1
+          
+        
+        ↔
+        ϕ
+        (
+        
+          x
+          
+            n
+          
+        
+        )
+        ]
+      
+    
+    {\displaystyle \exists A^{n+1}\forall x^{n}[x^{n}\in A^{n+1}\leftrightarrow \phi (x^{n})]}
+   is an axiom where 
+  
+    
+      
+        
+          A
+          
+            n
+            +
+            1
+          
+        
+        
+      
+    
+    {\displaystyle A^{n+1}\!}
+   represents the set 
+  
+    
+      
+        {
+        
+          x
+          
+            n
+          
+        
+        ∣
+        ϕ
+        (
+        
+          x
+          
+            n
+          
+        
+        )
+        
+          }
+          
+            n
+            +
+            1
+          
+        
+        
+      
+    
+    {\displaystyle \{x^{n}\mid \phi (x^{n})\}^{n+1}\!}
+   and is not free in 
+  
+    
+      
+        ϕ
+        (
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle \phi (x^{n})}
+  .This type theory is much less complicated than the one first set out in the Principia Mathematica, which included types for relations whose arguments were not necessarily all of the same types. In 1914, Norbert Wiener showed how to code the ordered pair as a set of sets, making it possible to eliminate relation types in favor of the linear hierarchy of sets described here.
+
+Quinean set theory
+Axioms and stratification
+The well-formed formulas of New Foundations (NF) are the same as the well-formed formulas of TST, but with the type annotations erased. The axioms of NF are:
+
+Extensionality: Two objects with the same elements are the same object;
+A comprehension schema: All instances of TST Comprehension but with type indices dropped (and without introducing new identifications between variables).By convention, NF's Comprehension schema is stated using the concept of stratified formula and making no direct reference to types. A formula 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   is said to be stratified if there exists a function f from pieces of 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+  's syntax to the natural numbers, such that for any atomic subformula 
+  
+    
+      
+        x
+        ∈
+        y
+      
+    
+    {\displaystyle x\in y}
+   of 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   we have f(y) = f(x) + 1, while for any atomic subformula 
+  
+    
+      
+        x
+        =
+        y
+      
+    
+    {\displaystyle x=y}
+   of 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+  , we have f(x) = f(y). Comprehension then becomes:
+
+  
+    
+      
+        {
+        x
+        ∣
+        ϕ
+        }
+      
+    
+    {\displaystyle \{x\mid \phi \}}
+   exists for each stratified formula 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+  .Comprehension may seem to run afoul of problems similar to those in naive set theory, but this is not the case. For example, the existence of the impossible Russell class 
+  
+    
+      
+        {
+        x
+        ∣
+        x
+        ∉
+        x
+        }
+      
+    
+    {\displaystyle \{x\mid x\not \in x\}}
+   is not an axiom of NF, because 
+  
+    
+      
+        x
+        ∉
+        x
+      
+    
+    {\displaystyle x\not \in x}
+   cannot be stratified.
+
+Finite axiomatization
+Theodore Hailperin showed in 1944 that Comprehension is equivalent to a finite conjunction of its instances, so NF can be finitely axiomatized. One advantage of such a finite axiomatization is that it eliminates the indirect reference to types through the notion of stratification.
+The Metamath database for New Foundations on the Metamath website implements Hailperin's finite axiomatization.
+Holmes believes that the axiom of stratified comprehension, while a powerful tool, is not at all intuitive compared to the axioms in a finite axiomatization, which all correspond to natural basic constructions. Therefore, in his introduction to NFU, he opted to take those natural basic constructions as axioms, and proved stratified comprehension as a theorem later.
+
+Ordered pairs
+Relations and functions are defined in TST (and in NF and NFU) as sets of ordered pairs in the usual way. The usual definition of the ordered pair, first proposed by Kuratowski in 1921, namely 
+  
+    
+      
+        (
+        a
+        ,
+         
+        b
+        
+          )
+          
+            K
+          
+        
+        
+        :=
+         
+        {
+        {
+        a
+        }
+        ,
+         
+        {
+        a
+        ,
+         
+        b
+        }
+        }
+      
+    
+    {\displaystyle (a,\ b)_{K}\;:=\ \{\{a\},\ \{a,\ b\}\}}
+  , has a serious drawback for NF and related theories: the resulting ordered pair (a, b) necessarily has a type two higher than the type of its arguments a and b. Hence for purposes of determining stratification, a function is three types higher than the members of its field.
+If one can define a pair in such a way that its type is the same as that of its arguments (resulting in a type-level ordered pair), then a relation or function is merely one type higher than the type of the members of its field. Hence NF and related theories usually employ Quine's set-theoretic definition of the ordered pair, which yields a type-level ordered pair. However, Quine's definition relies on set operations on each of the elements a and b, and therefore does not directly work in NFU.
+As an alternative approach, Holmes takes the ordered pair (a, b) as a primitive notion, as well as its left and right projections 
+  
+    
+      
+        
+          π
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \pi _{1}}
+   and 
+  
+    
+      
+        
+          π
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \pi _{2}}
+  , i.e., functions such that 
+  
+    
+      
+        
+          π
+          
+            1
+          
+        
+        (
+        (
+        a
+        ,
+        b
+        )
+        )
+        =
+        a
+      
+    
+    {\displaystyle \pi _{1}((a,b))=a}
+   and 
+  
+    
+      
+        
+          π
+          
+            2
+          
+        
+        (
+        (
+        a
+        ,
+        b
+        )
+        )
+        =
+        b
+      
+    
+    {\displaystyle \pi _{2}((a,b))=b}
+   (in Holmes' axiomatization of NFU, the comprehension schema that asserts the existence of 
+  
+    
+      
+        {
+        x
+        ∣
+        ϕ
+        }
+      
+    
+    {\displaystyle \{x\mid \phi \}}
+   for any stratified formula 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   is considered a theorem and only proved later, so expressions like 
+  
+    
+      
+        
+          π
+          
+            1
+          
+        
+        =
+        {
+        (
+        (
+        a
+        ,
+        b
+        )
+        ,
+        a
+        )
+        ∣
+        a
+        ,
+        b
+        ∈
+        V
+        }
+      
+    
+    {\displaystyle \pi _{1}=\{((a,b),a)\mid a,b\in V\}}
+   are not considered proper definitions). Fortunately, whether the ordered pair is type-level by definition or by assumption (i.e., taken as primitive) usually does not matter.
+
+Natural numbers and the axiom of infinity
+The usual form of the axiom of infinity is based on the von Neumann construction of the natural numbers, which is not suitable for NF, since the description of the successor operation (and many other aspects of von Neumann numerals) is necessarily unstratified. The usual form of natural numbers used in NF follows Frege's definition, i.e., the natural number n is represented by the set of all sets with n elements. Under this definition, 0 is easily defined as 
+  
+    
+      
+        {
+        ∅
+        }
+      
+    
+    {\displaystyle \{\varnothing \}}
+  , and the successor operation can be defined in a stratified way:
+
+  
+    
+      
+        S
+        (
+        A
+        )
+        =
+        {
+        a
+        ∪
+        {
+        x
+        }
+        ∣
+        a
+        ∈
+        A
+        ∧
+        x
+        ∉
+        a
+        }
+        .
+      
+    
+    {\displaystyle S(A)=\{a\cup \{x\}\mid a\in A\wedge x\notin a\}.}
+  Under this definition, one can write down a statement analogous to the usual form of the axiom of infinity. However, that statement would be trivially true, since the universal set 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   would be an inductive set.
+Since inductive sets always exist, the set of natural numbers 
+  
+    
+      
+        
+          N
+        
+      
+    
+    {\displaystyle \mathbf {N} }
+   can be defined as the intersection of all inductive sets. This definition enables mathematical induction for stratified statements 
+  
+    
+      
+        P
+        (
+        n
+        )
+      
+    
+    {\displaystyle P(n)}
+  , because the set 
+  
+    
+      
+        {
+        n
+        ∈
+        
+          N
+        
+        ∣
+        P
+        (
+        n
+        )
+        }
+      
+    
+    {\displaystyle \{n\in \mathbf {N} \mid P(n)\}}
+   can be constructed, and when 
+  
+    
+      
+        P
+        (
+        n
+        )
+      
+    
+    {\displaystyle P(n)}
+   satisfies the conditions for mathematical induction, this set is an inductive set.
+Finite sets can then be defined as sets that belong to a natural number. However, it is not trivial to prove that 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   is not a "finite set", i.e., that the size of the universe 
+  
+    
+      
+        
+          |
+        
+        V
+        
+          |
+        
+      
+    
+    {\displaystyle |V|}
+   is not a natural number. Suppose that 
+  
+    
+      
+        
+          |
+        
+        V
+        
+          |
+        
+        =
+        n
+        ∈
+        
+          N
+        
+      
+    
+    {\displaystyle |V|=n\in \mathbf {N} }
+  . Then 
+  
+    
+      
+        n
+        =
+        {
+        V
+        }
+      
+    
+    {\displaystyle n=\{V\}}
+   (it can be shown inductively that a finite set is not equinumerous with any of its proper subset), 
+  
+    
+      
+        n
+        +
+        1
+        =
+        S
+        (
+        n
+        )
+        =
+        ∅
+      
+    
+    {\displaystyle n+1=S(n)=\varnothing }
+  , and each subsequent natural number would be 
+  
+    
+      
+        ∅
+      
+    
+    {\displaystyle \varnothing }
+   too, causing arithmetic to break down. To prevent this, one can introduce the axiom of infinity for NF:
+
+  
+    
+      
+        ∅
+        ∉
+        
+          N
+        
+        .
+      
+    
+    {\displaystyle \varnothing \notin \mathbf {N} .}
+  It may intuitively seem that one should be able to prove Infinity in NF(U) by constructing any "externally" infinite sequence of sets, such as 
+  
+    
+      
+        ∅
+        ,
+        {
+        ∅
+        }
+        ,
+        {
+        {
+        
+          ∅
+        
+        }
+        }
+        ,
+        …
+      
+    
+    {\displaystyle \varnothing ,\{\varnothing \},\{\{{\varnothing }\}\},\ldots }
+  . However, such a sequence could only be constructed through unstratified constructions (evidenced by the fact that TST itself has finite models), so such a proof could not be carried out in NF(U). In fact, Infinity is logically independent of NFU: There exists models of NFU where 
+  
+    
+      
+        
+          |
+        
+        V
+        
+          |
+        
+      
+    
+    {\displaystyle |V|}
+   is a non-standard natural number. In such models, mathematical induction can prove statements about 
+  
+    
+      
+        
+          |
+        
+        V
+        
+          |
+        
+      
+    
+    {\displaystyle |V|}
+  , making it impossible to "distinguish" 
+  
+    
+      
+        
+          |
+        
+        V
+        
+          |
+        
+      
+    
+    {\displaystyle |V|}
+   from standard natural numbers.
+However, there are some cases where Infinity can be proven (in which cases it may be referred to as the theorem of infinity):
+
+In NF (without urelements), Specker has shown that the axiom of choice is false. Since it can be proved through induction that every finite set has a choice function (a stratified condition), it follows that 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   is infinite.
+In NFU with axioms asserting the existence of a type-level ordered pair, 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   is equinumerous with its proper subset 
+  
+    
+      
+        V
+        ×
+        {
+        0
+        }
+      
+    
+    {\displaystyle V\times \{0\}}
+  , which implies Infinity. Conversely, NFU + Infinity + Choice proves the existence of a type-level ordered pair. NFU + Infinity interprets NFU + "there is a type-level ordered pair" (they are not quite the same theory, but the differences are inessential).
+
+Consequences
+Admissibility of useful large sets
+NF (and NFU + Infinity + Choice, described below and known consistent) allow the construction of two kinds of sets that ZFC and its proper extensions disallow because they are "too large" (some set theories admit these entities under the heading of proper classes):
+
+The universal set V. Because 
+  
+    
+      
+        x
+        =
+        x
+      
+    
+    {\displaystyle x=x}
+   is a stratified formula, the universal set V = {x | x=x} exists by Comprehension. An immediate consequence is that all sets have complements, and the entire set-theoretic universe under NF has a Boolean structure.
+Cardinal and ordinal numbers. In NF (and TST), the set of all sets having n elements (the circularity here is only apparent) exists. Hence Frege's definition of the cardinal numbers works in NF and NFU: a cardinal number is an equivalence class of sets under the relation of equinumerosity: the sets A and B are equinumerous if there exists a bijection between them, in which case we write 
+  
+    
+      
+        A
+        ∼
+        B
+      
+    
+    {\displaystyle A\sim B}
+  . Likewise, an ordinal number is an equivalence class of well-ordered sets.
+
+Resolution of set-theoretic paradoxes
+NF steers clear of the three well-known paradoxes of set theory in drastically different ways than how those paradoxes are resolved in well-founded set theories such as ZFC. Many useful concepts that are unique to NF and its variants can be developed from the resolution of those paradoxes. Of course, one may have doubts about whether those unfamiliar concepts would inherently cause inconsistencies down the line, especially since they did lead to some surprising results, e.g., that NF disproves Choice (in other words, NF+Choice is inconsistent). However, the fact that NFU, a consistent (relative to Peano arithmetic) theory that is consistent with Choice, also avoids the paradoxes in similar ways may relieve such doubts.
+The resolution of Russell's paradox is trivial: 
+  
+    
+      
+        x
+        ∉
+        x
+      
+    
+    {\displaystyle x\not \in x}
+   is not a stratified formula, so the existence of 
+  
+    
+      
+        {
+        x
+        ∣
+        x
+        ∉
+        x
+        }
+      
+    
+    {\displaystyle \{x\mid x\not \in x\}}
+   is not asserted by any instance of Comprehension. Quine said that he constructed NF with this paradox uppermost in mind. The resolution of the two more technical paradoxes, Cantor's paradox and the Burali-Forti paradox, is more involved.
+
+Cantor's paradox and Cantorian sets
+Cantor's paradox boils down to the question of whether there exists a largest cardinal number, or equivalently, whether there exists a set with the largest cardinality. In NF, the universal set 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   is obviously a set with the largest cardinality. However, Cantor's theorem says (given ZFC) that the power set 
+  
+    
+      
+        P
+        (
+        A
+        )
+      
+    
+    {\displaystyle P(A)}
+   of any set 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is larger than 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   (there can be no injection (one-to-one map) from 
+  
+    
+      
+        P
+        (
+        A
+        )
+      
+    
+    {\displaystyle P(A)}
+   into 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  ), which seems to imply a contradiction when 
+  
+    
+      
+        A
+        =
+        V
+      
+    
+    {\displaystyle A=V}
+  .
+Of course there is an injection from 
+  
+    
+      
+        P
+        (
+        V
+        )
+      
+    
+    {\displaystyle P(V)}
+   into 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   since 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   is the universal set, so it must be that Cantor's theorem (in its original form) does not hold in NF. Indeed, the proof of Cantor's theorem uses the diagonalization argument by considering the set 
+  
+    
+      
+        B
+        =
+        {
+        x
+        ∈
+        A
+        ∣
+        x
+        ∉
+        f
+        (
+        x
+        )
+        }
+      
+    
+    {\displaystyle B=\{x\in A\mid x\notin f(x)\}}
+  . In NF, 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle f(x)}
+   should be assigned the same type, so the definition of 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   is not stratified. Indeed, if 
+  
+    
+      
+        f
+        :
+        P
+        (
+        V
+        )
+        →
+        V
+      
+    
+    {\displaystyle f:P(V)\to V}
+   is the trivial injection 
+  
+    
+      
+        x
+        ↦
+        x
+      
+    
+    {\displaystyle x\mapsto x}
+  , then 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   is the same (ill-defined) set in Russell's paradox.
+This failure is not surprising since 
+  
+    
+      
+        
+          |
+        
+        A
+        
+          |
+        
+        <
+        
+          |
+        
+        P
+        (
+        A
+        )
+        
+          |
+        
+      
+    
+    {\displaystyle |A|<|P(A)|}
+   makes no sense in TST: the type of 
+  
+    
+      
+        P
+        (
+        A
+        )
+      
+    
+    {\displaystyle P(A)}
+   is one higher than the type of 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  . In NF, 
+  
+    
+      
+        
+          |
+        
+        A
+        
+          |
+        
+        <
+        
+          |
+        
+        P
+        (
+        A
+        )
+        
+          |
+        
+      
+    
+    {\displaystyle |A|<|P(A)|}
+   is a syntactical sentence due to the conflation of all the types, but any general proof involving Comprehension is unlikely to work.
+The usual way to correct such a type problem is to replace 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   with 
+  
+    
+      
+        
+          P
+          
+            1
+          
+        
+        (
+        A
+        )
+      
+    
+    {\displaystyle P_{1}(A)}
+  , the set of one-element subsets of 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  . Indeed, the correctly typed version of Cantor's theorem 
+  
+    
+      
+        
+          |
+        
+        
+          P
+          
+            1
+          
+        
+        (
+        A
+        )
+        
+          |
+        
+        <
+        
+          |
+        
+        P
+        (
+        A
+        )
+        
+          |
+        
+      
+    
+    {\displaystyle |P_{1}(A)|<|P(A)|}
+   is a theorem in TST (thanks to the diagonalization argument), and thus also a theorem in NF. In particular, 
+  
+    
+      
+        
+          |
+        
+        
+          P
+          
+            1
+          
+        
+        (
+        V
+        )
+        
+          |
+        
+        <
+        
+          |
+        
+        P
+        (
+        V
+        )
+        
+          |
+        
+      
+    
+    {\displaystyle |P_{1}(V)|<|P(V)|}
+  : there are fewer one-element sets than sets (and so fewer one-element sets than general objects, if we are in NFU). The "obvious" bijection 
+  
+    
+      
+        x
+        ↦
+        {
+        x
+        }
+      
+    
+    {\displaystyle x\mapsto \{x\}}
+   from the universe to the one-element sets is not a set; it is not a set because its definition is unstratified. Note that in all known models of NFU it is the case that 
+  
+    
+      
+        
+          |
+        
+        
+          P
+          
+            1
+          
+        
+        (
+        V
+        )
+        
+          |
+        
+        <
+        
+          |
+        
+        P
+        (
+        V
+        )
+        
+          |
+        
+        ≪
+        
+          |
+        
+        V
+        
+          |
+        
+      
+    
+    {\displaystyle |P_{1}(V)|<|P(V)|\ll |V|}
+  ; Choice allows one not only to prove that there are urelements but that there are many cardinals between 
+  
+    
+      
+        
+          |
+        
+        P
+        (
+        V
+        )
+        
+          |
+        
+      
+    
+    {\displaystyle |P(V)|}
+   and 
+  
+    
+      
+        
+          |
+        
+        V
+        
+          |
+        
+      
+    
+    {\displaystyle |V|}
+  .
+However, unlike in TST, 
+  
+    
+      
+        
+          |
+        
+        A
+        
+          |
+        
+        =
+        
+          |
+        
+        
+          P
+          
+            1
+          
+        
+        (
+        A
+        )
+        
+          |
+        
+      
+    
+    {\displaystyle |A|=|P_{1}(A)|}
+   is a syntactical sentence in NF(U), and as shown above one can talk about its truth value for specific values of 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   (e.g. when 
+  
+    
+      
+        A
+        =
+        V
+      
+    
+    {\displaystyle A=V}
+   it is false). A set 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   which satisfies the intuitively appealing 
+  
+    
+      
+        
+          |
+        
+        A
+        
+          |
+        
+        =
+        
+          |
+        
+        
+          P
+          
+            1
+          
+        
+        (
+        A
+        )
+        
+          |
+        
+      
+    
+    {\displaystyle |A|=|P_{1}(A)|}
+   is said to be Cantorian: a Cantorian set satisfies the usual form of Cantor's theorem. A set 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   which satisfies the further condition that 
+  
+    
+      
+        (
+        x
+        ↦
+        {
+        x
+        }
+        )
+        ⌈
+        A
+      
+    
+    {\displaystyle (x\mapsto \{x\})\lceil A}
+  , the restriction of the singleton map to A, is a set is not only Cantorian set but strongly Cantorian.
+
+Burali-Forti paradox and the T operation
+The Burali-Forti paradox of the largest ordinal number is resolved in the opposite way: In NF, having access to the set of ordinals does not allow one to construct a "largest ordinal number". One can construct the ordinal 
+  
+    
+      
+        Ω
+      
+    
+    {\displaystyle \Omega }
+   that corresponds to the natural well-ordering of all ordinals, but that does not mean that 
+  
+    
+      
+        Ω
+      
+    
+    {\displaystyle \Omega }
+   is larger than all those ordinals.
+To formalize the Burali-Forti paradox in NF, it is necessary to first formalize the concept of ordinal numbers. In NF, ordinals are defined (in the same way as in naive set theory) as equivalence classes of well-orderings under isomorphism. This is a stratified definition, so the set of ordinals 
+  
+    
+      
+        
+          O
+          r
+          d
+        
+      
+    
+    {\displaystyle \mathrm {Ord} }
+   can be defined with no problem. Transfinite induction works on stratified statements, which allows one to prove that the natural ordering of ordinals (
+  
+    
+      
+        α
+        ≤
+        β
+      
+    
+    {\displaystyle \alpha \leq \beta }
+   iff there exists well-orderings 
+  
+    
+      
+        R
+        ∈
+        α
+        ,
+        S
+        ∈
+        β
+      
+    
+    {\displaystyle R\in \alpha ,S\in \beta }
+   such that 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   is a continuation of 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+  ) is an well-ordering of 
+  
+    
+      
+        
+          O
+          r
+          d
+        
+      
+    
+    {\displaystyle \mathrm {Ord} }
+  . By definition of ordinals, this well-ordering also belongs to an ordinal 
+  
+    
+      
+        Ω
+        ∈
+        
+          O
+          r
+          d
+        
+      
+    
+    {\displaystyle \Omega \in \mathrm {Ord} }
+  . In naive set theory, one would go on to prove by transfinite induction that each ordinal 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   is the order type of the natural order on the ordinals less than 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+  , which would imply an contradiction since 
+  
+    
+      
+        Ω
+      
+    
+    {\displaystyle \Omega }
+   by definition is the order type of all ordinals, not any proper initial segment of them.
+However, the statement "
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   is the order type of the natural order on the ordinals less than 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+  " is not stratified, so the transfinite induction argument does not work in NF. In fact, "the order type 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+   of the natural order 
+  
+    
+      
+        
+          R
+          
+            α
+          
+        
+      
+    
+    {\displaystyle R_{\alpha }}
+   on the ordinals less than 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+  " is at least two types higher than 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+  : The order relation 
+  
+    
+      
+        
+          R
+          
+            α
+          
+        
+        =
+        {
+        (
+        x
+        ,
+        y
+        )
+        ∣
+        x
+        ≤
+        y
+        <
+        α
+        }
+      
+    
+    {\displaystyle R_{\alpha }=\{(x,y)\mid x\leq y<\alpha \}}
+   is one type higher than 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   assuming that 
+  
+    
+      
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle (x,y)}
+   is a type-level ordered pair, and the order type (equivalence class) 
+  
+    
+      
+        β
+        =
+        {
+        S
+        ∣
+        S
+        ∼
+        
+          R
+          
+            α
+          
+        
+        }
+      
+    
+    {\displaystyle \beta =\{S\mid S\sim R_{\alpha }\}}
+   is one type higher than 
+  
+    
+      
+        
+          R
+          
+            α
+          
+        
+      
+    
+    {\displaystyle R_{\alpha }}
+  . If 
+  
+    
+      
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle (x,y)}
+   is the usual Kuratowski ordered pair (two types higher than 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  ), then 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+   would be four types higher than 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+  .
+To correct such a type problem, one needs the T operation, 
+  
+    
+      
+        T
+        (
+        α
+        )
+      
+    
+    {\displaystyle T(\alpha )}
+  , that "raises the type" of an ordinal 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+  , just like how 
+  
+    
+      
+        
+          P
+          
+            1
+          
+        
+        (
+        A
+        )
+      
+    
+    {\displaystyle P_{1}(A)}
+   "raises the type" of the set 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  . The T operation is defined as follows: If 
+  
+    
+      
+        W
+        ∈
+        α
+      
+    
+    {\displaystyle W\in \alpha }
+  , then 
+  
+    
+      
+        T
+        (
+        α
+        )
+      
+    
+    {\displaystyle T(\alpha )}
+   is the order type of the order 
+  
+    
+      
+        
+          W
+          
+            ι
+          
+        
+        =
+        {
+        (
+        {
+        x
+        }
+        ,
+        {
+        y
+        }
+        )
+        ∣
+        x
+        W
+        y
+        }
+      
+    
+    {\displaystyle W^{\iota }=\{(\{x\},\{y\})\mid xWy\}}
+  . Now the lemma on order types may be restated in a stratified manner:
+
+The order type of the natural order on the ordinals 
+  
+    
+      
+        <
+        α
+      
+    
+    {\displaystyle <\alpha }
+   is 
+  
+    
+      
+        
+          T
+          
+            2
+          
+        
+        (
+        α
+        )
+      
+    
+    {\displaystyle T^{2}(\alpha )}
+   or 
+  
+    
+      
+        
+          T
+          
+            4
+          
+        
+        (
+        α
+        )
+      
+    
+    {\displaystyle T^{4}(\alpha )}
+  , depending on which ordered pair is used.Both versions of this statement can be proven by transfinite induction; we assume the type level pair hereinafter. This means that 
+  
+    
+      
+        
+          T
+          
+            2
+          
+        
+        (
+        α
+        )
+      
+    
+    {\displaystyle T^{2}(\alpha )}
+   is always less than 
+  
+    
+      
+        Ω
+      
+    
+    {\displaystyle \Omega }
+  , the order type of all ordinals. In particular, 
+  
+    
+      
+        
+          T
+          
+            2
+          
+        
+        (
+        Ω
+        )
+        <
+        Ω
+      
+    
+    {\displaystyle T^{2}(\Omega )<\Omega }
+  .
+Another (stratified) statement that can be proven by transfinite induction is that T is a strictly monotone (order-preserving) operation on the ordinals, i.e., 
+  
+    
+      
+        T
+        (
+        α
+        )
+        <
+        T
+        (
+        β
+        )
+      
+    
+    {\displaystyle T(\alpha )<T(\beta )}
+   iff 
+  
+    
+      
+        α
+        <
+        β
+      
+    
+    {\displaystyle \alpha <\beta }
+  . Hence the T operation is not a function: The collection of ordinals 
+  
+    
+      
+        {
+        α
+        ∣
+        T
+        (
+        α
+        )
+        <
+        α
+        }
+      
+    
+    {\displaystyle \{\alpha \mid T(\alpha )<\alpha \}}
+   cannot have a least member, and thus cannot be a set. More concretely, the monotonicity of T implies 
+  
+    
+      
+        Ω
+        >
+        
+          T
+          
+            2
+          
+        
+        (
+        Ω
+        )
+        >
+        
+          T
+          
+            4
+          
+        
+        (
+        Ω
+        )
+        …
+      
+    
+    {\displaystyle \Omega >T^{2}(\Omega )>T^{4}(\Omega )\ldots }
+  , a "descending sequence" in the ordinals which also cannot be a set.
+One might assert that this result shows that no model of NF(U) is "standard", since the ordinals in any model of NFU are externally not well-ordered. This is a philosophical question, not a question of what can be proved within the formal theory. Note that even within NFU it can be proven that any set model of NFU has non-well-ordered "ordinals"; NFU does not conclude that the universe 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   is a model of NFU, despite 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   being a set, because the membership relation is not a set relation.
+For a further development of mathematics in NFU, with a comparison to the development of the same in ZFC, see implementation of mathematics in set theory.
+
+Cartesian closure
+The category whose objects are the sets of NF and whose arrows are the functions between those sets is not Cartesian closed; Since NF lacks Cartesian closure, not every function curries as one might intuitively expect, and NF is not a topos.
+
+The consistency problem and related partial results
+For many years, the outstanding problem with NF has been that it has not conclusively been proved to be relatively consistent with any other well-known axiomatic system in which arithmetic can be modeled. NF disproves Choice, and thus proves Infinity. But it is also known that allowing urelements (multiple distinct objects lacking members) yields NFU, a theory that is consistent relative to Peano arithmetic; if Infinity and Choice are added, the resulting theory has the same consistency strength as type theory with infinity or bounded Zermelo set theory. (NFU corresponds to a type theory TSTU where the axiom of extensionality is weakened to allow each type to have urelements, not just type 0.) There are other relatively consistent variants of NF.
+NFU is, roughly speaking, weaker than NF because, in NF, the power set of the universe is the universe itself, while in NFU, the power set of the universe may be strictly smaller than the universe (the power set of the universe contains only sets, while the universe may contain urelements). This is necessarily the case in NFU+"Choice".
+Ernst Specker has shown that NF is equiconsistent with TST + Amb, where Amb is the axiom scheme of typical ambiguity which asserts 
+  
+    
+      
+        ϕ
+        ↔
+        
+          ϕ
+          
+            +
+          
+        
+      
+    
+    {\displaystyle \phi \leftrightarrow \phi ^{+}}
+   for any formula 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+  , 
+  
+    
+      
+        
+          ϕ
+          
+            +
+          
+        
+      
+    
+    {\displaystyle \phi ^{+}}
+   being the formula obtained by raising every type index in 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   by one. NF is also equiconsistent with the theory TST augmented with a "type shifting automorphism", an operation which raises type by one, mapping each type onto the next higher type, and preserves equality and membership relations (and which cannot be used in instances of Comprehension: it is external to the theory). The same results hold for various fragments of TST in relation to the corresponding fragments of NF.
+In the same year (1969) that Jensen proved NFU consistent, Grishin proved 
+  
+    
+      
+        N
+        
+          F
+          
+            3
+          
+        
+      
+    
+    {\displaystyle NF_{3}}
+   consistent. 
+  
+    
+      
+        N
+        
+          F
+          
+            3
+          
+        
+      
+    
+    {\displaystyle NF_{3}}
+   is the fragment of NF with full extensionality (no urelements) and those instances of Comprehension which can be stratified using just three types. This theory is a very awkward medium for mathematics (although there have been attempts to alleviate this awkwardness), largely because there is no obvious definition for an ordered pair. Despite this awkwardness, 
+  
+    
+      
+        N
+        
+          F
+          
+            3
+          
+        
+      
+    
+    {\displaystyle NF_{3}}
+   is very interesting because every infinite model of TST restricted to three types satisfies Amb. Hence for every such model, there is a model of 
+  
+    
+      
+        N
+        
+          F
+          
+            3
+          
+        
+      
+    
+    {\displaystyle NF_{3}}
+   with the same theory. This does not hold for four types: 
+  
+    
+      
+        N
+        
+          F
+          
+            4
+          
+        
+      
+    
+    {\displaystyle NF_{4}}
+   is the same theory as NF, and we have no idea how to obtain a model of TST with four types in which Amb holds.
+In 1983, Marcel Crabbé proved consistent a system he called NFI, whose axioms are unrestricted extensionality and those instances of Comprehension in which no variable is assigned a type higher than that of the set asserted to exist. This is a predicativity restriction, though NFI is not a predicative theory: it admits enough impredicativity to define the set of natural numbers (defined as the intersection of all inductive sets; note that the inductive sets quantified over are of the same type as the set of natural numbers being defined). Crabbé also discussed a subtheory of NFI, in which only parameters (free variables) are allowed to have the type of the set asserted to exist by an instance of Comprehension. He called the result "predicative NF" (NFP); it is, of course, doubtful whether any theory with a self-membered universe is truly predicative. Holmes has  shown that NFP has the same consistency strength as the predicative theory of types of Principia Mathematica without the Axiom of reducibility.
+Since 2015, several candidate proofs by Randall Holmes of the consistency of NF relative to ZF have been available both on arXiv and on the logician's home page. Holmes demonstrates the equiconsistency of a 'weird' variant of TST, namely TTTλ - 'tangled type theory with λ-types'  - with NF.  Holmes next shows that TTTλ is consistent relative to ZFA, that is, ZF with atoms but without choice.  Holmes demonstrates this by constructing in ZFA+C, that is, ZF with atoms and choice, a class model of ZFA which includes 'tangled webs of cardinals'. The candidate proofs are all rather long, but no irrecoverable faults have been identified by the NF community as yet.
+
+Models of NFU
+Where the starting point for the metamathematics of Zermelo-Fraenkel set theory is the easy-to-formalize intuition of the cumulative hierarchy, the non-well-foundedness of NF and NFU makes this intuition not directly applicable. However, the intuition of forming sets at a stage from sets developed at earlier stages can be augmented to allow forming sets at a stage consisting of all possible sets but given sets formed at earlier stages, giving an analogous iterative conception of set.There is a fairly simple method for producing models of NFU in bulk. Using well-known techniques of model theory, one can construct a nonstandard model of Zermelo set theory (nothing nearly as strong as full ZFC is needed for the basic technique) on which there is an external automorphism j (not a set of the model) which moves a rank 
+  
+    
+      
+        
+          V
+          
+            α
+          
+        
+      
+    
+    {\displaystyle V_{\alpha }}
+   of the cumulative hierarchy of sets.  We may suppose without loss of generality that 
+  
+    
+      
+        j
+        (
+        α
+        )
+        <
+        α
+      
+    
+    {\displaystyle j(\alpha )<\alpha }
+  . We talk about the automorphism moving the rank rather than the ordinal because we do not want to assume that every ordinal in the model is the index of a rank.
+The domain of the model of NFU will be the nonstandard rank 
+  
+    
+      
+        
+          V
+          
+            α
+          
+        
+      
+    
+    {\displaystyle V_{\alpha }}
+  . The membership relation of the model of NFU will be
+
+  
+    
+      
+        x
+        
+          ∈
+          
+            N
+            F
+            U
+          
+        
+        y
+        
+          ≡
+          
+            d
+            e
+            f
+          
+        
+        j
+        (
+        x
+        )
+        ∈
+        y
+        ∧
+        y
+        ∈
+        
+          V
+          
+            j
+            (
+            α
+            )
+            +
+            1
+          
+        
+        .
+      
+    
+    {\displaystyle x\in _{NFU}y\equiv _{def}j(x)\in y\wedge y\in V_{j(\alpha )+1}.}
+  It may now be proved that this actually is a model of NFU. Let 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   be a stratified formula in the language of NFU. Choose an assignment of types to all variables in the formula which witnesses the fact that it is stratified. Choose a natural number N greater than all types assigned to variables by this stratification.
+Expand the formula 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   into a formula 
+  
+    
+      
+        
+          ϕ
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \phi _{1}}
+   in the language of the nonstandard model of Zermelo set theory with automorphism j using the definition of membership in the model of NFU. Application of any power of j to both sides of an equation or membership statement preserves its truth value because j is an automorphism. Make such an application to each atomic formula in 
+  
+    
+      
+        
+          ϕ
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \phi _{1}}
+   in such a way that each variable x assigned type i occurs with exactly 
+  
+    
+      
+        N
+        −
+        i
+      
+    
+    {\displaystyle N-i}
+   applications of j. This is possible thanks to the form of the atomic membership statements derived from NFU membership statements, and to the formula being stratified. Each quantified sentence 
+  
+    
+      
+        (
+        ∀
+        x
+        ∈
+        
+          V
+          
+            α
+          
+        
+        .
+        ψ
+        (
+        
+          j
+          
+            N
+            −
+            i
+          
+        
+        (
+        x
+        )
+        )
+        )
+      
+    
+    {\displaystyle (\forall x\in V_{\alpha }.\psi (j^{N-i}(x)))}
+   can be converted to the form 
+  
+    
+      
+        (
+        ∀
+        x
+        ∈
+        
+          j
+          
+            N
+            −
+            i
+          
+        
+        (
+        
+          V
+          
+            α
+          
+        
+        )
+        .
+        ψ
+        (
+        x
+        )
+        )
+      
+    
+    {\displaystyle (\forall x\in j^{N-i}(V_{\alpha }).\psi (x))}
+   (and similarly for existential quantifiers). Carry out this transformation everywhere and obtain a formula 
+  
+    
+      
+        
+          ϕ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \phi _{2}}
+   in which j is never applied to a bound variable.
+Choose any free variable y in 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   assigned type i. Apply 
+  
+    
+      
+        
+          j
+          
+            i
+            −
+            N
+          
+        
+      
+    
+    {\displaystyle j^{i-N}}
+   uniformly to the entire formula to obtain a formula 
+  
+    
+      
+        
+          ϕ
+          
+            3
+          
+        
+      
+    
+    {\displaystyle \phi _{3}}
+   in which y appears without any application of j. Now 
+  
+    
+      
+        {
+        y
+        ∈
+        
+          V
+          
+            α
+          
+        
+        ∣
+        
+          ϕ
+          
+            3
+          
+        
+        }
+      
+    
+    {\displaystyle \{y\in V_{\alpha }\mid \phi _{3}\}}
+   exists (because j appears applied only to free variables and constants), belongs to 
+  
+    
+      
+        
+          V
+          
+            α
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle V_{\alpha +1}}
+  , and contains exactly those y which satisfy the original formula
+
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   in the model of NFU. 
+  
+    
+      
+        j
+        (
+        {
+        y
+        ∈
+        
+          V
+          
+            α
+          
+        
+        ∣
+        
+          ϕ
+          
+            3
+          
+        
+        }
+        )
+      
+    
+    {\displaystyle j(\{y\in V_{\alpha }\mid \phi _{3}\})}
+   has this extension in the model of NFU (the application of j corrects for the different definition of membership in the model of NFU). This establishes that Stratified Comprehension holds in the model of NFU.
+To see that weak Extensionality holds is straightforward: each nonempty element of 
+  
+    
+      
+        
+          V
+          
+            j
+            (
+            α
+            )
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle V_{j(\alpha )+1}}
+   inherits a unique extension from the nonstandard model, the empty set inherits its usual extension as well, and all other objects are urelements.
+The basic idea is that the automorphism j codes the "power set" 
+  
+    
+      
+        
+          V
+          
+            α
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle V_{\alpha +1}}
+   of our "universe" 
+  
+    
+      
+        
+          V
+          
+            α
+          
+        
+      
+    
+    {\displaystyle V_{\alpha }}
+   into its externally isomorphic copy 
+  
+    
+      
+        
+          V
+          
+            j
+            (
+            α
+            )
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle V_{j(\alpha )+1}}
+   inside our "universe." The remaining objects not coding subsets of the universe are treated as urelements.
+If 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   is a natural number n, one gets a model of NFU which claims that the universe is finite (it is externally infinite, of course). If 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   is infinite and the Choice holds in the nonstandard model of ZFC, one obtains a model of NFU + Infinity + Choice.
+
+Self-sufficiency of mathematical foundations in NFU
+For philosophical reasons, it is important to note that it is not necessary to work in ZFC or any related system to carry out this proof. A common argument against the use of NFU as a foundation for mathematics is that the reasons for relying on it have to do with the intuition that ZFC is correct. It is sufficient to accept TST (in fact TSTU). In outline: take the type theory TSTU (allowing urelements in each positive type) as a metatheory and consider the theory of set models of TSTU in TSTU (these models will be sequences of sets 
+  
+    
+      
+        
+          T
+          
+            i
+          
+        
+      
+    
+    {\displaystyle T_{i}}
+   (all of the same type in the metatheory) with embeddings of each 
+  
+    
+      
+        P
+        (
+        
+          T
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle P(T_{i})}
+   into 
+  
+    
+      
+        
+          P
+          
+            1
+          
+        
+        (
+        
+          T
+          
+            i
+            +
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle P_{1}(T_{i+1})}
+   coding embeddings of the power set of 
+  
+    
+      
+        
+          T
+          
+            i
+          
+        
+      
+    
+    {\displaystyle T_{i}}
+   into 
+  
+    
+      
+        
+          T
+          
+            i
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle T_{i+1}}
+   in a type-respecting manner). Given an embedding of 
+  
+    
+      
+        
+          T
+          
+            0
+          
+        
+      
+    
+    {\displaystyle T_{0}}
+   into 
+  
+    
+      
+        
+          T
+          
+            1
+          
+        
+      
+    
+    {\displaystyle T_{1}}
+   (identifying elements of the base "type" with subsets of the base type), embeddings may be defined from each "type" into its successor in a natural way. This can be generalized to transfinite sequences 
+  
+    
+      
+        
+          T
+          
+            α
+          
+        
+      
+    
+    {\displaystyle T_{\alpha }}
+   with care.
+Note that the construction of such sequences of sets is limited by the size of the type in which they are being constructed; this prevents TSTU from proving its own consistency (TSTU + Infinity can prove the consistency of TSTU; to prove the consistency of TSTU+Infinity one needs a type containing a set of cardinality 
+  
+    
+      
+        
+          ℶ
+          
+            ω
+          
+        
+      
+    
+    {\displaystyle \beth _{\omega }}
+  , which cannot be proved to exist in TSTU+Infinity without stronger assumptions). Now the same results of model theory can be used to build a model of NFU and verify that it is a model of NFU in much the same way, with the 
+  
+    
+      
+        
+          T
+          
+            α
+          
+        
+      
+    
+    {\displaystyle T_{\alpha }}
+  's being used in place of 
+  
+    
+      
+        
+          V
+          
+            α
+          
+        
+      
+    
+    {\displaystyle V_{\alpha }}
+   in the usual construction. The final move is to observe that since NFU is consistent, we can drop the use of absolute types in our metatheory, bootstrapping the metatheory from TSTU to NFU.
+
+Facts about the automorphism j
+The automorphism j of a model of this kind is closely related to certain natural operations in NFU. For example, if W is a well-ordering in the nonstandard model (we suppose here that we use Kuratowski pairs so that the coding of functions in the two theories will agree to some extent) which is also a well-ordering in NFU (all well-orderings of NFU are well-orderings in the nonstandard model of Zermelo set theory, but not vice versa, due to the formation of urelements in the construction of the model), and W has type α in NFU, then j(W) will be a well-ordering of type T(α) in NFU.
+In fact, j is coded by a function in the model of NFU. The function in the nonstandard model which sends the singleton of any element of 
+  
+    
+      
+        
+          V
+          
+            j
+            (
+            α
+            )
+          
+        
+      
+    
+    {\displaystyle V_{j(\alpha )}}
+   to its sole element, becomes in NFU a function which sends each singleton {x}, where x is any object in the universe, to j(x). Call this function Endo and let it have the following properties: Endo is an injection from the set of singletons into the set of sets, with the property that Endo( {x} ) = {Endo( {y} ) | y∈x} for each set x. This function can define a type level "membership" relation on the universe, one reproducing the membership relation of the original nonstandard model.
+
+Strong axioms of infinity
+In this section, the effect is considered of adding various "strong axioms of infinity" to our usual base theory, NFU + Infinity + Choice. This base theory, known consistent, has the same strength as TST + Infinity, or Zermelo set theory with Separation restricted to bounded formulas (Mac Lane set theory).
+One can add to this base theory strong axioms of infinity familiar from the ZFC context, such as "there exists an inaccessible cardinal," but it is more natural to consider assertions about Cantorian and strongly Cantorian sets. Such assertions not only bring into being large cardinals of the usual sorts, but strengthen the theory on its own terms.
+The weakest of the usual strong principles is:
+
+Rosser's Axiom of Counting. The set of natural numbers is a strongly Cantorian set.To see how natural numbers are defined in NFU, see set-theoretic definition of natural numbers. The original form of this axiom given by Rosser was "the set {m|1≤m≤n} has n members", for each natural number n. This intuitively obvious assertion is unstratified: what is provable in NFU is "the set {m|1≤m≤n} has 
+  
+    
+      
+        
+          T
+          
+            2
+          
+        
+        (
+        n
+        )
+      
+    
+    {\displaystyle T^{2}(n)}
+   members" (where the T operation on cardinals is defined by 
+  
+    
+      
+        T
+        (
+        
+          |
+        
+        A
+        
+          |
+        
+        )
+        =
+        
+          |
+        
+        
+          P
+          
+            1
+          
+        
+        (
+        A
+        )
+        
+          |
+        
+      
+    
+    {\displaystyle T(|A|)=|P_{1}(A)|}
+  ; this raises the type of a cardinal by one). For any cardinal number (including natural numbers) to assert 
+  
+    
+      
+        T
+        (
+        
+          |
+        
+        A
+        
+          |
+        
+        )
+        =
+        
+          |
+        
+        A
+        
+          |
+        
+      
+    
+    {\displaystyle T(|A|)=|A|}
+   is equivalent to asserting that the sets A of that cardinality are Cantorian (by a usual abuse of language, we refer to such cardinals as "Cantorian cardinals"). It is straightforward to show that the assertion that each natural number is Cantorian is equivalent to the assertion that the set of all natural numbers is strongly Cantorian.
+Counting is consistent with NFU, but increases its consistency strength noticeably; not, as one would expect, in the area of arithmetic, but in higher set theory. NFU + Infinity proves that each 
+  
+    
+      
+        
+          ℶ
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \beth _{n}}
+   exists, but not that 
+  
+    
+      
+        
+          ℶ
+          
+            ω
+          
+        
+      
+    
+    {\displaystyle \beth _{\omega }}
+   exists; NFU + Counting (easily) proves Infinity, and further proves the existence of 
+  
+    
+      
+        
+          ℶ
+          
+            
+              ℶ
+              
+                n
+              
+            
+          
+        
+      
+    
+    {\displaystyle \beth _{\beth _{n}}}
+   for each n, but not the existence of 
+  
+    
+      
+        
+          ℶ
+          
+            
+              ℶ
+              
+                ω
+              
+            
+          
+        
+      
+    
+    {\displaystyle \beth _{\beth _{\omega }}}
+  . (See beth numbers).
+Counting implies immediately that one does not need to assign types to variables restricted to the set 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+   of natural numbers for purposes of stratification; it is a theorem that the power set of a strongly Cantorian set is strongly Cantorian, so it is further not necessary to assign types to variables restricted to any iterated power set of the natural numbers, or to such familiar sets as the set of real numbers, the set of functions from reals to reals, and so forth. The set-theoretical strength of Counting is less important in practice than the convenience of not having to annotate variables known to have natural number values (or related kinds of values) with singleton brackets, or to apply the T operation in order to get stratified set definitions.
+Counting implies Infinity; each of the axioms below needs to be adjoined to NFU + Infinity to get the effect of strong variants of Infinity; Ali Enayat has investigated the strength of some of these axioms in models of NFU + "the universe is finite".
+A model of the kind constructed above satisfies Counting just in case the automorphism j fixes all natural numbers in the underlying nonstandard model of Zermelo set theory.
+The next strong axiom we consider is the
+
+Axiom of strongly Cantorian separation: For any strongly Cantorian set A and any formula 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   (not necessarily stratified!) the set 
+  
+    
+      
+        {
+        x
+        ∈
+        A
+        
+          |
+        
+        
+        ϕ
+        }
+      
+    
+    {\displaystyle \{x\in A|\;\phi \}}
+   exists.Immediate consequences include Mathematical Induction for unstratified conditions (which is not a consequence of Counting; many but not all unstratified instances of induction on the natural numbers follow from Counting).
+This axiom is surprisingly strong. Unpublished work of Robert Solovay shows that the consistency strength of the theory NFU* = NFU + Counting + Strongly Cantorian Separation is the same as that of Zermelo set theory + 
+  
+    
+      
+        
+          Σ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Sigma _{2}}
+   Replacement.
+This axiom holds in a model of the kind constructed above (with Choice) if the ordinals which are fixed by j and dominate only ordinals fixed by j in the underlying nonstandard model of Zermelo set theory are standard, and the power set of any such ordinal in the model is also standard. This condition is sufficient but not necessary.
+Next is
+
+Axiom of Cantorian Sets: Every Cantorian set is strongly Cantorian.This very simple assertion is extremely strong. Solovay has shown the precise equivalence of the consistency strength of the theory NFUA = NFU + Infinity + Cantorian Sets with that of ZFC + a schema asserting the existence of an n-Mahlo cardinal for each concrete natural number n. Ali Enayat has shown that the theory of Cantorian equivalence classes of well-founded extensional relations (which gives a natural picture of an initial segment of the cumulative hierarchy of ZFC) interprets the extension of ZFC with n-Mahlo cardinals directly. A permutation technique can be applied to a model of this theory to give a model in which the hereditarily strongly Cantorian sets with the usual membership relation model the strong extension of ZFC.
+This axiom holds in a model of the kind constructed above (with Choice) just in case the ordinals fixed by j in the underlying nonstandard model of ZFC are an initial (proper class) segment of the ordinals of the model.
+Next consider the
+
+Axiom of Cantorian Separation: For any Cantorian set A and any formula 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   (not necessarily stratified!) the set {x∈A|φ} exists.This combines the effect of the two preceding axioms and is actually even stronger (precisely how is not known). Unstratified mathematical induction enables proving that there are n-Mahlo cardinals for every n, given Cantorian Sets, which gives an extension of ZFC that is even stronger than the previous one, which only asserts that there are n-Mahlos for each concrete natural number (leaving open the possibility of nonstandard counterexamples).
+This axiom will hold in a model of the kind described above if every ordinal fixed by j is standard, and every power set of an ordinal fixed by j is also standard in the underlying model of ZFC. Again, this condition is sufficient but not necessary.
+An ordinal is said to be Cantorian if it is fixed by T, and strongly Cantorian if it dominates only Cantorian ordinals (this implies that it is itself Cantorian). In models of the kind constructed above, Cantorian ordinals of NFU correspond to ordinals fixed by j (they are not the same objects because different definitions of ordinal numbers are used in the two theories).
+Equal in strength to Cantorian Sets is the
+
+Axiom of Large Ordinals: For each non-Cantorian ordinal 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+  , there is a natural number n such that 
+  
+    
+      
+        
+          T
+          
+            n
+          
+        
+        (
+        Ω
+        )
+        <
+        α
+      
+    
+    {\displaystyle T^{n}(\Omega )<\alpha }
+  .Recall that 
+  
+    
+      
+        Ω
+      
+    
+    {\displaystyle \Omega }
+   is the order type of the natural order on all ordinals. This only implies Cantorian Sets if we have Choice (but is at that level of consistency strength in any case). It is remarkable that one can even define 
+  
+    
+      
+        
+          T
+          
+            n
+          
+        
+        (
+        Ω
+        )
+      
+    
+    {\displaystyle T^{n}(\Omega )}
+  : this is the nth term 
+  
+    
+      
+        
+          s
+          
+            n
+          
+        
+      
+    
+    {\displaystyle s_{n}}
+   of any finite sequence of ordinals s of length n such that 
+  
+    
+      
+        
+          s
+          
+            0
+          
+        
+        =
+        Ω
+      
+    
+    {\displaystyle s_{0}=\Omega }
+  , 
+  
+    
+      
+        
+          s
+          
+            i
+            +
+            1
+          
+        
+        =
+        T
+        (
+        
+          s
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle s_{i+1}=T(s_{i})}
+   for each appropriate i. This definition is completely unstratified. The uniqueness of 
+  
+    
+      
+        
+          T
+          
+            n
+          
+        
+        (
+        Ω
+        )
+      
+    
+    {\displaystyle T^{n}(\Omega )}
+   can be proved (for those n for which it exists) and a certain amount of common-sense reasoning about this notion can be carried out, enough to show that Large Ordinals implies Cantorian Sets in the presence of Choice. In spite of the knotty formal statement of this axiom, it is a very natural assumption, amounting to making the action of T on the ordinals as simple as possible.
+A model of the kind constructed above will satisfy Large Ordinals, if the ordinals moved by j are exactly the ordinals which dominate some 
+  
+    
+      
+        
+          j
+          
+            −
+            i
+          
+        
+        (
+        α
+        )
+      
+    
+    {\displaystyle j^{-i}(\alpha )}
+   in the underlying nonstandard model of ZFC.
+
+Axiom of Small Ordinals: For any formula φ, there is a set A such that the elements of A which are strongly Cantorian ordinals are exactly the strongly Cantorian ordinals such that φ.Solovay has shown the precise equivalence in consistency strength of NFUB = NFU + Infinity + Cantorian Sets + Small Ordinals with Morse–Kelley set theory plus the assertion that the proper class ordinal (the class of all ordinals) is a weakly compact cardinal. This is very strong indeed! Moreover, NFUB-, which is NFUB with Cantorian Sets omitted, is easily seen to have the same strength as NFUB.
+A model of the kind constructed above will satisfy this axiom if every collection of ordinals fixed by j is the intersection of some set of ordinals with the ordinals fixed by j, in the underlying nonstandard model of ZFC.
+Even stronger is the theory NFUM = NFU + Infinity + Large Ordinals + Small Ordinals. This is equivalent to Morse–Kelley set theory with a predicate on the classes which is a κ-complete non-principal ultrafilter on the proper class ordinal κ; in effect, this is Morse–Kelley set theory + "the proper class ordinal is a measurable cardinal"!
+The technical details here are not the main point, which is that reasonable and natural (in the context of NFU) assertions turn out to be equivalent in power to very strong axioms of infinity in the ZFC context. This fact is related to the correlation between the existence of models of NFU, described above and satisfying these axioms, and the existence of models of ZFC with automorphisms having special properties.
+
+The system ML (Mathematical Logic)
+ML is an extension of NF that includes proper classes as well as sets.
+The set theory of the 1940 first edition of Quine's Mathematical Logic married NF to the proper classes of NBG set theory and included an axiom schema of unrestricted comprehension for proper classes. However J. Barkley Rosser proved that the system presented in Mathematical Logic was subject to the Burali-Forti paradox. This result does not apply to NF. Hao Wang showed how to amend Quine's axioms for ML so as to avoid this problem, and Quine included the resulting axiomatization in the 1951 second and final edition of Mathematical Logic.
+Wang proved that if NF is consistent then so is the revised ML, and also showed that the consistency of the revised ML implies the consistency of NF.  That is, NF and  the revised ML are equiconsistent.
+
+See also
+Alternative set theory
+Axiomatic set theory
+Implementation of mathematics in set theory
+Positive set theory
+Set-theoretic definition of natural numbers
+
+Notes
+References
+Crabbé, Marcel (1982). "On the consistency of an impredicative fragment of Quine's NF". The Journal of Symbolic Logic. 47 (1): 131–136. doi:10.2307/2273386. JSTOR 2273386. S2CID 42174966.
+Fenton, Scott (2015). "New Foundations Explorer Home Page".
+Forster, Thomas (October 14, 2007). "Why the Sets of NF do not form a Cartesian-closed Category" (PDF). www.dpmms.cam.ac.uk.
+Forster, T. E. (2008). "The iterative conception of set" (PDF). The Review of Symbolic Logic. 1: 97–110. doi:10.1017/S1755020308080064. S2CID 15231169.
+Forster, T. E. (1992), Set theory with a universal set. Exploring an untyped universe, Oxford Science Publications, Oxford Logic Guides, vol. 20, New York: The Clarendon Press, Oxford University Press, ISBN 0-19-853395-0, MR 1166801
+Forster, T. E. (2018). "Quine's New Foundations". Stanford Encyclopedia of Philosophy.
+Hailperin, T (1944). "A set of axioms for logic". Journal of Symbolic Logic. 9 (1): 1–19. doi:10.2307/2267307. JSTOR 2267307. S2CID 39672836.
+Holmes, M. Randall (1998), Elementary set theory with a universal set (PDF), Cahiers du Centre de Logique, vol. 10, Louvain-la-Neuve: Université Catholique de Louvain, Département de Philosophie, ISBN 2-87209-488-1, MR 1759289
+Holmes, M. Randall (2008). "Symmetry as a Criterion for Comprehension Motivating Quine's 'New Foundations'". Studia Logica. 88 (2): 195–213. doi:10.1007/s11225-008-9107-8. S2CID 207242273.
+Jensen, R. B. (1969), "On the Consistency of a Slight(?) Modification of Quine's NF", Synthese, 19 (1/2): 250–63, doi:10.1007/bf00568059, JSTOR 20114640, S2CID 46960777 With discussion by Quine.
+Quine, W. V. (1937), "New Foundations for Mathematical Logic", The American Mathematical Monthly, Mathematical Association of America, 44 (2): 70–80, doi:10.2307/2300564, JSTOR 2300564
+Quine, Willard Van Orman (1940), Mathematical Logic (first ed.), New York: W. W. Norton & Co., Inc., MR 0002508
+Quine, Willard Van Orman (1951), Mathematical logic (Revised ed.), Cambridge, Mass.: Harvard University Press, ISBN 0-674-55451-5, MR 0045661
+Quine, W. V., 1980, "New Foundations for Mathematical Logic" in From a Logical Point of View, 2nd ed., revised. Harvard Univ. Press: 80–101. The definitive version of where it all began, namely Quine's 1937 paper in the American Mathematical Monthly.
+Quine, Willard Van Orman (1987). "The Inception of "New Foundations"". Selected Logic Papers - Enlarged Edition. Harvard University Press. ISBN 9780674798373.
+Rosser, Barkley (1942), "The Burali-Forti paradox", Journal of Symbolic Logic, 7 (1): 1–17, doi:10.2307/2267550, JSTOR 2267550, MR 0006327, S2CID 13389728
+Specker, Ernst P. (1953). "The axiom of choice in Quine's new foundations for mathematical logic". Proceedings of the National Academy of Sciences. National Acad Sciences. 39 (9): 972–975. Bibcode:1953PNAS...39..972S. doi:10.1073/pnas.39.9.972. PMC 1063889. PMID 16589362.
+Wang, Hao (1950), "A formal system of logic", Journal of Symbolic Logic, 15 (1): 25–32, doi:10.2307/2268438, JSTOR 2268438, MR 0034733, S2CID 42852449
+
+External links
+"Enriched Stratified systems for the Foundations of Category Theory" by Solomon Feferman (2011)
+Stanford Encyclopedia of Philosophy:
+Quine's New Foundations — by Thomas Forster.
+Alternative axiomatic set theories — by Randall Holmes.
+Randall Holmes: New Foundations Home Page.
+Randall Holmes: Bibliography of Set Theory with a Universal Set.
+Randall Holmes: A new pass at the NF consistency proof

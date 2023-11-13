@@ -1,0 +1,129 @@
+Clustal is a series of widely used computer programs used in bioinformatics for multiple sequence alignment. There have been many versions of Clustal over the development of the algorithm that are listed below. The analysis of each tool and its algorithm is also detailed in their respective categories. Available operating systems listed in the sidebar are a combination of the software availability and may not be supported for every current version of the Clustal tools. Clustal Omega has the widest variety of operating systems out of all the Clustal tools.
+
+History
+There have been many variations of the Clustal software, all of which are listed below:
+
+Clustal: The original software for multiple sequence alignments, created by Des Higgins in 1988, was based on deriving phylogenetic trees from pairwise sequences of amino acids or nucleotides.
+ClustalV: The second generation of the Clustal software was released in 1992 and was a rewrite of the original Clustal package. It introduced phylogenetic tree reconstruction on the final alignment, the ability to create alignments from existing alignments, and the option to create trees from alignments using a method called Neighbor joining.
+ClustalW: The third generation, released in 1994, greatly improved upon the previous versions. It improved upon the progressive alignment algorithm in various ways, including allowing individual sequences to be weighted down or up according to similarity or divergence respectively in a partial alignment. It also included the ability to run the program in batch mode from the command line.
+ClustalX: This version, released in 1997, was the first to have a graphical user interface.
+ClustalΩ (Omega): The current standard version.
+Clustal2: The updated versions of both ClustalW and ClustalX with higher accuracy and efficiency.The papers describing the Clustal software have been very highly cited, with two of them amongst the most cited papers of all time.The most recent version of the software is available for Windows, Mac OS, and Unix/Linux. It is also commonly used via a web interface on its home page or hosted by the European Bioinformatics Institute.
+
+Name origin
+The guide tree in the initial programs was constructed via a UPGMA cluster analysis of the pairwise alignments, hence the name CLUSTAL.cf. The first four versions in 1988 had Arabic numerals (1 to 4), whereas with the fifth version Des Higgins switched to Roman numeral V in 1992.cf. In 1994 and in 1997, for the next two versions, the letters after the letter V were used and made to correspond to W for Weighted and X for X Window.cf. The name omega was chosen to mark a change from the previous ones.
+
+Function
+All variations of the Clustal software align sequences using a heuristic that progressively builds a multiple sequence alignment from a series of pairwise alignments. This method works by analyzing the sequences as a whole, then utilizing the UPGMA/Neighbor-joining method to generate a distance matrix. A guide tree is then calculated from the scores of the sequences in the matrix, then subsequently used to build the multiple sequence alignment by progressively aligning the sequences in order of similarity. Essentially, Clustal creates multiple sequence alignments through three main steps:
+
+Do a pairwise alignment using the progressive alignment method
+Create a guide tree (or use a user-defined tree)
+Use the guide tree to carry out a multiple alignmentThese steps are carried out automatically when you select "Do Complete Alignment".
+Other options are "Do Alignment from guide tree and phylogeny" and "Produce guide tree only".
+
+Input/Output
+This program accepts a wide range of input formats, including NBRF/PIR, FASTA, EMBL/Swiss-Prot, Clustal, GCC/MSF, GCG9 RSF, and GDE.
+The output format can be one or many of the following: Clustal, NBRF/PIR, GCG/MSF, PHYLIP, GDE, or NEXUS.
+
+The same symbols are shown for both DNA/RNA alignments and protein alignments, so while * (asterisk) symbols are useful to both, the other consensus symbols should be ignored for DNA/RNA alignments.
+
+Settings
+Many settings can be adjusted to adapt the alignment algorithm to different circumstances. The main parameters are the gap opening penalty, and the gap extension penalty.
+
+Clustal and ClustalV
+Brief summary
+The original program in the Clustal series of software was developed in 1988 as a way to generate multiple sequence alignments on personal computers. ClustalV was released 4 years later and greatly improved upon the original, adding and altering a few key features, and was written in C instead of Fortran.
+
+Algorithm
+Both versions use the same fast approximate algorithm to calculate the similarity scores between sequences, which in turn produces the pairwise alignments. The algorithm works by calculating the similarity scores as the number of k-tuple matches between two sequences, accounting for a set penalty for gaps. The more similar the sequences, the higher the score, the more divergent, the lower the scores. Once the sequences are scored, a dendrogram is generated through the UPGMA to represent the ordering of the multiple sequence alignment. The higher ordered sets of sequences are aligned first, followed by the rest in descending order. The algorithm allows for very large data sets, and works fast. However, the speed is dependent on the range for the k-tuple matches chosen for the particular sequence type.
+
+Notable ClustalV improvements
+Some of the most notable additions in ClustalV are profile alignments, and full command line interface options. The ability to use profile alignments allows the user to align two or more previous alignments or sequences to a new alignment and move misaligned sequences (low scored) further down the alignment order. This gives the user the option to gradually and methodically create multiple sequence alignments with more control than the basic option. The option to run from the command line greatly expedites the multiple sequence alignment process. Sequences can be run with a simple command,
+
+ or 
+and the program will determine what type of sequence it is analyzing. When the program is completed, the output of the multiple sequence alignment as well as the dendrogram go to files with .aln and .dnd extensions respectively. The command line interface uses the default parameters, and doesn't allow for other options.
+
+ClustalW
+Brief summary
+ClustalW like the other Clustal tools is used for aligning multiple nucleotide or protein sequences in an efficient manner. It uses progressive alignment methods, which align the most similar sequences first and work their way down to the least similar sequences until a global alignment is created. ClustalW is a matrix-based algorithm, whereas tools like T-Coffee and Dialign are consistency-based. ClustalW has a fairly efficient algorithm that competes well against other software. This program requires three or more sequences in order to calculate a global alignment, for pairwise sequence alignment (only two sequences) other tools such as EMBOSS or LALIGN should be used.
+
+Algorithm
+ClustalW uses progressive alignment methods as stated above. In these, the sequences with the best alignment score are aligned first, then progressively more distant groups of sequences are aligned. This heuristic approach is necessary due to the time and memory demand of finding the global optimal solution. The first step to the algorithm is computing a rough distance matrix between each pair of sequences, also known as pairwise sequence alignment. The next step is a neighbor-joining method that uses midpoint rooting to create an overall guide tree. The process it uses to do this is shown in the detailed diagram for the method to the right. The guide tree is then used as a rough template to generate a global alignment.
+
+Time complexity
+ClustalW has a time complexity of 
+  
+    
+      
+        O
+        (
+        
+          N
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle O(N^{2})}
+   because of its use of the neighbor-joining method. In the updated version (ClustalW2) there is an option built into the software to use UPGMA which is faster with large input sizes. The command line flag in order to use it instead of neighbor-joining is:For example, on a standard desktop, running UPGMA on 10,000 sequences would produce results in less than a minute while neighbor-joining would take over an hour. By running the ClustalW algorithm with this adjustment, it saves significant amounts of time.
+ClustalW2 also has an option to use iterative alignment to increase alignment accuracy. While it is not necessarily faster or more efficient complexity-wise, the increase in accuracy is valuable and can be useful for smaller data sizes. These are the various command line flags to achieve this:The first command line option refines the final alignment. The second option incorporates the scheme into the progressive alignment step of the algorithm. The third specifies the number of iteration cycles where the default value is set to 3.
+
+Accuracy and Results
+The algorithm ClustalW uses provides a nearly optimal result. However, it does exceptionally well when the data set contains sequences with varied degrees of divergence. This is because in such data sets, the guide tree becomes less sensitive to noise. ClustalW was one of the first multiple sequence alignment algorithms to combine pairwise alignment and global alignment to increase speed, but this trade-off results in decreased accuracy.
+ClustalW, when compared to other multiple sequence alignment algorithms in 2014, performed as one of the quickest while still maintaining an acceptable level of accuracy, but there was room for improvement compared to consistency-based competitors such as T-Coffee. The accuracy of ClustalW when tested against MAFFT, T-Coffee, Clustal Omega, and other algorithms was the lowest for full-length sequences, but still considered acceptable. It had the most memory (RAM) efficient algorithm out of all those tested in the study. Updates and improvements to the algorithm have been made in ClustalW2 to increase accuracy while maintaining its greatly valued speed.
+
+Clustal Omega
+Brief summary
+ClustalΩ (alternatively written as Clustal O and Clustal Omega) is a fast and scalable program written in C and C++ used for multiple sequence alignment. It uses seeded guide trees and a new HMM engine that focuses on two profiles to generate these alignments. The program requires three or more sequences in order to calculate the multiple sequence alignment, for two sequences use pairwise sequence alignment tools (EMBOSS, LALIGN). Clustal Omega is consistency-based and is widely viewed as one of the fastest online implementations of all multiple sequence alignment tools and still ranks high in accuracy, among both consistency-based and matrix-based algorithms.
+
+Algorithm
+Clustal Omega has five main steps in order to generate the multiple sequence alignment. The first is producing a pairwise alignment using the k-tuple method, also known as the word method. This, in summary, is a heuristic method that isn't guaranteed to find an optimal alignment solution, but is significantly more efficient than the dynamic programming method of alignment. After that, the sequences are clustered using the modified mBed method. The mBed method calculates pairwise distance using sequence embedding. This step is followed by the k-means clustering method. Next, the guide tree is constructed using the UPGMA method. This is shown as multiple guide tree steps leading into one final guide tree construction because of the way the UPGMA algorithm works. At each step, (each diamond in the flowchart) the nearest two clusters are combined and is repeated until the final tree can be assessed. In the final step, the multiple sequence alignment is produced using HHAlign package from the HH-Suite, which uses two profile HMM's. A profile HMM is a linear state machine consisting of a series of nodes, each of which corresponds roughly to a position (column) in the alignment from which it was built.
+
+Time complexity
+The exact way of computing an optimal alignment between N sequences has a computational complexity of 
+  
+    
+      
+        O
+        (
+        
+          L
+          
+            N
+          
+        
+        )
+      
+    
+    {\displaystyle O(L^{N})}
+   for N sequences of length L making it prohibitive for even small numbers of sequences. Clustal Omega uses a modified version of mBed which has a complexity of 
+  
+    
+      
+        O
+        (
+        N
+        log
+        ⁡
+        N
+        )
+      
+    
+    {\displaystyle O(N\log N)}
+  , and produces guide trees that are just as accurate as those from conventional methods. The speed and accuracy of the guide trees in Clustal Omega is attributed to the implementation of a modified mBed algorithm. It also reduces the computational time and memory requirements to complete alignments on large datasets.
+
+Accuracy and results
+The accuracy of Clustal Omega on a small number of sequences is, on average, very similar to what are considered high quality sequence aligners. The difference comes when using large sets of data with hundreds of thousands of sequences. In these cases, Clustal Omega outperforms other algorithms across the board. Its completion time and overall quality is consistently better than other programs. It is capable of running 100,000+ sequences on one processor in a few hours.
+Clustal Omega uses the HHAlign package of the HH-Suite, which aligns two profile Hidden Markov Models instead of a profile-profile comparison. This improves the quality of the sensitivity and alignment significantly. This, combined with the mBed method, gives Clustal Omega its advantage over other sequence aligners. The results end up being very accurate and very quick which is the optimal situation.
+On data sets with nonconserved terminal bases, Clustal Omega may be more accurate than Probcons and T-Coffee despite the fact that both of these are consistency-based algorithms, in contrast to Clustal Omega. On an efficiency test with programs that produce high accuracy scores, MAFFT was the fastest, closely followed by Clustal Omega. Both were faster than T-Coffee, however, MAFFT and Clustal Omega required more memory to run.
+
+Clustal2 (ClustalW/ClustalX)
+Clustal2 is the packaged release of both the command-line ClustalW and graphical Clustal X. Neither are new tools, but are updated and improved versions of the previous implementations seen above. Both downloads come precompiled for many operating systems like Linux, Mac OS X and Windows (both XP and Vista). This release was designed in order to make the website more organized and user friendly, as well as updating the source codes to their most recent versions. Clustal2 is version 2 of both ClustalW and ClustalX, which is where it gets its name. Past versions can still be found on the website, however, every precompilation is now up to date.
+
+See also
+References
+External links
+Clustal Homepage  (free Unix/Linux, Mac, and Windows download)
+Clustal Omega mirror at the EBI

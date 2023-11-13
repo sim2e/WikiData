@@ -1,0 +1,497 @@
+The Bacon–Shor code is a subsystem error correcting code. In a subsystem code, information is encoded in a subsystem of a Hilbert space. Subsystem codes lend to simplified error correcting procedures unlike codes which encode information in the subspace of a Hilbert space.  This simplicity led to the first claim of fault tolerant circuit demonstration on a quantum computer. It is named after Dave Bacon and Peter Shor.
+Given the stabilizer generators of Shor's code: 
+  
+    
+      
+        ⟨
+        
+          X
+          
+            0
+          
+        
+        
+          X
+          
+            1
+          
+        
+        
+          X
+          
+            2
+          
+        
+        
+          X
+          
+            3
+          
+        
+        
+          X
+          
+            4
+          
+        
+        
+          X
+          
+            5
+          
+        
+        ,
+        
+          X
+          
+            0
+          
+        
+        
+          X
+          
+            1
+          
+        
+        
+          X
+          
+            2
+          
+        
+        
+          X
+          
+            6
+          
+        
+        
+          X
+          
+            7
+          
+        
+        
+          X
+          
+            8
+          
+        
+        ,
+        
+          Z
+          
+            0
+          
+        
+        
+          Z
+          
+            1
+          
+        
+        ,
+        
+          Z
+          
+            1
+          
+        
+        
+          Z
+          
+            2
+          
+        
+        ,
+        
+          Z
+          
+            3
+          
+        
+        
+          Z
+          
+            4
+          
+        
+        ,
+        
+          Z
+          
+            4
+          
+        
+        
+          Z
+          
+            5
+          
+        
+        ,
+        
+          Z
+          
+            6
+          
+        
+        
+          Z
+          
+            7
+          
+        
+        ,
+        
+          Z
+          
+            7
+          
+        
+        
+          Z
+          
+            8
+          
+        
+        ⟩
+      
+    
+    {\displaystyle \langle X_{0}X_{1}X_{2}X_{3}X_{4}X_{5},X_{0}X_{1}X_{2}X_{6}X_{7}X_{8},Z_{0}Z_{1},Z_{1}Z_{2},Z_{3}Z_{4},Z_{4}Z_{5},Z_{6}Z_{7},Z_{7}Z_{8}\rangle }
+  , 4 stabilizers can be removed from this generator by recognizing gauge symmetries in the code to get: 
+  
+    
+      
+        ⟨
+        
+          X
+          
+            0
+          
+        
+        
+          X
+          
+            1
+          
+        
+        
+          X
+          
+            2
+          
+        
+        
+          X
+          
+            3
+          
+        
+        
+          X
+          
+            4
+          
+        
+        
+          X
+          
+            5
+          
+        
+        ,
+        
+          X
+          
+            0
+          
+        
+        
+          X
+          
+            1
+          
+        
+        
+          X
+          
+            2
+          
+        
+        
+          X
+          
+            6
+          
+        
+        
+          X
+          
+            7
+          
+        
+        
+          X
+          
+            8
+          
+        
+        ,
+        
+          Z
+          
+            0
+          
+        
+        
+          Z
+          
+            1
+          
+        
+        
+          Z
+          
+            3
+          
+        
+        
+          Z
+          
+            4
+          
+        
+        
+          Z
+          
+            6
+          
+        
+        
+          Z
+          
+            7
+          
+        
+        ,
+        
+          Z
+          
+            1
+          
+        
+        
+          Z
+          
+            2
+          
+        
+        
+          Z
+          
+            4
+          
+        
+        
+          Z
+          
+            5
+          
+        
+        
+          Z
+          
+            7
+          
+        
+        
+          Z
+          
+            8
+          
+        
+        ⟩
+      
+    
+    {\displaystyle \langle X_{0}X_{1}X_{2}X_{3}X_{4}X_{5},X_{0}X_{1}X_{2}X_{6}X_{7}X_{8},Z_{0}Z_{1}Z_{3}Z_{4}Z_{6}Z_{7},Z_{1}Z_{2}Z_{4}Z_{5}Z_{7}Z_{8}\rangle }
+  . Error correction is now simplified because 4 stabilizers are needed to measure errors instead of 8. A gauge group can be created from the stabilizer generators:
+  
+    
+      
+        ⟨
+        
+          Z
+          
+            1
+          
+        
+        
+          Z
+          
+            2
+          
+        
+        ,
+        
+          X
+          
+            2
+          
+        
+        
+          X
+          
+            8
+          
+        
+        ,
+        
+          Z
+          
+            4
+          
+        
+        
+          Z
+          
+            5
+          
+        
+        ,
+        
+          X
+          
+            5
+          
+        
+        
+          X
+          
+            8
+          
+        
+        ,
+        
+          Z
+          
+            0
+          
+        
+        
+          Z
+          
+            1
+          
+        
+        ,
+        
+          X
+          
+            0
+          
+        
+        
+          X
+          
+            6
+          
+        
+        ,
+        
+          Z
+          
+            3
+          
+        
+        
+          Z
+          
+            4
+          
+        
+        ,
+        
+          X
+          
+            3
+          
+        
+        
+          X
+          
+            6
+          
+        
+        ,
+        
+          X
+          
+            1
+          
+        
+        
+          X
+          
+            7
+          
+        
+        ,
+        
+          X
+          
+            4
+          
+        
+        
+          X
+          
+            7
+          
+        
+        ,
+        
+          Z
+          
+            6
+          
+        
+        
+          Z
+          
+            7
+          
+        
+        ,
+        
+          Z
+          
+            7
+          
+        
+        
+          Z
+          
+            8
+          
+        
+        ⟩
+      
+    
+    {\displaystyle \langle Z_{1}Z_{2},X_{2}X_{8},Z_{4}Z_{5},X_{5}X_{8},Z_{0}Z_{1},X_{0}X_{6},Z_{3}Z_{4},X_{3}X_{6},X_{1}X_{7},X_{4}X_{7},Z_{6}Z_{7},Z_{7}Z_{8}\rangle }
+  . Given that the Bacon–Shor code is defined on a square lattice where the qubits are placed on the vertices; laying the qubits on a grid in a way that corresponds to the gauge group shows how only 2 qubit nearest-neighbor measurements are needed to infer the error syndromes. The simplicity of  deducing the syndromes reduces the overheard for fault tolerant error correction.
+    ZZ   ZZ 
+  q0---q1--q2
+XX|  XX|   |XX
+  |  ZZ| ZZ|
+  q6--q7--q8
+XX|  XX|   |XX
+  |    |   |
+  q3--q4--q5
+   ZZ   ZZ
+
+See also
+Five-qubit error correcting code
+
+
+== References ==

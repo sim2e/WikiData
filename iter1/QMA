@@ -1,0 +1,946 @@
+In computational complexity theory, QMA, which stands for Quantum Merlin Arthur, is the set of languages for which, when a string is in the language, there is a polynomial-size quantum proof (a quantum state) that convinces a polynomial time quantum verifier (running on a quantum computer) of this fact with high probability. Moreover, when the string is not in the language, every polynomial-size quantum state is rejected by the verifier with high probability.
+The relationship between QMA and BQP is analogous to the relationship between complexity classes NP and P. It is also analogous to the relationship between the probabilistic complexity class MA and BPP.
+QAM is a related complexity class, in which fictional agents Arthur and Merlin carry out the sequence: Arthur generates a random string, Merlin answers with a quantum certificate and Arthur verifies it as a BQP machine.
+
+Definition
+A language L is in 
+  
+    
+      
+        
+          
+            Q
+            M
+            A
+          
+        
+        (
+        c
+        ,
+        s
+        )
+      
+    
+    {\displaystyle {\mathsf {QMA}}(c,s)}
+   if there exists a polynomial time quantum verifier V and a polynomial 
+  
+    
+      
+        p
+        (
+        x
+        )
+      
+    
+    {\displaystyle p(x)}
+   such that:
+
+  
+    
+      
+        ∀
+        x
+        ∈
+        L
+      
+    
+    {\displaystyle \forall x\in L}
+  , there exists a quantum state 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   such that the probability that V accepts the input 
+  
+    
+      
+        (
+        
+          |
+        
+        x
+        ⟩
+        ,
+        
+          |
+        
+        ψ
+        ⟩
+        )
+      
+    
+    {\displaystyle (|x\rangle ,|\psi \rangle )}
+   is greater than c.
+
+  
+    
+      
+        ∀
+        x
+        ∉
+        L
+      
+    
+    {\displaystyle \forall x\notin L}
+  , for all quantum states 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+  , the probability that V accepts the input 
+  
+    
+      
+        (
+        
+          |
+        
+        x
+        ⟩
+        ,
+        
+          |
+        
+        ψ
+        ⟩
+        )
+      
+    
+    {\displaystyle (|x\rangle ,|\psi \rangle )}
+   is less than s.where 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   ranges over all quantum states with at most 
+  
+    
+      
+        p
+        (
+        
+          |
+        
+        x
+        
+          |
+        
+        )
+      
+    
+    {\displaystyle p(|x|)}
+   qubits.
+The complexity class 
+  
+    
+      
+        
+          
+            Q
+            M
+            A
+          
+        
+      
+    
+    {\displaystyle {\mathsf {QMA}}}
+   is defined to be equal to 
+  
+    
+      
+        
+          
+            Q
+            M
+            A
+          
+        
+        (
+        
+          2
+        
+        
+          /
+        
+        
+          3
+        
+        ,
+        1
+        
+          /
+        
+        3
+        )
+      
+    
+    {\displaystyle {\mathsf {QMA}}({2}/{3},1/3)}
+  . However, the constants are not too important since the class remains unchanged if c and s are set to any constants such that c is greater than s. Moreover, for any polynomials 
+  
+    
+      
+        q
+        (
+        n
+        )
+      
+    
+    {\displaystyle q(n)}
+   and 
+  
+    
+      
+        r
+        (
+        n
+        )
+      
+    
+    {\displaystyle r(n)}
+  , we have
+
+  
+    
+      
+        
+          
+            Q
+            M
+            A
+          
+        
+        
+          (
+          
+            
+              
+                2
+                3
+              
+            
+            ,
+            
+              
+                1
+                3
+              
+            
+          
+          )
+        
+        =
+        
+          
+            Q
+            M
+            A
+          
+        
+        
+          (
+          
+            
+              
+                1
+                2
+              
+            
+            +
+            
+              
+                1
+                
+                  q
+                  (
+                  n
+                  )
+                
+              
+            
+            ,
+            
+              
+                1
+                2
+              
+            
+            −
+            
+              
+                1
+                
+                  q
+                  (
+                  n
+                  )
+                
+              
+            
+          
+          )
+        
+        =
+        
+          
+            Q
+            M
+            A
+          
+        
+        (
+        1
+        −
+        
+          2
+          
+            −
+            r
+            (
+            n
+            )
+          
+        
+        ,
+        
+          2
+          
+            −
+            r
+            (
+            n
+            )
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathsf {QMA}}\left({\frac {2}{3}},{\frac {1}{3}}\right)={\mathsf {QMA}}\left({\frac {1}{2}}+{\frac {1}{q(n)}},{\frac {1}{2}}-{\frac {1}{q(n)}}\right)={\mathsf {QMA}}(1-2^{-r(n)},2^{-r(n)})}
+  .
+
+Problems in QMA
+Since many interesting classes are contained in QMA, such as P, BQP and NP, all problems in those classes are also in QMA. However, there are problems that are in QMA but not known to be in NP or BQP. Some such well known problems are discussed below.
+A problem is said to be QMA-hard, analogous to NP-hard, if every problem in QMA can be reduced to it. A problem is said to be QMA-complete if it is QMA-hard and in QMA.
+
+The local Hamiltonian problem
+A k-local Hamiltonian (quantum mechanics) 
+  
+    
+      
+        H
+      
+    
+    {\displaystyle H}
+   is a Hermitian matrix acting on n qubits which can be represented as the sum of 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   Hamiltonian Terms acting upon at most 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   qubits each.
+
+  
+    
+      
+        H
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            m
+          
+        
+        
+          H
+          
+            i
+          
+        
+      
+    
+    {\displaystyle H=\sum _{i=1}^{m}H_{i}}
+  
+The general k-local Hamiltonian problem is, given a k-local Hamiltonian 
+  
+    
+      
+        H
+      
+    
+    {\displaystyle H}
+  , to find the smallest eigenvalue 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   of 
+  
+    
+      
+        H
+      
+    
+    {\displaystyle H}
+  . 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   is also called the ground state energy of the Hamiltonian.
+The decision version of the k-local Hamiltonian problem is a type of promise problem and is defined as, given a k-local Hamiltonian and 
+  
+    
+      
+        α
+        ,
+        β
+      
+    
+    {\displaystyle \alpha ,\beta }
+   where 
+  
+    
+      
+        α
+        >
+        β
+      
+    
+    {\displaystyle \alpha >\beta }
+  , to decide if there exists a quantum eigenstate 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+      
+    
+    {\displaystyle |\psi \rangle }
+   of 
+  
+    
+      
+        H
+      
+    
+    {\displaystyle H}
+   with associated eigenvalue 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+  , such that 
+  
+    
+      
+        λ
+        ≤
+        β
+      
+    
+    {\displaystyle \lambda \leq \beta }
+   or if 
+  
+    
+      
+        λ
+        ≥
+        α
+      
+    
+    {\displaystyle \lambda \geq \alpha }
+  .  
+The local Hamiltonian problem is the quantum analogue of MAX-SAT. The k-local Hamiltonian problem is QMA-complete for k ≥ 2.The 2-local Hamiltonian problem restricted to act on a two dimensional grid of qubits, is also QMA-complete. It has been shown that the k-local Hamiltonian problem is still QMA-hard even for Hamiltonians representing a 1-dimensional line of particles with nearest-neighbor interactions with 12 states per particle.
+If the system is translationally-invariant, its local Hamiltonian problem becomes QMAEXP-complete (as the problem input is encoded in the system size, the verifier now has exponential runtime while maintaining the same promise gap).QMA-hardness results are known for simple lattice models of qubits such as the ZX Hamiltonian 
+  
+    
+      
+        
+          H
+          
+            Z
+            X
+          
+        
+        =
+        
+          ∑
+          
+            i
+          
+        
+        
+          h
+          
+            i
+          
+        
+        
+          Z
+          
+            i
+          
+        
+        +
+        
+          ∑
+          
+            i
+          
+        
+        
+          Δ
+          
+            i
+          
+        
+        
+          X
+          
+            i
+          
+        
+        +
+        
+          ∑
+          
+            i
+            <
+            j
+          
+        
+        
+          J
+          
+            i
+            j
+          
+        
+        
+          Z
+          
+            i
+          
+        
+        
+          Z
+          
+            j
+          
+        
+        +
+        
+          ∑
+          
+            i
+            <
+            j
+          
+        
+        
+          K
+          
+            i
+            j
+          
+        
+        
+          X
+          
+            i
+          
+        
+        
+          X
+          
+            j
+          
+        
+      
+    
+    {\displaystyle H_{ZX}=\sum _{i}h_{i}Z_{i}+\sum _{i}\Delta _{i}X_{i}+\sum _{i<j}J^{ij}Z_{i}Z_{j}+\sum _{i<j}K^{ij}X_{i}X_{j}}
+   
+where 
+  
+    
+      
+        Z
+        ,
+        X
+      
+    
+    {\displaystyle Z,X}
+   represent the Pauli matrices 
+  
+    
+      
+        
+          σ
+          
+            z
+          
+        
+        ,
+        
+          σ
+          
+            x
+          
+        
+      
+    
+    {\displaystyle \sigma _{z},\sigma _{x}}
+  .  Such models are applicable to universal adiabatic quantum computation.
+k-local Hamiltonians problems are analogous to classical Constraint Satisfaction Problems. The following table illustrates the analogous gadgets between classical CSPs and Hamiltonians.
+
+Other QMA-complete problems
+A list of known QMA-complete problems can be found at https://arxiv.org/abs/1212.6312.
+
+Related classes
+QCMA (or MQA), which stands for Quantum Classical Merlin Arthur (or Merlin Quantum Arthur), is similar to QMA, but the proof has to be a classical string. It is not known whether QMA equals QCMA, although QCMA is clearly contained in QMA.
+QIP(k), which stands for Quantum Interactive Polynomial time (k messages), is a generalization of QMA where Merlin and Arthur can interact for k rounds. QMA is QIP(1). QIP(2) is known to be in PSPACE.QIP is QIP(k) where k is allowed to be polynomial in the number of qubits. It is known that QIP(3) = QIP. It is also known that QIP = IP = PSPACE.
+
+Relationship to other classes
+QMA is related to other known complexity classes by the following relations:
+
+  
+    
+      
+        
+          
+            P
+          
+        
+        ⊆
+        
+          
+            N
+            P
+          
+        
+        ⊆
+        
+          
+            M
+            A
+          
+        
+        ⊆
+        
+          
+            Q
+            C
+            M
+            A
+          
+        
+        ⊆
+        
+          
+            Q
+            M
+            A
+          
+        
+        ⊆
+        
+          
+            P
+            P
+          
+        
+        ⊆
+        
+          
+            P
+            S
+            P
+            A
+            C
+            E
+          
+        
+      
+    
+    {\displaystyle {\mathsf {P}}\subseteq {\mathsf {NP}}\subseteq {\mathsf {MA}}\subseteq {\mathsf {QCMA}}\subseteq {\mathsf {QMA}}\subseteq {\mathsf {PP}}\subseteq {\mathsf {PSPACE}}}
+  The first inclusion follows from the definition of NP. The next two inclusions follow from the fact that the verifier is being made more powerful in each case. QCMA is contained in QMA since the verifier can force the prover to send a classical proof by measuring proofs as soon as they are received. The fact that QMA is contained in PP was shown by Alexei Kitaev and John Watrous. PP is also easily shown to be in PSPACE.
+It is unknown if any of these inclusions is unconditionally strict, as it is not even known whether P is strictly contained in PSPACE or P = PSPACE. However, the currently best known upper bounds on QMA are
+
+  
+    
+      
+        
+          
+            Q
+            M
+            A
+          
+        
+        ⊆
+        
+          
+            
+              A
+              
+                0
+              
+            
+            P
+            P
+          
+        
+      
+    
+    {\displaystyle {\mathsf {QMA}}\subseteq {\mathsf {A_{0}PP}}}
+   and 
+  
+    
+      
+        
+          
+            Q
+            M
+            A
+          
+        
+        ⊆
+        
+          
+            
+              P
+              
+                Q
+                M
+                A
+                [
+                l
+                o
+                g
+                ]
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\mathsf {QMA}}\subseteq {\mathsf {P^{QMA[log]}}}}
+  ,where both 
+  
+    
+      
+        
+          
+            
+              A
+              
+                0
+              
+            
+            P
+            P
+          
+        
+      
+    
+    {\displaystyle {\mathsf {A_{0}PP}}}
+   and 
+  
+    
+      
+        
+          
+            
+              P
+              
+                Q
+                M
+                A
+                [
+                l
+                o
+                g
+                ]
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\mathsf {P^{QMA[log]}}}}
+   are contained in 
+  
+    
+      
+        
+          
+            P
+            P
+          
+        
+      
+    
+    {\displaystyle {\mathsf {PP}}}
+  . It is unlikely that 
+  
+    
+      
+        
+          
+            Q
+            M
+            A
+          
+        
+      
+    
+    {\displaystyle {\mathsf {QMA}}}
+   equals 
+  
+    
+      
+        
+          
+            
+              P
+              
+                Q
+                M
+                A
+                [
+                l
+                o
+                g
+                ]
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\mathsf {P^{QMA[log]}}}}
+  , as this would imply 
+  
+    
+      
+        
+          
+            Q
+            M
+            A
+          
+        
+        =
+        
+          
+            c
+            o
+          
+        
+      
+    
+    {\displaystyle {\mathsf {QMA}}={\mathsf {co}}}
+  -
+  
+    
+      
+        
+          
+            Q
+            M
+            A
+          
+        
+      
+    
+    {\displaystyle {\mathsf {QMA}}}
+  . It is unknown whether  
+  
+    
+      
+        
+          
+            
+              P
+              
+                Q
+                M
+                A
+                [
+                l
+                o
+                g
+                ]
+              
+            
+          
+        
+        ⊆
+        
+          
+            
+              A
+              
+                0
+              
+            
+            P
+            P
+          
+        
+      
+    
+    {\displaystyle {\mathsf {P^{QMA[log]}}}\subseteq {\mathsf {A_{0}PP}}}
+   or vice versa.
+
+References
+External links
+Aaronson, Scott. "PHYS771 Lecture 13: How Big are Quantum States?".
+Gharibian, Sevag. "Lecture 5: Quantum Merlin Arthur (QMA) and strong error reduction" (PDF).
+Complexity Zoo: QMA

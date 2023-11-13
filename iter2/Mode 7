@@ -1,0 +1,312 @@
+Mode 7 is a graphics mode on the Super Nintendo Entertainment System video game console that allows a background layer to be rotated and scaled on a scanline-by-scanline basis to create many different depth effects. It also supports wrapping effects such as translation and reflection.The most famous of these effects is the application of a perspective effect on a background layer by scaling and rotating the background layer in this manner. This transforms the background layer into a two-dimensional horizontal texture-mapped plane that trades height for depth. Thus, an impression of three-dimensional graphics is achieved.
+Mode 7 was one of Nintendo's prominent selling points for the Super NES platform in publications such as Nintendo Power and Super NES Player's Guide.  Similar faux 3D techniques have been presented on a few 2D systems other than the Super NES, in select peripherals and games.
+
+Overview
+The Super NES console has eight graphics modes, numbered from 0 to 7, for displaying background layers.  The last one (background mode 7) has a single layer that can be scaled and rotated. Two-dimensional affine transformations can produce any combination of translation, scaling, reflection, rotation, and shearing. However, many games create additional effects by setting a different transformation matrix for each scanline.  In this way, pseudo-perspective, curved surface, and distortion effects can be achieved.
+Mode 7 graphics are generated for each pixel by mapping screen coordinates to background coordinates using an affine transformation and sampling the corresponding background color. The 2D affine transformation is specified for each scanline by 6 parameters: 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  , 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+  , and 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   ( which together define the matrix 
+  
+    
+      
+        
+          M
+        
+      
+    
+    {\displaystyle \mathbf {M} }
+  ), and 
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+      
+    
+    {\displaystyle x_{0}}
+   and 
+  
+    
+      
+        
+          y
+          
+            0
+          
+        
+      
+    
+    {\displaystyle y_{0}}
+   (which define the vector 
+  
+    
+      
+        
+          
+            r
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \mathbf {r} _{0}}
+  , the origin). Specifically, screen coordinate 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbf {r} }
+   is translated to the origin coordinate system, the matrix is applied, and the result is translated back to the original coordinate system to obtain 
+  
+    
+      
+        
+          
+            r
+          
+          
+            ′
+          
+        
+      
+    
+    {\displaystyle \mathbf {r} ^{\prime }}
+  .
+In 2D matrix notation:
+
+  
+    
+      
+        
+          
+            r
+          
+          
+            ′
+          
+        
+        =
+        
+          M
+        
+        (
+        
+          r
+        
+        −
+        
+          
+            r
+          
+          
+            0
+          
+        
+        )
+        +
+        
+          
+            r
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \mathbf {r} ^{\prime }=\mathbf {M} (\mathbf {r} -\mathbf {r} _{0})+\mathbf {r} _{0}}
+  
+
+  
+    
+      
+        
+          
+            [
+            
+              
+                
+                  
+                    x
+                    ′
+                  
+                
+              
+              
+                
+                  
+                    y
+                    ′
+                  
+                
+              
+            
+            ]
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  a
+                
+                
+                  b
+                
+              
+              
+                
+                  c
+                
+                
+                  d
+                
+              
+            
+            ]
+          
+        
+        
+          (
+          
+            
+              
+                [
+                
+                  
+                    
+                      x
+                    
+                  
+                  
+                    
+                      y
+                    
+                  
+                
+                ]
+              
+            
+            −
+            
+              
+                [
+                
+                  
+                    
+                      
+                        x
+                        
+                          0
+                        
+                      
+                    
+                  
+                  
+                    
+                      
+                        y
+                        
+                          0
+                        
+                      
+                    
+                  
+                
+                ]
+              
+            
+          
+          )
+        
+        +
+        
+          
+            [
+            
+              
+                
+                  
+                    x
+                    
+                      0
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      0
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle {\begin{bmatrix}x'\\y'\end{bmatrix}}={\begin{bmatrix}a&b\\c&d\end{bmatrix}}\left({\begin{bmatrix}x\\y\end{bmatrix}}-{\begin{bmatrix}x_{0}\\y_{0}\end{bmatrix}}\right)+{\begin{bmatrix}x_{0}\\y_{0}\end{bmatrix}}}
+  .
+All arithmetic is carried out on 16-bit signed fixed point numbers, while all offsets are limited to 13 bits.  The radix point is between bits 7 and 8.
+
+Usage in games
+This graphical method is suited to racing games, and is used extensively for the overworld sections of role-playing games such as Square's popular 1994 game Final Fantasy VI. The effect enables developers to create the impression of sprawling worlds that continue toward the horizon.
+A particular utilization technique with Mode 7 allows pixels of the background layer to be in front of sprites. Examples include the second and fifth stage of Contra III: The Alien Wars, the second and fifth stage of Jim Power: The Lost Dimension in 3-D, the introduction screen of Tiny Toon Adventures: Buster Busts Loose, when a player falls off the stage in Super Mario Kart, some cinematics in Super Metroid, and in some boss battles in Super Mario World.
+Mode 7-type effects can be implemented on the Super NES without the hardware acceleration of Mode 7, such as Axelay's rolling pin vertical scrolling; and then it uses Mode 7 in one boss and in the end credits sequence.Many Mode 7 games were remade for Game Boy Advance using effects implemented by software.
+The Sega Genesis has no hardware-native feature comparable to Mode 7. However, as in Tales of Phantasia and Star Ocean's sprite effect add-ins, some comparable technical feats were programmed entirely in software, as in Dick Vitale's "Awesome, Baby!" College Hoops and Zero Tolerance. The Sega CD, an add-on for the Genesis, added scaling and rotation support on hardware level, as used by Sonic CD and Formula One World Championship: Beyond the Limit. Similarly, such Amiga games include Mr. Nutz: Hoppin' Mad, Lionheart, Obitus, and Brian the Lion.
+Filip Hautekeete and Peter Vermeulen created a demo showcasing an emulated interpretation of the Mode 7 graphics mode found in the Super NES to test the hardware capabilities of the Atari Jaguar. Impressed with the demo, Atari Corporation decided to make a game that combined F-Zero and Super Mario Kart with a "cutesy" atmosphere, becoming the starting point of Atari Karts.
+
+Selection of Mode 7 games
+See also
+Ray casting
+
+
+== References ==

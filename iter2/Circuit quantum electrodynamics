@@ -1,0 +1,786 @@
+Circuit quantum electrodynamics (circuit QED) provides a means of studying the fundamental interaction between light and matter (quantum optics). As in the field of cavity quantum electrodynamics, a single photon within a single mode cavity coherently couples to a quantum object (atom). In contrast to cavity QED, the photon is stored in a one-dimensional on-chip resonator and the quantum object is no natural atom but an artificial one. These artificial atoms usually are mesoscopic devices which exhibit an atom-like energy spectrum.  The field of circuit QED is a prominent example for quantum information processing and a promising candidate for future quantum computation.In the late 2010s decade, experiments involving cQED in 3 dimensions have demonstrated deterministic gate teleportation and other operations on multiple qubits.
+
+Resonator
+The resonant devices used for circuit QED are superconducting coplanar waveguide microwave resonators, which are two-dimensional microwave analogues of the Fabry–Pérot interferometer. Coplanar waveguides consist of a signal carrying centerline flanked by two grounded planes. This planar structure is put on a dielectric substrate by a photolithographic process. Superconducting materials used are mostly aluminium (Al) or niobium (Nb). Dielectrics typically used as substrates are either surface oxidized silicon (Si) or sapphire (Al2O3).
+The line impedance is given by the geometric properties, which are chosen to match the 50 
+  
+    
+      
+        Ω
+      
+    
+    {\displaystyle \Omega }
+   of the peripheric microwave equipment to avoid partial reflection of the signal.
+The electric field is basically confined between the center conductor and the ground planes resulting in a very small mode volume 
+  
+    
+      
+        
+          V
+          
+            m
+          
+        
+      
+    
+    {\displaystyle V_{m}}
+   which gives rise to very high electric fields per photon 
+  
+    
+      
+        
+          E
+          
+            0
+          
+        
+      
+    
+    {\displaystyle E_{0}}
+   (compared to three-dimensional cavities). Mathematically, the field 
+  
+    
+      
+        
+          E
+          
+            0
+          
+        
+      
+    
+    {\displaystyle E_{0}}
+   can be found as
+
+  
+    
+      
+        
+          E
+          
+            0
+          
+        
+        =
+        
+          
+            
+              
+                ℏ
+                
+                  ω
+                  
+                    r
+                  
+                
+              
+              
+                2
+                
+                  ε
+                  
+                    0
+                  
+                
+                
+                  V
+                  
+                    m
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle E_{0}={\sqrt {\frac {\hbar \omega _{r}}{2\varepsilon _{0}V_{m}}}}}
+  ,
+where 
+  
+    
+      
+        ℏ
+      
+    
+    {\displaystyle \hbar }
+   is the reduced Planck constant, 
+  
+    
+      
+        
+          ω
+          
+            r
+          
+        
+      
+    
+    {\displaystyle \omega _{r}}
+   is the angular frequency, and 
+  
+    
+      
+        
+          ε
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \varepsilon _{0}}
+   is the permittivity of free space.
+One can distinguish between two different types of resonators: 
+  
+    
+      
+        λ
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle \lambda /2}
+   and 
+  
+    
+      
+        λ
+        
+          /
+        
+        4
+      
+    
+    {\displaystyle \lambda /4}
+   resonators. Half-wavelength resonators are made by breaking the center conductor at two spots with the distance 
+  
+    
+      
+        ℓ
+      
+    
+    {\displaystyle \ell }
+  . The resulting piece of center conductor is in this way capacitively coupled to the input and output and represents a resonator with 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+  -field antinodes at its ends. Quarter-wavelength resonators are short pieces of a coplanar line, which are shorted to ground on one end and capacitively coupled to a feed line on the other. The resonance frequencies are given by
+
+  
+    
+      
+        λ
+        
+          /
+        
+        2
+        :
+        
+        
+          ν
+          
+            n
+          
+        
+        =
+        
+          
+            c
+            
+              
+                ε
+                
+                  eff
+                
+              
+            
+          
+        
+        
+          
+            n
+            
+              2
+              ℓ
+            
+          
+        
+        
+        (
+        n
+        =
+        1
+        ,
+        2
+        ,
+        3
+        ,
+        …
+        )
+        
+        λ
+        
+          /
+        
+        4
+        :
+        
+        
+          ν
+          
+            n
+          
+        
+        =
+        
+          
+            c
+            
+              
+                ε
+                
+                  eff
+                
+              
+            
+          
+        
+        
+          
+            
+              2
+              n
+              +
+              1
+            
+            
+              4
+              ℓ
+            
+          
+        
+        
+        (
+        n
+        =
+        0
+        ,
+        1
+        ,
+        2
+        ,
+        …
+        )
+      
+    
+    {\displaystyle \lambda /2:\quad \nu _{n}={\frac {c}{\sqrt {\varepsilon _{\text{eff}}}}}{\frac {n}{2\ell }}\quad (n=1,2,3,\ldots )\qquad \lambda /4:\quad \nu _{n}={\frac {c}{\sqrt {\varepsilon _{\text{eff}}}}}{\frac {2n+1}{4\ell }}\quad (n=0,1,2,\ldots )}
+  
+with 
+  
+    
+      
+        
+          ε
+          
+            eff
+          
+        
+      
+    
+    {\displaystyle \varepsilon _{\text{eff}}}
+   being the effective dielectric permittivity of the device.
+
+Artificial atoms, Qubits
+The first realized artificial atom in circuit QED was the so-called Cooper-pair box, also known as the charge qubit. In this device, a reservoir of Cooper pairs is coupled via Josephson junctions to a gated superconducting island. The state of the Cooper-pair box (qubit) is given by the number of Cooper pairs on the island (
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+   Cooper pairs for the ground state 
+  
+    
+      
+        ∣
+        g
+        ⟩
+      
+    
+    {\displaystyle \mid g\rangle }
+   and 
+  
+    
+      
+        N
+        +
+        1
+      
+    
+    {\displaystyle N+1}
+   for the excited state 
+  
+    
+      
+        ∣
+        e
+        ⟩
+      
+    
+    {\displaystyle \mid e\rangle }
+  ). By controlling the Coulomb energy (bias voltage) and the Josephson energy (flux bias) the transition frequency 
+  
+    
+      
+        
+          ω
+          
+            a
+          
+        
+      
+    
+    {\displaystyle \omega _{a}}
+   is tuned. Due to the nonlinearity of the Josephson junctions the Cooper-pair box shows an atom like energy spectrum.  Other more recent examples for qubits used in circuit QED are so called transmon qubits (more charge noise insensitive compared to the Cooper-pair box) and flux qubits (whose state is given by the direction of a supercurrent in a superconducting loop intersected by Josephson junctions).  All of these devices feature very large dipole moments 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   (up to 103 times that of large 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   Rydberg atoms), which qualifies them as extremely suitable coupling counterparts for the light field in circuit QED.
+
+Theory
+The full quantum description of matter-light interaction is given by the Jaynes–Cummings model. The three terms of the Jaynes–Cummings model can be ascribed to a cavity term, which is mimicked by a harmonic oscillator, an atomic term and an interaction term.
+
+  
+    
+      
+        
+          
+            
+              H
+            
+          
+          
+            JC
+          
+        
+        =
+        
+          
+            
+              
+                ℏ
+                
+                  ω
+                  
+                    r
+                  
+                
+                
+                  (
+                  
+                    
+                      a
+                      
+                        †
+                      
+                    
+                    a
+                    +
+                    
+                      
+                        1
+                        2
+                      
+                    
+                  
+                  )
+                
+              
+              ⏟
+            
+          
+          
+            cavity term
+          
+        
+        +
+        
+          
+            
+              
+                
+                  
+                    1
+                    2
+                  
+                
+                ℏ
+                
+                  ω
+                  
+                    a
+                  
+                
+                
+                  σ
+                  
+                    z
+                  
+                
+              
+              ⏟
+            
+          
+          
+            atomic term
+          
+        
+        +
+        
+          
+            
+              
+                ℏ
+                g
+                
+                  (
+                  
+                    
+                      σ
+                      
+                        +
+                      
+                    
+                    a
+                    +
+                    
+                      a
+                      
+                        †
+                      
+                    
+                    
+                      σ
+                      
+                        −
+                      
+                    
+                  
+                  )
+                
+              
+              ⏟
+            
+          
+          
+            interaction term
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}_{\text{JC}}=\underbrace {\hbar \omega _{r}\left(a^{\dagger }a+{\frac {1}{2}}\right)} _{\text{cavity term}}+\underbrace {{\frac {1}{2}}\hbar \omega _{a}\sigma _{z}} _{\text{atomic term}}+\underbrace {\hbar g\left(\sigma _{+}a+a^{\dagger }\sigma _{-}\right)} _{\text{interaction term}}}
+  
+In this formulation 
+  
+    
+      
+        
+          ω
+          
+            r
+          
+        
+      
+    
+    {\displaystyle \omega _{r}}
+   is the resonance frequency of the cavity and 
+  
+    
+      
+        
+          a
+          
+            †
+          
+        
+      
+    
+    {\displaystyle a^{\dagger }}
+   and 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   are photon creation and annihilation operators, respectively. The atomic term is given by the Hamiltonian of a spin-½ system with 
+  
+    
+      
+        
+          ω
+          
+            a
+          
+        
+      
+    
+    {\displaystyle \omega _{a}}
+   being the transition frequency and 
+  
+    
+      
+        
+          σ
+          
+            z
+          
+        
+      
+    
+    {\displaystyle \sigma _{z}}
+   the Pauli matrix. The operators 
+  
+    
+      
+        
+          σ
+          
+            ±
+          
+        
+      
+    
+    {\displaystyle \sigma _{\pm }}
+   are raising and lowering operators (ladder operators) for the atomic states. For the case of zero detuning (
+  
+    
+      
+        
+          ω
+          
+            r
+          
+        
+        =
+        
+          ω
+          
+            a
+          
+        
+      
+    
+    {\displaystyle \omega _{r}=\omega _{a}}
+  ) the interaction lifts the degeneracy of the photon number state 
+  
+    
+      
+        ∣
+        n
+        ⟩
+      
+    
+    {\displaystyle \mid n\rangle }
+   and the atomic states 
+  
+    
+      
+        ∣
+        g
+        ⟩
+      
+    
+    {\displaystyle \mid g\rangle }
+   and 
+  
+    
+      
+        ∣
+        e
+        ⟩
+      
+    
+    {\displaystyle \mid e\rangle }
+   and pairs of dressed states are formed. These new states are superpositions of cavity and atom states
+
+  
+    
+      
+        ∣
+        n
+        ,
+        ±
+        ⟩
+        =
+        
+          
+            1
+            
+              2
+            
+          
+        
+        
+          (
+          
+            ∣
+            g
+            ⟩
+            ∣
+            n
+            ⟩
+            ±
+            ∣
+            e
+            ⟩
+            ∣
+            n
+            −
+            1
+            ⟩
+          
+          )
+        
+      
+    
+    {\displaystyle \mid n,\pm \rangle ={\frac {1}{\sqrt {2}}}\left(\mid g\rangle \mid n\rangle \pm \mid e\rangle \mid n-1\rangle \right)}
+  
+and are energetically split by 
+  
+    
+      
+        2
+        g
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle 2g{\sqrt {n}}}
+  .  If the detuning is significantly larger than the combined cavity and atomic linewidth the cavity states are merely shifted by 
+  
+    
+      
+        ±
+        
+          g
+          
+            2
+          
+        
+        
+          /
+        
+        Δ
+      
+    
+    {\displaystyle \pm g^{2}/\Delta }
+   (with the detuning 
+  
+    
+      
+        Δ
+        =
+        
+          ω
+          
+            a
+          
+        
+        −
+        
+          ω
+          
+            r
+          
+        
+      
+    
+    {\displaystyle \Delta =\omega _{a}-\omega _{r}}
+  ) depending on the atomic state. This provides the possibility to read out the atomic (qubit) state by measuring the transition frequency.The coupling is given by 
+  
+    
+      
+        g
+        =
+        E
+        ⋅
+        d
+      
+    
+    {\displaystyle g=E\cdot d}
+   (for electric dipolar coupling). If the coupling is much larger than the cavity loss rate 
+  
+    
+      
+        κ
+        =
+        
+          
+            
+              ω
+              
+                r
+              
+            
+            Q
+          
+        
+      
+    
+    {\displaystyle \kappa ={\frac {\omega _{r}}{Q}}}
+   (quality factor 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+  ; the higher 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+  , the longer the photon remains inside the resonator) as well as the decoherence rate 
+  
+    
+      
+        γ
+      
+    
+    {\displaystyle \gamma }
+   (rate at which the qubit relaxes into modes other than the resonator mode) the strong coupling regime is reached. Due to the high fields and low losses of the coplanar resonators together with the large dipole moments and long decoherence times of the qubits, the strong coupling regime can easily be reached in the field of circuit QED. Combination of the Jaynes–Cummings model and the coupled cavities leads to the Jaynes–Cummings–Hubbard model.
+
+See also
+Superconducting radio frequency
+
+
+== References ==

@@ -1,0 +1,515 @@
+In combinatorics, a Sperner family (or Sperner system; named in honor of Emanuel Sperner), or clutter, is a family F of subsets of a finite set E in which none of the sets contains another.  Equivalently, a Sperner family is an antichain in the inclusion lattice over the power set of E.  A Sperner family is also sometimes called an independent system or irredundant set.
+Sperner families are counted by the Dedekind numbers, and their size is bounded by Sperner's theorem and the Lubell–Yamamoto–Meshalkin inequality. They may also be described in the language of hypergraphs rather than set families, where they are called clutters.
+
+Dedekind numbers
+The number of different Sperner families on a set of n elements is counted by the Dedekind numbers, the first few of which are
+
+2, 3, 6, 20, 168, 7581, 7828354, 2414682040998, 56130437228687557907788 (sequence A000372 in the OEIS).Although accurate asymptotic estimates are known for larger values of n, it is unknown whether there exists an exact formula that can be used to compute these numbers efficiently.
+The collection of all Sperner families on a set of n elements can be organized as a free distributive lattice, in which the join of two Sperner families is obtained from the union of the two families by removing sets that are a superset of another set in the union.
+
+Bounds on the size of a Sperner family
+Sperner's theorem
+The k-element subsets of an n-element set form a Sperner family, the size of which is maximized when k = n/2 (or the nearest integer to it).
+Sperner's theorem states that these families are the largest possible Sperner families over an n-element set. Formally, the theorem states that, for every Sperner family S over an n-element set,
+
+  
+    
+      
+        
+          |
+        
+        S
+        
+          |
+        
+        ≤
+        
+          
+            
+              (
+            
+            
+              n
+              
+                ⌊
+                n
+                
+                  /
+                
+                2
+                ⌋
+              
+            
+            
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle |S|\leq {\binom {n}{\lfloor n/2\rfloor }}.}
+
+LYM inequality
+The Lubell–Yamamoto–Meshalkin inequality provides another bound on the size of a Sperner family, and can be used to prove Sperner's theorem.
+It states that, if ak denotes the number of sets of size k in a Sperner family over a set of n elements, then
+
+  
+    
+      
+        
+          ∑
+          
+            k
+            =
+            0
+          
+          
+            n
+          
+        
+        
+          
+            
+              a
+              
+                k
+              
+            
+            
+              
+                (
+              
+              
+                n
+                k
+              
+              
+                )
+              
+            
+          
+        
+        ≤
+        1.
+      
+    
+    {\displaystyle \sum _{k=0}^{n}{\frac {a_{k}}{n \choose k}}\leq 1.}
+
+Clutters
+A clutter is a family of subsets of a finite set such that none contains any other; that is, it is a Sperner family.  The difference is in the questions typically asked.    Clutters are an important structure in the study of combinatorial optimization.
+(In more complicated language, a clutter is a hypergraph 
+  
+    
+      
+        (
+        V
+        ,
+        E
+        )
+      
+    
+    {\displaystyle (V,E)}
+   with the added property that 
+  
+    
+      
+        A
+        ⊈
+        B
+      
+    
+    {\displaystyle A\not \subseteq B}
+   whenever 
+  
+    
+      
+        A
+        ,
+        B
+        ∈
+        E
+      
+    
+    {\displaystyle A,B\in E}
+   and 
+  
+    
+      
+        A
+        ≠
+        B
+      
+    
+    {\displaystyle A\neq B}
+   (i.e. no edge properly contains another.  An opposite notion to a clutter is an abstract simplicial complex, where every subset of an edge is contained in the hypergraph; this is an order ideal in the poset of subsets of V.)
+If 
+  
+    
+      
+        H
+        =
+        (
+        V
+        ,
+        E
+        )
+      
+    
+    {\displaystyle H=(V,E)}
+   is a clutter, then the blocker of H, denoted by 
+  
+    
+      
+        b
+        (
+        H
+        )
+      
+    
+    {\displaystyle b(H)}
+  , is the clutter with vertex set V and edge set consisting of all minimal sets 
+  
+    
+      
+        B
+        ⊆
+        V
+      
+    
+    {\displaystyle B\subseteq V}
+   so that 
+  
+    
+      
+        B
+        ∩
+        A
+        ≠
+        ∅
+      
+    
+    {\displaystyle B\cap A\neq \varnothing }
+   for every 
+  
+    
+      
+        A
+        ∈
+        E
+      
+    
+    {\displaystyle A\in E}
+  .  It can be shown that 
+  
+    
+      
+        b
+        (
+        b
+        (
+        H
+        )
+        )
+        =
+        H
+      
+    
+    {\displaystyle b(b(H))=H}
+   (Edmonds & Fulkerson 1970), so blockers give us a type of duality.  We define 
+  
+    
+      
+        ν
+        (
+        H
+        )
+      
+    
+    {\displaystyle \nu (H)}
+   to be the size of the largest collection of disjoint edges in H and 
+  
+    
+      
+        τ
+        (
+        H
+        )
+      
+    
+    {\displaystyle \tau (H)}
+   to be the size of the smallest edge in 
+  
+    
+      
+        b
+        (
+        H
+        )
+      
+    
+    {\displaystyle b(H)}
+  .    It is easy to see that 
+  
+    
+      
+        ν
+        (
+        H
+        )
+        ≤
+        τ
+        (
+        H
+        )
+      
+    
+    {\displaystyle \nu (H)\leq \tau (H)}
+  .
+
+Examples
+If G is a simple loopless graph, then 
+  
+    
+      
+        H
+        =
+        (
+        V
+        (
+        G
+        )
+        ,
+        E
+        (
+        G
+        )
+        )
+      
+    
+    {\displaystyle H=(V(G),E(G))}
+   is a clutter (if edges are treated as unordered pairs of vertices) and 
+  
+    
+      
+        b
+        (
+        H
+        )
+      
+    
+    {\displaystyle b(H)}
+   is the collection of all minimal vertex covers.  Here 
+  
+    
+      
+        ν
+        (
+        H
+        )
+      
+    
+    {\displaystyle \nu (H)}
+   is the size of the largest matching and 
+  
+    
+      
+        τ
+        (
+        H
+        )
+      
+    
+    {\displaystyle \tau (H)}
+   is the size of the smallest vertex cover. Kőnig's theorem states that, for bipartite graphs, 
+  
+    
+      
+        ν
+        (
+        H
+        )
+        =
+        τ
+        (
+        H
+        )
+      
+    
+    {\displaystyle \nu (H)=\tau (H)}
+  . However for other graphs these two quantities may differ.
+Let G be a graph and let 
+  
+    
+      
+        s
+        ,
+        t
+        ∈
+        V
+        (
+        G
+        )
+      
+    
+    {\displaystyle s,t\in V(G)}
+  .  The collection H of all edge-sets of s-t paths is a clutter and 
+  
+    
+      
+        b
+        (
+        H
+        )
+      
+    
+    {\displaystyle b(H)}
+   is the collection of all minimal edge cuts which separate s and t.  In this case 
+  
+    
+      
+        ν
+        (
+        H
+        )
+      
+    
+    {\displaystyle \nu (H)}
+   is the maximum number of edge-disjoint s-t paths, and 
+  
+    
+      
+        τ
+        (
+        H
+        )
+      
+    
+    {\displaystyle \tau (H)}
+   is the size of the smallest edge-cut separating s and t, so Menger's theorem (edge-connectivity version) asserts that 
+  
+    
+      
+        ν
+        (
+        H
+        )
+        =
+        τ
+        (
+        H
+        )
+      
+    
+    {\displaystyle \nu (H)=\tau (H)}
+  .
+Let G be a connected graph and let H be the clutter on 
+  
+    
+      
+        E
+        (
+        G
+        )
+      
+    
+    {\displaystyle E(G)}
+   consisting of all edge sets of spanning trees of G.  Then 
+  
+    
+      
+        b
+        (
+        H
+        )
+      
+    
+    {\displaystyle b(H)}
+   is the collection of all minimal edge cutsets in G.
+
+Minors
+There is a minor relation on clutters which is similar to the minor relation on graphs.  If 
+  
+    
+      
+        H
+        =
+        (
+        V
+        ,
+        E
+        )
+      
+    
+    {\displaystyle H=(V,E)}
+   is a clutter and 
+  
+    
+      
+        v
+        ∈
+        V
+      
+    
+    {\displaystyle v\in V}
+  , then we may delete v to get the clutter 
+  
+    
+      
+        H
+        ∖
+        v
+      
+    
+    {\displaystyle H\setminus v}
+   with vertex set 
+  
+    
+      
+        V
+        ∖
+        {
+        v
+        }
+      
+    
+    {\displaystyle V\setminus \{v\}}
+   and edge set consisting of all 
+  
+    
+      
+        A
+        ∈
+        E
+      
+    
+    {\displaystyle A\in E}
+   which do not contain v.  We contract v to get the clutter 
+  
+    
+      
+        H
+        
+          /
+        
+        v
+        =
+        b
+        (
+        b
+        (
+        H
+        )
+        ∖
+        v
+        )
+      
+    
+    {\displaystyle H/v=b(b(H)\setminus v)}
+  .  These two operations commute, and if J is another clutter, we say that J is a minor of H if a clutter isomorphic to J may be obtained from H by a sequence of deletions and contractions.
+
+References
+Anderson, Ian (1987), "Sperner's theorem", Combinatorics of Finite Sets, Oxford University Press, pp. 2–4.
+Edmonds, J.; Fulkerson, D. R. (1970), "Bottleneck extrema", Journal of Combinatorial Theory, 8 (3): 299–306, doi:10.1016/S0021-9800(70)80083-7.
+Knuth, Donald E. (2005), "Draft of Section 7.2.1.6: Generating All Trees", The Art of Computer Programming, vol. IV, pp. 17–19.
+Sperner, Emanuel (1928), "Ein Satz über Untermengen einer endlichen Menge" (PDF), Mathematische Zeitschrift (in German), 27 (1): 544–548, doi:10.1007/BF01171114, JFM 54.0090.06.

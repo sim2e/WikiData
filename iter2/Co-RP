@@ -1,0 +1,68 @@
+In computational complexity theory, randomized polynomial time (RP) is the complexity class of problems for which a probabilistic Turing machine exists with these properties:
+
+It always runs in polynomial time in the input size
+If the correct answer is NO, it always returns NO
+If the correct answer is YES, then it returns YES with probability at least 1/2 (otherwise, it returns NO).In other words, the algorithm is allowed to flip a truly random coin while it is running.  The only case in which the algorithm can return YES is if the actual answer is YES; therefore if the algorithm terminates and produces YES, then the correct answer is definitely YES; however, the algorithm can terminate with NO regardless of the actual answer. That is, if the algorithm returns NO, it might be wrong.  
+Some authors call this class R, although this name is more commonly used for the class of recursive languages.
+If the correct answer is YES and the algorithm is run n times with the result of each run statistically independent of the others, then it will return YES at least once with probability at least 1 − 2−n.  So if the algorithm is run 100 times, then the chance of it giving the wrong answer every time is lower than the chance that cosmic rays corrupted the memory of the computer running the algorithm. In this sense, if a source of random numbers is available, most algorithms in RP are highly practical.
+The fraction 1/2 in the definition is arbitrary.  The set RP will contain exactly the same problems, even if the 1/2 is replaced by any constant nonzero probability less than 1; here constant means independent of the input to the algorithm.
+
+Formal definition
+A language L is in RP if and only if there exists a probabilistic Turing machine M, such that
+
+M runs for polynomial time on all inputs
+For all x in L, M outputs 1 with probability greater than or equal to 1/2
+For all x not in L, M outputs 0Alternatively, RP can be defined using only deterministic Turing machines. A language L is in RP if and only if there exists a polynomial p and deterministic Turing machine M, such that
+
+M runs for polynomial time p on all inputs
+For all x in L, the fraction of strings y of length p(|x|) which satisfy 
+  
+    
+      
+        M
+        (
+        x
+        ,
+        y
+        )
+        =
+        1
+      
+    
+    {\displaystyle M(x,y)=1}
+   is greater than or equal to 1/2
+For all x not in L, and all strings y of length p(|x|), 
+  
+    
+      
+        M
+        (
+        x
+        ,
+        y
+        )
+        =
+        0
+      
+    
+    {\displaystyle M(x,y)=0}
+  In this definition, the string y corresponds to the output of the random coin flips that the probabilistic Turing machine would have made. For some applications this definition is preferable since it does not mention probabilistic Turing machines.
+
+Related complexity classes
+The definition of RP says that a YES-answer is always right and that a NO-answer might be wrong, as a YES-instance can return a NO-answer. The complexity class co-RP is the complement, where a YES-answer might be wrong while a NO-answer is always right.
+The class BPP describes algorithms that can give incorrect answers on both YES and NO instances, and thus contains both RP and co-RP. The intersection of the sets RP and co-RP is called ZPP.  Just as RP may be called R, some authors use the name co-R rather than co-RP.
+
+Connection to P and NP
+P is a subset of RP, which is a subset of NP.  Similarly, P is a subset of co-RP which is a subset of co-NP.  It is not known whether these inclusions are strict. However, if the commonly believed conjecture P = BPP is true, then RP, co-RP, and P collapse (are all equal). Assuming in addition that P ≠ NP, this then implies that RP is strictly contained in NP. It is not known whether RP = co-RP, or whether RP is a subset of the intersection of NP and co-NP, though this would be implied by P = BPP.
+A natural example of a problem in co-RP currently not known to be in P is Polynomial Identity Testing, the problem of deciding whether a given multivariate arithmetic expression over the integers is the zero-polynomial. For instance, x·x − y·y − (x + y)·(x − y) is the zero-polynomial while
+x·x + y·y is not.
+An alternative characterization of RP that is sometimes easier to use is the set of problems recognizable by nondeterministic Turing machines where the machine accepts if and only if at least some constant fraction of the computation paths, independent of the input size, accept. NP on the other hand, needs only one accepting path, which could constitute an exponentially small fraction of the paths. This characterization makes the fact that RP is a subset of NP obvious.
+
+See also
+Randomized algorithm
+BPP
+ZPP
+
+References
+External links
+RP at the Complexity Zoo

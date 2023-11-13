@@ -1,0 +1,1031 @@
+Maximum-entropy random graph models are random graph models used to study complex networks subject to the principle of maximum entropy under a set of structural constraints, which may be global, distributional, or local.
+
+Overview
+Any random graph model (at a fixed set of parameter values) results in a probability distribution on graphs, and those that are maximum entropy within the considered class of distributions have the special property of being maximally unbiased null models for network inference (e.g. biological network inference). Each model defines a family of probability distributions on the set of graphs of size 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   (for each 
+  
+    
+      
+        n
+        >
+        
+          n
+          
+            0
+          
+        
+      
+    
+    {\displaystyle n>n_{0}}
+   for some finite 
+  
+    
+      
+        
+          n
+          
+            0
+          
+        
+      
+    
+    {\displaystyle n_{0}}
+  ), parameterized by a collection of constraints on 
+  
+    
+      
+        J
+      
+    
+    {\displaystyle J}
+   observables 
+  
+    
+      
+        {
+        
+          Q
+          
+            j
+          
+        
+        (
+        G
+        )
+        
+          }
+          
+            j
+            =
+            1
+          
+          
+            J
+          
+        
+      
+    
+    {\displaystyle \{Q_{j}(G)\}_{j=1}^{J}}
+   defined for each graph 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   (such as fixed expected average degree, degree distribution of a particular form, or specific degree sequence), enforced in the graph distribution alongside entropy maximization by the method of Lagrange multipliers. Note that in this context "maximum entropy" refers not to the entropy of a single graph, but rather the entropy of the whole probabilistic ensemble of random graphs.
+Several commonly studied random network models are in fact maximum entropy, for example the ER graphs 
+  
+    
+      
+        G
+        (
+        n
+        ,
+        m
+        )
+      
+    
+    {\displaystyle G(n,m)}
+   and 
+  
+    
+      
+        G
+        (
+        n
+        ,
+        p
+        )
+      
+    
+    {\displaystyle G(n,p)}
+   (which each have one global constraint on the number of edges), as well as the configuration model (CM). and soft configuration model (SCM) (which each have 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   local constraints, one for each nodewise degree-value). In the two pairs of models mentioned above, an important distinction is in whether the constraint is sharp (i.e. satisfied by every element of the set of size-
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   graphs with nonzero probability in the ensemble), or soft (i.e. satisfied on average across the whole ensemble). The former (sharp) case corresponds to a microcanonical ensemble, the condition of maximum entropy yielding all graphs 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   satisfying 
+  
+    
+      
+        
+          Q
+          
+            j
+          
+        
+        (
+        G
+        )
+        =
+        
+          q
+          
+            j
+          
+        
+        ∀
+        j
+      
+    
+    {\displaystyle Q_{j}(G)=q_{j}\forall j}
+   as equiprobable; the latter (soft) case is canonical, producing an exponential random graph model (ERGM).
+
+Canonical ensemble of graphs (general framework)
+Suppose we are building a random graph model consisting of a probability distribution 
+  
+    
+      
+        
+          P
+        
+        (
+        G
+        )
+      
+    
+    {\displaystyle \mathbb {P} (G)}
+   on the set 
+  
+    
+      
+        
+          
+            
+              G
+            
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {G}}_{n}}
+   of simple graphs with 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   vertices. The  Gibbs entropy 
+  
+    
+      
+        S
+        [
+        G
+        ]
+      
+    
+    {\displaystyle S[G]}
+   of this ensemble will be given by
+
+  
+    
+      
+        S
+        [
+        G
+        ]
+        =
+        −
+        
+          ∑
+          
+            G
+            ∈
+            
+              
+                
+                  G
+                
+              
+              
+                n
+              
+            
+          
+        
+        
+          P
+        
+        (
+        G
+        )
+        log
+        ⁡
+        
+          P
+        
+        (
+        G
+        )
+        .
+      
+    
+    {\displaystyle S[G]=-\sum _{G\in {\mathcal {G}}_{n}}\mathbb {P} (G)\log \mathbb {P} (G).}
+  We would like the ensemble-averaged values 
+  
+    
+      
+        {
+        ⟨
+        
+          Q
+          
+            j
+          
+        
+        ⟩
+        
+          }
+          
+            j
+            =
+            1
+          
+          
+            J
+          
+        
+      
+    
+    {\displaystyle \{\langle Q_{j}\rangle \}_{j=1}^{J}}
+   of observables 
+  
+    
+      
+        {
+        
+          Q
+          
+            j
+          
+        
+        (
+        G
+        )
+        
+          }
+          
+            j
+            =
+            1
+          
+          
+            J
+          
+        
+      
+    
+    {\displaystyle \{Q_{j}(G)\}_{j=1}^{J}}
+   (such as average degree, average clustering, or average shortest path length) to be tunable, so we impose 
+  
+    
+      
+        J
+      
+    
+    {\displaystyle J}
+   "soft" constraints on the graph distribution:
+
+  
+    
+      
+        ⟨
+        
+          Q
+          
+            j
+          
+        
+        ⟩
+        =
+        
+          ∑
+          
+            G
+            ∈
+            
+              
+                
+                  G
+                
+              
+              
+                n
+              
+            
+          
+        
+        
+          P
+        
+        (
+        G
+        )
+        
+          Q
+          
+            j
+          
+        
+        (
+        G
+        )
+        =
+        
+          q
+          
+            j
+          
+        
+        ,
+      
+    
+    {\displaystyle \langle Q_{j}\rangle =\sum _{G\in {\mathcal {G}}_{n}}\mathbb {P} (G)Q_{j}(G)=q_{j},}
+  where 
+  
+    
+      
+        j
+        =
+        1
+        ,
+        .
+        .
+        .
+        ,
+        J
+      
+    
+    {\displaystyle j=1,...,J}
+   label the constraints. Application of the method of Lagrange multipliers to determine the distribution 
+  
+    
+      
+        
+          P
+        
+        (
+        G
+        )
+      
+    
+    {\displaystyle \mathbb {P} (G)}
+   that maximizes 
+  
+    
+      
+        S
+        [
+        G
+        ]
+      
+    
+    {\displaystyle S[G]}
+   while satisfying 
+  
+    
+      
+        ⟨
+        
+          Q
+          
+            j
+          
+        
+        ⟩
+        =
+        
+          q
+          
+            j
+          
+        
+      
+    
+    {\displaystyle \langle Q_{j}\rangle =q_{j}}
+  , and the normalization condition 
+  
+    
+      
+        
+          ∑
+          
+            G
+            ∈
+            
+              
+                
+                  G
+                
+              
+              
+                n
+              
+            
+          
+        
+        
+          P
+        
+        (
+        G
+        )
+        =
+        1
+      
+    
+    {\displaystyle \sum _{G\in {\mathcal {G}}_{n}}\mathbb {P} (G)=1}
+   results in the following:
+
+  
+    
+      
+        
+          P
+        
+        (
+        G
+        )
+        =
+        
+          
+            1
+            Z
+          
+        
+        exp
+        ⁡
+        
+          [
+          
+            −
+            
+              ∑
+              
+                j
+                =
+                1
+              
+              
+                J
+              
+            
+            
+              ψ
+              
+                j
+              
+            
+            
+              Q
+              
+                j
+              
+            
+            (
+            G
+            )
+          
+          ]
+        
+        ,
+      
+    
+    {\displaystyle \mathbb {P} (G)={\frac {1}{Z}}\exp \left[-\sum _{j=1}^{J}\psi _{j}Q_{j}(G)\right],}
+  where 
+  
+    
+      
+        Z
+      
+    
+    {\displaystyle Z}
+   is a normalizing constant (the partition function) and 
+  
+    
+      
+        {
+        
+          ψ
+          
+            j
+          
+        
+        
+          }
+          
+            j
+            =
+            1
+          
+          
+            J
+          
+        
+      
+    
+    {\displaystyle \{\psi _{j}\}_{j=1}^{J}}
+   are parameters (Lagrange multipliers) coupled to the correspondingly indexed graph observables, which may be tuned to yield graph samples with desired values of those properties, on average; the result is an exponential family and canonical ensemble; specifically yielding an ERGM.
+
+The Erdős–Rényi model
+G
+        (
+        n
+        ,
+        m
+        )
+      
+    
+    {\displaystyle G(n,m)}
+  
+In the canonical framework above, constraints were imposed on ensemble-averaged quantities 
+  
+    
+      
+        ⟨
+        
+          Q
+          
+            j
+          
+        
+        ⟩
+      
+    
+    {\displaystyle \langle Q_{j}\rangle }
+  . Although these properties will on average take on values specifiable by appropriate setting of 
+  
+    
+      
+        {
+        
+          ψ
+          
+            j
+          
+        
+        
+          }
+          
+            j
+            =
+            1
+          
+          
+            J
+          
+        
+      
+    
+    {\displaystyle \{\psi _{j}\}_{j=1}^{J}}
+  , each specific instance 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   may have 
+  
+    
+      
+        
+          Q
+          
+            j
+          
+        
+        (
+        G
+        )
+        ≠
+        
+          q
+          
+            j
+          
+        
+      
+    
+    {\displaystyle Q_{j}(G)\neq q_{j}}
+  , which may be undesirable. Instead, we may impose a much stricter condition: every graph with nonzero probability must satisfy 
+  
+    
+      
+        
+          Q
+          
+            j
+          
+        
+        (
+        G
+        )
+        =
+        
+          q
+          
+            j
+          
+        
+      
+    
+    {\displaystyle Q_{j}(G)=q_{j}}
+   exactly. Under these "sharp" constraints, the maximum-entropy distribution is determined. We exemplify this with the Erdős–Rényi model 
+  
+    
+      
+        G
+        (
+        n
+        ,
+        m
+        )
+      
+    
+    {\displaystyle G(n,m)}
+  .
+The sharp constraint in 
+  
+    
+      
+        G
+        (
+        n
+        ,
+        m
+        )
+      
+    
+    {\displaystyle G(n,m)}
+   is that of a fixed number of edges 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  , that is 
+  
+    
+      
+        
+          |
+        
+        E
+        ⁡
+        (
+        G
+        )
+        
+          |
+        
+        =
+        m
+      
+    
+    {\displaystyle |\operatorname {E} (G)|=m}
+  , for all graphs 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   drawn from the ensemble (instantiated with a probability denoted 
+  
+    
+      
+        
+          
+            P
+          
+          
+            n
+            ,
+            m
+          
+        
+        (
+        G
+        )
+      
+    
+    {\displaystyle \mathbb {P} _{n,m}(G)}
+  ). This restricts the sample space from 
+  
+    
+      
+        
+          
+            
+              G
+            
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {G}}_{n}}
+   (all graphs on 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   vertices) to the subset 
+  
+    
+      
+        
+          
+            
+              G
+            
+          
+          
+            n
+            ,
+            m
+          
+        
+        =
+        {
+        g
+        ∈
+        
+          
+            
+              G
+            
+          
+          
+            n
+          
+        
+        ;
+        
+          |
+        
+        E
+        ⁡
+        (
+        g
+        )
+        
+          |
+        
+        =
+        m
+        }
+        ⊂
+        
+          
+            
+              G
+            
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {G}}_{n,m}=\{g\in {\mathcal {G}}_{n};|\operatorname {E} (g)|=m\}\subset {\mathcal {G}}_{n}}
+  . This is in direct analogy to the microcanonical ensemble in classical statistical mechanics, wherein the system is restricted to a thin manifold in the phase space of all states of a particular energy value.
+Upon restricting our sample space to 
+  
+    
+      
+        
+          
+            
+              G
+            
+          
+          
+            n
+            ,
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {G}}_{n,m}}
+  , we have no external constraints (besides normalization) to satisfy, and thus we'll select 
+  
+    
+      
+        
+          
+            P
+          
+          
+            n
+            ,
+            m
+          
+        
+        (
+        G
+        )
+      
+    
+    {\displaystyle \mathbb {P} _{n,m}(G)}
+   to maximize 
+  
+    
+      
+        S
+        [
+        G
+        ]
+      
+    
+    {\displaystyle S[G]}
+   without making use of Lagrange multipliers. It is well known that the entropy-maximizing distribution in the absence of external constraints is the uniform distribution over the sample space (see maximum entropy probability distribution), from which we obtain:
+
+  
+    
+      
+        
+          
+            P
+          
+          
+            n
+            ,
+            m
+          
+        
+        (
+        G
+        )
+        =
+        
+          
+            1
+            
+              
+                |
+              
+              
+                
+                  
+                    G
+                  
+                
+                
+                  n
+                  ,
+                  m
+                
+              
+              
+                |
+              
+            
+          
+        
+        =
+        
+          
+            
+              
+                (
+              
+              
+                
+                  
+                    (
+                  
+                  
+                    n
+                    2
+                  
+                  
+                    )
+                  
+                
+                m
+              
+              
+                )
+              
+            
+          
+          
+            −
+            1
+          
+        
+        ,
+      
+    
+    {\displaystyle \mathbb {P} _{n,m}(G)={\frac {1}{|{\mathcal {G}}_{n,m}|}}={\binom {\binom {n}{2}}{m}}^{-1},}
+  where the last expression in terms of binomial coefficients is the number of ways to place 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   edges among 
+  
+    
+      
+        
+          
+            
+              (
+            
+            
+              n
+              2
+            
+            
+              )
+            
+          
+        
+      
+    
+    {\displaystyle {\binom {n}{2}}}
+   possible edges, and thus is the cardinality of 
+  
+    
+      
+        
+          
+            
+              G
+            
+          
+          
+            n
+            ,
+            m
+          
+        
+      
+    
+    {\displaystyle {\mathcal {G}}_{n,m}}
+  .
+
+Generalizations
+A variety of maximum-entropy ensembles have been studied on generalizations of simple graphs. These include, for example, ensembles of simplicial complexes, and weighted random graphs with a given expected degree sequence
+
+See also
+Principle of maximum entropy
+Maximum entropy probability distribution
+Method of Lagrange multipliers
+Null model
+Random graph
+Exponential random graph model
+Canonical ensemble
+Microcanonical ensemble
+
+
+== References ==

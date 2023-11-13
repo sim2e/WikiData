@@ -1,0 +1,51 @@
+Exokernel is an operating system kernel developed by the MIT Parallel and Distributed Operating Systems group, and also a class of similar operating systems.
+Operating systems generally present hardware resources to applications through high-level abstractions such as (virtual) file systems. The idea behind exokernels is to force as few abstractions as possible on application developers, enabling them to make as many decisions as possible about hardware abstractions. Exokernels are tiny, since functionality is limited to ensuring protection and multiplexing of resources, which is considerably simpler than conventional microkernels' implementation of message passing and monolithic kernels' implementation of high-level abstractions.
+Implemented abstractions are called library operating systems; they may request specific memory addresses, disk blocks, etc. The kernel only ensures that the requested resource is free, and the application is allowed to access it. This low-level hardware access allows the programmer to implement custom abstractions, and omit unnecessary ones, most commonly to improve a program's performance. It also allows programmers to choose what level of abstraction they want, high, or low.
+Exokernels can be seen as an application of the end-to-end principle to operating systems, in that they do not force an application program to layer its abstractions on top of other abstractions that were designed with different requirements in mind. For example, in the MIT Exokernel project, the Cheetah web server stores preformatted Internet Protocol packets on the disk, the kernel provides safe access to the disk by preventing unauthorized reading and writing, but how the disk is abstracted is up to the application or the libraries the application uses.
+
+Motivation
+Traditionally kernel designers have sought to make individual hardware resources invisible to application programs by requiring the programs to interact with the hardware via some abstraction model. These models include file systems for disk storage, virtual address spaces for memory, schedulers for task management, and sockets for network communication. These abstractions of the hardware make it easier to write programs in general, but limit performance and stifle experimentation in new abstractions. A security-oriented application might need a file system that does not leave old data on the disk, while a reliability-oriented application might need a file system that keeps such data for failure recovery.
+One option is to remove the kernel completely and program directly to the hardware, but then the entire machine would be dedicated to the application being written (and, conversely, the entire application codebase would be dedicated to that machine). The exokernel concept is a compromise: let the kernel allocate the basic physical resources of the machine (e.g. disk blocks, memory pages, and processor time) to multiple application programs, and let each program decide what to do with these resources. The program can then link to a support library that implements the abstractions it needs (or it can implement its own).
+
+MIT exokernels
+MIT developed two exokernel-based operating systems, using two kernels: Aegis, a proof of concept with limited support for storage, and XOK, which applied the exokernel concept more thoroughly.
+An essential idea of the MIT exokernel system is that the operating system should act as an executive for small programs provided by the application software, which are constrained only by the requirement that the exokernel must be able to guarantee that they use the hardware safely.
+
+Design
+The MIT exokernel manages hardware resources as follows:
+
+Processor
+The kernel represents the processor resources as a timeline from which programs can allocate intervals of time. A program can yield the rest of its time slice to another designated program. The kernel notifies programs of processor events, such as interrupts, hardware exceptions, and the beginning or end of a time slice. If a program takes a long time to handle an event, the kernel will penalize it on subsequent time slice allocations; in extreme cases the kernel can abort the program.Memory
+The kernel allocates physical memory pages to programs and controls the translation lookaside buffer. A program can share a page with another program by sending it a capability to access that page. The kernel ensures that programs access only pages for which they have a capability.Disk storage
+The kernel identifies disk blocks to the application program by their physical block address, allowing the application to optimize data placement. When the program initializes its use of the disk, it provides the kernel with a function that the kernel can use to determine which blocks the program controls. The kernel uses this callback to verify that when it allocates a new block, the program claims only the block that was allocated in addition to those it already controlled.Networking
+The kernel implements a programmable packet filter, which executes programs in a bytecode language designed for easy security-checking by the kernel.
+
+Applications
+The available library operating systems for Exokernel include the custom ExOS system and an emulator for BSD. In addition to these, the exokernel team created the Cheetah web server, which uses the kernel directly.
+
+History
+The exokernel concept has been around since at least 1994, but as of 2010 exokernels are still a research effort and have not been used in any major commercial operating systems.
+A concept operating exokernel system is Nemesis, written by University of Cambridge, University of Glasgow, Citrix Systems, and the Swedish Institute of Computer Science. MIT has also built several exokernel-based systems, including ExOS.
+
+See also
+Hybrid kernel
+Hypervisor
+Kernel (operating system)
+Microkernel
+Monolithic kernel
+Nanokernel
+Paravirtualization
+Rump kernel
+Single address space operating system (SASOS)
+Unikernel
+BareMetal
+
+References
+Bibliography
+External links
+Erlingsson, Úlfar; Kyparlis, Athanasios, Microkernels, Cornell, The extent to which simple, efficient operations are a good choice in a kernel interface design.
+Exokernel Operating System, MIT. A research exokernel.
+Nemesis, UK: Cambridge.  A research exokernel.
+BareMetal OS, Return Infinity, archived from the original on 2014-09-06. A commercial exokernel.
+XOmB, archived from the original on 2019-07-28, retrieved 2013-05-13. A research exokernel.
+ExAmour, FR. The GNU exokernel.

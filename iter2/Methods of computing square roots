@@ -1,0 +1,9419 @@
+Methods of computing square roots are numerical analysis algorithms for approximating the principal, or non-negative, square root (usually denoted 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}}
+  , 
+  
+    
+      
+        
+          
+            S
+            
+              2
+            
+          
+        
+      
+    
+    {\displaystyle {\sqrt[{2}]{S}}}
+  , or 
+  
+    
+      
+        
+          S
+          
+            1
+            
+              /
+            
+            2
+          
+        
+      
+    
+    {\displaystyle S^{1/2}}
+  ) of a real number. Arithmetically, it means given 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+  , a procedure for finding a number which when multiplied by itself, yields 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+  ; algebraically, it means a procedure for finding the non-negative root of the equation 
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        −
+        S
+        =
+        0
+      
+    
+    {\displaystyle x^{2}-S=0}
+  ; geometrically, it means given two line segments, a procedure for constructing their geometric mean.
+Every real number except zero has two square roots. The principal square root of most numbers is an irrational number with an infinite decimal expansion. As a result, the decimal expansion of any such square root can only be computed to some finite-precision approximation. However, even if we are taking the square root of a perfect square integer, so that the result does have an exact finite representation, the procedure used to compute it may only return a series of increasingly accurate approximations.
+The continued fraction representation of a real number can be used instead of its decimal or binary expansion and this representation has the property that the square root of any rational number (which is not already a perfect square) has a periodic, repeating expansion, similar to how rational numbers have repeating expansions in the decimal notation system.
+The most common analytical methods are iterative and consist of two steps: finding a suitable starting value, followed by iterative refinement until some termination criterion is met.  The starting value can be any number, but fewer iterations will be required the closer it is to the final result.  The most familiar such method, most suited for programmatic calculation, is Newton's method, which is based on a property of the derivative in the calculus. A few methods like paper-and-pencil synthetic division and series expansion, do not require a starting value. In some applications, an integer square root is required, which is the square root rounded or truncated to the nearest integer (a modified procedure may be employed in this case).
+The method employed depends on what the result is to be used for (i.e. how accurate it has to be), how much effort one is willing to put into the procedure, and what tools are at hand.  The methods may be roughly classified as those suitable for mental calculation, those usually requiring at least paper and pencil, and those which are implemented as programs to be executed on a digital electronic computer or other computing device. Algorithms may take into account convergence (how many iterations are required to achieve a specified precision), computational complexity of individual operations (i.e. division) or iterations, and error propagation (the accuracy of the final result).
+Procedures for finding square roots (particularly the square root of 2) have been known since at least the period of ancient Babylon in the 17th century BCE.  Heron's method from first century Egypt was the first ascertainable algorithm for computing square root. Modern analytic methods began to be developed after introduction of the Arabic numeral system to western Europe in the early Renaissance.  Today, nearly all computing devices have a fast and accurate square root function, either as a programming language construct, a compiler intrinsic or library function, or as a hardware operator, based on one of the described procedures.
+
+Initial estimate
+Many iterative square root algorithms require an initial seed value. The seed must be a non-zero positive number; it should be between 1 and 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+  , the number whose square root is desired, because the square root must be in that range. If the seed is far away from the root, the algorithm will require more iterations. If one initializes with 
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle x_{0}=1}
+   (or 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+  ), then approximately 
+  
+    
+      
+        
+          
+            
+              1
+              2
+            
+          
+        
+        |
+        
+          log
+          
+            2
+          
+        
+        ⁡
+        S
+        |
+      
+    
+    {\displaystyle {\tfrac {1}{2}}\vert \log _{2}S\vert }
+   iterations will be wasted just getting the order of magnitude of the root. It is therefore useful to have a rough estimate, which may have limited accuracy but is easy to calculate. In general, the better the initial estimate, the faster the convergence.  For Newton's method (also called Babylonian or Heron's method), a seed somewhat larger than the root will converge slightly faster than a seed somewhat smaller than the root.
+In general, an estimate is pursuant to an arbitrary interval known to contain the root (such as 
+  
+    
+      
+        [
+        
+          x
+          
+            0
+          
+        
+        ,
+        S
+        
+          /
+        
+        
+          x
+          
+            0
+          
+        
+        ]
+      
+    
+    {\displaystyle [x_{0},S/x_{0}]}
+  ). The estimate is a specific value of a functional approximation to 
+  
+    
+      
+        f
+        (
+        x
+        )
+        =
+        
+          
+            x
+          
+        
+      
+    
+    {\displaystyle f(x)={\sqrt {x}}}
+   over the interval. Obtaining a better estimate involves either obtaining tighter bounds on the interval, or finding a better functional approximation to 
+  
+    
+      
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle f(x)}
+  . The latter usually means using a higher order polynomial in the approximation, though not all approximations are polynomial. Common methods of estimating include scalar, linear, hyperbolic and logarithmic. A decimal base is usually used for mental or paper-and-pencil estimating. A binary base is more suitable for computer estimates.  In estimating, the exponent and mantissa are usually treated separately, as the number would be expressed in scientific notation.
+
+Decimal estimates
+Typically the number 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   is expressed in scientific notation as 
+  
+    
+      
+        a
+        ×
+        
+          10
+          
+            2
+            n
+          
+        
+      
+    
+    {\displaystyle a\times 10^{2n}}
+   where 
+  
+    
+      
+        1
+        ≤
+        a
+        <
+        100
+      
+    
+    {\displaystyle 1\leq a<100}
+   and n is an integer, and the range of possible square roots is 
+  
+    
+      
+        
+          
+            a
+          
+        
+        ×
+        
+          10
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\sqrt {a}}\times 10^{n}}
+   where 
+  
+    
+      
+        1
+        ≤
+        
+          
+            a
+          
+        
+        <
+        10
+      
+    
+    {\displaystyle 1\leq {\sqrt {a}}<10}
+  .
+
+Scalar estimates
+Scalar methods divide the range into intervals, and the estimate in each interval is represented by a single scalar number.  If the range is considered as a single interval, the arithmetic mean (5.5) or geometric mean (
+  
+    
+      
+        
+          
+            10
+          
+        
+        ≈
+        3.16
+      
+    
+    {\displaystyle {\sqrt {10}}\approx 3.16}
+  ) times 
+  
+    
+      
+        
+          10
+          
+            n
+          
+        
+      
+    
+    {\displaystyle 10^{n}}
+   are plausible estimates.  The absolute and relative error for these will differ.  In general, a single scalar will be very inaccurate.  Better estimates divide the range into two or more intervals, but scalar estimates have inherently low accuracy.
+For two intervals, divided geometrically, the square root 
+  
+    
+      
+        
+          
+            S
+          
+        
+        =
+        
+          
+            a
+          
+        
+        ×
+        
+          10
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}={\sqrt {a}}\times 10^{n}}
+   can be estimated as
+
+  
+    
+      
+        
+          
+            S
+          
+        
+        ≈
+        
+          
+            {
+            
+              
+                
+                  2
+                  ⋅
+                  
+                    10
+                    
+                      n
+                    
+                  
+                
+                
+                  
+                    if 
+                  
+                  a
+                  <
+                  10
+                  ,
+                
+              
+              
+                
+                  6
+                  ⋅
+                  
+                    10
+                    
+                      n
+                    
+                  
+                
+                
+                  
+                    if 
+                  
+                  a
+                  ≥
+                  10.
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}\approx {\begin{cases}2\cdot 10^{n}&{\text{if }}a<10,\\6\cdot 10^{n}&{\text{if }}a\geq 10.\end{cases}}}
+  This estimate has maximum absolute error of 
+  
+    
+      
+        4
+        ⋅
+        
+          10
+          
+            n
+          
+        
+      
+    
+    {\displaystyle 4\cdot 10^{n}}
+   at a = 100, and maximum relative error of 100% at a = 1.
+For example, for 
+  
+    
+      
+        S
+        =
+        125348
+      
+    
+    {\displaystyle S=125348}
+   factored as 
+  
+    
+      
+        12.5348
+        ×
+        
+          10
+          
+            4
+          
+        
+      
+    
+    {\displaystyle 12.5348\times 10^{4}}
+  , the estimate is 
+  
+    
+      
+        
+          
+            S
+          
+        
+        ≈
+        6
+        ⋅
+        
+          10
+          
+            2
+          
+        
+        =
+        600
+      
+    
+    {\displaystyle {\sqrt {S}}\approx 6\cdot 10^{2}=600}
+  . 
+  
+    
+      
+        
+          
+            125348
+          
+        
+        =
+        354.0
+      
+    
+    {\displaystyle {\sqrt {125348}}=354.0}
+  , an absolute error of 246 and relative error of almost 70%.
+
+Linear estimates
+A better estimate, and the standard method used, is a linear approximation to the function 
+  
+    
+      
+        y
+        =
+        
+          x
+          
+            2
+          
+        
+      
+    
+    {\displaystyle y=x^{2}}
+   over a small arc.  If, as above, powers of the base are factored out of the number 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   and the interval reduced to 
+  
+    
+      
+        [
+        1
+        ,
+        100
+        ]
+      
+    
+    {\displaystyle [1,100]}
+  , a secant line spanning the arc, or a tangent line somewhere along the arc may be used as the approximation, but a least-squares regression line intersecting the arc will be more accurate.
+A least-squares regression line minimizes the average difference between the estimate and the value of the function.  Its equation is 
+  
+    
+      
+        y
+        =
+        8.7
+        x
+        −
+        10
+      
+    
+    {\displaystyle y=8.7x-10}
+  . Reordering, 
+  
+    
+      
+        x
+        =
+        0.115
+        y
+        +
+        1.15
+      
+    
+    {\displaystyle x=0.115y+1.15}
+  . Rounding the coefficients for ease of computation,
+
+  
+    
+      
+        
+          
+            S
+          
+        
+        ≈
+        (
+        a
+        
+          /
+        
+        10
+        +
+        1.2
+        )
+        ⋅
+        
+          10
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}\approx (a/10+1.2)\cdot 10^{n}}
+  That is the best estimate on average that can be achieved with a single piece linear approximation of the function  y=x2 in the interval 
+  
+    
+      
+        [
+        1
+        ,
+        100
+        ]
+      
+    
+    {\displaystyle [1,100]}
+  .  It has a maximum absolute error of 1.2 at a=100, and maximum relative error of 30% at S=1 and 10.To divide by 10, subtract one from the exponent of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , or figuratively move the decimal point one digit to the left. For this formulation, any additive constant 1 plus a small increment will make a satisfactory estimate so remembering the exact number isn't a burden.  The approximation (rounded or not) using a single line spanning the range 
+  
+    
+      
+        [
+        1
+        ,
+        100
+        ]
+      
+    
+    {\displaystyle [1,100]}
+   is less than one significant digit of precision; the relative error is greater than 1/22, so less than 2 bits of information are provided. The accuracy is severely limited because the range is two orders of magnitude, quite large for this kind of estimation. 
+A much better estimate can be obtained by a piece-wise linear approximation: multiple line segments, each approximating some subarc of the original.  The more line segments used, the better the approximation.  The most common way is to use tangent lines; the critical choices are how to divide the arc and where to place the tangent points. An efficacious way to divide the arc from y=1 to y=100 is geometrically: for two intervals, the bounds of the intervals are the square root of the bounds of the original interval, 1*100, i.e. [1,2√100] and [2√100,100].  For three intervals, the bounds are the cube roots of 100: [1,3√100], [3√100,(3√100)2], and [(3√100)2,100], etc.  For two intervals, 2√100 = 10, a very convenient number.  Tangent lines are easy to derive, and are located at x = √1*√10 and x = √10*√10.  Their equations are:  
+  
+    
+      
+        y
+        =
+        3.56
+        x
+        −
+        3.16
+      
+    
+    {\displaystyle y=3.56x-3.16}
+    and 
+  
+    
+      
+        y
+        =
+        11.2
+        x
+        −
+        31.6
+      
+    
+    {\displaystyle y=11.2x-31.6}
+  .  Inverting, the square roots are: 
+  
+    
+      
+        x
+        =
+        0.28
+        y
+        +
+        0.89
+      
+    
+    {\displaystyle x=0.28y+0.89}
+   and 
+  
+    
+      
+        x
+        =
+        .089
+        y
+        +
+        2.8
+      
+    
+    {\displaystyle x=.089y+2.8}
+  . Thus for 
+  
+    
+      
+        S
+        =
+        a
+        ⋅
+        
+          10
+          
+            2
+            n
+          
+        
+      
+    
+    {\displaystyle S=a\cdot 10^{2n}}
+  :
+
+  
+    
+      
+        
+          
+            S
+          
+        
+        ≈
+        
+          
+            {
+            
+              
+                
+                  (
+                  0.28
+                  a
+                  +
+                  0.89
+                  )
+                  ⋅
+                  
+                    10
+                    
+                      n
+                    
+                  
+                
+                
+                  
+                    if 
+                  
+                  a
+                  <
+                  10
+                  ,
+                
+              
+              
+                
+                  (
+                  .089
+                  a
+                  +
+                  2.8
+                  )
+                  ⋅
+                  
+                    10
+                    
+                      n
+                    
+                  
+                
+                
+                  
+                    if 
+                  
+                  a
+                  ≥
+                  10.
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}\approx {\begin{cases}(0.28a+0.89)\cdot 10^{n}&{\text{if }}a<10,\\(.089a+2.8)\cdot 10^{n}&{\text{if }}a\geq 10.\end{cases}}}
+  The maximum absolute errors occur at the high points of the intervals, at a=10 and 100, and are 0.54 and 1.7 respectively. The maximum relative errors are at the endpoints of the intervals, at a=1, 10 and 100, and are 17% in both cases.  17% or 0.17 is larger than 1/10, so the method yields less than a decimal digit of accuracy.
+
+Hyperbolic estimates
+In some cases, hyperbolic estimates may be efficacious, because a hyperbola is also a convex curve and may lie along an arc of Y = x2 better than a line. Hyperbolic estimates are more computationally complex, because they necessarily require a floating division.  A near-optimal hyperbolic approximation to x2 on the interval 
+  
+    
+      
+        [
+        1
+        ,
+        100
+        ]
+      
+    
+    {\displaystyle [1,100]}
+   is y=190/(10-x)-20.  Transposing, the square root is x = -190/(y+20)+10.  Thus for 
+  
+    
+      
+        S
+        =
+        a
+        ⋅
+        
+          10
+          
+            2
+            n
+          
+        
+      
+    
+    {\displaystyle S=a\cdot 10^{2n}}
+  :
+
+  
+    
+      
+        
+          
+            S
+          
+        
+        ≈
+        
+          (
+          
+            
+              
+                
+                  −
+                  190
+                
+                
+                  a
+                  +
+                  20
+                
+              
+            
+            +
+            10
+          
+          )
+        
+        ⋅
+        
+          10
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}\approx \left({\frac {-190}{a+20}}+10\right)\cdot 10^{n}}
+  The floating division need be accurate to only one decimal digit, because the estimate overall is only that accurate, and can be done mentally.  A hyperbolic estimate is better on average than scalar or linear estimates. It has maximum absolute error of 1.58 at 100 and maximum relative error of 16.0% at 10.  For the worst case at a=10, the estimate is 3.67. If one starts with 10 and applies Newton-Raphson iterations straight away, two iterations will be required, yielding 3.66, before the accuracy of the hyperbolic estimate is exceeded.  For a more typical case like 75, the hyperbolic estimate is 8.00, and 5 Newton-Raphson iterations starting at 75 would be required to obtain a more accurate result.
+
+Arithmetic estimates
+A method analogous to piece-wise linear approximation but using only arithmetic instead of algebraic equations, uses the multiplication tables in reverse: the square root of a number between 1 and 100 is between 1 and 10, so if we know 25 is a perfect square (5 × 5), and 36 is a perfect square (6 × 6), then the square root of a number greater than or equal to 25 but less than 36, begins with a 5. Similarly for numbers between other squares. This method will yield a correct first digit, but it is not accurate to one digit: the first digit of the square root of 35 for example, is 5, but the square root of 35 is almost 6. 
+A better way is to the divide the range into intervals half way between the squares.  So any number between 25 and half way to 36, which is 30.5, estimate 5; any number greater than 30.5 up to 36, estimate 6.  The procedure only requires a little arithmetic to find a boundary number in the middle of two products from the multiplication table. Here is a reference table of those boundaries:
+
+The final operation is to multiply the estimate k by the power of ten divided by 2, so for 
+  
+    
+      
+        S
+        =
+        a
+        ⋅
+        
+          10
+          
+            2
+            n
+          
+        
+      
+    
+    {\displaystyle S=a\cdot 10^{2n}}
+  ,
+
+  
+    
+      
+        
+          
+            S
+          
+        
+        ≈
+        k
+        ⋅
+        
+          10
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}\approx k\cdot 10^{n}}
+  The method implicitly yields one significant digit of accuracy, since it rounds to the best first digit.
+The method can be extended 3 significant digits in most cases, by interpolating between the nearest squares bounding the operand.  If 
+  
+    
+      
+        
+          k
+          
+            2
+          
+        
+        ≤
+        a
+        <
+        (
+        k
+        +
+        1
+        
+          )
+          
+            2
+          
+        
+      
+    
+    {\displaystyle k^{2}\leq a<(k+1)^{2}}
+  , then 
+  
+    
+      
+        
+          
+            a
+          
+        
+      
+    
+    {\displaystyle {\sqrt {a}}}
+   is approximately k plus a fraction, the difference between a and k2 divided by the difference between the two squares:
+
+  
+    
+      
+        
+          
+            a
+          
+        
+        ≈
+        k
+        +
+        R
+      
+    
+    {\displaystyle {\sqrt {a}}\approx k+R}
+   where 
+  
+    
+      
+        R
+        =
+        
+          
+            
+              (
+              a
+              −
+              
+                k
+                
+                  2
+                
+              
+              )
+            
+            
+              (
+              k
+              +
+              1
+              
+                )
+                
+                  2
+                
+              
+              −
+              
+                k
+                
+                  2
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle R={\frac {(a-k^{2})}{(k+1)^{2}-k^{2}}}}
+  The final operation, as above, is to multiply the result by the power of ten divided by 2;
+
+  
+    
+      
+        
+          
+            S
+          
+        
+        =
+        
+          
+            a
+          
+        
+        ⋅
+        
+          10
+          
+            n
+          
+        
+        ≈
+        (
+        k
+        +
+        R
+        )
+        ⋅
+        
+          10
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}={\sqrt {a}}\cdot 10^{n}\approx (k+R)\cdot 10^{n}}
+  k is a decimal digit and R is a fraction that must be converted to decimal. It usually has only a single digit in the numerator, and one or two digits in the denominator, so the conversion to decimal can be done mentally.
+Example: find the square root of 75. 75 = 75 × 102 · 0, so a is 75 and n is 0. From the multiplication tables, the square root of the mantissa must be 8 point something because 8 × 8 is 64, but 9 × 9 is 81, too big, so k is 8; something is the decimal representation of R.  The fraction R is 75 - k2 = 11, the numerator, and 81 - k2 = 17, the denominator.  11/17 is a little less than 12/18, which is 2/3s or .67, so guess .66 (it's ok to guess here, the error is very small).  So the estimate is 8 + .66 = 8.66. √75 to three significant digits is 8.66, so the estimate is good to 3 significant digits.  Not all such estimates using this method will be so accurate, but they will be close.
+
+Binary estimates
+When working in the binary numeral system (as computers do internally), by expressing 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   as 
+  
+    
+      
+        a
+        ×
+        
+          2
+          
+            2
+            n
+          
+        
+      
+    
+    {\displaystyle a\times 2^{2n}}
+   where 
+  
+    
+      
+        
+          0.1
+          
+            2
+          
+        
+        ≤
+        a
+        <
+        
+          10
+          
+            2
+          
+        
+      
+    
+    {\displaystyle 0.1_{2}\leq a<10_{2}}
+  , the square root 
+  
+    
+      
+        
+          
+            S
+          
+        
+        =
+        
+          
+            a
+          
+        
+        ×
+        
+          2
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}={\sqrt {a}}\times 2^{n}}
+   can be estimated as 
+
+  
+    
+      
+        
+          
+            S
+          
+        
+        ≈
+        (
+        0.485
+        +
+        0.485
+        ⋅
+        a
+        )
+        ⋅
+        
+          2
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}\approx (0.485+0.485\cdot a)\cdot 2^{n}}
+  which is the least-squares regression line to 3 significant digit coefficients. 
+  
+    
+      
+        
+          
+            a
+          
+        
+      
+    
+    {\displaystyle {\sqrt {a}}}
+   has maximum absolute error of 0.0408 at 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  =2, and maximum relative error of 3.0% at 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  =1.  A computationally convenient rounded estimate (because the coefficients are powers of 2) is:
+
+  
+    
+      
+        
+          
+            S
+          
+        
+        ≈
+        (
+        0.5
+        +
+        0.5
+        ⋅
+        a
+        )
+        ⋅
+        
+          2
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}\approx (0.5+0.5\cdot a)\cdot 2^{n}}
+  which has maximum absolute error of 0.086 at 2 and maximum relative error of 6.1% at 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  =0.5 and 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  =2.0.
+For 
+  
+    
+      
+        S
+        =
+        125348
+        =
+        1
+        
+        1110
+        
+        1001
+        
+        1010
+        
+        
+          0100
+          
+            2
+          
+        
+        =
+        1.1110
+        
+        1001
+        
+        1010
+        
+        
+          0100
+          
+            2
+          
+        
+        ×
+        
+          2
+          
+            16
+          
+        
+        
+      
+    
+    {\displaystyle S=125348=1\;1110\;1001\;1010\;0100_{2}=1.1110\;1001\;1010\;0100_{2}\times 2^{16}\,}
+  , the binary approximation gives 
+  
+    
+      
+        
+          
+            S
+          
+        
+        ≈
+        (
+        0.5
+        +
+        0.5
+        ⋅
+        a
+        )
+        ⋅
+        
+          2
+          
+            8
+          
+        
+        =
+        1.0111
+        
+        0100
+        
+        1101
+        
+        
+          0010
+          
+            2
+          
+        
+        ⋅
+        1
+        
+        0000
+        
+        
+          0000
+          
+            2
+          
+        
+        =
+        1.456
+        ⋅
+        256
+        =
+        372.8
+      
+    
+    {\displaystyle {\sqrt {S}}\approx (0.5+0.5\cdot a)\cdot 2^{8}=1.0111\;0100\;1101\;0010_{2}\cdot 1\;0000\;0000_{2}=1.456\cdot 256=372.8}
+  . 
+  
+    
+      
+        
+          
+            125348
+          
+        
+        =
+        354.0
+      
+    
+    {\displaystyle {\sqrt {125348}}=354.0}
+  , so the estimate has an absolute error of 19 and relative error of 5.3%.  The relative error is a little less than 1/24, so the estimate is good to 4+ bits.
+An estimate for 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   good to 8 bits can be obtained by table lookup on the high 8 bits of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , remembering that the high bit is implicit in most floating point representations, and the bottom bit of the 8 should be rounded. The table is 256 bytes of precomputed 8-bit square root values.  For example, for the index 111011012 representing 1.851562510, the entry is 101011102 representing 1.35937510, the square root of 1.851562510 to 8 bit precision (2+ decimal digits).
+
+Babylonian method
+An unknown Babylonian mathematician somehow correctly calculated the square root of 2 to three sexagesimal "digits" after the 1, but it is not known exactly how. The Babylonians knew how to approximate a hypotenuse using
+
+  
+    
+      
+        
+          
+            
+              a
+              
+                2
+              
+            
+            +
+            
+              b
+              
+                2
+              
+            
+          
+        
+        ≈
+        a
+        +
+        
+          
+            1
+            2
+          
+        
+        
+          b
+          
+            2
+          
+        
+        
+          a
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle {\sqrt {a^{2}+b^{2}}}\approx a+{\frac {1}{2}}b^{2}a^{-1}}
+  (giving for example 
+  
+    
+      
+        
+          
+            41
+            60
+          
+        
+        +
+        
+          
+            15
+            3600
+          
+        
+      
+    
+    {\displaystyle {\frac {41}{60}}+{\frac {15}{3600}}}
+   for the diagonal of a gate whose height is 
+  
+    
+      
+        
+          
+            40
+            60
+          
+        
+      
+    
+    {\displaystyle {\frac {40}{60}}}
+   rods and whose width is 
+  
+    
+      
+        
+          
+            10
+            60
+          
+        
+      
+    
+    {\displaystyle {\frac {10}{60}}}
+   rods) and they may have used a similar approach for finding the approximation of 
+  
+    
+      
+        
+          
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle {\sqrt {2}}.}
+
+Heron's method
+The first explicit algorithm for approximating 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}}
+   is known as Heron's method, after the first-century Greek mathematician Hero of Alexandria who described the method in his AD 60 work Metrica. This method is also called the Babylonian method (not to be confused with the Babylonian method for approximating hypotenuses), despite the fact that there is no evidence that the method was known to Babylonians. The basic idea is that if x is an overestimate to the square root of a non-negative real number S then S/x will be an underestimate, and vice versa, so the average of these two numbers may reasonably be expected to provide a better approximation (though the formal proof of that assertion depends on the inequality of arithmetic and geometric means that shows this average is always an overestimate of the square root, as noted in the article on square roots, thus assuring convergence). This is equivalent to using Newton's method to solve 
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        −
+        S
+        =
+        0
+      
+    
+    {\displaystyle x^{2}-S=0}
+  .
+More precisely, if x is our initial guess of 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}}
+   and ε is the error in our estimate such that S = (x+ ε)2, then we can expand the binomial   
+
+  
+    
+      
+        (
+        x
+        +
+        ε
+        
+          )
+          
+            2
+          
+        
+        =
+        
+          x
+          
+            2
+          
+        
+        +
+        2
+        x
+        ε
+        +
+        
+          ε
+          
+            2
+          
+        
+      
+    
+    {\displaystyle (x+\varepsilon )^{2}=x^{2}+2x\varepsilon +\varepsilon ^{2}}
+  and solve for the error term
+
+  
+    
+      
+        ε
+        =
+        
+          
+            
+              S
+              −
+              
+                x
+                
+                  2
+                
+              
+            
+            
+              2
+              x
+              +
+              ε
+            
+          
+        
+        ≈
+        
+          
+            
+              S
+              −
+              
+                x
+                
+                  2
+                
+              
+            
+            
+              2
+              x
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle \varepsilon ={\frac {S-x^{2}}{2x+\varepsilon }}\approx {\frac {S-x^{2}}{2x}},}
+   since 
+  
+    
+      
+        ε
+        ≪
+        x
+      
+    
+    {\displaystyle \varepsilon \ll x}
+  .Therefore, we can compensate for the error and update our old estimate as 
+
+  
+    
+      
+        x
+        +
+        ε
+        ≈
+        x
+        +
+        
+          
+            
+              S
+              −
+              
+                x
+                
+                  2
+                
+              
+            
+            
+              2
+              x
+            
+          
+        
+        =
+        
+          
+            
+              S
+              +
+              
+                x
+                
+                  2
+                
+              
+            
+            
+              2
+              x
+            
+          
+        
+        =
+        
+          
+            
+              
+                
+                  S
+                  x
+                
+              
+              +
+              x
+            
+            2
+          
+        
+        ≡
+        
+          x
+          
+            revised
+          
+        
+      
+    
+    {\displaystyle x+\varepsilon \approx x+{\frac {S-x^{2}}{2x}}={\frac {S+x^{2}}{2x}}={\frac {{\frac {S}{x}}+x}{2}}\equiv x_{\text{revised}}}
+  Since the computed error was not exact, this becomes our next best guess. The process of updating is iterated until desired accuracy is obtained. This is a quadratically convergent algorithm, which means that the number of correct digits of the approximation roughly doubles with each iteration. It proceeds as follows:
+
+Begin with an arbitrary positive starting value x0 (the closer to the actual square root of S, the better).
+Let xn + 1 be the average of xn and S/xn (using the arithmetic mean to approximate the geometric mean).
+Repeat step 2 until the desired accuracy is achieved.It can also be represented as:
+
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        ≈
+        
+          
+            S
+          
+        
+        ,
+      
+    
+    {\displaystyle x_{0}\approx {\sqrt {S}},}
+  
+
+  
+    
+      
+        
+          x
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          
+            1
+            2
+          
+        
+        
+          (
+          
+            
+              x
+              
+                n
+              
+            
+            +
+            
+              
+                S
+                
+                  x
+                  
+                    n
+                  
+                
+              
+            
+          
+          )
+        
+        ,
+      
+    
+    {\displaystyle x_{n+1}={\frac {1}{2}}\left(x_{n}+{\frac {S}{x_{n}}}\right),}
+  
+
+  
+    
+      
+        
+          
+            S
+          
+        
+        =
+        
+          lim
+          
+            n
+            →
+            ∞
+          
+        
+        
+          x
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle {\sqrt {S}}=\lim _{n\to \infty }x_{n}.}
+  This algorithm works equally well in the p-adic numbers, but cannot be used to identify real square roots with p-adic square roots; one can, for example, construct a sequence of rational numbers by this method that converges to +3 in the reals, but to −3 in the 2-adics.
+
+Example
+To calculate √S, where S = 125348, to six significant figures, use the rough estimation method above to get
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                          x
+                          
+                            0
+                          
+                        
+                      
+                      
+                        =
+                        6
+                        ⋅
+                        
+                          10
+                          
+                            2
+                          
+                        
+                      
+                      
+                      
+                        =
+                        600.000
+                      
+                    
+                    
+                      
+                        
+                          x
+                          
+                            1
+                          
+                        
+                      
+                      
+                        =
+                        
+                          
+                            1
+                            2
+                          
+                        
+                        
+                          (
+                          
+                            
+                              x
+                              
+                                0
+                              
+                            
+                            +
+                            
+                              
+                                S
+                                
+                                  x
+                                  
+                                    0
+                                  
+                                
+                              
+                            
+                          
+                          )
+                        
+                      
+                      
+                        =
+                        
+                          
+                            1
+                            2
+                          
+                        
+                        
+                          (
+                          
+                            600.000
+                            +
+                            
+                              
+                                125348
+                                600.000
+                              
+                            
+                          
+                          )
+                        
+                      
+                      
+                        =
+                        404.457
+                      
+                    
+                    
+                      
+                        
+                          x
+                          
+                            2
+                          
+                        
+                      
+                      
+                        =
+                        
+                          
+                            1
+                            2
+                          
+                        
+                        
+                          (
+                          
+                            
+                              x
+                              
+                                1
+                              
+                            
+                            +
+                            
+                              
+                                S
+                                
+                                  x
+                                  
+                                    1
+                                  
+                                
+                              
+                            
+                          
+                          )
+                        
+                      
+                      
+                        =
+                        
+                          
+                            1
+                            2
+                          
+                        
+                        
+                          (
+                          
+                            404.457
+                            +
+                            
+                              
+                                125348
+                                404.457
+                              
+                            
+                          
+                          )
+                        
+                      
+                      
+                        =
+                        357.187
+                      
+                    
+                    
+                      
+                        
+                          x
+                          
+                            3
+                          
+                        
+                      
+                      
+                        =
+                        
+                          
+                            1
+                            2
+                          
+                        
+                        
+                          (
+                          
+                            
+                              x
+                              
+                                2
+                              
+                            
+                            +
+                            
+                              
+                                S
+                                
+                                  x
+                                  
+                                    2
+                                  
+                                
+                              
+                            
+                          
+                          )
+                        
+                      
+                      
+                        =
+                        
+                          
+                            1
+                            2
+                          
+                        
+                        
+                          (
+                          
+                            357.187
+                            +
+                            
+                              
+                                125348
+                                357.187
+                              
+                            
+                          
+                          )
+                        
+                      
+                      
+                        =
+                        354.059
+                      
+                    
+                    
+                      
+                        
+                          x
+                          
+                            4
+                          
+                        
+                      
+                      
+                        =
+                        
+                          
+                            1
+                            2
+                          
+                        
+                        
+                          (
+                          
+                            
+                              x
+                              
+                                3
+                              
+                            
+                            +
+                            
+                              
+                                S
+                                
+                                  x
+                                  
+                                    3
+                                  
+                                
+                              
+                            
+                          
+                          )
+                        
+                      
+                      
+                        =
+                        
+                          
+                            1
+                            2
+                          
+                        
+                        
+                          (
+                          
+                            354.059
+                            +
+                            
+                              
+                                125348
+                                354.059
+                              
+                            
+                          
+                          )
+                        
+                      
+                      
+                        =
+                        354.045
+                      
+                    
+                    
+                      
+                        
+                          x
+                          
+                            5
+                          
+                        
+                      
+                      
+                        =
+                        
+                          
+                            1
+                            2
+                          
+                        
+                        
+                          (
+                          
+                            
+                              x
+                              
+                                4
+                              
+                            
+                            +
+                            
+                              
+                                S
+                                
+                                  x
+                                  
+                                    4
+                                  
+                                
+                              
+                            
+                          
+                          )
+                        
+                      
+                      
+                        =
+                        
+                          
+                            1
+                            2
+                          
+                        
+                        
+                          (
+                          
+                            354.045
+                            +
+                            
+                              
+                                125348
+                                354.045
+                              
+                            
+                          
+                          )
+                        
+                      
+                      
+                        =
+                        354.045
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}{\begin{array}{rlll}x_{0}&=6\cdot 10^{2}&&=600.000\\[0.3em]x_{1}&={\frac {1}{2}}\left(x_{0}+{\frac {S}{x_{0}}}\right)&={\frac {1}{2}}\left(600.000+{\frac {125348}{600.000}}\right)&=404.457\\[0.3em]x_{2}&={\frac {1}{2}}\left(x_{1}+{\frac {S}{x_{1}}}\right)&={\frac {1}{2}}\left(404.457+{\frac {125348}{404.457}}\right)&=357.187\\[0.3em]x_{3}&={\frac {1}{2}}\left(x_{2}+{\frac {S}{x_{2}}}\right)&={\frac {1}{2}}\left(357.187+{\frac {125348}{357.187}}\right)&=354.059\\[0.3em]x_{4}&={\frac {1}{2}}\left(x_{3}+{\frac {S}{x_{3}}}\right)&={\frac {1}{2}}\left(354.059+{\frac {125348}{354.059}}\right)&=354.045\\[0.3em]x_{5}&={\frac {1}{2}}\left(x_{4}+{\frac {S}{x_{4}}}\right)&={\frac {1}{2}}\left(354.045+{\frac {125348}{354.045}}\right)&=354.045\end{array}}\end{aligned}}}
+  Therefore, √125348 ≈ 354.045.
+
+Convergence
+Suppose that x0 > 0 and S > 0. Then for any natural number n, xn > 0. Let the relative error in xn be defined by 
+
+  
+    
+      
+        
+          ε
+          
+            n
+          
+        
+        =
+        
+          
+            
+              x
+              
+                n
+              
+            
+            
+              S
+            
+          
+        
+        −
+        1
+        >
+        −
+        1
+      
+    
+    {\displaystyle \varepsilon _{n}={\frac {x_{n}}{\sqrt {S}}}-1>-1}
+  and thus
+
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+        =
+        
+          
+            S
+          
+        
+        ⋅
+        (
+        1
+        +
+        
+          ε
+          
+            n
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle x_{n}={\sqrt {S}}\cdot (1+\varepsilon _{n}).}
+  Then it can be shown that
+
+  
+    
+      
+        
+          ε
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          
+            
+              ε
+              
+                n
+              
+              
+                2
+              
+            
+            
+              2
+              (
+              1
+              +
+              
+                ε
+                
+                  n
+                
+              
+              )
+            
+          
+        
+        ≥
+        0.
+      
+    
+    {\displaystyle \varepsilon _{n+1}={\frac {\varepsilon _{n}^{2}}{2(1+\varepsilon _{n})}}\geq 0.}
+  And thus that
+
+  
+    
+      
+        
+          ε
+          
+            n
+            +
+            2
+          
+        
+        ≤
+        min
+        
+          {
+          
+            
+              
+                
+                  ε
+                  
+                    n
+                    +
+                    1
+                  
+                  
+                    2
+                  
+                
+                2
+              
+            
+            ,
+            
+              
+                
+                  ε
+                  
+                    n
+                    +
+                    1
+                  
+                
+                2
+              
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \varepsilon _{n+2}\leq \min \left\{{\frac {\varepsilon _{n+1}^{2}}{2}},{\frac {\varepsilon _{n+1}}{2}}\right\}}
+  and consequently that convergence is assured, and quadratic.
+
+Worst case for convergence
+If using the rough estimate above with the Babylonian method, then the least accurate cases in ascending order are as follows:
+
+  
+    
+      
+        
+          
+            
+              
+                S
+              
+              
+                
+                =
+                1
+                ;
+              
+              
+                
+                  x
+                  
+                    0
+                  
+                
+              
+              
+                
+                =
+                2
+                ;
+              
+              
+                
+                  x
+                  
+                    1
+                  
+                
+              
+              
+                
+                =
+                1.250
+                ;
+              
+              
+                
+                  ε
+                  
+                    1
+                  
+                
+              
+              
+                
+                =
+                0.250.
+              
+            
+            
+              
+                S
+              
+              
+                
+                =
+                10
+                ;
+              
+              
+                
+                  x
+                  
+                    0
+                  
+                
+              
+              
+                
+                =
+                2
+                ;
+              
+              
+                
+                  x
+                  
+                    1
+                  
+                
+              
+              
+                
+                =
+                3.500
+                ;
+              
+              
+                
+                  ε
+                  
+                    1
+                  
+                
+              
+              
+                
+                <
+                0.107.
+              
+            
+            
+              
+                S
+              
+              
+                
+                =
+                10
+                ;
+              
+              
+                
+                  x
+                  
+                    0
+                  
+                
+              
+              
+                
+                =
+                6
+                ;
+              
+              
+                
+                  x
+                  
+                    1
+                  
+                
+              
+              
+                
+                =
+                3.833
+                ;
+              
+              
+                
+                  ε
+                  
+                    1
+                  
+                
+              
+              
+                
+                <
+                0.213.
+              
+            
+            
+              
+                S
+              
+              
+                
+                =
+                100
+                ;
+              
+              
+                
+                  x
+                  
+                    0
+                  
+                
+              
+              
+                
+                =
+                6
+                ;
+              
+              
+                
+                  x
+                  
+                    1
+                  
+                
+              
+              
+                
+                =
+                11.333
+                ;
+              
+              
+                
+                  ε
+                  
+                    1
+                  
+                
+              
+              
+                
+                <
+                0.134.
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}S&=1;&x_{0}&=2;&x_{1}&=1.250;&\varepsilon _{1}&=0.250.\\S&=10;&x_{0}&=2;&x_{1}&=3.500;&\varepsilon _{1}&<0.107.\\S&=10;&x_{0}&=6;&x_{1}&=3.833;&\varepsilon _{1}&<0.213.\\S&=100;&x_{0}&=6;&x_{1}&=11.333;&\varepsilon _{1}&<0.134.\end{aligned}}}
+  Thus in any case,
+
+  
+    
+      
+        
+          ε
+          
+            1
+          
+        
+        ≤
+        
+          2
+          
+            −
+            2
+          
+        
+        .
+        
+      
+    
+    {\displaystyle \varepsilon _{1}\leq 2^{-2}.\,}
+  
+
+  
+    
+      
+        
+          ε
+          
+            2
+          
+        
+        <
+        
+          2
+          
+            −
+            5
+          
+        
+        <
+        
+          10
+          
+            −
+            1
+          
+        
+        .
+        
+      
+    
+    {\displaystyle \varepsilon _{2}<2^{-5}<10^{-1}.\,}
+  
+
+  
+    
+      
+        
+          ε
+          
+            3
+          
+        
+        <
+        
+          2
+          
+            −
+            11
+          
+        
+        <
+        
+          10
+          
+            −
+            3
+          
+        
+        .
+        
+      
+    
+    {\displaystyle \varepsilon _{3}<2^{-11}<10^{-3}.\,}
+  
+
+  
+    
+      
+        
+          ε
+          
+            4
+          
+        
+        <
+        
+          2
+          
+            −
+            23
+          
+        
+        <
+        
+          10
+          
+            −
+            6
+          
+        
+        .
+        
+      
+    
+    {\displaystyle \varepsilon _{4}<2^{-23}<10^{-6}.\,}
+  
+
+  
+    
+      
+        
+          ε
+          
+            5
+          
+        
+        <
+        
+          2
+          
+            −
+            47
+          
+        
+        <
+        
+          10
+          
+            −
+            14
+          
+        
+        .
+        
+      
+    
+    {\displaystyle \varepsilon _{5}<2^{-47}<10^{-14}.\,}
+  
+
+  
+    
+      
+        
+          ε
+          
+            6
+          
+        
+        <
+        
+          2
+          
+            −
+            95
+          
+        
+        <
+        
+          10
+          
+            −
+            28
+          
+        
+        .
+        
+      
+    
+    {\displaystyle \varepsilon _{6}<2^{-95}<10^{-28}.\,}
+  
+
+  
+    
+      
+        
+          ε
+          
+            7
+          
+        
+        <
+        
+          2
+          
+            −
+            191
+          
+        
+        <
+        
+          10
+          
+            −
+            57
+          
+        
+        .
+        
+      
+    
+    {\displaystyle \varepsilon _{7}<2^{-191}<10^{-57}.\,}
+  
+
+  
+    
+      
+        
+          ε
+          
+            8
+          
+        
+        <
+        
+          2
+          
+            −
+            383
+          
+        
+        <
+        
+          10
+          
+            −
+            115
+          
+        
+        .
+        
+      
+    
+    {\displaystyle \varepsilon _{8}<2^{-383}<10^{-115}.\,}
+  Rounding errors will slow the convergence. It is recommended to keep at least one extra digit beyond the desired accuracy of the xn being calculated to minimize round off error.
+
+Bakhshali method
+This method for finding an approximation to a square root was described in an ancient Indian manuscript, called the Bakhshali manuscript. It is equivalent to two iterations of the Babylonian method beginning with x0. Thus, the algorithm is quartically convergent, which means that the number of correct digits of the approximation roughly quadruples with each iteration. The original presentation, using modern notation, is as follows: To calculate 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}}
+  , let 
+  
+    
+      
+        
+          x
+          
+            0
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle x_{0}^{2}}
+   be the initial approximation to 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+  . Then, successively iterate as:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  a
+                  
+                    n
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    
+                      S
+                      −
+                      
+                        x
+                        
+                          n
+                        
+                        
+                          2
+                        
+                      
+                    
+                    
+                      2
+                      
+                        x
+                        
+                          n
+                        
+                      
+                    
+                  
+                
+                ,
+              
+            
+            
+              
+                
+                  b
+                  
+                    n
+                  
+                
+              
+              
+                
+                =
+                
+                  x
+                  
+                    n
+                  
+                
+                +
+                
+                  a
+                  
+                    n
+                  
+                
+                ,
+              
+            
+            
+              
+                
+                  x
+                  
+                    n
+                    +
+                    1
+                  
+                
+              
+              
+                
+                =
+                
+                  b
+                  
+                    n
+                  
+                
+                −
+                
+                  
+                    
+                      a
+                      
+                        n
+                      
+                      
+                        2
+                      
+                    
+                    
+                      2
+                      
+                        b
+                        
+                          n
+                        
+                      
+                    
+                  
+                
+                =
+                (
+                
+                  x
+                  
+                    n
+                  
+                
+                +
+                
+                  a
+                  
+                    n
+                  
+                
+                )
+                −
+                
+                  
+                    
+                      a
+                      
+                        n
+                      
+                      
+                        2
+                      
+                    
+                    
+                      2
+                      (
+                      
+                        x
+                        
+                          n
+                        
+                      
+                      +
+                      
+                        a
+                        
+                          n
+                        
+                      
+                      )
+                    
+                  
+                
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}a_{n}&={\frac {S-x_{n}^{2}}{2x_{n}}},\\b_{n}&=x_{n}+a_{n},\\x_{n+1}&=b_{n}-{\frac {a_{n}^{2}}{2b_{n}}}=(x_{n}+a_{n})-{\frac {a_{n}^{2}}{2(x_{n}+a_{n})}}.\end{aligned}}}
+  This can be used to construct a rational approximation to the square root by beginning with an integer.  If 
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        =
+        N
+      
+    
+    {\displaystyle x_{0}=N}
+   is an integer chosen so 
+  
+    
+      
+        
+          N
+          
+            2
+          
+        
+      
+    
+    {\displaystyle N^{2}}
+   is close to 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+  , and 
+  
+    
+      
+        d
+        =
+        S
+        −
+        
+          N
+          
+            2
+          
+        
+      
+    
+    {\displaystyle d=S-N^{2}}
+   is the difference whose absolute value is minimized, then the first iteration can be written as:
+
+  
+    
+      
+        
+          
+            S
+          
+        
+        ≈
+        N
+        +
+        
+          
+            d
+            
+              2
+              N
+            
+          
+        
+        −
+        
+          
+            
+              d
+              
+                2
+              
+            
+            
+              8
+              
+                N
+                
+                  3
+                
+              
+              +
+              4
+              N
+              d
+            
+          
+        
+        =
+        
+          
+            
+              8
+              
+                N
+                
+                  4
+                
+              
+              +
+              8
+              
+                N
+                
+                  2
+                
+              
+              d
+              +
+              
+                d
+                
+                  2
+                
+              
+            
+            
+              8
+              
+                N
+                
+                  3
+                
+              
+              +
+              4
+              N
+              d
+            
+          
+        
+        =
+        
+          
+            
+              
+                N
+                
+                  4
+                
+              
+              +
+              6
+              
+                N
+                
+                  2
+                
+              
+              S
+              +
+              
+                S
+                
+                  2
+                
+              
+            
+            
+              4
+              
+                N
+                
+                  3
+                
+              
+              +
+              4
+              N
+              S
+            
+          
+        
+        =
+        
+          
+            
+              
+                N
+                
+                  2
+                
+              
+              (
+              
+                N
+                
+                  2
+                
+              
+              +
+              6
+              S
+              )
+              +
+              
+                S
+                
+                  2
+                
+              
+            
+            
+              4
+              N
+              (
+              
+                N
+                
+                  2
+                
+              
+              +
+              S
+              )
+            
+          
+        
+        .
+      
+    
+    {\displaystyle {\sqrt {S}}\approx N+{\frac {d}{2N}}-{\frac {d^{2}}{8N^{3}+4Nd}}={\frac {8N^{4}+8N^{2}d+d^{2}}{8N^{3}+4Nd}}={\frac {N^{4}+6N^{2}S+S^{2}}{4N^{3}+4NS}}={\frac {N^{2}(N^{2}+6S)+S^{2}}{4N(N^{2}+S)}}.}
+  The Bakhshali method can be generalized to the computation of an arbitrary root, including fractional roots.
+
+Example
+Using the same example as given with the Babylonian method, let 
+  
+    
+      
+        S
+        =
+        125348.
+      
+    
+    {\displaystyle S=125348.}
+   Then, the first iteration gives
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  x
+                  
+                    0
+                  
+                
+              
+              
+                
+                =
+                600
+              
+            
+            
+              
+                
+                  a
+                  
+                    1
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    
+                      125348
+                      −
+                      
+                        600
+                        
+                          2
+                        
+                      
+                    
+                    
+                      2
+                      ×
+                      600
+                    
+                  
+                
+              
+              
+              
+                
+                =
+              
+              
+                −
+                195.543
+              
+            
+            
+              
+                
+                  b
+                  
+                    1
+                  
+                
+              
+              
+                
+                =
+                600
+                +
+                (
+                −
+                195.543
+                )
+              
+              
+              
+                
+                =
+              
+              
+                404.456
+              
+            
+            
+              
+                
+                  x
+                  
+                    1
+                  
+                
+              
+              
+                
+                =
+                404.456
+                −
+                
+                  
+                    
+                      (
+                      −
+                      195.543
+                      
+                        )
+                        
+                          2
+                        
+                      
+                    
+                    
+                      2
+                      ×
+                      404.456
+                    
+                  
+                
+              
+              
+              
+                
+                =
+              
+              
+                357.186
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}x_{0}&=600\\a_{1}&={\frac {125348-600^{2}}{2\times 600}}&&=&-195.543\\b_{1}&=600+(-195.543)&&=&404.456\\x_{1}&=404.456-{\frac {(-195.543)^{2}}{2\times 404.456}}&&=&357.186\end{aligned}}}
+  Likewise the second iteration gives
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  a
+                  
+                    2
+                  
+                
+              
+              
+                
+                =
+                
+                  
+                    
+                      125348
+                      −
+                      
+                        357.186
+                        
+                          2
+                        
+                      
+                    
+                    
+                      2
+                      ×
+                      357.186
+                    
+                  
+                
+              
+              
+              
+                
+                =
+              
+              
+                −
+                3.126
+              
+            
+            
+              
+                
+                  b
+                  
+                    2
+                  
+                
+              
+              
+                
+                =
+                357.186
+                +
+                (
+                −
+                3.126
+                )
+              
+              
+              
+                
+                =
+              
+              
+                354.060
+              
+            
+            
+              
+                
+                  x
+                  
+                    2
+                  
+                
+              
+              
+                
+                =
+                354.06
+                −
+                
+                  
+                    
+                      (
+                      −
+                      3.1269
+                      
+                        )
+                        
+                          2
+                        
+                      
+                    
+                    
+                      2
+                      ×
+                      354.06
+                    
+                  
+                
+              
+              
+              
+                
+                =
+              
+              
+                354.046
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}a_{2}&={\frac {125348-357.186^{2}}{2\times 357.186}}&&=&-3.126\\b_{2}&=357.186+(-3.126)&&=&354.060\\x_{2}&=354.06-{\frac {(-3.1269)^{2}}{2\times 354.06}}&&=&354.046\end{aligned}}}
+
+Digit-by-digit calculation
+This is a method to find each digit of the square root in a sequence. This method is based on the binomial theorem and basically an inverse algorithm solving 
+  
+    
+      
+        (
+        x
+        +
+        y
+        
+          )
+          
+            2
+          
+        
+        =
+        
+          x
+          
+            2
+          
+        
+        +
+        2
+        x
+        y
+        +
+        
+          y
+          
+            2
+          
+        
+      
+    
+    {\displaystyle (x+y)^{2}=x^{2}+2xy+y^{2}}
+  . It is slower than the Babylonian method, but it has several advantages:
+
+It can be easier for manual calculations.
+Every digit of the root found is known to be correct, i.e., it does not have to be changed later.
+If the square root has an expansion that terminates, the algorithm terminates after the last digit is found. Thus, it can be used to check whether a given integer is a square number.
+The algorithm works for any base, and naturally, the way it proceeds depends on the base chosen.
+Inconveniences are that the algorithm becomes quite unhandleable for higher roots and that it is not allowing inaccurate guesses or inaccurate sub-calculations as they, unlike the self correcting approximations like with Newton's method, lead to every following digit of the result being wrong. Furthermore this algorithm, even though being efficient enough on paper, is way too expensive for software implementations as the many calculations become larger and larger and load the memory while still only allowing digit by digit progressions leading the algorithm to become slower and slower with every following digit.Napier's bones include an aid for the execution of this algorithm. The shifting nth root algorithm is a generalization of this method.
+
+Basic principle
+First, consider the case of finding the square root of a number Z, that is the square of a two-digit number XY, where X is the tens digit and Y is the units digit. Specifically:
+
+  
+    
+      
+        Z
+        =
+        (
+        10
+        X
+        +
+        Y
+        
+          )
+          
+            2
+          
+        
+        =
+        100
+        
+          X
+          
+            2
+          
+        
+        +
+        20
+        X
+        Y
+        +
+        
+          Y
+          
+            2
+          
+        
+      
+    
+    {\displaystyle Z=(10X+Y)^{2}=100X^{2}+20XY+Y^{2}}
+  Now using the digit-by-digit algorithm, we first determine the value of X. X is the largest digit such that X2 is less than or equal to Z from which we removed the two rightmost digits.
+In the next iteration, we pair the digits, multiply X by 2, and place it in the tenth's place while we try to figure out what the value of Y is.
+Since this is a simple case where the answer is a perfect square root XY, the algorithm stops here.
+The same idea can be extended to any arbitrary square root computation next. Suppose we are able to find the square root of N by expressing it as a sum of n positive numbers such that
+
+  
+    
+      
+        N
+        =
+        (
+        
+          a
+          
+            1
+          
+        
+        +
+        
+          a
+          
+            2
+          
+        
+        +
+        
+          a
+          
+            3
+          
+        
+        +
+        ⋯
+        +
+        
+          a
+          
+            n
+          
+        
+        
+          )
+          
+            2
+          
+        
+      
+    
+    {\displaystyle N=(a_{1}+a_{2}+a_{3}+\dotsb +a_{n})^{2}}
+  .By repeatedly applying the basic identity 
+
+  
+    
+      
+        (
+        x
+        +
+        y
+        
+          )
+          
+            2
+          
+        
+        =
+        
+          x
+          
+            2
+          
+        
+        +
+        2
+        x
+        y
+        +
+        
+          y
+          
+            2
+          
+        
+        ,
+      
+    
+    {\displaystyle (x+y)^{2}=x^{2}+2xy+y^{2},}
+  the right-hand-side term can be expanded as
+
+  
+    
+      
+        
+          
+            
+              
+              
+                
+                (
+                
+                  a
+                  
+                    1
+                  
+                
+                +
+                
+                  a
+                  
+                    2
+                  
+                
+                +
+                
+                  a
+                  
+                    3
+                  
+                
+                +
+                ⋯
+                +
+                
+                  a
+                  
+                    n
+                  
+                
+                
+                  )
+                  
+                    2
+                  
+                
+              
+            
+            
+              
+                =
+              
+              
+                
+                
+                  a
+                  
+                    1
+                  
+                  
+                    2
+                  
+                
+                +
+                2
+                
+                  a
+                  
+                    1
+                  
+                
+                
+                  a
+                  
+                    2
+                  
+                
+                +
+                
+                  a
+                  
+                    2
+                  
+                  
+                    2
+                  
+                
+                +
+                2
+                (
+                
+                  a
+                  
+                    1
+                  
+                
+                +
+                
+                  a
+                  
+                    2
+                  
+                
+                )
+                
+                  a
+                  
+                    3
+                  
+                
+                +
+                
+                  a
+                  
+                    3
+                  
+                  
+                    2
+                  
+                
+                +
+                ⋯
+                +
+                
+                  a
+                  
+                    n
+                    −
+                    1
+                  
+                  
+                    2
+                  
+                
+                +
+                2
+                
+                  (
+                  
+                    
+                      ∑
+                      
+                        i
+                        =
+                        1
+                      
+                      
+                        n
+                        −
+                        1
+                      
+                    
+                    
+                      a
+                      
+                        i
+                      
+                    
+                  
+                  )
+                
+                
+                  a
+                  
+                    n
+                  
+                
+                +
+                
+                  a
+                  
+                    n
+                  
+                  
+                    2
+                  
+                
+              
+            
+            
+              
+                =
+              
+              
+                
+                
+                  a
+                  
+                    1
+                  
+                  
+                    2
+                  
+                
+                +
+                [
+                2
+                
+                  a
+                  
+                    1
+                  
+                
+                +
+                
+                  a
+                  
+                    2
+                  
+                
+                ]
+                
+                  a
+                  
+                    2
+                  
+                
+                +
+                [
+                2
+                (
+                
+                  a
+                  
+                    1
+                  
+                
+                +
+                
+                  a
+                  
+                    2
+                  
+                
+                )
+                +
+                
+                  a
+                  
+                    3
+                  
+                
+                ]
+                
+                  a
+                  
+                    3
+                  
+                
+                +
+                ⋯
+                +
+                
+                  [
+                  
+                    2
+                    
+                      (
+                      
+                        
+                          ∑
+                          
+                            i
+                            =
+                            1
+                          
+                          
+                            n
+                            −
+                            1
+                          
+                        
+                        
+                          a
+                          
+                            i
+                          
+                        
+                      
+                      )
+                    
+                    +
+                    
+                      a
+                      
+                        n
+                      
+                    
+                  
+                  ]
+                
+                
+                  a
+                  
+                    n
+                  
+                
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}&(a_{1}+a_{2}+a_{3}+\dotsb +a_{n})^{2}\\=&\,a_{1}^{2}+2a_{1}a_{2}+a_{2}^{2}+2(a_{1}+a_{2})a_{3}+a_{3}^{2}+\dotsb +a_{n-1}^{2}+2\left(\sum _{i=1}^{n-1}a_{i}\right)a_{n}+a_{n}^{2}\\=&\,a_{1}^{2}+[2a_{1}+a_{2}]a_{2}+[2(a_{1}+a_{2})+a_{3}]a_{3}+\dotsb +\left[2\left(\sum _{i=1}^{n-1}a_{i}\right)+a_{n}\right]a_{n}.\end{aligned}}}
+  This expression allows us to find the square root by sequentially guessing the values of 
+  
+    
+      
+        
+          a
+          
+            i
+          
+        
+      
+    
+    {\displaystyle a_{i}}
+  s. Suppose that the numbers 
+  
+    
+      
+        
+          a
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          a
+          
+            m
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle a_{1},\ldots ,a_{m-1}}
+   have already been guessed, then the m-th term of the right-hand-side of above summation is given by 
+  
+    
+      
+        
+          Y
+          
+            m
+          
+        
+        =
+        [
+        2
+        
+          P
+          
+            m
+            −
+            1
+          
+        
+        +
+        
+          a
+          
+            m
+          
+        
+        ]
+        
+          a
+          
+            m
+          
+        
+        ,
+      
+    
+    {\displaystyle Y_{m}=[2P_{m-1}+a_{m}]a_{m},}
+   where 
+  
+    
+      
+        
+          P
+          
+            m
+            −
+            1
+          
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            m
+            −
+            1
+          
+        
+        
+          a
+          
+            i
+          
+        
+      
+    
+    {\displaystyle P_{m-1}=\sum _{i=1}^{m-1}a_{i}}
+   is the approximate square root found so far. Now each new guess 
+  
+    
+      
+        
+          a
+          
+            m
+          
+        
+      
+    
+    {\displaystyle a_{m}}
+   should satisfy the recursion 
+
+  
+    
+      
+        
+          X
+          
+            m
+          
+        
+        =
+        
+          X
+          
+            m
+            −
+            1
+          
+        
+        −
+        
+          Y
+          
+            m
+          
+        
+        ,
+      
+    
+    {\displaystyle X_{m}=X_{m-1}-Y_{m},}
+  such that 
+  
+    
+      
+        
+          X
+          
+            m
+          
+        
+        ≥
+        0
+      
+    
+    {\displaystyle X_{m}\geq 0}
+   for all 
+  
+    
+      
+        1
+        ≤
+        m
+        ≤
+        n
+        ,
+      
+    
+    {\displaystyle 1\leq m\leq n,}
+   with initialization 
+  
+    
+      
+        
+          X
+          
+            0
+          
+        
+        =
+        N
+        .
+      
+    
+    {\displaystyle X_{0}=N.}
+   When 
+  
+    
+      
+        
+          X
+          
+            n
+          
+        
+        =
+        0
+        ,
+      
+    
+    {\displaystyle X_{n}=0,}
+   the exact square root has been found; if not, then the sum of 
+  
+    
+      
+        
+          a
+          
+            i
+          
+        
+      
+    
+    {\displaystyle a_{i}}
+  s gives a suitable approximation of the square root, with 
+  
+    
+      
+        
+          X
+          
+            n
+          
+        
+      
+    
+    {\displaystyle X_{n}}
+   being the approximation error.
+For example, in the decimal number system we have 
+
+  
+    
+      
+        N
+        =
+        (
+        
+          a
+          
+            1
+          
+        
+        ⋅
+        
+          10
+          
+            n
+            −
+            1
+          
+        
+        +
+        
+          a
+          
+            2
+          
+        
+        ⋅
+        
+          10
+          
+            n
+            −
+            2
+          
+        
+        +
+        ⋯
+        +
+        
+          a
+          
+            n
+            −
+            1
+          
+        
+        ⋅
+        10
+        +
+        
+          a
+          
+            n
+          
+        
+        
+          )
+          
+            2
+          
+        
+        ,
+      
+    
+    {\displaystyle N=(a_{1}\cdot 10^{n-1}+a_{2}\cdot 10^{n-2}+\cdots +a_{n-1}\cdot 10+a_{n})^{2},}
+  where 
+  
+    
+      
+        
+          10
+          
+            n
+            −
+            i
+          
+        
+      
+    
+    {\displaystyle 10^{n-i}}
+   are place holders and the coefficients 
+  
+    
+      
+        
+          a
+          
+            i
+          
+        
+        ∈
+        {
+        0
+        ,
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        9
+        }
+      
+    
+    {\displaystyle a_{i}\in \{0,1,2,\ldots ,9\}}
+  . At any m-th stage of the square root calculation, the approximate root found so far, 
+  
+    
+      
+        
+          P
+          
+            m
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle P_{m-1}}
+   and the summation term 
+  
+    
+      
+        
+          Y
+          
+            m
+          
+        
+      
+    
+    {\displaystyle Y_{m}}
+   are given by 
+
+  
+    
+      
+        
+          P
+          
+            m
+            −
+            1
+          
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            m
+            −
+            1
+          
+        
+        
+          a
+          
+            i
+          
+        
+        ⋅
+        
+          10
+          
+            n
+            −
+            i
+          
+        
+        =
+        
+          10
+          
+            n
+            −
+            m
+            +
+            1
+          
+        
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            m
+            −
+            1
+          
+        
+        
+          a
+          
+            i
+          
+        
+        ⋅
+        
+          10
+          
+            m
+            −
+            i
+            −
+            1
+          
+        
+        ,
+      
+    
+    {\displaystyle P_{m-1}=\sum _{i=1}^{m-1}a_{i}\cdot 10^{n-i}=10^{n-m+1}\sum _{i=1}^{m-1}a_{i}\cdot 10^{m-i-1},}
+  
+
+  
+    
+      
+        
+          Y
+          
+            m
+          
+        
+        =
+        [
+        2
+        
+          P
+          
+            m
+            −
+            1
+          
+        
+        +
+        
+          a
+          
+            m
+          
+        
+        ⋅
+        
+          10
+          
+            n
+            −
+            m
+          
+        
+        ]
+        
+          a
+          
+            m
+          
+        
+        ⋅
+        
+          10
+          
+            n
+            −
+            m
+          
+        
+        =
+        
+          [
+          
+            20
+            
+              ∑
+              
+                i
+                =
+                1
+              
+              
+                m
+                −
+                1
+              
+            
+            
+              a
+              
+                i
+              
+            
+            ⋅
+            
+              10
+              
+                m
+                −
+                i
+                −
+                1
+              
+            
+            +
+            
+              a
+              
+                m
+              
+            
+          
+          ]
+        
+        
+          a
+          
+            m
+          
+        
+        ⋅
+        
+          10
+          
+            2
+            (
+            n
+            −
+            m
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle Y_{m}=[2P_{m-1}+a_{m}\cdot 10^{n-m}]a_{m}\cdot 10^{n-m}=\left[20\sum _{i=1}^{m-1}a_{i}\cdot 10^{m-i-1}+a_{m}\right]a_{m}\cdot 10^{2(n-m)}.}
+  Here since the place value of 
+  
+    
+      
+        
+          Y
+          
+            m
+          
+        
+      
+    
+    {\displaystyle Y_{m}}
+   is an even power of 10, we only need to work with the pair of most significant digits of the remaining term 
+  
+    
+      
+        
+          X
+          
+            m
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle X_{m-1}}
+   at any m-th stage. The section below codifies this procedure.
+It is obvious that a similar method can be used to compute the square root in number systems other than the decimal number system. For instance, finding the digit-by-digit square root in the binary number system is quite efficient since the value of 
+  
+    
+      
+        
+          a
+          
+            i
+          
+        
+      
+    
+    {\displaystyle a_{i}}
+   is searched from a smaller set of binary digits {0,1}. This makes the computation faster since at each stage the value of 
+  
+    
+      
+        
+          Y
+          
+            m
+          
+        
+      
+    
+    {\displaystyle Y_{m}}
+   is either 
+  
+    
+      
+        
+          Y
+          
+            m
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle Y_{m}=0}
+   for 
+  
+    
+      
+        
+          a
+          
+            m
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle a_{m}=0}
+   or 
+  
+    
+      
+        
+          Y
+          
+            m
+          
+        
+        =
+        2
+        
+          P
+          
+            m
+            −
+            1
+          
+        
+        +
+        1
+      
+    
+    {\displaystyle Y_{m}=2P_{m-1}+1}
+   for 
+  
+    
+      
+        
+          a
+          
+            m
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle a_{m}=1}
+  . The fact that we have only two possible options for 
+  
+    
+      
+        
+          a
+          
+            m
+          
+        
+      
+    
+    {\displaystyle a_{m}}
+   also makes the process of deciding the value of 
+  
+    
+      
+        
+          a
+          
+            m
+          
+        
+      
+    
+    {\displaystyle a_{m}}
+   at m-th stage of calculation easier. This is because we only need to check if 
+  
+    
+      
+        
+          Y
+          
+            m
+          
+        
+        ≤
+        
+          X
+          
+            m
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle Y_{m}\leq X_{m-1}}
+   for 
+  
+    
+      
+        
+          a
+          
+            m
+          
+        
+        =
+        1.
+      
+    
+    {\displaystyle a_{m}=1.}
+   If this condition is satisfied, then we take 
+  
+    
+      
+        
+          a
+          
+            m
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle a_{m}=1}
+  ; if not then 
+  
+    
+      
+        
+          a
+          
+            m
+          
+        
+        =
+        0.
+      
+    
+    {\displaystyle a_{m}=0.}
+   Also, the fact that multiplication by 2 is done by left bit-shifts helps in the computation.
+
+Decimal (base 10)
+Write the original number in decimal form. The numbers are written similar to the long division algorithm, and, as in long division, the root will be written on the line above. Now separate the digits into pairs, starting from the decimal point and going both left and right. The decimal point of the root will be above the decimal point of the square. One digit of the root will appear above each pair of digits of the square.
+Beginning with the left-most pair of digits, do the following procedure for each pair:
+
+Starting on the left, bring down the most significant (leftmost) pair of digits not yet used (if all the digits have been used, write "00") and write them to the right of the remainder from the previous step (on the first step, there will be no remainder). In other words, multiply the remainder by 100 and add the two digits. This will be the current value c.
+Find p, y and x, as follows:
+Let p be the part of the root found so far, ignoring any decimal point. (For the first step, p = 0.)
+Determine the greatest digit x such that 
+  
+    
+      
+        x
+        (
+        20
+        p
+        +
+        x
+        )
+        ≤
+        c
+      
+    
+    {\displaystyle x(20p+x)\leq c}
+  . We will use a new variable y = x(20p + x).
+Note: 20p + x is simply twice p, with the digit x appended to the right.
+Note: x can be found by guessing what c/(20·p) is and doing a trial calculation of y, then adjusting x upward or downward as necessary.
+Place the digit 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   as the next digit of the root, i.e., above the two digits of the square you just brought down. Thus the next p will be the old p times 10 plus x.
+Subtract y from c to form a new remainder.
+If the remainder is zero and there are no more digits to bring down, then the algorithm has terminated. Otherwise go back to step 1 for another iteration.
+
+Examples
+Find the square root of 152.2756.
+
+          1  2. 3  4 
+       /
+     \/  01 52.27 56
+
+         01                   1*1 <= 1 < 2*2                 x=1
+         01                     y = x*x = 1*1 = 1
+         00 52                22*2 <= 52 < 23*3              x=2
+         00 44                  y = (20+x)*x = 22*2 = 44
+            08 27             243*3 <= 827 < 244*4           x=3
+            07 29               y = (240+x)*x = 243*3 = 729
+               98 56          2464*4 <= 9856 < 2465*5        x=4
+               98 56            y = (2460+x)*x = 2464*4 = 9856
+               00 00          Algorithm terminates: Answer=12.34
+
+Binary numeral system (base 2)
+This section uses the formalism from the digit-by-digit calculation section above, with the slight variation that we let 
+  
+    
+      
+        
+          N
+          
+            2
+          
+        
+        =
+        (
+        
+          a
+          
+            n
+          
+        
+        +
+        ⋯
+        +
+        
+          a
+          
+            0
+          
+        
+        
+          )
+          
+            2
+          
+        
+      
+    
+    {\displaystyle N^{2}=(a_{n}+\dotsb +a_{0})^{2}}
+  , with each 
+  
+    
+      
+        
+          a
+          
+            m
+          
+        
+        =
+        
+          2
+          
+            m
+          
+        
+      
+    
+    {\displaystyle a_{m}=2^{m}}
+   or 
+  
+    
+      
+        
+          a
+          
+            m
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle a_{m}=0}
+  .
+We iterate all 
+  
+    
+      
+        
+          2
+          
+            m
+          
+        
+      
+    
+    {\displaystyle 2^{m}}
+  , from 
+  
+    
+      
+        
+          2
+          
+            n
+          
+        
+      
+    
+    {\displaystyle 2^{n}}
+   down to 
+  
+    
+      
+        
+          2
+          
+            0
+          
+        
+      
+    
+    {\displaystyle 2^{0}}
+  , and build up an approximate solution 
+  
+    
+      
+        
+          P
+          
+            m
+          
+        
+        =
+        
+          a
+          
+            n
+          
+        
+        +
+        
+          a
+          
+            n
+            −
+            1
+          
+        
+        +
+        …
+        +
+        
+          a
+          
+            m
+          
+        
+      
+    
+    {\displaystyle P_{m}=a_{n}+a_{n-1}+\ldots +a_{m}}
+  , the sum of all 
+  
+    
+      
+        
+          a
+          
+            i
+          
+        
+      
+    
+    {\displaystyle a_{i}}
+   for which we have determined the value.
+To determine if 
+  
+    
+      
+        
+          a
+          
+            m
+          
+        
+      
+    
+    {\displaystyle a_{m}}
+   equals 
+  
+    
+      
+        
+          2
+          
+            m
+          
+        
+      
+    
+    {\displaystyle 2^{m}}
+   or 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+  , we let 
+  
+    
+      
+        
+          P
+          
+            m
+          
+        
+        =
+        
+          P
+          
+            m
+            +
+            1
+          
+        
+        +
+        
+          2
+          
+            m
+          
+        
+      
+    
+    {\displaystyle P_{m}=P_{m+1}+2^{m}}
+  . If 
+  
+    
+      
+        
+          P
+          
+            m
+          
+          
+            2
+          
+        
+        ≤
+        
+          N
+          
+            2
+          
+        
+      
+    
+    {\displaystyle P_{m}^{2}\leq N^{2}}
+   (i.e. the square of our approximate solution including 
+  
+    
+      
+        
+          2
+          
+            m
+          
+        
+      
+    
+    {\displaystyle 2^{m}}
+   does not exceed the target square) then 
+  
+    
+      
+        
+          a
+          
+            m
+          
+        
+        =
+        
+          2
+          
+            m
+          
+        
+      
+    
+    {\displaystyle a_{m}=2^{m}}
+  , otherwise 
+  
+    
+      
+        
+          a
+          
+            m
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle a_{m}=0}
+   and 
+  
+    
+      
+        
+          P
+          
+            m
+          
+        
+        =
+        
+          P
+          
+            m
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle P_{m}=P_{m+1}}
+  .
+To avoid squaring 
+  
+    
+      
+        
+          P
+          
+            m
+          
+        
+      
+    
+    {\displaystyle P_{m}}
+   in each step, we store the difference 
+  
+    
+      
+        
+          X
+          
+            m
+          
+        
+        =
+        
+          N
+          
+            2
+          
+        
+        −
+        
+          P
+          
+            m
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle X_{m}=N^{2}-P_{m}^{2}}
+   and incrementally update it by setting 
+  
+    
+      
+        
+          X
+          
+            m
+          
+        
+        =
+        
+          X
+          
+            m
+            +
+            1
+          
+        
+        −
+        
+          Y
+          
+            m
+          
+        
+      
+    
+    {\displaystyle X_{m}=X_{m+1}-Y_{m}}
+   with 
+  
+    
+      
+        
+          Y
+          
+            m
+          
+        
+        =
+        
+          P
+          
+            m
+          
+          
+            2
+          
+        
+        −
+        
+          P
+          
+            m
+            +
+            1
+          
+          
+            2
+          
+        
+        =
+        2
+        
+          P
+          
+            m
+            +
+            1
+          
+        
+        
+          a
+          
+            m
+          
+        
+        +
+        
+          a
+          
+            m
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle Y_{m}=P_{m}^{2}-P_{m+1}^{2}=2P_{m+1}a_{m}+a_{m}^{2}}
+  .
+Initially, we set 
+  
+    
+      
+        
+          a
+          
+            n
+          
+        
+        =
+        
+          P
+          
+            n
+          
+        
+        =
+        
+          2
+          
+            n
+          
+        
+      
+    
+    {\displaystyle a_{n}=P_{n}=2^{n}}
+   for the largest 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   with 
+  
+    
+      
+        (
+        
+          2
+          
+            n
+          
+        
+        
+          )
+          
+            2
+          
+        
+        =
+        
+          4
+          
+            n
+          
+        
+        ≤
+        
+          N
+          
+            2
+          
+        
+      
+    
+    {\displaystyle (2^{n})^{2}=4^{n}\leq N^{2}}
+  .
+As an extra optimization, we store 
+  
+    
+      
+        
+          P
+          
+            m
+            +
+            1
+          
+        
+        
+          2
+          
+            m
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle P_{m+1}2^{m+1}}
+   and 
+  
+    
+      
+        (
+        
+          2
+          
+            m
+          
+        
+        
+          )
+          
+            2
+          
+        
+      
+    
+    {\displaystyle (2^{m})^{2}}
+  , the two terms of 
+  
+    
+      
+        
+          Y
+          
+            m
+          
+        
+      
+    
+    {\displaystyle Y_{m}}
+   in case that 
+  
+    
+      
+        
+          a
+          
+            m
+          
+        
+      
+    
+    {\displaystyle a_{m}}
+   is nonzero, in separate variables 
+  
+    
+      
+        
+          c
+          
+            m
+          
+        
+      
+    
+    {\displaystyle c_{m}}
+  , 
+  
+    
+      
+        
+          d
+          
+            m
+          
+        
+      
+    
+    {\displaystyle d_{m}}
+  :
+
+  
+    
+      
+        
+          c
+          
+            m
+          
+        
+        =
+        
+          P
+          
+            m
+            +
+            1
+          
+        
+        
+          2
+          
+            m
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle c_{m}=P_{m+1}2^{m+1}}
+  
+
+  
+    
+      
+        
+          d
+          
+            m
+          
+        
+        =
+        (
+        
+          2
+          
+            m
+          
+        
+        
+          )
+          
+            2
+          
+        
+      
+    
+    {\displaystyle d_{m}=(2^{m})^{2}}
+  
+
+  
+    
+      
+        
+          Y
+          
+            m
+          
+        
+        =
+        
+          
+            {
+            
+              
+                
+                  
+                    c
+                    
+                      m
+                    
+                  
+                  +
+                  
+                    d
+                    
+                      m
+                    
+                  
+                
+                
+                  
+                    if 
+                  
+                  
+                    a
+                    
+                      m
+                    
+                  
+                  =
+                  
+                    2
+                    
+                      m
+                    
+                  
+                
+              
+              
+                
+                  0
+                
+                
+                  
+                    if 
+                  
+                  
+                    a
+                    
+                      m
+                    
+                  
+                  =
+                  0
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle Y_{m}={\begin{cases}c_{m}+d_{m}&{\text{if }}a_{m}=2^{m}\\0&{\text{if }}a_{m}=0\end{cases}}}
+  
+  
+    
+      
+        
+          c
+          
+            m
+          
+        
+      
+    
+    {\displaystyle c_{m}}
+   and 
+  
+    
+      
+        
+          d
+          
+            m
+          
+        
+      
+    
+    {\displaystyle d_{m}}
+   can be efficiently updated in each step:
+
+  
+    
+      
+        
+          c
+          
+            m
+            −
+            1
+          
+        
+        =
+        
+          P
+          
+            m
+          
+        
+        
+          2
+          
+            m
+          
+        
+        =
+        (
+        
+          P
+          
+            m
+            +
+            1
+          
+        
+        +
+        
+          a
+          
+            m
+          
+        
+        )
+        
+          2
+          
+            m
+          
+        
+        =
+        
+          P
+          
+            m
+            +
+            1
+          
+        
+        
+          2
+          
+            m
+          
+        
+        +
+        
+          a
+          
+            m
+          
+        
+        
+          2
+          
+            m
+          
+        
+        =
+        
+          
+            {
+            
+              
+                
+                  
+                    c
+                    
+                      m
+                    
+                  
+                  
+                    /
+                  
+                  2
+                  +
+                  
+                    d
+                    
+                      m
+                    
+                  
+                
+                
+                  
+                    if 
+                  
+                  
+                    a
+                    
+                      m
+                    
+                  
+                  =
+                  
+                    2
+                    
+                      m
+                    
+                  
+                
+              
+              
+                
+                  
+                    c
+                    
+                      m
+                    
+                  
+                  
+                    /
+                  
+                  2
+                
+                
+                  
+                    if 
+                  
+                  
+                    a
+                    
+                      m
+                    
+                  
+                  =
+                  0
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle c_{m-1}=P_{m}2^{m}=(P_{m+1}+a_{m})2^{m}=P_{m+1}2^{m}+a_{m}2^{m}={\begin{cases}c_{m}/2+d_{m}&{\text{if }}a_{m}=2^{m}\\c_{m}/2&{\text{if }}a_{m}=0\end{cases}}}
+  
+
+  
+    
+      
+        
+          d
+          
+            m
+            −
+            1
+          
+        
+        =
+        
+          
+            
+              d
+              
+                m
+              
+            
+            4
+          
+        
+      
+    
+    {\displaystyle d_{m-1}={\frac {d_{m}}{4}}}
+  Note that:
+
+  
+    
+      
+        
+          c
+          
+            −
+            1
+          
+        
+        =
+        
+          P
+          
+            0
+          
+        
+        
+          2
+          
+            0
+          
+        
+        =
+        
+          P
+          
+            0
+          
+        
+        =
+        N
+      
+    
+    {\displaystyle c_{-1}=P_{0}2^{0}=P_{0}=N}
+  , which is the final result returned in the function below.An implementation of this algorithm in C:
+
+Faster algorithms, in binary and decimal or any other base, can be realized by using lookup tables—in effect trading more storage space for reduced run time.
+
+Exponential identity
+Pocket calculators typically implement good routines to compute the exponential function and the natural logarithm, and then compute the square root of S using the identity found using the properties of logarithms (
+  
+    
+      
+        ln
+        ⁡
+        
+          x
+          
+            n
+          
+        
+        =
+        n
+        ln
+        ⁡
+        x
+      
+    
+    {\displaystyle \ln x^{n}=n\ln x}
+  ) and exponentials (
+  
+    
+      
+        
+          e
+          
+            ln
+            ⁡
+            x
+          
+        
+        =
+        x
+      
+    
+    {\displaystyle e^{\ln x}=x}
+  ):
+
+  
+    
+      
+        
+          
+            S
+          
+        
+        =
+        
+          e
+          
+            
+              
+                1
+                2
+              
+            
+            ln
+            ⁡
+            S
+          
+        
+        .
+      
+    
+    {\displaystyle {\sqrt {S}}=e^{{\frac {1}{2}}\ln S}.}
+  The denominator in the fraction corresponds to the nth root. In the case above the denominator is 2, hence the equation specifies that the square root is to be found. The same identity is used when computing square roots with logarithm tables or slide rules.
+
+A two-variable iterative method
+This method is applicable for finding the square root of 
+  
+    
+      
+        0
+        <
+        S
+        <
+        3
+        
+        
+      
+    
+    {\displaystyle 0<S<3\,\!}
+   and converges best for 
+  
+    
+      
+        S
+        ≈
+        1
+      
+    
+    {\displaystyle S\approx 1}
+  .
+This, however, is no real limitation for a computer based calculation, as in base 2 floating point and fixed point representations, it is trivial to multiply 
+  
+    
+      
+        S
+        
+        
+      
+    
+    {\displaystyle S\,\!}
+   by an integer power of 4, and therefore 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}}
+   by the corresponding power of 2, by changing the exponent or by shifting, respectively. Therefore, 
+  
+    
+      
+        S
+        
+        
+      
+    
+    {\displaystyle S\,\!}
+   can be moved to the range 
+  
+    
+      
+        
+          
+            1
+            2
+          
+        
+        ≤
+        S
+        <
+        2
+      
+    
+    {\displaystyle {\frac {1}{2}}\leq S<2}
+  . Moreover, the following method does not employ general divisions, but only additions, subtractions, multiplications, and divisions by powers of two, which are again trivial to implement. A disadvantage of the method is that numerical errors accumulate, in contrast to single variable iterative methods such as the Babylonian one.
+The initialization step of this method is
+
+  
+    
+      
+        
+          a
+          
+            0
+          
+        
+        =
+        S
+        
+        
+      
+    
+    {\displaystyle a_{0}=S\,\!}
+  
+
+  
+    
+      
+        
+          c
+          
+            0
+          
+        
+        =
+        S
+        −
+        1
+        
+        
+      
+    
+    {\displaystyle c_{0}=S-1\,\!}
+  while the iterative steps read
+
+  
+    
+      
+        
+          a
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          a
+          
+            n
+          
+        
+        −
+        
+          a
+          
+            n
+          
+        
+        
+          c
+          
+            n
+          
+        
+        
+          /
+        
+        2
+        
+        
+      
+    
+    {\displaystyle a_{n+1}=a_{n}-a_{n}c_{n}/2\,\!}
+  
+
+  
+    
+      
+        
+          c
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          c
+          
+            n
+          
+          
+            2
+          
+        
+        (
+        
+          c
+          
+            n
+          
+        
+        −
+        3
+        )
+        
+          /
+        
+        4
+        
+        
+      
+    
+    {\displaystyle c_{n+1}=c_{n}^{2}(c_{n}-3)/4\,\!}
+  Then, 
+  
+    
+      
+        
+          a
+          
+            n
+          
+        
+        →
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle a_{n}\rightarrow {\sqrt {S}}}
+   (while 
+  
+    
+      
+        
+          c
+          
+            n
+          
+        
+        →
+        0
+      
+    
+    {\displaystyle c_{n}\rightarrow 0}
+  ).
+The convergence of 
+  
+    
+      
+        
+          c
+          
+            n
+          
+        
+        
+        
+      
+    
+    {\displaystyle c_{n}\,\!}
+  , and therefore also of 
+  
+    
+      
+        
+          a
+          
+            n
+          
+        
+        
+        
+      
+    
+    {\displaystyle a_{n}\,\!}
+  , is quadratic.
+The proof of the method is rather easy. First, rewrite the iterative definition of 
+  
+    
+      
+        
+          c
+          
+            n
+          
+        
+        
+        
+      
+    
+    {\displaystyle c_{n}\,\!}
+   as
+
+  
+    
+      
+        1
+        +
+        
+          c
+          
+            n
+            +
+            1
+          
+        
+        =
+        (
+        1
+        +
+        
+          c
+          
+            n
+          
+        
+        )
+        (
+        1
+        −
+        
+          c
+          
+            n
+          
+        
+        
+          /
+        
+        2
+        
+          )
+          
+            2
+          
+        
+        
+        
+      
+    
+    {\displaystyle 1+c_{n+1}=(1+c_{n})(1-c_{n}/2)^{2}\,\!}
+  .Then it is straightforward to prove by induction that
+
+  
+    
+      
+        S
+        (
+        1
+        +
+        
+          c
+          
+            n
+          
+        
+        )
+        =
+        
+          a
+          
+            n
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle S(1+c_{n})=a_{n}^{2}}
+  and therefore the convergence of 
+  
+    
+      
+        
+          a
+          
+            n
+          
+        
+        
+        
+      
+    
+    {\displaystyle a_{n}\,\!}
+   to the desired result 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}}
+   is ensured by the convergence of 
+  
+    
+      
+        
+          c
+          
+            n
+          
+        
+        
+        
+      
+    
+    {\displaystyle c_{n}\,\!}
+   to 0, which in turn follows from 
+  
+    
+      
+        −
+        1
+        <
+        
+          c
+          
+            0
+          
+        
+        <
+        2
+        
+        
+      
+    
+    {\displaystyle -1<c_{0}<2\,\!}
+  .
+This method was developed around 1950 by M. V. Wilkes, D. J. Wheeler and S. Gill for use on EDSAC, one of the first electronic computers. The method was later generalized, allowing the computation of non-square roots.
+
+Iterative methods for reciprocal square roots
+The following are iterative methods for finding the reciprocal square root of S which is 
+  
+    
+      
+        1
+        
+          /
+        
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle 1/{\sqrt {S}}}
+  . Once it has been found, find 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}}
+   by simple multiplication: 
+  
+    
+      
+        
+          
+            S
+          
+        
+        =
+        S
+        ⋅
+        (
+        1
+        
+          /
+        
+        
+          
+            S
+          
+        
+        )
+      
+    
+    {\displaystyle {\sqrt {S}}=S\cdot (1/{\sqrt {S}})}
+  . These iterations involve only multiplication, and not division. They are therefore faster than the Babylonian method. However, they are not stable. If the initial value is not close to the reciprocal square root, the iterations will diverge away from it rather than converge to it. It can therefore be advantageous to perform an iteration of the Babylonian method on a rough estimate before starting to apply these methods.
+
+Applying Newton's method to the equation 
+  
+    
+      
+        (
+        1
+        
+          /
+        
+        
+          x
+          
+            2
+          
+        
+        )
+        −
+        S
+        =
+        0
+      
+    
+    {\displaystyle (1/x^{2})-S=0}
+   produces a method that converges quadratically using three multiplications per step:
+
+  
+    
+      
+        
+          x
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          
+            
+              x
+              
+                n
+              
+            
+            2
+          
+        
+        ⋅
+        (
+        3
+        −
+        S
+        ⋅
+        
+          x
+          
+            n
+          
+          
+            2
+          
+        
+        )
+        =
+        
+          x
+          
+            n
+          
+        
+        ⋅
+        
+          (
+          
+            
+              
+                3
+                2
+              
+            
+            −
+            
+              
+                S
+                2
+              
+            
+            ⋅
+            
+              x
+              
+                n
+              
+              
+                2
+              
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle x_{n+1}={\frac {x_{n}}{2}}\cdot (3-S\cdot x_{n}^{2})=x_{n}\cdot \left({\frac {3}{2}}-{\frac {S}{2}}\cdot x_{n}^{2}\right).}
+  
+Another iteration is obtained by Halley's method, which is the Householder's method of order two. This converges cubically, but involves five multiplications per iteration:
+  
+    
+      
+        
+          y
+          
+            n
+          
+        
+        =
+        S
+        ⋅
+        
+          x
+          
+            n
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle y_{n}=S\cdot x_{n}^{2}}
+  , and
+
+  
+    
+      
+        
+          x
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          
+            
+              x
+              
+                n
+              
+            
+            8
+          
+        
+        ⋅
+        (
+        15
+        −
+        
+          y
+          
+            n
+          
+        
+        ⋅
+        (
+        10
+        −
+        3
+        ⋅
+        
+          y
+          
+            n
+          
+        
+        )
+        )
+        =
+        
+          x
+          
+            n
+          
+        
+        ⋅
+        
+          (
+          
+            
+              
+                15
+                8
+              
+            
+            −
+            
+              y
+              
+                n
+              
+            
+            ⋅
+            
+              (
+              
+                
+                  
+                    10
+                    8
+                  
+                
+                −
+                
+                  
+                    3
+                    8
+                  
+                
+                ⋅
+                
+                  y
+                  
+                    n
+                  
+                
+              
+              )
+            
+          
+          )
+        
+      
+    
+    {\displaystyle x_{n+1}={\frac {x_{n}}{8}}\cdot (15-y_{n}\cdot (10-3\cdot y_{n}))=x_{n}\cdot \left({\frac {15}{8}}-y_{n}\cdot \left({\frac {10}{8}}-{\frac {3}{8}}\cdot y_{n}\right)\right)}
+  .
+If doing fixed-point arithmetic, the multiplication by 3 and division by 8 can implemented using shifts and adds.  If using floating-point, Halley's method can be reduced to four multiplications per iteration by precomputing 
+  
+    
+      
+        
+          
+            
+              3
+              8
+            
+          
+        
+        S
+      
+    
+    {\displaystyle {\sqrt {\frac {3}{8}}}S}
+   and adjusting all the other constants to compensate:
+
+  
+    
+      
+        
+          y
+          
+            n
+          
+        
+        =
+        
+          
+            
+              3
+              8
+            
+          
+        
+        S
+        ⋅
+        
+          x
+          
+            n
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle y_{n}={\sqrt {\frac {3}{8}}}S\cdot x_{n}^{2}}
+  , and
+
+  
+    
+      
+        
+          x
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          x
+          
+            n
+          
+        
+        ⋅
+        
+          (
+          
+            
+              
+                15
+                8
+              
+            
+            −
+            
+              y
+              
+                n
+              
+            
+            ⋅
+            
+              (
+              
+                
+                  
+                    
+                      25
+                      6
+                    
+                  
+                
+                −
+                
+                  y
+                  
+                    n
+                  
+                
+              
+              )
+            
+          
+          )
+        
+      
+    
+    {\displaystyle x_{n+1}=x_{n}\cdot \left({\frac {15}{8}}-y_{n}\cdot \left({\sqrt {\frac {25}{6}}}-y_{n}\right)\right)}
+  .
+
+Goldschmidt’s algorithm
+Some computers use Goldschmidt's algorithm to simultaneously calculate
+
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}}
+   and
+
+  
+    
+      
+        1
+        
+          /
+        
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle 1/{\sqrt {S}}}
+  .
+Goldschmidt's algorithm finds 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}}
+   faster than Newton-Raphson iteration on a computer with a fused multiply–add instruction and either a pipelined floating point unit or two independent floating-point units.The first way of writing Goldschmidt's algorithm begins
+
+  
+    
+      
+        
+          b
+          
+            0
+          
+        
+        =
+        S
+      
+    
+    {\displaystyle b_{0}=S}
+  
+
+  
+    
+      
+        
+          Y
+          
+            0
+          
+        
+        ≈
+        1
+        
+          /
+        
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle Y_{0}\approx 1/{\sqrt {S}}}
+   (typically using a table lookup)
+
+  
+    
+      
+        
+          y
+          
+            0
+          
+        
+        =
+        
+          Y
+          
+            0
+          
+        
+      
+    
+    {\displaystyle y_{0}=Y_{0}}
+  
+
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        =
+        S
+        
+          y
+          
+            0
+          
+        
+      
+    
+    {\displaystyle x_{0}=Sy_{0}}
+  and iterates
+
+  
+    
+      
+        
+          b
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          b
+          
+            n
+          
+        
+        
+          Y
+          
+            n
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle b_{n+1}=b_{n}Y_{n}^{2}}
+  
+
+  
+    
+      
+        
+          Y
+          
+            n
+            +
+            1
+          
+        
+        =
+        (
+        3
+        −
+        
+          b
+          
+            n
+            +
+            1
+          
+        
+        )
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle Y_{n+1}=(3-b_{n+1})/2}
+  
+
+  
+    
+      
+        
+          x
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          x
+          
+            n
+          
+        
+        
+          Y
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle x_{n+1}=x_{n}Y_{n+1}}
+  
+
+  
+    
+      
+        
+          y
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          y
+          
+            n
+          
+        
+        
+          Y
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle y_{n+1}=y_{n}Y_{n+1}}
+  until 
+  
+    
+      
+        
+          b
+          
+            i
+          
+        
+      
+    
+    {\displaystyle b_{i}}
+   is sufficiently close to 1, or a fixed number of iterations.  The iterations converge to
+
+  
+    
+      
+        
+          lim
+          
+            n
+            →
+            ∞
+          
+        
+        
+          x
+          
+            n
+          
+        
+        =
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle \lim _{n\to \infty }x_{n}={\sqrt {S}}}
+  , and
+
+  
+    
+      
+        
+          lim
+          
+            n
+            →
+            ∞
+          
+        
+        
+          y
+          
+            n
+          
+        
+        =
+        1
+        
+          /
+        
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle \lim _{n\to \infty }y_{n}=1/{\sqrt {S}}}
+  .Note that it is possible to omit either 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{n}}
+   and 
+  
+    
+      
+        
+          y
+          
+            n
+          
+        
+      
+    
+    {\displaystyle y_{n}}
+   from the computation, and if both are desired then 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+        =
+        S
+        
+          y
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{n}=Sy_{n}}
+   may be used at the end rather than computing it through in each iteration.
+A second form, using fused multiply-add operations, begins
+
+  
+    
+      
+        
+          y
+          
+            0
+          
+        
+        ≈
+        1
+        
+          /
+        
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle y_{0}\approx 1/{\sqrt {S}}}
+   (typically using a table lookup)
+
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        =
+        S
+        
+          y
+          
+            0
+          
+        
+      
+    
+    {\displaystyle x_{0}=Sy_{0}}
+  
+
+  
+    
+      
+        
+          h
+          
+            0
+          
+        
+        =
+        
+          y
+          
+            0
+          
+        
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle h_{0}=y_{0}/2}
+  and iterates
+
+  
+    
+      
+        
+          r
+          
+            n
+          
+        
+        =
+        0.5
+        −
+        
+          x
+          
+            n
+          
+        
+        
+          h
+          
+            n
+          
+        
+      
+    
+    {\displaystyle r_{n}=0.5-x_{n}h_{n}}
+  
+
+  
+    
+      
+        
+          x
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          x
+          
+            n
+          
+        
+        +
+        
+          x
+          
+            n
+          
+        
+        
+          r
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{n+1}=x_{n}+x_{n}r_{n}}
+  
+
+  
+    
+      
+        
+          h
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          h
+          
+            n
+          
+        
+        +
+        
+          h
+          
+            n
+          
+        
+        
+          r
+          
+            n
+          
+        
+      
+    
+    {\displaystyle h_{n+1}=h_{n}+h_{n}r_{n}}
+  until 
+  
+    
+      
+        
+          r
+          
+            i
+          
+        
+      
+    
+    {\displaystyle r_{i}}
+   is sufficiently close to 0, or a fixed number of iterations.  This converges to
+
+  
+    
+      
+        
+          lim
+          
+            n
+            →
+            ∞
+          
+        
+        
+          x
+          
+            n
+          
+        
+        =
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle \lim _{n\to \infty }x_{n}={\sqrt {S}}}
+  , and
+
+  
+    
+      
+        
+          lim
+          
+            n
+            →
+            ∞
+          
+        
+        2
+        
+          h
+          
+            n
+          
+        
+        =
+        1
+        
+          /
+        
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle \lim _{n\to \infty }2h_{n}=1/{\sqrt {S}}}
+  .
+
+Taylor series
+If N is an approximation to 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}}
+  , a better approximation can be found by using the Taylor series of the square root function:
+
+  
+    
+      
+        
+          
+            
+              N
+              
+                2
+              
+            
+            +
+            d
+          
+        
+        =
+        N
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          
+            
+              (
+              −
+              1
+              
+                )
+                
+                  n
+                
+              
+              (
+              2
+              n
+              )
+              !
+            
+            
+              (
+              1
+              −
+              2
+              n
+              )
+              n
+              
+                !
+                
+                  2
+                
+              
+              
+                4
+                
+                  n
+                
+              
+            
+          
+        
+        
+          
+            
+              d
+              
+                n
+              
+            
+            
+              N
+              
+                2
+                n
+              
+            
+          
+        
+        =
+        N
+        
+          (
+          
+            1
+            +
+            
+              
+                d
+                
+                  2
+                  
+                    N
+                    
+                      2
+                    
+                  
+                
+              
+            
+            −
+            
+              
+                
+                  d
+                  
+                    2
+                  
+                
+                
+                  8
+                  
+                    N
+                    
+                      4
+                    
+                  
+                
+              
+            
+            +
+            
+              
+                
+                  d
+                  
+                    3
+                  
+                
+                
+                  16
+                  
+                    N
+                    
+                      6
+                    
+                  
+                
+              
+            
+            −
+            
+              
+                
+                  5
+                  
+                    d
+                    
+                      4
+                    
+                  
+                
+                
+                  128
+                  
+                    N
+                    
+                      8
+                    
+                  
+                
+              
+            
+            +
+            ⋯
+          
+          )
+        
+      
+    
+    {\displaystyle {\sqrt {N^{2}+d}}=N\sum _{n=0}^{\infty }{\frac {(-1)^{n}(2n)!}{(1-2n)n!^{2}4^{n}}}{\frac {d^{n}}{N^{2n}}}=N\left(1+{\frac {d}{2N^{2}}}-{\frac {d^{2}}{8N^{4}}}+{\frac {d^{3}}{16N^{6}}}-{\frac {5d^{4}}{128N^{8}}}+\cdots \right)}
+  As an iterative method, the order of convergence is equal to the number of terms used. With two terms, it is identical to the Babylonian method. With three terms, each iteration takes almost as many operations as the Bakhshali approximation, but converges more slowly. Therefore, this is not a particularly efficient way of calculation. To maximize the rate of convergence, choose N so that 
+  
+    
+      
+        
+          
+            
+              
+                |
+              
+              d
+              
+                |
+              
+            
+            
+              N
+              
+                2
+              
+            
+          
+        
+        
+      
+    
+    {\displaystyle {\frac {|d|}{N^{2}}}\,}
+   is as small as possible.
+
+Continued fraction expansion
+Quadratic irrationals (numbers of the form 
+  
+    
+      
+        
+          
+            
+              a
+              +
+              
+                
+                  b
+                
+              
+            
+            c
+          
+        
+      
+    
+    {\displaystyle {\frac {a+{\sqrt {b}}}{c}}}
+  , where a, b and c are integers), and in particular, square roots of integers, have periodic continued fractions. Sometimes what is desired is finding not the numerical value of a square root, but rather its continued fraction expansion, and hence its rational approximation. Let S be the positive number for which we are required to find the square root. Then assuming a to be a number that serves as an initial guess and r to be the remainder term, we can write 
+  
+    
+      
+        S
+        =
+        
+          a
+          
+            2
+          
+        
+        +
+        r
+        .
+      
+    
+    {\displaystyle S=a^{2}+r.}
+   Since we have 
+  
+    
+      
+        S
+        −
+        
+          a
+          
+            2
+          
+        
+        =
+        (
+        
+          
+            S
+          
+        
+        +
+        a
+        )
+        (
+        
+          
+            S
+          
+        
+        −
+        a
+        )
+        =
+        r
+      
+    
+    {\displaystyle S-a^{2}=({\sqrt {S}}+a)({\sqrt {S}}-a)=r}
+  , we can express the square root of S as
+
+  
+    
+      
+        
+          
+            S
+          
+        
+        =
+        a
+        +
+        
+          
+            r
+            
+              a
+              +
+              
+                
+                  S
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle {\sqrt {S}}=a+{\frac {r}{a+{\sqrt {S}}}}.}
+  By applying this expression for 
+  
+    
+      
+        
+          
+            S
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}}
+   to the denominator term of the fraction, we have
+
+  
+    
+      
+        
+          
+            S
+          
+        
+        =
+        a
+        +
+        
+          
+            r
+            
+              a
+              +
+              (
+              a
+              +
+              
+                
+                  r
+                  
+                    a
+                    +
+                    
+                      
+                        S
+                      
+                    
+                  
+                
+              
+              )
+            
+          
+        
+        =
+        a
+        +
+        
+          
+            r
+            
+              2
+              a
+              +
+              
+                
+                  r
+                  
+                    a
+                    +
+                    
+                      
+                        S
+                      
+                    
+                  
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle {\sqrt {S}}=a+{\frac {r}{a+(a+{\frac {r}{a+{\sqrt {S}}}})}}=a+{\frac {r}{2a+{\frac {r}{a+{\sqrt {S}}}}}}.}
+  
+Proceeding this way, we get a generalized continued fraction for the square root as
+
+  
+    
+      
+        
+          
+            S
+          
+        
+        =
+        a
+        +
+        
+          
+            
+              
+                
+              
+              
+                
+                  r
+                
+              
+            
+            
+              
+                
+              
+              
+                
+                  2
+                  a
+                  +
+                  
+                    
+                      
+                        
+                          
+                        
+                        
+                          
+                            r
+                          
+                        
+                      
+                      
+                        
+                          
+                        
+                        
+                          
+                            2
+                            a
+                            +
+                            
+                              
+                                
+                                  
+                                    
+                                  
+                                  
+                                    
+                                      r
+                                    
+                                  
+                                
+                                
+                                  
+                                    
+                                  
+                                  
+                                    
+                                      2
+                                      a
+                                      +
+                                      ⋱
+                                    
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\sqrt {S}}=a+{\cfrac {r}{2a+{\cfrac {r}{2a+{\cfrac {r}{2a+\ddots }}}}}}}
+   
+The first step to evaluating such a fraction to obtain a root is to do numerical substitutions for the root of the number desired, and number of denominators selected. For example, in canonical form, 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   is 1 and for √2, 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is 1, so the numerical continued fraction for 3 denominators is: 
+
+  
+    
+      
+        
+          
+            2
+          
+        
+        ≈
+        1
+        +
+        
+          
+            
+              
+                
+              
+              
+                
+                  1
+                
+              
+            
+            
+              
+                
+              
+              
+                
+                  2
+                  +
+                  
+                    
+                      
+                        
+                          
+                        
+                        
+                          
+                            1
+                          
+                        
+                      
+                      
+                        
+                          
+                        
+                        
+                          
+                            2
+                            +
+                            
+                              
+                                
+                                  
+                                    
+                                  
+                                  
+                                    
+                                      1
+                                    
+                                  
+                                
+                                
+                                  
+                                    
+                                  
+                                  
+                                    
+                                      2
+                                    
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\sqrt {2}}\approx 1+{\cfrac {1}{2+{\cfrac {1}{2+{\cfrac {1}{2}}}}}}}
+  Step 2 is to reduce the continued fraction from the bottom up, one denominator at a time, to yield a rational fraction whose numerator and denominator are integers. The reduction proceeds thus (taking the first three denominators):
+
+  
+    
+      
+        1
+        +
+        
+          
+            
+              
+                
+              
+              
+                
+                  1
+                
+              
+            
+            
+              
+                
+              
+              
+                
+                  2
+                  +
+                  
+                    
+                      
+                        
+                          
+                        
+                        
+                          
+                            1
+                          
+                        
+                      
+                      
+                        
+                          
+                        
+                        
+                          
+                            2
+                            +
+                            
+                              
+                                
+                                  
+                                    
+                                  
+                                  
+                                    
+                                      1
+                                    
+                                  
+                                
+                                
+                                  
+                                    
+                                  
+                                  
+                                    
+                                      2
+                                    
+                                  
+                                
+                              
+                            
+                          
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+        =
+        1
+        +
+        
+          
+            
+              
+                
+              
+              
+                
+                  1
+                
+              
+            
+            
+              
+                
+              
+              
+                
+                  2
+                  +
+                  
+                    
+                      
+                        
+                          
+                        
+                        
+                          
+                            1
+                          
+                        
+                      
+                      
+                        
+                          
+                        
+                        
+                          
+                            
+                              5
+                              2
+                            
+                          
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle 1+{\cfrac {1}{2+{\cfrac {1}{2+{\cfrac {1}{2}}}}}}=1+{\cfrac {1}{2+{\cfrac {1}{\frac {5}{2}}}}}}
+  
+
+  
+    
+      
+        =
+        1
+        +
+        
+          
+            
+              
+                
+              
+              
+                
+                  1
+                
+              
+            
+            
+              
+                
+              
+              
+                
+                  2
+                  +
+                  
+                    
+                      
+                        
+                          
+                        
+                        
+                          
+                            2
+                          
+                        
+                      
+                      
+                        
+                          
+                        
+                        
+                          
+                            5
+                          
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+        =
+        1
+        +
+        
+          
+            
+              
+                
+              
+              
+                
+                  1
+                
+              
+            
+            
+              
+                
+              
+              
+                
+                  
+                    12
+                    5
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle =1+{\cfrac {1}{2+{\cfrac {2}{5}}}}=1+{\cfrac {1}{\frac {12}{5}}}}
+  
+
+  
+    
+      
+        =
+        1
+        +
+        
+          
+            
+              
+                
+              
+              
+                
+                  5
+                
+              
+            
+            
+              
+                
+              
+              
+                
+                  12
+                
+              
+            
+          
+        
+        =
+        
+          
+            17
+            12
+          
+        
+      
+    
+    {\displaystyle =1+{\cfrac {5}{12}}={\frac {17}{12}}}
+  Finally (step 3), divide the numerator by the denominator of the rational fraction to obtain the approximate value of the root:
+
+  
+    
+      
+        17
+        ÷
+        12
+        =
+        1.42
+      
+    
+    {\displaystyle 17\div 12=1.42}
+   rounded to three digits of precision.The actual value of √2 is 1.41 to three significant digits. The relative error is 0.17%, so the rational fraction is good to almost three digits of precision.  Taking more denominators gives successively better approximations: four denominators yields the fraction 
+  
+    
+      
+        
+          
+            41
+            29
+          
+        
+        =
+        1.4137
+      
+    
+    {\displaystyle {\frac {41}{29}}=1.4137}
+  , good to almost 4 digits of precision, etc.
+The following are examples of square roots, their simple continued fractions, and their first terms — called convergents — up to and including denominator 99:
+
+In general, the larger the denominator of a rational fraction, the better the approximation. It can also be shown that truncating a continued fraction yields a rational fraction that is the best approximation to the root of any fraction with denominator less than or equal to the denominator of that fraction — e.g., no fraction with a denominator less than or equal to 70 is as good an approximation to √2 as 99/70.
+
+Lucas sequence method
+the Lucas sequence of the first kind Un(P,Q) is defined by the recurrence relations:
+  
+    
+      
+        
+          U
+          
+            n
+          
+        
+        (
+        P
+        ,
+        Q
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  0
+                
+                
+                  
+                    if 
+                  
+                  n
+                  =
+                  0
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    if 
+                  
+                  n
+                  =
+                  1
+                
+              
+              
+                
+                  P
+                  ⋅
+                  
+                    U
+                    
+                      n
+                      −
+                      1
+                    
+                  
+                  (
+                  P
+                  ,
+                  Q
+                  )
+                  −
+                  Q
+                  ⋅
+                  
+                    U
+                    
+                      n
+                      −
+                      2
+                    
+                  
+                  (
+                  P
+                  ,
+                  Q
+                  )
+                
+                
+                  
+                    Otherwise
+                  
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle U_{n}(P,Q)={\begin{cases}0&{\text{if }}n=0\\1&{\text{if }}n=1\\P\cdot U_{n-1}(P,Q)-Q\cdot U_{n-2}(P,Q)&{\text{Otherwise}}\end{cases}}}
+  and the characteristic equation of it is:
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+        −
+        P
+        ⋅
+        x
+        +
+        Q
+        =
+        0
+      
+    
+    {\displaystyle x^{2}-P\cdot x+Q=0}
+  it has the discriminant 
+  
+    
+      
+        D
+        =
+        
+          P
+          
+            2
+          
+        
+        −
+        4
+        Q
+      
+    
+    {\displaystyle D=P^{2}-4Q}
+   and the roots:
+  
+    
+      
+        
+          
+            
+              
+                
+                  x
+                  
+                    1
+                  
+                
+                =
+                
+                  
+                    
+                      
+                        P
+                        +
+                        
+                          
+                            D
+                          
+                        
+                      
+                      2
+                    
+                  
+                
+                ,
+              
+              
+                
+                  x
+                  
+                    2
+                  
+                
+                =
+                
+                  
+                    
+                      
+                        P
+                        −
+                        
+                          
+                            D
+                          
+                        
+                      
+                      2
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{matrix}x_{1}={\dfrac {P+{\sqrt {D}}}{2}},&x_{2}={\dfrac {P-{\sqrt {D}}}{2}}\end{matrix}}}
+  all that yield the following positive value:
+  
+    
+      
+        
+          lim
+          
+            n
+            →
+            ∞
+          
+        
+        
+          
+            
+              
+                U
+                
+                  n
+                  +
+                  1
+                
+              
+              
+                U
+                
+                  n
+                
+              
+            
+          
+        
+        =
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \lim _{n\to \infty }{\dfrac {U_{n+1}}{U_{n}}}=x_{1}}
+  so when we want 
+  
+    
+      
+        
+          
+            a
+          
+        
+      
+    
+    {\displaystyle {\sqrt {a}}}
+  , we can choose 
+  
+    
+      
+        P
+        =
+        2
+      
+    
+    {\displaystyle P=2}
+   and 
+  
+    
+      
+        Q
+        =
+        1
+        −
+        a
+      
+    
+    {\displaystyle Q=1-a}
+  , and then calculate 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        =
+        1
+        +
+        
+          
+            a
+          
+        
+      
+    
+    {\displaystyle x_{1}=1+{\sqrt {a}}}
+   using  
+  
+    
+      
+        
+          U
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle U_{n+1}}
+   and 
+  
+    
+      
+        
+          U
+          
+            n
+          
+        
+      
+    
+    {\displaystyle U_{n}}
+  for large value of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  .
+The most effective way to calculate 
+  
+    
+      
+        
+          U
+          
+            n
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle U_{n+1}}
+   and 
+  
+    
+      
+        
+          U
+          
+            n
+          
+        
+      
+    
+    {\displaystyle U_{n}}
+  is:
+  
+    
+      
+        
+          
+            [
+            
+              
+                
+                  
+                    U
+                    
+                      n
+                    
+                  
+                
+              
+              
+                
+                  
+                    U
+                    
+                      n
+                      +
+                      1
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  0
+                
+                
+                  1
+                
+              
+              
+                
+                  −
+                  Q
+                
+                
+                  P
+                
+              
+            
+            ]
+          
+        
+        ⋅
+        
+          
+            [
+            
+              
+                
+                  
+                    U
+                    
+                      n
+                      −
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    U
+                    
+                      n
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        =
+        
+          
+            
+              [
+              
+                
+                  
+                    0
+                  
+                  
+                    1
+                  
+                
+                
+                  
+                    −
+                    Q
+                  
+                  
+                    P
+                  
+                
+              
+              ]
+            
+          
+          
+            n
+          
+        
+        ⋅
+        
+          
+            [
+            
+              
+                
+                  
+                    U
+                    
+                      0
+                    
+                  
+                
+              
+              
+                
+                  
+                    U
+                    
+                      1
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle {\begin{bmatrix}U_{n}\\U_{n+1}\end{bmatrix}}={\begin{bmatrix}0&1\\-Q&P\end{bmatrix}}\cdot {\begin{bmatrix}U_{n-1}\\U_{n}\end{bmatrix}}={\begin{bmatrix}0&1\\-Q&P\end{bmatrix}}^{n}\cdot {\begin{bmatrix}U_{0}\\U_{1}\end{bmatrix}}}
+  Summary:
+  
+    
+      
+        
+          
+            
+              [
+              
+                
+                  
+                    0
+                  
+                  
+                    1
+                  
+                
+                
+                  
+                    a
+                    −
+                    1
+                  
+                  
+                    2
+                  
+                
+              
+              ]
+            
+          
+          
+            n
+          
+        
+        ⋅
+        
+          
+            [
+            
+              
+                
+                  0
+                
+              
+              
+                
+                  1
+                
+              
+            
+            ]
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    U
+                    
+                      n
+                    
+                  
+                
+              
+              
+                
+                  
+                    U
+                    
+                      n
+                      +
+                      1
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle {\begin{bmatrix}0&1\\a-1&2\end{bmatrix}}^{n}\cdot {\begin{bmatrix}0\\1\end{bmatrix}}={\begin{bmatrix}U_{n}\\U_{n+1}\end{bmatrix}}}
+  then when 
+  
+    
+      
+        n
+        →
+        ∞
+      
+    
+    {\displaystyle n\to \infty }
+  :
+  
+    
+      
+        
+          
+            a
+          
+        
+        =
+        
+          
+            
+              U
+              
+                n
+                +
+                1
+              
+            
+            
+              U
+              
+                n
+              
+            
+          
+        
+        −
+        1
+      
+    
+    {\displaystyle {\sqrt {a}}={\frac {U_{n+1}}{U_{n}}}-1}
+
+Approximations that depend on the floating point representation
+A number is represented in a floating point format as 
+  
+    
+      
+        m
+        ×
+        
+          b
+          
+            p
+          
+        
+      
+    
+    {\displaystyle m\times b^{p}}
+   which is also called scientific notation. Its square root is 
+  
+    
+      
+        
+          
+            m
+          
+        
+        ×
+        
+          b
+          
+            p
+            
+              /
+            
+            2
+          
+        
+      
+    
+    {\displaystyle {\sqrt {m}}\times b^{p/2}}
+   and similar formulae would apply for cube roots and logarithms. On the face of it, this is no improvement in simplicity, but suppose that only an approximation is required: then just 
+  
+    
+      
+        
+          b
+          
+            p
+            
+              /
+            
+            2
+          
+        
+      
+    
+    {\displaystyle b^{p/2}}
+   is good to an order of magnitude. Next, recognise that some powers, p, will be odd, thus for 3141.59 = 3.14159×103 rather than deal with fractional powers of the base, multiply the mantissa by the base and subtract one from the power to make it even. The adjusted representation will become the equivalent of 31.4159×102 so that the square root will be √31.4159×101.
+If the integer part of the adjusted mantissa is taken, there can only be the values 1 to 99, and that could be used as an index into a table of 99 pre-computed square roots to complete the estimate. A computer using base sixteen would require a larger table, but one using base two would require only three entries: the possible bits of the integer part of the adjusted mantissa are 01 (the power being even so there was no shift, remembering that a normalised floating point number always has a non-zero high-order digit) or if the power was odd, 10 or 11, these being the first two bits of the original mantissa. Thus, 6.25 = 110.01 in binary, normalised to 1.1001 × 22 an even power so the paired bits of the mantissa are 01, while .625 = 0.101 in binary normalises to 1.01 × 2−1 an odd power so the adjustment is to 10.1 × 2−2 and the paired bits are 10. Notice that the low order bit of the power is echoed in the high order bit of the pairwise mantissa. An even power has its low-order bit zero and the adjusted mantissa will start with 0, whereas for an odd power that bit is one and the adjusted mantissa will start with 1. Thus, when the power is halved, it is as if its low order bit is shifted out to become the first bit of the pairwise mantissa.
+A table with only three entries could be enlarged by incorporating additional bits of the mantissa. However, with computers, rather than calculate an interpolation into a table, it is often better to find some simpler calculation giving equivalent results. Everything now depends on the exact details of the format of the representation, plus what operations are available to access and manipulate the parts of the number. For example, Fortran offers an EXPONENT(x) function to obtain the power. Effort expended in devising a good initial approximation is to be recouped by thereby avoiding the additional iterations of the refinement process that would have been needed for a poor approximation. Since these are few (one iteration requires a divide, an add, and a halving) the constraint is severe.
+Many computers follow the IEEE (or sufficiently similar) representation, and a very rapid approximation to the square root can be obtained for starting Newton's method. The technique that follows is based on the fact that the floating point format (in base two) approximates the base-2 logarithm. That is 
+  
+    
+      
+        
+          log
+          
+            2
+          
+        
+        ⁡
+        (
+        m
+        ×
+        
+          2
+          
+            p
+          
+        
+        )
+        =
+        p
+        +
+        
+          log
+          
+            2
+          
+        
+        ⁡
+        (
+        m
+        )
+      
+    
+    {\displaystyle \log _{2}(m\times 2^{p})=p+\log _{2}(m)}
+  
+So for a 32-bit single precision floating point number in IEEE format (where notably, the power has a bias of 127 added for the represented form) you can get the approximate logarithm by interpreting its binary representation as a 32-bit integer, scaling it by 
+  
+    
+      
+        
+          2
+          
+            −
+            23
+          
+        
+      
+    
+    {\displaystyle 2^{-23}}
+  , and removing a bias of 127, i.e.
+
+  
+    
+      
+        
+          x
+          
+            int
+          
+        
+        ⋅
+        
+          2
+          
+            −
+            23
+          
+        
+        −
+        127
+        ≈
+        
+          log
+          
+            2
+          
+        
+        ⁡
+        (
+        x
+        )
+        .
+      
+    
+    {\displaystyle x_{\text{int}}\cdot 2^{-23}-127\approx \log _{2}(x).}
+  For example, 1.0 is represented by a hexadecimal number 0x3F800000, which would represent 
+  
+    
+      
+        1065353216
+        =
+        127
+        ⋅
+        
+          2
+          
+            23
+          
+        
+      
+    
+    {\displaystyle 1065353216=127\cdot 2^{23}}
+   if taken as an integer. Using the formula above you get 
+  
+    
+      
+        1065353216
+        ⋅
+        
+          2
+          
+            −
+            23
+          
+        
+        −
+        127
+        =
+        0
+      
+    
+    {\displaystyle 1065353216\cdot 2^{-23}-127=0}
+  , as expected from 
+  
+    
+      
+        
+          log
+          
+            2
+          
+        
+        ⁡
+        (
+        1.0
+        )
+      
+    
+    {\displaystyle \log _{2}(1.0)}
+  . In a similar fashion you get 0.5 from 1.5 (0x3FC00000).
+
+To get the square root, divide the logarithm by 2 and convert the value back. The following program demonstrates the idea. The exponent's lowest bit is intentionally allowed to propagate into the mantissa.  One way to justify the steps in this program is to assume 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   is the exponent bias and 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is the number of explicitly stored bits in the mantissa and then show that
+
+  
+    
+      
+        (
+        (
+        (
+        
+          x
+          
+            int
+          
+        
+        
+          /
+        
+        
+          2
+          
+            n
+          
+        
+        −
+        b
+        )
+        
+          /
+        
+        2
+        )
+        +
+        b
+        )
+        ⋅
+        
+          2
+          
+            n
+          
+        
+        =
+        (
+        
+          x
+          
+            int
+          
+        
+        −
+        
+          2
+          
+            n
+          
+        
+        )
+        
+          /
+        
+        2
+        +
+        (
+        (
+        b
+        +
+        1
+        )
+        
+          /
+        
+        2
+        )
+        ⋅
+        
+          2
+          
+            n
+          
+        
+        .
+      
+    
+    {\displaystyle (((x_{\text{int}}/2^{n}-b)/2)+b)\cdot 2^{n}=(x_{\text{int}}-2^{n})/2+((b+1)/2)\cdot 2^{n}.}
+  
+The three mathematical operations forming the core of the above function can be expressed in a single line.  An additional adjustment can be added to reduce the maximum relative error.  So, the three operations, not including the cast, can be rewritten as
+
+where a is a bias for adjusting the approximation errors. For example, with a = 0 the results are accurate for even powers of 2 (e.g. 1.0), but for other numbers the results will be slightly too big (e.g. 1.5 for 2.0 instead of 1.414... with 6% error). With a = −0x4B0D2, the maximum relative error is minimized to ±3.5%.
+If the approximation is to be used for an initial guess for Newton's method to the equation 
+  
+    
+      
+        (
+        1
+        
+          /
+        
+        
+          x
+          
+            2
+          
+        
+        )
+        −
+        S
+        =
+        0
+      
+    
+    {\displaystyle (1/x^{2})-S=0}
+  , then the reciprocal form shown in the following section is preferred.
+
+Reciprocal of the square root
+A variant of the above routine is included below, which can be used to compute the reciprocal of the square root, i.e., 
+  
+    
+      
+        
+          x
+          
+            −
+            
+              
+                1
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle x^{-{1 \over 2}}}
+   instead, was written by Greg Walsh. The integer-shift approximation produced a relative error of less than 4%, and the error dropped further to 0.15% with one iteration of Newton's method on the following line. In computer graphics it is a very efficient way to normalize a vector.
+
+Some VLSI hardware implements inverse square root using a second degree polynomial estimation followed by a Goldschmidt iteration.
+
+Negative or complex square
+If S < 0, then its principal square root is
+
+  
+    
+      
+        
+          
+            S
+          
+        
+        =
+        
+          
+            |
+            S
+            |
+          
+        
+        
+        
+        i
+        
+        .
+      
+    
+    {\displaystyle {\sqrt {S}}={\sqrt {\vert S\vert }}\,\,i\,.}
+  If S = a+bi where a and b are real and b ≠ 0, then its principal square root is
+
+  
+    
+      
+        
+          
+            S
+          
+        
+        =
+        
+          
+            
+              
+                |
+                S
+                |
+                +
+                a
+              
+              2
+            
+          
+        
+        
+        +
+        
+        sgn
+        ⁡
+        (
+        b
+        )
+        
+          
+            
+              
+                |
+                S
+                |
+                −
+                a
+              
+              2
+            
+          
+        
+        
+        
+        i
+        
+        .
+      
+    
+    {\displaystyle {\sqrt {S}}={\sqrt {\frac {\vert S\vert +a}{2}}}\,+\,\operatorname {sgn}(b){\sqrt {\frac {\vert S\vert -a}{2}}}\,\,i\,.}
+  This can be verified by squaring the root.
+Here
+
+  
+    
+      
+        |
+        S
+        |
+        =
+        
+          
+            
+              a
+              
+                2
+              
+            
+            +
+            
+              b
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle \vert S\vert ={\sqrt {a^{2}+b^{2}}}}
+  is the modulus of S. The principal square root of a complex number is defined to be the root with the non-negative real part.
+
+See also
+Alpha max plus beta min algorithm
+nth root algorithm
+Square root of 2
+Integer square root
+
+Notes
+References
+Bibliography
+External links
+Weisstein, Eric W. "Square root algorithms". MathWorld.
+Square roots by subtraction
+Integer Square Root Algorithm by Andrija Radović
+Personal Calculator Algorithms I : Square Roots (William E. Egbert), Hewlett-Packard Journal (May 1977) : page 22
+Calculator to learn the square root

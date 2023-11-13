@@ -1,0 +1,638 @@
+In mathematics and computer science, the BIT predicate, sometimes written 
+  
+    
+      
+        
+          BIT
+        
+        (
+        i
+        ,
+        j
+        )
+      
+    
+    {\displaystyle {\text{BIT}}(i,j)}
+  , is a predicate that tests whether the 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+  th bit of the number 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   (starting from the least significant digit) is 1, when 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   is written as a binary number. Its mathematical applications include modeling the membership relation of hereditarily finite sets, and defining the adjacency relation of the Rado graph. In computer science, it is used for efficient representations of set data structures using bit vectors, in defining the private information retrieval problem from communication complexity, and in descriptive complexity theory to formulate logical descriptions of complexity classes.
+
+History
+The BIT predicate was first introduced in 1937 by Wilhelm Ackermann to define the Ackermann coding, which encodes hereditarily finite sets as natural numbers. The BIT predicate can be used to perform membership tests for the encoded sets: 
+  
+    
+      
+        
+          BIT
+        
+        (
+        i
+        ,
+        j
+        )
+      
+    
+    {\displaystyle {\text{BIT}}(i,j)}
+   is true if and only if the set encoded by 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   is a member of the set encoded by 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  .
+Ackermann denoted the predicate 
+  
+    
+      
+        
+          BIT
+        
+        (
+        i
+        ,
+        j
+        )
+      
+    
+    {\displaystyle {\text{BIT}}(i,j)}
+   as 
+  
+    
+      
+        
+          
+            E
+            l
+          
+        
+        (
+        j
+        ,
+        i
+        )
+      
+    
+    {\displaystyle {\mathfrak {El}}(j,i)}
+  , using a Fraktur font to distinguish it from the notation 
+  
+    
+      
+        
+          E
+          l
+        
+        (
+        j
+        ,
+        i
+        )
+      
+    
+    {\displaystyle \mathrm {El} (j,i)}
+   that he used for set membership (short for "
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   is an element of 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  " in German). The notation 
+  
+    
+      
+        
+          BIT
+        
+        (
+        i
+        ,
+        j
+        )
+      
+    
+    {\displaystyle {\text{BIT}}(i,j)}
+  , and the name "the BIT predicate", come from the work of Ronald Fagin and Neil Immerman, who applied this predicate in computational complexity theory as a way to encode and decode information in the late 1980s and early 1990s.
+
+Description and implementation
+The binary representation of a number 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   is an expression for 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   as a sum of distinct powers of two,
+
+where each bit 
+  
+    
+      
+        
+          b
+          
+            j
+          
+        
+      
+    
+    {\displaystyle b_{j}}
+   in this expression is either 0 or 1. It is commonly written in binary notation as just the sequence of these bits, 
+  
+    
+      
+        ⋯
+        
+          b
+          
+            3
+          
+        
+        
+          b
+          
+            2
+          
+        
+        
+          b
+          
+            1
+          
+        
+        
+          b
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \cdots b_{3}b_{2}b_{1}b_{0}}
+  . Given this expansion for 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  , the BIT predicate 
+  
+    
+      
+        
+          BIT
+        
+        (
+        i
+        ,
+        j
+        )
+      
+    
+    {\displaystyle {\text{BIT}}(i,j)}
+   is defined to equal 
+  
+    
+      
+        
+          b
+          
+            j
+          
+        
+      
+    
+    {\displaystyle b_{j}}
+  . It can be calculated from the formula
+
+where 
+  
+    
+      
+        ⌊
+        ⋅
+        ⌋
+      
+    
+    {\displaystyle \lfloor \cdot \rfloor }
+   is the floor function and mod is the modulo function.
+The BIT predicate is a primitive recursive function. As a binary relation (producing true and false values rather than 1 and 0 respectively), the BIT predicate is asymmetric: there do not exist two numbers 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   and 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   for which both 
+  
+    
+      
+        
+          BIT
+        
+        (
+        i
+        ,
+        j
+        )
+      
+    
+    {\displaystyle {\text{BIT}}(i,j)}
+   and 
+  
+    
+      
+        
+          BIT
+        
+        (
+        j
+        ,
+        i
+        )
+      
+    
+    {\displaystyle {\text{BIT}}(j,i)}
+   are true.In programming languages such as C, C++, Java, or Python that provide a right shift operator >> and a bitwise Boolean and operator &, the BIT predicate 
+  
+    
+      
+        
+          BIT
+        
+        (
+        i
+        ,
+        j
+        )
+      
+    
+    {\displaystyle {\text{BIT}}(i,j)}
+   can be implemented by the expression
+(i>>j)&1. The subexpression i>>j shifts the bits in the binary representation of 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   so that bit 
+  
+    
+      
+        
+          b
+          
+            j
+          
+        
+      
+    
+    {\displaystyle b_{j}}
+   is shifted to position 0, and the subexpression &1 masks off the remaining bits, leaving only the bit in position 0. As with the modular arithmetic formula above, the value of the expression is 1 or 0, respectively as the value of 
+  
+    
+      
+        
+          BIT
+        
+        (
+        i
+        ,
+        j
+        )
+      
+    
+    {\displaystyle {\text{BIT}}(i,j)}
+   is true or false.
+
+Applications
+Set data structures
+For a set represented as a bit array, the BIT predicate can be used to test set membership. For instance, subsets of the non-negative integers 
+  
+    
+      
+        {
+        0
+        ,
+        1
+        ,
+        …
+        }
+      
+    
+    {\displaystyle \{0,1,\ldots \}}
+   may be represented by a bit array with a one in position 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   when 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   is a member of the subset, and a zero in that position when it is not a member. When such a bit array is interpreted as a binary number, the set 
+  
+    
+      
+        {
+        i
+        ,
+        j
+        ,
+        k
+        ,
+        …
+        }
+      
+    
+    {\displaystyle \{i,j,k,\dots \}}
+   for distinct 
+  
+    
+      
+        i
+        ,
+        j
+        ,
+        k
+        ,
+        …
+      
+    
+    {\displaystyle i,j,k,\dots }
+   is represented as the binary number 
+  
+    
+      
+        
+          2
+          
+            i
+          
+        
+        +
+        
+          2
+          
+            j
+          
+        
+        +
+        
+          2
+          
+            k
+          
+        
+        +
+        ⋯
+      
+    
+    {\displaystyle 2^{i}+2^{j}+2^{k}+\cdots }
+  . If 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   is a set, represented in this way, and 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   is a number that may or may not be an element of 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+  , then 
+  
+    
+      
+        
+          BIT
+        
+        (
+        S
+        ,
+        i
+        )
+      
+    
+    {\displaystyle {\text{BIT}}(S,i)}
+   returns a nonzero value when 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   is a member and zero when it is not.The same technique may be used to test membership in subsets of any sequence 
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        ,
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+      
+    
+    {\displaystyle x_{0},x_{1},\dots }
+   of distinct values, encoded using powers of two whose exponents are the positions of the elements in this sequence, rather than their values. For instance, in the Java collections framework, java.util.EnumSet uses this technique to implement a set data structure for enumerated types. Ackermann's encoding of the hereditarily finite sets is an example of this technique, for the recursively-generated sequence of hereditarily finite sets.
+
+Private information retrieval
+In the mathematical study of computer security, the private information retrieval problem can be modeled as one in which a client, communicating with a collection of servers that store a binary number 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  , wishes to determine the result of a BIT predicate 
+  
+    
+      
+        
+          BIT
+        
+        (
+        i
+        ,
+        j
+        )
+      
+    
+    {\displaystyle {\text{BIT}}(i,j)}
+   without divulging the value of 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   to the servers. Chor et al. (1998) describe a method for replicating 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   across two servers in such a way that the client can solve the private information retrieval problem using a substantially smaller amount of communication than would be necessary to recover the complete value of 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  .
+
+Complexity and logic
+The BIT predicate is often examined in the context of first-order logic, where systems of logic result from adding the BIT predicate to first-order logic.  In descriptive complexity, the complexity class FO describes the class of formal languages that can be described by a formula in first-order logic with a comparison operation on totally ordered variables (interpreted as the indexes of characters in a string) and with predicates that test whether this string has a given character at a given numerical index. A formula in this logic defines a language consisting of its finite models. However, with these operations, only a very restricted class of languages, the star-free regular languages, can be described. Adding the BIT predicate to the repertoire of operations used in these logical formulas results in a more robust complexity class, FO[BIT], meaning that it is less sensitive to minor variations in its definition.The class FO[BIT] is the same as the class FO[+,×], of first-order logic with addition and multiplication predicates.
+It is also the same as the circuit complexity class DLOGTIME-uniform AC0. Here, AC0 describes the problems that can be computed by circuits of AND gates and OR gates with polynomial size, bounded height, and unbounded fanout. "Uniform" means that the circuits of all problem sizes must be described by a single algorithm. More specifically, it must be possible to index the gates of each circuit by numbers in such a way that the type of each gate and the adjacency between any two gates can be computed by a deterministic algorithm whose time is logarithmic in the size of the circuit (DLOGTIME).
+
+Construction of the Rado graph
+In 1964, German–British mathematician Richard Rado used the BIT predicate to construct the infinite Rado graph. Rado's construction is just the symmetrization of Ackermann's 1937 construction of the hereditary finite sets from the BIT predicate: two vertices numbered 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   and 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   are adjacent in the Rado graph when either 
+  
+    
+      
+        
+          BIT
+        
+        (
+        i
+        ,
+        j
+        )
+      
+    
+    {\displaystyle {\text{BIT}}(i,j)}
+   or 
+  
+    
+      
+        
+          BIT
+        
+        (
+        j
+        ,
+        i
+        )
+      
+    
+    {\displaystyle {\text{BIT}}(j,i)}
+   is nonzero.The resulting graph has many important properties: it contains every finite undirected graph as an induced subgraph, and any isomorphism of its induced subgraphs can be extended to a symmetry of the whole graph.
+
+Notes
+
+
+== References ==

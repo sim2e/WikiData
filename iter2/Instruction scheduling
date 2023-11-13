@@ -1,0 +1,55 @@
+In computer science, instruction scheduling is a compiler optimization used to improve instruction-level parallelism, which improves performance on machines with instruction pipelines. Put more simply, it tries to do the following without changing the meaning of the code:
+
+Avoid pipeline stalls by rearranging the order of instructions.
+Avoid illegal or semantically ambiguous operations (typically involving subtle instruction pipeline timing issues or non-interlocked resources).The pipeline stalls can be caused by structural hazards (processor resource limit), data hazards (output of one instruction needed by another instruction) and control hazards (branching).
+
+Data hazards
+Instruction scheduling is typically done on a single basic block. In order to determine whether rearranging the block's instructions in a certain way preserves the behavior of that block, we need the concept of a data dependency. There are three types of dependencies, which also happen to be the three data hazards:
+
+Read after Write (RAW or "True"): Instruction 1 writes a value used later by Instruction 2. Instruction 1 must come first, or Instruction 2 will read the old value instead of the new.
+Write after Read (WAR or "Anti"): Instruction 1 reads a location that is later overwritten by Instruction 2. Instruction 1 must come first, or it will read the new value instead of the old.
+Write after Write (WAW or "Output"): Two instructions both write the same location. They must occur in their original order.Technically, there is a fourth type, Read after Read (RAR or "Input"): Both instructions read the same location. Input dependence does not constrain the execution order of two statements, but it is useful in scalar replacement of array elements.
+To make sure we respect the three types of dependencies, we construct a dependency graph, which is a directed graph where each vertex is an instruction and there is an edge from I1 to I2 if I1 must come before I2 due to a dependency. If loop-carried dependencies are left out, the dependency graph is a directed acyclic graph. Then, any topological sort of this graph is a valid instruction schedule. The edges of the graph are usually labelled with the latency of the dependence. This is the number of clock cycles that needs to elapse before the pipeline can proceed with the target instruction without stalling.
+
+Algorithms
+The simplest algorithm to find a topological sort is frequently used and is known as list scheduling. Conceptually, it repeatedly selects a source of the dependency graph, appends it to the current instruction schedule and removes it from the graph. This may cause other vertices to be sources, which will then also be considered for scheduling. The algorithm terminates if the graph is empty.
+To arrive at a good schedule, stalls should be prevented. This is determined by the choice of the next instruction to be scheduled. A number of heuristics are in common use:
+
+The processor resources used by the already scheduled instructions are recorded. If a candidate uses a resource that is occupied, its priority will drop.
+If a candidate is scheduled closer to its predecessors than the associated latency, its priority will drop.
+If a candidate lies on the critical path of the graph, its priority will rise. This heuristic provides some form of look-ahead in an otherwise local decision process.
+If choosing a candidate will create many new sources, its priority will rise. This heuristic tends to generate more freedom for the scheduler.
+
+Phase order
+Instruction scheduling may be done either before or after register allocation or both before and after it. The advantage of doing it before register allocation is that this results in maximum parallelism. The disadvantage of doing it before register allocation is that this can result in the register allocator needing to use a number of registers exceeding those available. This will cause spill/fill code to be introduced, which will reduce the performance of the section of code in question.
+If the architecture being scheduled has instruction sequences that have potentially illegal combinations (due to a lack of instruction interlocks), the instructions must be scheduled after register allocation. This second scheduling pass will also improve the placement of the spill/fill code.
+If scheduling is only done after register allocation, then there will be false dependencies introduced by the register allocation that will limit the amount of instruction motion possible by the scheduler.
+
+Types
+There are several types of instruction scheduling:
+
+Local (basic block) scheduling: instructions can't move across basic block boundaries.
+Global scheduling: instructions can move across basic block boundaries.
+Modulo scheduling: an algorithm for generating software pipelining, which is a way of increasing instruction level parallelism by interleaving different iterations of an inner loop.
+Trace scheduling: the first practical approach for global scheduling, trace scheduling tries to optimize the control flow path that is executed most often.
+Superblock scheduling: a simplified form of trace scheduling which does not attempt to merge control flow paths at trace "side entrances". Instead, code can be implemented by more than one schedule, vastly simplifying the code generator.
+
+Compiler examples
+The GNU Compiler Collection is one compiler known to perform instruction scheduling, using the -march (both instruction set and scheduling) or -mtune (only scheduling) flags. It uses descriptions of instruction latencies and what instructions can be run in parallel (or equivalently, which "port" each use) for each microarchitecture to perform the task. This feature is available to almost all architectures that GCC supports.Until version 12.0.0, the instruction scheduling in LLVM/Clang could only accept a -march (called target-cpu in LLVM parlance) switch for both instruction set and scheduling. Version 12 adds support for -mtune (tune-cpu) for x86 only.Sources of information on latency and port usage include:
+
+GCC and LLVM;
+Agner Fog, who compiles extensive data for the x86 architecture;
+InstLatx64, which uses AIDA64 to collect data on x86 CPUs.LLVM's llvm-exegesis should be usable on all machines, especially to gather information on non-x86 ones.
+
+See also
+Branch predication
+Code generation
+Instruction unit
+Out-of-order execution
+
+References
+Further reading
+Fisher, Joseph A. (1981). "Trace Scheduling: A Technique for Global Microcode Compaction". IEEE Transactions on Computers. 30 (7): 478–490. doi:10.1109/TC.1981.1675827. S2CID 1650655. (Trace scheduling)
+Nicolau, Alexandru; Fisher, Joseph A. (1984). "Measuring the Parallelism Available for Very Long Instruction Word Architectures". IEEE Transactions on Computers. 33 (11). (Percolation scheduling)
+Bernstein, David; Rodeh, Michael (June 1991). "Global Instruction Scheduling for Superscalar Machines" (PDF). Proceedings of the ACM, SIGPLAN '91 Conference on Programming Language Design and Implementation. (Global scheduling)
+Cordes, Peter. "assembly - Instruction reordering in x86 / x64 asm - performance optimisation with latest CPUs". Stack Overflow.

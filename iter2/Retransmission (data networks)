@@ -1,0 +1,26 @@
+Retransmission, essentially identical with automatic repeat request (ARQ), is the resending of packets which have been either damaged or lost. Retransmission is one of the basic mechanisms used by protocols operating over a packet switched computer network to provide reliable communication (such as that provided by a reliable byte stream, for example TCP).
+Such networks are usually "unreliable", meaning they offer no guarantees that they will not delay, damage, or lose packets, or deliver them out of order.  Protocols which provide reliable communication over such networks use a combination of acknowledgments (i.e. an explicit receipt from the destination of the data), retransmission of missing or damaged packets (usually initiated by a time-out), and checksums to provide that reliability.
+
+Acknowledgment
+There are several forms of acknowledgement which can be used alone or together in networking protocols:
+
+Positive Acknowledgement: the receiver explicitly notifies the sender which packets, messages, or segments were received correctly.  Positive Acknowledgement therefore also implicitly informs the sender which packets were not received and provides detail on packets which need to be retransmitted.
+Negative Acknowledgment (NACK): the receiver explicitly notifies the sender which packets, messages, or segments were received incorrectly and thus may need to be retransmitted (RFC 4077).
+Selective Acknowledgment (SACK): the receiver explicitly lists which packets, messages, or segments in a stream are acknowledged (either negatively or positively).  Positive selective acknowledgment is an option in TCP (RFC 2018) that is useful in Satellite Internet access (RFC 2488).
+Cumulative Acknowledgment: the receiver acknowledges that it correctly received a packet, message, or segment in a stream which implicitly informs the sender that the previous packets were received correctly.  TCP uses cumulative acknowledgment with its TCP sliding window.
+
+Retransmission
+Retransmission is a very simple concept. Whenever one party sends something to the other party, it retains a copy of the data it sent until the recipient has acknowledged that it received it. In a variety of circumstances the sender  automatically retransmits the data using the retained copy.  Reasons for resending include:
+
+if no such acknowledgment is forthcoming within a reasonable time, the time-out
+the sender discovers, often through some out of band means, that the transmission was unsuccessful
+if the receiver knows that expected data has not arrived, and so notifies the sender
+if the receiver knows that the data has arrived, but in a damaged condition, and indicates that to the sender
+
+See also
+Error control
+Reliable system design
+Truncated binary exponential backoff
+TCP congestion avoidance algorithm
+Development of TCP
+QSL card

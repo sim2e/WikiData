@@ -1,0 +1,31 @@
+Random self-reducibility (RSR) is the rule that a good algorithm for the average case implies a good algorithm for the worst case.  RSR is the ability to solve all instances of a problem by solving a large fraction of the instances.
+
+Definition
+If for a function f evaluating any instance x can be reduced in polynomial time to the evaluation of f on one or more random instances yi, then it is self-reducible (this is also known as a non-adaptive uniform self-reduction).  In a random self-reduction, an arbitrary worst-case instance x in the domain of f is mapped to a random set of instances y1, ..., yk.  This is done so that f(x) can be computed in polynomial time, given the coin-toss sequence from the mapping, x, and f(y1), ..., f(yk).  Therefore, taking the average with respect to the induced distribution on yi, the average-case complexity of f is the same (within polynomial factors) as the worst-case randomized complexity of f.
+One special case of note is when each random instance yi is distributed uniformly over the entire set of elements in the domain of f that have a length of |x|.  In this case f is as hard on average as it is in the worst case.  This approach contains two key restrictions.  First the generation of y1, ..., yk is performed non-adaptively.  This means that y2 is picked before f(y1) is known.  Second, it is not necessary that the points y1, ..., yk be uniformly distributed.
+
+Application in cryptographic protocols
+Problems that require some privacy in the data (typically cryptographic problems) can use randomization to ensure that privacy. In fact, the only provably secure cryptographic system (the one-time pad) has its security relying totally on the randomness of the key data supplied to the system.
+The field of cryptography utilizes the fact that certain number-theoretic functions are randomly self-reducible. This includes probabilistic encryption and cryptographically strong pseudorandom number generation.  Also, instance-hiding schemes (where a weak private device uses a strong public device without revealing its data) are easily exemplified by random self-reductions.
+
+Examples
+The discrete logarithm problem, the quadratic residuosity problem, the RSA inversion problem, and the problem of computing the permanent of a matrix are each random self-reducible problems.
+
+Discrete logarithm
+Theorem: Given a cyclic group G of size |G|. If a deterministic polynomial time algorithm A computes the discrete logarithm for a 1/poly(n) fraction of all inputs (where n = log |G| is the input size), then there is a randomized polynomial time algorithm for discrete logarithm for all inputs.
+Given a generator g of a cyclic group G = { gi | 0 ≤ i < |G| }, and an x ∈ G, the discrete log of x to the base g is the integer k (0 ≤ k < |G|) with x = gk.  Take B to be distributed uniformly on {0,...,|G| − 1}, then xgB = gk+B is also distributed uniformly on G.  Therefore xgB is independent of x, and its logarithm can be computed with probability 1/poly(n) in polynomial time.  Then loggx ≡ loggxgB  - B (mod |G|) and the discrete logarithm is self-reducible.
+
+Permanent of a matrix
+Given the definition of the permanent of a matrix, it is clear that PERM(M) for any n-by-n matrix M is a multivariate polynomial of degree n over the entries in M. Calculating the permanent of a matrix is a difficult computational task—PERM has been shown to be #P-complete (proof). Moreover, the ability to compute PERM(M) for most matrices implies the existence of a random program that computes PERM(M) for all matrices. This demonstrates that PERM is random self-reducible. The discussion below considers the case where the matrix entries are drawn from a finite field Fp for some prime p, and where all arithmetic is performed in that field.
+Let X be a random n-by-n matrix with entries from Fp. Since all the entries of any matrix M + kX are linear functions of k, by composing those linear functions with the degree n multivariate polynomial that calculates PERM(M) we get another degree n polynomial on k, which we will call p(k). Clearly, p(0) is equal to the permanent of M.
+Suppose we know a program that computes the correct value of PERM(A) for most n-by-n matrices with entries from Fp---specifically, 1 − 1/(3n) of them. Then with probability of approximately two-thirds, we can calculate PERM(M + kX) for k = 1,2,...,n + 1. Once we have those n + 1 values, we can solve for the coefficients of p(k) using interpolation (remember that p(k) has degree n). Once we know p(k) exactly, we evaluate p(0), which is equal to PERM(M).
+If we do so, we run the risk of being wrong 1/3 of the time, but by picking multiple random Xs and repeating the above procedure many times, and only providing the majority winner as an answer, we can drive the error rate down very low.
+
+Consequences
+If an NP-complete problem is non-adaptively random self-reducible the polynomial hierarchy collapses to Σ3.
+If a CoNP-hard problem is random self-reducible in O(log n/n) then Σ2 = Π2.
+
+References
+M. Abadi, J. Feigenbaum, and J. Kilian, On Hiding Information from an Oracle, J. Comput. Syst. Sci., 1989
+S. Arora, Around the PCP Theorem, 1996
+J. Feigenbaum, L. Fortnow, On the Random-self-reducibility of Complete Sets, 1991

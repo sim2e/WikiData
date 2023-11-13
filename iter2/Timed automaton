@@ -1,0 +1,1127 @@
+In automata theory, a timed automaton is a finite automaton extended with a finite set of real-valued clocks. During a run of a timed automaton, clock values increase all with the same speed. Along the transitions of the automaton, clock values can be compared to integers. These comparisons form guards that may enable or disable transitions and by doing so constrain the possible behaviors of the automaton. Further, clocks can be reset. Timed automata are a sub-class of a type hybrid automata.
+Timed automata can be used to model and analyse the timing behavior of computer systems, e.g., real-time systems or networks. Methods for checking both safety and liveness properties have been developed and intensively studied over the last 20 years.
+It has been shown that the state reachability problem for timed automata is decidable, which makes this an interesting sub-class of hybrid automata. Extensions have been extensively studied, among them stopwatches, real-time tasks, cost functions, and timed games. There exists a variety of tools to input and analyse timed automata and extensions, including the model checkers UPPAAL, Kronos, and the schedulability analyser TIMES. These tools are becoming more and more mature, but are still all academic research tools.
+
+Example
+Before formally defining what a timed automaton is, some examples are given.
+Consider the language 
+  
+    
+      
+        
+          
+            L
+          
+        
+      
+    
+    {\displaystyle {\mathcal {L}}}
+   of timed words 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   over the unary alphabet 
+  
+    
+      
+        {
+        a
+        }
+      
+    
+    {\displaystyle \{a\}}
+   such that there is an 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   during the first time unit, and there is less than one time unit between two successive 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  . A timed automaton recognizing this language, pictured nearby, uses a single clock 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  , which should never be equal to one. This clock counts the time since the start of the run if no 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   were emitted, or from the last 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   emitted otherwise. This means that each time an 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is emitted, this clock is reset to zero.
+
+Consider the language 
+  
+    
+      
+        
+          
+            L
+          
+        
+      
+    
+    {\displaystyle {\mathcal {L}}}
+   of timed words 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   over the binary alphabet 
+  
+    
+      
+        {
+        a
+        ,
+        b
+        }
+      
+    
+    {\displaystyle \{a,b\}}
+   such that each 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is followed by a 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   in the next time unit.  The timed automaton recognizing this language, pictured nearby, recalls whether or not there was an 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   that was not yet followed by a 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  . If it is not the case, it accepts the run, otherwise it rejects it. Furthermore, when there is such a 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , it has a clock 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   that records the time elapsed since the first such 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   was emitted. In this case, a 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   cannot be emitted if the clock is at least equal to one, and thus the run fails.
+
+Formal definition
+Timed automaton
+Formally, a timed automaton is a tuple 
+  
+    
+      
+        
+          
+            A
+          
+        
+        =
+        ⟨
+        Σ
+        ,
+        L
+        ,
+        
+          L
+          
+            0
+          
+        
+        ,
+        C
+        ,
+        F
+        ,
+        E
+        ⟩
+      
+    
+    {\displaystyle {\mathcal {A}}=\langle \Sigma ,L,L_{0},C,F,E\rangle }
+   that consists of the following components:
+
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+   is a finite set called the alphabet or actions of 
+  
+    
+      
+        
+          
+            A
+          
+        
+      
+    
+    {\displaystyle {\mathcal {A}}}
+  .
+
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   is a finite set. The elements of 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   are called the locations or states' of 
+  
+    
+      
+        
+          
+            A
+          
+        
+      
+    
+    {\displaystyle {\mathcal {A}}}
+  .
+
+  
+    
+      
+        
+          L
+          
+            0
+          
+        
+        ⊆
+        L
+      
+    
+    {\displaystyle L_{0}\subseteq L}
+    is the set of start locations.
+
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   is a finite set called the clocks of 
+  
+    
+      
+        
+          
+            A
+          
+        
+      
+    
+    {\displaystyle {\mathcal {A}}}
+  .
+
+  
+    
+      
+        F
+        ⊆
+        L
+      
+    
+    {\displaystyle F\subseteq L}
+   is the set of accepting locations.
+
+  
+    
+      
+        E
+        ⊆
+        L
+        ×
+        Σ
+        ×
+        
+          
+            B
+          
+        
+        (
+        C
+        )
+        ×
+        
+          
+            P
+          
+        
+        (
+        C
+        )
+        ×
+        L
+      
+    
+    {\displaystyle E\subseteq L\times \Sigma \times {\mathcal {B}}(C)\times {\mathcal {P}}(C)\times L}
+   is a set of edges, called transitions of 
+  
+    
+      
+        
+          
+            A
+          
+        
+      
+    
+    {\displaystyle {\mathcal {A}}}
+  , where
+
+  
+    
+      
+        
+          
+            B
+          
+        
+        (
+        C
+        )
+      
+    
+    {\displaystyle {\mathcal {B}}(C)}
+   is the set of clock constraints involving clocks from 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+  , and
+
+  
+    
+      
+        
+          
+            P
+          
+        
+        (
+        C
+        )
+      
+    
+    {\displaystyle {\mathcal {P}}(C)}
+   is the powerset of 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+  .An edge 
+  
+    
+      
+        (
+        ℓ
+        ,
+        σ
+        ,
+        g
+        ,
+        r
+        ,
+        
+          ℓ
+          ′
+        
+        )
+      
+    
+    {\displaystyle (\ell ,\sigma ,g,r,\ell ')}
+   from 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   is a transition from locations 
+  
+    
+      
+        ℓ
+      
+    
+    {\displaystyle \ell }
+   to 
+  
+    
+      
+        
+          ℓ
+          ′
+        
+      
+    
+    {\displaystyle \ell '}
+   with action 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  , guard 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   and clock resets 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  .
+
+Extended state
+A pair with a location 
+  
+    
+      
+        ℓ
+      
+    
+    {\displaystyle \ell }
+   and a clock valuation 
+  
+    
+      
+        ν
+      
+    
+    {\displaystyle \nu }
+   is called either an extended state or a state.
+Note that the word state is thus ambiguous, since, depending on the author, it may mean either a pair or an element of 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+  .  For the sake of the clarity, this article will use the term location for element of 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   and the term extended location for pairs.
+Here lies one of the biggest difference between timed automata and finite automata. In a finite automaton, at some point of the execution, the state is entirely described by the number of letter read and by a finite number of possible values, which are actually called "states". That means that, given a state and a suffix of the word to read, the remaining of the run is totally determined. Thus, the word "finite" in the name "finite automata". However, as it is explained in the section "run" below, in order to resume clocks are used to determine which transitions can be taken. Thus, in order to know the state of the automaton, you must both know in which location you are, and the clock valuation.
+
+Run
+Given a timed word 
+  
+    
+      
+        w
+        =
+        (
+        
+          σ
+          
+            1
+          
+        
+        ,
+        
+          t
+          
+            1
+          
+        
+        )
+        ,
+        (
+        
+          σ
+          
+            2
+          
+        
+        ,
+        
+          t
+          
+            2
+          
+        
+        )
+        ,
+        …
+        ,
+      
+    
+    {\displaystyle w=(\sigma _{1},t_{1}),(\sigma _{2},t_{2}),\dots ,}
+   with 
+  
+    
+      
+        
+          σ
+          
+            i
+          
+        
+        ∈
+        Σ
+      
+    
+    {\displaystyle \sigma _{i}\in \Sigma }
+  , 
+  
+    
+      
+        (
+        
+          t
+          
+            i
+          
+        
+        
+          )
+          
+            i
+          
+        
+      
+    
+    {\displaystyle (t_{i})_{i}}
+   an increasing sequence of non-negative number, and a timed automaton 
+  
+    
+      
+        
+          
+            A
+          
+        
+      
+    
+    {\displaystyle {\mathcal {A}}}
+   as above, a run is a sequence of the form 
+  
+    
+      
+        (
+        
+          ℓ
+          
+            0
+          
+        
+        ,
+        
+          ν
+          
+            0
+          
+        
+        )
+        
+          
+            →
+            
+              
+                
+                  t
+                  
+                    1
+                  
+                
+              
+            
+            
+              
+                σ
+                
+                  1
+                
+              
+            
+          
+        
+        (
+        
+          ℓ
+          
+            1
+          
+        
+        ,
+        
+          ν
+          
+            1
+          
+        
+        )
+        …
+      
+    
+    {\displaystyle (\ell _{0},\nu _{0}){\xrightarrow[{t_{1}}]{\sigma _{1}}}(\ell _{1},\nu _{1})\dots }
+   satisfying the following constraint:
+
+(initialization) 
+  
+    
+      
+        
+          ℓ
+          
+            0
+          
+        
+        ∈
+        
+          L
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \ell _{0}\in L_{0}}
+  
+(consecution), for all 
+  
+    
+      
+        i
+        ≥
+        1
+      
+    
+    {\displaystyle i\geq 1}
+  , there exists an edge in 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   of the form 
+  
+    
+      
+        ⟨
+        
+          ℓ
+          
+            i
+            −
+            1
+          
+        
+        ,
+        
+          σ
+          
+            i
+          
+        
+        ,
+        
+          g
+          
+            i
+          
+        
+        ,
+        
+          r
+          
+            i
+          
+        
+        ,
+        
+          ℓ
+          
+            i
+          
+        
+        ⟩
+      
+    
+    {\displaystyle \langle \ell _{i-1},\sigma _{i},g_{i},r_{i},\ell _{i}\rangle }
+   such that:
+we assume that 
+  
+    
+      
+        
+          t
+          
+            i
+          
+        
+        −
+        
+          t
+          
+            i
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle t_{i}-t_{i-1}}
+   time units passed, and at this time, the guard is satisfied. I.e. 
+  
+    
+      
+        
+          ν
+          
+            i
+            −
+            1
+          
+        
+        +
+        
+          t
+          
+            i
+          
+        
+        −
+        
+          t
+          
+            i
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle \nu _{i-1}+t_{i}-t_{i-1}}
+   satisfies 
+  
+    
+      
+        
+          g
+          
+            i
+          
+        
+      
+    
+    {\displaystyle g_{i}}
+  ,
+the new clock valuation 
+  
+    
+      
+        
+          ν
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \nu _{i}}
+   corresponds to 
+  
+    
+      
+        
+          ν
+          
+            i
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle \nu _{i-1}}
+  , in which 
+  
+    
+      
+        
+          t
+          
+            i
+          
+        
+        −
+        
+          t
+          
+            i
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle t_{i}-t_{i-1}}
+   time units passed and in which the clocks of 
+  
+    
+      
+        
+          r
+          
+            i
+          
+        
+      
+    
+    {\displaystyle r_{i}}
+   where reset. Formally, 
+  
+    
+      
+        
+          ν
+          
+            i
+          
+        
+        =
+        (
+        
+          ν
+          
+            i
+            −
+            1
+          
+        
+        +
+        
+          t
+          
+            i
+          
+        
+        −
+        
+          t
+          
+            i
+            −
+            1
+          
+        
+        )
+        [
+        
+          r
+          
+            i
+          
+        
+        →
+        0
+        ]
+      
+    
+    {\displaystyle \nu _{i}=(\nu _{i-1}+t_{i}-t_{i-1})[r_{i}\rightarrow 0]}
+  .The notion of accepting run is defined as in finite automata for finite words and as in Büchi automata for infinite words. That is, if 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   is finite of length 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  , then the run is accepting if 
+  
+    
+      
+        
+          ℓ
+          
+            n
+          
+        
+        ∈
+        F
+      
+    
+    {\displaystyle \ell _{n}\in F}
+  . If the word is infinite, then the run is accepting if and only if there exists an infinite number of position 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   such that 
+  
+    
+      
+        
+          ℓ
+          
+            i
+          
+        
+        ∈
+        F
+      
+    
+    {\displaystyle \ell _{i}\in F}
+  .
+
+Deterministic timed automaton
+As in the case of finite and Büchi automaton, a timed automaton may be deterministic or non-deterministic. Intuitively, being deterministic has the same meaning in each of those case. It means that the set of start locations is a singleton, and that, given a state 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  , and a letter 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , there is only one possible state which can be reached from 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   by reading 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  . However, in the case of timed automaton the formal definition is slightly more complex. Formally, a timed automaton is deterministic if:
+
+  
+    
+      
+        
+          L
+          
+            0
+          
+        
+      
+    
+    {\displaystyle L_{0}}
+   is a singleton
+for each pair of transitions 
+  
+    
+      
+        (
+        ℓ
+        ,
+        σ
+        ,
+        g
+        ,
+        r
+        ,
+        
+          ℓ
+          ′
+        
+        )
+      
+    
+    {\displaystyle (\ell ,\sigma ,g,r,\ell ')}
+   and 
+  
+    
+      
+        (
+        ℓ
+        ,
+        σ
+        ,
+        
+          g
+          ′
+        
+        ,
+        
+          r
+          ′
+        
+        ,
+        
+          ℓ
+          ″
+        
+        )
+      
+    
+    {\displaystyle (\ell ,\sigma ,g',r',\ell '')}
+  , the set of clocks valuations satisfying 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   is disjoint from the set of clocks valuations satisfying 
+  
+    
+      
+        
+          g
+          ′
+        
+      
+    
+    {\displaystyle g'}
+  .
+
+Closure property
+The class of languages recognized by non-deterministic timed automata is:
+
+closed under union, indeed, the disjoint union of two timed automata recognize the union of the language recognized by those automata.
+closed under intersection.
+not closed under complement.
+
+Problems and their complexity
+The computational complexity of some problems related to timed automata are now given.
+The emptiness problem for timed automata can be solved by constructing a region automaton and checking whether it accepts the empty language. This problem is PSPACE-complete.: 207 The universality problem of non-deterministic timed automaton is undecidable, and more precisely Π11. However, when the automaton contains a single clock, the property is decidable; however, it is not primitive recursive. This problem consists of deciding whether every word is accepted by a timed automaton.
+
+See also
+Alternating timed automaton: an extension of timed automaton with universal transitions.
+
+
+== Notes ==

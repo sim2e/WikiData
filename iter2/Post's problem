@@ -1,0 +1,470 @@
+In computer science and mathematical logic the Turing degree (named after Alan Turing) or degree of unsolvability of a set of natural numbers measures the level of algorithmic unsolvability of the set.
+
+Overview
+The concept of Turing degree is fundamental in computability theory, where sets of natural numbers are often regarded as decision problems. The Turing degree of a set is a measure of how difficult it is to solve the decision problem associated with the set, that is, to determine whether an arbitrary number is in the given set.
+Two sets are Turing equivalent if they have the same level of unsolvability; each Turing degree is a collection of Turing equivalent sets, so that two sets are in different Turing degrees exactly when they are not Turing equivalent.  Furthermore, the Turing degrees are partially ordered, so that if the Turing degree of a set X is less than the Turing  degree of a set Y, then any (possibly noncomputable) procedure that correctly decides whether numbers are in Y can be effectively converted to a procedure that correctly decides whether numbers are in X. It is in this sense that the Turing degree of a set corresponds to its level of algorithmic unsolvability.
+The Turing degrees were introduced by Post (1944) and many fundamental results were established by Kleene & Post (1954). The Turing degrees have been an area of intense research since then. Many proofs in the area make use of a proof technique known as the priority method.
+
+Turing equivalence
+For the rest of this article, the word set will refer to a set of natural numbers.  A set X is said to be Turing reducible to a set Y if there is an oracle Turing machine that decides membership in X when given an oracle for membership in Y.  The notation X ≤T Y indicates that X is Turing reducible to Y.
+Two sets X and Y are defined to be Turing equivalent if X is Turing reducible to Y and Y is Turing reducible to X.  The notation X ≡T Y indicates that X and Y are Turing equivalent.  The relation ≡T can be seen to be an equivalence relation, which means that for all sets X, Y, and Z: 
+
+X ≡T X
+X ≡T Y implies Y ≡T X
+If X ≡T Y and Y ≡T Z then X ≡T Z.A Turing degree is an equivalence class of the relation ≡T. The notation [X] denotes the equivalence class containing a set X. The entire collection of Turing degrees is denoted 
+  
+    
+      
+        
+          
+            D
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}}
+  .
+The Turing degrees have a partial order ≤ defined so that [X] ≤ [Y] if and only if X ≤T Y. There is a unique Turing degree containing all the computable sets, and this degree is less than every other degree.  It is denoted 0 (zero) because it is the least element of the poset 
+  
+    
+      
+        
+          
+            D
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}}
+  . (It is common to use boldface notation for Turing degrees, in order to distinguish them from sets.  When no confusion can occur, such as with [X], the boldface is not necessary.)
+For any sets X and Y, X join Y, written X ⊕ Y, is defined to be the union of the sets {2n : n ∈ X} and  {2m+1 : m ∈ Y}. The Turing degree of X ⊕ Y is the least upper bound of the degrees of X and Y. Thus 
+  
+    
+      
+        
+          
+            D
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}}
+   is a join-semilattice. The least upper bound of degrees a and b is denoted a ∪ b.  It is known that 
+  
+    
+      
+        
+          
+            D
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}}
+   is not a lattice, as there are pairs of degrees with no greatest lower bound.
+For any set X the notation X′  denotes the set of indices of oracle machines that halt (when given their index as input) when using X as an oracle.  The set X′ is called the Turing jump of X.  The Turing jump of a degree [X] is defined to be the degree [X′]; this is a valid definition because X′ ≡T Y′ whenever X ≡T Y. A key example is 0′, the degree of the halting problem.
+
+Basic properties of the Turing degrees
+Every Turing degree is countably infinite, that is, it contains exactly 
+  
+    
+      
+        
+          ℵ
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \aleph _{0}}
+   sets.
+There are 
+  
+    
+      
+        
+          2
+          
+            
+              ℵ
+              
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle 2^{\aleph _{0}}}
+   distinct Turing degrees.
+For each degree a the strict inequality a < a′ holds.
+For each degree a, the set of degrees below a is countable.  The set of degrees greater than a has size 
+  
+    
+      
+        
+          2
+          
+            
+              ℵ
+              
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle 2^{\aleph _{0}}}
+  .
+
+Structure of the Turing degrees
+A great deal of research has been conducted into the structure of the Turing degrees.  The following survey lists only some of the many known results. One general conclusion that can be drawn from the research is that the structure of the Turing degrees is extremely complicated.
+
+Order properties
+There are minimal degrees.  A degree a is minimal if a is nonzero and there is no degree between 0 and a. Thus the order relation on the degrees is not a dense order.
+The Turing degrees are not linearly ordered by ≤T.
+In fact, for every nonzero degree a there is a degree b incomparable with a.
+There is a set of 
+  
+    
+      
+        
+          2
+          
+            
+              ℵ
+              
+                0
+              
+            
+          
+        
+      
+    
+    {\displaystyle 2^{\aleph _{0}}}
+   pairwise incomparable Turing degrees.
+There are pairs of degrees with no greatest lower bound.  Thus 
+  
+    
+      
+        
+          
+            D
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}}
+   is not a lattice.
+Every countable partially ordered set can be embedded in the Turing degrees.
+An infinite strictly increasing sequence a1, a2, ... of Turing degrees cannot have the least upper bound, but it always has an exact pair c, d such that ∀e (e<c∧e<d ⇔ ∃i e≤ai), and thus it has (non-unique) minimal upper bounds.
+Assuming the axiom of constructibility, it can be shown there is a maximal chain of degrees of order type 
+  
+    
+      
+        
+          ω
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \omega _{1}}
+  .
+
+Properties involving the jump
+For every degree a there is a degree strictly between a and a′. In fact, there is a countable family of pairwise incomparable degrees between a and a′.
+Jump inversion: a degree a is of the form b′ if and only if 0′ ≤ a.
+For any degree a there is a degree b such that a < b and b′ = a′; such a degree b is called low relative to a.
+There is an infinite sequence ai of degrees such that a′i+1 ≤ ai for each i.
+Post's theorem establishes a close correspondence between the arithmetical hierarchy and finitely iterated Turing jumps of the empty set.
+
+Logical properties
+Simpson (1977b) showed that the first-order theory of 
+  
+    
+      
+        
+          
+            D
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}}
+   in the language ⟨ ≤, = ⟩ or ⟨ ≤, ′, = ⟩ is many-one equivalent to the theory of true second-order arithmetic.  This indicates that the structure of 
+  
+    
+      
+        
+          
+            D
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}}
+   is extremely complicated.
+Shore & Slaman (1999) showed that the jump operator is definable in the first-order structure of 
+  
+    
+      
+        
+          
+            D
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}}
+   with the language ⟨ ≤, = ⟩.
+
+Recursively enumerable Turing degrees
+A degree is called recursively enumerable (r.e.) or computably enumerable (c.e.) if it contains a recursively enumerable set. Every r.e. degree is below 0′, but not every degree below 0′ is r.e.. However, a set 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is many-one reducible to 0′ iff 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is r.e..
+Sacks (1964): The r.e. degrees are dense; between any two r.e. degrees there is a third r.e. degree.
+Lachlan (1966a) and Yates (1966): There are two r.e. degrees with no greatest lower bound in the r.e. degrees.
+Lachlan (1966a) and Yates (1966): There is a pair of nonzero r.e. degrees whose greatest lower bound is 0.
+Lachlan (1966b): There is no pair of r.e. degrees whose greatest lower bound is 0 and whose least upper bound is 0′. This result is informally called the nondiamond theorem.
+Thomason (1971): Every finite distributive lattice can be embedded into the r.e. degrees. In fact, the countable atomless Boolean algebra can be embedded in a manner that preserves suprema and infima.
+Lachlan & Soare (1980): Not all finite lattices can be embedded in the r.e. degrees (via an embedding that preserves suprema and infima). A particular example is shown to the right. L. A. Harrington and T. A. Slaman (see Nies, Shore & Slaman (1998)): The first-order theory of the r.e. degrees in the language ⟨ 0, ≤, = ⟩ is many-one equivalent to the theory of true first-order arithmetic.Additionally, there is Shoenfield's limit lemma, a set A satisfies 
+  
+    
+      
+        [
+        A
+        ]
+        
+          ≤
+          
+            T
+          
+        
+        
+          ∅
+          ′
+        
+      
+    
+    {\displaystyle [A]\leq _{T}\emptyset '}
+   iff there is a "recursive approximation" to its characteristic function: a function g such that for sufficiently large s, 
+  
+    
+      
+        g
+        (
+        s
+        )
+        =
+        
+          χ
+          
+            A
+          
+        
+        (
+        s
+        )
+      
+    
+    {\displaystyle g(s)=\chi _{A}(s)}
+  .A set A is called n-r e. if there is a family of functions 
+  
+    
+      
+        (
+        
+          A
+          
+            s
+          
+        
+        
+          )
+          
+            s
+            ∈
+            
+              N
+            
+          
+        
+      
+    
+    {\displaystyle (A_{s})_{s\in \mathbb {N} }}
+   such that:
+As is a recursive approximation of A: for some t, for any s≥t we have As(x) = A(x), in particular conflating A with its characteristic function. (Removing this condition yields a definition of A  being "weakly n-r.e.")
+As is an "n-trial predicate": for all x, A0(x)=0 and the cardinality of 
+  
+    
+      
+        {
+        s
+        ∣
+        
+          A
+          
+            s
+          
+        
+        (
+        x
+        )
+        ≠
+        
+          A
+          
+            s
+            +
+            1
+          
+        
+        (
+        x
+        )
+        }
+      
+    
+    {\displaystyle \{s\mid A_{s}(x)\neq A_{s+1}(x)\}}
+   is ≤n.Properties of n-r.e. degrees:
+The class of sets of n-r.e. degree is a strict subclass of the class of sets of (n+1)-r.e. degree.
+For all n>1 there are two (n+1)-r.e. degrees a, b with 
+  
+    
+      
+        
+          a
+        
+        
+          ≤
+          
+            T
+          
+        
+        
+          b
+        
+      
+    
+    {\displaystyle \mathbf {a} \leq _{T}\mathbf {b} }
+  , such that the segment 
+  
+    
+      
+        {
+        
+          c
+        
+        ∣
+        
+          a
+        
+        
+          ≤
+          
+            T
+          
+        
+        
+          c
+        
+        
+          ≤
+          
+            T
+          
+        
+        
+          b
+        
+        }
+      
+    
+    {\displaystyle \{\mathbf {c} \mid \mathbf {a} \leq _{T}\mathbf {c} \leq _{T}\mathbf {b} \}}
+   contains no n-r.e. degrees.
+
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   and 
+  
+    
+      
+        
+          
+            A
+            ¯
+          
+        
+      
+    
+    {\displaystyle {\overline {A}}}
+   are (n+1)-r.e. iff both sets are weakly-n-r.e.
+
+Post's problem and the priority method
+Emil Post studied the r.e. Turing degrees and asked whether there is any r.e. degree strictly between 0 and 0′.  The problem of constructing such a degree (or showing that none exist) became known as Post's problem.  This problem was solved independently by Friedberg and Muchnik in the 1950s, who showed that these intermediate r.e. degrees do exist (Friedberg–Muchnik theorem). Their proofs each developed the same new method for constructing r.e. degrees, which came to be known as the priority method.   The priority method is now the main technique for establishing results about r.e. sets.
+The idea of the priority method for constructing a r.e. set X is to list a countable sequence of requirements that X must satisfy. For example, to construct a r.e. set X between 0 and 0′ it is enough to satisfy the requirements Ae and Be for each natural number e, where Ae requires that the oracle machine with index e does not compute 0′ from X and Be requires that the Turing machine with index e (and no oracle) does not compute X.  These requirements are put into a priority ordering, which is an explicit bijection of the requirements and the natural numbers. The proof proceeds inductively with one stage for each natural number; these stages can be thought of as steps of time during which the set X is enumerated.  At each stage, numbers may be put into X or forever (if not injured) prevented from entering X in an attempt to satisfy requirements (that is, force them to hold once all of X has been enumerated).  Sometimes, a number can be enumerated into X to satisfy one requirement but doing this would cause a previously satisfied requirement to become unsatisfied (that is, to be injured).  The priority order on requirements is used to determine which requirement to satisfy in this case.  The informal idea is that if a requirement is injured then it will eventually stop being injured after all higher priority requirements have stopped being injured, although not every priority argument has this property.  An argument must be made that the overall set X is r.e. and satisfies all the requirements. Priority arguments can be used to prove many facts about r.e. sets; the requirements used and the manner in which they are satisfied must be carefully chosen to produce the required result.
+For example, a simple (and hence noncomputable r.e.) low X (low means X′=0′) can be constructed in infinitely many stages as follows.  At the start of stage n, let Tn be the output (binary) tape, identified with the set of cell indices where we placed 1 so far (so X=∪n Tn; T0=∅); and let Pn(m) be the priority for not outputting 1 at location m; P0(m)=∞.  At stage n, if possible (otherwise do nothing in the stage), pick the least i<n such that ∀m Pn(m)≠i and Turing machine i halts in <n steps on some input S⊇Tn with ∀m∈S\Tn Pn(m)≥i.  Choose any such (finite) S, set Tn+1=S, and for every cell m visited by machine i on S, set Pn+1(m) = min(i, Pn(m)), and set all priorities >i to ∞, and then set one priority ∞ cell (any will do) not in S to priority i.  Essentially, we make machine i halt if we can do so without upsetting priorities <i, and then set priorities to prevent machines >i from disrupting the halt; all priorities are eventually constant.
+To see that X is low, machine i halts on X iff it halts in <n steps on some Tn such that machines <i that halt on X do so <n-i steps (by recursion, this is uniformly computable from 0′).  X is noncomputable since otherwise a Turing machine could halt on Y iff Y\X is nonempty, contradicting the construction since X excludes some priority i cells for arbitrarily large i; and X is simple because for each i the number of priority i cells is finite.
+
+See also
+Martin measure
+
+References
+Monographs (undergraduate level)
+Cooper, S.B. (2004). Computability theory. Boca Raton, FL: Chapman & Hall/CRC. p. 424. ISBN 1-58488-237-9.
+Cutland, Nigel J. (1980). Computability, an introduction to recursive function theory. Cambridge-New York: Cambridge University Press. p. 251. ISBN 0-521-22384-9.; ISBN 0-521-29465-7
+
+Monographs and survey articles (graduate level)
+Ambos-Spies, Klaus; Fejer, Peter (20 March 2006). "Degrees of Unsolvability" (PDF). Retrieved 20 August 2023. Unpublished
+Epstein, R.L.; Haas, R; Kramer, L.R. (1981). Leman, M; Schmerl, J.; Soare, R. (eds.). Hierarchies of sets and degrees below 0. Lecture Notes in Mathematics. Vol. 859. Springer-Verlag.
+Lerman, M. (1983). Degrees of unsolvability. Perspectives in Mathematical Logic. Berlin: Springer-Verlag. ISBN 3-540-12155-2.
+Odifreddi, Piergiorgio (1989). Classical Recursion Theory. Studies in Logic and the Foundations of Mathematics. Vol. 125. Amsterdam: North-Holland. ISBN 978-0-444-87295-1. MR 0982269.
+Odifreddi, Piergiorgio (1999). Classical recursion theory. Vol. II. Studies in Logic and the Foundations of Mathematics. Vol. 143. Amsterdam: North-Holland. ISBN 978-0-444-50205-6. MR 1718169.
+Rogers, Hartley (1967). Theory of Recursive Functions and Effective Computability. Cambridge, Massachusetts: MIT Press. ISBN 9780262680523. OCLC 933975989. Retrieved 6 May 2020.
+Sacks, G.E. (1966). Degrees of Unsolvability. Annals of Mathematics Studies. Princeton University Press. ISBN 978-0-6910-7941-7. JSTOR j.ctt1b9x0r8.
+Simpson, Steven G. (1977a). "Degrees of Unsolvability: A Survey of Results". Annals of Mathematics Studies. Studies in Logic and the Foundations of Mathematics. Elsevier. 90: 631–652. doi:10.1016/S0049-237X(08)71117-0. ISBN 9780444863881.
+Shoenfield, Joseph R. (1971). Degrees of Unsolvability. North-Holland/Elsevier. ISBN 978-0-7204-2061-6.
+Shore, R. (1993). "The theories of the T, tt, and wtt r.e. degrees: undecidability and beyond". In Univ. Nac. del Sur, Bahía Blanca (ed.). Proceedings of the IX Latin American Symposium on Mathematical Logic, Part 1 (Bahía Blanca, 1992). Notas Lógica Mat. Vol. 38. pp. 61–70.
+Soare, Robert Irving (1987). Recursively Enumerable Sets and Degrees: A Study of Computable Functions and Computably Generated Sets. Perspectives in Mathematical Logic. Berlin: Springer-Verlag. ISBN 3-540-15299-7.
+Soare, Robert Irving (1978). "Recursively enumerable sets and degrees". Bull. Amer. Math. Soc. 84 (6): 1149–1181. doi:10.1090/S0002-9904-1978-14552-2. MR 0508451. S2CID 29549997.
+
+Research papers
+Chong, C.T.; Yu, Liang (December 2007). "Maximal Chains in the Turing Degrees". Journal of Symbolic Logic. 72 (4): 1219–1227. doi:10.2178/jsl/1203350783. JSTOR 27588601. S2CID 38576214.
+DeAntonio, Jasper (24 September 2010). "The Turing degrees and their lack of linear order" (PDF). Retrieved 20 August 2023.
+Kleene, Stephen Cole; Post, Emil L. (1954), "The upper semi-lattice of degrees of recursive unsolvability", Annals of Mathematics, Second Series, 59 (3): 379–407, doi:10.2307/1969708, ISSN 0003-486X, JSTOR 1969708, MR 0061078
+Lachlan, Alistair H. (1966a), "Lower Bounds for Pairs of Recursively Enumerable Degrees", Proceedings of the London Mathematical Society, 3 (1): 537–569, CiteSeerX 10.1.1.106.7893, doi:10.1112/plms/s3-16.1.537.
+Lachlan, Alistair H. (1966b), "The impossibility of finding relative complements for recursively enumerable degrees", J. Symb. Log., 31 (3): 434–454, doi:10.2307/2270459, JSTOR 2270459, S2CID 30992462.
+Lachlan, Alistair H.; Soare, Robert Irving (1980), "Not every finite lattice is embeddable in the recursively enumerable degrees", Advances in Mathematics, 37: 78–82, doi:10.1016/0001-8708(80)90027-4
+Nies, André; Shore, Richard A.; Slaman, Theodore A. (1998), "Interpretability and definability in the recursively enumerable degrees", Proceedings of the London Mathematical Society, 77 (2): 241–291, CiteSeerX 10.1.1.29.9588, doi:10.1112/S002461159800046X, ISSN 0024-6115, MR 1635141, S2CID 16488410
+Post, Emil L. (1944), "Recursively enumerable sets of positive integers and their decision problems", Bulletin of the American Mathematical Society, 50 (5): 284–316, doi:10.1090/S0002-9904-1944-08111-1, ISSN 0002-9904, MR 0010514
+Sacks, G.E. (1964), "The recursively enumerable degrees are dense", Annals of Mathematics, Second Series, 80 (2): 300–312, doi:10.2307/1970393, JSTOR 1970393
+Shore, Richard A.; Slaman, Theodore A. (1999), "Defining the Turing jump", Mathematical Research Letters, 6 (6): 711–722, doi:10.4310/mrl.1999.v6.n6.a10, ISSN 1073-2780, MR 1739227
+Simpson, Stephen G. (1977b). "First-order theory of the degrees of recursive unsolvability". Annals of Mathematics. Second Series. 105 (1): 121–139. doi:10.2307/1971028. ISSN 0003-486X. JSTOR 1971028. MR 0432435.
+Thomason, S.K. (1971), "Sublattices of the recursively enumerable degrees", Z. Math. Logik Grundlag. Math., 17: 273–280, doi:10.1002/malq.19710170131
+Yates, C.E.M. (1966), "A minimal pair of recursively enumerable degrees", Journal of Symbolic Logic, 31 (2): 159–168, doi:10.2307/2269807, JSTOR 2269807, S2CID 38778059
+
+
+== Notes ==

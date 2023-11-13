@@ -1,0 +1,190 @@
+The Kirkpatrick–Seidel algorithm, proposed by its authors as a potential "ultimate planar convex hull algorithm", is an algorithm for computing the convex hull of a set of points in the plane, with 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        n
+        log
+        ⁡
+        h
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(n\log h)}
+   time complexity, where 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is the number of input points and 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   is the number of points (non dominated or maximal points, as called in some texts) in the hull. Thus, the algorithm is output-sensitive: its running time depends on both the input size and the output size. Another output-sensitive algorithm, the gift wrapping algorithm, was known much earlier, but the Kirkpatrick–Seidel algorithm has an asymptotic running time that is significantly smaller and that always improves on the 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        n
+        log
+        ⁡
+        n
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(n\log n)}
+   bounds of non-output-sensitive algorithms. The Kirkpatrick–Seidel algorithm is named after its inventors, David G. Kirkpatrick and Raimund Seidel.Although the algorithm is asymptotically optimal, it is not very practical for moderate-sized problems.
+
+Algorithm
+The basic idea of the algorithm is a kind of reversal of the divide-and-conquer algorithm for convex hulls of Preparata and Hong, dubbed "marriage-before-conquest" by the authors. 
+The traditional divide-and-conquer algorithm splits the input points into two equal parts, e.g., by a vertical line, recursively finds convex hulls for the left and right subsets of the input, and then merges the two hulls into one by finding the "bridge edges", bitangents that connect the two hulls from above and below.
+The Kirkpatrick–Seidel algorithm splits the input as before, by finding the median of the x-coordinates of the input points. However, the algorithm reverses the order of the subsequent steps: its next step is to find the edges of the convex hull that intersect the vertical line defined by this median x-coordinate, which turns out to require linear time. The points on the left and right sides of the splitting line that cannot contribute to the eventual hull are discarded, and the algorithm proceeds recursively on the remaining points. In more detail, the algorithm performs a separate recursion for the upper and lower parts of the convex hull; in the recursion for the upper hull, the noncontributing points to be discarded are those below the bridge edge vertically, while in the recursion for the lower hull the points above the bridge edge vertically are discarded.
+At the 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  th level of the recursion, the algorithm solves at most 
+  
+    
+      
+        
+          2
+          
+            i
+          
+        
+      
+    
+    {\displaystyle 2^{i}}
+   subproblems, each of size at most 
+  
+    
+      
+        
+          
+            n
+            
+              2
+              
+                i
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {n}{2^{i}}}}
+  . The total number of subproblems considered is at most 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  , since each subproblem finds a new convex hull edge. The worst case occurs when no points can be discarded and the subproblems are as large as possible; that is, when there are exactly 
+  
+    
+      
+        
+          2
+          
+            i
+          
+        
+      
+    
+    {\displaystyle 2^{i}}
+   subproblems in each level of recursion up to level 
+  
+    
+      
+        
+          log
+          
+            2
+          
+        
+        ⁡
+        h
+      
+    
+    {\displaystyle \log _{2}h}
+   . For this worst case, there are 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        log
+        ⁡
+        h
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(\log h)}
+   levels of recursion and 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        n
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(n)}
+   points considered within each level, so the total running time is 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        n
+        log
+        ⁡
+        h
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(n\log h)}
+   as stated.
+
+See also
+Convex hull algorithms
+
+
+== References ==

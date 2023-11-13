@@ -1,0 +1,23 @@
+In computer science, instruction selection is the stage of a compiler backend that transforms its middle-level intermediate representation (IR) into a low-level IR. In a typical compiler, instruction selection precedes both instruction scheduling and register allocation; hence its output IR has an infinite set of pseudo-registers (often known as temporaries) and may still be – and typically is – subject to peephole optimization. Otherwise, it closely resembles the target machine code, bytecode, or assembly language.
+For example, for the following sequence of middle-level IR code
+
+t1 = a
+t2 = b
+t3 = t1 + t2
+a = t3
+b = t1
+
+a good instruction sequence for the x86 architecture is
+
+For a comprehensive survey on instruction selection, see.
+
+Macro expansion
+The simplest approach to instruction selection is known as macro expansion or interpretative code generation. A macro-expanding instruction selector operates by matching templates over the middle-level IR. Upon a match the corresponding macro is executed, using the matched portion of the IR as input, which emits the appropriate target instructions. Macro expansion can be done either directly on the textual representation of the middle-level IR, or the IR can first be transformed into a graphical representation which is then traversed depth-first. In the latter, a template matches one or more adjacent nodes in the graph.
+Unless the target machine is very simple, macro expansion in isolation typically generates inefficient code. To mitigate this limitation, compilers that apply this approach typically combine it with peephole optimization to replace combinations of simple instructions with more complex equivalents that increase performance and reduce code size. This is known as the Davidson-Fraser approach and is currently applied in GCC.
+
+Graph covering
+Another approach is to first transform the middle-level IR into a graph and then cover the graph using patterns. A pattern is a template that matches a portion of the graph and can be implemented with a single instruction provided by the target machine. The goal is to cover the graph such that the total cost of the selected patterns is minimized, where the cost typically represents the number of cycles it takes to execute the instruction. For tree-shaped graphs, the least-cost cover can be found in linear time using dynamic programming, but for DAGs and full-fledged graphs the problem becomes NP-complete and thus is most often solved using either greedy algorithms or methods from combinatorial optimization.
+
+References
+External links
+Alternative ways of supporting different generations of computer

@@ -1,0 +1,290 @@
+The Kaplan–Yorke map is a discrete-time dynamical system.   It is an example of a dynamical system that exhibits chaotic behavior.  The Kaplan–Yorke map takes a point (xn, yn ) in the plane and maps it to a new point given by
+
+  
+    
+      
+        
+          x
+          
+            n
+            +
+            1
+          
+        
+        =
+        2
+        
+          x
+          
+            n
+          
+        
+         
+        (
+        
+          
+            mod
+          
+        
+         
+        1
+        )
+      
+    
+    {\displaystyle x_{n+1}=2x_{n}\ ({\textrm {mod}}~1)}
+  
+
+  
+    
+      
+        
+          y
+          
+            n
+            +
+            1
+          
+        
+        =
+        α
+        
+          y
+          
+            n
+          
+        
+        +
+        cos
+        ⁡
+        (
+        4
+        π
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle y_{n+1}=\alpha y_{n}+\cos(4\pi x_{n})}
+  where mod is the modulo operator with real arguments. The map depends on only the one constant α.
+
+Calculation method
+Due to roundoff error, successive applications of the modulo operator will yield zero after some ten or twenty iterations when implemented as a floating point operation on a computer. It is better to implement the following equivalent algorithm:
+
+  
+    
+      
+        
+          a
+          
+            n
+            +
+            1
+          
+        
+        =
+        2
+        
+          a
+          
+            n
+          
+        
+         
+        (
+        
+          
+            mod
+          
+        
+         
+        b
+        )
+      
+    
+    {\displaystyle a_{n+1}=2a_{n}\ ({\textrm {mod}}~b)}
+  
+
+  
+    
+      
+        
+          x
+          
+            n
+            +
+            1
+          
+        
+        =
+        
+          a
+          
+            n
+          
+        
+        
+          /
+        
+        b
+      
+    
+    {\displaystyle x_{n+1}=a_{n}/b}
+  
+
+  
+    
+      
+        
+          y
+          
+            n
+            +
+            1
+          
+        
+        =
+        α
+        
+          y
+          
+            n
+          
+        
+        +
+        cos
+        ⁡
+        (
+        4
+        π
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle y_{n+1}=\alpha y_{n}+\cos(4\pi x_{n})}
+  where the 
+  
+    
+      
+        
+          a
+          
+            n
+          
+        
+      
+    
+    {\displaystyle a_{n}}
+   and 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   are computational integers. It is also best to choose 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   to be a large prime number in order to get many different values of 
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{n}}
+  .
+Another way to avoid having the modulo operator yield zero after a short number of iterations is
+
+  
+    
+      
+        
+          x
+          
+            n
+            +
+            1
+          
+        
+        =
+        2
+        
+          x
+          
+            n
+          
+        
+         
+        (
+        
+          
+            mod
+          
+        
+         
+        0.99995
+        )
+      
+    
+    {\displaystyle x_{n+1}=2x_{n}\ ({\textrm {mod}}~0.99995)}
+  
+  
+    
+      
+        
+          y
+          
+            n
+            +
+            1
+          
+        
+        =
+        α
+        
+          y
+          
+            n
+          
+        
+        +
+        cos
+        ⁡
+        (
+        4
+        π
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle y_{n+1}=\alpha y_{n}+\cos(4\pi x_{n})}
+  which will still eventually return zero, albeit after many more iterations.
+
+References
+J.L. Kaplan and J.A. Yorke (1979). H.O. Peitgen and H.O. Walther (ed.). Functional Differential Equations and Approximations of Fixed Points (Lecture Notes in Mathematics 730). Springer-Verlag. ISBN 0-387-09518-7.
+P. Grassberger and I. Procaccia (1983). "Measuring the strangeness of strange attractors". Physica. 9D (1–2): 189–208. Bibcode:1983PhyD....9..189G. doi:10.1016/0167-2789(83)90298-1.

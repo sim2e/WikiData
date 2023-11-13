@@ -1,0 +1,2153 @@
+In theoretical computer science and mathematical logic a string rewriting system (SRS), historically called a semi-Thue system, is a rewriting system over strings from a (usually finite) alphabet. Given a binary relation 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   between fixed strings over the alphabet, called rewrite rules, denoted by 
+  
+    
+      
+        s
+        →
+        t
+      
+    
+    {\displaystyle s\rightarrow t}
+  , an SRS extends the rewriting relation to all strings in which the left- and right-hand side of the rules appear as substrings, that is 
+  
+    
+      
+        u
+        s
+        v
+        →
+        u
+        t
+        v
+      
+    
+    {\displaystyle usv\rightarrow utv}
+  , where 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  , 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  , 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+  , and 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   are strings.
+The notion of a semi-Thue system essentially coincides with the presentation of a monoid. Thus they constitute a natural framework for solving the word problem for monoids and groups.
+An SRS can be defined directly as an abstract rewriting system. It can also be seen as a restricted kind of a term rewriting system. As a formalism, string rewriting systems are Turing complete. The semi-Thue name comes from the Norwegian mathematician Axel Thue, who introduced systematic treatment of string rewriting systems in a 1914 paper. Thue introduced this notion hoping to solve the word problem for finitely presented semigroups. Only in 1947 was the problem shown to be undecidable— this result was obtained independently by Emil Post and A. A. Markov Jr.
+
+Definition
+A string rewriting system or semi-Thue system is a tuple 
+  
+    
+      
+        (
+        Σ
+        ,
+        R
+        )
+      
+    
+    {\displaystyle (\Sigma ,R)}
+   where  
+
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+   is an alphabet, usually assumed finite. The elements of the set 
+  
+    
+      
+        
+          Σ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \Sigma ^{*}}
+   (* is the Kleene star here) are finite (possibly empty) strings on 
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+  , sometimes called words in formal languages; we will simply call them strings here.
+
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   is a binary relation on strings from 
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+  , i.e., 
+  
+    
+      
+        R
+        ⊆
+        
+          Σ
+          
+            ∗
+          
+        
+        ×
+        
+          Σ
+          
+            ∗
+          
+        
+        .
+      
+    
+    {\displaystyle R\subseteq \Sigma ^{*}\times \Sigma ^{*}.}
+   Each element 
+  
+    
+      
+        (
+        u
+        ,
+        v
+        )
+        ∈
+        R
+      
+    
+    {\displaystyle (u,v)\in R}
+   is called a (rewriting) rule and is usually written 
+  
+    
+      
+        u
+        →
+        v
+      
+    
+    {\displaystyle u\rightarrow v}
+  .If the relation 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   is symmetric, then the system is called a Thue system.
+The rewriting rules in 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   can be naturally extended to other strings in 
+  
+    
+      
+        
+          Σ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \Sigma ^{*}}
+   by allowing substrings to be rewritten according to 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+  . More formally, the one-step rewriting relation relation 
+  
+    
+      
+        
+          
+            →
+            
+              
+                R
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle {\xrightarrow[{R}]{}}}
+   induced by 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   on 
+  
+    
+      
+        
+          Σ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \Sigma ^{*}}
+   for any strings 
+  
+    
+      
+        s
+        ,
+        t
+        ∈
+        
+          Σ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle s,t\in \Sigma ^{*}}
+  :
+
+  
+    
+      
+        s
+        
+          
+            →
+            
+              
+                R
+              
+            
+            
+          
+        
+        t
+      
+    
+    {\displaystyle s{\xrightarrow[{R}]{}}t}
+   if and only if there exist 
+  
+    
+      
+        x
+        ,
+        y
+        ,
+        u
+        ,
+        v
+        ∈
+        
+          Σ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle x,y,u,v\in \Sigma ^{*}}
+   such that 
+  
+    
+      
+        s
+        =
+        x
+        u
+        y
+      
+    
+    {\displaystyle s=xuy}
+  , 
+  
+    
+      
+        t
+        =
+        x
+        v
+        y
+      
+    
+    {\displaystyle t=xvy}
+  , and 
+  
+    
+      
+        u
+        →
+        v
+      
+    
+    {\displaystyle u\rightarrow v}
+  .Since 
+  
+    
+      
+        
+          
+            →
+            
+              
+                R
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle {\xrightarrow[{R}]{}}}
+   is a relation on 
+  
+    
+      
+        
+          Σ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \Sigma ^{*}}
+  , the pair 
+  
+    
+      
+        (
+        
+          Σ
+          
+            ∗
+          
+        
+        ,
+        
+          
+            →
+            
+              
+                R
+              
+            
+            
+          
+        
+        )
+      
+    
+    {\displaystyle (\Sigma ^{*},{\xrightarrow[{R}]{}})}
+   fits the definition of an abstract rewriting system. Obviously 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   is a subset of 
+  
+    
+      
+        
+          
+            →
+            
+              
+                R
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle {\xrightarrow[{R}]{}}}
+  . Some authors use a different notation for the arrow in 
+  
+    
+      
+        
+          
+            →
+            
+              
+                R
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle {\xrightarrow[{R}]{}}}
+   (e.g. 
+  
+    
+      
+        
+          
+            →
+            
+              
+                R
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle {\xrightarrow[{R}]{}}}
+  ) in order to distinguish it from 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   itself (
+  
+    
+      
+        →
+      
+    
+    {\displaystyle \rightarrow }
+  ) because they later want to be able to drop the subscript and still avoid confusion between 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   and the one-step rewrite induced by 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+  .
+Clearly in a semi-Thue system we can form a (finite or infinite) sequence of strings produced by starting with an initial string 
+  
+    
+      
+        
+          s
+          
+            0
+          
+        
+        ∈
+        
+          Σ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle s_{0}\in \Sigma ^{*}}
+   and repeatedly rewriting it by making one substring-replacement at a time:
+
+  
+    
+      
+        
+          s
+          
+            0
+          
+        
+         
+        
+          
+            →
+            
+              
+                R
+              
+            
+            
+          
+        
+         
+        
+          s
+          
+            1
+          
+        
+         
+        
+          
+            →
+            
+              
+                R
+              
+            
+            
+          
+        
+         
+        
+          s
+          
+            2
+          
+        
+         
+        
+          
+            →
+            
+              
+                R
+              
+            
+            
+          
+        
+         
+        …
+      
+    
+    {\displaystyle s_{0}\ {\xrightarrow[{R}]{}}\ s_{1}\ {\xrightarrow[{R}]{}}\ s_{2}\ {\xrightarrow[{R}]{}}\ \ldots }
+  A zero-or-more-steps rewriting like this is captured by the reflexive transitive closure of 
+  
+    
+      
+        
+          
+            →
+            
+              
+                R
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle {\xrightarrow[{R}]{}}}
+  , denoted by 
+  
+    
+      
+        
+          
+            →
+            
+              
+                R
+              
+            
+            
+              ∗
+            
+          
+        
+      
+    
+    {\displaystyle {\xrightarrow[{R}]{*}}}
+   (see abstract rewriting system#Basic notions). This is called the rewriting relation or reduction relation on 
+  
+    
+      
+        
+          Σ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \Sigma ^{*}}
+   induced by 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+  .
+
+Thue congruence
+In general, the set 
+  
+    
+      
+        
+          Σ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \Sigma ^{*}}
+   of strings on an alphabet forms a free monoid together with the binary operation of string concatenation (denoted as 
+  
+    
+      
+        ⋅
+      
+    
+    {\displaystyle \cdot }
+   and written multiplicatively by dropping the symbol). In a SRS, the reduction relation 
+  
+    
+      
+        
+          
+            →
+            
+              
+                R
+              
+            
+            
+              ∗
+            
+          
+        
+      
+    
+    {\displaystyle {\xrightarrow[{R}]{*}}}
+   is compatible with the monoid operation, meaning that 
+  
+    
+      
+        x
+        
+          
+            →
+            
+              
+                R
+              
+            
+            
+              ∗
+            
+          
+        
+        y
+      
+    
+    {\displaystyle x{\xrightarrow[{R}]{*}}y}
+   implies 
+  
+    
+      
+        u
+        x
+        v
+        
+          
+            →
+            
+              
+                R
+              
+            
+            
+              ∗
+            
+          
+        
+        u
+        y
+        v
+      
+    
+    {\displaystyle uxv{\xrightarrow[{R}]{*}}uyv}
+   for all strings 
+  
+    
+      
+        x
+        ,
+        y
+        ,
+        u
+        ,
+        v
+        ∈
+        
+          Σ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle x,y,u,v\in \Sigma ^{*}}
+  . Since 
+  
+    
+      
+        
+          
+            →
+            
+              
+                R
+              
+            
+            
+              ∗
+            
+          
+        
+      
+    
+    {\displaystyle {\xrightarrow[{R}]{*}}}
+   is by definition a preorder, 
+  
+    
+      
+        
+          (
+          
+            
+              Σ
+              
+                ∗
+              
+            
+            ,
+            ⋅
+            ,
+            
+              
+                →
+                
+                  
+                    R
+                  
+                
+                
+                  ∗
+                
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \left(\Sigma ^{*},\cdot ,{\xrightarrow[{R}]{*}}\right)}
+   forms a monoidal preorder.
+Similarly, the reflexive transitive symmetric closure of 
+  
+    
+      
+        
+          
+            →
+            
+              
+                R
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle {\xrightarrow[{R}]{}}}
+  , denoted 
+  
+    
+      
+        
+          
+            
+              ↔
+              R
+            
+            ∗
+          
+        
+      
+    
+    {\displaystyle {\overset {*}{\underset {R}{\leftrightarrow }}}}
+   (see abstract rewriting system#Basic notions), is a congruence, meaning it is an equivalence relation (by definition) and it is also compatible with string concatenation. The relation 
+  
+    
+      
+        
+          
+            
+              ↔
+              R
+            
+            ∗
+          
+        
+      
+    
+    {\displaystyle {\overset {*}{\underset {R}{\leftrightarrow }}}}
+   is called the Thue congruence generated by R. In a Thue system, i.e. if R is symmetric, the rewrite relation 
+  
+    
+      
+        
+          
+            →
+            
+              
+                R
+              
+            
+            
+              ∗
+            
+          
+        
+      
+    
+    {\displaystyle {\xrightarrow[{R}]{*}}}
+   coincides with the Thue congruence 
+  
+    
+      
+        
+          
+            
+              ↔
+              R
+            
+            ∗
+          
+        
+      
+    
+    {\displaystyle {\overset {*}{\underset {R}{\leftrightarrow }}}}
+  .
+
+Factor monoid and monoid presentations
+Since 
+  
+    
+      
+        
+          
+            
+              ↔
+              R
+            
+            ∗
+          
+        
+      
+    
+    {\displaystyle {\overset {*}{\underset {R}{\leftrightarrow }}}}
+   is a congruence, we can define the factor monoid 
+  
+    
+      
+        
+          
+            
+              M
+            
+          
+          
+            R
+          
+        
+        =
+        
+          Σ
+          
+            ∗
+          
+        
+        
+          /
+        
+        
+          
+            
+              ↔
+              R
+            
+            ∗
+          
+        
+      
+    
+    {\displaystyle {\mathcal {M}}_{R}=\Sigma ^{*}/{\overset {*}{\underset {R}{\leftrightarrow }}}}
+   of the free monoid 
+  
+    
+      
+        
+          Σ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \Sigma ^{*}}
+   by the Thue congruence in the usual manner. If a monoid 
+  
+    
+      
+        
+          
+            M
+          
+        
+      
+    
+    {\displaystyle {\mathcal {M}}}
+   is isomorphic with 
+  
+    
+      
+        
+          
+            
+              M
+            
+          
+          
+            R
+          
+        
+      
+    
+    {\displaystyle {\mathcal {M}}_{R}}
+  , then the semi-Thue system 
+  
+    
+      
+        (
+        Σ
+        ,
+        R
+        )
+      
+    
+    {\displaystyle (\Sigma ,R)}
+   is called a monoid presentation of 
+  
+    
+      
+        
+          
+            M
+          
+        
+      
+    
+    {\displaystyle {\mathcal {M}}}
+  .
+We immediately get some very useful connections with other areas of algebra. For example, the alphabet {a, b} with the rules { ab → ε, ba → ε }, where ε is the empty string, is a presentation of the free group on one generator. If instead the rules are just { ab → ε }, then we obtain a presentation of the bicyclic monoid.
+The importance of semi-Thue systems as presentation of monoids is made stronger by the following:
+Theorem: Every monoid has a presentation of the form 
+  
+    
+      
+        (
+        Σ
+        ,
+        R
+        )
+      
+    
+    {\displaystyle (\Sigma ,R)}
+  , thus it may be always be presented by a semi-Thue system, possibly over an infinite alphabet.In this context, the set 
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+   is called the set of generators of 
+  
+    
+      
+        
+          
+            M
+          
+        
+      
+    
+    {\displaystyle {\mathcal {M}}}
+  , and 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   is called the set of defining relations 
+  
+    
+      
+        
+          
+            M
+          
+        
+      
+    
+    {\displaystyle {\mathcal {M}}}
+  . We can immediately classify monoids based on their presentation. 
+  
+    
+      
+        
+          
+            M
+          
+        
+      
+    
+    {\displaystyle {\mathcal {M}}}
+   is called
+
+finitely generated if 
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+   is finite.
+finitely presented if both 
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+   and 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   are finite.
+
+Undecidability of the word problem
+Post proved the word problem (for semigroups) to be undecidable in general, essentially by reducing the halting problem for Turing machines to an instance of the word problem.
+Concretely, Post devised an encoding as a finite string of the state of a Turing machine plus tape, such that the actions of this machine can be carried out by a string rewrite system acting on this string encoding. The alphabet of the encoding has one set of letters 
+  
+    
+      
+        
+          S
+          
+            0
+          
+        
+        ,
+        
+          S
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          S
+          
+            m
+          
+        
+      
+    
+    {\displaystyle S_{0},S_{1},\dotsc ,S_{m}}
+   for symbols on the tape (where 
+  
+    
+      
+        
+          S
+          
+            0
+          
+        
+      
+    
+    {\displaystyle S_{0}}
+   means blank), another set of letters 
+  
+    
+      
+        
+          q
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          q
+          
+            r
+          
+        
+      
+    
+    {\displaystyle q_{1},\dotsc ,q_{r}}
+   for states of the Turing machine, and finally three letters 
+  
+    
+      
+        
+          q
+          
+            r
+            +
+            1
+          
+        
+        ,
+        
+          q
+          
+            r
+            +
+            2
+          
+        
+        ,
+        h
+      
+    
+    {\displaystyle q_{r+1},q_{r+2},h}
+   that have special roles in the encoding. 
+  
+    
+      
+        
+          q
+          
+            r
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle q_{r+1}}
+   and 
+  
+    
+      
+        
+          q
+          
+            r
+            +
+            2
+          
+        
+      
+    
+    {\displaystyle q_{r+2}}
+   are intuitively extra internal states of the Turing machine which it transitions to when halting, whereas 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   marks the end of the non-blank part of the tape; a machine reaching an 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   should behave the same as if there was a blank there, and the 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   was in the next cell. The strings that are valid encodings of Turing machine states start with an 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  , followed by zero or more symbol letters, followed by exactly one internal state letter 
+  
+    
+      
+        
+          q
+          
+            i
+          
+        
+      
+    
+    {\displaystyle q_{i}}
+   (which encodes the state of the machine), followed by one or more symbol letters, followed by an ending 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  . The symbol letters are straight off the contents of the tape, and the internal state letter marks the position of the head; the symbol after the internal state letter is that in the cell currently under the head of the Turing machine.
+A transition where the machine upon being in state 
+  
+    
+      
+        
+          q
+          
+            i
+          
+        
+      
+    
+    {\displaystyle q_{i}}
+   and seeing the symbol 
+  
+    
+      
+        
+          S
+          
+            k
+          
+        
+      
+    
+    {\displaystyle S_{k}}
+   writes back symbol 
+  
+    
+      
+        
+          S
+          
+            l
+          
+        
+      
+    
+    {\displaystyle S_{l}}
+  , moves right, and transitions to state 
+  
+    
+      
+        
+          q
+          
+            j
+          
+        
+      
+    
+    {\displaystyle q_{j}}
+   is implemented by the rewrite
+
+  
+    
+      
+        
+          q
+          
+            i
+          
+        
+        
+          S
+          
+            k
+          
+        
+        →
+        
+          S
+          
+            l
+          
+        
+        
+          q
+          
+            j
+          
+        
+      
+    
+    {\displaystyle q_{i}S_{k}\to S_{l}q_{j}}
+  whereas that transition instead moving to the left is implemented by the rewrite
+
+  
+    
+      
+        
+          S
+          
+            p
+          
+        
+        
+          q
+          
+            i
+          
+        
+        
+          S
+          
+            k
+          
+        
+        →
+        
+          q
+          
+            j
+          
+        
+        
+          S
+          
+            p
+          
+        
+        
+          S
+          
+            l
+          
+        
+      
+    
+    {\displaystyle S_{p}q_{i}S_{k}\to q_{j}S_{p}S_{l}}
+  with one instance for each symbol 
+  
+    
+      
+        
+          S
+          
+            p
+          
+        
+      
+    
+    {\displaystyle S_{p}}
+   in that cell to the left. In the case that we reach the end of the visited portion of the tape, we use instead
+
+  
+    
+      
+        h
+        
+          q
+          
+            i
+          
+        
+        
+          S
+          
+            k
+          
+        
+        →
+        h
+        
+          q
+          
+            j
+          
+        
+        
+          S
+          
+            0
+          
+        
+        
+          S
+          
+            l
+          
+        
+      
+    
+    {\displaystyle hq_{i}S_{k}\to hq_{j}S_{0}S_{l}}
+  ,lengthening the string by one letter. Because all rewrites involve one internal state letter 
+  
+    
+      
+        
+          q
+          
+            i
+          
+        
+      
+    
+    {\displaystyle q_{i}}
+  , the valid encodings only contain one such letter, and each rewrite produces exactly one such letter, the rewrite process exactly follows the run of the Turing machine encoded. This proves that string rewrite systems are Turing complete.
+The reason for having two halted symbols 
+  
+    
+      
+        
+          q
+          
+            r
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle q_{r+1}}
+   and 
+  
+    
+      
+        
+          q
+          
+            r
+            +
+            2
+          
+        
+      
+    
+    {\displaystyle q_{r+2}}
+   is that we want all halting Turing machines to terminate at the same total state, not just a particular internal state. This requires clearing the tape after halting, so 
+  
+    
+      
+        
+          q
+          
+            r
+            +
+            1
+          
+        
+      
+    
+    {\displaystyle q_{r+1}}
+   eats the symbol on it left until reaching the 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+  , where it transitions into 
+  
+    
+      
+        
+          q
+          
+            r
+            +
+            2
+          
+        
+      
+    
+    {\displaystyle q_{r+2}}
+   which instead eats the symbol on its right. (In this phase the string rewrite system no longer simulates a Turing machine, since that cannot remove cells from the tape.) After all symbols are gone, we have reached the terminal string 
+  
+    
+      
+        h
+        
+          q
+          
+            r
+            +
+            2
+          
+        
+        h
+      
+    
+    {\displaystyle hq_{r+2}h}
+  .
+A decision procedure for the word problem would then also yield a procedure for deciding whether the given Turing machine terminates when started in a particular total state 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  , by testing whether 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   and 
+  
+    
+      
+        h
+        
+          q
+          
+            r
+            +
+            2
+          
+        
+        h
+      
+    
+    {\displaystyle hq_{r+2}h}
+   belong to the same congruence class with respect to this string rewrite system. Technically, we have the following:
+Lemma. Let 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   be a deterministic Turing machine and 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   be the string rewrite system implementing 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  , as described above. Then 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   will halt when started from the total state encoded as 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   if and only if 
+  
+    
+      
+        t
+        
+          
+            
+              ↔
+              R
+            
+            ∗
+          
+        
+        h
+        
+          q
+          
+            r
+            +
+            2
+          
+        
+        h
+      
+    
+    {\displaystyle t\mathrel {\overset {*}{\underset {R}{\leftrightarrow }}} hq_{r+2}h}
+   (that is to say, if and only if 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   and 
+  
+    
+      
+        h
+        
+          q
+          
+            r
+            +
+            2
+          
+        
+        h
+      
+    
+    {\displaystyle hq_{r+2}h}
+   are Thue congruent for 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+  ).
+That 
+  
+    
+      
+        t
+        
+          
+            
+              →
+              R
+            
+            ∗
+          
+        
+        h
+        
+          q
+          
+            r
+            +
+            2
+          
+        
+        h
+      
+    
+    {\displaystyle t\mathrel {\overset {*}{\underset {R}{\rightarrow }}} hq_{r+2}h}
+   if 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   halts when started from 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   is immediate from the construction of 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   (simply running 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   until it halts constructs a proof of 
+  
+    
+      
+        t
+        
+          
+            
+              →
+              R
+            
+            ∗
+          
+        
+        h
+        
+          q
+          
+            r
+            +
+            2
+          
+        
+        h
+      
+    
+    {\displaystyle t\mathrel {\overset {*}{\underset {R}{\rightarrow }}} hq_{r+2}h}
+  ), but 
+  
+    
+      
+        
+          
+            
+              ↔
+              R
+            
+            ∗
+          
+        
+      
+    
+    {\displaystyle {\overset {*}{\underset {R}{\leftrightarrow }}}}
+   also allows the Turing machine 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   to take steps backwards. Here it becomes relevant that 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   is deterministic, because then the forward steps are all unique; in a 
+  
+    
+      
+        
+          
+            
+              ↔
+              R
+            
+            ∗
+          
+        
+      
+    
+    {\displaystyle {\overset {*}{\underset {R}{\leftrightarrow }}}}
+   walk from 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   to 
+  
+    
+      
+        h
+        
+          q
+          
+            r
+            +
+            2
+          
+        
+        h
+      
+    
+    {\displaystyle hq_{r+2}h}
+   the last backward step must be followed by its counterpart as a forward step, so these two cancel, and by induction all backward steps can be eliminated from such a walk. Hence if 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   does not halt when started from 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  , i.e., if we do not have 
+  
+    
+      
+        t
+        
+          
+            
+              →
+              R
+            
+            ∗
+          
+        
+        h
+        
+          q
+          
+            r
+            +
+            2
+          
+        
+        h
+      
+    
+    {\displaystyle t\mathrel {\overset {*}{\underset {R}{\rightarrow }}} hq_{r+2}h}
+  , then we also do not have 
+  
+    
+      
+        t
+        
+          
+            
+              ↔
+              R
+            
+            ∗
+          
+        
+        h
+        
+          q
+          
+            r
+            +
+            2
+          
+        
+        h
+      
+    
+    {\displaystyle t\mathrel {\overset {*}{\underset {R}{\leftrightarrow }}} hq_{r+2}h}
+  . Therefore, deciding 
+  
+    
+      
+        
+          
+            
+              ↔
+              R
+            
+            ∗
+          
+        
+      
+    
+    {\displaystyle {\overset {*}{\underset {R}{\leftrightarrow }}}}
+   tells us the answer to the halting problem for 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  .
+An apparent limitation of this argument is that in order to produce a semigroup 
+  
+    
+      
+        
+          Σ
+          
+            ∗
+          
+        
+        
+          
+            /
+          
+        
+        
+          
+            
+              ↔
+              R
+            
+            ∗
+          
+        
+      
+    
+    {\displaystyle \Sigma ^{*}{\big /}{\overset {*}{\underset {R}{\leftrightarrow }}}}
+   with undecidable word problem, one must first have a concrete example of a Turing machine 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   for which the halting problem is undecidable, but the various Turing machines figuring in the proof of the undecidability of the general halting problem all have as component a hypothetical Turing machine solving the halting problem, so none of those machines can actually exist; all that proves is that there is some Turing machine for which the decision problem is undecidable. However, that there is some Turing machine with undecidable halting problem means that the halting problem for a universal Turing machine is undecidable (since that can simulate any Turing machine), and concrete examples of universal Turing machines have been constructed.
+
+Connections with other notions
+A semi-Thue system is also a term-rewriting system—one that has monadic words (functions) ending in the same variable as the left- and right-hand side terms, e.g. a term rule 
+  
+    
+      
+        
+          f
+          
+            2
+          
+        
+        (
+        
+          f
+          
+            1
+          
+        
+        (
+        x
+        )
+        )
+        →
+        g
+        (
+        x
+        )
+      
+    
+    {\displaystyle f_{2}(f_{1}(x))\rightarrow g(x)}
+   is equivalent to the string rule 
+  
+    
+      
+        
+          f
+          
+            1
+          
+        
+        
+          f
+          
+            2
+          
+        
+        →
+        g
+      
+    
+    {\displaystyle f_{1}f_{2}\rightarrow g}
+  .
+A semi-Thue system is also a special type of Post canonical system, but every Post canonical system can also be reduced to an SRS. Both formalisms are Turing complete, and thus equivalent to Noam Chomsky's unrestricted grammars, which are sometimes called semi-Thue grammars. A formal grammar only differs from a semi-Thue system by the separation of the alphabet into terminals and non-terminals, and the fixation of a starting symbol amongst non-terminals. A minority of authors actually define a semi-Thue system as a triple 
+  
+    
+      
+        (
+        Σ
+        ,
+        A
+        ,
+        R
+        )
+      
+    
+    {\displaystyle (\Sigma ,A,R)}
+  , where 
+  
+    
+      
+        A
+        ⊆
+        
+          Σ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle A\subseteq \Sigma ^{*}}
+   is called the set of axioms. Under this "generative" definition of semi-Thue system, an unrestricted grammar is just a semi-Thue system with a single axiom in which one partitions the alphabet into terminals and non-terminals, and makes the axiom a nonterminal. The simple artifice of partitioning the alphabet into terminals and non-terminals is a powerful one; it allows the definition of the Chomsky hierarchy based on what combination of terminals and non-terminals the rules contain. This was a crucial development in the theory of formal languages.
+In quantum computing, the notion of a quantum Thue system can be developed.
+Since quantum computation is intrinsically reversible, the rewriting rules over the alphabet 
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+   are required to be bidirectional (i.e. the underlying system is a Thue system, not a semi-Thue system).
+On a subset of alphabet characters 
+  
+    
+      
+        Q
+        ⊆
+        Σ
+      
+    
+    {\displaystyle Q\subseteq \Sigma }
+   one can attach a Hilbert space 
+  
+    
+      
+        
+          
+            C
+          
+          
+            d
+          
+        
+      
+    
+    {\displaystyle \mathbb {C} ^{d}}
+  , and a rewriting rule taking a substring to another one can carry out a unitary operation on the tensor product of the Hilbert space attached to the strings; this implies that they preserve the number of characters from the set 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+  . Similar to the classical case one can show that a quantum Thue system is a universal computational model for quantum computation, in the sense that the executed quantum operations correspond to uniform circuit classes (such as those in BQP when e.g. guaranteeing termination of the string rewriting rules within polynomially many steps in the input size), or equivalently a Quantum Turing machine.
+
+History and importance
+Semi-Thue systems were developed as part of a program to add additional constructs to logic, so as to create systems such as propositional logic, that would allow general mathematical theorems to be expressed in a formal language, and then proven and verified in an automatic, mechanical fashion. The hope was that the act of theorem proving could then be reduced to a set of defined manipulations on a set of strings.  It was subsequently realized that semi-Thue systems are isomorphic to unrestricted grammars, which in turn are known to be isomorphic to Turing machines. This method of research succeeded and now computers can be used to verify the proofs of mathematic and logical theorems.
+At the suggestion of Alonzo Church, Emil Post in a paper published in 1947, first proved "a certain Problem of Thue" to be unsolvable, what Martin Davis states as "...the first unsolvability proof for a problem from classical mathematics -- in this case the word problem for semigroups."Davis also asserts that the proof was offered independently by A. A. Markov.
+
+See also
+L-system
+Markov algorithm — a variant of string rewriting systems
+MU puzzle
+
+Notes
+References
+Monographs
+Ronald V. Book and Friedrich Otto, String-rewriting Systems, Springer, 1993, ISBN 0-387-97965-4.
+Matthias Jantzen, Confluent string rewriting, Birkhäuser, 1988, ISBN 0-387-13715-7.
+
+Textbooks
+Martin Davis, Ron Sigal, Elaine J. Weyuker, Computability, complexity, and languages: fundamentals of theoretical computer science, 2nd ed., Academic Press, 1994, ISBN 0-12-206382-1, chapter 7
+Elaine Rich, Automata, computability and complexity: theory and applications, Prentice Hall, 2007, ISBN 0-13-228806-0, chapter 23.5.
+
+Surveys
+Samson Abramsky, Dov M. Gabbay, Thomas S. E. Maibaum (ed.), Handbook of Logic in Computer Science: Semantic modelling, Oxford University Press, 1995, ISBN 0-19-853780-8.
+Grzegorz Rozenberg, Arto Salomaa (ed.), Handbook of Formal Languages: Word, language, grammar, Springer, 1997, ISBN 3-540-60420-0.
+
+Landmark papers
+Post, Emil (1947). "Recursive Unsolvability of a Problem of Thue". The Journal of Symbolic Logic. 12 (1): 1–11. doi:10.2307/2267170. JSTOR 2267170. S2CID 30320278. Archived from the original on 2019-09-29. Retrieved 2019-09-29.

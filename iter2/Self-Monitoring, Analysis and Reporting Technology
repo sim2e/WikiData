@@ -1,0 +1,126 @@
+Self-Monitoring, Analysis, and Reporting Technology (S.M.A.R.T., often written as SMART) is a monitoring system included in computer hard disk drives (HDDs) and solid-state drives (SSDs). Its primary function is to detect and report various indicators of drive reliability with the intent of anticipating imminent hardware failures.
+When S.M.A.R.T. data indicates a possible imminent drive failure, software running on the host system may notify the user so action can be taken to prevent data loss, and the failing drive can be replaced and data integrity maintained.
+
+Background
+Hard disk and other storage drives are subject to failures (see hard disk drive failure) which can be classified into two basic classes:
+
+Predictable failures which result from slow processes such as mechanical wear and gradual degradation of storage surfaces. Monitoring can determine when such failures are becoming more likely.
+Unpredictable failures which occur without warning due to anything from electronic components becoming defective to a sudden mechanical failure, including failures related to improper handling.Mechanical failures account for about 60% of all drive failures.
+While the eventual failure may be catastrophic, most mechanical failures result from gradual wear and there are usually certain indications that failure is imminent. These may include increased heat output, increased noise level, problems with reading and writing of data, or an increase in the number of damaged disk sectors.
+PCTechGuide's page on S.M.A.R.T. (2003) comments that the technology has gone through three phases:
+ In its original incarnation S.M.A.R.T. provided failure prediction by monitoring certain online hard drive activities.
+A subsequent version of the standard improved failure prediction by adding an automatic off-line read scan to monitor additional operations. Online attributes are always updated while the offline attributes get updated when the HDD is not under working condition. If there is an immediate need to update the offline attributes, the HDD slows down and the offline attributes get updated. The latest "S.M.A.R.T." technology not only monitors hard drive activities but adds failure prevention by attempting to detect and repair sector errors. 
+
+Also, while earlier versions of the technology only monitored hard drive activity for data that was retrieved by the operating system, this latest S.M.A.R.T. tests all data and all sectors of a drive by using "off-line data collection" to confirm the drive's health during periods of inactivity.
+
+Accuracy
+A field study at Google covering over 100,000 consumer-grade drives from December 2005 to August 2006 found correlations between certain S.M.A.R.T. information and annualized failure rates:
+
+In the 60 days following the first uncorrectable error on a drive (S.M.A.R.T. attribute 0xC6 or 198) detected as a result of an offline scan, the drive was, on average, 39 times more likely to fail than a similar drive for which no such error occurred.
+First errors in reallocations, offline reallocations (S.M.A.R.T. attributes 0xC4 and 0x05 or 196 and 5) and probational counts (S.M.A.R.T. attribute 0xC5 or 197) were also strongly correlated to higher probabilities of failure.
+Conversely, little correlation was found for increased temperature and no correlation for usage level.  However, the research showed that a large proportion (56%) of the failed drives failed without recording any count in the "four strong S.M.A.R.T. warnings" identified as scan errors, reallocation count, offline reallocation, and probational count.
+Further, 36% of failed drives did so without recording any S.M.A.R.T. error at all, except the temperature, meaning that S.M.A.R.T. data alone was of limited usefulness in anticipating failures.
+
+History and predecessors
+An early hard disk monitoring technology was introduced by IBM in 1992 in its IBM 9337 Disk Arrays for AS/400 servers using IBM 0662 SCSI-2 disk drives. Later it was named Predictive Failure Analysis (PFA) technology. It was measuring several key device health parameters and evaluating them within the drive firmware.  Communications between the physical unit and the monitoring software were limited to a binary result: namely, either "device is OK" or "drive is likely to fail soon".
+Later, another variant, which was named IntelliSafe, was created by computer manufacturer Compaq and disk drive manufacturers Seagate, Quantum, and Conner.  The disk drives would measure the disk's "health parameters", and the values would be transferred to the operating system and user-space monitoring software. Each disk drive vendor was free to decide which parameters were to be included for monitoring, and what their thresholds should be. The unification was at the protocol level with the host.
+Compaq submitted IntelliSafe to the Small Form Factor (SFF) committee for standardization in early 1995. It was supported by IBM, by Compaq's development partners Seagate, Quantum, and Conner, and by Western Digital, which did not have a failure prediction system at the time. The Committee chose IntelliSafe's approach, as it provided more flexibility.  Compaq placed IntelliSafe into the public domain on 12 May 1995.  The resulting jointly developed standard was named S.M.A.R.T..
+That SFF standard described a communication protocol for an ATA host to use and control monitoring and analysis in a hard disk drive, but did not specify any particular metrics or analysis methods.  Later, "S.M.A.R.T." came to be understood (though without any formal specification) to refer to a variety of specific metrics and methods and to apply to protocols unrelated to ATA for communicating the same kinds of things.
+
+Provided information
+The technical documentation for S.M.A.R.T. is in the AT Attachment (ATA) standard. First introduced in 1994, the ATA standard has gone through multiple revisions. Some parts of the original S.M.A.R.T. specification by the Small Form Factor (SFF) Committee were added to ATA-3, published in 1997. In 1998 ATA-4 dropped the requirement for drives to maintain an internal attribute table and instead required only for an "OK" or "NOT OK" value to be returned. Albeit, manufacturers have kept the capability to retrieve the attributes' value. The most recent ATA standard, ATA-8, was published in 2004. It has undergone regular revisions, the latest being in 2011. Standardization of similar features on SCSI is more scarce and is not named as such on standards, although vendors and consumers alike do refer to these similar features at S.M.A.R.T. too.The most basic information that S.M.A.R.T. provides is the S.M.A.R.T. status. It provides only two values: "threshold not exceeded" and "threshold exceeded". Often these are represented as "drive OK" or "drive fail" respectively. A "threshold exceeded" value is intended to indicate that there is a relatively high probability that the drive will not be able to honor its specification in the future: that is, the drive is "about to fail". The predicted failure may be catastrophic or may be something as subtle as the inability to write to certain sectors, or perhaps slower performance than the manufacturer's declared minimum.
+The S.M.A.R.T. status does not necessarily indicate the drive's past or present reliability. If a drive has already failed catastrophically, the S.M.A.R.T. status may be inaccessible. Alternatively, if a drive has experienced problems in the past, but the sensors no longer detect such problems, the S.M.A.R.T. status may, depending on the manufacturer's programming, suggest that the drive is now healthy.
+The inability to read some sectors is not always an indication that a drive is about to fail. One way that unreadable sectors may be created, even when the drive is functioning within specification, is through a sudden power failure while the drive is writing.  Also, even if the physical disk is damaged at one location, such that a certain sector is unreadable, the disk may be able to use spare space to replace the bad area, so that the sector can be overwritten.More detail on the health of the drive may be obtained by examining the S.M.A.R.T. Attributes. S.M.A.R.T. Attributes were included in some drafts of the ATA standard, but were removed before the standard became final. The meaning and interpretation of the attributes varies between manufacturers, and are sometimes considered a trade secret for one manufacturer or another. Attributes are further discussed below.Drives with S.M.A.R.T. may optionally maintain a number of 'logs'. The error log records information about the most recent errors that the drive has reported back to the host computer. Examining this log may help one to determine whether computer problems are disk-related or caused by something else (error log timestamps may "wrap" after 232 ms = 49.71 days)
+A drive that implements S.M.A.R.T. may optionally implement a number of self-test or maintenance routines, and the results of the tests are kept in the self-test log. The self-test routines may be used to detect any unreadable sectors on the disk, so that they may be restored from back-up sources (for example, from other disks in a RAID). This helps to reduce the risk of incurring permanent loss of data.
+
+Standards and implementation
+Lack of common interpretation
+Many motherboards display a warning message when a disk drive is approaching failure. Although an industry standard exists among most major hard drive manufacturers, issues remain due to attributes intentionally left undocumented to the public in order to differentiate models between manufacturers.
+From a legal perspective, the term "S.M.A.R.T." refers only to a signaling method between internal disk drive electromechanical sensors and the host computer. Because of this the specifications of S.M.A.R.T. are entirely vendor specific and, while many of these attributes have been standardized between drive vendors, others remain vendor-specific. S.M.A.R.T. implementations still differ and in some cases may lack "common" or expected features such as a temperature sensor or only include a few select attributes while still allowing the manufacturer to advertise the product as "S.M.A.R.T. compatible."
+
+Visibility to host systems
+Depending on the type of interface being used, some S.M.A.R.T.-enabled motherboards and related software may not communicate with certain S.M.A.R.T.-capable drives. For example, few external drives connected via USB and FireWire correctly send S.M.A.R.T. data over those interfaces. With so many ways to connect a hard drive (SCSI, Fibre Channel, ATA, SATA, SAS, SSA, NVMe and so on), it is difficult to predict whether S.M.A.R.T. reports will function correctly in a given system.
+Even with a hard drive and interface that implements the specification, the computer's operating system may not see the S.M.A.R.T. information because the drive and interface are encapsulated in a lower layer.  For example, they may be part of a RAID subsystem in which the RAID controller sees the S.M.A.R.T.-capable drive, but the host computer sees only a logical volume generated by the RAID controller.
+On the Windows platform, many programs designed to monitor and report S.M.A.R.T. information will function only under an administrator account.
+BIOS and Windows (Windows Vista and later) may detect S.M.A.R.T. status of hard disk drives and solid state drives, and give a prompt if the S.M.A.R.T. status is bad.
+
+In ATA
+ATA S.M.A.R.T. attributes
+Each drive manufacturer defines a set of attributes, and sets threshold values beyond which attributes should not pass under normal operation. Each attribute has:
+1 byte for the ID (1 through 254)
+2 bytes for status flags
+1 byte of normalized value, which ranges from 1 to 253 (higher is usually better, but vendors are allowed to vary; the threshold entry stored elsewhere describes which direction is better). The initial normalized value of attributes is 100 but can vary between manufacturer.
+8 bytes "vendor-specific".In practice, however, the full "vendor-specific" field is not used as-is. Instead, one of the following occurs:
+In the 7-byte setup, the first byte of "vendor-specific" is used to store a "worst" normalized value, leaving 7 bytes for vendor data.
+In the 6-byte setup, the first byte of "vendor-specific" is used to store a "worst" normalized value and the last byte "reserved", leaving 6 bytes.
+In the 8-byte setup, the normalized byte is added to the field while the last byte is reserved.In any case, the vendor field, also commonly called a "raw value", may be displayed as a decimal or hexadecimal number; its meaning is entirely up to the drive manufacturer (but often corresponds to counts or a physical unit, such as degrees Celsius or seconds).If one or more "current value" is smaller than "threshold value" (except the "threshold value" is 0), that will reported as "drive failure".
+Manufacturers that have implemented at least one S.M.A.R.T. attribute in various products include Samsung, Seagate, IBM (Hitachi), Fujitsu, Maxtor, Toshiba, Intel, sTec, Inc., Western Digital and ExcelStor Technology.
+
+Known ATA S.M.A.R.T. attributes
+The following chart lists some S.M.A.R.T. attributes and the typical meaning of their raw values. Normalized values are usually mapped so that higher values are better (exceptions include drive temperature, number of head load/unload cycles), but higher raw attribute values may be better or worse depending on the attribute and manufacturer. For example, the "Reallocated Sectors Count" attribute's normalized value decreases as the count of reallocated sectors increases.  In this case, the attribute's raw value will often indicate the actual count of sectors that were reallocated, although vendors are in no way required to adhere to this convention.
+As manufacturers do not necessarily agree on precise attribute definitions and measurement units, the following list of attributes is a general guide only.
+Drives do not support all attribute codes (sometimes abbreviated as "ID", for "identifier", in tables). Some codes are specific to particular drive types (magnetic platter, flash, SSD). Drives may use different codes for the same parameter, e.g., see codes 193 and 225.
+
+Logs
+SMART Command Transport
+Threshold Exceeds Condition
+Threshold Exceeds Condition (TEC) is an estimated date when a critical drive statistic attribute will reach its threshold value. When Drive Health software reports a "Nearest T.E.C.", it should be regarded as a "Failure date". Sometimes, no date is given and the drive can be expected to work without errors.To predict the date, the drive tracks the rate at which the attribute changes.  Note that TEC dates are only estimates; hard drives can and do fail much sooner or much later than the TEC date.
+
+In NVMe
+NVMe specification has defined unified S.M.A.R.T. attributes for different drive manufacturers. The data is present in a log page of 512 bytes long.
+
+Known NVMe S.M.A.R.T. attributes
+In SCSI
+The SCSI standard does not mention the term "S.M.A.R.T." except in one place, but the equivalent logging/failure-prediction functionality is available in standard log pages prescribed by SPC-4. There is also space for vendor-specific log pages. Log pages are variable-length.
+SCSI has a specialized set of S.M.A.R.T. features for tape drives known as TapeAlert defined in SMC-2. SCSI offers self-testing, similar to ATA.Information related to the reallocation of bad sectors is provided not via a log page, but via the READ DEFECT DATA command. In addition to a grand total, this command provides information about which specific sectors were allocated and why.
+
+Self-tests
+S.M.A.R.T. drives may offer a number of self-tests:
+Short
+Checks the electrical and mechanical performance as well as the read performance of the disk.  Electrical tests might include a test of buffer RAM, a read/write circuitry test, or a test of the read/write head elements.   Mechanical test includes seeking and servo on data tracks.  Scans small parts of the drive's surface (area is vendor-specific and there is a time limit on the test).  Checks the list of pending sectors that may have read errors, and it usually takes under two minutes.
+Long/extended
+A longer and more thorough version of the short self-test, scanning the entire disk surface with no time limit. This test usually takes several hours, depending on the read/write speed of the drive and its size. It is possible for the long test to pass even if the short test fails.
+Conveyance
+Intended as a quick test to identify damage incurred during transporting of the device from the drive manufacturer to the computer manufacturer. Only available on ATA drives, and it usually takes several minutes.
+Selective
+Some ATA drives allow selective self-tests of just a part of the surface. There is a dedicated log for selective test results, separate from the main self-test log.
+Background scan
+SCSI drives have the ability to schedule periodic full-surface self-tests known as a background media scan (BMS). The sdparm program may be used to adjust whether to run the scans (EN_BMS) and various parameters for the scan (e.g. period, idle time before run). The drive remains operable during the test. There is a dedicated log for background scan results, separate from the self-test log.
+Offline data collection
+ATA drives may support a periodic short operation called "offline data collection". Although this feature is marked "obsolete", many modern hard drives retain this feature. The drive remains operable during collection and any result is reflected only in SMART attributes (some attributes only update when "offline").Drives remain operable during self-test, unless a "captive" option (ATA only) is requested.The self-test logs for SCSI and ATA drives are slightly different.
+The ATA drive's self-test log can contain up to 21 read-only entries. When the log is filled, old entries are removed.
+
+See also
+Comparison of S.M.A.R.T. tools
+Data scrubbing
+Disk utility
+List of disk partitioning software
+Predictive failure analysis
+System monitor
+Optical disc § Surface error scanning
+
+References
+Further reading
+Stephens, Curtis E, ed. (June 22, 2011), "ATA/ATAPI Command Set - 2 (ACS-2)" (PDF), ATA Command Set 2 (working draft) (7 ed.), ANSI INCITS, p. 73.
+"S.M.A.R.T. attribute meaning". siguardian.com. Archived from the original on February 26, 2011. Retrieved February 3, 2006.
+Chlondowski, Zbigniew. "S.M.A.R.T. Site: attributes reference table". S.M.A.R.T. Linux. Retrieved January 17, 2007.
+"S.M.A.R.T. attributes meaning". Ariolic. 2007. Retrieved October 26, 2007.
+"Can we believe SMART?". H.D.S. Hungary. 2007. Retrieved June 4, 2008.
+Allen, Bruce (2004). "Monitoring Hard Disks with SMART". Linux Journal. Retrieved August 8, 2010.
+
+External links
+
+UC Santa Cruz and Quantum release S.M.A.R.T. software for Linux, Michael Cornwell.
+UCSC SMART suite, SourceForge, 20 March 2013 by: cornwell.
+How does smartmontools differ from smartsuite?, SourceForge.
+S.M.A.R.T. Monitoring Tools, SourceForge, 27 June 2023 by: ballen4705.
+smartmontools & smartsuite, smartmontools.org.
+GSmartControl is a GUI for smartctl (part of smartmontools) by Alexander Shaduri
+How S.M.A.R.T. is your hard drive?, UK: pc-king.co.uk.
+How to predict hard disk failure (SMART Report), 2010-05-19 with Palimpsest (originally by Red Hat)
+KB251: Understanding S.M.A.R.T. and S.M.A.R.T. failure and errors, Western Digital.
+How does S.M.A.R.T. function of hard disks Work?.
+Hard Drive SMART Stats, a large-scale field report
+Seagate SMART Attribute Specification
+Normal SATA SMART Attribute Behavior (Seagate)
+Large collection of S.M.A.R.T. reports

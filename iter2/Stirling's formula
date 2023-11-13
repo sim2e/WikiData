@@ -1,0 +1,759 @@
+In mathematics, Stirling's approximation (or Stirling's formula) is an approximation for factorials. It is a good approximation, leading to accurate results even for small values of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  . It is named after James Stirling, though a related but less precise result was first stated by Abraham de Moivre.One way of stating the approximation involves the logarithm of the factorial:
+
+where the big O notation means that, for all sufficiently large values of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  , the difference between 
+  
+    
+      
+        ln
+        ⁡
+        (
+        n
+        !
+        )
+      
+    
+    {\displaystyle \ln(n!)}
+   and 
+  
+    
+      
+        n
+        ln
+        ⁡
+        n
+        −
+        n
+      
+    
+    {\displaystyle n\ln n-n}
+   will be at most proportional to the logarithm. In computer science applications such as the worst-case lower bound for comparison sorting, it is convenient to instead use the binary logarithm, giving the equivalent form
+ The error term in either base can be expressed more precisely as 
+  
+    
+      
+        
+          
+            
+              1
+              2
+            
+          
+        
+        log
+        ⁡
+        (
+        2
+        π
+        n
+        )
+        +
+        O
+        (
+        
+          
+            
+              1
+              n
+            
+          
+        
+        )
+      
+    
+    {\displaystyle {\tfrac {1}{2}}\log(2\pi n)+O({\tfrac {1}{n}})}
+  , corresponding to an approximate formula for the factorial itself,
+
+Here the sign 
+  
+    
+      
+        ∼
+      
+    
+    {\displaystyle \sim }
+   means that the two quantities are asymptotic, that is, that their ratio tends to 1 as 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   tends to infinity. The following version of the bound holds for all 
+  
+    
+      
+        n
+        ≥
+        1
+      
+    
+    {\displaystyle n\geq 1}
+  , rather than only asymptotically:
+
+Derivation
+Roughly speaking, the simplest version of Stirling's formula can be quickly obtained by approximating the sum
+
+with an integral:
+
+The full formula, together with precise estimates of its error, can be derived as follows. Instead of approximating 
+  
+    
+      
+        n
+        !
+      
+    
+    {\displaystyle n!}
+  , one considers its natural logarithm, as this is a slowly varying function:
+
+The right-hand side of this equation minus
+
+is the approximation by the trapezoid rule of the integral
+
+and the error in this approximation is given by the Euler–Maclaurin formula:
+
+where 
+  
+    
+      
+        
+          B
+          
+            k
+          
+        
+      
+    
+    {\displaystyle B_{k}}
+   is a Bernoulli number, and Rm,n is the remainder term in the Euler–Maclaurin formula. Take limits to find that
+
+Denote this limit as 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  .  Because the remainder Rm,n in the Euler–Maclaurin formula satisfies
+
+where big-O notation is used, combining the equations above yields the approximation formula in its logarithmic form:
+
+Taking the exponential of both sides and choosing any positive integer 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  , one obtains a formula involving an unknown quantity 
+  
+    
+      
+        
+          e
+          
+            y
+          
+        
+      
+    
+    {\displaystyle e^{y}}
+  . For m = 1, the formula is
+
+The quantity 
+  
+    
+      
+        
+          e
+          
+            y
+          
+        
+      
+    
+    {\displaystyle e^{y}}
+   can be found by taking the limit on both sides as 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   tends to infinity and using Wallis' product, which shows that 
+  
+    
+      
+        
+          e
+          
+            y
+          
+        
+        =
+        
+          
+            2
+            π
+          
+        
+      
+    
+    {\displaystyle e^{y}={\sqrt {2\pi }}}
+  . Therefore, one obtains Stirling's formula:
+
+Alternative derivations
+An alternative formula for 
+  
+    
+      
+        n
+        !
+      
+    
+    {\displaystyle n!}
+   using the gamma function is
+
+(as can be seen by repeated integration by parts). Rewriting and changing variables x = ny, one obtains
+
+Applying Laplace's method one has
+
+which recovers Stirling's formula:
+
+Higher orders
+In fact, further corrections can also be obtained using Laplace's method. From previous result, we know that 
+  
+    
+      
+        Γ
+        (
+        x
+        )
+        ∼
+        
+          x
+          
+            x
+          
+        
+        
+          e
+          
+            −
+            x
+          
+        
+      
+    
+    {\displaystyle \Gamma (x)\sim x^{x}e^{-x}}
+  , so we "peel off" this dominant term, then perform a change of variables, to obtain:Now the function 
+  
+    
+      
+        t
+        ↦
+        1
+        +
+        t
+        −
+        
+          e
+          
+            t
+          
+        
+      
+    
+    {\displaystyle t\mapsto 1+t-e^{t}}
+   is unimodal, with maximum value zero. Locally around zero, it looks like 
+  
+    
+      
+        −
+        
+          t
+          
+            2
+          
+        
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle -t^{2}/2}
+  , which is why we are able to perform Laplace's method. In order to extend Laplace's method to higher orders, we perform another change of variables by 
+  
+    
+      
+        1
+        +
+        t
+        −
+        
+          e
+          
+            t
+          
+        
+        =
+        −
+        
+          τ
+          
+            2
+          
+        
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle 1+t-e^{t}=-\tau ^{2}/2}
+  . This equation cannot be solved in closed form, but it can be solved by serial expansion, which gives us 
+  
+    
+      
+        t
+        =
+        τ
+        −
+        
+          τ
+          
+            2
+          
+        
+        
+          /
+        
+        6
+        +
+        
+          τ
+          
+            3
+          
+        
+        
+          /
+        
+        36
+        +
+        
+          a
+          
+            4
+          
+        
+        
+          τ
+          
+            4
+          
+        
+        +
+        O
+        (
+        
+          τ
+          
+            5
+          
+        
+        )
+      
+    
+    {\displaystyle t=\tau -\tau ^{2}/6+\tau ^{3}/36+a_{4}\tau ^{4}+O(\tau ^{5})}
+  . Now plug back to the equation to obtainnotice how we don't need to actually find 
+  
+    
+      
+        
+          a
+          
+            4
+          
+        
+      
+    
+    {\displaystyle a_{4}}
+  , since it is cancelled out by the integral. Higher orders can be achieved by computing more terms in 
+  
+    
+      
+        t
+        =
+        τ
+        +
+        ⋯
+      
+    
+    {\displaystyle t=\tau +\cdots }
+  .
+Thus we get Stirling's formula to two orders:
+
+Complex-analytic version
+A complex-analysis version of this method is to consider 
+  
+    
+      
+        
+          
+            1
+            
+              n
+              !
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {1}{n!}}}
+   as a Taylor coefficient of the exponential function 
+  
+    
+      
+        
+          e
+          
+            z
+          
+        
+        =
+        
+          ∑
+          
+            n
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          
+            
+              z
+              
+                n
+              
+            
+            
+              n
+              !
+            
+          
+        
+      
+    
+    {\displaystyle e^{z}=\sum _{n=0}^{\infty }{\frac {z^{n}}{n!}}}
+  , computed by Cauchy's integral formula as
+
+This line integral can then be approximated using the saddle-point method with an appropriate choice of contour radius 
+  
+    
+      
+        r
+        =
+        
+          r
+          
+            n
+          
+        
+      
+    
+    {\displaystyle r=r_{n}}
+  . The dominant portion of the integral near the saddle point is then approximated by a real integral and Laplace's method, while the remaining portion of the integral can be bounded above to give an error term.
+
+Speed of convergence and error estimates
+Stirling's formula is in fact the first approximation to the following series (now called the Stirling series):
+An explicit formula for the coefficients in this series was given by G. Nemes. Further terms are listed in the On-Line Encyclopedia of Integer Sequences as A001163 and A001164. The first graph in this section shows the relative error vs. 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  , for 1 through all 5 terms listed above. (Bender and Orszag p. 218) gives the asymptotic formula for the coefficients:which shows that it grows superexponentially, and that by ratio test the radius of convergence is zero.
+
+As n → ∞, the error in the truncated series is asymptotically equal to the first omitted term. This is an example of an asymptotic expansion. It is not a convergent series; for any particular value of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   there are only so many terms of the series that improve accuracy, after which accuracy worsens.  This is shown in the next graph, which shows the relative error versus the number of terms in the series, for larger numbers of terms. More precisely, let S(n, t) be the Stirling series to 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   terms evaluated at 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  .  The graphs show 
+
+which, when small, is essentially the relative error.
+Writing Stirling's series in the form
+
+it is known that the error in truncating the series is always of the opposite sign and at most the same magnitude as the first omitted term.
+More precise bounds, due to Robbins, valid for all positive integers 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   are
+
+A looser version of this bound is that 
+  
+    
+      
+        
+          
+            
+              n
+              !
+              
+                e
+                
+                  n
+                
+              
+            
+            
+              n
+              
+                n
+                +
+                
+                  
+                    1
+                    2
+                  
+                
+              
+            
+          
+        
+        ∈
+        (
+        
+          
+            2
+            π
+          
+        
+        ,
+        e
+        ]
+      
+    
+    {\displaystyle {\frac {n!e^{n}}{n^{n+{\frac {1}{2}}}}}\in ({\sqrt {2\pi }},e]}
+   for all 
+  
+    
+      
+        n
+        ≥
+        1
+      
+    
+    {\displaystyle n\geq 1}
+  .
+
+Stirling's formula for the gamma function
+For all positive integers,
+
+where Γ denotes the gamma function.
+However, the gamma function, unlike the factorial, is more broadly defined for all complex numbers other than non-positive integers; nevertheless, Stirling's formula may still be applied. If Re(z) > 0, then
+
+Repeated integration by parts gives
+
+where 
+  
+    
+      
+        
+          B
+          
+            n
+          
+        
+      
+    
+    {\displaystyle B_{n}}
+   is the 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  th Bernoulli number (note that the limit of the sum as 
+  
+    
+      
+        N
+        →
+        ∞
+      
+    
+    {\displaystyle N\to \infty }
+   is not convergent, so this formula is just an asymptotic expansion). The formula is valid for 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+   large enough in absolute value, when |arg(z)| < π − ε, where ε is positive, with an error term of O(z−2N+ 1). The corresponding approximation may now be written:
+
+where the expansion is identical to that of Stirling's series above for 
+  
+    
+      
+        n
+        !
+      
+    
+    {\displaystyle n!}
+  , except that 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is replaced with z − 1.A further application of this asymptotic expansion is for complex argument z with constant Re(z). See for example the Stirling formula applied in Im(z) = t of the Riemann–Siegel theta function on the straight line 1/4 + it.
+
+Error bounds
+For any positive integer 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+  , the following notation is introduced:
+
+and
+
+Then
+For further information and other error bounds, see the cited papers.
+
+A convergent version of Stirling's formula
+Thomas Bayes showed, in a letter to John Canton published by the Royal Society in 1763, that Stirling's formula did not give a convergent series.  Obtaining a convergent version of Stirling's formula entails evaluating Binet's formula:
+
+One way to do this is by means of a convergent series of inverted rising factorials. If
+
+then
+
+where
+
+where s(n, k) denotes the Stirling numbers of the first kind. From this one obtains a version of Stirling's series
+
+which converges when Re(x) > 0. 
+Stirling's formula may also be given in convergent form as
+where
+
+Versions suitable for calculators
+The approximation
+
+and its equivalent form
+
+can be obtained by rearranging Stirling's extended formula and observing a coincidence between the resultant power series and the Taylor series expansion of the hyperbolic sine function. This approximation is good to more than 8 decimal digits for z with a real part greater than 8. Robert H. Windschitl suggested it in 2002 for computing the gamma function with fair accuracy on calculators with limited program or register memory.Gergő Nemes proposed in 2007 an approximation which gives the same number of exact digits as the Windschitl approximation but is much simpler:
+or equivalently,
+
+An alternative approximation for the gamma function stated by Srinivasa Ramanujan (Ramanujan 1988) is
+
+for x ≥ 0. The equivalent approximation for ln n! has an asymptotic error of 1/1400n3 and is given by
+
+The approximation may be made precise by giving paired upper and lower bounds; one such inequality is
+
+History
+The formula was first discovered by Abraham de Moivre in the form
+
+De Moivre gave an approximate rational-number expression for the natural logarithm of the constant. Stirling's contribution consisted of showing that the constant is precisely 
+  
+    
+      
+        
+          
+            2
+            π
+          
+        
+      
+    
+    {\displaystyle {\sqrt {2\pi }}}
+  .
+
+See also
+Lanczos approximation
+Spouge's approximation
+
+References
+Further reading
+Abramowitz, M. & Stegun, I. (2002), Handbook of Mathematical Functions
+Paris, R. B. & Kaminski, D. (2001), Asymptotics and Mellin–Barnes Integrals, New York: Cambridge University Press, ISBN 978-0-521-79001-7
+Whittaker, E. T. & Watson, G. N. (1996), A Course in Modern Analysis (4th ed.), New York: Cambridge University Press, ISBN 978-0-521-58807-2
+Romik, Dan (2000), "Stirling's approximation for 
+  
+    
+      
+        n
+        !
+      
+    
+    {\displaystyle n!}
+  : the ultimate short proof?", The American Mathematical Monthly, 107 (6): 556–557, doi:10.2307/2589351, JSTOR 2589351, MR 1767064
+Li, Yuan-Chuan (July 2006), "A note on an identity of the gamma function and Stirling's formula", Real Analysis Exchange, 32 (1): 267–271, MR 2329236
+
+External links
+
+"Stirling_formula", Encyclopedia of Mathematics, EMS Press, 2001 [1994]
+Peter Luschny, Approximation formulas for the factorial function n!
+Weisstein, Eric W., "Stirling's Approximation", MathWorld
+Stirling's approximation at PlanetMath.

@@ -1,0 +1,825 @@
+Crowd simulation is the process of simulating the movement (or dynamics) of a large number of entities or characters. It is commonly used to create virtual scenes for visual media like films and video games, and is also used in crisis training, architecture and urban planning, and evacuation simulation.Crowd simulation may focus on aspects that target different applications. For realistic and fast rendering of a crowd for visual media or virtual cinematography, reduction of the complexity of the 3D scene and image-based rendering are used, while variations (changes) in appearance help present a realistic population.In games and applications intended to replicate real-life human crowd movement, like in evacuation simulations, simulated agents may need to navigate towards a goal, avoid collisions, and exhibit other human-like behavior. Many crowd steering algorithms have been developed to lead simulated crowds to their goals realistically. Some more general systems are researched that can support different kinds of agents (like cars and pedestrians), different levels of abstraction (like individual and continuum), agents interacting with smart objects, and more complex physical and social dynamics.
+
+History
+There has always been a deep-seated interest in the understanding and gaining control of motional and behavior of crowds of people. Many major advancements have taken place since the beginnings of research within the realm of crowd simulation. Evidently many new findings are continually made and published following these which enhance the scalability, flexibility, applicability, and realism of simulations:
+In 1987, behavioral animation was introduced and developed by Craig Reynolds. He had simulated flocks of birds alongside schools of fish for the purpose of studying group intuition and movement. All agents within these simulations were given direct access to the respective positions and velocities of their surrounding agents. The theorization and study set forth by Reynolds was improved and built upon in 1994 by Xiaoyuan Tu, Demetri Terzopoulos and Radek Grzeszczuk. The realistic quality of simulation was engaged with as the individual agents were equipped with synthetic vision and a general view of the environment within which they resided, allowing for a perceptual awareness within their dynamic habitats.
+Initial research in the field of crowd simulation began in 1997 with Daniel Thalmann's supervision of Soraia Raupp Musse's PhD thesis. They present a new model of crowd behavior in order to create a simulation of generic populations. Here a relation is drawn between the autonomous behavior of the individual within the crowd and the emergent behavior originating from this.In 1999, individualistic navigation began its course within the realm of crowd simulation via continued research of Craig Reynolds. Steering behaviors are proven to play a large role in the process of automating agents within a simulation. Reynolds states the processes of low-level locomotion to be dependent and reliant on mid-level steering behaviors and higher-level goal states and path finding strategies. Building off of the advanced work of Reynolds, Musse and Thalmann began to study the modeling of real time simulations of these crowds, and their applications to human behavior. The control of human crowds was designated as a hierarchical organization with levels of autonomy amongst agents. This marks the beginnings of modeling individual behavior in its most elementary form on humanoid agents or virtual humans.Coinciding with publications regarding human behavior models and simulations of group behaviors, Matt Anderson, Eric McDaniel, and Stephen Chenney's proposal of constraints on behavior gained popularity. The positioning of constraints on group animations was presented to be able to be done at any time within the simulation. This process of applying constraints to the behavioral model is undergone in a two-fold manner, by first determining the initial set of goal trajectories coinciding with the constraints, and then applying behavioral rules to these paths to select those which do not violate them.
+Correlating and building off of the findings proposed in his work with Musse, Thalmann, working alongside Bratislava Ulicny and Pablo de Heras Ciechomski, proposed a new model which allowed for interactive authoring of agents at the level of an individual, a group of agents and the entirety of a crowd. A brush metaphor is introduced to distribute, model and control crowd members in real-time with immediate feedback.
+
+Crowd dynamics
+One of the major goals in crowd simulation is to steer crowds realistically and recreate human dynamic behaviors.
+There exists several overarching approaches to crowd simulation and AI, each one providing advantages and disadvantages based on crowd size and time scale. Time scale refers to how the objective of the simulation also affects the length of the simulation. For example, researching social questions such as how ideologies are spread amongst a population will result in a much longer running simulation since such an event can span up to months or years. Using those two characteristics, researchers have attempted to apply classifications to better evaluate and organize existing crowd simulators.
+Flow-based Approach
+Flow based crowd simulations focus on the crowd as a whole rather than its components. As such individuals do not have any distinctive behaviors that occur due to input from their surroundings and behavioral factors are largely reduced. This model is mainly used to estimate the flow of movement of a large and dense crowd in a given environment. Best used in studying large crowd, short time objectives.Entity-based Approach
+Models that implement a set of physical, predefined, and global laws meant to simulate social/psychological factors that occur in individuals that are a part of a crowd fall under this category. Entities in this case do not have the capacity to, in a sense, think for themselves. All movements are determined by the global laws being enforced on them. Simulations that use this model often do so to research crowd dynamics such as jamming and flocking. Small to medium-sized crowds with short term objectives fit this approach best.Agent-based Approach
+Characterized by autonomous, interacting individuals. Each agent of a crowd in this approach, is given a degree of intelligence; they can react to each situation on their own based on a set of decision rules. Information used to decide on an action is obtained locally from the agent's' surroundings. Most often, this approach is used for simulating realistic crowd behavior as the researcher is given complete freedom to implement any behaviors.
+
+Particle systems
+One way to simulate virtual crowds is to use a particle system. Particle systems were first introduced in computer graphics by W. T. Reeves in 1983. A particle system is a collection of a number of individual elements or particles. Each particle is able to act autonomously and is assigned a set of physical attributes (such as color, size and velocity).
+A particle system is dynamic, in that the movements of the particles change over time.  A particle system's movement is what makes it so desirable and easy to implement. Calculating the movements of these particles takes very little time. It simply involves physics: the sum of all the forces acting on a particle determines its motion. Forces such as gravity, friction and force from a collision, and social forces like the attractive force of a goal.
+Usually each particle has a velocity vector and a position vector, containing information about the particle's current velocity and position respectively. The particles next position is calculated by adding its velocity vector to its position vector. A very simple operation (again why particle systems are so desirable). Its velocity vector changes over time, in response to the forces acting on the particle. For example, a collision with another particle will cause it to change direction.
+Particles systems have been widely used in films for effects such as explosions, for water effects in the 2000 movie The Perfect Storm, and simulated gas in the 1994 film the Mask.
+Particles systems, however, do have some drawbacks. It can be a bad idea to use a particle system to simulate agents in a crowd that the director will move on command, as determining which particles belong to the agent and which do not is very difficult.
+
+Algorithm by Patil and Van Den Berg
+This algorithm was designed for relatively simplistic crowds, where each agent in the crowd only desires to get to its own goal destination while also avoiding obstacles. This algorithm could be used for simulating a crowd in Times Square.
+Patils algorithm's most important and distinctive feature is that it utilizes the concept of navigation fields for directing agents. This is different from a guidance field; a guidance field is an area around the agent in which the agent is capable of "seeing"/detecting information. Guidance fields are typically used for avoiding obstacles, dynamic obstacles (obstacles that move) in particular. Every agent possesses its own guidance field. A navigation field, on the other hand, is a vector field which calculates the minimum cost path for every agent so that every agent arrives at its own goal position.
+The navigation field can only be used properly when a path exists from every free (non-obstacle) position in the environment to one of the goal positions. The navigation field is computed using coordinates of the static objects in the environment, goal positions for each agent, and the guidance field for each agent. In order to guarantee that every agent reaches its own goal the navigation field must be free of local minima, except for the presence of sinks at the specified goals.
+The running time of computing the navigation field is 
+  
+    
+      
+        O
+        (
+        m
+        ∗
+        n
+        ∗
+        l
+        o
+        g
+        (
+        m
+        n
+        )
+        )
+      
+    
+    {\displaystyle O(m*n*log(mn))}
+  , where m × n is the grid dimension (similar to Dijkstra's algorithm). Thus, the algorithm is only dependent on the grid resolution and not dependent on the number of agents in the environment. However, this algorithm has a high memory cost.
+
+Individual behavior modelling
+One set of techniques for AI-based crowd simulation is to model crowd behavior by advanced simulation of individual agent motivations and decision-making. Generally, this means each agent is assigned some set of variables that measure various traits or statuses such as stress, personality, or different goals. This results in more realistic crowd behavior though may be more computationally intensive than simpler techniques.
+
+Personality-based models
+One method of creating individualistic behavior for crowd agents is through the use of personality traits. Each agent may have certain aspects of their personality tuned based on a formula that associates aspects such as aggressiveness or impulsiveness with variables that govern the agents' behavior. One way this association can be found is through a subjective study in which agents are randomly assigned values for these variables and participants are asked to describe each agent in terms of these personality traits. A regression may then be done to determine a correlation between these traits and the agent variables. The personality traits can then be tuned and have an appropriate effect on agent behavior.
+The OCEAN personality model has been used to define a mapping between personality traits and crowd simulation parameters. Automating crowd parameter tuning with personality traits provides easy authoring of scenarios with heterogeneous crowds.
+
+Stress-based model
+The behavior of crowds in high-stress situations can be modeled using General Adaptation Syndrome theory.l Agent behavior is affected by various stressors from their environment categorized into four prototypes: time pressure, area pressure, positional stressors, and interpersonal stressors, each with associated mathematical models.
+Time pressure refers to stressors related to a time limit in reaching a particular goal. An example would be a street crossing with a timed walk signal or boarding a train before the doors are closed. This prototype is modeled by the following formula:
+
+  
+    
+      
+        
+          I
+          
+            t
+          
+        
+        =
+        m
+        a
+        x
+        (
+        
+          t
+          
+            e
+          
+        
+        −
+        
+          t
+          
+            a
+          
+        
+        ,
+        0
+        )
+      
+    
+    {\displaystyle I_{t}=max(t_{e}-t_{a},0)}
+  
+where 
+  
+    
+      
+        
+          I
+          
+            t
+          
+        
+      
+    
+    {\textstyle I_{t}}
+   is the intensity of the time pressure as a function of the estimated time to reach the goal 
+  
+    
+      
+        
+          t
+          
+            e
+          
+        
+      
+    
+    {\textstyle t_{e}}
+   and a time constraint 
+  
+    
+      
+        
+          t
+          
+            a
+          
+        
+      
+    
+    {\displaystyle t_{a}}
+  .
+Area pressure refers to stressors as a result of an environmental condition. Examples would be noise or heat in an area. The intensity of this stressor is constant over a particular area and is modeled by the following formula:
+
+  
+    
+      
+        
+          I
+          
+            a
+          
+        
+        =
+        
+          
+            {
+            
+              
+                
+                  c
+                
+                
+                  
+                    if 
+                  
+                  
+                    p
+                    
+                      a
+                    
+                  
+                  ∈
+                  A
+                
+              
+              
+                
+                  0
+                
+                
+                  
+                    if 
+                  
+                  
+                    p
+                    
+                      a
+                    
+                  
+                  ∉
+                  A
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle I_{a}={\begin{cases}c&{\text{if }}p_{a}\in A\\0&{\text{if }}p_{a}\not \in A\end{cases}}}
+  
+where 
+  
+    
+      
+        
+          I
+          
+            a
+          
+        
+      
+    
+    {\textstyle I_{a}}
+   is the intensity of the area pressure, 
+  
+    
+      
+        
+          p
+          
+            a
+          
+        
+      
+    
+    {\textstyle p_{a}}
+   is the position of the agent in an area 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  , and 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   is a constant.
+Positional stressors refer to stressors associated with a local source of stress. The intensity of this stressor increases as an agent approaches the source of the stress. An example would be a fire or a dynamic object such as an assailant. It can be modeled by the following formula:
+
+  
+    
+      
+        
+          I
+          
+            p
+          
+        
+        =
+        ‖
+        
+          p
+          
+            a
+          
+        
+        −
+        
+          p
+          
+            s
+          
+        
+        ‖
+      
+    
+    {\displaystyle I_{p}=\lVert p_{a}-p_{s}\rVert }
+  
+where 
+  
+    
+      
+        
+          I
+          
+            p
+          
+        
+      
+    
+    {\displaystyle I_{p}}
+   is the intensity of the positional stressor, 
+  
+    
+      
+        
+          p
+          
+            a
+          
+        
+      
+    
+    {\displaystyle p_{a}}
+   is the position of the agent and 
+  
+    
+      
+        
+          p
+          
+            s
+          
+        
+      
+    
+    {\displaystyle p_{s}}
+   is the position of the stressor. Alternatively, stressors that generate high stress over a large area (such as a fire) can be modeled using a Gaussian distribution with standard deviation 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  :
+
+  
+    
+      
+        
+          I
+          
+            p
+          
+        
+        =
+        
+          
+            N
+          
+        
+        (
+        
+          p
+          
+            a
+          
+        
+        −
+        
+          p
+          
+            s
+          
+        
+        ,
+        σ
+        )
+      
+    
+    {\displaystyle I_{p}={\mathcal {N}}(p_{a}-p_{s},\sigma )}
+  
+Interpersonal stressors are stressors as a result of crowding by nearby agents. It can be modeled by the following formula:
+
+  
+    
+      
+        
+          I
+          
+            i
+          
+        
+        =
+        m
+        a
+        x
+        (
+        
+          n
+          
+            c
+          
+        
+        −
+        
+          n
+          
+            p
+          
+        
+        ,
+        0
+        )
+      
+    
+    {\displaystyle I_{i}=max(n_{c}-n_{p},0)}
+  
+where 
+  
+    
+      
+        
+          I
+          
+            i
+          
+        
+      
+    
+    {\displaystyle I_{i}}
+   is the intensity of the interpersonal stressor, 
+  
+    
+      
+        
+          n
+          
+            c
+          
+        
+      
+    
+    {\displaystyle n_{c}}
+   is the current number of neighbors within a unit space and 
+  
+    
+      
+        
+          n
+          
+            p
+          
+        
+      
+    
+    {\displaystyle n_{p}}
+   is the preferred number of neighbors within a unit space for that particular agent.
+The perceived stress follows Steven's Law and is modeled by the formula:
+
+  
+    
+      
+        ψ
+        (
+        I
+        )
+        =
+        k
+        
+          I
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \psi (I)=kI^{n}}
+  
+where 
+  
+    
+      
+        ψ
+        (
+        I
+        )
+      
+    
+    {\displaystyle \psi (I)}
+   is the perceived stress for a stress level 
+  
+    
+      
+        I
+      
+    
+    {\displaystyle I}
+  , 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   is a scale factor, and 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is an exponent depending on the stressor type.
+An agent's stress response can be found with the following formula:
+
+  
+    
+      
+        
+          
+            
+              d
+              S
+            
+            
+              d
+              t
+            
+          
+        
+        =
+        
+          
+            {
+            
+              
+                
+                  α
+                
+                
+                  
+                    if 
+                  
+                  ψ
+                  >
+                  S
+                
+              
+              
+                
+                  (
+                  −
+                  α
+                  ≤
+                  
+                    
+                      
+                        d
+                        ψ
+                      
+                      
+                        d
+                        t
+                      
+                    
+                  
+                  ≤
+                  α
+                  )
+                
+                
+                  
+                    if 
+                  
+                  ψ
+                  =
+                  S
+                
+              
+              
+                
+                  −
+                  α
+                
+                
+                  
+                    if 
+                  
+                  ψ
+                  <
+                  S
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle {dS \over dt}={\begin{cases}\alpha &{\text{if }}\psi >S\\(-\alpha \leq {d\psi  \over dt}\leq \alpha )&{\text{if }}\psi =S\\-\alpha &{\text{if }}\psi <S\end{cases}}}
+  
+where 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   is the stress response capped at a maximum value of 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+   and 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   is the maximum rate at which an agent's stress response can change.
+Examples of notable crowd AI simulation can be seen in New Line Cinema's The Lord of the Rings films, where AI armies of thousands of characters battle each other. This crowd simulation was done using Weta Digital's Massive software.
+
+Sociology
+Crowd simulation can also refer to simulations based on group dynamics, crowd psychology, and even social etiquette. In this case, the focus is on the behavior of the crowd, not necessarily on the visual realism of the simulation. Crowds have been studied as a scientific interest since the end of the 19th century. A lot of research has focused on the collective social behavior of people at social gatherings, assemblies, protests, rebellions, concerts, sporting events and religious ceremonies. Gaining insight into natural human behavior under varying types of stressful situations will allow better models to be created which can be used to develop crowd controlling strategies, often in public safety planning.
+Emergency response teams such as policemen, the National Guard, military and even volunteers must undergo some type of crowd control training. Using researched principles of human behavior in crowds can give disaster training designers more elements to incorporate to create realistic simulated disasters. Crowd behavior can be observed during both panic and non-panic conditions. Military programs are looking more towards simulated training involving emergency responses due to their cost-effective technology, as well as how effective the learning can be transferred to the real world. Many events that may start out controlled can have a twisting event that turns them into catastrophic situations, where decisions need to be made on the spot. It is these situations in which crowd dynamical understanding could play a vital role in reducing the potential for chaos.
+Modeling techniques of crowds vary from holistic or network approaches to understanding individualistic or behavioral aspects of each agent. For example, the Social Force Model describes a need for individuals to find a balance between social interaction and physical interaction. An approach that incorporates both aspects, and is able to adapt depending on the situation, would better describe natural human behavior, always incorporating some measure of unpredictability. With the use of multi-agent models understanding these complex behaviors has become a much more comprehensible task. With the use of this type of software, systems can now be tested under extreme conditions, and simulate conditions over long periods of time in the matter of seconds.
+In some situations, the behavior of swarms of non-human animals can be used as an experimental model of crowd behavior. The panic behavior of ants when exposed to a repellent chemical in a confined space with limited exit routes has been found to have both similarities and differences to equivalent human behavior.
+
+Modeling individual behaviors
+Hacohen, Shoval and Shvalb  formulated the drivers-pedestrians dynamics at congested conflict spots. In such scenarios, the drivers and/or pedestrians do not closely follow the traffic laws. The model is based on the Probabilistic Navigation function (PNF), which was originally developed for robotics motion planning. The algorithm constructs a trajectory according to the probability for collision at each point in the entire crossing area. The pedestrian then follow a trajectory that locally minimizes their perceived probability for collision.
+Helbing proposed a model based on physics using a particle system and socio-psychological forces in order to describe human crowd behavior in panic situation, this is now called the Helbing Model. His work is based on how the average person would react in a certain situation. Although this is a good model, there are always different types of people present in the crowd and they each have their own individual characteristics as well as how they act in a group structure. For instance, one person may not react to a panic situation, while another may stop walking and interfere in the crowd dynamics as a whole. Furthermore, depending on the group structure, the individual action can change because the agent is part of a group, for example, returning to a dangerous place in order to rescue a member of that group. Helbing's model can be generalized incorporating individualism, as proposed by Braun, Musse, Oliveira and Bodmann.In order to tackle this problem, individuality should be assigned to each agent, allowing to deal with different types of behaviors. Another aspect to tackle this problem is the possibility to group people, forming these group causes people to change their behavior as a function of part of the group structure. Each agent (individual) can be defined according to the following parameters:
+
+Id – Agent identifier
+IdFamily – Identifier of the family. A family is a predefined group formed by agents who know each other
+DE – Dependence level of the agent which mimics the need for help. Values [0,1]
+AL – Altruism level representing the tendency to help other agents. Values [0,1]
+vi – Speed of the agentTo model the effect of the dependence parameter with individual agents, the equation is defined as:
+
+  
+    
+      
+        
+          v
+          
+            i
+          
+        
+        =
+        (
+        1
+        −
+        D
+        E
+        )
+        
+          v
+          
+            m
+            a
+            x
+          
+        
+      
+    
+    {\displaystyle v_{i}=(1-DE)v_{max}}
+  When evaluating the speed of the agent, it is clear that if the value of the dependence factor, DE, is equal to one, then the person would be fully disabled making him unable to move. If the dependence factor is equal to zero, then the person is able to run at his max speed.
+Group formation is related to the Altruism force which is implemented as an interaction force between two or more agents who are part of the same family. Mathematically, it is described as the following:
+
+  
+    
+      
+        F
+        
+          
+            
+              a
+              ¯
+            
+          
+          
+            i
+          
+        
+        =
+        K
+        ∑
+        
+          (
+          
+            A
+            
+              L
+              
+                i
+              
+            
+            D
+            
+              E
+              
+                j
+              
+            
+            ×
+            
+              |
+              
+                
+                  d
+                  
+                    i
+                    j
+                  
+                
+                −
+                
+                  d
+                  
+                    i
+                    p
+                  
+                
+              
+              |
+            
+            ×
+            
+              e
+              
+                i
+                j
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle F{\overline {a}}_{i}=K\sum \left(AL_{i}DE_{j}\times \left|d_{ij}-d_{ip}\right|\times e_{ij}\right)}
+  where:
+
+dij represents the distance between two agents with the origin at the position of the agent;
+dip is the distance vector point from the agents to the door's position p of the simulation environment;
+K is a constant;
+eij is the unitary vector with the origin at position i.Consequently, the greater the parameter ALi of agent i, the bigger will be Fāi which points to the agent j and has the high level of DEj. When both agents are close enough to each other, the one with high DE (agent j in this example) adopts the value of agent i (
+  
+    
+      
+        D
+        
+          E
+          
+            j
+          
+        
+        =
+        D
+        
+          E
+          
+            i
+          
+        
+      
+    
+    {\displaystyle DE_{j}=DE_{i}}
+  ). This means that the evacuation ability of agent i is shared with agent j and both start moving together.
+By using these applying these equations in model testing using a normally distributed population, the results are fairly similar to the Helbing Model.
+The places where this would be helpful would be in an evacuation scenario. Take for example, an evacuation of a building in the case of a fire. Taking into account the characteristics of individual agents and their group performances, determining the outcome of how the crowd would exit the building is critically important in creating the layout of the building.
+
+Leader behavior during evacuation simulations
+As described earlier, the Helbing Model is used as the basics for crowd behavior. This same type of behavior model is used for evacuation simulations.
+In general, the first thing that has to be assumed is that not everyone has knowledge about the environment or where there are and aren't hazards. From this assumption we can create three types of agents. The first type is a trained leader, this agent knows about the environment and is able to spread knowledge to other agents so they know how to exit from an environment. The next type of agent is an untrained leader, this agent does not know about the environment, however, as the agent explores the environment and gets information from other types of leaders, the agent is able to spread the knowledge about the environment. The last type of agent is a follower, this type of agent can only take information from other leaders and not be able to share the information with other agents.
+The implementation of these types of agents is fairly straightforward. The leaders in the environment have a map of the environment saved as one of their attributes. An untrained leader and followers will start out with an empty map as their attribute. Untrained leaders and followers will start exploring an environment by themselves and create a map of walkable and unwalkable locations. Leaders and untrained leaders (once they have the knowledge), will share information with other agents depending on their proximity. They will share information about which points on the grid are blocked, the local sub-graphs and the dangers in the area.
+There were two types of searching algorithms tried out for this implementation. There was the random search and the depth first search. A random search is where each of the agents go in any direction through the environment and try to find a pathway out. The depth first search is where agents follow one path as far as it can go then return and try another path if the path they traversed does not contain an exit. If was found that depth first search gave a speed up of 15 times versus a random search.
+
+Scalable simulations
+There are many different case situations that come into play in crowd simulations. Recently, crowd simulation has been essential for the many virtual environment applications such as education, training, and entertainment.  Many situations are based on the environment of the simulation or the behavior of the group of local agents.  In virtual reality applications, every agent interacts with many other agents in the environment, calling for complex real-time interactions.  Agents must have continuous changes in the environment since agent behaviors allow complex interactions.  Scalable architecture can manage large crowds through the behavior and interactive rates.  These situations will indicate how the crowds will act in multiple complex scenarios while several different situations are being applied.  A situation can be any circumstance that has typical local behaviors.  We can categorize all situations into two different kinds.
+Spatial situation is a situation that has a region where the environment affects the local agents.  For instance, a crowd waiting in line for a ticket booth would be displaying a spatial situation. Other examples may be a bus stop or an ATM where characters act upon their environment.  Therefore, we would consider 'bus stop' as the situation if the behavior of the agents are to be getting on or off a bus.
+Non-Spatial situation has no region in the environment because this only involves the behavior of the crowd.  The relationship of the local agents is an important factor to consider when determining behavior.  An example would be a group of friends walking together.  Typical behavior of characters that are friends would all move along with each other. This means that 'friendship' would be the situation among the typical behavior of walking together.
+The structure of any situation is built upon four components, Behavior functions, Sensors, States, and Event Rules.  Behavior functions represent what the characters behaviors are specific to the situation.  Sensors are the sensing capability for agents to see and respond to events.  States are the different motions and state transitions used only for the local behaviors.  Event rule is the way to connect different events to their specific behaviors.  While a character is being put into a situation, these four components are considered at the same time.  For spatial situations,  the components are added when the individual initially enters the environment that influences the character.  For non-spatial situations, the character is affected only once the user assigns the situation to the character.  The four components are removed when the agent is taken away from its situations region or the situation itself is removed.  The dynamic adding and removing of the situations lets us achieve scalable agents.
+
+Human-like behaviors and crowd AI
+To simulate more aspects of human activities in a crowd, more is needed than path and motion planning. Complex social interactions, smart object manipulation, and hybrid models are challenges in this area. Simulated crowd behavior is inspired by the flow of real-world crowds. Behavioral patterns, movement speeds and densities, and anomalies are analyzed across many environments and building types. Individuals are tracked and their movements are documented such that algorithms can be derived and implemented into crowd simulations.
+Individual entities in a crowd are also called agents. In order for a crowd to behave realistically each agent should act autonomously (be capable of acting independently of the other agents). This idea is referred to as an agent-based model. Moreover, it is usually desired that the agents act with some degree of intelligence (i.e. the agents should not perform actions that would cause them to harm themselves). For agents to make intelligent and realistic decisions, they should act in accordance with their surrounding environment, react to its changes, and react to the other agents. Terzopoulos and his students have pioneered agent-based models of pedestrians, an approach referred to as multi-human simulation to distinguish it from conventional crowd simulation.
+
+Rule-based AI
+In rule-based AI, virtual agents follow scripts: "if this happens, do that". This is a good approach to take if agents with different roles are required, such as a main character and several background characters. This type of AI is usually implemented with a hierarchy, such as in Maslow's hierarchy of needs, where the lower the need lies in the hierarchy, the stronger it is.
+For example, consider a student walking to class who encounters an explosion and runs away. The theory behind this is initially the first four levels of his needs are met, and the student is acting according to his need for self-actualization. When the explosion happens his safety is threatened which is a much stronger need, causing him to act according to that need.
+This approach is scalable, and can be applied to crowds with a large number of agents. Rule-based AI, however, does have some drawbacks. Most notably the behavior of the agents can become very predictable, which may cause a crowd to behave unrealistically.
+
+Learning AI
+In learning AI, virtual characters behave in ways that have been tested to help them achieve their goals.  Agents experiment with their environment or a sample environment which is similar to their real one.
+Agents perform a variety of actions and learn from their mistakes. Each agent alters its behavior in response to rewards and punishments it receives from the environment. Over time, each agent would develop behaviors that are consistently more likely to earn high rewards.
+If this approach is used, along with a large number of possible behaviors and a complex environment agents will act in a realistic and unpredictable fashion.
+
+Algorithms
+There are a wide variety of machine learning algorithms that can be applied to crowd simulations.
+Q-Learning is an algorithm residing under machine learning's sub field known as reinforcement learning. A basic overview of the algorithm is that each action is assigned a Q value and each agent is given the directive to always perform the action with the highest Q value. In this case learning applies to the way in which Q values are assigned, which is entirely reward based. When an agent comes in contact with a state, s, and action, a, the algorithm then estimates the total reward value that an agent would receive for performing that state action pair. After calculating this data, it is then stored in the agent's knowledge and the agent proceeds to act from there.
+The agent will constantly alter its behavior depending on the best Q value available to it. And as it explores more and more of the environment, it will eventually learn the most optimal state action pairs to perform in almost every situation.
+The following function outlines the bulk of the algorithm:
+
+Q(s, a) ←− r + maxaQ(s', a')Given a state s and action a, r and s are the reward and state after performing (s,a), and a' is the range over all the actions.
+
+Crowd rendering and animation
+Rendering and animating a large number of agents realistically, especially in real time, is challenging. To reduce the complexity of 3D rendering of large-scale crowds, techniques like culling (discarding unimportant objects), impostors (image-based rendering) and decreasing levels of detail have been used.
+Variations in appearance, body shape and size, accessories and behavior (social or cultural) exist in real crowds, and lack of variety affects the realism of visual simulations. Existing systems can create virtual crowds with varying texture, color, size, shape and animation.
+
+Real world applications
+Virtual cinematography
+Crowd simulations have been used widely across films as a cost-effective and realistic alternative from hiring actors and capturing shots that would otherwise be unrealistic. A significant example of its use lies in The Lord of the Rings (film series). One of the most glaring problems for the production team in the initial stages were large-scale battles, as the author of the novels, J. R. R. Tolkien,  envisioned them to have at least 50,000 participants. Such a number was unrealistic had they decided to only attempt to hire real actors and actresses. Instead they decided to use CG to simulate these scenes through the use of the Multiple Agent Simulation System in a Virtual Environment, otherwise known as MASSIVE. The Human Logic Engine based Maya plugin for crowd simulation, Miarmy, was used for the development of these sequences. The software allowed the filmmakers to provide each character model an agent based A.I. that could utilize a library of 350 animations. Based on sight, hearing, and touch parameters generated from the simulation, agents would react uniquely to each situation. Thus each simulation of the scene was unpredictable. The final product clearly displayed the advantages to using crowd simulation software.
+
+Urban planning
+The development of crowd simulation software has become a modern and useful tool in designing urban environments. Whereas the traditional method of urban planning relies on maps and abstract sketches, a digital simulation is more capable of conveying both form and intent of design from architect to pedestrian. For example, street signs and traffic lights are localized visual cues that influence pedestrians to move and behave accordingly. Following this logic, a person is able to move from point A to point B in a way that is efficient and that a collective group of people can operate more effectively as a result. In a broader sense, bus systems and roadside restaurants serve a spatial purpose in their locations through an understanding of human movement patterns. The SimCity video game series exemplifies this concept in a more simplistic manner. In this series, the player assigns city development in designated zones while maintaining a healthy budget. The progression from empty land to a bustling city is fully controlled by the player's choices and the digital citizens behave as according to the city's design and events.
+
+Evacuation and riot handling
+Simulated realistic crowds can be used in training for riots handling, architecture, safety science (evacuation planning).
+
+Military
+Being that crowd simulations are so prevalent in use for public planning and general order with regards to chaotic situations, many applications can be drawn for governmental and military simulations. Crowd modeling is essential in police and military simulation in order to train officers and soldiers to deal with mass gatherings of people. Not only do offensive combatants prove to be difficult for these individuals to handle, but noncombatant crowds play significant roles in making these aggressive situations more out of control. Game technology is used in order to simulate these situations for soldiers and technicians to practice their skills.
+
+Sociology
+The behavior of a modeled crowd plays a prominent role in analytical matters. These dynamics rely on the physical behaviors of individual agents within a crowd rather than the visual reality of the model itself. The social behaviors of people within these constructs have been of interest for many years, and the sociological concepts which underpin these interactions are constantly studied. The simulation of crowds in different situations allows for sociological study of real life gatherings in a variety of arrangements and locations. The variations in human behavior in situations varying in stress-levels allows for the further development and creation of crowd control strategies which can be more specifically applied to situations rather than generalized.
+
+See also
+3D computer graphics
+Artificial intelligence
+Crowd analysis
+Emergent behavior
+Multi-agent system
+Particle system
+
+Crowd simulation software
+STEPS by Mott MacDonald
+Alice Software by the Moving Picture Company
+Golaem Crowd
+Massive (software)
+Miarmy
+Quadstone Paramics
+VISSIM
+
+References
+External links
+SteerSuite, An open-source framework for developing and evaluating crowd simulation algorithms
+Sung, Mankyu; Gleicher, Michael; Chenney, Stephen (2004). "Scalable behaviors for crowd simulation". Computer Graphics Forum. 23 (3): 519–28. CiteSeerX 10.1.1.10.2516. doi:10.1111/j.1467-8659.2004.00783.x. S2CID 3256678.

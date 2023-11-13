@@ -1,0 +1,518 @@
+In computer science, a Cartesian tree is a binary tree derived from a sequence of distinct numbers. To construct the Cartesian tree, set its root to be the minimum number in the sequence, and recursively construct its left and right subtrees from the subsequences before and after this number. It is uniquely defined  as a min-heap whose symmetric (in-order) traversal returns the original sequence.
+Cartesian trees were introduced by Vuillemin (1980) in the context of geometric range searching data structures. They have also been used in the definition of the treap and randomized binary search tree data structures for binary search problems, in comparison sort algorithms that perform efficiently on nearly-sorted inputs, and as the basis for pattern matching algorithms. A Cartesian tree for a sequence can be constructed in linear time.
+
+Definition
+Cartesian trees are defined using binary trees, which are a form of rooted tree. To construct the Cartesian tree for a given sequence of distinct numbers, set its root to be the minimum number in the sequence, and recursively construct its left and right subtrees from the subsequences before and after this number, respectively. As a base case, when one of these subsequences is empty, there is no left or right child.It is also possible to characterize the Cartesian tree directly rather than recursively, using its ordering properties. In any tree, the subtree rooted at any node consists of all other nodes that can reach it by repeatedly following parent pointers. The Cartesian tree for a sequence of distinct numbers is defined by the following properties:
+
+The Cartesian tree for a sequence is a binary tree with one node for each number in the sequence.
+A symmetric (in-order) traversal of the tree results in the original sequence. Equivalently, for each node, the numbers in its left subtree are earlier than it in the sequence, and the numbers in the right subtree are later.
+The tree has the min-heap property: the parent of any non-root node has a smaller value than the node itself.These two definitions are equivalent: the tree defined recursively as described above is the unique tree that has the properties listed above. If a sequence of numbers contains repetitions, a Cartesian tree can be determined for it by following a consistent tie-breaking rule before applying the above construction. For instance, the first of two equal elements can be treated as the smaller of the two.
+
+History
+Cartesian trees were introduced and named by Vuillemin (1980), who used them as an example of the interaction between geometric combinatorics and the design and analysis of data structures. In particular, Vuillemin used these structures to analyze the average-case complexity of concatenation and splitting operations on binary search trees. The name is derived from the Cartesian coordinate system for the plane: in one version of this structure, as in the two-dimensional range searching application discussed below, a Cartesian tree for a point set has the sorted order of the points by their 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  -coordinates as its symmetric traversal order, and it has the heap property according to the 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  -coordinates of the points. Vuillemin described both this geometric version of the structure, and the definition here in which a Cartesian tree is defined from a sequence. Using sequences instead of point coordinates provides a more general setting that allows the Cartesian tree to be applied to non-geometric problems as well.
+
+Efficient construction
+A Cartesian tree can be constructed in linear time from its input sequence.
+One method is to process the sequence values in left-to-right order, maintaining the Cartesian tree of the nodes processed so far, in a structure that allows both upwards and downwards traversal of the tree. To process each new value 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , start at the node representing the value prior to 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   in the sequence and follow the path from this node to the root of the tree until finding a value 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   smaller than 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  . The node 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   becomes the right child of 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  , and the previous right child of 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   becomes the new left child of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  . The total time for this procedure is linear, because the time spent searching for the parent 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   of each new node 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   can be charged against the number of nodes that are removed from the rightmost path in the tree.An alternative linear-time construction algorithm is based on the all nearest smaller values problem. In the input sequence, define the left neighbor of a value 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   to be the value that occurs prior to 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , is smaller than 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , and is closer in position to 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   than any other smaller value. The right neighbor is defined symmetrically. The sequence of left neighbors can be found by an algorithm that maintains a stack containing a subsequence of the input. For each new sequence value 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , the stack is popped until it is empty or its top element is smaller than 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , and then 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is pushed onto the stack. The left neighbor of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is the top element at the time 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is pushed. The right neighbors can be found by applying the same stack algorithm to the reverse of the sequence. The parent of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   in the Cartesian tree is either the left neighbor of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   or the right neighbor of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , whichever exists and has a larger value. The left and right neighbors can also be constructed efficiently by parallel algorithms, making this formulation useful in efficient parallel algorithms for Cartesian tree construction.Another linear-time algorithm for Cartesian tree construction is based on divide-and-conquer. The algorithm recursively constructs the tree on each half of the input, and then merges the two trees. The merger process involves only the nodes on the left and right spines of these trees: the left spine is the path obtained by following left child edges from the root until reaching a node with no left child, and the right spine is defined symmetrically. As with any path in a min-heap, both spines have their values in sorted order, from the smallest value at their root to their largest value at the end of the path. To merge the two trees, apply a merge algorithm to the right spine of the left tree and the left spine of the right tree, replacing these two paths in two trees by a single path that contains the same nodes. In the merged path, the successor in the sorted order of each node from the left tree is placed in its right child, and the successor of each node from the right tree is placed in its left child, the same position that was previously used for its successor in the spine. The left children of nodes from the left tree and right children of nodes from the right tree remain unchanged. The algorithm is parallelizable since on each level of recursion, each of the two sub-problems can be computed in parallel, and the merging operation can be efficiently parallelized as well.It is possible to maintain the Cartesian tree of a dynamic input, subject to insertions of elements and lazy deletion of elements, in logarithmic amortized time per operation. Here, lazy deletion means that a deletion operation is performed by marking an element in the tree as being a deleted element, but not actually removing it from the tree. When the number of marked elements reaches a constant fraction of the size of the whole tree, it is rebuilt, keeping only its unmarked elements.
+
+Applications
+Range searching and lowest common ancestors
+Cartesian trees form part of an efficient data structure for range minimum queries. An input to this kind of query specifies a contiguous subsequence of the original sequence; the query output should be the minimum value in this subsequence. In a Cartesian tree, this minimum value can be found at the lowest common ancestor of the leftmost and rightmost values in the subsequence. For instance, in the subsequence (12,10,20,15,18) of the example sequence, the minimum value of the subsequence (10) forms the lowest common ancestor of the leftmost and rightmost values (12 and 18). Because lowest common ancestors can be found in constant time per query, using a data structure that takes linear space to store and can be constructed in linear time, the same bounds hold for the range minimization problem.Bender & Farach-Colton (2000) reversed this relationship between the two data structure problems by showing that data structures for range minimization could also be used for finding lowest common ancestors. Their data structure associates with each node of the tree its distance from the root, and constructs a sequence of these distances in the order of an Euler tour of the (edge-doubled) tree. It then constructs a range minimization data structure for the resulting sequence. The lowest common ancestor of any two vertices in the given tree can be found as the minimum distance appearing in the interval between the initial positions of these two vertices in the sequence. Bender and Farach-Colton also provide a method for range minimization that can be used for the sequences resulting from this transformation, which have the special property that adjacent sequence values differ by one. As they describe, for range minimization in sequences that do not have this form, it is possible to use Cartesian trees to reduce the range minimization problem to lowest common ancestors, and then to use Euler tours to reduce lowest common ancestors to a range minimization problem with this special form.The same range minimization problem may also be given an alternative interpretation in terms of two dimensional range searching. A collection of finitely many points in the Cartesian plane can be used to form a Cartesian tree, by sorting the points by their 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  -coordinates and using the 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  -coordinates in this order as the sequence of values from which this tree is formed. If 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   is the subset of the input points within some vertical slab defined by the inequalities 
+  
+    
+      
+        L
+        ≤
+        x
+        ≤
+        R
+      
+    
+    {\displaystyle L\leq x\leq R}
+  , 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is the leftmost point in 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   (the one with minimum 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  -coordinate), and 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   is the rightmost point in 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   (the one with maximum 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  -coordinate) then the lowest common ancestor of 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   and 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   in the Cartesian tree is the bottommost point in the slab. A three-sided range query, in which the task is to list all points within a region bounded by the three inequalities 
+  
+    
+      
+        L
+        ≤
+        x
+        ≤
+        R
+      
+    
+    {\displaystyle L\leq x\leq R}
+   and 
+  
+    
+      
+        y
+        ≤
+        T
+      
+    
+    {\displaystyle y\leq T}
+  , can be answered by finding this bottommost point 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  , comparing its 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  -coordinate to 
+  
+    
+      
+        T
+      
+    
+    {\displaystyle T}
+  , and (if the point lies within the three-sided region) continuing recursively in the two slabs bounded between 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   and 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   and between 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   and 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+  . In this way, after the leftmost and rightmost points in the slab are identified, all points within the three-sided region can be listed in constant time per point.The same construction, of lowest common ancestors in a Cartesian tree, makes it possible to construct a data structure with linear space that allows the distances between pairs of points in any ultrametric space to be queried in constant time per query. The distance within an ultrametric is the same as the minimax path weight in the minimum spanning tree of the metric. From the minimum spanning tree, one can construct a Cartesian tree, the root node of which represents the heaviest edge of the minimum spanning tree. Removing this edge partitions the minimum spanning tree into two subtrees, and Cartesian trees recursively constructed for these two subtrees form the children of the root node of the Cartesian tree. The leaves of the Cartesian tree represent points of the metric space, and the lowest common ancestor of two leaves in the Cartesian tree is the heaviest edge between those two points in the minimum spanning tree, which has weight equal to the distance between the two points. Once the minimum spanning tree has been found and its edge weights sorted, the Cartesian tree can be constructed in linear time.
+
+As a binary search tree
+The Cartesian tree of a sorted sequence is just a path graph, rooted at its leftmost endpoint. Binary searching in this tree degenerates to sequential search in the path. However, a different construction uses Cartesian trees to generate binary search trees of logarithmic depth from sorted sequences of values. This can be done by generating priority numbers for each value, and using the sequence of priorities to generate a Cartesian tree. This construction may equivalently be viewed in the geometric framework described above, in which the 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  -coordinates of a set of points are the values in a sorted sequence and the 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  -coordinates are their priorities.This idea was applied by Seidel & Aragon (1996), who suggested the use of random numbers as priorities. The self-balancing binary search tree resulting from this random choice is called a treap, due to its combination of binary search tree and min-heap features. An insertion into a treap can be performed by inserting the new key as a leaf of an existing tree, choosing a priority for it, and then performing tree rotation operations along a path from the node to the root of the tree to repair any violations of the heap property caused by this insertion; a deletion can similarly be performed by a constant amount of change to the tree followed by a sequence of rotations along a single path in the tree. A variation on this data structure called a zip tree uses the same idea of random priorities, but simplifies the random generation of the priorities, and performs insertions and deletions in a different way, by splitting the sequence and its associated Cartesian tree into two subsequences and two trees and then recombining them.If the priorities of each key are chosen randomly and independently once whenever the key is inserted into the tree, the resulting Cartesian tree will have the same properties as a random binary search tree, a tree computed by inserting the keys in a randomly chosen permutation starting from an empty tree, with each insertion leaving the previous tree structure unchanged and inserting the new node as a leaf of the tree. Random binary search trees have been studied for much longer than treaps, and are known to behave well as search trees. The expected length of the search path to any given value is at most 
+  
+    
+      
+        2
+        ln
+        ⁡
+        n
+      
+    
+    {\displaystyle 2\ln n}
+  , and the whole tree has logarithmic depth (its maximum root-to-leaf distance) with high probability. More formally, there exists a constant 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   such that the depth is 
+  
+    
+      
+        ≤
+        C
+        ln
+        ⁡
+        n
+      
+    
+    {\displaystyle \leq C\ln n}
+   with probability tending to one as the number of nodes tends to infinity. The same good behavior carries over to treaps. It is also possible, as suggested by Aragon and Seidel, to reprioritize frequently-accessed nodes, causing them to move towards the root of the treap and speeding up future accesses for the same keys.
+
+In sorting
+Levcopoulos & Petersson (1989) describe a sorting algorithm based on Cartesian trees. They describe the algorithm as based on a tree with the maximum at the root, but it can be modified straightforwardly to support a Cartesian tree with the convention that the minimum value is at the root. For consistency, it is this modified version of the algorithm that is described below.
+The Levcopoulos–Petersson algorithm can be viewed as a version of selection sort or heap sort that maintains a priority queue of candidate minima, and that at each step finds and removes the minimum value in this queue, moving this value to the end of an output sequence. In their algorithm, the priority queue consists only of elements whose parent in the Cartesian tree has already been found and removed. Thus, the algorithm consists of the following steps:
+Construct a Cartesian tree for the input sequence
+Initialize a priority queue, initially containing only the tree root
+While the priority queue is non-empty:
+Find and remove the minimum value in the priority queue
+Add this value to the output sequence
+Add the Cartesian tree children of the removed value to the priority queueAs Levcopoulos and Petersson show, for input sequences that are already nearly sorted, the size of the priority queue will remain small, allowing this method to take advantage of the nearly-sorted input and run more quickly. Specifically, the worst-case running time of this algorithm is 
+  
+    
+      
+        O
+        (
+        n
+        log
+        ⁡
+        k
+        )
+      
+    
+    {\displaystyle O(n\log k)}
+  , where 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is the sequence length and 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   is the average, over all values in the sequence, of the number of consecutive pairs of sequence values that bracket the given value (meaning that the given value is between the two sequence values). They also prove a lower bound stating that, for any 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   and (non-constant) 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  , any comparison-based sorting algorithm must use 
+  
+    
+      
+        Ω
+        (
+        n
+        log
+        ⁡
+        k
+        )
+      
+    
+    {\displaystyle \Omega (n\log k)}
+   comparisons for some inputs.
+
+In pattern matching
+The problem of Cartesian tree matching has been defined as a generalized form of string matching in which one seeks a substring (or in some cases, a subsequence) of a given string that has a Cartesian tree of the same form as a given pattern. Fast algorithms for variations of the problem with a single pattern or multiple patterns have been developed, as well as data structures analogous to the suffix tree and other text indexing structures.
+
+Notes
+
+
+== References ==

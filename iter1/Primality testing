@@ -1,0 +1,1311 @@
+A primality test is an algorithm for determining whether an input number is prime. Among other fields of mathematics, it is used for cryptography. Unlike integer factorization, primality tests do not generally give prime factors, only stating whether the input number is prime or not. Factorization is thought to be a computationally difficult problem, whereas primality testing is comparatively easy (its running time is polynomial in the size of the input). Some primality tests prove that a number is prime, while others like Miller–Rabin prove that a number is composite. Therefore, the latter might more accurately be called compositeness tests instead of primality tests.
+
+Simple methods
+The simplest primality test is trial division:  given an input number, 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  , check whether it is divisible by any prime number between 2 and 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\sqrt {n}}}
+   (i.e., whether the division leaves no remainder). If so, then 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is composite. Otherwise, it is prime. In fact, for any divisor 
+  
+    
+      
+        p
+        ≥
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle p\geq {\sqrt {n}}}
+  , there must be another divisor 
+  
+    
+      
+        n
+        
+          /
+        
+        p
+        ≤
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle n/p\leq {\sqrt {n}}}
+  , and a prime divisor 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   of 
+  
+    
+      
+        n
+        
+          /
+        
+        p
+      
+    
+    {\displaystyle n/p}
+  , and therefore looking for prime divisors at most 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\sqrt {n}}}
+   is sufficient.
+For example, consider the number 100, whose divisors are these numbers:
+
+1, 2, 4, 5, 10, 20, 25, 50, 100.When all possible divisors up to 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   are tested, some divisors will be discovered twice. To observe this, consider the list of divisor pairs of 100:
+
+  
+    
+      
+        1
+        ×
+        100
+        ,
+        
+        2
+        ×
+        50
+        ,
+        
+        4
+        ×
+        25
+        ,
+        
+        5
+        ×
+        20
+        ,
+        
+        10
+        ×
+        10
+        ,
+        
+        20
+        ×
+        5
+        ,
+        
+        25
+        ×
+        4
+        ,
+        
+        50
+        ×
+        2
+        ,
+        
+        100
+        ×
+        1
+      
+    
+    {\displaystyle 1\times 100,\;2\times 50,\;4\times 25,\;5\times 20,\;10\times 10,\;20\times 5,\;25\times 4,\;50\times 2,\;100\times 1}
+  .Notice that products past 
+  
+    
+      
+        10
+        ×
+        10
+      
+    
+    {\displaystyle 10\times 10}
+   are the reverse of products that appeared earlier. For example, 
+  
+    
+      
+        5
+        ×
+        20
+      
+    
+    {\displaystyle 5\times 20}
+   and 
+  
+    
+      
+        20
+        ×
+        5
+      
+    
+    {\displaystyle 20\times 5}
+   are the reverse of each other. Note further that of the two divisors, 
+  
+    
+      
+        5
+        ≤
+        
+          
+            100
+          
+        
+        =
+        10
+      
+    
+    {\displaystyle 5\leq {\sqrt {100}}=10}
+   and 
+  
+    
+      
+        20
+        ≥
+        
+          
+            100
+          
+        
+        =
+        10
+      
+    
+    {\displaystyle 20\geq {\sqrt {100}}=10}
+  .  This observation generalizes to all 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  : all divisor pairs of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   contain a divisor less than or equal to 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\sqrt {n}}}
+  , so the algorithm need only search for divisors less than / equal to 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\sqrt {n}}}
+   to guarantee detection of all divisor pairs.Also notice that 2 is a prime dividing 100, which immediately proves that 100 is not prime. Every positive integer except 1 is divisible by at least one prime number by the Fundamental Theorem of Arithmetic. Therefore the algorithm need only search for prime divisors less than / equal to 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\sqrt {n}}}
+  .
+For another example, consider how this algorithm determines the primality of 17. One has 
+  
+    
+      
+        4
+        <
+        
+          
+            17
+          
+        
+        <
+        5
+      
+    
+    {\displaystyle 4<{\sqrt {17}}<5}
+  , and the only primes 
+  
+    
+      
+        ≤
+        
+          
+            17
+          
+        
+      
+    
+    {\displaystyle \leq {\sqrt {17}}}
+   are 2 and 3. Neither divides 17, proving that 17 is prime. For a last example, consider 221. One has 
+  
+    
+      
+        14
+        <
+        
+          
+            221
+          
+        
+        <
+        15
+      
+    
+    {\displaystyle 14<{\sqrt {221}}<15}
+  , and the primes 
+  
+    
+      
+        ≤
+        
+          
+            221
+          
+        
+      
+    
+    {\displaystyle \leq {\sqrt {221}}}
+   are 2, 3, 5, 7, 11, and 13.  Upon checking each, one discovers that 
+  
+    
+      
+        221
+        
+          /
+        
+        13
+        =
+        17
+      
+    
+    {\displaystyle 221/13=17}
+  , proving that 221 is not prime.
+In cases where it is not feasible to compute the list of primes 
+  
+    
+      
+        ≤
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \leq {\sqrt {n}}}
+  , it is also possible to simply (and slowly) check all numbers between 
+  
+    
+      
+        2
+      
+    
+    {\displaystyle 2}
+   and 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\sqrt {n}}}
+   for divisors. A rather simple optimization is to test divisibility by 2 and by just the odd numbers between 3 and 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\sqrt {n}}}
+  , since divisibility by an even number implies divisibility by 2.
+This method can be improved further. Observe that all primes greater than 3 are of the form 
+  
+    
+      
+        6
+        k
+        +
+        i
+      
+    
+    {\displaystyle 6k+i}
+   for a nonnegative integer 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   and 
+  
+    
+      
+        i
+        ∈
+        {
+        1
+        ,
+        5
+        }
+      
+    
+    {\displaystyle i\in \{1,5\}}
+  . Indeed, every integer is of the form 
+  
+    
+      
+        6
+        k
+        +
+        i
+      
+    
+    {\displaystyle 6k+i}
+   for a positive integer 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   and 
+  
+    
+      
+        i
+        ∈
+        {
+        0
+        ,
+        1
+        ,
+        2
+        ,
+        3
+        ,
+        4
+        ,
+        5
+        }
+      
+    
+    {\displaystyle i\in \{0,1,2,3,4,5\}}
+  . Since 2 divides 
+  
+    
+      
+        6
+        k
+        ,
+        6
+        k
+        +
+        2
+      
+    
+    {\displaystyle 6k,6k+2}
+  , and 
+  
+    
+      
+        6
+        k
+        +
+        4
+      
+    
+    {\displaystyle 6k+4}
+  , and 3 divides 
+  
+    
+      
+        6
+        k
+      
+    
+    {\displaystyle 6k}
+   and 
+  
+    
+      
+        6
+        k
+        +
+        3
+      
+    
+    {\displaystyle 6k+3}
+  , the only possible remainders mod 6 for a prime greater than 3 are 1 and 5. So, a more efficient primality test for 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is to test whether 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is divisible by 2 or 3, then to check through all numbers of the form 
+  
+    
+      
+        6
+        k
+        +
+        1
+      
+    
+    {\displaystyle 6k+1}
+   and 
+  
+    
+      
+        6
+        k
+        +
+        5
+      
+    
+    {\displaystyle 6k+5}
+   which are 
+  
+    
+      
+        ≤
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \leq {\sqrt {n}}}
+  . This is almost three times as fast as testing all numbers up to 
+  
+    
+      
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\sqrt {n}}}
+  .
+Generalizing further, all primes greater than 
+  
+    
+      
+        c
+        #
+      
+    
+    {\displaystyle c\#}
+   (c primorial) are of the form 
+  
+    
+      
+        c
+        #
+        ⋅
+        k
+        +
+        i
+      
+    
+    {\displaystyle c\#\cdot k+i}
+   for 
+  
+    
+      
+        i
+        ,
+        k
+      
+    
+    {\displaystyle i,k}
+   positive integers, 
+  
+    
+      
+        0
+        ≤
+        i
+        <
+        c
+        #
+      
+    
+    {\displaystyle 0\leq i<c\#}
+  , and 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   coprime to 
+  
+    
+      
+        c
+        #
+      
+    
+    {\displaystyle c\#}
+  . For example, consider 
+  
+    
+      
+        6
+        #
+        =
+        2
+        ⋅
+        3
+        ⋅
+        5
+        =
+        30
+      
+    
+    {\displaystyle 6\#=2\cdot 3\cdot 5=30}
+  . All integers are of the form 
+  
+    
+      
+        30
+        k
+        +
+        i
+      
+    
+    {\displaystyle 30k+i}
+   for 
+  
+    
+      
+        i
+        ,
+        k
+      
+    
+    {\displaystyle i,k}
+   integers with 
+  
+    
+      
+        0
+        ≤
+        i
+        <
+        30
+      
+    
+    {\displaystyle 0\leq i<30}
+  . Now, 2 divides 
+  
+    
+      
+        0
+        ,
+        2
+        ,
+        4
+        ,
+        …
+        ,
+        28
+      
+    
+    {\displaystyle 0,2,4,\dots ,28}
+  , 3 divides 
+  
+    
+      
+        0
+        ,
+        3
+        ,
+        6
+        ,
+        …
+        ,
+        27
+      
+    
+    {\displaystyle 0,3,6,\dots ,27}
+  , and 5 divides 
+  
+    
+      
+        0
+        ,
+        5
+        ,
+        10
+        ,
+        …
+        ,
+        25
+      
+    
+    {\displaystyle 0,5,10,\dots ,25}
+  . Thus all prime numbers greater than 30 are of the form 
+  
+    
+      
+        30
+        k
+        +
+        i
+      
+    
+    {\displaystyle 30k+i}
+   for 
+  
+    
+      
+        i
+        ∈
+        {
+        1
+        ,
+        7
+        ,
+        11
+        ,
+        13
+        ,
+        17
+        ,
+        19
+        ,
+        23
+        ,
+        29
+        }
+      
+    
+    {\displaystyle i\in \{1,7,11,13,17,19,23,29\}}
+  . Of course, not all numbers of the form 
+  
+    
+      
+        c
+        #
+        ⋅
+        k
+        +
+        i
+      
+    
+    {\displaystyle c\#\cdot k+i}
+   with 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   coprime to 
+  
+    
+      
+        c
+        #
+      
+    
+    {\displaystyle c\#}
+   are prime. For example, 
+  
+    
+      
+        19
+        ⋅
+        23
+        =
+        437
+        =
+        210
+        ⋅
+        2
+        +
+        17
+        =
+        2
+        ⋅
+        7
+        #
+        +
+        17
+      
+    
+    {\displaystyle 19\cdot 23=437=210\cdot 2+17=2\cdot 7\#+17}
+   is not prime, even though 17 is coprime to 
+  
+    
+      
+        7
+        #
+        =
+        2
+        ⋅
+        3
+        ⋅
+        5
+        ⋅
+        7
+      
+    
+    {\displaystyle 7\#=2\cdot 3\cdot 5\cdot 7}
+  .
+As 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   grows, the fraction of coprime remainders to remainders decreases, and so the time to test 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   decreases (though it still necessary to check for divisibility by all primes that are less than 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+  ).  Observations analogous to the preceding can be applied recursively, giving the Sieve of Eratosthenes.
+One way to speed up these methods (and all the others mentioned below) is to pre-compute and store a list of all primes up to a certain bound, such as all primes up to 200. (Such a list can be computed with the Sieve of Eratosthenes or by an algorithm that tests each incremental 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   against all known primes 
+  
+    
+      
+        ≤
+        
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \leq {\sqrt {m}}}
+  ). Then, before testing 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   for primality with a large-scale method, 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   can first be checked for divisibility by any prime from the list.  If it is divisible by any of those numbers then it is composite, and any further tests can be skipped.
+A simple but very inefficient primality test uses Wilson's theorem, which states that 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   is prime if and only if:
+
+  
+    
+      
+        (
+        p
+        −
+        1
+        )
+        !
+        ≡
+        −
+        1
+        
+          
+          (
+          mod
+          
+          p
+          )
+        
+      
+    
+    {\displaystyle (p-1)!\equiv -1{\pmod {p}}}
+  Although this method requires about 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   modular multiplications, rendering it impractical, theorems about primes and modular residues form the basis of many more practical methods.
+
+Example code
+Python
+The following is a simple primality test in Python using the simple 6k ± 1 optimization mentioned earlier. More sophisticated methods described below are much faster for large n.
+
+C, C++, C# & D
+The following is a primality test in the C family of languages using the same optimization as above.
+
+OCaml
+The following is a primality test in OCaml.
+
+Rust
+The following is a primality test in Rust (programming language) using same optimization as above.
+
+Java
+The following is a primality test in Java using the same optimization as above.
+
+JavaScript
+The following is a primality test in JavaScript using the same optimization as above.
+
+R
+The following is a primality test in R (programming language) using the same optimization as above.
+
+Dart
+The following is a primality test in Dart (programming language) using the same optimization as above.
+
+Free Pascal
+The following is a primality test in Free Pascal using the same optimization as above.
+
+Go
+The following is a primality test in Golang using the same optimization as above.
+
+Haskell
+The following is a primality test in Haskell using the same optimization as above.
+
+Heuristic tests
+These are tests that seem to work well in practice, but are unproven and therefore are not, technically speaking, algorithms at all.
+The Fermat test and the Fibonacci test are simple examples, and they are very effective when combined. John Selfridge has conjectured that if p is an odd number, and p ≡ ±2 (mod 5), then p will be prime if both of the following hold:
+
+2p−1 ≡ 1 (mod p),
+fp+1 ≡ 0 (mod p),where fk is the k-th Fibonacci number. The first condition is the Fermat primality test using base 2.
+In general, if p ≡ a (mod x2+4), where a is a quadratic non-residue (mod x2+4) then p should be prime if the following conditions hold:
+
+2p−1 ≡ 1 (mod p),
+f(1)p+1 ≡ 0 (mod p),f(x)k is the k-th Fibonacci polynomial at x.
+Selfridge, Carl Pomerance, and Samuel Wagstaff together offer $620 for a counterexample.
+
+Probabilistic tests
+Probabilistic tests are more rigorous than heuristics in that they provide provable bounds on the probability of being fooled by a composite number.
+Many popular primality tests are probabilistic tests. These tests use, apart from the tested number n, some other numbers a which are chosen at random from some sample space; the usual randomized primality tests never report a prime number as composite, but it is possible for a composite number to be reported as prime. The probability of error can be reduced by repeating the test with several independently chosen values of a; for two commonly used tests, for any composite n at least half the a's detect n's compositeness, so k repetitions reduce the error probability to at most 2−k, which can be made arbitrarily small by increasing k.
+The basic structure of randomized primality tests is as follows:
+
+Randomly pick a number a.
+Check equality (corresponding to the chosen test) involving a and the given number n. If the equality fails to hold true, then n is a composite number and a is a witness for the compositeness, and the test stops.
+Get back to the step one until the required accuracy is reached.After one or more iterations, if n is not found to be a composite number, then it can be declared probably prime.
+
+Fermat primality test
+The simplest probabilistic primality test is the Fermat primality test (actually a compositeness test). It works as follows:
+
+Given an integer n, choose some integer a coprime to n and calculate an − 1 modulo n. If the result is different from 1, then n is composite. If it is 1, then n may be prime.If an−1 (modulo n) is 1 but n is not prime, then n is called a
+pseudoprime to base a.  In practice, we observe that, if
+an−1 (modulo n)
+is 1, then n is usually prime.  But here is a counterexample:
+if n = 341 and a = 2, then
+
+  
+    
+      
+        
+          2
+          
+            340
+          
+        
+        ≡
+        1
+        
+          
+          (
+          mod
+          
+          341
+          )
+        
+      
+    
+    {\displaystyle 2^{340}\equiv 1{\pmod {341}}}
+  even though 341 = 11·31 is composite.  In fact, 341 is the smallest pseudoprime base 2 (see Figure 1 of
+).
+There are only 21853 pseudoprimes base 2 that are less than 2.5×1010 (see page 1005 of ). This means that, for n up to 2.5×1010, if 2n−1 (modulo n) equals 1, then n is prime, unless n is one of these 21853 pseudoprimes.
+Some composite numbers (Carmichael numbers) have the property that an − 1 is 1 (modulo n) for every a that is coprime to n. The smallest example is n = 561 = 3·11·17, for which a560 is 1 (modulo 561) for all a coprime to 561. Nevertheless, the Fermat test is often used if a rapid screening of numbers is needed, for instance in the key generation phase of the RSA public key cryptographic algorithm.
+
+Miller–Rabin and Solovay–Strassen primality test
+The Miller–Rabin primality test and Solovay–Strassen primality test are more sophisticated variants, which detect all composites (once again, this means: for every composite number n, at least 3/4 (Miller–Rabin) or 1/2 (Solovay–Strassen) of numbers a are witnesses of compositeness of n). These are also compositeness tests.
+The Miller–Rabin primality test works as follows:
+Given an integer n, choose some positive integer a < n. Let 2sd = n − 1, where d is odd. If
+
+  
+    
+      
+        
+          a
+          
+            d
+          
+        
+        ≢
+        ±
+        1
+        
+          
+          (
+          mod
+          
+          n
+          )
+        
+      
+    
+    {\displaystyle a^{d}\not \equiv \pm 1{\pmod {n}}}
+  and
+
+  
+    
+      
+        
+          a
+          
+            
+              2
+              
+                r
+              
+            
+            d
+          
+        
+        ≢
+        −
+        1
+        
+          
+          (
+          mod
+          
+          n
+          )
+        
+      
+    
+    {\displaystyle a^{2^{r}d}\not \equiv -1{\pmod {n}}}
+   for all 
+  
+    
+      
+        0
+        ≤
+        r
+        ≤
+        s
+        −
+        1
+        ,
+      
+    
+    {\displaystyle 0\leq r\leq s-1,}
+  then n is composite and a is a witness for the compositeness. Otherwise, n may or may not be prime.
+The Miller–Rabin test is a strong probable prime test (see PSW page 1004).
+The Solovay–Strassen primality test uses another equality: Given an odd number n, choose some integer a < n, if
+
+  
+    
+      
+        
+          a
+          
+            (
+            n
+            −
+            1
+            )
+            
+              /
+            
+            2
+          
+        
+        ≢
+        
+          (
+          
+            
+              a
+              n
+            
+          
+          )
+        
+        
+          
+          (
+          mod
+          
+          n
+          )
+        
+      
+    
+    {\displaystyle a^{(n-1)/2}\not \equiv \left({\frac {a}{n}}\right){\pmod {n}}}
+  , where 
+  
+    
+      
+        
+          (
+          
+            
+              a
+              n
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \left({\frac {a}{n}}\right)}
+   is the Jacobi symbol,then n is composite and a is a witness for the compositeness. Otherwise, n may or may not be prime.
+The Solovay–Strassen test is an Euler probable prime test (see PSW page 1003).
+For each individual value of a, the Solovay–Strassen test is weaker than the Miller–Rabin test. For example, if n = 1905 and a = 2, then the Miller-Rabin test shows that n is composite, but the Solovay–Strassen test does not. This is because 1905 is an Euler
+pseudoprime base 2 but not a strong pseudoprime base 2 (this is illustrated in Figure 1 of PSW).
+
+Frobenius primality test
+The Miller–Rabin and the Solovay–Strassen primality tests are simple and are much faster than other general primality tests. One method of improving efficiency further in some cases is the Frobenius pseudoprimality test; a round of this test takes about three times as long as a round of Miller–Rabin, but achieves a probability bound comparable to seven rounds of Miller–Rabin.
+The Frobenius test is a generalization of the Lucas probable prime test.
+
+Baillie–PSW primality test
+The Baillie–PSW primality test is a probabilistic primality test that combines a Fermat or Miller–Rabin test with a Lucas probable prime test to get a primality test that has no known counterexamples. That is, there are no known composite n for which this test reports that n is probably prime. It has been shown that there are no counterexamples for n 
+  
+    
+      
+        <
+        
+          2
+          
+            64
+          
+        
+      
+    
+    {\displaystyle <2^{64}}
+  .
+
+Other tests
+Leonard Adleman and Ming-Deh Huang presented an errorless (but expected polynomial-time) variant of the elliptic curve primality test. Unlike the other probabilistic tests, this algorithm produces a primality certificate, and thus can be used to prove that a number is prime. The algorithm is prohibitively slow in practice.
+If quantum computers were available, primality could be tested asymptotically faster than by using classical computers. A combination of Shor's algorithm, an integer factorization method, with the Pocklington primality test could solve the problem in 
+  
+    
+      
+        O
+        (
+        (
+        log
+        ⁡
+        n
+        
+          )
+          
+            3
+          
+        
+        (
+        log
+        ⁡
+        log
+        ⁡
+        n
+        
+          )
+          
+            2
+          
+        
+        log
+        ⁡
+        log
+        ⁡
+        log
+        ⁡
+        n
+        )
+      
+    
+    {\displaystyle O((\log n)^{3}(\log \log n)^{2}\log \log \log n)}
+  .
+
+Fast deterministic tests
+Near the beginning of the 20th century, it was shown that a corollary of Fermat's little theorem could be used to test for primality. This resulted in the Pocklington primality test. However, as this test requires a partial factorization of n − 1 the running time was still quite slow in the worst case. The first deterministic primality test significantly faster than the naive methods was the cyclotomy test; its runtime can be proven to be O((log n)c log log log n), where n is the number to test for primality and c is a constant independent of n. Many further improvements were made, but none could be proven to have polynomial running time. (Note that running time is measured in terms of the size of the input, which in this case is ~ log n, that being the number of bits needed to represent the number n.) The elliptic curve primality test can be proven to run in O((log n)6), if some conjectures on analytic number theory are true. Similarly, under the generalized Riemann hypothesis, the deterministic Miller's test, which forms the basis of the probabilistic Miller–Rabin test, can be proved to run in Õ((log n)4). In practice, this algorithm is slower than the other two for sizes of numbers that can be dealt with at all. Because the implementation of these two methods is rather difficult and creates a risk of programming errors, slower but simpler tests are often preferred.
+In 2002, the first provably unconditional deterministic polynomial time test for primality was invented by Manindra Agrawal, Neeraj Kayal, and Nitin Saxena. The AKS primality test runs in Õ((log n)12) (improved to Õ((log n)7.5) in the published revision of their paper), which can be further reduced to Õ((log n)6) if the Sophie Germain conjecture is true. Subsequently, Lenstra and Pomerance presented a version of the test which runs in time Õ((log n)6) unconditionally.Agrawal, Kayal and Saxena suggest a variant of their algorithm which would run in  Õ((log n)3)  if Agrawal's conjecture is true; however, a heuristic argument by Hendrik Lenstra and Carl Pomerance suggests that it is probably false. A modified version of the Agrawal's conjecture, the Agrawal–Popovych conjecture, may still be true.
+
+Complexity
+In computational complexity theory, the formal language corresponding to the prime numbers is denoted as PRIMES.  It is easy to show that PRIMES is in Co-NP: its complement COMPOSITES is in NP because one can decide compositeness by nondeterministically guessing a factor.
+In 1975, Vaughan Pratt showed that there existed a certificate for primality that was checkable in polynomial time, and thus that PRIMES was in NP, and therefore in 
+  
+    
+      
+        
+          
+            N
+            P
+            ∩
+            c
+            o
+            N
+            P
+          
+        
+      
+    
+    {\displaystyle {\mathsf {NP\cap coNP}}}
+  . See primality certificate for details.
+The subsequent discovery of the Solovay–Strassen and Miller–Rabin algorithms put PRIMES in coRP. In 1992, the Adleman–Huang algorithm reduced the complexity to 
+  
+    
+      
+        
+          
+            
+              
+                Z
+                P
+                P
+              
+            
+            =
+            R
+            P
+            ∩
+            c
+            o
+            R
+            P
+          
+        
+      
+    
+    {\displaystyle {\mathsf {{\color {Blue}ZPP}=RP\cap coRP}}}
+  , which superseded Pratt's result.
+The Adleman–Pomerance–Rumely primality test from 1983 put PRIMES in QP (quasi-polynomial time), which is not known to be comparable with the classes mentioned above.
+Because of its tractability in practice, polynomial-time algorithms assuming the Riemann hypothesis, and other similar evidence, it was long suspected but not proven that primality could be solved in polynomial time. The existence of the AKS primality test finally settled this long-standing question and placed PRIMES in P. However, PRIMES is not known to be P-complete, and it is not known whether it lies in classes lying inside P such as NC or L. It is known that PRIMES is not in AC0.
+
+Number-theoretic methods
+Certain number-theoretic methods exist for testing whether a number is prime, such as the Lucas test and Proth's test. These tests typically require factorization of n + 1, n − 1, or a similar quantity, which means that they are not useful for general-purpose primality testing, but they are often quite powerful when the tested number n is known to have a special form.
+The Lucas test relies on the fact that the multiplicative order of a number a modulo n is n − 1 for a prime n when a is a primitive root modulo n. If we can show a is primitive for n, we can show n is prime.
+
+References
+Sources
+External links
+Solovay-Strassen (computacion.cs.cinvestav.mx) at archive.today (archived 2012-12-20) – Implementation of the Solovay-Strassen primality test in Maple
+Distinguishing prime numbers from composite numbers, by D.J. Bernstein (cr.yp.to)
+The Prime Pages (primes.utm.edu)
+Lucas Primality Test with Factored N − 1 (MathPages.com) at the Library of Congress Web Archives (archived 2010-08-06)
+PRIMABOINCA is a research project that uses Internet-connected computers to search for a counterexample to some conjectures. The first conjecture (Agrawal's conjecture) was the basis for the formulation of the first deterministic prime test algorithm in polynomial time (AKS algorithm).

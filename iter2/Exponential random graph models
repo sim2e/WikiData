@@ -1,0 +1,1943 @@
+Exponential Random Graph Models (ERGMs) are a family of statistical models for analyzing data from social and other networks. Examples of networks examined using ERGM include knowledge networks, organizational networks, colleague networks, social media networks, networks of scientific development, and others.
+
+Background
+Many metrics exist to describe the structural features of an observed network such as the density, centrality, or assortativity. However, these metrics describe the observed network which is only one instance of a large number of possible alternative networks. This set of alternative networks may have similar or dissimilar structural features. To support statistical inference on the processes influencing the formation of network structure, a statistical model should consider the set of all possible alternative networks weighted on their similarity to an observed network. However because network data is inherently relational, it violates the assumptions of independence and identical distribution of standard statistical models like linear regression. Alternative statistical models should reflect the uncertainty associated with a given observation, permit inference about the relative frequency about network substructures of theoretical interest, disambiguating the influence of confounding processes, efficiently representing complex structures, and linking local-level processes to global-level properties. Degree-preserving randomization, for example, is a specific way in which an observed network could be considered in terms of multiple alternative networks.
+
+Definition
+The Exponential family is a broad family of models for covering many types of data, not just networks. An ERGM is a model from this family which describes networks.
+Formally a random graph 
+  
+    
+      
+        Y
+        ∈
+        
+          
+            Y
+          
+        
+      
+    
+    {\displaystyle Y\in {\mathcal {Y}}}
+   consists of a set of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   nodes and a collection of tie variables 
+  
+    
+      
+        {
+        
+          Y
+          
+            i
+            j
+          
+        
+        :
+        i
+        =
+        1
+        ,
+        …
+        ,
+        n
+        ;
+        j
+        =
+        1
+        ,
+        …
+        ,
+        n
+        }
+      
+    
+    {\displaystyle \{Y_{ij}:i=1,\dots ,n;j=1,\dots ,n\}}
+  , indexed by pairs of nodes 
+  
+    
+      
+        i
+        j
+      
+    
+    {\displaystyle ij}
+  , where 
+  
+    
+      
+        
+          Y
+          
+            i
+            j
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle Y_{ij}=1}
+   if the nodes 
+  
+    
+      
+        (
+        i
+        ,
+        j
+        )
+      
+    
+    {\displaystyle (i,j)}
+   are connected by an edge and 
+  
+    
+      
+        
+          Y
+          
+            i
+            j
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle Y_{ij}=0}
+   otherwise. A pair of nodes 
+  
+    
+      
+        i
+        j
+      
+    
+    {\displaystyle ij}
+   is called a dyad and a dyad is an edge if 
+  
+    
+      
+        
+          Y
+          
+            i
+            j
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle Y_{ij}=1}
+  .
+The basic assumption of these models is that the structure in an observed graph 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   can be explained by a given vector of sufficient statistics 
+  
+    
+      
+        s
+        (
+        y
+        )
+      
+    
+    {\displaystyle s(y)}
+   which are a function of the observed network and, in some cases, nodal attributes. This way, it is possible to describe any kind of dependence between the undyadic variables:
+
+  
+    
+      
+        P
+        (
+        Y
+        =
+        y
+        
+          |
+        
+        θ
+        )
+        =
+        
+          
+            
+              exp
+              ⁡
+              (
+              
+                θ
+                
+                  T
+                
+              
+              s
+              (
+              y
+              )
+              )
+            
+            
+              c
+              (
+              θ
+              )
+            
+          
+        
+        ,
+        
+        ∀
+        y
+        ∈
+        
+          
+            Y
+          
+        
+      
+    
+    {\displaystyle P(Y=y|\theta )={\frac {\exp(\theta ^{T}s(y))}{c(\theta )}},\quad \forall y\in {\mathcal {Y}}}
+  
+where 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   is a vector of model parameters associated with 
+  
+    
+      
+        s
+        (
+        y
+        )
+      
+    
+    {\displaystyle s(y)}
+   and 
+  
+    
+      
+        c
+        (
+        θ
+        )
+        =
+        
+          ∑
+          
+            
+              y
+              ′
+            
+            ∈
+            
+              
+                Y
+              
+            
+          
+        
+        exp
+        ⁡
+        (
+        
+          θ
+          
+            T
+          
+        
+        s
+        (
+        
+          y
+          ′
+        
+        )
+        )
+      
+    
+    {\displaystyle c(\theta )=\sum _{y'\in {\mathcal {Y}}}\exp(\theta ^{T}s(y'))}
+   is a normalising constant.
+These models represent a probability distribution on each possible network on 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   nodes. However, the size of the set of possible networks for an undirected network (simple graph) of size 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is 
+  
+    
+      
+        
+          2
+          
+            n
+            (
+            n
+            −
+            1
+            )
+            
+              /
+            
+            2
+          
+        
+      
+    
+    {\displaystyle 2^{n(n-1)/2}}
+  . Because the number of possible networks in the set vastly outnumbers the number of parameters which can constrain the model, the ideal probability distribution is the one which maximizes the Gibbs entropy.
+
+Example
+Let 
+  
+    
+      
+        V
+        =
+        {
+        1
+        ,
+        2
+        ,
+        3
+        }
+      
+    
+    {\displaystyle V=\{1,2,3\}}
+   be a set of three nodes and let 
+  
+    
+      
+        
+          
+            Y
+          
+        
+      
+    
+    {\displaystyle {\mathcal {Y}}}
+   be the set of all undirected, loopless graphs on 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  . Loopless implies that for all 
+  
+    
+      
+        i
+        =
+        1
+        ,
+        2
+        ,
+        3
+      
+    
+    {\displaystyle i=1,2,3}
+   it is 
+  
+    
+      
+        
+          Y
+          
+            i
+            i
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle Y_{ii}=0}
+   and undirected implies that for all 
+  
+    
+      
+        i
+        ,
+        j
+        =
+        1
+        ,
+        2
+        ,
+        3
+      
+    
+    {\displaystyle i,j=1,2,3}
+   it is 
+  
+    
+      
+        
+          Y
+          
+            i
+            j
+          
+        
+        =
+        
+          Y
+          
+            j
+            i
+          
+        
+      
+    
+    {\displaystyle Y_{ij}=Y_{ji}}
+  , so that there are three binary tie variables (
+  
+    
+      
+        
+          Y
+          
+            12
+          
+        
+        ,
+        
+          Y
+          
+            13
+          
+        
+        ,
+        
+          Y
+          
+            23
+          
+        
+      
+    
+    {\displaystyle Y_{12},Y_{13},Y_{23}}
+  ) and 
+  
+    
+      
+        
+          2
+          
+            3
+          
+        
+        =
+        8
+      
+    
+    {\displaystyle 2^{3}=8}
+   different graphs in this example.
+Define a two-dimensional vector of statistics by 
+  
+    
+      
+        s
+        (
+        y
+        )
+        =
+        [
+        
+          s
+          
+            1
+          
+        
+        (
+        y
+        )
+        ,
+        
+          s
+          
+            2
+          
+        
+        (
+        y
+        )
+        
+          ]
+          
+            T
+          
+        
+      
+    
+    {\displaystyle s(y)=[s_{1}(y),s_{2}(y)]^{T}}
+  , where 
+  
+    
+      
+        
+          s
+          
+            1
+          
+        
+        (
+        y
+        )
+        =
+        e
+        d
+        g
+        e
+        s
+        (
+        y
+        )
+      
+    
+    {\displaystyle s_{1}(y)=edges(y)}
+   is defined to be the number of edges in the graph 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   and 
+  
+    
+      
+        
+          s
+          
+            2
+          
+        
+        (
+        y
+        )
+        =
+        t
+        r
+        i
+        a
+        n
+        g
+        l
+        e
+        s
+        (
+        y
+        )
+      
+    
+    {\displaystyle s_{2}(y)=triangles(y)}
+   is defined to be the number of closed triangles in 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  . Finally, let the parameter vector be defined by 
+  
+    
+      
+        θ
+        =
+        (
+        
+          θ
+          
+            1
+          
+        
+        ,
+        
+          θ
+          
+            2
+          
+        
+        
+          )
+          
+            T
+          
+        
+        =
+        (
+        −
+        ln
+        ⁡
+        2
+        ,
+        ln
+        ⁡
+        3
+        
+          )
+          
+            T
+          
+        
+      
+    
+    {\displaystyle \theta =(\theta _{1},\theta _{2})^{T}=(-\ln 2,\ln 3)^{T}}
+  , so that the probability of every graph 
+  
+    
+      
+        y
+        ∈
+        
+          
+            Y
+          
+        
+      
+    
+    {\displaystyle y\in {\mathcal {Y}}}
+   in this example is given by:
+
+  
+    
+      
+        P
+        (
+        Y
+        =
+        y
+        
+          |
+        
+        θ
+        )
+        =
+        
+          
+            
+              exp
+              ⁡
+              (
+              −
+              ln
+              ⁡
+              2
+              ⋅
+              e
+              d
+              g
+              e
+              s
+              (
+              y
+              )
+              +
+              ln
+              ⁡
+              3
+              ⋅
+              t
+              r
+              i
+              a
+              n
+              g
+              l
+              e
+              s
+              (
+              y
+              )
+              )
+            
+            
+              c
+              (
+              θ
+              )
+            
+          
+        
+      
+    
+    {\displaystyle P(Y=y|\theta )={\frac {\exp(-\ln 2\cdot edges(y)+\ln 3\cdot triangles(y))}{c(\theta )}}}
+  
+We note that in this example, there are just four graph isomorphism classes: the graph with zero edges, three graphs with exactly one edge, three graphs with exactly two edges, and the graph with three edges. Since isomorphic graphs have the same number of edges and the same number of triangles, they also have the same probability in this example ERGM. For a representative 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   of each isomorphism class, we first compute the term 
+  
+    
+      
+        x
+        (
+        y
+        )
+        =
+        exp
+        ⁡
+        (
+        −
+        ln
+        ⁡
+        2
+        ⋅
+        e
+        d
+        g
+        e
+        s
+        (
+        y
+        )
+        +
+        ln
+        ⁡
+        3
+        ⋅
+        t
+        r
+        i
+        a
+        n
+        g
+        l
+        e
+        s
+        (
+        y
+        )
+        )
+      
+    
+    {\displaystyle x(y)=\exp(-\ln 2\cdot edges(y)+\ln 3\cdot triangles(y))}
+  , which is proportional to the probability of 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   (up to the normalizing constant 
+  
+    
+      
+        c
+        (
+        θ
+        )
+      
+    
+    {\displaystyle c(\theta )}
+  ).
+If 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   is the graph with zero edges, then it is 
+  
+    
+      
+        e
+        d
+        g
+        e
+        s
+        (
+        y
+        )
+        =
+        0
+      
+    
+    {\displaystyle edges(y)=0}
+   and 
+  
+    
+      
+        t
+        r
+        i
+        a
+        n
+        g
+        l
+        e
+        s
+        (
+        y
+        )
+        =
+        0
+      
+    
+    {\displaystyle triangles(y)=0}
+  , so that
+
+  
+    
+      
+        x
+        (
+        y
+        )
+        =
+        exp
+        ⁡
+        (
+        −
+        ln
+        ⁡
+        2
+        ⋅
+        0
+        +
+        ln
+        ⁡
+        3
+        ⋅
+        0
+        )
+        =
+        exp
+        ⁡
+        (
+        0
+        )
+        =
+        1.
+      
+    
+    {\displaystyle x(y)=\exp(-\ln 2\cdot 0+\ln 3\cdot 0)=\exp(0)=1.}
+   
+If 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   is a graph with exactly one edge, then it is 
+  
+    
+      
+        e
+        d
+        g
+        e
+        s
+        (
+        y
+        )
+        =
+        1
+      
+    
+    {\displaystyle edges(y)=1}
+   and 
+  
+    
+      
+        t
+        r
+        i
+        a
+        n
+        g
+        l
+        e
+        s
+        (
+        y
+        )
+        =
+        0
+      
+    
+    {\displaystyle triangles(y)=0}
+  , so that
+
+  
+    
+      
+        x
+        (
+        y
+        )
+        =
+        exp
+        ⁡
+        (
+        −
+        ln
+        ⁡
+        2
+        ⋅
+        1
+        +
+        ln
+        ⁡
+        3
+        ⋅
+        0
+        )
+        =
+        
+          
+            
+              exp
+              ⁡
+              (
+              0
+              )
+            
+            
+              exp
+              ⁡
+              (
+              ln
+              ⁡
+              2
+              )
+            
+          
+        
+        =
+        
+          
+            1
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle x(y)=\exp(-\ln 2\cdot 1+\ln 3\cdot 0)={\frac {\exp(0)}{\exp(\ln 2)}}={\frac {1}{2}}.}
+   
+If 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   is a graph with exactly two edges, then it is 
+  
+    
+      
+        e
+        d
+        g
+        e
+        s
+        (
+        y
+        )
+        =
+        2
+      
+    
+    {\displaystyle edges(y)=2}
+   and 
+  
+    
+      
+        t
+        r
+        i
+        a
+        n
+        g
+        l
+        e
+        s
+        (
+        y
+        )
+        =
+        0
+      
+    
+    {\displaystyle triangles(y)=0}
+  , so that
+
+  
+    
+      
+        x
+        (
+        y
+        )
+        =
+        exp
+        ⁡
+        (
+        −
+        ln
+        ⁡
+        2
+        ⋅
+        2
+        +
+        ln
+        ⁡
+        3
+        ⋅
+        0
+        )
+        =
+        
+          
+            
+              exp
+              ⁡
+              (
+              0
+              )
+            
+            
+              exp
+              ⁡
+              (
+              ln
+              ⁡
+              2
+              
+                )
+                
+                  2
+                
+              
+            
+          
+        
+        =
+        
+          
+            1
+            4
+          
+        
+        .
+      
+    
+    {\displaystyle x(y)=\exp(-\ln 2\cdot 2+\ln 3\cdot 0)={\frac {\exp(0)}{\exp(\ln 2)^{2}}}={\frac {1}{4}}.}
+   
+If 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   is the graph with exactly three edges, then it is 
+  
+    
+      
+        e
+        d
+        g
+        e
+        s
+        (
+        y
+        )
+        =
+        3
+      
+    
+    {\displaystyle edges(y)=3}
+   and 
+  
+    
+      
+        t
+        r
+        i
+        a
+        n
+        g
+        l
+        e
+        s
+        (
+        y
+        )
+        =
+        1
+      
+    
+    {\displaystyle triangles(y)=1}
+  , so that
+
+  
+    
+      
+        x
+        (
+        y
+        )
+        =
+        exp
+        ⁡
+        (
+        −
+        ln
+        ⁡
+        2
+        ⋅
+        3
+        +
+        ln
+        ⁡
+        3
+        ⋅
+        1
+        )
+        =
+        
+          
+            
+              exp
+              ⁡
+              (
+              ln
+              ⁡
+              3
+              )
+            
+            
+              exp
+              ⁡
+              (
+              ln
+              ⁡
+              2
+              
+                )
+                
+                  3
+                
+              
+            
+          
+        
+        =
+        
+          
+            3
+            8
+          
+        
+        .
+      
+    
+    {\displaystyle x(y)=\exp(-\ln 2\cdot 3+\ln 3\cdot 1)={\frac {\exp(\ln 3)}{\exp(\ln 2)^{3}}}={\frac {3}{8}}.}
+   
+The normalizing constant is computed by summing 
+  
+    
+      
+        x
+        (
+        y
+        )
+      
+    
+    {\displaystyle x(y)}
+   over all eight different graphs 
+  
+    
+      
+        y
+        ∈
+        
+          
+            Y
+          
+        
+      
+    
+    {\displaystyle y\in {\mathcal {Y}}}
+  . This yields:
+
+  
+    
+      
+        c
+        (
+        θ
+        )
+        =
+        1
+        +
+        3
+        ⋅
+        
+          
+            1
+            2
+          
+        
+        +
+        3
+        ⋅
+        
+          
+            1
+            4
+          
+        
+        +
+        
+          
+            3
+            8
+          
+        
+        =
+        
+          
+            29
+            8
+          
+        
+        .
+      
+    
+    {\displaystyle c(\theta )=1+3\cdot {\frac {1}{2}}+3\cdot {\frac {1}{4}}+{\frac {3}{8}}={\frac {29}{8}}.}
+  
+Finally, the probability of every graph 
+  
+    
+      
+        y
+        ∈
+        
+          
+            Y
+          
+        
+      
+    
+    {\displaystyle y\in {\mathcal {Y}}}
+   is given by 
+  
+    
+      
+        P
+        (
+        Y
+        =
+        y
+        
+          |
+        
+        θ
+        )
+        =
+        
+          
+            
+              x
+              (
+              y
+              )
+            
+            
+              c
+              (
+              θ
+              )
+            
+          
+        
+      
+    
+    {\displaystyle P(Y=y|\theta )={\frac {x(y)}{c(\theta )}}}
+  . Explicitly, we get that the graph with zero edges has probability 
+  
+    
+      
+        
+          
+            8
+            29
+          
+        
+      
+    
+    {\displaystyle {\frac {8}{29}}}
+  , every graph with exactly one edge has probability 
+  
+    
+      
+        
+          
+            4
+            29
+          
+        
+      
+    
+    {\displaystyle {\frac {4}{29}}}
+  , every graph with exactly two edges has probability 
+  
+    
+      
+        
+          
+            2
+            29
+          
+        
+      
+    
+    {\displaystyle {\frac {2}{29}}}
+  , and the graph with exactly three edges has probability 
+  
+    
+      
+        
+          
+            3
+            29
+          
+        
+      
+    
+    {\displaystyle {\frac {3}{29}}}
+   in this example.
+Intuitively, the structure of graph probabilities in this ERGM example are consistent with typical patterns of social or other networks. The negative parameter (
+  
+    
+      
+        
+          θ
+          
+            1
+          
+        
+        =
+        −
+        ln
+        ⁡
+        2
+      
+    
+    {\displaystyle \theta _{1}=-\ln 2}
+  ) associated with the number of edges implies that - all other things being equal - networks with fewer edges have a higher probability than networks with more edges. This is consistent with the sparsity that is often found in empirical networks, namely that the empirical number of edges typically grows at a slower rate than the maximally possible number of edges. The positive parameter (
+  
+    
+      
+        
+          θ
+          
+            2
+          
+        
+        =
+        ln
+        ⁡
+        3
+      
+    
+    {\displaystyle \theta _{2}=\ln 3}
+  ) associated with the number of closed triangles implies that - all other things being equal - networks with more triangles have a higher probability than networks with fewer triangles. This is consistent with a tendency for triadic closure that is often found in certain types of social networks. Compare these patterns with the graph probabilities computed above. The addition of every edge divides the probability by two. However, when going from a graph with two edges to the graph with three edges, the number of triangles increases by one - which additionally multiplies the probability by three.
+We note that the explicit calculation of all graph probabilities is only possible since there are so few different graphs in this example. Since the number of different graphs scales exponentially in the number of tie variables - which in turn scales quadratic in the number of nodes -, computing the normalizing constant is in general computationally intractable, already for a moderate number of nodes.
+
+Sampling from an ERGM
+Exact sampling from a given ERGM is computationally intractable in general since computing the normalizing constant requires summation over all 
+  
+    
+      
+        y
+        ∈
+        
+          
+            Y
+          
+        
+      
+    
+    {\displaystyle y\in {\mathcal {Y}}}
+  . Efficient approximate sampling from an ERGM can be done via Markov chains and is applied in current methods to approximate expected values and to estimate ERGM parameters. Informally, given an ERGM on a set of graphs 
+  
+    
+      
+        
+          
+            Y
+          
+        
+      
+    
+    {\displaystyle {\mathcal {Y}}}
+   with probability mass function 
+  
+    
+      
+        P
+        (
+        Y
+        =
+        y
+        
+          |
+        
+        θ
+        )
+        =
+        
+          
+            
+              exp
+              ⁡
+              (
+              
+                θ
+                
+                  T
+                
+              
+              s
+              (
+              y
+              )
+              )
+            
+            
+              c
+              (
+              θ
+              )
+            
+          
+        
+      
+    
+    {\displaystyle P(Y=y|\theta )={\frac {\exp(\theta ^{T}s(y))}{c(\theta )}}}
+  , one selects an initial graph 
+  
+    
+      
+        
+          y
+          
+            (
+            0
+            )
+          
+        
+        ∈
+        
+          
+            Y
+          
+        
+      
+    
+    {\displaystyle y^{(0)}\in {\mathcal {Y}}}
+   (which might be arbitrarily, or randomly, chosen or might represent an observed network) and implicitly defines transition probabilities (or jump probabilities) 
+  
+    
+      
+        π
+        (
+        y
+        ,
+        
+          y
+          ′
+        
+        )
+        =
+        P
+        (
+        
+          Y
+          
+            (
+            t
+            +
+            1
+            )
+          
+        
+        =
+        
+          y
+          ′
+        
+        
+          |
+        
+        
+          Y
+          
+            (
+            t
+            )
+          
+        
+        =
+        y
+        )
+      
+    
+    {\displaystyle \pi (y,y')=P(Y^{(t+1)}=y'|Y^{(t)}=y)}
+  , which are the conditional probabilities that the Markov chain is on graph 
+  
+    
+      
+        
+          y
+          ′
+        
+      
+    
+    {\displaystyle y'}
+   after Step 
+  
+    
+      
+        t
+        +
+        1
+      
+    
+    {\displaystyle t+1}
+  , given that it is on graph 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   after Step 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  . The transition probabilities do not depend on the graphs in earlier steps (
+  
+    
+      
+        
+          y
+          
+            (
+            0
+            )
+          
+        
+        ,
+        …
+        ,
+        
+          y
+          
+            (
+            t
+            −
+            1
+            )
+          
+        
+      
+    
+    {\displaystyle y^{(0)},\dots ,y^{(t-1)}}
+  ), which is a defining property of Markov chains, and they do not depend on 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  , that is, the Markov chain is time-homogeneous. The goal is to define the transition probabilities such that for all 
+  
+    
+      
+        y
+        ∈
+        
+          
+            Y
+          
+        
+      
+    
+    {\displaystyle y\in {\mathcal {Y}}}
+   it is 
+
+  
+    
+      
+        
+          lim
+          
+            t
+            →
+            ∞
+          
+        
+        P
+        (
+        
+          Y
+          
+            (
+            t
+            )
+          
+        
+        =
+        y
+        )
+        =
+        
+          
+            
+              exp
+              ⁡
+              (
+              
+                θ
+                
+                  T
+                
+              
+              s
+              (
+              y
+              )
+              )
+            
+            
+              c
+              (
+              θ
+              )
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle \lim _{t\to \infty }P(Y^{(t)}=y)={\frac {\exp(\theta ^{T}s(y))}{c(\theta )}},}
+  
+independent of the initial graph 
+  
+    
+      
+        
+          y
+          
+            (
+            0
+            )
+          
+        
+      
+    
+    {\displaystyle y^{(0)}}
+  . If this is achieved, one can run the Markov chain for a large number of steps and then returns the current graph as a random sample from the given ERGM. The probability to return a graph 
+  
+    
+      
+        y
+        ∈
+        
+          
+            Y
+          
+        
+      
+    
+    {\displaystyle y\in {\mathcal {Y}}}
+   after a finite but large number of update steps is approximately the probability defined by the ERGM.
+Current methods for sampling from ERGMs with Markov chains usually define an update step by two sub-steps: first, randomly select a candidate 
+  
+    
+      
+        
+          y
+          ′
+        
+      
+    
+    {\displaystyle y'}
+   in a neighborhood of the current graph 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   and, second, to accept 
+  
+    
+      
+        
+          y
+          ′
+        
+      
+    
+    {\displaystyle y'}
+   with a probability that depends on the probability ratio of the current graph 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   and the candidate 
+  
+    
+      
+        
+          y
+          ′
+        
+      
+    
+    {\displaystyle y'}
+  . (If the candidate is not accepted, the Markov chain remains on the current graph 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  .) If the set of graphs 
+  
+    
+      
+        
+          
+            Y
+          
+        
+      
+    
+    {\displaystyle {\mathcal {Y}}}
+   is unconstrained (i.e., contains any combination of values on the binary tie variables), a simple method for candidate selection is to choose one tie variable 
+  
+    
+      
+        
+          y
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle y_{ij}}
+   uniformly at random and to define the candidate by flipping this single variable (i.e., to set 
+  
+    
+      
+        
+          y
+          
+            i
+            j
+          
+          ′
+        
+        =
+        1
+        −
+        
+          y
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle y'_{ij}=1-y_{ij}}
+  ; all other variables take the same value as in 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  ). A common way to define the acceptance probability is to accept 
+  
+    
+      
+        
+          y
+          ′
+        
+      
+    
+    {\displaystyle y'}
+   with the conditional probability 
+
+  
+    
+      
+        P
+        (
+        Y
+        =
+        
+          y
+          ′
+        
+        
+          |
+        
+        Y
+        =
+        
+          y
+          ′
+        
+        ∨
+        Y
+        =
+        y
+        )
+        =
+        
+          
+            
+              P
+              (
+              Y
+              =
+              
+                y
+                ′
+              
+              )
+            
+            
+              P
+              (
+              Y
+              =
+              
+                y
+                ′
+              
+              )
+              +
+              P
+              (
+              Y
+              =
+              y
+              )
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle P(Y=y'|Y=y'\vee Y=y)={\frac {P(Y=y')}{P(Y=y')+P(Y=y)}},}
+   
+where the graph probabilities are defined by the ERGM. Crucially, the normalizing constant 
+  
+    
+      
+        c
+        (
+        θ
+        )
+      
+    
+    {\displaystyle c(\theta )}
+   cancels out in this fraction, so that the acceptance probabilities can be computed efficiently.
+
+References
+Further reading
+Byshkin, M.; Stivala, A.; Mira, A.; Robins, G.; Lomi, A. (2018). "Fast Maximum Likelihood Estimation via Equilibrium Expectation for Large Network Data". Scientific Reports. 8 (1): 11509. arXiv:1802.10311. Bibcode:2018NatSR...811509B. doi:10.1038/s41598-018-29725-8. PMC 6068132. PMID 30065311.
+Caimo, A.; Friel, N (2011). "Bayesian inference for exponential random graph models". Social Networks. 33: 41–55. arXiv:1007.5192. doi:10.1016/j.socnet.2010.09.004.
+Erdős, P.; Rényi, A (1959). "On random graphs". Publicationes Mathematicae. 6: 290–297.
+Fienberg, S. E.; Wasserman, S. (1981). "Discussion of An Exponential Family of Probability Distributions for Directed Graphs by Holland and Leinhardt". Journal of the American Statistical Association. 76 (373): 54–57. doi:10.1080/01621459.1981.10477600.
+Frank, O.; Strauss, D (1986). "Markov Graphs". Journal of the American Statistical Association. 81 (395): 832–842. doi:10.2307/2289017. JSTOR 2289017.
+Handcock, M. S.; Hunter, D. R.; Butts, C. T.; Goodreau, S. M.; Morris, M. (2008). "statnet: Software Tools for the Representation, Visualization, Analysis and Simulation of Network Data". Journal of Statistical Software. 24 (1): 1–11. doi:10.18637/jss.v024.i01. PMC 2447931. PMID 18618019.
+Harris, Jenine K (2014). An introduction to exponential random graph modeling. Sage.
+Hunter, D. R.; Goodreau, S. M.; Handcock, M. S. (2008). "Goodness of Fit of Social Network Models". Journal of the American Statistical Association. 103 (481): 248–258. CiteSeerX 10.1.1.206.396. doi:10.1198/016214507000000446.
+Hunter, D. R; Handcock, M. S. (2006). "Inference in curved exponential family models for networks". Journal of Computational and Graphical Statistics. 15 (3): 565–583. CiteSeerX 10.1.1.205.9670. doi:10.1198/106186006X133069.
+Hunter, D. R.; Handcock, M. S.; Butts, C. T.; Goodreau, S. M.; Morris, M. (2008). "ergm: A Package to Fit, Simulate and Diagnose Exponential-Family Models for Networks". Journal of Statistical Software. 24 (3): 1–29. doi:10.18637/jss.v024.i03.
+Jin, I.H.; Liang, F. (2012). "Fitting social networks models using varying truncation stochastic approximation MCMC algorithm". Journal of Computational and Graphical Statistics. 22 (4): 927–952. doi:10.1080/10618600.2012.680851.
+Koskinen, J. H.; Robins, G. L.; Pattison, P. E. (2010). "Analysing exponential random graph (p-star) models with missing data using Bayesian data augmentation". Statistical Methodology. 7 (3): 366–384. doi:10.1016/j.stamet.2009.09.007.
+Morris, M.; Handcock, M. S.; Hunter, D. R. (2008). "Specification of Exponential-Family Random Graph Models: Terms and Computational Aspects". Journal of Statistical Software. 24 (4): 1548–7660. doi:10.18637/jss.v024.i04. PMC 2481518. PMID 18650964.
+Rinaldo, A.; Fienberg, S. E.; Zhou, Y. (2009). "On the geometry of descrete exponential random families with application to exponential random graph models". Electronic Journal of Statistics. 3: 446–484. arXiv:0901.0026. doi:10.1214/08-EJS350.
+Robins, G.; Snijders, T.; Wang, P.; Handcock, M.; Pattison, P (2007). "Recent developments in exponential random graph (p*) models for social networks" (PDF). Social Networks. 29 (2): 192–215. doi:10.1016/j.socnet.2006.08.003. hdl:11370/abee7276-394e-4051-a180-7b2ff57d42f5.
+Schweinberger, Michael (2011). "Instability, sensitivity, and degeneracy of discrete exponential families". Journal of the American Statistical Association. 106 (496): 1361–1370. doi:10.1198/jasa.2011.tm10747. PMC 3405854. PMID 22844170.
+Schweinberger, Michael; Handcock, Mark (2015). "Local dependence in random graph models: characterization, properties and statistical inference". Journal of the Royal Statistical Society, Series B. 77 (3): 647–676. doi:10.1111/rssb.12081. PMC 4637985. PMID 26560142.
+Schweinberger, Michael; Stewart, Jonathan (2020). "Concentration and consistency results for canonical and curved exponential-family models of random graphs". The Annals of Statistics. 48 (1): 374–396. arXiv:1702.01812. doi:10.1214/19-AOS1810.
+Snijders, T. A. B. (2002). "Markov chain Monte Carlo estimation of exponential random graph models" (PDF). Journal of Social Structure. 3.
+Snijders, T. A. B.; Pattison, P. E.; Robins, G. L.; Handcock, M. S. (2006). "New specifications for exponential random graph models". Sociological Methodology. 36: 99–153. CiteSeerX 10.1.1.62.7975. doi:10.1111/j.1467-9531.2006.00176.x.
+Strauss, D; Ikeda, M (1990). "Pseudolikelihood estimation for social networks". Journal of the American Statistical Association. 5 (409): 204–212. doi:10.2307/2289546. JSTOR 2289546.
+van Duijn, M. A.; Snijders, T. A. B.; Zijlstra, B. H. (2004). "p2: a random effects model with covariates for directed graphs". Statistica Neerlandica. 58 (2): 234–254. doi:10.1046/j.0039-0402.2003.00258.x.
+van Duijn, M. A. J.; Gile, K. J.; Handcock, M. S. (2009). "A framework for the comparison of maximum pseudo-likelihood and maximum likelihood estimation of exponential family random graph models". Social Networks. 31 (1): 52–62. doi:10.1016/j.socnet.2008.10.003. PMC 3500576. PMID 23170041.

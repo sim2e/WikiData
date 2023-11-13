@@ -1,0 +1,46 @@
+A processor register is a quickly accessible location available to a computer's processor. Registers usually consist of a small amount of fast storage, although some registers have specific hardware functions, and may be read-only or write-only. In computer architecture, registers are typically addressed by mechanisms other than main memory, but may in some cases be assigned a memory address e.g. DEC PDP-10, ICT 1900.Almost all computers, whether load/store architecture or not, load items of data from a larger memory into registers where they are used for arithmetic operations, bitwise operations, and other operations, and are manipulated or tested by machine instructions. Manipulated items are then often stored back to main memory, either by the same instruction or by a subsequent one. Modern processors use either static or dynamic RAM as main memory, with the latter usually accessed via one or more cache levels.
+Processor registers are normally at the top of the memory hierarchy, and provide the fastest way to access data. The term normally refers only to the group of registers that are directly encoded as part of an instruction, as defined by the instruction set. However, modern high-performance CPUs often have duplicates of these "architectural registers" in order to improve performance via register renaming, allowing parallel and speculative execution. Modern x86 design acquired these techniques around 1995 with the releases of Pentium Pro, Cyrix 6x86, Nx586, and AMD K5.
+When a computer program accesses the same data repeatedly, this is called locality of reference.  Holding frequently used values in registers can be critical to a program's performance. Register allocation is performed either by a compiler in the code generation phase, or manually by an assembly language programmer.
+
+Size
+Registers are normally measured by the number of bits they can hold, for example, an "8-bit register", "32-bit register", "64-bit register", or even more. In some instruction sets, the registers can operate in various modes, breaking down their storage memory into smaller parts (32-bit into four 8-bit ones, for instance) to which multiple data (vector, or one-dimensional array of data) can be loaded and operated upon at the same time. Typically it is implemented by adding extra registers that map their memory into a larger register. Processors that have the ability to execute single instructions on multiple data are called vector processors.
+
+Types
+A processor often contains several kinds of registers, which can be classified according to the types of values they can store or the instructions that operate on them:
+
+User-accessible registers can be read or written by machine instructions. The most common division of user-accessible registers is a division into data registers and address registers.
+Data registers can hold numeric data values such as integer and, in some architectures, floating-point values, as well as characters, small bit arrays and other data. In some older architectures, such as the IBM 704, the IBM 709 and successors, the PDP-1, the PDP-4/PDP-7/PDP-9/PDP-15, the PDP-5/PDP-8, and the HP 2100, a special data register known as the accumulator is used implicitly for many operations.
+Address registers hold addresses and are used by instructions that indirectly access primary memory.
+Some processors contain registers that may only be used to hold an address or only to hold numeric values (in some cases used as an index register whose value is added as an offset from some address); others allow registers to hold either kind of quantity. A wide variety of possible addressing modes, used to specify the effective address of an operand, exist.
+The stack pointer is used to manage the run-time stack. Rarely, other data stacks are addressed by dedicated address registers (see stack machine).
+General-purpose registers (GPRs) can store both data and addresses, i.e., they are combined data/address registers; in some architectures, the register file is unified so that the GPRs can store floating-point numbers as well.
+Status registers hold truth values often used to determine whether some instruction should or should not be executed.
+Floating-point registers (FPRs) store floating-point numbers in many architectures.
+Constant registers hold read-only values such as zero, one, or pi.
+Vector registers hold data for vector processing done by SIMD instructions (Single Instruction, Multiple Data).
+Special-purpose registers (SPRs) hold some elements of the program state; they usually include the program counter, also called the instruction pointer, and the status register; the program counter and status register might be combined in a program status word (PSW) register. The aforementioned stack pointer is sometimes also included in this group. Embedded microprocessors can also have registers corresponding to specialized hardware elements.
+In some architectures, model-specific registers (also called machine-specific registers) store data and settings related to the processor itself. Because their meanings are attached to the design of a specific processor, they cannot be expected to remain standard between processor generations.
+Memory type range registers (MTRRs)
+Internal registers are not accessible by instructions and are used internally for processor operations.
+The instruction register holds the instruction currently being executed.
+Registers related to fetching information from RAM, a collection of storage registers located on separate chips from the CPU:
+Memory buffer register (MBR), also known as memory data register (MDR)
+Memory address register (MAR)
+Architectural registers are the registers visible to software and are defined by an architecture. They may not correspond to the physical hardware if register renaming is being performed by the underlying hardware.Hardware registers are similar, but occur outside CPUs.
+In some architectures (such as SPARC and MIPS), the first or last register in the integer register file is a pseudo-register in that it is hardwired to always return zero when read (mostly to simplify indexing modes), and it cannot be overwritten. In Alpha, this is also done for the floating-point register file. As a result of this, register files are commonly quoted as having one register more than how many of them are actually usable; for example, 32 registers are quoted when only 31 of them fit within the above definition of a register.
+
+Examples
+The following table shows the number of registers in several mainstream CPU architectures. Note that in x86-compatible processors, the stack pointer (ESP) is counted as an integer register, even though there are a limited number of instructions that may be used to operate on its contents. Similar caveats apply to most architectures.
+Although all of the below-listed architectures are different, almost all are in a basic arrangement known as the von Neumann architecture, first proposed by the Hungarian-American mathematician John von Neumann. It is also noteworthy that the number of registers on GPUs is much higher than that on CPUs.
+
+Usage
+The number of registers available on a processor and the operations that can be performed using those registers has a significant impact on the efficiency of code generated by optimizing compilers. The Strahler number of an expression tree gives the minimum number of registers required to evaluate that expression tree.
+
+See also
+CPU cache
+Register allocation
+Register file
+Shift register
+
+
+== References ==

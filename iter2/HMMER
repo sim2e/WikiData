@@ -1,0 +1,69 @@
+HMMER is a free and commonly used software package for sequence analysis written by Sean Eddy. Its general usage is to identify homologous protein or nucleotide sequences, and to perform sequence alignments.  It detects homology by comparing a profile-HMM (a Hidden Markov model constructed explicitly for a particular search) to either a single sequence or a database of sequences.  Sequences that score significantly better to the profile-HMM compared to a null model are considered to be homologous to the sequences that were used to construct the profile-HMM.  Profile-HMMs are constructed from a multiple sequence alignment in the HMMER package using the hmmbuild program.  The profile-HMM implementation used in the HMMER software was based on the work of Krogh and colleagues. HMMER is a console utility ported to every major operating system, including different versions of Linux, Windows, and macOS.
+HMMER is the core utility that protein family databases such as Pfam and InterPro are based upon. Some other bioinformatics tools such as UGENE also use HMMER.
+HMMER3 also makes extensive use of vector instructions for increasing computational speed. This work is based upon earlier publication showing a significant acceleration of the Smith-Waterman algorithm for aligning two sequences.
+
+Profile HMMs
+A profile HMM is a variant of an HMM relating specifically to biological sequences. Profile HMMs turn a multiple sequence alignment into a position-specific scoring system, which can be used to align sequences and search databases for remotely homologous sequences. They capitalise on the fact that certain positions in a sequence alignment tend to have biases in which residues are most likely to occur, and are likely to differ in their probability of containing an insertion or a deletion. Capturing this information gives them a better ability to detect true homologs than traditional BLAST-based approaches, which penalise substitutions, insertions and deletions equally, regardless of where in an alignment they occur.
+Profile HMMs center around a linear set of match (M) states, with one state corresponding to each consensus column in a sequence alignment. Each M state emits a single residue (amino acid or nucleotide). The probability of emitting a particular residue is determined largely by the frequency at which that residue has been observed in that column of the alignment, but also incorporates prior information on patterns of residues that tend to co-occur in the same columns of sequence alignments. This string of match states emitting amino acids at particular frequencies are analogous to position specific score matrices or weight matrices.A profile HMM takes this modelling of sequence alignments further by modelling insertions and deletions, using I and D states, respectively. D states do not emit a residue, while I state do emit a residue. Multiple I state can occur consecutively, corresponding to multiple residues between consensus columns in an alignment. M, I and D states are connected by state transition probabilities, which also vary by position in the sequence alignment, to reflect the different frequencies of insertions and deletions across sequence alignments.The HMMER2 and HMMER3 releases used an architecture for building profile HMMs called the Plan 7 architecture, named after the seven states captured by the model. In addition to the three major states (M, I and D), six additional states capture non-homologous flanking sequence in the alignment. These 6 states collectively are important for controlling how sequences are aligned to the model, e.g. whether a sequence can have multiple consecutive hits to the same model (in the case of sequences with multiple instances of the same domain).
+
+Programs in the HMMER package
+The HMMER package consists of a collection of programs for performing functions using profile hidden Markov models. The programs include:
+
+Profile HMM building
+hmmbuild - construct profile HMMs from multiple sequence alignments
+
+Homology searching
+hmmscan - search protein sequences against a profile HMM database
+hmmsearch - search profile HMMs against a sequence database
+jackhmmer - iteratively search sequences against a protein database
+nhmmer - search DNA/RNA queries against a DNA/RNA sequence database
+nhmmscan - search nucleotide sequences against a nucleotide profile
+phmmer - search protein sequences against a protein database
+
+Other functions
+hmmalign - align sequences to a profile HMM
+hmmemit - produce sample sequences from a profile HMM
+hmmlogo - produce data for an HMM logo from an HMM fileThe package contains numerous other specialised functions.
+
+The HMMER web server
+In addition to the software package, the HMMER search function is available in the form of a web server. The service facilitates searches across a range of databases, including sequence databases such as UniProt, SwissProt, and the Protein Data Bank, and HMM databases such as Pfam, TIGRFAMs and SUPERFAMILY. The four search types phmmer, hmmsearch, hmmscan and jackhmmer are supported (see Programs). The search function accepts single sequences as well as sequence alignments or profile HMMs.The search results are accompanied by a report on the taxonomic breakdown, and the domain organisation of the hits. Search results can then be filtered according to either parameter.
+The web service is currently run out of the European Bioinformatics Institute (EBI) in the United Kingdom, while development of the algorithm is still performed by Sean Eddy's team in the United States. Major reasons for relocating the web service were to leverage the computing infrastructure at the EBI, and to cross-link HMMER searches with relevant databases that are also maintained by the EBI.
+
+The HMMER3 release
+The latest stable release of HMMER is version 3.0. HMMER3 is complete rewrite of the earlier HMMER2 package, with the aim of improving the speed of profile-HMM searches. Major changes are outlined below:
+
+Improvements in speed
+A major aim of the HMMER3 project, started in 2004 was to improve the speed of HMMER searches. While profile HMM-based homology searches were more accurate than BLAST-based approaches, their slower speed limited their applicability. The main performance gain is due to a heuristic filter that finds high-scoring un-gapped matches within database sequences to a query profile.  This heuristic results in a computation time comparable to BLAST with little impact on accuracy.  Further gains in performance are due to a log-likelihood model that requires no calibration for estimating E-values, and allows the more accurate forward scores to be used for computing the significance of a homologous sequence.HMMER still lags behind BLAST in speed of DNA-based searches; however, DNA-based searches can be tuned such that an improvement in speed comes at the expense of accuracy.
+
+Improvements in remote homology searching
+The major advance in speed was made possible by the development of an approach for calculating the significance of results integrated over a range of possible alignments. In discovering remote homologs, alignments between query and hit proteins are often very uncertain. While most sequence alignment tools calculate match scores using only the best scoring alignment, HMMER3 calculates match scores by integrating across all possible alignments, to account for uncertainty in which alignment is best. HMMER sequence alignments are accompanied by posterior probability annotations, indicating which portions of the alignment have been assigned high confidence and which are more uncertain.
+
+DNA sequence comparison
+A major improvement in HMMER3 was the inclusion of DNA/DNA comparison tools. HMMER2 only had functionality to compare protein sequences.
+
+Restriction to local alignments
+While HMMER2 could perform local alignment (align a complete model to a subsequence of the target) and global alignment (align a complete model to a complete target sequence), HMMER3 only performs local alignment. This restriction is due to the difficulty in calculating the significance of hits when performing local/global alignments using the new algorithm.
+
+See also
+Hidden Markov model
+Sequence alignment software
+Pfam
+UGENESeveral implementations of profile HMM methods and related position-specific scoring matrix methods are available. Some are listed below:
+
+HH-suite
+SAM
+PSI-BLAST
+MMseqs2
+PFTOOLS
+GENEWISE
+PROBE
+META-MEME
+BLOCKS
+GPU-HMMER
+DeCypherHMM
+
+References
+External links
+Official website
+HMMER3 announcement
+A blog posting on HMMER policy on trademark, copyright, patents, and licensing

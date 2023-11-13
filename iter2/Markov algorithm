@@ -1,0 +1,614 @@
+In theoretical computer science, a Markov algorithm is a string rewriting system that uses grammar-like rules to operate on strings of symbols. Markov algorithms have been shown to be Turing-complete, which means that they are suitable as a general model of computation and can represent any mathematical expression from its simple notation. Markov algorithms are named after the Soviet mathematician Andrey Markov, Jr.
+Refal is a programming language based on Markov algorithms.
+
+Description
+Normal algorithms are verbal, that is, intended to be applied to strings in different alphabets.
+The definition of any normal algorithm consists of two parts: an alphabet, which is a set of symbols, and a scheme. The algorithm is applied to strings of symbols of the alphabet. The scheme is a finite ordered set of substitution formulas. Each formula can be either simple or final. Simple substitution formulas are represented by strings of the form 
+  
+    
+      
+        L
+        →
+        D
+      
+    
+    {\displaystyle L\to D}
+  , where 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   and 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+   are two arbitrary strings in the alphabet. Similarly, final substitution formulas are represented by strings of the form 
+  
+    
+      
+        L
+        →
+        ⋅
+        D
+      
+    
+    {\displaystyle L\to \cdot D}
+  .
+Here is an example of a normal algorithm scheme in the five-letter alphabet 
+  
+    
+      
+        
+          |
+        
+        ∗
+        a
+        b
+        c
+      
+    
+    {\displaystyle |*abc}
+  :
+
+  
+    
+      
+        
+          {
+          
+            
+              
+                
+                  
+                    |
+                  
+                  b
+                
+                
+                  →
+                
+                
+                  b
+                  a
+                  
+                    |
+                  
+                
+              
+              
+                
+                  a
+                  b
+                
+                
+                  →
+                
+                
+                  b
+                  a
+                
+              
+              
+                
+                  b
+                
+                
+                  →
+                
+                
+              
+              
+                
+                  
+                    ∗
+                  
+                  
+                    |
+                  
+                
+                
+                  →
+                
+                
+                  b
+                  ∗
+                
+                
+              
+              
+                
+                  
+                    ∗
+                  
+                
+                
+                  →
+                
+                
+                  c
+                
+                
+              
+              
+                
+                  
+                    |
+                  
+                  c
+                
+                
+                  →
+                
+                
+                  c
+                
+              
+              
+                
+                  a
+                  c
+                
+                
+                  →
+                
+                
+                  c
+                  
+                    |
+                  
+                
+              
+              
+                
+                  c
+                
+                
+                  →
+                  ⋅
+                
+              
+            
+          
+          
+        
+      
+    
+    {\displaystyle \left\{{\begin{matrix}|b&\to &ba|\\ab&\to &ba\\b&\to &\\{*}|&\to &b*&\\{*}&\to &c&\\|c&\to &c\\ac&\to &c|\\c&\to \cdot \end{matrix}}\right.}
+  The process of applying the normal algorithm to an arbitrary string 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   in the alphabet of this algorithm is a discrete sequence of elementary steps, consisting of the following. Let’s assume that 
+  
+    
+      
+        
+          V
+          ′
+        
+      
+    
+    {\displaystyle V'}
+   is the word obtained in the previous step of the algorithm (or the original word 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  , if the current step is the first). If of the substitution formulas there is no left-hand side which is included in the 
+  
+    
+      
+        
+          V
+          ′
+        
+      
+    
+    {\displaystyle V'}
+  , then the algorithm terminates, and the result of its work is considered to be the string 
+  
+    
+      
+        
+          V
+          ′
+        
+      
+    
+    {\displaystyle V'}
+  . Otherwise, the first of the substitution formulae whose left sides are included in 
+  
+    
+      
+        
+          V
+          ′
+        
+      
+    
+    {\displaystyle V'}
+   is selected. If the substitution formula is of the form 
+  
+    
+      
+        L
+        →
+        ⋅
+        D
+      
+    
+    {\displaystyle L\to \cdot D}
+  , then out of all of possible representations of the string 
+  
+    
+      
+        
+          V
+          ′
+        
+      
+    
+    {\displaystyle V'}
+   of the form 
+  
+    
+      
+        R
+        L
+        S
+      
+    
+    {\displaystyle RLS}
+   (where 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   and 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   are arbitrary strings) the one with the shortest 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   is chosen. Then the algorithm terminates and the result of its work is considered to be 
+  
+    
+      
+        R
+        D
+        S
+      
+    
+    {\displaystyle RDS}
+  . However, if this substitution formula is of the form 
+  
+    
+      
+        L
+        →
+        D
+      
+    
+    {\displaystyle L\to D}
+  , then out of all of the possible representations of the string 
+  
+    
+      
+        
+          V
+          ′
+        
+      
+    
+    {\displaystyle V'}
+   of the form of 
+  
+    
+      
+        R
+        L
+        S
+      
+    
+    {\displaystyle RLS}
+   the one with the shortest 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   is chosen, after which the string 
+  
+    
+      
+        R
+        D
+        S
+      
+    
+    {\displaystyle RDS}
+   is considered to be the result of the current step, subject to further processing in the next step.
+For example, the process of applying the algorithm described above to the word 
+  
+    
+      
+        
+          |
+        
+        ∗
+        
+          |
+        
+        
+          |
+        
+      
+    
+    {\displaystyle |*||}
+   results in the sequence of words 
+  
+    
+      
+        
+          |
+        
+        b
+        ∗
+        
+          |
+        
+      
+    
+    {\displaystyle |b*|}
+  , 
+  
+    
+      
+        b
+        a
+        
+          |
+        
+        ∗
+        
+          |
+        
+      
+    
+    {\displaystyle ba|*|}
+  , 
+  
+    
+      
+        a
+        
+          |
+        
+        ∗
+        
+          |
+        
+      
+    
+    {\displaystyle a|*|}
+  , 
+  
+    
+      
+        a
+        
+          |
+        
+        b
+        ∗
+      
+    
+    {\displaystyle a|b*}
+  , 
+  
+    
+      
+        a
+        b
+        a
+        
+          |
+        
+        ∗
+      
+    
+    {\displaystyle aba|*}
+  , 
+  
+    
+      
+        b
+        a
+        a
+        
+          |
+        
+        ∗
+      
+    
+    {\displaystyle baa|*}
+  , 
+  
+    
+      
+        a
+        a
+        
+          |
+        
+        ∗
+      
+    
+    {\displaystyle aa|*}
+  , 
+  
+    
+      
+        a
+        a
+        
+          |
+        
+        c
+      
+    
+    {\displaystyle aa|c}
+  , 
+  
+    
+      
+        a
+        a
+        c
+      
+    
+    {\displaystyle aac}
+  , 
+  
+    
+      
+        a
+        c
+        
+          |
+        
+      
+    
+    {\displaystyle ac|}
+   and 
+  
+    
+      
+        c
+        
+          |
+        
+        
+          |
+        
+      
+    
+    {\displaystyle c||}
+  , after which the algorithm stops with the result 
+  
+    
+      
+        
+          |
+        
+        
+          |
+        
+      
+    
+    {\displaystyle ||}
+  .    
+For other examples, see below.
+Any normal algorithm is equivalent to some Turing machine, and vice versa – any Turing machine is equivalent to some normal algorithm. A version of the Church-Turing thesis formulated in relation to the normal algorithm is called the "principle of normalization."
+Normal algorithms have proved to be a convenient means for the construction of many sections of constructive mathematics. Moreover, inherent in the definition of a normal algorithm are a number of ideas used in programming languages aimed at handling symbolic information – for example, in Refal.
+
+Algorithm
+The Rules are a sequence of pairs of strings, usually presented in the form of pattern → replacement. Each rule may be either ordinary or terminating.
+Given an input string: 
+
+Check the Rules in order from top to bottom to see whether any of the patterns can be found in the input string.
+If none is found, the algorithm stops.
+If one (or more) is found, use the first of them to replace the leftmost occurrence of matched text in the input string with its replacement.
+If the rule just applied was a terminating one, the algorithm stops.
+Go to step 1.Note that after each rule application the search starts over from the first rule.
+
+Example
+The following example shows the basic operation of a Markov algorithm.
+
+Rules
+"A" -> "apple"
+"B" -> "bag"
+"S" -> "shop"
+"T" -> "the"
+"the shop" -> "my brother"
+"a never used" -> ."terminating rule"
+
+Symbol string
+"I bought a B of As from T S."
+
+Execution
+If the algorithm is applied to the above example, the Symbol string will change in the following manner.
+
+"I bought a B of As from T S."
+"I bought a B of apples from T S."
+"I bought a bag of apples from T S."
+"I bought a bag of apples from T shop."
+"I bought a bag of apples from the shop."
+"I bought a bag of apples from my brother."The algorithm will then terminate.
+
+Another example
+These rules give a more interesting example. They rewrite binary numbers to their unary counterparts. For example, 101 will be rewritten to a string of 5 consecutive bars.
+
+Rules
+"|0" -> "0||"
+"1" -> "0|"
+"0" -> ""
+
+Symbol string
+"101"
+
+Execution
+If the algorithm is applied to the above example, it will terminate after the following steps.
+
+"101"
+"0|01"
+"00||1"
+"00||0|"
+"00|0|||"
+"000|||||"
+"00|||||"
+"0|||||"
+"|||||"
+
+See also
+Thue (programming language)
+Formal grammar
+
+References
+Caracciolo di Forino, A. String processing languages and generalized Markov algorithms. In Symbol manipulation languages and techniques, D. G. Bobrow (Ed.), North-Holland Publ. Co., Amsterdam, the Netherlands, 1968, pp. 191–206.
+Andrey Andreevich Markov (1903-1979) 1960. The Theory of Algorithms. American Mathematical Society Translations, series 2, 15, 1-14. (Translation from the Russian, Trudy Instituta im. Steklova 38 (1951) 176-189)
+
+External links
+Yad Studio - Markov algorithms IDE and interpreter (Open Source)
+Markov algorithm interpreter
+Markov algorithm interpreter
+Markov algorithm interpreters at Rosetta-Code

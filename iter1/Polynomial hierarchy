@@ -1,0 +1,1726 @@
+In computational complexity theory, the polynomial hierarchy (sometimes called the polynomial-time hierarchy) is a hierarchy of complexity classes that generalize the classes NP and co-NP. Each class in the hierarchy is contained within PSPACE. The hierarchy can be defined using oracle machines or alternating Turing machines. It is a resource-bounded counterpart to the arithmetical hierarchy and analytical hierarchy from mathematical logic. The union of the classes in the hierarchy is denoted PH.
+Classes within the hierarchy have complete problems (with respect to polynomial-time reductions) that ask if quantified Boolean formulae hold, for formulae with restrictions on the quantifier order. It is known that equality between classes on the same level or consecutive levels in the hierarchy would imply a "collapse" of the hierarchy to that level.
+
+Definitions
+There are multiple equivalent definitions of the classes of the polynomial hierarchy.
+
+Oracle definition
+For the oracle definition of the polynomial hierarchy, define
+
+  
+    
+      
+        
+          Δ
+          
+            0
+          
+          
+            
+              P
+            
+          
+        
+        :=
+        
+          Σ
+          
+            0
+          
+          
+            
+              P
+            
+          
+        
+        :=
+        
+          Π
+          
+            0
+          
+          
+            
+              P
+            
+          
+        
+        :=
+        
+          
+            P
+          
+        
+        ,
+      
+    
+    {\displaystyle \Delta _{0}^{\mathsf {P}}:=\Sigma _{0}^{\mathsf {P}}:=\Pi _{0}^{\mathsf {P}}:={\mathsf {P}},}
+  where P is the set of decision problems solvable in polynomial time. Then for i ≥ 0 define
+
+  
+    
+      
+        
+          Δ
+          
+            i
+            +
+            1
+          
+          
+            
+              P
+            
+          
+        
+        :=
+        
+          
+            
+              P
+            
+          
+          
+            
+              Σ
+              
+                i
+              
+              
+                
+                  P
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle \Delta _{i+1}^{\mathsf {P}}:={\mathsf {P}}^{\Sigma _{i}^{\mathsf {P}}}}
+  
+
+  
+    
+      
+        
+          Σ
+          
+            i
+            +
+            1
+          
+          
+            
+              P
+            
+          
+        
+        :=
+        
+          
+            
+              N
+              P
+            
+          
+          
+            
+              Σ
+              
+                i
+              
+              
+                
+                  P
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle \Sigma _{i+1}^{\mathsf {P}}:={\mathsf {NP}}^{\Sigma _{i}^{\mathsf {P}}}}
+  
+
+  
+    
+      
+        
+          Π
+          
+            i
+            +
+            1
+          
+          
+            
+              P
+            
+          
+        
+        :=
+        
+          
+            
+              c
+              o
+              N
+              P
+            
+          
+          
+            
+              Σ
+              
+                i
+              
+              
+                
+                  P
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle \Pi _{i+1}^{\mathsf {P}}:={\mathsf {coNP}}^{\Sigma _{i}^{\mathsf {P}}}}
+  where 
+  
+    
+      
+        
+          
+            
+              P
+            
+          
+          
+            
+              A
+            
+          
+        
+      
+    
+    {\displaystyle {\mathsf {P}}^{\rm {A}}}
+   is the set of decision problems solvable in polynomial time by a Turing machine augmented by an oracle for some complete problem in class A; the classes 
+  
+    
+      
+        
+          
+            
+              N
+              P
+            
+          
+          
+            
+              A
+            
+          
+        
+      
+    
+    {\displaystyle {\mathsf {NP}}^{\rm {A}}}
+   and 
+  
+    
+      
+        
+          
+            
+              c
+              o
+              N
+              P
+            
+          
+          
+            
+              A
+            
+          
+        
+      
+    
+    {\displaystyle {\mathsf {coNP}}^{\rm {A}}}
+   are defined analogously.  For example, 
+  
+    
+      
+        
+          Σ
+          
+            1
+          
+          
+            
+              P
+            
+          
+        
+        =
+        
+          
+            N
+            P
+          
+        
+        ,
+        
+          Π
+          
+            1
+          
+          
+            
+              P
+            
+          
+        
+        =
+        
+          
+            c
+            o
+            N
+            P
+          
+        
+      
+    
+    {\displaystyle \Sigma _{1}^{\mathsf {P}}={\mathsf {NP}},\Pi _{1}^{\mathsf {P}}={\mathsf {coNP}}}
+  , and 
+  
+    
+      
+        
+          Δ
+          
+            2
+          
+          
+            
+              P
+            
+          
+        
+        =
+        
+          
+            
+              P
+              
+                N
+                P
+              
+            
+          
+        
+      
+    
+    {\displaystyle \Delta _{2}^{\mathsf {P}}={\mathsf {P^{NP}}}}
+   is the class of problems solvable in polynomial time by a deterministic Turing machine with an oracle for some NP-complete problem.
+
+Quantified boolean formulae definition
+For the existential/universal definition of the polynomial hierarchy, let L be a language (i.e. a decision problem, a subset of {0,1}*), let p be a polynomial, and define
+
+  
+    
+      
+        
+          ∃
+          
+            p
+          
+        
+        L
+        :=
+        
+          {
+          
+            x
+            ∈
+            {
+            0
+            ,
+            1
+            
+              }
+              
+                ∗
+              
+            
+             
+            
+              |
+              
+                 
+                
+                  (
+                  
+                    ∃
+                    w
+                    ∈
+                    {
+                    0
+                    ,
+                    1
+                    
+                      }
+                      
+                        ≤
+                        p
+                        (
+                        
+                          |
+                        
+                        x
+                        
+                          |
+                        
+                        )
+                      
+                    
+                  
+                  )
+                
+                ⟨
+                x
+                ,
+                w
+                ⟩
+                ∈
+                L
+              
+              
+            
+          
+          }
+        
+        ,
+      
+    
+    {\displaystyle \exists ^{p}L:=\left\{x\in \{0,1\}^{*}\ \left|\ \left(\exists w\in \{0,1\}^{\leq p(|x|)}\right)\langle x,w\rangle \in L\right.\right\},}
+  where 
+  
+    
+      
+        ⟨
+        x
+        ,
+        w
+        ⟩
+        ∈
+        {
+        0
+        ,
+        1
+        
+          }
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \langle x,w\rangle \in \{0,1\}^{*}}
+   is some standard encoding of the pair of binary strings x and w as a single binary string. The language L represents a set of ordered pairs of strings, where the first string x is a member of 
+  
+    
+      
+        
+          ∃
+          
+            p
+          
+        
+        L
+      
+    
+    {\displaystyle \exists ^{p}L}
+  , and the second string w is a "short" (
+  
+    
+      
+        
+          |
+        
+        w
+        
+          |
+        
+        ≤
+        p
+        (
+        
+          |
+        
+        x
+        
+          |
+        
+        )
+      
+    
+    {\displaystyle |w|\leq p(|x|)}
+  ) witness testifying that x is a member of 
+  
+    
+      
+        
+          ∃
+          
+            p
+          
+        
+        L
+      
+    
+    {\displaystyle \exists ^{p}L}
+  . In other words, 
+  
+    
+      
+        x
+        ∈
+        
+          ∃
+          
+            p
+          
+        
+        L
+      
+    
+    {\displaystyle x\in \exists ^{p}L}
+   if and only if there exists a short  witness w such that 
+  
+    
+      
+        ⟨
+        x
+        ,
+        w
+        ⟩
+        ∈
+        L
+      
+    
+    {\displaystyle \langle x,w\rangle \in L}
+  . Similarly, define
+
+  
+    
+      
+        
+          ∀
+          
+            p
+          
+        
+        L
+        :=
+        
+          {
+          
+            x
+            ∈
+            {
+            0
+            ,
+            1
+            
+              }
+              
+                ∗
+              
+            
+             
+            
+              |
+              
+                 
+                
+                  (
+                  
+                    ∀
+                    w
+                    ∈
+                    {
+                    0
+                    ,
+                    1
+                    
+                      }
+                      
+                        ≤
+                        p
+                        (
+                        
+                          |
+                        
+                        x
+                        
+                          |
+                        
+                        )
+                      
+                    
+                  
+                  )
+                
+                ⟨
+                x
+                ,
+                w
+                ⟩
+                ∈
+                L
+              
+              
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \forall ^{p}L:=\left\{x\in \{0,1\}^{*}\ \left|\ \left(\forall w\in \{0,1\}^{\leq p(|x|)}\right)\langle x,w\rangle \in L\right.\right\}}
+  Note that De Morgan's laws hold: 
+  
+    
+      
+        
+          
+            (
+            
+              
+                ∃
+                
+                  p
+                
+              
+              L
+            
+            )
+          
+          
+            
+              c
+            
+          
+        
+        =
+        
+          ∀
+          
+            p
+          
+        
+        
+          L
+          
+            
+              c
+            
+          
+        
+      
+    
+    {\displaystyle \left(\exists ^{p}L\right)^{\rm {c}}=\forall ^{p}L^{\rm {c}}}
+   and 
+  
+    
+      
+        
+          
+            (
+            
+              
+                ∀
+                
+                  p
+                
+              
+              L
+            
+            )
+          
+          
+            
+              c
+            
+          
+        
+        =
+        
+          ∃
+          
+            p
+          
+        
+        
+          L
+          
+            
+              c
+            
+          
+        
+      
+    
+    {\displaystyle \left(\forall ^{p}L\right)^{\rm {c}}=\exists ^{p}L^{\rm {c}}}
+  , where Lc is the complement of L.
+Let C be a class of languages. Extend these operators to work on whole classes of languages by the definition
+
+  
+    
+      
+        
+          ∃
+          
+            
+              P
+            
+          
+        
+        
+          
+            C
+          
+        
+        :=
+        
+          {
+          
+            
+              ∃
+              
+                p
+              
+            
+            L
+             
+            
+              |
+            
+             
+            p
+            
+               is a polynomial and 
+            
+            L
+            ∈
+            
+              
+                C
+              
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \exists ^{\mathsf {P}}{\mathcal {C}}:=\left\{\exists ^{p}L\ |\ p{\text{ is a polynomial and }}L\in {\mathcal {C}}\right\}}
+  
+
+  
+    
+      
+        
+          ∀
+          
+            
+              P
+            
+          
+        
+        
+          
+            C
+          
+        
+        :=
+        
+          {
+          
+            
+              ∀
+              
+                p
+              
+            
+            L
+             
+            
+              |
+            
+             
+            p
+            
+               is a polynomial and 
+            
+            L
+            ∈
+            
+              
+                C
+              
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \forall ^{\mathsf {P}}{\mathcal {C}}:=\left\{\forall ^{p}L\ |\ p{\text{ is a polynomial and }}L\in {\mathcal {C}}\right\}}
+  Again, De Morgan's laws hold: 
+  
+    
+      
+        
+          
+            c
+            o
+          
+        
+        
+          ∃
+          
+            
+              P
+            
+          
+        
+        
+          
+            C
+          
+        
+        =
+        
+          ∀
+          
+            
+              P
+            
+          
+        
+        
+          
+            c
+            o
+          
+        
+        
+          
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {co}}\exists ^{\mathsf {P}}{\mathcal {C}}=\forall ^{\mathsf {P}}{\mathsf {co}}{\mathcal {C}}}
+   and 
+  
+    
+      
+        
+          
+            c
+            o
+          
+        
+        
+          ∀
+          
+            
+              P
+            
+          
+        
+        
+          
+            C
+          
+        
+        =
+        
+          ∃
+          
+            
+              P
+            
+          
+        
+        
+          
+            c
+            o
+          
+        
+        
+          
+            C
+          
+        
+      
+    
+    {\displaystyle {\mathsf {co}}\forall ^{\mathsf {P}}{\mathcal {C}}=\exists ^{\mathsf {P}}{\mathsf {co}}{\mathcal {C}}}
+  , where 
+  
+    
+      
+        
+          
+            c
+            o
+          
+        
+        
+          
+            C
+          
+        
+        =
+        
+          {
+          
+            
+              L
+              
+                c
+              
+            
+            
+              |
+            
+            L
+            ∈
+            
+              
+                C
+              
+            
+          
+          }
+        
+      
+    
+    {\displaystyle {\mathsf {co}}{\mathcal {C}}=\left\{L^{c}|L\in {\mathcal {C}}\right\}}
+  .
+The classes NP and co-NP can be defined as 
+  
+    
+      
+        
+          
+            N
+            P
+          
+        
+        =
+        
+          ∃
+          
+            
+              P
+            
+          
+        
+        
+          
+            P
+          
+        
+      
+    
+    {\displaystyle {\mathsf {NP}}=\exists ^{\mathsf {P}}{\mathsf {P}}}
+  , and 
+  
+    
+      
+        
+          
+            c
+            o
+            N
+            P
+          
+        
+        =
+        
+          ∀
+          
+            
+              P
+            
+          
+        
+        
+          
+            P
+          
+        
+      
+    
+    {\displaystyle {\mathsf {coNP}}=\forall ^{\mathsf {P}}{\mathsf {P}}}
+  , where P is the class of all feasibly (polynomial-time) decidable languages. The polynomial hierarchy can be defined recursively as
+
+  
+    
+      
+        
+          Σ
+          
+            0
+          
+          
+            
+              P
+            
+          
+        
+        :=
+        
+          Π
+          
+            0
+          
+          
+            
+              P
+            
+          
+        
+        :=
+        
+          
+            P
+          
+        
+      
+    
+    {\displaystyle \Sigma _{0}^{\mathsf {P}}:=\Pi _{0}^{\mathsf {P}}:={\mathsf {P}}}
+  
+
+  
+    
+      
+        
+          Σ
+          
+            k
+            +
+            1
+          
+          
+            
+              P
+            
+          
+        
+        :=
+        
+          ∃
+          
+            
+              P
+            
+          
+        
+        
+          Π
+          
+            k
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \Sigma _{k+1}^{\mathsf {P}}:=\exists ^{\mathsf {P}}\Pi _{k}^{\mathsf {P}}}
+  
+
+  
+    
+      
+        
+          Π
+          
+            k
+            +
+            1
+          
+          
+            
+              P
+            
+          
+        
+        :=
+        
+          ∀
+          
+            
+              P
+            
+          
+        
+        
+          Σ
+          
+            k
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \Pi _{k+1}^{\mathsf {P}}:=\forall ^{\mathsf {P}}\Sigma _{k}^{\mathsf {P}}}
+  Note that 
+  
+    
+      
+        
+          
+            N
+            P
+          
+        
+        =
+        
+          Σ
+          
+            1
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle {\mathsf {NP}}=\Sigma _{1}^{\mathsf {P}}}
+  , and 
+  
+    
+      
+        
+          
+            c
+            o
+            N
+            P
+          
+        
+        =
+        
+          Π
+          
+            1
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle {\mathsf {coNP}}=\Pi _{1}^{\mathsf {P}}}
+  .
+This definition reflects the close connection between the polynomial hierarchy and the arithmetical hierarchy, where R and RE play roles analogous to P and NP, respectively. The analytic hierarchy is also defined in a similar way to give a hierarchy of subsets of the real numbers.
+
+Alternating Turing machines definition
+An alternating Turing machine is a non-deterministic Turing machine with non-final states partitioned into existential and universal states. It is eventually accepting from its current configuration if: it is in an existential state and can transition into some eventually accepting configuration; or, it is in a universal state and every transition is into some eventually accepting configuration; or, it is in an accepting state.We define 
+  
+    
+      
+        
+          Σ
+          
+            k
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \Sigma _{k}^{\mathsf {P}}}
+   to be the class of languages accepted by an alternating Turing machine in polynomial time such that the initial state is an existential state and every path the machine can take swaps at most k – 1 times between existential and universal states. We define 
+  
+    
+      
+        
+          Π
+          
+            k
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \Pi _{k}^{\mathsf {P}}}
+   similarly, except that the initial state is a universal state.If we omit the requirement of at most k – 1 swaps between the existential and universal states, so that we only require that our alternating Turing machine runs in polynomial time, then we have the definition of the class AP, which is equal to PSPACE.
+
+Relations between classes in the polynomial hierarchy
+The union of all classes in the polynomial hierarchy is the complexity class PH.
+The definitions imply the relations:
+
+  
+    
+      
+        
+          Σ
+          
+            i
+          
+          
+            
+              P
+            
+          
+        
+        ⊆
+        
+          Δ
+          
+            i
+            +
+            1
+          
+          
+            
+              P
+            
+          
+        
+        ⊆
+        
+          Σ
+          
+            i
+            +
+            1
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \Sigma _{i}^{\mathsf {P}}\subseteq \Delta _{i+1}^{\mathsf {P}}\subseteq \Sigma _{i+1}^{\mathsf {P}}}
+  
+
+  
+    
+      
+        
+          Π
+          
+            i
+          
+          
+            
+              P
+            
+          
+        
+        ⊆
+        
+          Δ
+          
+            i
+            +
+            1
+          
+          
+            
+              P
+            
+          
+        
+        ⊆
+        
+          Π
+          
+            i
+            +
+            1
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \Pi _{i}^{\mathsf {P}}\subseteq \Delta _{i+1}^{\mathsf {P}}\subseteq \Pi _{i+1}^{\mathsf {P}}}
+  
+
+  
+    
+      
+        
+          Σ
+          
+            i
+          
+          
+            
+              P
+            
+          
+        
+        =
+        
+          
+            c
+            o
+          
+        
+        
+          Π
+          
+            i
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \Sigma _{i}^{\mathsf {P}}={\mathsf {co}}\Pi _{i}^{\mathsf {P}}}
+  Unlike the arithmetic and analytic hierarchies, whose inclusions are known to be proper, it is an open question whether any of these inclusions are proper, though it is widely believed that they all are.  If any 
+  
+    
+      
+        
+          Σ
+          
+            k
+          
+          
+            
+              P
+            
+          
+        
+        =
+        
+          Σ
+          
+            k
+            +
+            1
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \Sigma _{k}^{\mathsf {P}}=\Sigma _{k+1}^{\mathsf {P}}}
+  , or if any 
+  
+    
+      
+        
+          Σ
+          
+            k
+          
+          
+            
+              P
+            
+          
+        
+        =
+        
+          Π
+          
+            k
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \Sigma _{k}^{\mathsf {P}}=\Pi _{k}^{\mathsf {P}}}
+  , then the hierarchy collapses to level k: for all 
+  
+    
+      
+        i
+        >
+        k
+      
+    
+    {\displaystyle i>k}
+  , 
+  
+    
+      
+        
+          Σ
+          
+            i
+          
+          
+            
+              P
+            
+          
+        
+        =
+        
+          Σ
+          
+            k
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \Sigma _{i}^{\mathsf {P}}=\Sigma _{k}^{\mathsf {P}}}
+  . In particular, we have the following implications involving unsolved problems:
+
+P = NP if and only if P = PH.
+If NP = co-NP then NP = PH. (co-NP is 
+  
+    
+      
+        
+          Π
+          
+            1
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \Pi _{1}^{\mathsf {P}}}
+  .)The case in which NP = PH is also termed as a collapse of the PH to the second level. The case P = NP corresponds to a collapse of PH to P.
+
+The question of collapse to the first level is generally thought to be extremely difficult. Most researchers do not believe in a collapse, even to the second level.
+
+Relationships to other classes
+The polynomial hierarchy is an analogue (at much lower complexity) of the exponential hierarchy and arithmetical hierarchy.
+It is known that PH is contained within PSPACE, but it is not known whether the two classes are equal. One useful reformulation of this problem is that PH = PSPACE if and only if second-order logic over finite structures gains no additional power from the addition of a transitive closure operator.
+If the polynomial hierarchy has any complete problems, then it has only finitely many distinct levels.  Since there are PSPACE-complete problems, we know that if PSPACE = PH, then the polynomial hierarchy must collapse, since a PSPACE-complete problem would be a 
+  
+    
+      
+        
+          Σ
+          
+            k
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \Sigma _{k}^{\mathsf {P}}}
+  -complete problem for some k.Each class in the polynomial hierarchy contains 
+  
+    
+      
+        
+          ≤
+          
+            
+              m
+            
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \leq _{\rm {m}}^{\mathsf {P}}}
+  -complete problems (problems complete under polynomial-time many-one reductions). Furthermore, each class in the polynomial hierarchy is closed under 
+  
+    
+      
+        
+          ≤
+          
+            
+              m
+            
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \leq _{\rm {m}}^{\mathsf {P}}}
+  -reductions: meaning that for a class C in the hierarchy and a language 
+  
+    
+      
+        L
+        ∈
+        
+          
+            C
+          
+        
+      
+    
+    {\displaystyle L\in {\mathcal {C}}}
+  , if 
+  
+    
+      
+        A
+        
+          ≤
+          
+            
+              m
+            
+          
+          
+            
+              P
+            
+          
+        
+        L
+      
+    
+    {\displaystyle A\leq _{\rm {m}}^{\mathsf {P}}L}
+  , then 
+  
+    
+      
+        A
+        ∈
+        
+          
+            C
+          
+        
+      
+    
+    {\displaystyle A\in {\mathcal {C}}}
+   as well. These two facts together imply that if 
+  
+    
+      
+        
+          K
+          
+            i
+          
+        
+      
+    
+    {\displaystyle K_{i}}
+   is a complete problem for 
+  
+    
+      
+        
+          Σ
+          
+            i
+          
+          
+            
+              P
+            
+          
+        
+      
+    
+    {\displaystyle \Sigma _{i}^{\mathsf {P}}}
+  , then 
+  
+    
+      
+        
+          Σ
+          
+            i
+            +
+            1
+          
+          
+            
+              P
+            
+          
+        
+        =
+        
+          
+            
+              N
+              P
+            
+          
+          
+            
+              K
+              
+                i
+              
+            
+          
+        
+      
+    
+    {\displaystyle \Sigma _{i+1}^{\mathsf {P}}={\mathsf {NP}}^{K_{i}}}
+  , and 
+  
+    
+      
+        
+          Π
+          
+            i
+            +
+            1
+          
+          
+            
+              P
+            
+          
+        
+        =
+        
+          
+            
+              c
+              o
+              N
+              P
+            
+          
+          
+            
+              K
+              
+                i
+              
+            
+          
+        
+      
+    
+    {\displaystyle \Pi _{i+1}^{\mathsf {P}}={\mathsf {coNP}}^{K_{i}}}
+  . For instance, 
+  
+    
+      
+        
+          Σ
+          
+            2
+          
+          
+            
+              P
+            
+          
+        
+        =
+        
+          
+            
+              N
+              P
+            
+          
+          
+            
+              S
+              A
+              T
+            
+          
+        
+      
+    
+    {\displaystyle \Sigma _{2}^{\mathsf {P}}={\mathsf {NP}}^{\mathsf {SAT}}}
+  . In other words, if a language is defined based on some oracle in C, then we can assume that it is defined based on a complete problem for C. Complete problems therefore act as "representatives" of the class for which they are complete.
+The Sipser–Lautemann theorem states that the class BPP is contained in the second level of the polynomial hierarchy.
+Kannan's theorem states that for any k, 
+  
+    
+      
+        
+          Σ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Sigma _{2}}
+   is not contained in SIZE(nk).
+Toda's theorem states that the polynomial hierarchy is contained in P#P.
+
+Problems
+See also
+EXPTIME
+Exponential hierarchy
+Arithmetic hierarchy
+
+References
+General references
+Arora, Sanjeev; Barak, Boaz (2009). Complexity Theory: A Modern Approach. Cambridge University Press. ISBN 978-0-521-42426-4. section 1.4, "Machines as strings and the universal Turing machine" and 1.7, "Proof of theorem 1.9"
+A. R. Meyer and L. J. Stockmeyer.  The Equivalence Problem for Regular Expressions with Squaring Requires Exponential Space.  In Proceedings of the 13th IEEE Symposium on Switching and Automata Theory, pp. 125–129, 1972.  The paper that introduced the polynomial hierarchy.
+L. J. Stockmeyer. The polynomial-time hierarchy. Theoretical Computer Science, vol.3, pp. 1–22, 1976.
+C. Papadimitriou. Computational Complexity. Addison-Wesley, 1994. Chapter 17. Polynomial hierarchy, pp. 409–438.
+Michael R. Garey and David S. Johnson (1979). Computers and Intractability: A Guide to the Theory of NP-Completeness. W.H. Freeman. ISBN 0-7167-1045-5. Section 7.2: The Polynomial Hierarchy, pp. 161–167.
+
+
+=== Citations ===

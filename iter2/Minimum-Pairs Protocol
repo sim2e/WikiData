@@ -1,0 +1,99 @@
+The minimum-pairs (or MP) is an active measurement protocol to estimate in real-time the smaller of the forward and reverse one-way network delays (OWDs).  It is designed to work in hostile environments, where a set of three network nodes can estimate an upper-bound OWD between themselves and a fourth untrusted node. All four nodes must cooperate, though honest cooperation from the fourth node is not required. The objective is to conduct such estimates without involving the untrusted nodes in clock synchronization, and in a manner more accurate than simply half the round-trip time (RTT). The MP protocol can be used in delay-sensitive applications (such as placing content delivery network replicas) or for secure Internet geolocation.
+
+Methodology
+The MP protocol requires the three trusted network nodes to synchronize their clocks, and securely have access to their public keys, which could be achieved through a closed public key infrastructure  (PKI) system. The untrusted node need not follow suit because it is not assumed to cooperate honestly. To estimate an upper bound to the smaller of the forward and reverse OWD between node A and the untrusted node X (see figure for notation), X first establishes an application-layer connection to all three nodes. This could be done transparently over the browser using, e.g., WebSockets. The three nodes then take turns in exchanging digitally-signed timestamps.
+Assuming node A begins, it sends a signed timestamp to X. Node X forwards that message to the other two nodes. When the message is received, its receiving time is recorded. The receiving node then verifies the signature, and calculates the time it took the message to traverse the network from its originator to the recipient passing by the untrusted node. This is done by subtracting the timestamp in the message from the receiving time. Node B then repeats the process, followed by node C. After all three nodes have taken turns, they end-up with six delay estimates corresponding to the links:
+
+A → X → B and B → X → A
+A → X → C and C → X → A
+B → X → C and C → X → BTo estimate the smaller of the forward and reverse OWDs on the three network links between A, B, C and X, the minimum of each such pairs above is taken (i.e., the larger is discarded). Each of the three pairs then represents an approximate to the smaller OWD on each link, which generates a system of three equations in three unknowns. Solving those simultaneously for a, b, and c (see figure) gives the delay estimate.
+
+Numerical example
+Assume the actual delays (e.g., in millisecond) to node X from nodes A, B and C and vice versa are as follows:
+
+Those are the unknown delays. We need to estimate the smaller of the forward and reverse on each of the three links. In this example, the smaller is 5 ms, 4 ms, and 2 ms on the links between X and the three trusted nodes respectively (A, B, and C). When the nodes exchange the timestamp messages, they can only see the following:
+
+A → X → B = 9 ms and B → X → A = 14 ms (9 ms is the smaller)
+A → X → C = 9 ms and C → X → A =  8 ms (8 ms is the smaller)
+B → X → C = 12 ms and C → X → B = 6 ms (6 ms is the smaller)The system of equations thus becomes:
+
+which results in estimates to the smaller OWDs of:
+
+In this case, the absolute errors are 
+  
+    
+      
+        
+          |
+        
+        5
+        −
+        5.5
+        
+          |
+        
+        =
+        0.5
+         
+        
+          ms
+        
+      
+    
+    {\displaystyle |5-5.5|=0.5~{\text{ms}}}
+  , 
+  
+    
+      
+        
+          |
+        
+        4
+        −
+        3.5
+        
+          |
+        
+        =
+        0.5
+         
+        
+          ms
+        
+      
+    
+    {\displaystyle |4-3.5|=0.5~{\text{ms}}}
+  , and 
+  
+    
+      
+        
+          |
+        
+        2
+        −
+        2.5
+        
+          |
+        
+        =
+        0.5
+         
+        
+          ms
+        
+      
+    
+    {\displaystyle |2-2.5|=0.5~{\text{ms}}}
+   on all three links respectively. In comparison, the average RTT would calculate the OWD on all three links as 5.5 ms, 6 ms, and 3 ms, resulting in absolute errors of 0.5 ms, 2 ms, and 1 ms respectively. Therefore, the MP protocol is more accurate in this example.
+
+Analysis
+Injecting artificial delays by, e.g., holding onto the message for a little while instead of promptly forwarding it, enables the untrusted node to increase the estimated OWDs. The MP protocol can thus estimate an upper bound for OWDs on all three links collectively between the trusted nodes and the untrusted one. For example, if the estimated delays (forward or reverse) were 30 ms, 40 ms, and 50 ms, the actual cannot be 60 ms, 70 ms and 80 ms because that means the untrusted node managed to reduce all three together, which is hard to achieve since delays are bound by the physical characteristics of the transmission media. Note however that the untrusted node may in some case be able to reduce a subset of the links, but not all, by selectively delaying some of the links.
+Compared to the average (i.e., RTT/2), the MP protocol never returns an estimate to the smaller of the forward and reverse OWD that is larger than that returned by the average method. Additionally, the probability distribution of absolute error for the MP protocol has been derived as a function of the underlying delay distribution. This is useful as it enables the calculation of expected error knowing the nature of delays on the links between the untrusted node and the trusted ones.
+
+See also
+Network delay
+Trusted system
+
+
+== References ==

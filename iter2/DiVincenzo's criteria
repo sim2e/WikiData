@@ -1,0 +1,100 @@
+The DiVincenzo criteria are conditions necessary for constructing a quantum computer, conditions proposed in 2000 by the theoretical physicist David P. DiVincenzo, as being those necessary to construct such a computer—a computer first proposed by mathematician Yuri Manin, in 1980, and physicist Richard Feynman, in 1982—as a means to efficiently simulate quantum systems, such as in solving the quantum many-body problem.
+There have been many proposals for how to construct a quantum computer, all of which meet with varying degrees of success against the different challenges of constructing quantum devices. Some of these proposals involve using superconducting qubits, trapped ions, liquid and solid state nuclear magnetic resonance, or optical cluster states, all of which show good prospects but also have issues that prevent their practical implementation.
+The DiVincenzo criteria consist of seven conditions an experimental setup must satisfy to successfully implement quantum algorithms such as Grover's search algorithm or Shor factorization. The first five conditions regard quantum computation itself. Two additional conditions regard implementing quantum communication, such as that used in quantum key distribution. One can demonstrate that DiVincenzo's criteria are satisfied by a classical computer. Comparing the ability of classical and quantum regimes to satisfy the criteria highlights both the complications that arise in dealing with quantum systems and the source of the quantum speed up.
+
+Statement of the criteria
+According to DiVincenzo's criteria, constructing a quantum computer requires that the experimental setup meet seven conditions. The first five are necessary for quantum computation:
+
+A scalable physical system with well-characterized qubit
+The ability to initialize the state of the qubits to a simple fiducial state
+Long relevant decoherence times
+A "universal" set of quantum gates
+A qubit-specific measurement capabilityThe remaining two are necessary for quantum communication:
+
+The ability to interconvert stationary and flying qubits
+The ability to faithfully transmit flying qubits between specified locations
+
+Justification
+DiVincenzo proposed his criteria after many attempts to construct a quantum computer. Below describes why these statements are important, and presents examples.
+
+Scalability with well-characterised qubits
+Most models of quantum computation require the use of qubits. Quantum mechanically, a qubit is defined as a 2-level system with some energy gap. This can sometimes be difficult to implement physically, and so we focus on a particular transition of atomic levels. Whatever the system we choose, we require that the system remain almost always in the subspace of these two levels, and in doing so we can say it is a well-characterised qubit. An example of a system that is not well characterised would be 2 one-electron quantum dots, with potential wells each occupied by a single electron in one well or the other, which is properly characterised as a single qubit. However, in considering a state such as 
+  
+    
+      
+        
+          |
+        
+        00
+        ⟩
+        +
+        
+          |
+        
+        11
+        ⟩
+      
+    
+    {\displaystyle |00\rangle +|11\rangle }
+  , such a system would correspond to a two-qubit state.
+With today's technology, a system that has a well characterised qubit can be created, but it is a challenge to create a system that has an arbitrary number of well-characterised qubits. Currently, one of the biggest problems being faced is that we require exponentially larger experimental setups to accommodate a greater number of qubits. The quantum computer is capable of exponential speed-ups in computing classical algorithms for prime factorisation of numbers; but if this requires an exponentially large setup, then our advantage is lost. In the case of using liquid-state nuclear magnetic resonance (NMR), it was found that increased macroscopic size led to system initialisation that left computational qubits in a highly mixed state. In spite of this, a computation model was found that could still use these mixed states for computation, but the more mixed these states are the weaker the induction signal corresponding to a quantum measurement is. If this signal is below the noise threshold, a solution is to increase the size of the sample to boost the signal strength; and this is the source of the non-scalability of liquid-state NMR as a means for quantum computation. One could say that as the number of computational qubits increases they become less well characterised until a threshold is reached at which they are no longer useful.
+
+Initialising qubits to a simple fiducial state
+All models of quantum and classical computation are based on performing operations on states maintained by qubits or bits and measuring and reporting a result, a procedure that is dependent on the initial state of the system. In particular, the unitarity nature of quantum mechanics makes initialisation of the qubits extremely important. In many cases, initialisation is accomplished by letting the system anneal to the ground state. This is of particular importance when you consider quantum error correction, a procedure to perform quantum processes that are robust against certain types of noise and that require a large supply of freshly initialised qubits, which places restrictions on how fast the initialisation can be.
+An example of annealing is described in a 2005 paper by Petta, et al., where a Bell pair of electrons is prepared in quantum dots. This procedure relies on T1 to anneal the system, and the paper focuses on measuring the T2 relaxation time of the quantum-dot system and gives an idea of the timescales involved (milliseconds), which would be a fundamental roadblock, given that then the decoherence time is shorter than the initialisation time. Alternate approaches (usually involving optical pumping) have been developed to reduce the initialisation time and improve the fidelity of the procedure.
+
+Long relevant decoherence times
+Decoherence is a problem experienced in large, macroscopic quantum computation systems. The quantum resources used by quantum computing models (superposition or entanglement) are quickly destroyed by decoherence. Long decoherence times are desired, much longer than the average gate time, so that decoherence can be combated with error correction or dynamical decoupling. In solid-state NMR using nitrogen-vacancy centers, the orbital electron experiences short decoherence times, making computations problematic; the proposed solution has been to encode the qubit in the nuclear spin of the nitrogen atom, thus increasing the decoherence time. In other systems, such as the quantum dot, issues with strong environmental effects limit the T2 decoherence time. Systems that can be manipulated quickly (through strong interactions) tend to experience decoherence via these very same strong interactions, and so there is a trade-off between ability to implement control and increased decoherence.
+
+A "universal" set of quantum gates
+In both classical and quantum computing, the algorithms that we can compute are restricted by the number of gates we can implement. In the case of quantum computing, a universal quantum computer (a quantum Turing machine) can be constructed using a very small set of 1- and 2-qubit gates. Any experimental setup that manages to have well-characterised qubits; quick, faithful initialisation; and long decoherence times must also be capable of influencing the Hamiltonian (total energy) of the system, in order to effect coherent changes capable of implementing a universal set of gates. A perfect implementation of gates is not always necessary, as gate sequences can be created that are more robust against certain systematic and random noise models. Liquid-state NMR was one of the first setups capable of implementing a universal set of gates, through the use of precise timing and magnetic field pulses. However, as mentioned above, this system was not scalable.
+
+A qubit-specific measurement capability
+For any process modifying the quantum states of qubits, the final measurement of those states is of fundamental importance when performing computations. If our system allows for non-destructive projective measurements, then, in principle, this can be used for state preparation. Measurement is at the foundation of all quantum algorithms, especially in concepts such as quantum teleportation. Measurement techniques that are not 100% efficient are typically repeated to increase the success rate. Examples of reliable measurement devices are found in optical systems where homodyne detectors have reached the point of reliably counting how many photons have passed through the detecting cross-section. More challenging is the measurement of quantum dots, where the energy gap between the 
+  
+    
+      
+        
+          |
+        
+        01
+        ⟩
+        +
+        
+          |
+        
+        10
+        ⟩
+      
+    
+    {\displaystyle |01\rangle +|10\rangle }
+   and 
+  
+    
+      
+        
+          |
+        
+        01
+        ⟩
+        −
+        
+          |
+        
+        10
+        ⟩
+      
+    
+    {\displaystyle |01\rangle -|10\rangle }
+   (the singlet state) is used to measure the relative spins of the 2 electrons.
+
+Interconverting stationary and flying qubits and faithfully transmitting flying qubits between specified locations
+Interconverting and transmitting are necessary when considering quantum communication protocols, such as quantum key distribution, that involve the exchange of coherent quantum states or entangled qubits (for example, the BB84 protocol). When creating pairs of entangled qubits in experimental setups, these qubits are usually "stationary" and cannot be moved from the laboratory. If these qubits can be sent as flying qubits, such as being encoded into the polarisation of a photon, then sending entangled photons to a third party and having them extract that information, leaving two entangled stationary qubits at two different locations, can be considered. The ability to transmit the flying qubit without decoherence is a major problem. Currently, at the Institute for Quantum Computing there are efforts to produce a pair of entangled photons and transmit one of the photons to some other part of the world by reflecting it off a satellite. The main issue now is the decoherence the photon experiences whilst interacting with particles in the atmosphere. Similarly, some attempts have been made to use optical fibres, although the attenuation of the signal has kept this from becoming a reality.
+
+See also
+Quantum computing
+Nuclear magnetic resonance quantum computer
+Trapped ion quantum computer
+
+
+== References ==

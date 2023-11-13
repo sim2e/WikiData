@@ -1,0 +1,493 @@
+Fair division is the problem in game theory of dividing a set of resources among several people who have an entitlement to them so that each person receives their due share. That problem arises in various real-world settings such as division of inheritance, partnership dissolutions, divorce settlements, electronic frequency allocation, airport traffic management, and exploitation of Earth observation satellites. It is an active research area in mathematics, economics (especially social choice theory), dispute resolution, etc. The central tenet of fair division is that such a division should be performed by the players themselves, maybe using a mediator but certainly not an arbiter as only the players really know how they value the goods.
+The archetypal fair division algorithm is divide and choose. It demonstrates that two agents with different tastes can divide a cake such that each of them believes that he got the best piece. The research in fair division can be seen as an extension of this procedure to various more complex settings.
+There are many different kinds of fair division problems, depending on the nature of goods to divide, the criteria for fairness, the nature of the players and their preferences, and other criteria for evaluating the quality of the division.
+
+Things that can be divided
+Formally, a fair division problem is defined by a set 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   (often called "the cake") and a group of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   players. A division is a partition of 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   into 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   disjoint subsets: 
+  
+    
+      
+        C
+        =
+        
+          X
+          
+            1
+          
+        
+        ⊔
+        
+          X
+          
+            2
+          
+        
+        ⊔
+        ⋯
+        ⊔
+        
+          X
+          
+            n
+          
+        
+      
+    
+    {\displaystyle C=X_{1}\sqcup X_{2}\sqcup \cdots \sqcup X_{n}}
+  , one subset per player.
+The set 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   can be of various types:
+
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   may be a finite set of indivisible items, for example: 
+  
+    
+      
+        C
+        =
+        {
+        
+          piano
+        
+        ,
+        
+          car
+        
+        ,
+        
+          apartment
+        
+        }
+      
+    
+    {\displaystyle C=\{{\text{piano}},{\text{car}},{\text{apartment}}\}}
+  , such that each item should be given entirely to a single person.
+
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   may be an infinite set representing a divisible resource, for example: money, or a cake. Mathematically, a divisible resource is often modeled as a subset of a real space, for example, the section [0,1] may represent a long narrow cake, that has to be cut into parallel pieces. The unit disk may represent an apple pie.Additionally, the set to be divided may be:
+
+homogeneous – such as money, where only the amount matters, or
+heterogeneous – such as a cake that may have different ingredients, different icings, etc.Finally, it is common to make some assumptions about whether the items to be divided are:
+
+goods – such as a car or a cake, or
+bads – such as house chores.Based on these distinctions, several general types of fair division problems have been studied:
+
+Fair item assignment – dividing a set of indivisible and heterogeneous goods.
+Fair resource allocation – dividing a set of divisible and homogeneous goods. A special case is fair division of a single homogeneous resource.
+Fair cake-cutting – dividing a divisible, heterogeneous good. A special case is when the cake is a circle; then the problem is called fair pie-cutting.
+Fair chore division – dividing a divisible, heterogeneous bad.Combinations and special cases are also common:
+
+Rental harmony (aka the housemates problem) – dividing a set of indivisible heterogeneous goods (e.g., rooms in an apartment), and simultaneously a homogeneous divisible bad (the rent on the apartment).
+Fair river sharing – dividing waters flowing in an international river among the countries along its stream.
+Fair random assignment – dividing lotteries over divisions – is especially common when allocating indivisible goods.
+
+Definitions of fairness
+Most of what is normally called a fair division is not considered so by the theory because of the use of arbitration. This kind of situation happens quite often with mathematical theories named after real life problems. The decisions in the Talmud on entitlement when an estate is bankrupt reflect some quite complex ideas about fairness, and most people would consider them fair. However they are the result of legal debates by rabbis rather than divisions according to the valuations of the claimants.
+According to the Subjective theory of value, there cannot be an objective measure of the value of each item. Therefore, objective fairness is not possible, as different people may assign different values to each item. Empirical experiments on how people define the concept of fairness lead to inconclusive results.
+Therefore, most current research on fairness focuses on concepts of subjective fairness. Each of the 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   people is assumed to have a personal, subjective utility function or value function, 
+  
+    
+      
+        
+          V
+          
+            i
+          
+        
+      
+    
+    {\displaystyle V_{i}}
+  , which assigns a numerical value to each subset of 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+  . Often the functions are assumed to be normalized, so that every person values the empty set as 0 (
+  
+    
+      
+        
+          V
+          
+            i
+          
+        
+        (
+        ∅
+        )
+        =
+        0
+      
+    
+    {\displaystyle V_{i}(\emptyset )=0}
+   for all i), and the entire set of items as 1 (
+  
+    
+      
+        
+          V
+          
+            i
+          
+        
+        (
+        C
+        )
+        =
+        1
+      
+    
+    {\displaystyle V_{i}(C)=1}
+   for all i) if the items are desirable, and -1 if the items are undesirable. Examples are:
+
+If 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   is the set of indivisible items {piano, car, apartment}, then Alice may assign a value of 1/3 to each item, which means that each item is important to her just the same as any other item. Bob may assign the value of 1 to the set {car, apartment}, and the value 0 to all other sets except X; this means that he wants to get only the car and the apartment together; the car alone or the apartment alone, or each of them together with the piano, is worthless to him.
+If 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   is a long narrow cake (modeled as the interval [0,1]), then, Alice may assign each subset a value proportional to its length, which means that she wants as much cake as possible, regardless of the icings. Bob may assign value only to subsets of [0.4, 0.6], for example, because this part of the cake contains cherries and Bob only cares about cherries.Based on these subjective value functions, there are a number of widely used criteria for a fair division. Some of these conflict with each other but often they can be combined. The criteria described here are only for when each player is entitled to the same amount:
+
+A proportional division means that every person gets at least his due share according to his own value function. For instance if three people divide up a cake each gets at least a third by their own valuation, i.e. each of the n people gets a subset of  
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   which he values as at least 1/n of the total value:
+
+  
+    
+      
+        
+          V
+          
+            i
+          
+        
+        (
+        
+          X
+          
+            i
+          
+        
+        )
+        ≥
+        
+          V
+          
+            i
+          
+        
+        (
+        C
+        )
+        
+          /
+        
+        n
+      
+    
+    {\displaystyle V_{i}(X_{i})\geq V_{i}(C)/n}
+   for all i.
+A super-proportional division is one where each player receives strictly more than 1/n (such a division exists only if the players have different valuations):
+
+  
+    
+      
+        
+          V
+          
+            i
+          
+        
+        (
+        
+          X
+          
+            i
+          
+        
+        )
+        >
+        
+          V
+          
+            i
+          
+        
+        (
+        C
+        )
+        
+          /
+        
+        n
+      
+    
+    {\displaystyle V_{i}(X_{i})>V_{i}(C)/n}
+   for all i.
+An envy-free division guarantees that no-one will want somebody else's share more than their own, i.e. every person gets a share that he values at least as much as all other shares:
+
+  
+    
+      
+        
+          V
+          
+            i
+          
+        
+        (
+        
+          X
+          
+            i
+          
+        
+        )
+        ≥
+        
+          V
+          
+            i
+          
+        
+        (
+        
+          X
+          
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle V_{i}(X_{i})\geq V_{i}(X_{j})}
+   for all i and j.
+A group-envy-free division guarantees that no subset of agents envies another subset of the same size; it is much stronger than envy-freeness.
+An equitable division means every person feels exactly the same happiness, i.e. the proportion of the cake a player receives by their own valuation is the same for every player. This is a difficult aim as players need not be truthful if asked their valuation:
+
+  
+    
+      
+        
+          V
+          
+            i
+          
+        
+        (
+        
+          X
+          
+            i
+          
+        
+        )
+        =
+        
+          V
+          
+            j
+          
+        
+        (
+        
+          X
+          
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle V_{i}(X_{i})=V_{j}(X_{j})}
+   for all i and j.
+An exact division (aka consensus division) is one where all players agree on the value of each share :
+
+  
+    
+      
+        
+          V
+          
+            i
+          
+        
+        (
+        
+          X
+          
+            i
+          
+        
+        )
+        =
+        
+          V
+          
+            j
+          
+        
+        (
+        
+          X
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle V_{i}(X_{i})=V_{j}(X_{i})}
+   for all i and j.All the above criteria assume that the participants have equal entitlements. If different participants have different entitlements (e.g., in a partnership where each partner invested a different amount), then the fairness criteria should be adapted accordingly. See Proportional cake-cutting with different entitlements.
+
+Additional requirements
+In addition to fairness, it is sometimes desired that the division be Pareto optimal, i.e., no other allocation would make someone better off without making someone else worse off. The term efficiency comes from the economics idea of the efficient market. A division where one player gets everything is optimal by this definition so on its own this does not guarantee even a fair share. See also efficient cake-cutting and the price of fairness.
+
+In the real world people sometimes have a very accurate idea of how the other players value the goods and they may care very much about it. The case where they have complete knowledge of each other's valuations can be modeled by game theory. Partial knowledge is very hard to model. A major part of the practical side of fair division is the devising and study of procedures that work well despite such partial knowledge or small mistakes.
+An additional requirement is that the fair division procedure be a truthful mechanism, i.e., it should be a dominant strategy for the participants to report their true valuations. This requirement is usually very hard to satisfy in combination with fairness and Pareto-efficiency.
+
+Procedures
+A fair division procedure lists actions to be performed by the players in terms of the visible data and their valuations. A valid procedure is one that guarantees a fair division for every player who acts rationally according to their valuation. Where an action depends on a player's valuation the procedure is describing the strategy a rational player will follow. A player may act as if a piece had a different value but must be consistent. For instance if a procedure says the first player cuts the cake in two equal parts then the second player chooses a piece, then the first player cannot claim that the second player got more.
+What the players do is:
+
+Agree on their criteria for a fair division
+Select a valid procedure and follow its rulesIt is assumed the aim of each player is to maximize the minimum amount they might get, or in other words, to achieve the maximin.
+Procedures can be divided into discrete vs. continuous procedures. A discrete procedure would for instance only involve one person at a time cutting or marking a cake. Continuous procedures involve things like one player moving a knife and the other saying "stop". Another type of continuous procedure involves a person assigning a value to every part of the cake.
+For a list of fair division procedures, see Category:Fair division protocols.
+No finite protocol (even if unbounded) can guarantee an envy-free division of a cake among three or more players, if each player is to receive a single connected piece. However, this result applies only to the model presented in that work and not for cases where, for example, a mediator has full information of the players' valuation functions and proposes a division based on this information.
+
+Extensions
+Recently, the model of fair division has been extended from individual agents to families (pre-determined groups) of agents. See Fair division among groups.
+
+History
+According to Sol Garfunkel, the cake-cutting problem had been one of the most important open problems in 20th century mathematics, when the most important variant of the problem was finally solved with the Brams-Taylor procedure by Steven Brams and Alan Taylor in 1995.
+Divide and choose's origins are undocumented. The related activities of bargaining and barter are also ancient. Negotiations involving more than two people are also quite common, the Potsdam Conference is a notable recent example.
+The theory of fair division dates back only to the end of the second world war. It was devised by a group of Polish mathematicians, Hugo Steinhaus, Bronisław Knaster and Stefan Banach, who used to meet in the Scottish Café in Lvov (then in Poland). A proportional (fair division) division for any number of players called 'last-diminisher' was devised in 1944. This was attributed to Banach and Knaster by Steinhaus when he made the problem public for the first time at a meeting of the Econometric Society in Washington, D.C., on 17 September 1947. At that meeting he also proposed the problem of finding the smallest number of cuts necessary for such divisions.
+For the history of envy-free cake-cutting, see
+envy-free cake-cutting.
+
+In popular culture
+The 17-animal inheritance puzzle involves the fair division of 17 camels (or elephants, or horses) into the proportions 1/2, 1/3, and 1/9. It is a popular mathematical puzzle, often claimed to have an ancient origin, but its first documented publication was in 18th-century Iran.
+In Numb3rs season 3 episode "One Hour", Charlie talks about the cake-cutting problem as applied to the amount of money a kidnapper was demanding.
+Hugo Steinhaus wrote about a number of variants of fair division in his book Mathematical Snapshots. In his book he says a special three-person version of fair division was devised by G. Krochmainy in Berdechów in 1944 and another by Mrs L Kott.
+Martin Gardner and Ian Stewart have both published books with sections about the problem. Martin Gardner introduced the chore division form of the problem. Ian Stewart has popularized the fair division problem with his articles in Scientific American and New Scientist.
+A Dinosaur Comics strip is based on the cake-cutting problem.
+In the Israeli movie Saint Clara, a Russian immigrant asks an Israeli math teacher, how a circular cake can be divided fairly among 7 people? His answer is to make 3 straight cuts through its middle, making 8 equal pieces. Since there are only 7 people, one piece should be discarded, in the spirit of communism.
+
+See also
+Online fair division is a variant of fair division in which not all items or agents are available at the time of division.
+Equity (economics)
+International trade
+Justice (economics)
+Knapsack problem
+List of unsolved problems in fair division
+Nash bargaining game
+Pizza theorem
+Price of fairness
+Spite (game theory)
+Strategic fair division
+Tragedy of the anticommons
+Tragedy of the commons
+
+References
+Text books
+Young, Peyton H. (1995). Equity: in theory and practice. Princeton University Press.
+Brams, Steven J.; Taylor, Alan D. (1996). Fair division: from cake-cutting to dispute resolution. Cambridge University Press. ISBN 0-521-55644-9.
+Robertson, Jack; Webb, William (1998). Cake-Cutting Algorithms: Be Fair If You Can. Natick, Massachusetts: A. K. Peters. ISBN 978-1-56881-076-8. LCCN 97041258. OL 2730675W.
+Herve Moulin (2004). Fair Division and Collective Welfare. Cambridge, Massachusetts: MIT Press. ISBN 9780262134231.
+Barbanel, Julius B. (2005). The geometry of efficient fair division. Introduction by Alan D. Taylor. Cambridge: Cambridge University Press. doi:10.1017/CBO9780511546679. ISBN 0-521-84248-4. MR 2132232. Short summary is available at:  Barbanel, J. (2010). "A Geometric Approach to Fair Division". The College Mathematics Journal. 41 (4): 268. doi:10.4169/074683410x510263.
+Steven J. Brams (2008). Mathematics and Democracy: Designing Better Voting and Fair-Division Procedures. Princeton, NJ: Princeton University Press. ISBN 9780691133218.
+
+Survey articles
+Vincent P. Crawford (1987). "fair division," The New Palgrave: A Dictionary of Economics, v. 2, pp. 274–75.
+Hal Varian (1987). "fairness," The New Palgrave: A Dictionary of Economics, v. 2, pp. 275–76.
+Bryan Skyrms (1996). The Evolution of the Social Contract Cambridge University Press. ISBN 978-0-521-55583-8
+Hill, T.P. (2000). "Mathematical devices for getting a fair share". American Scientist. 88 (4): 325–331. Bibcode:2000AmSci..88..325H. doi:10.1511/2000.4.325. S2CID 221539202.
+Brandt, Felix; Conitzer, Vincent; Endriss, Ulle; Lang, Jérôme; Procaccia, Ariel D. (2016). Handbook of Computational Social Choice. Cambridge University Press. ISBN 9781107060432. (free online version), chapters 11–13.
+Fair Division by Christian Klamler – in Handbook of Group Decision and Negotiation pp 183–202.
+Cake-Cutting: Fair Division of Divisible Goods by Claudia Lindner and Jörg Rothe – in Economics and Computation pp 395–491.
+Fair division of indivisible goods by Jérôme Lang and Jörg Rothe – in Economics and Computation pp 493–550.
+
+External links
+Fair Division from the Discrete Mathematics Project at the University of Colorado at Boulder.
+Fair Division: Method of Markers
+Fair Division: Method of Sealed Bids

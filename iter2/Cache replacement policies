@@ -1,0 +1,231 @@
+In computing, cache replacement policies (also known as cache replacement algorithms or cache algorithms) are optimizing instructions or algorithms which a computer program or hardware-maintained structure can utilize to manage a cache of information. Caching improves performance by keeping recent or often-used data items in memory locations which are faster, or computationally cheaper to access, than normal memory stores. When the cache is full, the algorithm must choose which items to discard to make room for new data.
+
+Overview
+The average memory reference time is
+
+  
+    
+      
+        T
+        =
+        m
+        ×
+        
+          T
+          
+            m
+          
+        
+        +
+        
+          T
+          
+            h
+          
+        
+        +
+        E
+      
+    
+    {\displaystyle T=m\times T_{m}+T_{h}+E}
+  where
+
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   = miss ratio = 1 - (hit ratio)
+
+  
+    
+      
+        
+          T
+          
+            m
+          
+        
+      
+    
+    {\displaystyle T_{m}}
+   = time to make main-memory access when there is a miss (or, with a multi-level cache, average memory reference time for the next-lower cache)
+
+  
+    
+      
+        
+          T
+          
+            h
+          
+        
+      
+    
+    {\displaystyle T_{h}}
+  = latency: time to reference the cache (should be the same for hits and misses)
+
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   = secondary effects, such as queuing effects in multiprocessor systemsA cache has two primary figures of merit: latency and hit ratio. A number of secondary factors also affect cache performance.The hit ratio of a cache describes how often a searched-for item is found. More-efficient replacement policies track more usage information to improve the hit rate for a given cache size.
+The latency of a cache describes how long after requesting a desired item the cache can return that item when there is a hit. Faster replacement strategies typically track of less usage information—or, with a direct-mapped cache, no information—to reduce the time required to update the information. Each replacement strategy is a compromise between hit rate and latency.
+Hit-rate measurements are typically performed on benchmark applications, and the hit ratio varies by application. Video and audio streaming applications often have a hit ratio near zero, because each bit of data in the stream is read once (a compulsory miss), used, and then never read or written again. Many cache algorithms (particularly LRU) allow streaming data to fill the cache, pushing out information which will soon be used again (cache pollution). Other factors may be size, length of time to obtain, and expiration. Depending on cache size, no further caching algorithm to discard items may be needed. Algorithms also maintain cache coherence when several caches are used for the same data, such as multiple database servers updating a shared data file.
+
+Policies
+Bélády's algorithm
+The most efficient caching algorithm would be to discard information which would not be needed for the longest time; this is known as Bélády's optimal algorithm, optimal replacement policy, or the clairvoyant algorithm. Since it is generally impossible to predict how far in the future information will be needed, this is unfeasible in practice. The practical minimum can be calculated after experimentation, and the effectiveness of a chosen cache algorithm can be compared.
+
+When a page fault occurs, a set of pages is in memory. In the example, the sequence of 5, 0, 1 is accessed by Frame 1, Frame 2, and Frame 3 respectively. When 2 is accessed, it replaces value 5 (which is in frame 1, predicting that value 5 will not be accessed in the near future. Because a general-purpose operating system cannot predict when 5 will be accessed, Bélády's algorithm cannot be implemented there.
+
+Random replacement (RR)
+Random replacement selects an item and discards it to make space when necessary. This algorithm does not require keeping any access history. It has been used in ARM processors due to its simplicity, and it allows efficient stochastic simulation.
+
+Simple queue-based policies
+First in first out (FIFO)
+With this algorithm, the cache behaves like a FIFO queue; it evicts blocks in the order in which they were added, regardless of how often or how many times they were accessed before.
+
+Last in first out (LIFO) or First in last out (FILO)
+The cache behaves like a stack, and unlike a FIFO queue. The cache evicts the block added most recently first, regardless of how often or how many times it was accessed before.
+
+Simple recency-based policies
+Least recently used (LRU)
+Discards least-recently-used items first. This algorithm requires keeping track of what was used and when, which is cumbersome. It requires "age bits" for cache lines, and tracks the least-recently-used cache line based on them. When a cache line is used, the age of the other cache lines changes. LRU is a family of caching algorithms, which includes 2Q by Theodore Johnson and Dennis Shasha and LRU/K by Pat O'Neil, Betty O'Neil and Gerhard Weikum. The access sequence for the example is A B C D E D F:
+
+When A B C D is installed in the blocks with sequence numbers (increment 1 for each new access) and E is accessed, it is a miss and must be installed in a block. With the LRU algorithm, E will replace A because A has the lowest rank (A(0)). In the next-to-last step, D is accessed and the sequence number is updated. F is then accessed, replacing B – which had the lowest rank, (B(1)).
+
+Time-aware, least-recently used
+Time-aware, least-recently-used (TLRU) is a variant of LRU designed for when the contents of a cache have a valid lifetime. The algorithm is suitable for network cache applications such as information-centric networking (ICN), content delivery networks (CDNs) and distributed networks in general. TLRU introduces a term: TTU (time to use), a timestamp of content (or a page) which stipulates the usability time for the content based on its locality and the content publisher. TTU provides more control to a local administrator in regulating network storage.
+When content subject to TLRU arrives, a cache node calculates the local TTU based on the TTU assigned by the content publisher. The local TTU value is calculated with a locally-defined function. When the local TTU value is calculated, content replacement is performed on a subset of the total content of the cache node. TLRU ensures that less-popular and short-lived content is replaced with incoming content.
+
+Most-recently-used (MRU)
+Unlike LRU, MRU discards the most-recently-used items first. At the 11th VLDB conference, Chou and DeWitt said: "When a file is being repeatedly scanned in a [looping sequential] reference pattern, MRU is the best replacement algorithm." Researchers presenting at the 22nd VLDB conference noted that for random access patterns and repeated scans over large datasets (also known as cyclic access patterns), MRU cache algorithms have more hits than LRU due to their tendency to retain older data. MRU algorithms are most useful in situations where the older an item is, the more likely it is to be accessed. The access sequence for the example is A B C D E C D B:
+
+A B C D are placed in the cache, since there is space available. At the fifth access (E), the block which held D is replaced with E since this block was used most recently. At the next access (to D), C is replaced since it was the block accessed just before D.
+
+Segmented LRU (SLRU)
+An SLRU cache is divided into two segments: probationary and protected. Lines in each segment are ordered from most- to least-recently-accessed. Data from misses is added to the cache at the most-recently-accessed end of the probationary segment. Hits are removed from where they reside and added to the most-recently-accessed end of the protected segment; lines in the protected segment have been accessed at least twice. The protected segment is finite; migration of a line from the probationary segment to the protected segment may force the migration of the LRU line in the protected segment to the most-recently-used end of the probationary segment, giving this line another chance to be accessed before being replaced. The size limit of the protected segment is an SLRU parameter which varies according to I/O workload patterns. When data must be discarded from the cache, lines are obtained from the LRU end of the probationary segment.
+
+LRU approximations
+LRU may be expensive in caches with higher associativity. Practical hardware usually employs an approximation to achieve similar performance at a lower hardware cost.
+
+Pseudo-LRU (PLRU)
+For CPU caches with large associativity (generally > four ways), the implementation cost of LRU becomes prohibitive. In many CPU caches, an algorithm which almost always discards one of the least-recently-used items is sufficient; many CPU designers choose a PLRU algorithm, which only needs one bit per cache item to work. PLRU typically has a slightly-worse miss ratio, slightly-better latency, uses slightly less power than LRU, and has a lower overhead than LRU.
+Bits work as a binary tree of one-bit pointers which point to a less-recently-used sub-tree. Following the pointer chain to the leaf node identifies the replacement candidate. With an access, all pointers in the chain from the accessed way's leaf node to the root node are set to point to a sub-tree which does not contain the accessed path. The access sequence in the example is A B C D E:
+
+When there is access to a value (such as A) and it is not in the cache, it is loaded from memory and placed in the block where the arrows are pointing in the example. After that block is placed, the arrows are flipped to point the opposite way. A, B, C and D are placed; E replaces A as the cache fills because that was where the arrows were pointing, and the arrows which led to A flip to point in the opposite direction (to B, the block which will be replaced on the next cache miss).
+
+Clock-Pro
+The LRU algorithm cannot be implemented in the critical path of computer systems, such as operating systems, due to its high overhead; Clock, an approximation of LRU, is commonly used instead. Clock-Pro is an approximation of LIRS for low-cost implementation in systems. Clock-Pro has the basic Clock framework, with three advantages. It has three "clock hands" (unlike Clock's single "hand"), and can approximately measure the reuse distance of data accesses. Like LIRS, it can quickly evict one-time-access or low-locality data items. Clock-Pro is as complex as Clock, and is easy to implement at low cost. The buffer-cache replacement implementation in the 2017 version of Linux combines LRU and Clock-Pro.
+
+Simple frequency-based policies
+Least frequently used (LFU)
+The LFU algorithm counts how often an item is needed; those used less often are discarded first. This is similar to LRU, except that how many times a block was accessed is stored instead of how recently. While running an access sequence, the block which was used the fewest times will be removed from the cache.
+
+Least frequent recently used (LFRU)
+The least frequent recently used (LFRU) algorithm combines the benefits of LFU and LRU. LFRU is suitable for network cache applications such as ICN, CDNs, and distributed networks in general. In LFRU, the cache is divided into two partitions: privileged and unprivileged. The privileged partition is protected  and, if content is popular, it is pushed into the privileged partition. In replacing the privileged partition, LFRU evicts content from the unprivileged partition; pushes content from the privileged to the unprivileged partition, and inserts new content into the privileged partition. LRU is used for the privileged partition, and an approximated LFU (ALFU) algorithm for the unprivileged partition.
+
+LFU with dynamic aging (LFUDA)
+A variant, LFU with dynamic aging (LFUDA), uses dynamic aging to accommodate shifts in a set of popular objects; it adds a cache-age factor to the reference count when a new object is added to the cache or an existing object is re-referenced. LFUDA increments cache age when evicting blocks by setting it to the evicted object's key value, and the cache age is always less than or equal to the minimum key value in the cache. If an object was frequently accessed in the past and becomes unpopular, it will remain in the cache for a long time (preventing newly- or less-popular objects from replacing it). Dynamic aging reduces the number of such objects, making them eligible for replacement,  and LFUDA reduces cache pollution caused by LFU when a cache is small.
+
+RRIP-style policies
+RRIP-style policies are the basis for other cache replacement policies, including Hawkeye.
+
+Re-Reference Interval Prediction (RRIP)
+RRIP is a flexible policy, proposed by Intel, which attempts to provide good scan resistance while allowing older cache lines that have not been reused to be evicted. All cache lines have a prediction value, the RRPV (re-reference prediction value), that should correlate with when the line is expected to be reused. The RRPV is usually high on insertion; if a line is not reused soon, it will be evicted to prevent scans (large amounts of data used only once) from filling the cache. When a cache line is reused the RRPV is set to zero, indicating that the line has been reused once and is likely to be reused again.
+On a cache miss, the line with an RRPV equal to the maximum possible RRPV is evicted; with 3-bit values, a line with an RRPV of 23 - 1 = 7 is evicted. If no lines have this value, all RRPVs in the set are increased by 1 until one reaches it. A tie-breaker is needed, and usually it is the first line on the left. The increase is needed to ensure that older lines are aged properly and will be evicted if they are not reused.
+
+Static RRIP (SRRIP)
+SRRIP inserts lines with an RRPV value of maxRRIP; a line which has just been inserted will be the most likely to be evicted on a cache miss.
+
+Bimodal RRIP (BRRIP)
+SRRIP performs well normally, but suffers when the working set is much larger than the cache size and causes cache thrashing. This is remedied by inserting lines with an RRPV value of maxRRPV most of the time, and inserting lines with an RRPV value of maxRRPV - 1 randomly with a low probability. This causes some lines to "stick" in the cache, and helps prevent thrashing. BRRIP degrades performance, however, on non-thrashing accesses. SRRIP performs best when the working set is smaller than the cache, and BRRIP performs best when the working set is larger than the cache.
+
+Dynamic RRIP (DRRIP)
+DRRIP uses set dueling to select whether to use SRRIP or BRRIP. It dedicates a few sets (typically 32) to use SRRIP and another few to use BRRIP, and uses a policy counter which monitors set performance to determine which policy will be used by the rest of the cache.
+
+Policies approximating Bélády's algorithm
+Bélády's algorithm is the optimal cache replacement policy, but it requires knowledge of the future to evict lines that will be reused farthest in the future. A number of replacement policies have been proposed which attempt to predict future reuse distances from past access patterns, allowing them to approximate the optimal replacement policy. Some of the best-performing cache replacement policies attempt to imitate Bélády's algorithm.
+
+Hawkeye
+Hawkeye attempts to emulate Bélády's algorithm by using past accesses by a PC to predict whether the accesses it produces generate cache-friendly (used later) or cache-averse accesses (not used later). It samples a number of non-aligned cache sets, uses a history of length 
+  
+    
+      
+        8
+        ×
+        
+          the cache size
+        
+      
+    
+    {\displaystyle 8\times {\text{the cache size}}}
+   and emulates Bélády's algorithm on these accesses. This allows the policy to determine which lines should have been cached and which should not, predicting whether an instruction is cache-friendly or cache-averse. This data is then fed into an RRIP; accesses from cache-friendly instructions have a lower RRPV value (likely to be evicted later), and accesses from cache-averse instructions have a higher RRPV value (likely to be evicted sooner). The RRIP backend makes the eviction decisions. The sampled cache and OPT generator set the initial RRPV value of the inserted cache lines. Hawkeye won the CRC2 cache championship in 2017, and Harmony is an extension of Hawkeye which improves prefetching performance.
+
+Mockingjay
+Mockingjay tries to improve on Hawkeye in several ways. It drops the binary prediction, allowing it to make more fine-grained decisions about which cache lines to evict, and leaves the decision about which cache line to evict for when more information is available.
+Mockingjay keeps a sampled cache of unique accesses, the PCs that produced them, and their timestamps. When a line in the sampled cache is accessed again, the time difference will be sent to the reuse distance predictor. The RDP uses temporal difference learning, where the new RDP value will be increased or decreased by a small number to compensate for outliers; the number is calculated as 
+  
+    
+      
+        w
+        =
+        min
+        
+          (
+          
+            1
+            ,
+            
+              
+                timestamp difference
+                16
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle w=\min \left(1,{\frac {\text{timestamp difference}}{16}}\right)}
+  . If the value has not been initialized, the observed reuse distance is inserted directly. If the sampled cache is full and a line needs to be discarded, the RDP is instructed that the PC which last accessed it produces streaming accesses.
+On an access or insertion, the estimated time of reuse (ETR) for this line is updated to reflect the predicted reuse distance. On a cache miss, the line with the highest ETR value is evicted. Mockingjay has results which are close to the optimal Bélády's algorithm.
+
+Machine-learning policies
+A number of policies have attempted to use perceptrons, markov chains or other types of machine learning to predict which line to evict. Learning augmented algorithms also exist for cache replacement.
+
+Other policies
+Low inter-reference recency set (LIRS)
+LIRS is a page replacement algorithm with better performance than LRU and other, newer replacement algorithms. Reuse distance is a metric for dynamically ranking accessed pages to make a replacement decision. LIRS addresses the limits of LRU by using recency to evaluate inter-reference recency (IRR) to make a replacement decision.
+
+In the diagram, X indicates that a block is accessed at a particular time. If block A1 is accessed at time 1, its recency will be 0; this is the first-accessed block and the IRR will be 1, since it predicts that A1 will be accessed again in time 3. In time 2, since A4 is accessed, the recency will become 0 for A4 and 1 for A1; A4 is the most recently accessed object, and the IRR will become 4. At time 10, the LIRS algorithm will have two sets: an LIR set = {A1, A2} and an HIR set = {A3, A4, A5}. At time 10, if there is access to A4 a miss occurs; LIRS will  evict A5 instead of A2 because of its greater recency.
+
+Adaptive replacement cache
+Adaptive replacement cache (ARC) constantly balances between LRU and LFU to improve the combined result. It improves SLRU by using information about recently-evicted cache items to adjust the size of the protected and probationary segments to make the best use of available cache space.
+
+Clock with adaptive replacement
+Clock with adaptive replacement (CAR) combines the advantages of ARC and Clock. CAR performs comparably to ARC, and outperforms LRU and Clock. Like ARC, CAR is self-tuning and requires no user-specified parameters.
+
+Multi-queue
+The multi-queue replacement (MQ) algorithm was developed to improve the performance of a second-level buffer cache, such as a server buffer cache, and was introduced in a paper by Zhou, Philbin, and Li. The MQ cache contains an m number of LRU queues: Q0, Q1, ..., Qm-1. The value of m represents a hierarchy based on the lifetime of all blocks in that queue.
+
+Pannier
+Pannier is a container-based flash caching mechanism which identifies containers whose blocks have variable access patterns. Pannier has a priority-queue-based survival-queue structure to rank containers based on their survival time, which is proportional to live data in the container.
+
+Static analysis
+Static analysis determines which accesses are cache hits or misses to indicate the worst-case execution time of a program. An approach to analyzing properties of LRU caches is to give each block in the cache an "age" (0 for the most recently used) and compute intervals for possible ages. This analysis can be refined to distinguish cases where the same program point is accessible by paths that result in misses or hits. An efficient analysis may be obtained by abstracting sets of cache states by antichains which are represented by compact binary decision diagrams.LRU static analysis does not extend to pseudo-LRU policies. According to computational complexity theory, static-analysis problems posed by pseudo-LRU and FIFO are in higher complexity classes than those for LRU.
+
+See also
+Cache-oblivious algorithm
+Distributed cache
+
+References
+External links
+Definitions of various cache algorithms
+Caching algorithm for flash/SSDs

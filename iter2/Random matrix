@@ -1,0 +1,1733 @@
+In probability theory and mathematical physics, a random matrix is a matrix-valued random variable—that is, a matrix in which some or all elements are random variables. Many important properties of physical systems can be represented mathematically as matrix problems. For example, the thermal conductivity of a lattice can be computed from the dynamical matrix of the particle-particle interactions within the lattice.
+
+Applications
+Physics
+In nuclear physics, random matrices were introduced by Eugene Wigner to model the nuclei of heavy atoms. Wigner postulated that the spacings between the lines in the spectrum of a heavy atom nucleus should resemble the spacings between the eigenvalues of a random matrix, and should depend only on the symmetry class of the underlying evolution. In solid-state physics, random matrices model the behaviour of large disordered Hamiltonians in the mean-field approximation.
+In quantum chaos, the Bohigas–Giannoni–Schmit (BGS) conjecture asserts that the spectral statistics of quantum systems whose classical counterparts exhibit chaotic behaviour are described by random matrix theory.In quantum optics, transformations described by random unitary matrices are crucial for demonstrating the advantage of quantum over classical computation (see, e.g., the boson sampling model). Moreover, such random unitary transformations can be directly implemented in an optical circuit, by mapping their parameters to optical circuit components (that is beam splitters and phase shifters).Random matrix theory has also found applications to the chiral Dirac operator in quantum chromodynamics, quantum gravity in two dimensions, mesoscopic physics, spin-transfer torque, the fractional quantum Hall effect, Anderson localization, quantum dots, and superconductors
+
+Mathematical statistics and numerical analysis
+In multivariate statistics, random matrices were introduced by John Wishart, who sought to estimate covariance matrices of large samples.  Chernoff-, Bernstein-, and Hoeffding-type inequalities can typically be strengthened when applied to the maximal eigenvalue (i.e. the eigenvalue of largest magnitude) of a finite sum of random Hermitian matrices. Random matrix theory is used to study the spectral properties of random matrices—such as sample covariance matrices—which is of particular interest in high-dimensional statistics. Random matrix theory also saw applications in neuronal networks and deep learning, with recent work utilizing random matrices to show that hyper-parameter tunings can be cheaply transferred between large neural networks without the need for re-training.In numerical analysis, random matrices have been used since the work of John von Neumann and Herman Goldstine to describe computation errors in operations such as matrix multiplication. Although random entries are traditional "generic" inputs to an algorithm, the concentration of measure associated with random matrix distributions implies that random matrices will not test large portions of an algorithm's input space.
+
+Number theory
+In number theory, the distribution of zeros of the Riemann zeta function (and other L-functions) is modeled by the distribution of eigenvalues of certain random matrices. The connection was first discovered by Hugh Montgomery and Freeman Dyson. It is connected to the Hilbert–Pólya conjecture.
+
+Free probability
+The relation of free probability with random matrices is a key reason for the wide use of free probability in other subjects. Voiculescu introduced the concept of freeness around 1983 in an operator algebraic context; at the beginning there was no relation at all with random matrices. This connection was only revealed later in 1991 by Voiculescu; he was motivated by the fact that the limit distribution which he found in his free central limit theorem had appeared before in Wigner's semi-circle law in the random matrix context.
+
+Theoretical neuroscience
+In the field of theoretical neuroscience, random matrices are increasingly used to model the network of synaptic connections between neurons in the brain.  Dynamical models of neuronal networks with random connectivity matrix were shown to exhibit a phase transition to chaos when the variance of the synaptic weights crosses a critical value, at the limit of infinite system size.  Results on random matrices have also shown that the dynamics of random-matrix models are insensitive to mean connection strength.  Instead, the stability of fluctuations depends on connection strength variation and time to synchrony depends on network topology.
+
+Optimal control
+In optimal control theory, the evolution of n state variables through time depends at any time on their own values and on the values of k control variables. With linear evolution, matrices of coefficients appear in the state equation (equation of evolution). In some problems the values of the parameters in these matrices are not known with certainty, in which case there are random matrices in the state equation and the problem is known as one of stochastic control.: ch. 13  A key result in the case of linear-quadratic control with stochastic matrices is that the certainty equivalence principle does not apply: while in the absence of multiplier uncertainty (that is, with only additive uncertainty) the optimal policy with a quadratic loss function coincides with what would be decided if the uncertainty were ignored, the optimal policy may differ if the state equation contains random coefficients.
+
+Computational mechanics
+In computational mechanics, epistemic uncertainties underlying the lack of knowledge about the physics of the modeled system give rise to mathematical operators associated with the computational model, which are deficient in a certain sense. Such operators lack certain properties linked to unmodeled physics. When such operators are discretized to perform computational simulations, their accuracy is limited by the missing physics. To compensate for this deficiency of the mathematical operator, it is not enough to make the model parameters random, it is necessary to consider a mathematical operator that is random and can thus generate families of computational models in the hope that one of these captures the missing physics. Random matrices have been used in this sense, with applications in vibroacoustics, wave propagations, materials science, fluid mechanics, heat transfer, etc.
+
+Gaussian ensembles
+The most-commonly studied random matrix distributions are the Gaussian ensembles: GOE, GUE and GSE. They are often denoted by their Dyson index, β = 1 for GOE, β = 2 for GUE, and β = 4 for GSE. This index counts the number of real components per matrix element.
+
+Definitions
+The Gaussian unitary ensemble 
+  
+    
+      
+        
+          GUE
+        
+        (
+        n
+        )
+      
+    
+    {\displaystyle {\text{GUE}}(n)}
+   is described by the Gaussian measure with density
+
+on the space of 
+  
+    
+      
+        n
+        ×
+        n
+      
+    
+    {\displaystyle n\times n}
+   Hermitian matrices 
+  
+    
+      
+        H
+        =
+        (
+        
+          H
+          
+            i
+            j
+          
+        
+        
+          )
+          
+            i
+            ,
+            j
+            =
+            1
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle H=(H_{ij})_{i,j=1}^{n}}
+  . Here
+
+is a normalization constant, chosen so that the integral of the density is equal to one. The term unitary refers to the fact that the distribution is invariant under unitary conjugation. The Gaussian unitary ensemble models Hamiltonians lacking time-reversal symmetry.
+The Gaussian orthogonal ensemble 
+  
+    
+      
+        
+          GOE
+        
+        (
+        n
+        )
+      
+    
+    {\displaystyle {\text{GOE}}(n)}
+   is described by the Gaussian measure with density
+
+on the space of n × n real symmetric matrices H = (Hij)ni,j=1. Its distribution is invariant under orthogonal conjugation, and it models Hamiltonians with time-reversal symmetry.
+The Gaussian symplectic ensemble 
+  
+    
+      
+        
+          GSE
+        
+        (
+        n
+        )
+      
+    
+    {\displaystyle {\text{GSE}}(n)}
+   is described by the Gaussian measure with density
+
+on the space of n × n Hermitian quaternionic matrices, e.g. symmetric square matrices composed of quaternions, H = (Hij)ni,j=1. Its distribution is invariant under conjugation by the symplectic group, and it models Hamiltonians with time-reversal symmetry but no rotational symmetry.
+
+Point correlation functions
+The ensembles as defined here have Gaussian distributed matrix elements with mean ⟨Hij⟩ = 0, and two-point correlations given by
+
+from which all higher correlations follow by Isserlis' theorem.
+
+Spectral density
+The joint probability density for the eigenvalues λ1, λ2, ..., λn of GUE/GOE/GSE is given by
+
+where Zβ,n is a normalization constant which can be explicitly computed, see Selberg integral. In the case of GUE (β = 2), the formula (1) describes a determinantal point process. Eigenvalues repel as the joint probability density has a zero (of 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+  th order) for coinciding eigenvalues 
+  
+    
+      
+        
+          λ
+          
+            j
+          
+        
+        =
+        
+          λ
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \lambda _{j}=\lambda _{i}}
+  .
+The distribution of the largest eigenvalue for GOE, and GUE, are explicitly solvable. They converge to the Tracy–Widom distribution after shifting and scaling appropriately.
+
+Convergence to Wigner semicircular distribution
+The spectrum, divided by 
+  
+    
+      
+        
+          
+            N
+            
+              σ
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\sqrt {N\sigma ^{2}}}}
+  , converges in distribution to the semicircular distribution on the interval 
+  
+    
+      
+        [
+        −
+        2
+        ,
+        +
+        2
+        ]
+      
+    
+    {\displaystyle [-2,+2]}
+  : 
+  
+    
+      
+        ρ
+        (
+        x
+        )
+        =
+        
+          
+            1
+            
+              2
+              π
+            
+          
+        
+        
+          
+            4
+            −
+            
+              x
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle \rho (x)={\frac {1}{2\pi }}{\sqrt {4-x^{2}}}}
+  . Here 
+  
+    
+      
+        
+          σ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \sigma ^{2}}
+   is the variance of off-diagonal entries.
+
+Distribution of level spacings
+From the ordered sequence of eigenvalues 
+  
+    
+      
+        
+          λ
+          
+            1
+          
+        
+        <
+        …
+        <
+        
+          λ
+          
+            n
+          
+        
+        <
+        
+          λ
+          
+            n
+            +
+            1
+          
+        
+        <
+        …
+      
+    
+    {\displaystyle \lambda _{1}<\ldots <\lambda _{n}<\lambda _{n+1}<\ldots }
+  , one defines the normalized spacings 
+  
+    
+      
+        s
+        =
+        (
+        
+          λ
+          
+            n
+            +
+            1
+          
+        
+        −
+        
+          λ
+          
+            n
+          
+        
+        )
+        
+          /
+        
+        ⟨
+        s
+        ⟩
+      
+    
+    {\displaystyle s=(\lambda _{n+1}-\lambda _{n})/\langle s\rangle }
+  , where 
+  
+    
+      
+        ⟨
+        s
+        ⟩
+        =
+        ⟨
+        
+          λ
+          
+            n
+            +
+            1
+          
+        
+        −
+        
+          λ
+          
+            n
+          
+        
+        ⟩
+      
+    
+    {\displaystyle \langle s\rangle =\langle \lambda _{n+1}-\lambda _{n}\rangle }
+   is the mean spacing. The probability distribution of spacings is approximately given by,
+
+for the orthogonal ensemble GOE 
+  
+    
+      
+        β
+        =
+        1
+      
+    
+    {\displaystyle \beta =1}
+  ,
+
+for the unitary ensemble GUE 
+  
+    
+      
+        β
+        =
+        2
+      
+    
+    {\displaystyle \beta =2}
+  , and                                  
+
+for the symplectic ensemble GSE 
+  
+    
+      
+        β
+        =
+        4
+      
+    
+    {\displaystyle \beta =4}
+  .
+The numerical constants are such that 
+  
+    
+      
+        
+          p
+          
+            β
+          
+        
+        (
+        s
+        )
+      
+    
+    {\displaystyle p_{\beta }(s)}
+   is normalized:
+
+and the mean spacing is,
+
+for 
+  
+    
+      
+        β
+        =
+        1
+        ,
+        2
+        ,
+        4
+      
+    
+    {\displaystyle \beta =1,2,4}
+  .
+
+Generalizations
+Wigner matrices are random Hermitian matrices 
+  
+    
+      
+        
+          H
+          
+            n
+          
+        
+        =
+        (
+        
+          H
+          
+            n
+          
+        
+        (
+        i
+        ,
+        j
+        )
+        
+          )
+          
+            i
+            ,
+            j
+            =
+            1
+          
+          
+            n
+          
+        
+      
+    
+    {\textstyle H_{n}=(H_{n}(i,j))_{i,j=1}^{n}}
+   such that the entries
+
+above the main diagonal are independent random variables with zero mean and have identical second moments.
+Invariant matrix ensembles are random Hermitian matrices with density on the space of real symmetric/Hermitian/quaternionic Hermitian matrices, which is of the form 
+  
+    
+      
+        
+          
+            1
+            
+              Z
+              
+                n
+              
+            
+          
+        
+        
+          e
+          
+            −
+            n
+            V
+            (
+            
+              t
+              r
+            
+            (
+            H
+            )
+            )
+          
+        
+         
+        ,
+      
+    
+    {\textstyle {\frac {1}{Z_{n}}}e^{-nV(\mathrm {tr} (H))}~,}
+   where the function V is called the potential.
+The Gaussian ensembles are the only common special cases of these two classes of random matrices. This is a consequence of a theorem by Porter and Rosenzweig.
+
+Spectral theory of random matrices
+The spectral theory of random matrices studies the distribution of the eigenvalues as the size of the matrix goes to infinity.
+
+Global regime
+In the global regime, one is interested in the distribution of linear statistics of the form 
+  
+    
+      
+        
+          N
+          
+            f
+            ,
+            H
+          
+        
+        =
+        
+          n
+          
+            −
+            1
+          
+        
+        
+          tr
+        
+        f
+        (
+        H
+        )
+      
+    
+    {\displaystyle N_{f,H}=n^{-1}{\text{tr}}f(H)}
+  .
+
+Empirical spectral measure
+The empirical spectral measure μH of H is defined by
+
+Usually, the limit of 
+  
+    
+      
+        
+          μ
+          
+            H
+          
+        
+      
+    
+    {\displaystyle \mu _{H}}
+   is a deterministic measure; this is a particular case of self-averaging. The cumulative distribution function of the limiting measure is called the integrated density of states and is denoted N(λ). If the integrated density of states is differentiable, its derivative is called the density of states and is denoted ρ(λ).
+The limit of the empirical spectral measure for Wigner matrices was described by Eugene Wigner; see Wigner semicircle distribution and Wigner surmise. As far as sample covariance matrices are concerned, a theory was developed by Marčenko and Pastur.The limit of the empirical spectral measure of invariant matrix ensembles is described by a certain integral equation which arises from potential theory.
+
+Fluctuations
+For the linear statistics Nf,H = n−1 Σ f(λj), one is also interested in the fluctuations about ∫ f(λ) dN(λ). For many classes of random matrices, a central limit theorem of the form
+
+is known.
+
+The variational problem for the unitary ensembles
+Consider the measure
+
+  
+    
+      
+        
+          d
+        
+        
+          μ
+          
+            N
+          
+        
+        (
+        μ
+        )
+        =
+        
+          
+            1
+            
+              
+                
+                  
+                    Z
+                    ~
+                  
+                
+              
+              
+                N
+              
+            
+          
+        
+        
+          e
+          
+            −
+            
+              H
+              
+                N
+              
+            
+            (
+            λ
+            )
+          
+        
+        
+          d
+        
+        λ
+        ,
+        
+        
+          H
+          
+            N
+          
+        
+        (
+        λ
+        )
+        =
+        −
+        
+          ∑
+          
+            j
+            ≠
+            k
+          
+        
+        ln
+        ⁡
+        
+          |
+        
+        
+          λ
+          
+            j
+          
+        
+        −
+        
+          λ
+          
+            k
+          
+        
+        
+          |
+        
+        +
+        N
+        
+          ∑
+          
+            j
+            =
+            1
+          
+          
+            N
+          
+        
+        Q
+        (
+        
+          λ
+          
+            j
+          
+        
+        )
+        ,
+      
+    
+    {\displaystyle \mathrm {d} \mu _{N}(\mu )={\frac {1}{{\widetilde {Z}}_{N}}}e^{-H_{N}(\lambda )}\mathrm {d} \lambda ,\qquad H_{N}(\lambda )=-\sum \limits _{j\neq k}\ln |\lambda _{j}-\lambda _{k}|+N\sum \limits _{j=1}^{N}Q(\lambda _{j}),}
+  where 
+  
+    
+      
+        Q
+        (
+        M
+        )
+      
+    
+    {\displaystyle Q(M)}
+   is the potential of the ensemble and let 
+  
+    
+      
+        ν
+      
+    
+    {\displaystyle \nu }
+   be the empirical spectral measure.
+We can rewrite 
+  
+    
+      
+        
+          H
+          
+            N
+          
+        
+        (
+        λ
+        )
+      
+    
+    {\displaystyle H_{N}(\lambda )}
+   with 
+  
+    
+      
+        ν
+      
+    
+    {\displaystyle \nu }
+   as
+
+  
+    
+      
+        
+          H
+          
+            N
+          
+        
+        (
+        λ
+        )
+        =
+        
+          N
+          
+            2
+          
+        
+        
+          [
+          
+            −
+            ∫
+            
+              ∫
+              
+                x
+                ≠
+                y
+              
+            
+            ln
+            ⁡
+            
+              |
+            
+            x
+            −
+            y
+            
+              |
+            
+            
+              d
+            
+            ν
+            (
+            x
+            )
+            
+              d
+            
+            ν
+            (
+            y
+            )
+            +
+            ∫
+            Q
+            (
+            x
+            )
+            
+              d
+            
+            ν
+            (
+            x
+            )
+          
+          ]
+        
+        ,
+      
+    
+    {\displaystyle H_{N}(\lambda )=N^{2}\left[-\int \int _{x\neq y}\ln |x-y|\mathrm {d} \nu (x)\mathrm {d} \nu (y)+\int Q(x)\mathrm {d} \nu (x)\right],}
+  the probability measure is now of the form
+
+  
+    
+      
+        
+          d
+        
+        
+          μ
+          
+            N
+          
+        
+        (
+        μ
+        )
+        =
+        
+          
+            1
+            
+              
+                
+                  
+                    Z
+                    ~
+                  
+                
+              
+              
+                N
+              
+            
+          
+        
+        
+          e
+          
+            −
+            
+              N
+              
+                2
+              
+            
+            
+              I
+              
+                Q
+              
+            
+            (
+            ν
+            )
+          
+        
+        
+          d
+        
+        λ
+        ,
+      
+    
+    {\displaystyle \mathrm {d} \mu _{N}(\mu )={\frac {1}{{\widetilde {Z}}_{N}}}e^{-N^{2}I_{Q}(\nu )}\mathrm {d} \lambda ,}
+  where 
+  
+    
+      
+        
+          I
+          
+            Q
+          
+        
+        (
+        ν
+        )
+      
+    
+    {\displaystyle I_{Q}(\nu )}
+   is the above functional inside the squared brackets.
+Let now
+
+  
+    
+      
+        
+          M
+          
+            1
+          
+        
+        (
+        
+          R
+        
+        )
+        =
+        
+          {
+          
+            ν
+            :
+            ν
+            ≥
+            0
+            ,
+             
+            
+              ∫
+              
+                
+                  R
+                
+              
+            
+            
+              d
+            
+            ν
+            =
+            1
+          
+          }
+        
+      
+    
+    {\displaystyle M_{1}(\mathbb {R} )=\left\{\nu :\nu \geq 0,\ \int _{\mathbb {R} }\mathrm {d} \nu =1\right\}}
+  be the space of one-dimensional probability measures and consider the minimizer
+
+  
+    
+      
+        
+          E
+          
+            Q
+          
+        
+        =
+        
+          inf
+          
+            ν
+            ∈
+            
+              M
+              
+                1
+              
+            
+            (
+            
+              R
+            
+            )
+          
+        
+        −
+        ∫
+        
+          ∫
+          
+            x
+            ≠
+            y
+          
+        
+        ln
+        ⁡
+        
+          |
+        
+        x
+        −
+        y
+        
+          |
+        
+        
+          d
+        
+        ν
+        (
+        x
+        )
+        
+          d
+        
+        ν
+        (
+        y
+        )
+        +
+        ∫
+        Q
+        (
+        x
+        )
+        
+          d
+        
+        ν
+        (
+        x
+        )
+        .
+      
+    
+    {\displaystyle E_{Q}=\inf \limits _{\nu \in M_{1}(\mathbb {R} )}-\int \int _{x\neq y}\ln |x-y|\mathrm {d} \nu (x)\mathrm {d} \nu (y)+\int Q(x)\mathrm {d} \nu (x).}
+  For 
+  
+    
+      
+        
+          E
+          
+            Q
+          
+        
+      
+    
+    {\displaystyle E_{Q}}
+   there exists a unique equilibrium measure 
+  
+    
+      
+        
+          ν
+          
+            Q
+          
+        
+      
+    
+    {\displaystyle \nu _{Q}}
+   through the Euler-Lagrange variational conditions for some real constant 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+  
+
+  
+    
+      
+        2
+        
+          ∫
+          
+            
+              R
+            
+          
+        
+        log
+        ⁡
+        
+          |
+        
+        x
+        −
+        y
+        
+          |
+        
+        
+          d
+        
+        ν
+        (
+        y
+        )
+        −
+        Q
+        (
+        x
+        )
+        =
+        l
+        ,
+        
+        x
+        ∈
+        J
+      
+    
+    {\displaystyle 2\int _{\mathbb {R} }\log |x-y|\mathrm {d} \nu (y)-Q(x)=l,\quad x\in J}
+  
+
+  
+    
+      
+        2
+        
+          ∫
+          
+            
+              R
+            
+          
+        
+        log
+        ⁡
+        
+          |
+        
+        x
+        −
+        y
+        
+          |
+        
+        
+          d
+        
+        ν
+        (
+        y
+        )
+        −
+        Q
+        (
+        x
+        )
+        ≤
+        l
+        ,
+        
+        x
+        ∈
+        
+          R
+        
+        ∖
+        J
+      
+    
+    {\displaystyle 2\int _{\mathbb {R} }\log |x-y|\mathrm {d} \nu (y)-Q(x)\leq l,\quad x\in \mathbb {R} \setminus J}
+  where 
+  
+    
+      
+        J
+        =
+        
+          ⋃
+          
+            j
+            =
+            1
+          
+          
+            q
+          
+        
+        [
+        
+          a
+          
+            j
+          
+        
+        ,
+        
+          b
+          
+            j
+          
+        
+        ]
+      
+    
+    {\displaystyle J=\bigcup \limits _{j=1}^{q}[a_{j},b_{j}]}
+   is the support of the measure and
+
+  
+    
+      
+        q
+        =
+        −
+        
+          
+            (
+            
+              
+                
+                  
+                    Q
+                    ′
+                  
+                  (
+                  x
+                  )
+                
+                2
+              
+            
+            )
+          
+          
+            2
+          
+        
+        +
+        ∫
+        
+          
+            
+              
+                Q
+                ′
+              
+              (
+              x
+              )
+              −
+              
+                Q
+                ′
+              
+              (
+              y
+              )
+            
+            
+              x
+              −
+              y
+            
+          
+        
+        
+          d
+        
+        
+          ν
+          
+            Q
+          
+        
+        (
+        y
+        )
+      
+    
+    {\displaystyle q=-\left({\frac {Q'(x)}{2}}\right)^{2}+\int {\frac {Q'(x)-Q'(y)}{x-y}}\mathrm {d} \nu _{Q}(y)}
+  .The equilibrium measure 
+  
+    
+      
+        
+          ν
+          
+            Q
+          
+        
+      
+    
+    {\displaystyle \nu _{Q}}
+   has the following Radon–Nikodym density
+
+  
+    
+      
+        
+          
+            
+              
+                d
+              
+              
+                ν
+                
+                  Q
+                
+              
+              (
+              x
+              )
+            
+            
+              
+                d
+              
+              x
+            
+          
+        
+        =
+        
+          
+            1
+            π
+          
+        
+        
+          
+            q
+            (
+            x
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle {\frac {\mathrm {d} \nu _{Q}(x)}{\mathrm {d} x}}={\frac {1}{\pi }}{\sqrt {q(x)}}.}
+
+Local regime
+In the local regime, one is interested in the spacings between eigenvalues, and, more generally, in the joint distribution of eigenvalues in an interval of length of order 1/n. One distinguishes between bulk statistics, pertaining to intervals inside the support of the limiting spectral measure, and edge statistics, pertaining to intervals near the boundary of the support.
+
+Bulk statistics
+Formally, fix 
+  
+    
+      
+        
+          λ
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \lambda _{0}}
+   in the interior of the support of 
+  
+    
+      
+        N
+        (
+        λ
+        )
+      
+    
+    {\displaystyle N(\lambda )}
+  . Then consider the point process
+
+where 
+  
+    
+      
+        
+          λ
+          
+            j
+          
+        
+      
+    
+    {\displaystyle \lambda _{j}}
+   are the eigenvalues of the random matrix.
+The point process 
+  
+    
+      
+        Ξ
+        (
+        
+          λ
+          
+            0
+          
+        
+        )
+      
+    
+    {\displaystyle \Xi (\lambda _{0})}
+   captures the statistical properties of eigenvalues in the vicinity of 
+  
+    
+      
+        
+          λ
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \lambda _{0}}
+  . For the Gaussian ensembles, the limit of 
+  
+    
+      
+        Ξ
+        (
+        
+          λ
+          
+            0
+          
+        
+        )
+      
+    
+    {\displaystyle \Xi (\lambda _{0})}
+   is known; thus, for GUE it is a determinantal point process with the kernel
+
+(the sine kernel).
+The universality principle postulates that the limit of 
+  
+    
+      
+        Ξ
+        (
+        
+          λ
+          
+            0
+          
+        
+        )
+      
+    
+    {\displaystyle \Xi (\lambda _{0})}
+   as 
+  
+    
+      
+        n
+        →
+        ∞
+      
+    
+    {\displaystyle n\to \infty }
+   should depend only on the symmetry class of the random matrix (and neither on the specific model of random matrices nor on 
+  
+    
+      
+        
+          λ
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \lambda _{0}}
+  ). Rigorous proofs of universality are known for invariant matrix ensembles and Wigner matrices.
+
+Edge statistics
+Correlation functions
+The joint probability density of the eigenvalues of 
+  
+    
+      
+        n
+        ×
+        n
+      
+    
+    {\displaystyle n\times n}
+   random Hermitian matrices 
+  
+    
+      
+        M
+        ∈
+        
+          
+            H
+          
+          
+            n
+            ×
+            n
+          
+        
+      
+    
+    {\displaystyle M\in \mathbf {H} ^{n\times n}}
+  , with partition functions of the form
+
+where
+
+and 
+  
+    
+      
+        d
+        
+          μ
+          
+            0
+          
+        
+        (
+        M
+        )
+      
+    
+    {\displaystyle d\mu _{0}(M)}
+   is the standard Lebesgue measure on the space 
+  
+    
+      
+        
+          
+            H
+          
+          
+            n
+            ×
+            n
+          
+        
+      
+    
+    {\displaystyle \mathbf {H} ^{n\times n}}
+   of Hermitian 
+  
+    
+      
+        n
+        ×
+        n
+      
+    
+    {\displaystyle n\times n}
+   matrices, is given by
+
+The 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -point correlation functions (or marginal distributions) 
+are defined as
+
+which are skew symmetric functions of their variables. 
+In particular, the one-point correlation function, or density of states, is 
+
+Its integral over a Borel set 
+  
+    
+      
+        B
+        ⊂
+        
+          R
+        
+      
+    
+    {\displaystyle B\subset \mathbf {R} }
+   gives the expected number of eigenvalues contained in 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+  :
+
+The following result expresses these correlation functions as determinants of the matrices formed from evaluating the appropriate integral kernel at the pairs 
+  
+    
+      
+        (
+        
+          x
+          
+            i
+          
+        
+        ,
+        
+          x
+          
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle (x_{i},x_{j})}
+   of points appearing within the correlator.
+Theorem [Dyson-Mehta] 
+For any  
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  , 
+  
+    
+      
+        1
+        ≤
+        k
+        ≤
+        n
+      
+    
+    {\displaystyle 1\leq k\leq n}
+   the 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -point correlation function 
+  
+    
+      
+        
+          R
+          
+            n
+            ,
+            V
+          
+          
+            (
+            k
+            )
+          
+        
+      
+    
+    {\displaystyle R_{n,V}^{(k)}}
+   can be written as a determinant
+
+where 
+  
+    
+      
+        
+          K
+          
+            n
+            ,
+            V
+          
+        
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle K_{n,V}(x,y)}
+   is the 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  th Christoffel-Darboux kernel
+
+associated to 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  , written in terms of the quasipolynomials 
+ 
+where 
+  
+    
+      
+        {
+        
+          p
+          
+            k
+          
+        
+        (
+        x
+        )
+        
+          }
+          
+            k
+            ∈
+            
+              N
+            
+          
+        
+      
+    
+    {\displaystyle \{p_{k}(x)\}_{k\in \mathbf {N} }}
+   is a complete sequence of monic polynomials, of the degrees indicated, satisfying the orthogonilty conditions
+
+Other classes of random matrices
+Wishart matrices
+Wishart matrices are n × n random matrices of the form H = X X*, where X is an n × m random matrix (m ≥ n) with independent entries, and X* is its conjugate transpose. In the important special case considered by Wishart, the entries of X are identically distributed Gaussian random variables (either real or complex).
+The limit of the empirical spectral measure of Wishart matrices was found by Vladimir Marchenko and Leonid Pastur.
+
+Random unitary matrices
+Non-Hermitian random matrices
+Selected bibliography
+Books
+Mehta, M.L. (2004). Random Matrices. Amsterdam: Elsevier/Academic Press. ISBN 0-12-088409-7.
+Anderson, G.W.; Guionnet, A.; Zeitouni, O. (2010). An introduction to random matrices. Cambridge: Cambridge University Press. ISBN 978-0-521-19452-5.
+Akemann, G.; Baik, J.; Di Francesco, P. (2011). The Oxford Handbook of Random Matrix Theory. Oxford: Oxford University Press. ISBN 978-0-19-957400-1.
+
+Survey articles
+Edelman, A.; Rao, N.R (2005). "Random matrix theory". Acta Numerica. 14: 233–297. Bibcode:2005AcNum..14..233E. doi:10.1017/S0962492904000236. S2CID 16038147.
+Pastur, L.A. (1973). "Spectra of random self-adjoint operators". Russ. Math. Surv. 28 (1): 1–67. Bibcode:1973RuMaS..28....1P. doi:10.1070/RM1973v028n01ABEH001396. S2CID 250796916.
+Diaconis, Persi (2003). "Patterns in eigenvalues: the 70th Josiah Willard Gibbs lecture". Bulletin of the American Mathematical Society. New Series. 40 (2): 155–178. doi:10.1090/S0273-0979-03-00975-3. MR 1962294.
+Diaconis, Persi (2005). "What is ... a random matrix?". Notices of the American Mathematical Society. 52 (11): 1348–1349. ISSN 0002-9920. MR 2183871.
+Eynard, Bertrand; Kimura, Taro; Ribault, Sylvain (2015-10-15). "Random matrices". arXiv:1510.04430v2 [math-ph].
+
+Historic works
+Wigner, E. (1955). "Characteristic vectors of bordered matrices with infinite dimensions". Annals of Mathematics. 62 (3): 548–564. doi:10.2307/1970079. JSTOR 1970079.
+Wishart, J. (1928). "Generalized product moment distribution in samples". Biometrika. 20A (1–2): 32–52. doi:10.1093/biomet/20a.1-2.32.
+von Neumann, J.; Goldstine, H.H. (1947). "Numerical inverting of matrices of high order". Bull. Amer. Math. Soc. 53 (11): 1021–1099. doi:10.1090/S0002-9904-1947-08909-6.
+
+References
+External links
+Fyodorov, Y. (2011). "Random matrix theory". Scholarpedia. 6 (3): 9886. Bibcode:2011SchpJ...6.9886F. doi:10.4249/scholarpedia.9886.
+Weisstein, E. W. "Random Matrix". Wolfram MathWorld.

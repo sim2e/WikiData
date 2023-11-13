@@ -1,0 +1,292 @@
+In communication complexity, the gap-Hamming problem asks, if Alice and Bob are each given a (potentially different) string, what is the minimal number of bits that they need to exchange in order for Alice to approximately compute the Hamming distance between their strings. The solution to the problem roughly states that, if Alice and Bob are each given a string, then any communication protocol used to compute the Hamming distance between their strings does (asymptotically) no better than Bob sending his whole string to Alice. More specifically, if Alice and Bob are each given 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -bit strings, there exists no communication protocol that lets Alice compute the hamming distance between their strings to within 
+  
+    
+      
+        ±
+        
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \pm {\sqrt {n}}}
+   using less than 
+  
+    
+      
+        Ω
+        (
+        n
+        )
+      
+    
+    {\displaystyle \Omega (n)}
+   bits.
+The gap-Hamming problem has applications to proving lower bounds for many streaming algorithms, including moment frequency estimation and entropy estimation.
+
+Formal statement
+In this problem, Alice and Bob each receive a string, 
+  
+    
+      
+        x
+        ∈
+        {
+        ±
+        1
+        
+          }
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x\in \{\pm 1\}^{n}}
+   and 
+  
+    
+      
+        y
+        ∈
+        {
+        ±
+        1
+        
+          }
+          
+            n
+          
+        
+      
+    
+    {\displaystyle y\in \{\pm 1\}^{n}}
+  , respectively, while Alice is required to compute the (partial) function,
+
+  
+    
+      
+        GHD
+        ⁡
+        (
+        x
+        ,
+        y
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  +
+                  1
+                
+                
+                  
+                    D
+                    
+                      H
+                    
+                  
+                  (
+                  x
+                  ,
+                  y
+                  )
+                  ≥
+                  
+                    
+                      n
+                      2
+                    
+                  
+                  +
+                  
+                    
+                      n
+                    
+                  
+                
+              
+              
+                
+                  −
+                  1
+                
+                
+                  
+                    D
+                    
+                      H
+                    
+                  
+                  (
+                  x
+                  ,
+                  y
+                  )
+                  ≤
+                  
+                    
+                      n
+                      2
+                    
+                  
+                  −
+                  
+                    
+                      n
+                    
+                  
+                
+              
+              
+                
+                  ∗
+                
+                
+                  
+                    otherwise
+                  
+                  ,
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle \operatorname {GHD} (x,y)={\begin{cases}+1&D_{H}(x,y)\geq {\frac {n}{2}}+{\sqrt {n}}\\-1&D_{H}(x,y)\leq {\frac {n}{2}}-{\sqrt {n}}\\*&{\text{otherwise}},\end{cases}}}
+  using the least amount of communication possible. Here, 
+  
+    
+      
+        ∗
+      
+    
+    {\displaystyle *}
+   indicates that Alice can return either of 
+  
+    
+      
+        ±
+        1
+      
+    
+    {\displaystyle \pm 1}
+   and 
+  
+    
+      
+        
+          D
+          
+            H
+          
+        
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle D_{H}(x,y)}
+   is the Hamming distance between 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  . In other words, Alice needs to return whether Bob's string is significantly similar or significantly different from hers while minimizing the number of bits she exchanges with Bob.
+The problem's solution states that computing 
+  
+    
+      
+        GHD
+      
+    
+    {\displaystyle \operatorname {GHD} }
+   requires at least 
+  
+    
+      
+        Ω
+        (
+        n
+        )
+      
+    
+    {\displaystyle \Omega (n)}
+   communication. In particular, it requires 
+  
+    
+      
+        Ω
+        (
+        n
+        )
+      
+    
+    {\displaystyle \Omega (n)}
+   communication even when 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   are chosen uniformly at random from 
+  
+    
+      
+        {
+        ±
+        1
+        
+          }
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \{\pm 1\}^{n}}
+  .
+
+History
+The gap-Hamming problem was originally proposed by Indyk and Woodruff in the early 2000's, who initially proved a linear lower bound on the one-way communication complexity of the problem (where Alice is only allowed to receive data from Bob) and conjectured a linear lower bound in the general case. The question of the infinite-round case (in which Alice and Bob are allowed to exchange as many messages as desired) remained open until Chakrabarti and Regev proved, via an anti-concentration argument, that the general problem also has linear lower bound complexity, thus settling the original question completely. This result was followed by a series of other papers that sought to simplify or find new approaches to proving the desired lower bound, notably first by Vidick and later by Sherstov, and, recently, with an information-theoretic approach by Hadar, Liu, Polyanskiy, and Shayevitz.
+
+
+== References ==

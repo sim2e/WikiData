@@ -1,0 +1,3475 @@
+In combinatorics, a branch of mathematics, a matroid  is a structure that abstracts and generalizes the notion of linear independence in vector spaces. There are many equivalent ways to define a matroid axiomatically, the most significant being in terms of: independent sets; bases or circuits; rank functions; closure operators; and closed sets or flats. In the language of partially ordered sets, a finite simple matroid is equivalent to a geometric lattice.
+Matroid theory borrows extensively from the terminology of both linear algebra and graph theory, largely because it is the abstraction of various notions of central importance in these fields. Matroids have found applications in geometry, topology, combinatorial optimization, network theory and coding theory.
+
+Definition
+There are many equivalent ways to define a (finite) matroid.
+
+Independent sets
+In terms of independence, a finite matroid 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   is a pair 
+  
+    
+      
+        (
+        E
+        ,
+        
+          
+            I
+          
+        
+        )
+      
+    
+    {\displaystyle (E,{\mathcal {I}})}
+  , where 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   is a finite set (called the ground set) and 
+  
+    
+      
+        
+          
+            I
+          
+        
+      
+    
+    {\displaystyle {\mathcal {I}}}
+   is a family of subsets of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   (called the independent sets) with the following properties:
+(I1)  The empty set is independent, i.e., 
+  
+    
+      
+        ∅
+        ∈
+        
+          
+            I
+          
+        
+      
+    
+    {\displaystyle \emptyset \in {\mathcal {I}}}
+  .
+(I2)  Every subset of an independent set is independent, i.e., for each 
+  
+    
+      
+        
+          A
+          ′
+        
+        ⊆
+        A
+        ⊆
+        E
+      
+    
+    {\displaystyle A'\subseteq A\subseteq E}
+  , if 
+  
+    
+      
+        A
+        ∈
+        
+          
+            I
+          
+        
+      
+    
+    {\displaystyle A\in {\mathcal {I}}}
+   then 
+  
+    
+      
+        
+          A
+          ′
+        
+        ∈
+        
+          
+            I
+          
+        
+      
+    
+    {\displaystyle A'\in {\mathcal {I}}}
+  .  This is sometimes called the hereditary property, or the downward-closed property.
+(I3) If 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   and 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   are two independent sets (i.e., each set is independent) and 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   has more elements than 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+  , then there exists 
+  
+    
+      
+        x
+        ∈
+        A
+        ∖
+        B
+      
+    
+    {\displaystyle x\in A\backslash B}
+   such that 
+  
+    
+      
+        B
+        ∪
+        {
+        x
+        }
+      
+    
+    {\displaystyle B\cup \{x\}}
+   is in 
+  
+    
+      
+        
+          
+            I
+          
+        
+      
+    
+    {\displaystyle {\mathcal {I}}}
+  . This is sometimes called the augmentation property or the independent set exchange property.The first two properties define a combinatorial structure known as an independence system (or abstract simplicial complex). Actually, assuming (I2), property (I1) is equivalent to the fact that at least one subset of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   is independent, i.e., 
+  
+    
+      
+        
+          
+            I
+          
+        
+        ≠
+        ∅
+      
+    
+    {\displaystyle {\mathcal {I}}\neq \emptyset }
+  .
+
+Bases and circuits
+A subset of the ground set 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   that is not independent is called dependent.  A maximal independent set—that is, an independent set that becomes dependent upon adding any element of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+  —is called a basis for the matroid. A circuit in a matroid 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   is a minimal dependent subset of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+  —that is, a dependent set whose proper subsets are all independent.  The terminology arises because the circuits of graphic matroids are cycles in the corresponding graphs.The dependent sets, the bases, or the circuits of a matroid characterize the matroid completely: a set is independent if and only if it is not dependent, if and only if it is a subset of a basis, and if and only if it does not contain a circuit. The collections of dependent sets, of bases, and of circuits each have simple properties that may be taken as axioms for a matroid.  For instance, one may define a matroid 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   to be a pair 
+  
+    
+      
+        (
+        E
+        ,
+        
+          
+            B
+          
+        
+        )
+      
+    
+    {\displaystyle (E,{\mathcal {B}})}
+  , where 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   is a finite set as before and 
+  
+    
+      
+        
+          
+            B
+          
+        
+      
+    
+    {\displaystyle {\mathcal {B}}}
+   is a collection of subsets of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+  , called "bases", with the following properties:
+(B1) 
+  
+    
+      
+        
+          
+            B
+          
+        
+      
+    
+    {\displaystyle {\mathcal {B}}}
+   is nonempty.
+(B2) If 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   and 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   are distinct members of 
+  
+    
+      
+        
+          
+            B
+          
+        
+      
+    
+    {\displaystyle {\mathcal {B}}}
+   and 
+  
+    
+      
+        a
+        ∈
+        A
+        ∖
+        B
+      
+    
+    {\displaystyle a\in A\smallsetminus B}
+  , then there exists an element 
+  
+    
+      
+        b
+        ∈
+        B
+        ∖
+        A
+      
+    
+    {\displaystyle b\in B\smallsetminus A}
+   such that 
+  
+    
+      
+        (
+        A
+        ∖
+        {
+        a
+        }
+        )
+        ∪
+        {
+        b
+        }
+        ∈
+        
+          
+            B
+          
+        
+      
+    
+    {\displaystyle (A\smallsetminus \{a\})\cup \{b\}\in {\mathcal {B}}}
+  .  This property is called the basis exchange property.It follows from the basis exchange property that no member of 
+  
+    
+      
+        
+          
+            B
+          
+        
+      
+    
+    {\displaystyle {\mathcal {B}}}
+   can be a proper subset of another.
+
+Rank functions
+It is a basic result of matroid theory, directly analogous to a similar theorem of bases in linear algebra, that any two bases of a matroid 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   have the same number of elements.  This number is called the rank of 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  . If 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   is a matroid on 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+  , and 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is a subset of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+  , then a matroid on 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   can be defined by considering a subset of 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   to be independent if and only if it is independent in 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  . This allows us to talk about submatroids and about the rank of any subset of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+  . The rank of a subset 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is given by the rank function 
+  
+    
+      
+        r
+        (
+        A
+        )
+      
+    
+    {\displaystyle r(A)}
+   of the matroid, which has the following properties:
+(R1) The value of the rank function is always a non-negative integer.
+(R2) For any subset 
+  
+    
+      
+        A
+        ⊂
+        E
+      
+    
+    {\displaystyle A\subset E}
+  , we have 
+  
+    
+      
+        r
+        (
+        A
+        )
+        ≤
+        
+          |
+        
+        A
+        
+          |
+        
+      
+    
+    {\displaystyle r(A)\leq |A|}
+  .
+(R3) For any two subsets 
+  
+    
+      
+        A
+        ,
+        B
+        ⊂
+        E
+      
+    
+    {\displaystyle A,B\subset E}
+  , we have:  
+  
+    
+      
+        r
+        (
+        A
+        ∪
+        B
+        )
+        +
+        r
+        (
+        A
+        ∩
+        B
+        )
+        ≤
+        r
+        (
+        A
+        )
+        +
+        r
+        (
+        B
+        )
+      
+    
+    {\displaystyle r(A\cup B)+r(A\cap B)\leq r(A)+r(B)}
+  . That is, the rank is a submodular function.
+(R4) For any set 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   and element 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  , we have: 
+  
+    
+      
+        r
+        (
+        A
+        )
+        ≤
+        r
+        (
+        A
+        ∪
+        {
+        x
+        }
+        )
+        ≤
+        r
+        (
+        A
+        )
+        +
+        1
+      
+    
+    {\displaystyle r(A)\leq r(A\cup \{x\})\leq r(A)+1}
+  . From the first inequality it follows more generally that, if 
+  
+    
+      
+        A
+        ⊆
+        B
+        ⊆
+        E
+      
+    
+    {\displaystyle A\subseteq B\subseteq E}
+  , then 
+  
+    
+      
+        r
+        (
+        A
+        )
+        ≤
+        r
+        (
+        B
+        )
+        ≤
+        r
+        (
+        E
+        )
+      
+    
+    {\displaystyle r(A)\leq r(B)\leq r(E)}
+  . That is, rank is a monotonic function.These properties can be used as one of the alternative definitions of a finite matroid: if 
+  
+    
+      
+        (
+        E
+        ,
+        r
+        )
+      
+    
+    {\displaystyle (E,r)}
+   satisfies these properties, then the independent sets of a matroid over 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   can be defined as those subsets 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   with 
+  
+    
+      
+        r
+        (
+        A
+        )
+        =
+        
+          |
+        
+        A
+        
+          |
+        
+      
+    
+    {\displaystyle r(A)=|A|}
+  . In the language of partially ordered sets, such a matroid structure is equivalent to the geometric lattice whose elements are the subsets 
+  
+    
+      
+        A
+        ⊂
+        M
+      
+    
+    {\displaystyle A\subset M}
+  , partially ordered by inclusion.
+The difference 
+  
+    
+      
+        
+          |
+        
+        A
+        
+          |
+        
+        −
+        r
+        (
+        A
+        )
+      
+    
+    {\displaystyle |A|-r(A)}
+   is called the nullity of the subset 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  . It is the minimum number of elements that must be removed from 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   to obtain an independent set. The nullity of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   in 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   is called the nullity of 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  . The difference 
+  
+    
+      
+        r
+        (
+        E
+        )
+        −
+        r
+        (
+        A
+        )
+      
+    
+    {\displaystyle r(E)-r(A)}
+   is sometimes called the corank of the subset 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  .
+
+Closure operators
+Let 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   be a matroid on a finite set 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+  , with rank function 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   as above.  The closure (or span) 
+  
+    
+      
+        cl
+        ⁡
+        (
+        A
+        )
+      
+    
+    {\displaystyle \operatorname {cl} (A)}
+    of a subset 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   is the set
+
+  
+    
+      
+        cl
+        ⁡
+        (
+        A
+        )
+        =
+        
+          
+            {
+          
+        
+        x
+        ∈
+        E
+        ∣
+        r
+        (
+        A
+        )
+        =
+        r
+        
+          
+            (
+          
+        
+        A
+        ∪
+        {
+        x
+        }
+        
+          
+            )
+          
+        
+        
+          
+            }
+          
+        
+        .
+      
+    
+    {\displaystyle \operatorname {cl} (A)={\Bigl \{}x\in E\mid r(A)=r{\bigl (}A\cup \{x\}{\bigr )}{\Bigr \}}.}
+  This defines a closure operator 
+  
+    
+      
+        cl
+        :
+        
+          
+            P
+          
+        
+        (
+        E
+        )
+        →
+        
+          
+            P
+          
+        
+        (
+        E
+        )
+      
+    
+    {\displaystyle \operatorname {cl} :{\mathcal {P}}(E)\to {\mathcal {P}}(E)}
+   where 
+  
+    
+      
+        
+          
+            P
+          
+        
+      
+    
+    {\displaystyle {\mathcal {P}}}
+   denotes the power set, with the following properties:
+
+(C1) For all subsets 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+  , 
+  
+    
+      
+        X
+        ⊆
+        cl
+        ⁡
+        (
+        X
+        )
+      
+    
+    {\displaystyle X\subseteq \operatorname {cl} (X)}
+  .
+(C2) For all subsets 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+  , 
+  
+    
+      
+        cl
+        ⁡
+        (
+        X
+        )
+        =
+        cl
+        ⁡
+        (
+        cl
+        ⁡
+        (
+        X
+        )
+        )
+      
+    
+    {\displaystyle \operatorname {cl} (X)=\operatorname {cl} (\operatorname {cl} (X))}
+  .
+(C3) For all subsets 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   and 
+  
+    
+      
+        Y
+      
+    
+    {\displaystyle Y}
+   of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   with 
+  
+    
+      
+        X
+        ⊆
+        Y
+      
+    
+    {\displaystyle X\subseteq Y}
+  , 
+  
+    
+      
+        cl
+        ⁡
+        (
+        X
+        )
+        ⊆
+        cl
+        ⁡
+        (
+        Y
+        )
+      
+    
+    {\displaystyle \operatorname {cl} (X)\subseteq \operatorname {cl} (Y)}
+  .
+(C4) For all elements 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+  , and 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+    and all subsets 
+  
+    
+      
+        Y
+      
+    
+    {\displaystyle Y}
+   of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+  , if 
+  
+    
+      
+        a
+        ∈
+        cl
+        ⁡
+        (
+        Y
+        ∪
+        {
+        b
+        }
+        )
+        ∖
+        cl
+        ⁡
+        (
+        Y
+        )
+      
+    
+    {\displaystyle a\in \operatorname {cl} (Y\cup \{b\})\smallsetminus \operatorname {cl} (Y)}
+   then 
+  
+    
+      
+        b
+        ∈
+        cl
+        ⁡
+        (
+        Y
+        ∪
+        {
+        a
+        }
+        )
+        ∖
+        cl
+        ⁡
+        (
+        Y
+        )
+      
+    
+    {\displaystyle b\in \operatorname {cl} (Y\cup \{a\})\smallsetminus \operatorname {cl} (Y)}
+  .The first three of these properties are the defining properties of a closure operator. The fourth is sometimes called the Mac Lane–Steinitz exchange property. These properties may be taken as another definition of matroid: every function 
+  
+    
+      
+        cl
+        :
+        
+          
+            P
+          
+        
+        (
+        E
+        )
+        →
+        
+          
+            P
+          
+        
+        (
+        E
+        )
+      
+    
+    {\displaystyle \operatorname {cl} :{\mathcal {P}}(E)\to {\mathcal {P}}(E)}
+   that obeys these properties determines a matroid.
+
+Flats
+A set whose closure equals itself is said to be closed, or a flat or subspace of the matroid.  A set is closed if it is maximal for its rank, meaning that the addition of any other element to the set would increase the rank. The closed sets of a matroid are characterized by a covering partition property:
+
+(F1) The whole point set 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   is closed.
+(F2) If 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   and 
+  
+    
+      
+        T
+      
+    
+    {\displaystyle T}
+   are flats, then 
+  
+    
+      
+        S
+        ∩
+        T
+      
+    
+    {\displaystyle S\cap T}
+   is a flat.
+(F3) If 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   is a flat, then each element of 
+  
+    
+      
+        E
+        ∖
+        S
+      
+    
+    {\displaystyle E\smallsetminus S}
+   is in precisely one of the flats 
+  
+    
+      
+        T
+      
+    
+    {\displaystyle T}
+   that cover 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   (meaning that 
+  
+    
+      
+        T
+      
+    
+    {\displaystyle T}
+   properly contains 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   but there is no flat 
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+   between 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   and 
+  
+    
+      
+        T
+      
+    
+    {\displaystyle T}
+  ).The class 
+  
+    
+      
+        
+          
+            L
+          
+        
+        (
+        M
+        )
+      
+    
+    {\displaystyle {\mathcal {L}}(M)}
+   of all flats, partially ordered by set inclusion, forms a matroid lattice. Conversely, every matroid lattice 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   forms a matroid over its set 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   of atoms under the following closure operator:  for a set 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   of atoms with join 
+  
+    
+      
+        ⋁
+        S
+      
+    
+    {\displaystyle \bigvee S}
+  ,
+
+  
+    
+      
+        cl
+        ⁡
+        (
+        S
+        )
+        =
+        {
+        x
+        ∈
+        E
+        ∣
+        x
+        ≤
+        ⋁
+        S
+        }
+      
+    
+    {\displaystyle \operatorname {cl} (S)=\{x\in E\mid x\leq \bigvee S\}}
+  .The flats of this matroid correspond one-for-one with the elements of the lattice; the flat corresponding to lattice element 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   is the set
+
+  
+    
+      
+        {
+        x
+        ∈
+        E
+        ∣
+        x
+        ≤
+        y
+        }
+      
+    
+    {\displaystyle \{x\in E\mid x\leq y\}}
+  .Thus, the lattice of flats of this matroid is naturally isomorphic to 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+  .
+
+Hyperplanes
+In a matroid of rank 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  , a flat of rank 
+  
+    
+      
+        r
+        −
+        1
+      
+    
+    {\displaystyle r-1}
+   is called a hyperplane.  (Hyperplanes are also called coatoms or copoints.) These are the maximal proper flats; that is, the only superset of a hyperplane that is also a flat is the set 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   of all the elements of the matroid.  An equivalent definition is that a coatom is a subset of E that does not span M, but such that adding any other element to it does make a spanning set.The family 
+  
+    
+      
+        
+          
+            H
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}}
+   of hyperplanes of a matroid has the following properties, which may be taken as yet another axiomatization of matroids:
+(H1) There do not exist distinct sets 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   and 
+  
+    
+      
+        Y
+      
+    
+    {\displaystyle Y}
+   in 
+  
+    
+      
+        
+          
+            H
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}}
+   with 
+  
+    
+      
+        X
+        ⊆
+        Y
+      
+    
+    {\displaystyle X\subseteq Y}
+  . That is, the hyperplanes form a Sperner family.
+(H2) For every 
+  
+    
+      
+        x
+        ∈
+        E
+      
+    
+    {\displaystyle x\in E}
+   and distinct 
+  
+    
+      
+        Y
+        ,
+        Z
+        ∈
+        
+          
+            H
+          
+        
+      
+    
+    {\displaystyle Y,Z\in {\mathcal {H}}}
+   with 
+  
+    
+      
+        x
+        ∉
+        Y
+        ∪
+        Z
+      
+    
+    {\displaystyle x\notin Y\cup Z}
+  , there exists 
+  
+    
+      
+        X
+        ∈
+        
+          
+            H
+          
+        
+      
+    
+    {\displaystyle X\in {\mathcal {H}}}
+   with 
+  
+    
+      
+        (
+        Y
+        ∩
+        Z
+        )
+        ∪
+        {
+        x
+        }
+        ⊆
+        X
+      
+    
+    {\displaystyle (Y\cap Z)\cup \{x\}\subseteq X}
+  .
+
+Graphoids
+Minty (1966) defined a graphoid as a triple 
+  
+    
+      
+        (
+        L
+        ,
+        C
+        ,
+        D
+        )
+      
+    
+    {\displaystyle (L,C,D)}
+   in which 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   and 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+   are classes of nonempty subsets of 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   such that 
+
+(G1) no element of 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   (called a "circuit") contains another,
+(G2) no element of 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+   (called a "cocircuit") contains another,
+(G3) no set in 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   and set in 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+   intersect in exactly one element, and
+(G4) whenever 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   is represented as the disjoint union of subsets 
+  
+    
+      
+        R
+        ,
+        G
+        ,
+        B
+      
+    
+    {\displaystyle R,G,B}
+   with 
+  
+    
+      
+        G
+        =
+        {
+        g
+        }
+      
+    
+    {\displaystyle G=\{g\}}
+   (a singleton set), then either an 
+  
+    
+      
+        X
+        ∈
+        C
+      
+    
+    {\displaystyle X\in C}
+   exists such that 
+  
+    
+      
+        g
+        ∈
+        X
+        ⊆
+        R
+        ∪
+        G
+      
+    
+    {\displaystyle g\in X\subseteq R\cup G}
+   or a 
+  
+    
+      
+        Y
+        ∈
+        D
+      
+    
+    {\displaystyle Y\in D}
+   exists such that 
+  
+    
+      
+        g
+        ∈
+        Y
+        ⊆
+        B
+        ∪
+        G
+        .
+      
+    
+    {\displaystyle g\in Y\subseteq B\cup G.}
+  He proved that there is a matroid for which 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   is the class of circuits and 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+   is the class of cocircuits.  Conversely, if 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   and 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+   are the circuit and cocircuit classes of a matroid 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   with ground set 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+  , then 
+  
+    
+      
+        (
+        E
+        ,
+        C
+        ,
+        D
+        )
+      
+    
+    {\displaystyle (E,C,D)}
+   is a graphoid.  Thus, graphoids give a self-dual cryptomorphic axiomatization of matroids.
+
+Examples
+Free matroid
+Let 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   be a finite set. The set of all subsets of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   defines the independent sets of a matroid. It is called the free matroid over 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+  .
+
+Uniform matroids
+Let 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   be a finite set and 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   a natural number.  One may define a matroid on 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   by taking every 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  -element subset of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   to be a basis.  This is known as the uniform matroid of rank 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  .  A uniform matroid with rank 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   and with 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   elements is denoted 
+  
+    
+      
+        
+          U
+          
+            k
+            ,
+            n
+          
+        
+      
+    
+    {\displaystyle U_{k,n}}
+  . All uniform matroids of rank at least 2 are simple (see § Additional terminology) . The uniform matroid of rank 2 on 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   points is called the 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -point line. A matroid is uniform if and only if it has no circuits of size less than one plus the rank of the matroid. The direct sums of uniform matroids are called partition matroids.
+In the uniform matroid 
+  
+    
+      
+        
+          U
+          
+            0
+            ,
+            n
+          
+        
+      
+    
+    {\displaystyle U_{0,n}}
+  , every element is a loop (an element that does not belong to any independent set), and in the uniform matroid 
+  
+    
+      
+        
+          U
+          
+            n
+            ,
+            n
+          
+        
+      
+    
+    {\displaystyle U_{n,n}}
+  , every element is a coloop (an element that belongs to all bases). The direct sum of matroids of these two types is a partition matroid in which every element is a loop or a coloop; it is called a discrete matroid. An equivalent definition of a discrete matroid is a matroid in which every proper, non-empty subset of the ground set 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   is a separator.
+
+Matroids from linear algebra
+Matroid theory developed mainly out of a deep examination of the properties of independence and dimension in vector spaces.  There are two ways to present the matroids defined in this way:
+
+If 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   is any finite subset of a vector space 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+  , then we can define a matroid 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   on 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   by taking the independent sets of 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   to be the linearly independent subsets of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+  . The validity of the independent-set axioms for this matroid follows from the Steinitz exchange lemma.  If 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   is a matroid that can be defined in this way, we say the set 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   represents 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  .  Matroids of this kind are called vector matroids. An important example of a matroid defined in this way is the Fano matroid, a rank-three matroid derived from the Fano plane, a finite geometry with seven points (the seven elements of the matroid) and seven lines (the proper nontrivial flats of the matroid). It is a linear matroid whose elements may be described as the seven nonzero points in a three-dimensional vector space over the finite field GF(2). However, it is not possible to provide a similar representation for the Fano matroid using the real numbers in place of GF(2).
+A matrix 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   with entries in a field gives rise to a matroid 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   on its set of columns.  The dependent sets of columns in the matroid are those that are linearly dependent as vectors.  This matroid is called the column matroid of 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  , and 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is said to represent 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  .  For instance, the Fano matroid can be represented in this way as a 3 × 7 (0,1)-matrix. Column matroids are just vector matroids under another name, but there are often reasons to favor the matrix representation.  (There is one technical difference: a column matroid can have distinct elements that are the same vector, but a vector matroid as defined above cannot.  Usually this difference is insignificant and can be ignored, but by letting 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   be a multiset of vectors one brings the two definitions into complete agreement.)A matroid that is equivalent to a vector matroid, although it may be presented differently, is called representable or linear.  If 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   is equivalent to a vector matroid over a field 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+  , then we say 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   is representable over 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+  ; in particular, 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   is real-representable if it is representable over the real numbers.  For instance, although a graphic matroid (see below) is presented in terms of a graph, it is also representable by vectors over any field.  A basic problem in matroid theory is to characterize the matroids that may be represented over a given field 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+  ; Rota's conjecture describes a possible characterization for every finite field.  The main results so far are characterizations of binary matroids (those representable over GF(2)) due to Tutte (1950s), of ternary matroids (representable over the 3-element field) due to Reid and Bixby, and separately to Seymour (1970s), and of quaternary matroids (representable over the 4-element field) due to Geelen, Gerards, and Kapoor (2000).  This is very much an open area.A regular matroid is a matroid that is representable over all possible fields. The Vámos matroid is the simplest example of a matroid that is not representable over any field.
+
+Matroids from graph theory
+A second original source for the theory of matroids is graph theory.
+Every finite graph (or multigraph) 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   gives rise to a matroid 
+  
+    
+      
+        M
+        (
+        G
+        )
+      
+    
+    {\displaystyle M(G)}
+   as follows: take as 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   the set of all edges in 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   and consider a set of edges independent if and only if it is a forest; that is, if it does not contain a simple cycle. Then 
+  
+    
+      
+        M
+        (
+        G
+        )
+      
+    
+    {\displaystyle M(G)}
+   is called a cycle matroid. Matroids derived in this way are  graphic matroids.  Not every matroid is graphic, but all matroids on three elements are graphic.  Every graphic matroid is regular.
+Other matroids on graphs were discovered subsequently:
+
+The bicircular matroid of a graph is defined by calling a set of edges independent if every connected subset contains at most one cycle.
+In any directed or undirected graph 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   let 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   and 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+   be two distinguished sets of vertices.  In the set 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+  , define a subset 
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+   to be independent if there are 
+  
+    
+      
+        
+          |
+        
+        U
+        
+          |
+        
+      
+    
+    {\displaystyle |U|}
+   vertex-disjoint paths from 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+   onto 
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+  .  This defines a matroid on 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   called a gammoid: a strict gammoid is one for which the set 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   is the whole vertex set of 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  .
+In a bipartite graph 
+  
+    
+      
+        G
+        =
+        (
+        U
+        ,
+        V
+        ,
+        E
+        )
+      
+    
+    {\displaystyle G=(U,V,E)}
+  , one may form a matroid in which the elements are vertices on one side 
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+   of the bipartition, and the independent subsets are sets of endpoints of matchings of the graph. This is called a transversal matroid, and it is a special case of a gammoid.  The transversal matroids are the dual matroids to the strict gammoids.
+Graphic matroids have been generalized to matroids from signed graphs, gain graphs, and biased graphs.  A graph 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   with a distinguished linear class 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   of cycles, known as a "biased graph" 
+  
+    
+      
+        (
+        G
+        ,
+        B
+        )
+      
+    
+    {\displaystyle (G,B)}
+  , has two matroids, known as the frame matroid and the lift matroid of the biased graph.  If every cycle belongs to the distinguished class, these matroids coincide with the cycle matroid of 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  .  If no cycle is distinguished, the frame matroid is the bicircular matroid of 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  . A signed graph, whose edges are labeled by signs, and a gain graph, which is a graph whose edges are labeled orientably from a group, each give rise to a biased graph and therefore have frame and lift matroids.
+The Laman graphs form the bases of the two-dimensional rigidity matroid, a matroid defined in the theory of structural rigidity.
+Let 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   be a connected graph and 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   be its edge set. Let 
+  
+    
+      
+        I
+      
+    
+    {\displaystyle I}
+   be the collection of subsets 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+   of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   such that 
+  
+    
+      
+        G
+        −
+        F
+      
+    
+    {\displaystyle G-F}
+   is still connected. Then 
+  
+    
+      
+        
+          M
+          
+            ∗
+          
+        
+        (
+        G
+        )
+      
+    
+    {\displaystyle M^{*}(G)}
+  , whose element set is 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   and with 
+  
+    
+      
+        I
+      
+    
+    {\displaystyle I}
+   as its class of independent sets, is a matroid called the bond matroid of 
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+  .  The rank function 
+  
+    
+      
+        r
+        (
+        F
+        )
+      
+    
+    {\displaystyle r(F)}
+   is the cyclomatic number of the subgraph induced on the edge subset 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+  , which equals the number of edges outside a maximal forest of that subgraph, and also the number of independent cycles in it.
+
+Matroids from field extensions
+A third original source of matroid theory is field theory.
+An extension of a field gives rise to a matroid.  Suppose 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+   and 
+  
+    
+      
+        K
+      
+    
+    {\displaystyle K}
+   are fields with 
+  
+    
+      
+        K
+      
+    
+    {\displaystyle K}
+   containing 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+  .  Let 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   be any finite subset of 
+  
+    
+      
+        K
+      
+    
+    {\displaystyle K}
+  .  Define a subset 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   to be algebraically independent if the extension field 
+  
+    
+      
+        F
+        (
+        S
+        )
+      
+    
+    {\displaystyle F(S)}
+   has transcendence degree equal to 
+  
+    
+      
+        
+          |
+        
+        S
+        
+          |
+        
+      
+    
+    {\displaystyle |S|}
+  .A matroid that is equivalent to a matroid of this kind is called an algebraic matroid.  The problem of characterizing algebraic matroids is extremely difficult; little is known about it. The Vámos matroid provides an example of a matroid that is not algebraic.
+
+Basic constructions
+There are some standard ways to make new matroids out of old ones.
+
+Duality
+If M is a finite matroid, we can define the orthogonal or dual matroid M* by taking the same underlying set and calling a set a basis in M* if and only if its complement is a basis in M.  It is not difficult to verify that M* is a matroid and that the dual of M* is M.The dual can be described equally well in terms of other ways to define a matroid.  For instance:
+
+A set is independent in M* if and only if its complement spans M.
+A set is a circuit of M* if and only if its complement is a coatom in M.
+The rank function of the dual is 
+  
+    
+      
+        
+          r
+          
+            ∗
+          
+        
+        (
+        S
+        )
+        =
+        
+          |
+        
+        S
+        
+          |
+        
+        −
+        r
+        (
+        M
+        )
+        +
+        r
+        
+          (
+          
+            E
+            ∖
+            S
+          
+          )
+        
+      
+    
+    {\displaystyle r^{*}(S)=|S|-r(M)+r\left(E\smallsetminus S\right)}
+  .According to a matroid version of Kuratowski's theorem, the dual of a graphic matroid M is a graphic matroid if and only if M is the matroid of a planar graph. In this case, the dual of M is the matroid of the dual graph of G.  The dual of a vector matroid representable over a particular field F is also representable over F. The dual of a transversal matroid is a strict gammoid and vice versa.
+Example
+The cycle matroid of a graph is the dual matroid of its bond matroid.
+
+Minors
+If M is a matroid with element set E, and S is a subset of E, the restriction of M to S, written M |S, is the matroid on the set S whose independent sets are the independent sets of M that are contained in S.  Its circuits are the circuits of M that are contained in S and its rank function is that of M restricted to subsets of S. In linear algebra, this corresponds to restricting to the subspace generated by the vectors in S.  Equivalently if T = M−S this may be termed the deletion of T, written M\T or M−T. The submatroids of M are precisely the results of a sequence of deletions: the order is irrelevant.The dual operation of restriction is contraction. If T is a subset of E, the contraction of M by T, written M/T, is the matroid on the underlying set E − T whose rank function is 
+  
+    
+      
+        
+          r
+          ′
+        
+        (
+        A
+        )
+        =
+        r
+        (
+        A
+        ∪
+        T
+        )
+        −
+        r
+        (
+        T
+        )
+        .
+      
+    
+    {\displaystyle r'(A)=r(A\cup T)-r(T).}
+    In linear algebra, this corresponds to looking at the quotient space by the linear space generated by the vectors in T, together with the images of the vectors in E - T.
+A matroid N that is obtained from M by a sequence of restriction and contraction operations is called a minor of M.  We say M contains N as a minor. Many important families of matroids may be characterized by the minor-minimal matroids that do not belong to the family; these are called forbidden or excluded minors.
+
+Sums and unions
+Let M be a matroid with an underlying set of elements E, and let N be another matroid on an underlying set F.
+The direct sum of matroids M and N is the matroid whose underlying set is the disjoint union of E and F, and whose independent sets are the disjoint unions of an independent set of M with an independent set of N.
+The union of M and N is the matroid whose underlying set is the union (not the disjoint union) of E and F, and whose independent sets are those subsets that are the union of an independent set in M and one in N.  Usually the term "union" is applied when E = F, but that assumption is not essential.  If E and F are disjoint, the union is the direct sum.
+
+Additional terminology
+Let M be a matroid with an underlying set of elements E.
+
+E may be called the ground set of M.  Its elements may be called the points of M.
+A subset of E spans M if its closure is E.  A set is said to span a closed set K if its closure is K.
+The girth of a matroid is the size of its smallest circuit or dependent set.
+An element that forms a single-element circuit of M is called a loop. Equivalently, an element is a loop if it belongs to no basis.
+An element that belongs to no circuit is called a coloop or isthmus. Equivalently, an element is a coloop if it belongs to every basis.  Loop and coloops are mutually dual.
+If a two-element set {f, g} is a circuit of M, then f and g are parallel in M.
+A matroid is called simple if it has no circuits consisting of 1 or 2 elements.  That is, it has no loops and no parallel elements.  The term combinatorial geometry is also used.  A simple matroid obtained from another matroid M by deleting all loops and deleting one element from each 2-element circuit until no 2-element circuits remain is called a simplification of M.  A matroid is co-simple if its dual matroid is simple.
+A union of circuits is sometimes called a cycle of M.  A cycle is therefore the complement of a flat of the dual matroid.  (This usage conflicts with the common meaning of "cycle" in graph theory.)
+A separator of M is a subset S of E such that 
+  
+    
+      
+        r
+        (
+        S
+        )
+        +
+        r
+        (
+        E
+        −
+        S
+        )
+        =
+        r
+        (
+        M
+        )
+      
+    
+    {\displaystyle r(S)+r(E-S)=r(M)}
+  .  A proper or non-trivial separator is a separator that is neither E nor the empty set.  An irreducible separator is a non-empty separator that contains no other non-empty separator.  The irreducible separators partition the ground set E.
+A matroid that cannot be written as the direct sum of two nonempty matroids, or equivalently that has no proper separators, is called connected or irreducible.  A matroid is connected if and only if its dual is connected.
+A maximal irreducible submatroid of M is called a component of M.  A component is the restriction of M to an irreducible separator, and contrariwise, the restriction of M to an irreducible separator is a component.  A separator is a union of components.
+A matroid M is called a frame matroid if it, or a matroid that contains it, has a basis such that all the points of M are contained in the lines that join pairs of basis elements.
+A matroid is called a paving matroid if all of its circuits have size at least equal to its rank.
+The matroid polytope 
+  
+    
+      
+        
+          P
+          
+            M
+          
+        
+      
+    
+    {\displaystyle P_{M}}
+   is the convex hull of the indicator vectors of the bases of 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+  .
+
+Algorithms
+Greedy algorithm
+A weighted matroid is a matroid together with a function from its elements to the nonnegative real numbers. The weight of a subset of elements is defined to be the sum of the weights of the elements in the subset. The greedy algorithm can be used to find a maximum-weight basis of the matroid, by starting from the empty set and repeatedly adding one element at a time, at each step choosing a maximum-weight element among the elements whose addition would preserve the independence of the augmented set. This algorithm does not need to know anything about the details of the matroid's definition, as long as it has access to the matroid through an independence oracle, a subroutine for testing whether a set is independent.
+This optimization algorithm may be used to characterize matroids: if a family F of sets, closed under taking subsets, has the property that, no matter how the sets are weighted, the greedy algorithm finds a maximum-weight set in the family, then F must be the family of independent sets of a matroid.The notion of matroid has been generalized to allow for other types of sets on which a greedy algorithm gives optimal solutions; see greedoid and matroid embedding for more information.
+
+Matroid partitioning
+The matroid partitioning problem is to partition the elements of a matroid into as few independent sets as possible, and the matroid packing problem is to find as many disjoint spanning sets as possible. Both can be solved in polynomial time, and can be generalized to the problem of computing the rank or finding an independent set in a matroid sum.
+
+Matroid intersection
+The intersection of two or more matroids is the family of sets that are simultaneously independent in each of the matroids. The problem of finding the largest set, or the maximum weighted set, in the intersection of two matroids can be found in polynomial time,: (46)  and provides a solution to many other important combinatorial optimization problems. For instance, maximum matching in bipartite graphs can be expressed as a problem of intersecting two partition matroids. However, finding the largest set in an intersection of three or more matroids is NP-complete.
+
+Matroid software
+Two standalone systems for calculations with matroids are Kingan's Oid and Hlineny's Macek. Both of them are open sourced packages. "Oid" is an interactive, extensible software system for experimenting with matroids. "Macek" is a specialized software system with tools and routines for reasonably efficient combinatorial computations with representable matroids.
+Both open source mathematics software systems SAGE and Macaulay2 contain matroid packages.
+
+Polynomial invariants
+There are two especially significant polynomials associated to a finite matroid M on the ground set E.  Each is a matroid invariant, which means that isomorphic matroids have the same polynomial.
+
+Characteristic polynomial
+The characteristic polynomial of M (which is sometimes called the chromatic polynomial, although it does not count colorings), is defined to be
+
+  
+    
+      
+        
+          p
+          
+            M
+          
+        
+        (
+        λ
+        )
+        :=
+        
+          ∑
+          
+            S
+            ⊆
+            E
+          
+        
+        (
+        −
+        1
+        
+          )
+          
+            
+              |
+            
+            S
+            
+              |
+            
+          
+        
+        
+          λ
+          
+            r
+            (
+            E
+            )
+            −
+            r
+            (
+            S
+            )
+          
+        
+        ,
+      
+    
+    {\displaystyle p_{M}(\lambda ):=\sum _{S\subseteq E}(-1)^{|S|}\lambda ^{r(E)-r(S)},}
+  or equivalently (as long as the empty set is closed in M) as
+
+  
+    
+      
+        
+          p
+          
+            M
+          
+        
+        (
+        λ
+        )
+        :=
+        
+          ∑
+          
+            A
+          
+        
+        μ
+        (
+        ∅
+        ,
+        A
+        )
+        
+          λ
+          
+            r
+            (
+            E
+            )
+            −
+            r
+            (
+            A
+            )
+          
+        
+         
+        ,
+      
+    
+    {\displaystyle p_{M}(\lambda ):=\sum _{A}\mu (\emptyset ,A)\lambda ^{r(E)-r(A)}\ ,}
+  where μ denotes the Möbius function of the geometric lattice of the matroid and the sum is taken over all the flats A of the matroid.When M is the cycle matroid M(G) of a graph G, the characteristic polynomial is a slight transformation of the chromatic polynomial, which is given by χG (λ) = λcpM(G) (λ), where c is the number of connected components of G.
+When M is the bond matroid M*(G) of a graph G, the characteristic polynomial equals the flow polynomial of G.
+When M is the matroid M(A) of an arrangement A of linear hyperplanes in Rn (or Fn where F is any field), the characteristic polynomial of the arrangement is given by pA (λ) = λn−r(M)pM (λ).
+
+Beta invariant
+The beta invariant of a matroid, introduced by Crapo (1967), may be expressed in terms of the characteristic polynomial p as an evaluation of the derivative
+
+  
+    
+      
+        β
+        (
+        M
+        )
+        =
+        (
+        −
+        1
+        
+          )
+          
+            r
+            (
+            M
+            )
+            −
+            1
+          
+        
+        
+          p
+          
+            M
+          
+          ′
+        
+        (
+        1
+        )
+         
+      
+    
+    {\displaystyle \beta (M)=(-1)^{r(M)-1}p_{M}'(1)\ }
+  or directly as
+
+  
+    
+      
+        β
+        (
+        M
+        )
+        =
+        (
+        −
+        1
+        
+          )
+          
+            r
+            (
+            M
+            )
+          
+        
+        
+          ∑
+          
+            X
+            ⊆
+            E
+          
+        
+        (
+        −
+        1
+        
+          )
+          
+            
+              |
+            
+            X
+            
+              |
+            
+          
+        
+        r
+        (
+        X
+        )
+         
+        .
+      
+    
+    {\displaystyle \beta (M)=(-1)^{r(M)}\sum _{X\subseteq E}(-1)^{|X|}r(X)\ .}
+  The beta invariant is non-negative, and is zero if and only if M is disconnected, or empty, or a loop.  Otherwise it depends only on the lattice of flats of M.  If M has no loops and coloops then β(M) = β(M∗).
+
+Whitney numbers
+The Whitney numbers of the first kind of M are the coefficients of the powers of 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   in the characteristic polynomial.  Specifically, the i-th Whitney number 
+  
+    
+      
+        
+          w
+          
+            i
+          
+        
+        (
+        M
+        )
+      
+    
+    {\displaystyle w_{i}(M)}
+   is the coefficient of 
+  
+    
+      
+        
+          λ
+          
+            r
+            (
+            M
+            )
+            −
+            i
+          
+        
+      
+    
+    {\displaystyle \lambda ^{r(M)-i}}
+   and is the sum of Möbius function values:
+
+  
+    
+      
+        
+          w
+          
+            i
+          
+        
+        (
+        M
+        )
+        =
+        ∑
+        {
+        μ
+        (
+        ∅
+        ,
+        A
+        )
+        :
+        r
+        (
+        A
+        )
+        =
+        i
+        }
+        ,
+      
+    
+    {\displaystyle w_{i}(M)=\sum \{\mu (\emptyset ,A):r(A)=i\},}
+  summed over flats of the right rank.  These numbers alternate in sign, so that 
+  
+    
+      
+        (
+        −
+        1
+        
+          )
+          
+            i
+          
+        
+        
+          w
+          
+            i
+          
+        
+        (
+        M
+        )
+        >
+        0
+      
+    
+    {\displaystyle (-1)^{i}w_{i}(M)>0}
+   for 
+  
+    
+      
+        0
+        ≤
+        i
+        ≤
+        r
+        (
+        M
+        )
+        .
+      
+    
+    {\displaystyle 0\leq i\leq r(M).}
+  
+The Whitney numbers of the second kind of M are the numbers of flats of each rank.  That is, 
+  
+    
+      
+        
+          W
+          
+            i
+          
+        
+        (
+        M
+        )
+      
+    
+    {\displaystyle W_{i}(M)}
+   is the number of rank-i flats.
+The Whitney numbers of both kinds generalize the Stirling numbers of the first and second kind, which are the Whitney numbers of the cycle matroid of the complete graph and equivalently of the partition lattice.  They were named after Hassler Whitney, the (co)founder of matroid theory, by Gian-Carlo Rota.  The name has been extended to the similar numbers for finite ranked partially ordered sets.
+
+Tutte polynomial
+The Tutte polynomial of a matroid, TM (x,y), generalizes the characteristic polynomial to two variables.  This gives it more combinatorial interpretations, and also gives it the duality property
+
+  
+    
+      
+        
+          T
+          
+            
+              M
+              
+                ∗
+              
+            
+          
+        
+        (
+        x
+        ,
+        y
+        )
+        =
+        
+          T
+          
+            M
+          
+        
+        (
+        y
+        ,
+        x
+        )
+        ,
+      
+    
+    {\displaystyle T_{M^{*}}(x,y)=T_{M}(y,x),}
+  which implies a number of dualities between properties of M and properties of M *.  One definition of the Tutte polynomial is
+
+  
+    
+      
+        
+          T
+          
+            M
+          
+        
+        (
+        x
+        ,
+        y
+        )
+        =
+        
+          ∑
+          
+            S
+            ⊆
+            E
+          
+        
+        (
+        x
+        −
+        1
+        
+          )
+          
+            r
+            (
+            M
+            )
+            −
+            r
+            (
+            S
+            )
+          
+        
+        (
+        y
+        −
+        1
+        
+          )
+          
+            
+              |
+            
+            S
+            
+              |
+            
+            −
+            r
+            (
+            S
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle T_{M}(x,y)=\sum _{S\subseteq E}(x-1)^{r(M)-r(S)}(y-1)^{|S|-r(S)}.}
+  This expresses the Tutte polynomial as an evaluation of the corank-nullity or rank generating polynomial,
+
+  
+    
+      
+        
+          R
+          
+            M
+          
+        
+        (
+        u
+        ,
+        v
+        )
+        =
+        
+          ∑
+          
+            S
+            ⊆
+            E
+          
+        
+        
+          u
+          
+            r
+            (
+            M
+            )
+            −
+            r
+            (
+            S
+            )
+          
+        
+        
+          v
+          
+            
+              |
+            
+            S
+            
+              |
+            
+            −
+            r
+            (
+            S
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle R_{M}(u,v)=\sum _{S\subseteq E}u^{r(M)-r(S)}v^{|S|-r(S)}.}
+  From this definition it is easy to see that the characteristic polynomial is, up to a simple factor, an evaluation of TM, specifically, 
+
+  
+    
+      
+        
+          p
+          
+            M
+          
+        
+        (
+        λ
+        )
+        =
+        (
+        −
+        1
+        
+          )
+          
+            r
+            (
+            M
+            )
+          
+        
+        
+          T
+          
+            M
+          
+        
+        (
+        1
+        −
+        λ
+        ,
+        0
+        )
+        .
+      
+    
+    {\displaystyle p_{M}(\lambda )=(-1)^{r(M)}T_{M}(1-\lambda ,0).}
+  Another definition is in terms of internal and external activities and a sum over bases, reflecting the fact that T(1,1) is the number of bases.  This, which sums over fewer subsets but has more complicated terms, was Tutte's original definition.
+There is a further definition in terms of recursion by deletion and contraction.  The deletion-contraction identity is
+
+  
+    
+      
+        F
+        (
+        M
+        )
+        =
+        F
+        (
+        M
+        −
+        e
+        )
+        +
+        F
+        (
+        M
+        
+          /
+        
+        e
+        )
+      
+    
+    {\displaystyle F(M)=F(M-e)+F(M/e)}
+   when 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+   is neither a loop nor a coloop.An invariant of matroids (i.e., a function that takes the same value on isomorphic matroids) satisfying this recursion and the multiplicative condition
+
+  
+    
+      
+        F
+        (
+        M
+        ⊕
+        
+          M
+          ′
+        
+        )
+        =
+        F
+        (
+        M
+        )
+        F
+        (
+        
+          M
+          ′
+        
+        )
+      
+    
+    {\displaystyle F(M\oplus M')=F(M)F(M')}
+  is said to be a Tutte-Grothendieck invariant. The Tutte polynomial is the most general such invariant; that is, the Tutte polynomial is a Tutte-Grothendieck invariant and every such invariant is an evaluation of the Tutte polynomial.The Tutte polynomial TG  of a graph is the Tutte polynomial TM(G) of its cycle matroid.
+
+Infinite matroids
+The theory of infinite matroids is much more complicated than that of finite matroids and forms a subject of its own.  For a long time, one of the difficulties has been that there were many reasonable and useful definitions, none of which appeared to capture all the important aspects of finite matroid theory.  For instance, it seemed to be hard to have bases, circuits, and duality together in one notion of infinite matroids.
+The simplest definition of an infinite matroid is to require finite rank; that is, the rank of E is finite.  This theory is similar to that of finite matroids except for the failure of duality due to the fact that the dual of an infinite matroid of finite rank does not have finite rank.  Finite-rank matroids include any subsets of finite-dimensional vector spaces and of field extensions of finite transcendence degree.
+The next simplest infinite generalization is finitary matroids, also known as pregeometries.  A matroid with possibly infinite ground set is finitary if it has the property that
+
+  
+    
+      
+        x
+        ∈
+        cl
+        ⁡
+        (
+        Y
+        )
+         
+        ⇔
+         
+        
+           there is a finite set 
+        
+        
+          Y
+          ′
+        
+        ⊆
+        Y
+        
+           such that 
+        
+        x
+        ∈
+        cl
+        ⁡
+        (
+        
+          Y
+          ′
+        
+        )
+        .
+      
+    
+    {\displaystyle x\in \operatorname {cl} (Y)\ \Leftrightarrow \ {\text{ there is a finite set }}Y'\subseteq Y{\text{ such that }}x\in \operatorname {cl} (Y').}
+  Equivalently, every dependent set contains a finite dependent set.
+Examples are linear dependence of arbitrary subsets of infinite-dimensional vector spaces (but not infinite dependencies as in Hilbert and Banach spaces), and algebraic dependence in arbitrary subsets of field extensions of possibly infinite transcendence degree.  Again, the class of finitary matroid is not self-dual, because the dual of a finitary matroid is not finitary.
+Finitary infinite matroids are studied in model theory, a branch of mathematical logic with strong ties to algebra.
+In the late 1960s matroid theorists asked for a more general notion that shares the different aspects of finite matroids and generalizes their duality. Many notions of infinite matroids were defined in response to this challenge, but the question remained open. One of the approaches examined by D.A. Higgs became known as B-matroids and was studied by Higgs, Oxley and others in the 1960s and 1970s. According to a recent result by Bruhn, Diestel, and Kriesell et al. (2013), it solves the problem: Arriving at the same notion independently, they provided five equivalent systems of axiom—in terms of independence, bases, circuits, closure and rank. The duality of B-matroids generalizes dualities that can be observed in infinite graphs.
+The independence axioms are as follows:
+
+The empty set is independent.
+Every subset of an independent set is independent.
+For every nonmaximal (under set inclusion) independent set I and maximal independent set J, there is 
+  
+    
+      
+        x
+        ∈
+        J
+        ∖
+        I
+      
+    
+    {\displaystyle x\in J\smallsetminus I}
+   such that 
+  
+    
+      
+        I
+        ∪
+        {
+        x
+        }
+      
+    
+    {\displaystyle I\cup \{x\}}
+   is independent.
+For every subset X of the base space, every independent subset I of X can be extended to a maximal independent subset of X.With these axioms, every matroid has a dual.
+
+History
+Matroid theory was introduced by Hassler Whitney (1935). It was also independently discovered by Takeo Nakasawa, whose work was forgotten for many years (Nishimura & Kuroda 2009).
+In his seminal paper, Whitney provided two axioms for independence, and defined any structure adhering to these axioms to be "matroids".
+(Although it was perhaps implied, he did not include an axiom requiring at least one subset to be independent.)
+His key observation was that these axioms provide an abstraction of "independence" that is common to both graphs and matrices.
+Because of this, many of the terms used in matroid theory resemble the terms for their analogous concepts in linear algebra or graph theory.
+Almost immediately after Whitney first wrote about matroids, an important article was written by Saunders Mac Lane (1936) on the relation of matroids to projective geometry. A year later, B. L. van der Waerden (1937) noted similarities between algebraic and linear dependence in his classic textbook on Modern Algebra.
+In the 1940s Richard Rado developed further theory under the name "independence systems" with an eye towards transversal theory, where his name for the subject is still sometimes used.
+In the 1950s W. T. Tutte became the foremost figure in matroid theory, a position he retained for many years.  His contributions were plentiful, including the characterization of binary, regular, and graphic matroids by excluded minors; the regular-matroid representability theorem; the theory of chain groups and their matroids; and the tools he used to prove many of his results, the "Path theorem" and "Tutte homotopy theorem" (see, e.g., Tutte 1965), which are so complex that later theorists have gone to great trouble to eliminate the necessity of using them in proofs.  (A fine example is A. M. H. Gerards' short proof (1989) of Tutte's characterization of regular matroids.)
+Henry Crapo (1969) and Thomas Brylawski (1972) generalized to matroids Tutte's "dichromate", a graphic polynomial now known as the Tutte polynomial (named by Crapo).  Their work has recently (especially in the 2000s) been followed by a flood of papers—though not as many as on the Tutte polynomial of a graph.
+In 1976 Dominic Welsh published the first comprehensive book on matroid theory.
+Paul Seymour's decomposition theorem for regular matroids (1980) was the most significant and influential work of the late 1970s and the 1980s.
+Another fundamental contribution, by Kahn & Kung (1982), showed why projective geometries and Dowling geometries play such an important role in matroid theory.
+By this time there were many other important contributors, but one should not omit to mention Geoff Whittle's extension to ternary matroids of Tutte's characterization of binary matroids that are representable over the rationals (Whittle 1995), perhaps the biggest single contribution of the 1990s.  In the current period (since around 2000) the Matroid Minors Project of Jim Geelen, Gerards, Whittle, and others, which attempts to duplicate for matroids that are representable over a finite field the success of the Robertson–Seymour Graph Minors Project (see Robertson–Seymour theorem), has produced substantial advances in the structure theory of matroids.  Many others have also contributed to that part of matroid theory, which (in the first and second decades of the 21st century) is flourishing.
+
+Researchers
+Mathematicians who pioneered the study of matroids include Takeo Nakasawa, Saunders Mac Lane, Richard Rado, W. T. Tutte, B. L. van der Waerden, and Hassler Whitney.
+Other major contributors include Jack Edmonds, Jim Geelen, Eugene Lawler, László Lovász, Gian-Carlo Rota, P. D. Seymour, and Dominic Welsh.
+
+See also
+Antimatroid
+Coxeter matroid
+Oriented matroid
+Pregeometry (model theory)
+Polymatroid
+Greedoid
+
+Notes
+References
+Bruhn, Henning; Diestel, Reinhard; Kriesell, Matthias; Pendavingh, Rudi; Wollan, Paul (2013), "Axioms for infinite matroids", Advances in Mathematics, 239: 18–46, arXiv:1003.3919, doi:10.1016/j.aim.2013.01.011, MR 3045140, S2CID 10436077.
+Bryant, Victor; Perfect, Hazel (1980), Independence Theory in Combinatorics, London and New York: Chapman and Hall, ISBN 978-0-412-22430-0.
+Brylawski, Thomas H. (1972), "A decomposition for combinatorial geometries", Transactions of the American Mathematical Society, 171: 235–282, doi:10.2307/1996381, JSTOR 1996381.
+Crapo, Henry H. (1969), "The Tutte polynomial", Aequationes Mathematicae, 3 (3): 211–229, doi:10.1007/BF01817442, S2CID 119602825.
+Crapo, Henry H.; Rota, Gian-Carlo (1970), On the Foundations of Combinatorial Theory: Combinatorial Geometries, Cambridge, Mass.: M.I.T. Press, ISBN 978-0-262-53016-3, MR 0290980.
+Geelen, Jim; Gerards, A. M. H.; Whittle, Geoff (2007), "Towards a matroid-minor structure theory", in Grimmett, Geoffrey; et al. (eds.), Combinatorics, Complexity, and Chance: A Tribute to Dominic Welsh, Oxford Lecture Series in Mathematics and its Applications, vol. 34, Oxford: Oxford University Press, pp. 72–82.
+Gerards, A. M. H. (1989), "A short proof of Tutte's characterization of totally unimodular matrices", Linear Algebra and Its Applications, 114/115: 207–212, doi:10.1016/0024-3795(89)90461-8.
+Kahn, Jeff; Kung, Joseph P. S. (1982), "Varieties of combinatorial geometries", Transactions of the American Mathematical Society, 271 (2): 485–499, doi:10.2307/1998894, JSTOR 1998894.
+Kingan, Robert; Kingan, Sandra (2005), "A software system for matroids", Graphs and Discovery, DIMACS Series in Discrete Mathematics and Theoretical Computer Science, pp. 287–296.
+Kung, Joseph P. S., ed. (1986), A Source Book in Matroid Theory, Boston: Birkhäuser, doi:10.1007/978-1-4684-9199-9, ISBN 978-0-8176-3173-4, MR 0890330.
+Mac Lane, Saunders (1936), "Some interpretations of abstract linear dependence in terms of projective geometry", American Journal of Mathematics, 58 (1): 236–240, doi:10.2307/2371070, JSTOR 2371070.
+Minty, George J. (1966), "On the axiomatic foundations of the theories of directed linear graphs, electrical networks and network-programming", Journal of Mathematics and Mechanics, 15: 485–520, MR 0188102.
+Nishimura, Hirokazu; Kuroda, Susumu, eds. (2009), A lost mathematician, Takeo Nakasawa. The forgotten father of matroid theory, Basel: Birkhäuser Verlag, doi:10.1007/978-3-7643-8573-6, ISBN 978-3-7643-8572-9, MR 2516551, Zbl 1163.01001.
+Oxley, James (1992), Matroid Theory, Oxford: Oxford University Press, ISBN 978-0-19-853563-8, MR 1207587, Zbl 0784.05002.
+Recski, András (1989), Matroid Theory and its Applications in Electric Network Theory and in Statics, Algorithms and Combinatorics, vol. 6, Berlin and Budapest: Springer-Verlag and Akademiai Kiado, doi:10.1007/978-3-662-22143-3, ISBN 978-3-540-15285-9, MR 1027839, S2CID 117772439.
+Sapozhenko, A.A. (2001) [1994], "Matroid", Encyclopedia of Mathematics, EMS Press
+Seymour, Paul D. (1980), "Decomposition of regular matroids", Journal of Combinatorial Theory, Series B, 28 (3): 305–359, doi:10.1016/0095-8956(80)90075-1, hdl:10338.dmlcz/101946, Zbl 0443.05027.
+Truemper, Klaus (1992), Matroid Decomposition, Boston: Academic Press, ISBN 978-0-12-701225-4, MR 1170126.
+Tutte, W. T. (1959), "Matroids and graphs", Transactions of the American Mathematical Society, 90 (3): 527–552, doi:10.2307/1993185, JSTOR 1993185, MR 0101527.
+Tutte, W. T. (1965), "Lectures on matroids", Journal of Research of the National Bureau of Standards Section B, 69: 1–47.
+Tutte, W.T. (1971), Introduction to the theory of matroids, Modern Analytic and Computational Methods in Science and Mathematics, vol. 37, New York: American Elsevier Publishing Company, Zbl 0231.05027.
+Vámos, Peter (1978), "The missing axiom of matroid theory is lost forever", Journal of the London Mathematical Society, 18 (3): 403–408, doi:10.1112/jlms/s2-18.3.403.
+van der Waerden, B. L. (1937), Moderne Algebra.
+Welsh, D. J. A. (1976), Matroid Theory, L.M.S. Monographs, vol. 8, Academic Press, ISBN 978-0-12-744050-7, Zbl 0343.05002.
+White, Neil, ed. (1986), Theory of Matroids, Encyclopedia of Mathematics and its Applications, vol. 26, Cambridge: Cambridge University Press, ISBN 978-0-521-30937-0, Zbl 0579.00001.
+White, Neil, ed. (1987), Combinatorial geometries, Encyclopedia of Mathematics and its Applications, vol. 29, Cambridge: Cambridge University Press, ISBN 978-0-521-33339-9, Zbl 0626.00007
+White, Neil, ed. (1992), Matroid Applications, Encyclopedia of Mathematics and its Applications, vol. 40, Cambridge: Cambridge University Press, ISBN 978-0-521-38165-9, Zbl 0742.00052.
+Whitney, Hassler (1935), "On the abstract properties of linear dependence", American Journal of Mathematics, 57 (3): 509–533, doi:10.2307/2371182, hdl:10338.dmlcz/100694, JSTOR 2371182, MR 1507091. Reprinted in Kung (1986), pp. 55–79.
+Whittle, Geoff (1995), "A characterization of the matroids representable over GF(3) and the rationals", Journal of Combinatorial Theory, Series B, 65 (2): 222–261, doi:10.1006/jctb.1995.1052.
+
+External links
+"Matroid", Encyclopedia of Mathematics, EMS Press, 2001 [1994]
+Kingan, Sandra : Matroid theory. A large bibliography of matroid papers, matroid software, and links.
+Locke, S. C. : Greedy Algorithms.
+Pagano, Steven R. : Matroids and Signed Graphs.
+Mark Hubenthal: A Brief Look At Matroids (PDF) (contain proofs for statements of this article)
+James Oxley : What is a matroid? (PDF)
+Neil White : Matroid Applications

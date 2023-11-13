@@ -1,0 +1,480 @@
+A randomized algorithm is an algorithm that employs a degree of randomness as part of its logic or procedure. The algorithm typically uses uniformly random bits as an auxiliary input to guide its behavior, in the hope of achieving good performance in the "average case" over all possible choices of random determined by the random bits; thus either the running time, or the output (or both) are random variables.
+One has to distinguish between algorithms that use the random input so that they always terminate with the correct answer, but where the expected running time is finite (Las Vegas algorithms, for example Quicksort), and algorithms which have a chance of producing an incorrect result (Monte Carlo algorithms, for example the Monte Carlo algorithm for the MFAS problem) or fail to produce a result either by signaling a failure or failing to terminate. In some cases, probabilistic algorithms are the only practical means of solving a problem.In common practice, randomized algorithms are approximated using a pseudorandom number generator in place of a true source of random bits; such an implementation may deviate from the expected theoretical behavior and mathematical guarantees which may depend on the existence of an ideal true random number generator.
+
+Motivation
+As a motivating example, consider the problem of finding an ‘a’ in an array of n elements.
+Input: An array of n≥2 elements, in which half are ‘a’s and the other half are ‘b’s.
+Output: Find an ‘a’ in the array.
+We give two versions of the algorithm, one Las Vegas algorithm and one Monte Carlo algorithm.
+Las Vegas algorithm:
+
+This algorithm succeeds with probability 1. The number of iterations varies and can be arbitrarily large, but the expected number of iterations is
+
+  
+    
+      
+        
+          lim
+          
+            n
+            →
+            ∞
+          
+        
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          
+            i
+            
+              2
+              
+                i
+              
+            
+          
+        
+        =
+        2
+      
+    
+    {\displaystyle \lim _{n\to \infty }\sum _{i=1}^{n}{\frac {i}{2^{i}}}=2}
+  Since it is constant, the expected run time over many calls is 
+  
+    
+      
+        Θ
+        (
+        1
+        )
+      
+    
+    {\displaystyle \Theta (1)}
+  . (See Big Theta notation)
+Monte Carlo algorithm:
+
+If an ‘a’ is found, the algorithm succeeds, else the algorithm fails. After k iterations, the probability of finding an ‘a’ is:
+
+This algorithm does not guarantee success, but the run time is bounded. The number of iterations is always less than or equal to k.  Taking k to be constant the run time (expected and absolute) is 
+  
+    
+      
+        Θ
+        (
+        1
+        )
+      
+    
+    {\displaystyle \Theta (1)}
+  .
+Randomized algorithms are particularly useful when faced with a malicious "adversary" or attacker who deliberately tries to feed a bad input to the algorithm (see worst-case complexity and competitive analysis (online algorithm)) such as in the Prisoner's dilemma. It is for this reason that randomness is ubiquitous in cryptography. In cryptographic applications, pseudo-random numbers cannot be used, since the adversary can predict them, making the algorithm effectively deterministic. Therefore, either a source of truly random numbers or a cryptographically secure pseudo-random number generator is required.  Another area in which randomness is inherent is quantum computing.
+In the example above, the Las Vegas algorithm always outputs the correct answer, but its running time is a random variable.  The Monte Carlo algorithm (related to the Monte Carlo method for simulation) is guaranteed to complete in an amount of time that can be bounded by a function the input size and its parameter k, but allows a small probability of error. Observe that any Las Vegas algorithm can be converted into a Monte Carlo algorithm (via Markov's inequality), by having it output an arbitrary, possibly incorrect answer if it fails to complete within a specified time. Conversely, if an efficient verification procedure exists to check whether an answer is correct, then a Monte Carlo algorithm can be converted into a Las Vegas algorithm by running the Monte Carlo algorithm repeatedly till a correct answer is obtained.
+
+Computational complexity
+Computational complexity theory models randomized algorithms as probabilistic Turing machines. Both  Las Vegas and Monte Carlo algorithms are considered, and several complexity classes are studied. The most basic randomized complexity class is RP, which is the class of decision problems for which there is an efficient (polynomial time) randomized algorithm (or probabilistic Turing machine) which recognizes NO-instances with absolute certainty and recognizes YES-instances with a probability of at least 1/2. The complement class for RP is co-RP. Problem classes having (possibly nonterminating) algorithms with polynomial time average case running time whose output is always correct are said to be in ZPP.
+The class of problems for which both YES and NO-instances are allowed to be identified with some error is called BPP. This class acts as the randomized equivalent of P, i.e. BPP represents the class of efficient randomized algorithms.
+
+Early history
+Sorting
+Quicksort was discovered by Tony Hoare in 1959, and subsequently published in 1961. In the same year, Hoare published the quickselect algorithm, which finds the median element of a list in linear expected time. It remained open until 1973 whether a deterministic linear-time algorithm existed.
+
+Number theory
+In 1917, Henry Cabourn Pocklington introduced a randomized algorithm known as Pocklington's algorithm for efficiently finding square roots modulo prime numbers.
+In 1970, Elwyn Berlekamp introduced a randomized algorithm for efficiently computing the roots of a polynomial over a finite field. In 1977, Robert M. Solovay and Volker Strassen discovered a polynomial-time randomized primality test (i.e., determining the primality of a number). Soon afterwards Michael O. Rabin demonstrated that the 1976 Miller's primality test could also be turned into a polynomial-time randomized algorithm. At that time, no provably polynomial-time deterministic algorithms for primality testing were known.
+
+Data structures
+One of the earliest randomized data structures is the hash table, which was introduced in 1953 by Hans Peter Luhn at IBM. Luhn's hash table used chaining to resolve collisions and was also one of the first applications of linked lists. Subsequently, in 1954, Gene Amdahl, Elaine M. McGraw, Nathaniel Rochester, and Arthur Samuel of IBM Research introduced linear probing, although Andrey Ershov independently had the same idea in 1957. In 1962, Donald Knuth performed the first correct analysis of linear probing, although the memorandum containing his analysis was not published until much later. The first published analysis was due to Konheim and Weiss in 1966.Early works on hash tables either assumed access to a fully random hash function or assumed that the keys themselves were random. In 1979, Carter and Wegman introduced universal hash functions, which they showed could be used to implement chained hash tables with constant expected time per operation. 
+Early work on randomized data structures also extended beyond hash tables. In 1970, Burton Howard Bloom introduced an approximate-membership data structure known as the Bloom filter. In 1989, Raimund Seidel and Cecilia R. Aragon introduced a randomized balanced search tree known as the treap. In the same year,  William Pugh introduced another randomized search tree known as the skip list.
+
+Implicit uses in combinatorics
+Prior to the popularization of randomized algorithms in computer science, Paul Erdős popularized the use of randomized constructions as a mathematical technique for establishing the existence of mathematical objects. This technique has become known as the probabilistic method. Erdős gave his first application of the probabilistic method in 1947, when he used a simple randomized construction to establish the existence of Ramsey graphs. He famously used a much more sophisticated randomized algorithm in 1959 to establish the existence of graphs with high girth and chromatic number.
+
+Examples
+Quicksort
+Quicksort is a familiar, commonly used algorithm in which randomness can be useful. Many deterministic versions of this algorithm require O(n2) time to sort n numbers for some well-defined class of degenerate inputs (such as an already sorted array), with the specific class of inputs that generate this behavior defined by the protocol for pivot selection. However, if the algorithm selects pivot elements uniformly at random, it has a provably high probability of finishing in O(n log n) time regardless of the characteristics of the input.
+
+Randomized incremental constructions in geometry
+In computational geometry, a standard technique to build a structure like a convex hull or Delaunay triangulation is to randomly permute the input points and then insert them one by one into the existing structure. The randomization ensures that the expected number of changes to the structure caused by an insertion is small, and so the expected running time of the algorithm can be bounded from above. This technique is known as randomized incremental construction.
+
+Min cut
+Input: A graph G(V,E)
+Output: A cut partitioning the vertices into L and R, with the minimum number of edges between L and R.
+Recall that the contraction of two nodes, u and v, in a (multi-)graph yields a new node u ' with edges that are the union of the edges incident on either u or v, except from any edge(s) connecting u and v. Figure 1 gives an example of contraction of vertex A and B.
+After contraction, the resulting graph may have parallel edges, but contains no self loops.
+
+Karger's basic algorithm:
+
+begin
+    i = 1
+    repeat
+        repeat
+            Take a random edge (u,v) ∈ E in G
+            replace u and v with the contraction u'
+        until only 2 nodes remain
+        obtain the corresponding cut result Ci
+        i = i + 1
+    until i = m
+    output the minimum cut among C1, C2, ..., Cm.
+end
+
+In each execution of the outer loop, the algorithm repeats the inner loop until only 2 nodes remain, the corresponding cut is obtained. The run time of one execution is 
+  
+    
+      
+        O
+        (
+        n
+        )
+      
+    
+    {\displaystyle O(n)}
+  , and n denotes the number of vertices.
+After m times executions of the outer loop, we output the minimum cut among all the results. The figure 2 gives an
+example of one execution of the algorithm. After execution, we get a cut of size 3.
+
+Analysis of algorithm
+The probability that the algorithm succeeds is 1 − the probability that all attempts fail. By independence, the probability that all attempts fail is
+
+By lemma 1, the probability that Ci = C is the probability that no edge of C is selected during iteration i. Consider the inner loop and let Gj denote the graph after j edge contractions, where j ∈ {0, 1, …, n − 3}. Gj has n − j vertices. We use the chain rule of conditional possibilities.
+The probability that the edge chosen at iteration j is not in C, given that no edge of C has been chosen before, is 
+  
+    
+      
+        1
+        −
+        
+          
+            k
+            
+              
+                |
+              
+              E
+              (
+              
+                G
+                
+                  j
+                
+              
+              )
+              
+                |
+              
+            
+          
+        
+      
+    
+    {\displaystyle 1-{\frac {k}{|E(G_{j})|}}}
+  . Note that Gj still has min cut of size k, so by Lemma 2, it still has at least 
+  
+    
+      
+        
+          
+            
+              (
+              n
+              −
+              j
+              )
+              k
+            
+            2
+          
+        
+      
+    
+    {\displaystyle {\frac {(n-j)k}{2}}}
+   edges.
+Thus, 
+  
+    
+      
+        1
+        −
+        
+          
+            k
+            
+              
+                |
+              
+              E
+              (
+              
+                G
+                
+                  j
+                
+              
+              )
+              
+                |
+              
+            
+          
+        
+        ≥
+        1
+        −
+        
+          
+            2
+            
+              n
+              −
+              j
+            
+          
+        
+        =
+        
+          
+            
+              n
+              −
+              j
+              −
+              2
+            
+            
+              n
+              −
+              j
+            
+          
+        
+      
+    
+    {\displaystyle 1-{\frac {k}{|E(G_{j})|}}\geq 1-{\frac {2}{n-j}}={\frac {n-j-2}{n-j}}}
+  .
+So by the chain rule, the probability of finding the min cut C is
+
+Cancellation gives 
+  
+    
+      
+        Pr
+        [
+        
+          C
+          
+            i
+          
+        
+        =
+        C
+        ]
+        ≥
+        
+          
+            2
+            
+              n
+              (
+              n
+              −
+              1
+              )
+            
+          
+        
+      
+    
+    {\displaystyle \Pr[C_{i}=C]\geq {\frac {2}{n(n-1)}}}
+  . Thus the probability that the algorithm succeeds is at least 
+  
+    
+      
+        1
+        −
+        
+          
+            (
+            
+              1
+              −
+              
+                
+                  2
+                  
+                    n
+                    (
+                    n
+                    −
+                    1
+                    )
+                  
+                
+              
+            
+            )
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle 1-\left(1-{\frac {2}{n(n-1)}}\right)^{m}}
+  . For 
+  
+    
+      
+        m
+        =
+        
+          
+            
+              n
+              (
+              n
+              −
+              1
+              )
+            
+            2
+          
+        
+        ln
+        ⁡
+        n
+      
+    
+    {\displaystyle m={\frac {n(n-1)}{2}}\ln n}
+  , this is equivalent to 
+  
+    
+      
+        1
+        −
+        
+          
+            1
+            n
+          
+        
+      
+    
+    {\displaystyle 1-{\frac {1}{n}}}
+  . The algorithm finds the min cut with probability 
+  
+    
+      
+        1
+        −
+        
+          
+            1
+            n
+          
+        
+      
+    
+    {\displaystyle 1-{\frac {1}{n}}}
+  , in time 
+  
+    
+      
+        O
+        (
+        m
+        n
+        )
+        =
+        O
+        (
+        
+          n
+          
+            3
+          
+        
+        log
+        ⁡
+        n
+        )
+      
+    
+    {\displaystyle O(mn)=O(n^{3}\log n)}
+  .
+
+Derandomization
+Randomness can be viewed as a resource, like space and time. Derandomization is then the process of removing randomness (or using as little of it as possible). It is not currently known if all algorithms can be derandomized without significantly increasing their running time. For instance, in computational complexity, it is unknown whether P = BPP, i.e., we do not know whether we can take an arbitrary randomized algorithm that runs in polynomial time with a small error probability and derandomize it to run in polynomial time without using randomness.
+There are specific methods that can be employed to derandomize particular randomized algorithms:
+
+the method of conditional probabilities, and its generalization, pessimistic estimators
+discrepancy theory (which is used to derandomize geometric algorithms)
+the exploitation of limited independence in the random variables used by the algorithm, such as the pairwise independence used in universal hashing
+the use of expander graphs (or dispersers in general) to amplify a limited amount of initial randomness (this last approach is also referred to as generating pseudorandom bits from a random source, and leads to the related topic of pseudorandomness)
+changing the randomized algorithm to use a hash function as a source of randomness for the algorithm's tasks, and then derandomizing the algorithm by brute-forcing all possible parameters (seeds) of the hash function. This technique is usually used to exhaustively search a sample space and making the algorithm deterministic (e.g. randomized graph algorithms)
+
+Where randomness helps
+When the model of computation is restricted to Turing machines, it is currently an open question whether the ability to make random choices allows some problems to be solved in polynomial time that cannot be solved in polynomial time without this ability; this is the question of whether P = BPP. However, in other contexts, there are specific examples of problems where randomization yields strict improvements.
+
+Based on the initial motivating example: given an exponentially long string of 2k characters, half a's and half b's, a random-access machine requires 2k−1 lookups in the worst-case to find the index of an a; if it is permitted to make random choices, it can solve this problem in an expected polynomial number of lookups.
+The natural way of carrying out a numerical computation in embedded systems or cyber-physical systems is to provide a result that approximates the correct one with high probability (or Probably Approximately Correct Computation (PACC)). The hard problem associated with the evaluation of the discrepancy loss between the approximated and the correct computation can be effectively addressed by resorting to randomization
+In communication complexity, the equality of two strings can be verified to some reliability using 
+  
+    
+      
+        log
+        ⁡
+        n
+      
+    
+    {\displaystyle \log n}
+   bits of communication with a randomized protocol. Any deterministic protocol requires 
+  
+    
+      
+        Θ
+        (
+        n
+        )
+      
+    
+    {\displaystyle \Theta (n)}
+   bits if defending against a strong opponent.
+The volume of a convex body can be estimated by a randomized algorithm to arbitrary precision in polynomial time. Bárány and Füredi showed that no deterministic algorithm can do the same. This is true unconditionally, i.e. without relying on any complexity-theoretic assumptions, assuming the convex body can be queried only as a black box.
+A more complexity-theoretic example of a place where randomness appears to help is the class IP. IP consists of all languages that can be accepted (with high probability) by a polynomially long interaction between an all-powerful prover and a verifier that implements a BPP algorithm. IP = PSPACE. However, if it is required that the verifier be deterministic, then IP = NP.
+In a chemical reaction network (a finite set of reactions like A+B → 2C + D operating on a finite number of molecules), the ability to ever reach a given target state from an initial state is decidable, while even approximating the probability of ever reaching a given target state (using the standard concentration-based probability for which reaction will occur next) is undecidable.  More specifically, a limited Turing machine  can be simulated with arbitrarily high probability of running correctly for all time, only if a random chemical reaction network is used. With a simple nondeterministic chemical reaction network (any possible reaction can happen next), the computational power is limited to primitive recursive functions.
+
+See also
+Probabilistic analysis of algorithms
+Atlantic City algorithm
+Monte Carlo algorithm
+Las Vegas algorithm
+Bogosort
+Principle of deferred decision
+Randomized algorithms as zero-sum games
+Probabilistic roadmap
+HyperLogLog
+count–min sketch
+approximate counting algorithm
+Karger's algorithm
+
+Notes
+References
+Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein. Introduction to Algorithms, Second Edition. MIT Press and McGraw–Hill, 1990. ISBN 0-262-03293-7. Chapter 5: Probabilistic Analysis and Randomized Algorithms, pp. 91–122.
+Dirk Draheim. "Semantics of the Probabilistic Typed Lambda Calculus (Markov Chain Semantics, Termination Behavior, and Denotational Semantics)." Springer, 2017.
+Jon Kleinberg and Éva Tardos. Algorithm Design. Chapter 13: "Randomized algorithms".
+Fallis, D. (2000). "The reliability of randomized algorithms". The British Journal for the Philosophy of Science. 51 (2): 255–271. doi:10.1093/bjps/51.2.255.
+M. Mitzenmacher and E. Upfal. Probability and Computing: Randomized Algorithms and Probabilistic Analysis. Cambridge University Press, New York (NY), 2005.
+Rajeev Motwani and P. Raghavan. Randomized Algorithms. Cambridge University Press, New York (NY), 1995.
+Rajeev Motwani and P. Raghavan. Randomized Algorithms. A survey on Randomized Algorithms.
+Christos Papadimitriou (1993), Computational Complexity (1st ed.), Addison Wesley, ISBN 978-0-201-53082-7 Chapter 11: Randomized computation, pp. 241–278.
+Rabin, Michael O. (1980). "Probabilistic algorithm for testing primality". Journal of Number Theory. 12: 128–138. doi:10.1016/0022-314X(80)90084-0.
+A. A. Tsay, W. S. Lovejoy, David R. Karger, Random Sampling in Cut, Flow, and Network Design Problems, Mathematics of Operations Research, 24(2):383–413, 1999.
+"Randomized Algorithms for Scientific Computing" (RASC), OSTI.GOV (July 10th, 2021).

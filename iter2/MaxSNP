@@ -1,0 +1,484 @@
+In computational complexity theory, SNP (from Strict NP) is a complexity class containing a limited subset of NP based on its logical characterization in terms of graph-theoretical properties. It forms the basis for the definition of the class MaxSNP of optimization problems.
+It is defined as the class of problems that are properties of relational structures (such as graphs) expressible by a second-order logic formula of the following form:
+
+  
+    
+      
+        ∃
+        
+          S
+          
+            1
+          
+        
+        …
+        ∃
+        
+          S
+          
+            ℓ
+          
+        
+        
+        ∀
+        
+          v
+          
+            1
+          
+        
+        …
+        ∀
+        
+          v
+          
+            m
+          
+        
+        
+        ϕ
+        (
+        
+          R
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          R
+          
+            k
+          
+        
+        ,
+        
+          S
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          S
+          
+            ℓ
+          
+        
+        ,
+        
+          v
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          v
+          
+            m
+          
+        
+        )
+      
+    
+    {\displaystyle \exists S_{1}\dots \exists S_{\ell }\,\forall v_{1}\dots \forall v_{m}\,\phi (R_{1},\dots ,R_{k},S_{1},\dots ,S_{\ell },v_{1},\dots ,v_{m})}
+  ,where 
+  
+    
+      
+        
+          R
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          R
+          
+            k
+          
+        
+      
+    
+    {\displaystyle R_{1},\dots ,R_{k}}
+   are relations of the structure (such as the adjacency relation, for a graph), 
+  
+    
+      
+        
+          S
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          S
+          
+            ℓ
+          
+        
+      
+    
+    {\displaystyle S_{1},\dots ,S_{\ell }}
+   are unknown relations (sets of tuples of vertices), and 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   is a quantifier-free formula: any boolean combination of the relations. That is, only existential second-order quantification (over relations) is allowed and only universal first-order quantification (over vertices) is allowed.
+If existential quantification over vertices were also allowed, the resulting complexity class would be equal to NP (more precisely, the class of those properties of relational structures that are in NP), a fact known as Fagin's theorem.
+For example, SNP contains 3-Coloring (the problem of determining whether a given graph is 3-colorable), because it can be expressed by the following formula: 
+
+  
+    
+      
+        ∃
+        
+          S
+          
+            1
+          
+        
+        ∃
+        
+          S
+          
+            2
+          
+        
+        ∃
+        
+          S
+          
+            3
+          
+        
+        
+        ∀
+        u
+        ∀
+        v
+        
+        
+          
+            (
+          
+        
+        
+          S
+          
+            1
+          
+        
+        (
+        u
+        )
+        ∨
+        
+          S
+          
+            2
+          
+        
+        (
+        u
+        )
+        ∨
+        
+          S
+          
+            3
+          
+        
+        (
+        u
+        )
+        
+          
+            )
+          
+        
+        
+        ∧
+        
+        
+          
+            (
+          
+        
+        E
+        (
+        u
+        ,
+        v
+        )
+        
+        
+        ⟹
+        
+        
+        (
+        ¬
+        
+          S
+          
+            1
+          
+        
+        (
+        u
+        )
+        ∨
+        ¬
+        
+          S
+          
+            1
+          
+        
+        (
+        v
+        )
+        )
+        
+        ∧
+        
+        
+          (
+          
+            ¬
+            
+              S
+              
+                2
+              
+            
+            (
+            u
+            )
+            ∨
+            ¬
+            
+              S
+              
+                2
+              
+            
+            (
+            v
+            )
+          
+          )
+        
+        
+        ∧
+        
+        (
+        ¬
+        
+          S
+          
+            3
+          
+        
+        (
+        u
+        )
+        ∨
+        ¬
+        
+          S
+          
+            3
+          
+        
+        (
+        v
+        )
+        )
+        
+          
+            )
+          
+        
+      
+    
+    {\displaystyle \exists S_{1}\exists S_{2}\exists S_{3}\,\forall u\forall v\,{\bigl (}S_{1}(u)\vee S_{2}(u)\vee S_{3}(u){\bigr )}\,\wedge \,{\bigl (}E(u,v)\,\implies \,(\neg S_{1}(u)\vee \neg S_{1}(v))\,\wedge \,\left(\neg S_{2}(u)\vee \neg S_{2}(v)\right)\,\wedge \,(\neg S_{3}(u)\vee \neg S_{3}(v)){\bigr )}}
+  .Here 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   denotes the adjacency relation of the input graph, while the sets (unary relations) 
+  
+    
+      
+        
+          S
+          
+            1
+          
+        
+        ,
+        
+          S
+          
+            2
+          
+        
+        ,
+        
+          S
+          
+            3
+          
+        
+      
+    
+    {\displaystyle S_{1},S_{2},S_{3}}
+   correspond to sets of vertices colored with one of the 3 colors.
+Similarly, SNP contains the k-SAT problem: the boolean satisfiability problem (SAT) where the formula is restricted to conjunctive normal form and to at most k literals per clause, where k is fixed.
+
+MaxSNP
+An analogous definition considers optimization problems, when instead of asking a formula to be satisfied for all tuples, one wants to maximize the number of tuples for which it is satisfied.
+That is, MaxSNP0 is defined as the class of optimization problems on relational structures expressible in the following form:
+
+  
+    
+      
+        
+          max
+          
+            
+              S
+              
+                1
+              
+            
+            ,
+            …
+            ,
+            
+              S
+              
+                ℓ
+              
+            
+          
+        
+        
+          |
+        
+        {
+        (
+        
+          v
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          v
+          
+            m
+          
+        
+        )
+        :
+        ϕ
+        (
+        
+          R
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          R
+          
+            k
+          
+        
+        ,
+        
+          S
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          S
+          
+            ℓ
+          
+        
+        ,
+        
+          v
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          v
+          
+            m
+          
+        
+        )
+        }
+        
+          |
+        
+      
+    
+    {\displaystyle \max \limits _{S_{1},\dots ,S_{\ell }}|\{(v_{1},\dots ,v_{m})\colon \phi (R_{1},\dots ,R_{k},S_{1},\dots ,S_{\ell },v_{1},\dots ,v_{m})\}|}
+  MaxSNP is then defined as the class of all problems with an L-reduction (linear reduction, not log-space reduction) to problems in MaxSNP0.
+For example, MAX-3SAT is a problem in MaxSNP0: given an instance of 3-CNF-SAT (the boolean satisfiability problem with the formula in conjunctive normal form and at most 3 literals per clause), find an assignment satisfying as many clauses as possible.
+In fact, it is a natural complete problem for MaxSNP.
+There is a fixed-ratio approximation algorithm to solve any problem in MaxSNP, hence MaxSNP is contained in APX, the class of all problems approximable to within some constant ratio.
+In fact the closure of MaxSNP under PTAS reductions (slightly more general than L-reductions) is equal to APX; that is, every problem in APX has a PTAS reduction to it from some problem in MaxSNP.
+In particular, every MaxSNP-complete problem (under L-reductions or under AP-reductions) is also APX-complete (under PTAS reductions), and hence does not admit a PTAS unless P=NP. 
+However, the proof of this relies on the PCP theorem, while proofs of MaxSNP-completeness are often elementary.
+
+See also
+APX
+
+References
+Grädel, Erich; Kolaitis, Phokion G.; Libkin, Leonid; Maarten, Marx; Spencer, Joel; Vardi, Moshe Y.; Venema, Yde; Weinstein, Scott (2007). Finite model theory and its applications. Texts in Theoretical Computer Science. An EATCS Series. Berlin: Springer-Verlag. p. 350. ISBN 978-3-540-00428-8. Zbl 1133.03001.
+
+External links
+Complexity Zoo: SNP
+Complexity Zoo: MaxSNP
+Complexity Zoo: MaxSNP0

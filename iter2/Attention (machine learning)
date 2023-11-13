@@ -1,0 +1,36 @@
+Machine learning-based attention is a mechanism mimicking cognitive attention. It calculates "soft" weights for each word, more precisely for its embedding, in the context window. It can do it either in parallel (such as in transformers) or sequentially (such as recurrent neural networks). "Soft" weights can change during each runtime, in contrast to "hard" weights, which are (pre-)trained and fine-tuned and remain frozen afterwards.  
+Attention was developed to address the weaknesses of recurrent neural networks, where words in a sentence are slowly processed one at a time.  Recurrent neural networks favor more recent words at the end of a sentence while earlier words fade away in volatile neural activations.  Attention gives all words equal access to any part of a sentence in a faster parallel scheme and no longer suffers the wait time of serial processing.  Earlier uses attached this mechanism to a serial recurrent neural network's language translation system (below), but later uses in Transformers large language models removed the recurrent neural network and relied heavily on the faster parallel attention scheme.
+
+Predecessors
+Predecessors of the mechanism were used in recurrent neural networks which, however, calculated "soft" weights sequentially and, at each step, considered the current word and other words within the context window. They were known as multiplicative modules, sigma pi units, and hyper-networks. They have been used in long short-term memory (LSTM) networks, multi-sensory data processing (sound, images, video, and text) in perceivers, fast weight controllers's memory, reasoning tasks in differentiable neural computers, and neural Turing machines
+
+Core Calculations
+The attention network was designed to identify the highest correlations amongst words within a sentence, assuming that it has learned those patterns from the training corpus.  This correlation is captured in neuronal weights through back-propagation from unsupervised pretraining.
+The example below shows how correlations are identified once a network has been trained and has the right weights.  When looking at the word "that" in the sentence "see that girl run", the network should be able to identify "girl" as a highly correlated word.  For simplicity this example focuses on the word "that", but in actuality all words receive this treatment in parallel and the resulting soft-weights and context vectors are stacked into matrices for further task- specific use.
+
+The query vector is compared (via dot product) with each word in the keys. This helps the model discover the most relevant word for the query word. In this case "girl" was determined to be the most relevant word for "that". The result (size 4 in this case) is run through the softmax function, producing a vector of size 4 with probabilities summing to 1. Multiplying this against the value matrix effectively amplifies the signal for the most important words in the sentence and diminishes the signal for less important words.The structure of the input data is captured in the Qw and Kw weights, and the Vw weights express that structure in terms of more meaningful features for the task being trained for.  For this reason, the attention head components are called Query (Q), Key (K), and Value (V)—a loose and possibly misleading analogy with relational database systems.
+Note that the context vector for "that" does not rely on context vectors for the other words; therefore the context vectors of all words can be calculated using the whole matrix X, which includes all the word embeddings, instead of a single word's embedding vector x in the formula above, thus parallelizing the calculations. Now, the softmax can be interpreted as a matrix softmax acting on separate rows.  This is a huge advantage over recurrent networks which must operate sequentially.
+
+A language translation example
+To build a machine that translates English to French, an attention unit  is grafted to the basic Encoder-Decoder (diagram below).  In the simplest case, the attention unit consists of dot products of the recurrent encoder states and does not need training.  In practice, the attention unit consists of 3 trained, fully-connected neural network layers called query, key, and value.
+
+Viewed as a matrix, the attention weights show how the network adjusts its focus according to context.
+
+This view of the attention weights addresses the neural network "explainability" problem.  Networks that perform verbatim translation without regard to word order would show the highest scores along the (dominant) diagonal of the matrix.  The off-diagonal dominance shows that the attention mechanism is more nuanced.  On the first pass through the decoder, 94% of the attention weight is on the first English word "I", so the network offers the word "je".  On the second pass of the decoder, 88% of the attention weight is on the third English word "you", so it offers "t'".  On the last pass, 95% of the attention weight is on the second English word "love", so it offers "aime".
+
+Variants
+Many variants of attention implement soft weights, such as 
+
+"internal spotlights of attention" generated by fast weight programmers or fast weight controllers (1992) (also known as transformers with "linearized self-attention"). A slow neural network learns by gradient descent to program the fast weights of another neural network through outer products of self-generated activation patterns called "FROM" and "TO" which in transformer terminology are called "key" and "value." This fast weight "attention mapping" is applied to queries.
+Bahdanau-style attention, also referred to as additive attention,
+Luong-style attention, which is known as multiplicative attention,
+highly parallelizable self-attention introduced in 2016 as decomposable attention  and successfully used in transformers a year later.For convolutional neural networks, attention mechanisms can be distinguished by the dimension on which they operate, namely: spatial attention, channel attention, or combinations.These variants recombine the encoder-side inputs to redistribute those effects to each target output. Often, a correlation-style matrix of dot products provides the re-weighting coefficients.
+
+See also
+Transformer (machine learning model) § Scaled dot-product attention
+
+References
+External links
+Dan Jurafsky and James H. Martin (2022) Speech and Language Processing (3rd ed. draft, January 2022), ch. 10.4 Attention and ch. 9.7 Self-Attention Networks: Transformers
+Alex Graves (4 May 2020), Attention and Memory in Deep Learning (video lecture), DeepMind / UCL, via YouTube
+Rasa Algorithm Whiteboard - Attention via YouTube

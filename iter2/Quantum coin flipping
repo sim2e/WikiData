@@ -1,0 +1,829 @@
+Consider two remote players, connected by a channel, that don't trust each other. The problem of them agreeing on a random bit by exchanging messages over this channel, without relying on any trusted third party, is called the coin flipping problem in cryptography. Quantum coin flipping uses the principles of quantum mechanics to encrypt messages for secure communication. It is a cryptographic primitive which can be used to construct more complex and useful cryptographic protocols, e.g. Quantum Byzantine agreement.
+Unlike other types of quantum cryptography (in particular, quantum key distribution), quantum coin flipping is a protocol used between two users who do not trust each other. Consequently, both users (or players) want to win the coin toss and will attempt to cheat in various ways.It is known that if the communication between the players is over a classical channel, i.e. a channel over which quantum information cannot be communicated, then one player can (in principle) always cheat regardless of which protocol is used. We say in principle because it might be that cheating requires an unfeasible amount of computational resource. Under standard computational assumptions, coin flipping can be achieved with classical communication.
+The most basic figure of merit for a coin-flipping protocol is given by its bias, a number between 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+   and 
+  
+    
+      
+        1
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle 1/2}
+  . The bias of a protocol captures the success probability of an all-powerful cheating player who uses the best conceivable strategy. A protocol with bias 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+   means that no player can cheat. A protocol with bias 
+  
+    
+      
+        1
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle 1/2}
+   means that at least one player can always succeed at cheating. Obviously, the smaller the bias better the protocol.
+When the communication is over a quantum channel, it has been shown that even the best conceivable protocol can not have a bias less than 
+  
+    
+      
+        1
+        
+          /
+        
+        
+          
+            2
+          
+        
+        −
+        1
+        
+          /
+        
+        2
+        ≈
+        0.2071
+      
+    
+    {\displaystyle 1/{\sqrt {2}}-1/2\approx 0.2071}
+  .Consider the case where each player knows the preferred bit of the other. A coin flipping problem which makes this additional assumption constitutes the weaker variant thereof called weak coin flipping (WCF). In the case of classical channels this extra assumption yields no improvement.  On the other hand, it has  been proven that WCF protocols with arbitrarily small biases do exist. However, the best known explicit WCF protocol has bias 
+  
+    
+      
+        1
+        
+          /
+        
+        6
+        ≈
+        0.1667
+      
+    
+    {\displaystyle 1/6\approx 0.1667}
+  .Although quantum coin flipping offers clear advantages over its classical counterpart in theory, accomplishing it in practice has proven difficult.
+
+History
+Theory
+Manuel Blum introduced coin flipping as part of a classical system in 1983 based on computational algorithms and assumptions. Blum's version of coin flipping answers the following cryptographic problem:
+
+Alice and Bob are recently divorced, living in two separate cities, and want to decide who gets to keep the car. To decide, Alice wants to flip a coin over the telephone. However, Bob is concerned that if he were to tell Alice heads, she would flip the coin and automatically tell him that he lost.Thus, the problem with Alice and Bob is that they do not trust each other; the only resource they have is the telephone communication channel, and there is not a third party available to read the coin. Therefore, Alice and Bob must be either truthful and agree on a value or be convinced that the other is cheating.In 1984, quantum cryptography emerged from a paper written by Charles H. Bennett and Giles Brassard. In this paper, the two introduced the idea of using quantum mechanics to enhance previous cryptographic protocols such as coin flipping. Since then, many researchers have applied quantum mechanics to cryptography as they have proven theoretically to be more secure than classical cryptography, however, demonstrating these protocols in practical systems is difficult to accomplish.
+
+Experiment
+As published in 2014, a group of scientists at the Laboratory for Communication and Processing of Information (LTCI) in Paris have implemented quantum coin flipping protocols experimentally. The researchers have reported that the protocol performs better than a classical system over a suitable distance for a metropolitan area optical network.
+
+Definition
+Coin flipping
+In cryptography, coin flipping is defined to be the problem where two mutually distrustful and remote players want to agree on a random bit without relying on any third party.
+
+Strong coin flipping
+In quantum cryptography, strong coin flipping (SCF) is defined to be a coin flipping problem where each player is oblivious to the preference of the other.
+
+Weak coin flipping
+In quantum cryptography, weak coin flipping (WCF) is defined to be a coin flipping problem where each player knows the preference of the other.It follows that the players have opposite preferences. If this were not the case then the problem will be pointless as the players can simply choose the outcome they desire.
+
+Bias
+Consider any coin flipping protocol. Let Alice and Bob be the two players who wish to implement the protocol. Consider the scenario where Alice cheats using her best strategy against Bob who honestly follows the protocol. Let the probability that Bob obtains the outcome Alice preferred be given by 
+  
+    
+      
+        
+          P
+          
+            A
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle P_{A}^{*}}
+  . Consider the reversed situation, i.e. Bob cheats using his best strategy against Alice who honestly follows the protocol. Let the corresponding probability that Alice obtains the outcome Bob preferred to be given by 
+  
+    
+      
+        
+          P
+          
+            B
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle P_{B}^{*}}
+  .
+The bias of the protocol is defined to be 
+  
+    
+      
+        ϵ
+        :=
+        max
+        [
+        
+          P
+          
+            A
+          
+          
+            ∗
+          
+        
+        ,
+        
+          P
+          
+            B
+          
+          
+            ∗
+          
+        
+        ]
+        −
+        
+          
+            1
+            2
+          
+        
+      
+    
+    {\textstyle \epsilon :=\max[P_{A}^{*},P_{B}^{*}]-{\frac {1}{2}}}
+  .
+The half is subtracted because a player will get the desired value half the time purely by chance.
+
+Extensions
+Coin flipping can be defined for biased coins as well, i.e. the bits are not equally likely. The notion of correctness has also been formalized which requires that when both players follow the protocol (nobody cheats) the players always agree on the bit generated and that the bit follows some fixed probability distribution.
+
+Protocols
+Using conjugate encoding
+Quantum coin flipping and other types of quantum cryptography communicate information through the transmission of qubits. The accepting player does not know the information in the qubit until he performs a measurement.  Information about each qubit is stored on and carried by a single photon. Once the receiving player measures the photon, it is altered, and will not produce the same output if measured again. Since a photon can only be read the same way once, any other party attempting to intercept the message is easily detectable.Quantum coin flipping is when random qubits are generated between two players that do not trust each other because both of them want to win the coin toss, which could lead them to cheat in a variety of ways. The essence of coin flipping occurs when the two players issue a sequence of instructions over a communication channel that then eventually results in an output.A basic quantum coin flipping protocol involves two people: Alice and Bob.
+Alice sends Bob a set number of Κ photon pulses in the quantum states 
+  
+    
+      
+        
+          |
+        
+        
+          ϕ
+          
+            
+              α
+              
+                i
+              
+            
+            
+              c
+              
+                i
+              
+            
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\phi _{\alpha _{i}c_{i}}\rangle }
+  . Each of these photon pulses is independently prepared following a random choice by Alice of basis αi and bit ci where i = 1, 2, 3...Κ.
+Bob then measures the pulses from Alice by identifying a random basis βi. Bob records these photons and then reports back the first successfully measured photon j to Alice along with a random bit b.
+Alice reveals the basis and bit that she used at the basis Bob gave her. If the two bases and bits match, then both parties are truthful and can exchange information. If the bit reported by Bob is different than that of Alice's, one is not being truthful.A more general explanation of the above protocol is as follows:
+Alice first chooses a random basis (such as diagonally) and a sequence of random qubits. Alice then encodes her chosen qubits as a sequence of photons following the chosen basis. She then sends these qubits as a train of polarized photons to Bob through the communication channel.
+Bob chooses a sequence of reading bases randomly for each individual photon. He then reads the photons and records the results in two tables. One table is of the rectilinear (horizontal or vertical) received photons and one of the diagonally received photons. Bob may have holes in his tables due to losses in his detectors or in the transmission channels. Based on this table, Bob makes a guess as to which basis Alice used and announces his guess to Alice. If he guessed correctly, he wins and if not, he loses.
+Alice reports whether he won or not by announcing what basis she used to Bob. Alice then confirms the information by sending Bob her entire original qubit sequence that she used in step 1.
+Bob compares Alice's sequence with his tables to confirm that no cheating occurred on Alice's part. The tables should correspond to Alice's basis and there should be no correlation with the other table.
+
+Assumptions
+There are a few assumptions that must be made for this protocol to work properly. The first is that Alice can create each state independent of Bob, and with an equal probability. Second, for the first bit that Bob successfully measures, his basis and bit are both random and completely independent of Alice. The last assumption, is that when Bob measures a state, he has a uniform probability to measure each state, and no state is easier to be detected than others. This last assumption is especially important because if Alice were aware of Bob's inability to measure certain states, she could use that to her advantage.
+
+Cheating
+The key issue with coin flipping is that it occurs between two distrustful parties. These two parties are communicating through the communication channel some distance from each other and they have to agree on a winner or loser with each having a 50 percent chance of winning. However, since they are distrustful of one another, cheating is likely to occur. Cheating can occur in a number of ways such as claiming they lost some of the message when they do not like the result or increasing the average number of photons contained in each of the pulses.For Bob to cheat, he would have to be able to guess Alice's basis with a probability greater than ½. In order to accomplish this, Bob would have to be able to determine a train of photons randomly polarized in one basis from a train of photons polarized in another basis.Alice, on the other hand, could cheat in a couple of different ways, but she has to be careful because Bob could easily detect it. When Bob sends a correct guess to Alice, she could convince Bob that her photons are actually polarized the opposite of Bob's correct guess. Alice could also send Bob a different original sequence than she actually used in order to beat Bob.
+
+Detecting a third-party
+Single photons are used to pass the information from one player to the other (qubits). In this protocol, the information is encoded in the single photons with polarization directions of 0, 45, 90, and 135 degrees, non-orthogonal quantum states. When a third party attempts to read or gain information on the transmission, they alter the photon's polarization in a random way that is likely detected by the two players because it does not match the pattern exchanged between the two legitimate users.
+
+The Dip Dip Boom protocol (weak coin flipping with bias
+1
+        
+          /
+        
+        6
+      
+    
+    {\textstyle 1/6}
+  )
+The Dip Dip Boom (DDB) protocol is a quantum version of the following game. Consider a list of numbers 
+  
+    
+      
+        
+          
+            p
+            
+              i
+            
+          
+        
+      
+    
+    {\displaystyle {p_{i}}}
+  , each between 0 and 1. The players, Alice and Bob, take turns to say "Dip" or "Boom" with probability 
+  
+    
+      
+        
+          p
+          
+            i
+          
+        
+      
+    
+    {\displaystyle p_{i}}
+   at round 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  . The player who says "Boom" wins. Obviously, a cheating player can simply say "Boom" and win as there are no rewards for longer games. We will consider games that terminate so that for some (large) 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  , say 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  , we set 
+  
+    
+      
+        
+          p
+          
+            i
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle p_{i}=1}
+  .
+Consider round 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  . Let us denote by 
+  
+    
+      
+        
+          P
+          
+            A
+          
+        
+        (
+        i
+        )
+      
+    
+    {\displaystyle P_{A}(i)}
+   and 
+  
+    
+      
+        
+          P
+          
+            B
+          
+        
+        (
+        i
+        )
+      
+    
+    {\displaystyle P_{B}(i)}
+   the probability of, respectively, Alice and Bob winning. Let 
+  
+    
+      
+        
+          P
+          
+            U
+          
+        
+        (
+        i
+        )
+      
+    
+    {\displaystyle P_{U}(i)}
+   be the probability that the game remains undecided. These numbers for the classical game described above can be evaluated inductively.
+We now describe the quantum version. Let 
+  
+    
+      
+        
+          
+            A
+          
+        
+        ,
+        
+          
+            B
+          
+        
+      
+    
+    {\displaystyle {\mathcal {A}},{\mathcal {B}}}
+   be a three dimensional Hilbert space spanned by 
+  
+    
+      
+        
+          |
+        
+        A
+        ⟩
+        ,
+        
+          |
+        
+        B
+        ⟩
+        ,
+        
+          |
+        
+        U
+        ⟩
+      
+    
+    {\displaystyle |A\rangle ,|B\rangle ,|U\rangle }
+  . Let 
+  
+    
+      
+        
+          
+            M
+          
+        
+      
+    
+    {\displaystyle {\mathcal {M}}}
+   be a two dimensional Hilbert space which is spanned by 
+  
+    
+      
+        
+          |
+        
+        
+          DIP
+        
+        ⟩
+        ,
+        
+          |
+        
+        
+          BOOM
+        
+        ⟩
+      
+    
+    {\displaystyle |{\text{DIP}}\rangle ,|{\text{BOOM}}\rangle }
+  .
+
+Initialisation: Alice holds the 
+  
+    
+      
+        
+          
+            A
+          
+        
+        ⊗
+        
+          
+            M
+          
+        
+      
+    
+    {\displaystyle {\mathcal {A}}\otimes {\mathcal {M}}}
+  registers and initialises the state to 
+  
+    
+      
+        
+          |
+        
+        U
+        ⟩
+        ⊗
+        
+          |
+        
+        
+          DIP
+        
+        ⟩
+      
+    
+    {\displaystyle |U\rangle \otimes |{\text{DIP}}\rangle }
+  . Bob holds the register 
+  
+    
+      
+        
+          
+            B
+          
+        
+      
+    
+    {\displaystyle {\mathcal {B}}}
+   and initialises it to the state 
+  
+    
+      
+        
+          |
+        
+        U
+        ⟩
+      
+    
+    {\displaystyle |U\rangle }
+  .
+Iteration: For 
+  
+    
+      
+        i
+        =
+        1
+      
+    
+    {\displaystyle i=1}
+  to 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  the following must be performed. For odd 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  we set X=A (for Alice) and Y=B (for Bob); for even 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  we set X=B and Y=A.
+X implements the operation 
+  
+    
+      
+        
+          R
+          
+            i
+          
+        
+        :=
+        
+          Rot
+        
+        (
+        
+          |
+        
+        U
+        ⟩
+        ⊗
+        
+          |
+        
+        
+          DIP
+        
+        ⟩
+        ,
+        
+          |
+        
+        X
+        ⟩
+        ⊗
+        
+          |
+        
+        
+          BOOM
+        
+        ⟩
+        ,
+        
+          p
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle R_{i}:={\text{Rot}}(|U\rangle \otimes |{\text{DIP}}\rangle ,|X\rangle \otimes |{\text{BOOM}}\rangle ,p_{i})}
+  .
+X sends the message register to Y.
+Y implements the operation 
+  
+    
+      
+        
+          
+            
+              
+                R
+                ~
+              
+            
+          
+          
+            i
+          
+        
+        :=
+        
+          Rot
+        
+        
+          (
+          
+            
+              |
+            
+            U
+            ⟩
+            ⊗
+            
+              |
+            
+            
+              BOOM
+            
+            ⟩
+            ,
+            
+              |
+            
+            X
+            ⟩
+            ⊗
+            
+              |
+            
+            
+              DIP
+            
+            ⟩
+            ,
+            
+              
+                
+                  
+                    p
+                    
+                      i
+                    
+                  
+                  
+                    P
+                    
+                      U
+                    
+                  
+                  (
+                  i
+                  −
+                  1
+                  )
+                
+                
+                  
+                    P
+                    
+                      X
+                    
+                  
+                  (
+                  i
+                  )
+                
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle {\tilde {R}}_{i}:={\text{Rot}}\left(|U\rangle \otimes |{\text{BOOM}}\rangle ,|X\rangle \otimes |{\text{DIP}}\rangle ,{\frac {p_{i}P_{U}(i-1)}{P_{X}(i)}}\right)}
+  .
+Y measures the message register in the computational basis. If the outcome is BOOM then Y aborts and declares him/herself the winner.
+Measurement: Alice and Bob both measure their local register 
+  
+    
+      
+        
+          
+            A
+          
+        
+      
+    
+    {\displaystyle {\mathcal {A}}}
+   and 
+  
+    
+      
+        
+          
+            B
+          
+        
+      
+    
+    {\displaystyle {\mathcal {B}}}
+   respectively. If the outcome is U then they declare themselves to be the winner. If the outcome is A then Alice is the winner and for B it is Bob.
+
+Remarks
+To obtain a balanced protocol one must choose the 
+  
+    
+      
+        
+          p
+          
+            i
+          
+        
+      
+    
+    {\displaystyle p_{i}}
+  s such that 
+  
+    
+      
+        
+          P
+          
+            A
+          
+        
+        (
+        n
+        )
+        =
+        
+          
+            1
+            2
+          
+        
+        =
+        
+          P
+          
+            B
+          
+        
+        (
+        n
+        )
+      
+    
+    {\displaystyle P_{A}(n)={\frac {1}{2}}=P_{B}(n)}
+  .
+If both players follow the protocol, i.e. no player cheats, then the outcome at the end of step two will never be BOOM and neither will the outcome at step 3 be 
+  
+    
+      
+        
+          |
+        
+        U
+        ⟩
+      
+    
+    {\displaystyle |U\rangle }
+  .
+The bias analysis of this protocol uses SDP duality.
+For large 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  the bias of the protocol can be made arbitrarily close to 
+  
+    
+      
+        1
+        
+          /
+        
+        6
+      
+    
+    {\displaystyle 1/6}
+  .
+
+Optimal strong coin flipping
+It has been shown that using a WCF protocol with an arbitrarily small bias one can construct a SCF protocol with bias arbitrarily close to 
+  
+    
+      
+        
+          
+            1
+            
+              2
+            
+          
+        
+        −
+        
+          
+            1
+            2
+          
+        
+      
+    
+    {\textstyle {\frac {1}{\sqrt {2}}}-{\frac {1}{2}}}
+   which is known to be optimal.
+
+Experimental implementation
+Using conjugate encoding
+As mentioned in the history section, scientists at the LTCI in Paris have experimentally carried out a quantum coin flipping protocol. Previous protocols called for a single photon source or an entangled source to be secure. However, these sources are why it is difficult for quantum coin flipping to be implemented. Instead, the researchers at LTCI used the effects of quantum superposition rather than a single photon source, which they claim makes implementation easier with the standard photon sources available.The researchers used the Clavis2 platform developed by IdQuantique for their protocol, but needed to modify the Clavis2 system in order for it to work for the coin flipping protocol. The experimental setup they used with the Clavis2 system, involves a two-way approach. Light pulsed at 1550 nanometres is sent from Bob to Alice. Alice then uses a phase modulator to encrypt the information. After encryption, she then uses a Faraday mirror to reflect and attenuate the pulses at her chosen level and sends them back to Bob. Using two high quality single photon detectors, Bob chooses a measurement basis in his phase modulator to detect the pulses from Alice.They replaced the detectors on Bob's side because of the low detection efficiencies of the previous detectors. When they replaced the detectors, they were able to show a quantum advantage on a channel for over 15 kilometres (9.3 mi). A couple of other challenges the group faced was reprogramming the system because photon source attenuation was high and performing system analyses to identify losses and errors in system components. With these corrections, the scientists were capable of implementing a coin flipping protocol by introducing a small honest abort probability, the probability that two honest participants cannot obtain a coin flip at the end of the protocol, but at a short communication distance.
+
+
+== References ==

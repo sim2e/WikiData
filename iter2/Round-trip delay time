@@ -1,0 +1,110 @@
+In telecommunications, round-trip delay (RTD) or round-trip time (RTT) is the amount of time it takes for a signal to be sent plus the amount of time it takes for acknowledgement of that signal having been received. This time delay includes propagation times for the paths between the two communication endpoints. In the context of computer networks, the signal is typically a data packet. RTT is also known as ping time, and can be determined with the ping command.
+End-to-end delay is the length of time it takes for a signal to travel in one direction and is often approximated as half the RTT.
+
+Protocol design
+Round-trip delay and bandwidth are independent of each other. As the available bandwidth of networks increases, the round trip time does not similarly decrease, as it depends primarily on constant factors such as physical distance and the speed of signal propagation.Networks with both high bandwidth and a high RTT (and thus high bandwidth-delay product) can have very large amounts of data in transit at any given time. Such long fat networks require a special protocol design. One example is the TCP window scale option.
+The RTT was originally estimated in TCP by:
+
+  
+    
+      
+        
+          R
+          T
+          T
+        
+        =
+        α
+        ⋅
+        
+          o
+          l
+          d
+          _
+          R
+          T
+          T
+        
+        +
+        (
+        1
+        −
+        α
+        )
+        ⋅
+        
+          n
+          e
+          w
+          _
+          r
+          o
+          u
+          n
+          d
+          _
+          t
+          r
+          i
+          p
+          _
+          s
+          a
+          m
+          p
+          l
+          e
+        
+      
+    
+    {\displaystyle \mathrm {RTT} =\alpha \cdot \mathrm {old\_RTT} +(1-\alpha )\cdot \mathrm {new\_round\_trip\_sample} }
+  where 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   is constant weighting factor (
+  
+    
+      
+        0
+        ≤
+        α
+        <
+        1
+      
+    
+    {\displaystyle 0\leq \alpha <1}
+  ). Choosing a value for 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   close to 1 makes the weighted average immune to changes that last a short time (e.g., a single segment that encounters long delay). Choosing a value for 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   close to 0 makes the weighted average respond to changes in delay very quickly. This was improved by the Jacobson/Karels algorithm, which takes standard deviation into account as well. Once a new RTT is calculated, it is entered into the equation above to obtain an average RTT for that connection, and the procedure continues for every new calculation.
+
+Wi-Fi
+Accurate round-trip time measurements over Wi-Fi using IEEE 802.11mc are the basis for the Wi-Fi positioning system.
+
+See also
+Lag (video games)
+Latency (engineering)
+Minimum-Pairs Protocol
+Network delay
+Time of flight
+
+
+== References ==

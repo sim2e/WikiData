@@ -1,0 +1,1148 @@
+Quantum block codes are useful in quantum computing and in quantum communications. The encoding circuit for a large block code typically has a high complexity although those for modern codes do have lower complexity.
+Quantum convolutional coding theory offers a different paradigm for coding quantum information. The convolutional structure is useful for a quantum communication scenario where a sender possesses a stream of qubits to send to a receiver. The encoding circuit for a quantum convolutional code has a much lower complexity than an encoding circuit needed for a large block code. It also has a repetitive pattern so that the same physical devices or the same routines can manipulate the stream of quantum information.
+Quantum convolutional stabilizer codes borrow heavily from the structure of their classical counterparts. Quantum convolutional codes are similar because some of the qubits feed back into a repeated encoding unitary and give the code a memory structure like that of a classical convolutional code. The quantum codes feature online encoding and decoding of qubits. This feature gives quantum convolutional codes both their low encoding and decoding complexity and their ability to correct a larger set of errors than a block code with similar parameters.
+
+Definition
+A quantum convolutional stabilizer code acts on a Hilbert space 
+  
+    
+      
+        
+          
+            H
+          
+        
+        ,
+      
+    
+    {\displaystyle {\mathcal {H}},}
+  
+which is a countably infinite tensor product of two-dimensional qubit Hilbert spaces indexed over integers ≥ 0
+
+  
+    
+      
+        
+          
+            {
+            
+              
+                
+                  H
+                
+              
+              
+                i
+              
+            
+            }
+          
+          
+            i
+            ∈
+            
+              
+                Z
+              
+              
+                +
+              
+            
+          
+        
+      
+    
+    {\displaystyle \left\{{\mathcal {H}}_{i}\right\}_{i\in \mathbb {Z} ^{+}}}
+  :
+
+  
+    
+      
+        
+          
+            H
+          
+        
+        =
+        
+          
+            
+              ⨂
+              
+                i
+                =
+                0
+              
+              
+                ∞
+              
+            
+          
+        
+         
+        
+          
+            
+              H
+            
+          
+          
+            i
+          
+        
+        .
+      
+    
+    {\displaystyle {\mathcal {H}}={\displaystyle \bigotimes \limits _{i=0}^{\infty }}\ {\mathcal {H}}_{i}.}
+  A sequence
+
+  
+    
+      
+        
+          A
+        
+      
+    
+    {\displaystyle \mathbf {A} }
+   of Pauli matrices 
+  
+    
+      
+        
+          
+            {
+            
+              A
+              
+                i
+              
+            
+            }
+          
+          
+            i
+            ∈
+            
+              
+                Z
+              
+              
+                +
+              
+            
+          
+        
+      
+    
+    {\displaystyle \left\{A_{i}\right\}_{i\in \mathbb {Z} ^{+}}}
+  , where
+
+  
+    
+      
+        
+          A
+        
+        =
+        
+          
+            
+              ⨂
+              
+                i
+                =
+                0
+              
+              
+                ∞
+              
+            
+          
+        
+         
+        
+          A
+          
+            i
+          
+        
+        ,
+      
+    
+    {\displaystyle \mathbf {A} ={\displaystyle \bigotimes \limits _{i=0}^{\infty }}\ A_{i},}
+  can act on states in 
+  
+    
+      
+        
+          
+            H
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}}
+  . Let 
+  
+    
+      
+        
+          Π
+          
+            
+              
+                Z
+              
+              
+                +
+              
+            
+          
+        
+      
+    
+    {\displaystyle \Pi ^{\mathbb {Z} ^{+}}}
+   denote the set of all Pauli sequences. The support supp
+  
+    
+      
+        
+          (
+          
+            A
+          
+          )
+        
+      
+    
+    {\displaystyle \left(\mathbf {A} \right)}
+   of a Pauli sequence 
+  
+    
+      
+        
+          A
+        
+      
+    
+    {\displaystyle \mathbf {A} }
+   is the set of indices of the entries in 
+  
+    
+      
+        
+          A
+        
+      
+    
+    {\displaystyle \mathbf {A} }
+   that are not equal to the identity. The weight of a sequence 
+  
+    
+      
+        
+          A
+        
+      
+    
+    {\displaystyle \mathbf {A} }
+   is the size 
+  
+    
+      
+        
+          |
+          
+            
+              supp
+            
+            
+              (
+              
+                A
+              
+              )
+            
+          
+          |
+        
+      
+    
+    {\displaystyle \left\vert {\text{supp}}\left(\mathbf {A} \right)\right\vert }
+   of its support. The delay del
+  
+    
+      
+        
+          (
+          
+            A
+          
+          )
+        
+      
+    
+    {\displaystyle \left(\mathbf {A} \right)}
+   of a sequence 
+  
+    
+      
+        
+          A
+        
+      
+    
+    {\displaystyle \mathbf {A} }
+   is the smallest index for an entry not equal to the
+identity. The degree deg
+  
+    
+      
+        
+          (
+          
+            A
+          
+          )
+        
+      
+    
+    {\displaystyle \left(\mathbf {A} \right)}
+   of a sequence 
+  
+    
+      
+        
+          A
+        
+      
+    
+    {\displaystyle \mathbf {A} }
+   is the largest index for an entry not equal to the identity. E.g., the following Pauli sequence
+
+  
+    
+      
+        
+          
+            
+              
+                I
+              
+              
+                X
+              
+              
+                I
+              
+              
+                Y
+              
+              
+                Z
+              
+              
+                I
+              
+              
+                I
+              
+              
+                ⋯
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle {\begin{array}{cccccccc}I&X&I&Y&Z&I&I&\cdots \end{array}},}
+  has support 
+  
+    
+      
+        
+          {
+          
+            1
+            ,
+            3
+            ,
+            4
+          
+          }
+        
+      
+    
+    {\displaystyle \left\{1,3,4\right\}}
+  , weight three, delay one, and degree four. A sequence has finite support if its weight is finite. Let
+
+  
+    
+      
+        F
+        (
+        
+          Π
+          
+            
+              
+                Z
+              
+              
+                +
+              
+            
+          
+        
+        )
+      
+    
+    {\displaystyle F(\Pi ^{\mathbb {Z} ^{+}})}
+   denote the set of Pauli sequences with finite support. The following definition for a quantum convolutional code utilizes the set 
+  
+    
+      
+        F
+        (
+        
+          Π
+          
+            
+              
+                Z
+              
+              
+                +
+              
+            
+          
+        
+        )
+      
+    
+    {\displaystyle F(\Pi ^{\mathbb {Z} ^{+}})}
+   in its description.
+A rate 
+  
+    
+      
+        k
+        
+          /
+        
+        n
+      
+    
+    {\displaystyle k/n}
+  -convolutional stabilizer code with 
+  
+    
+      
+        0
+        ≤
+        k
+        ≤
+        n
+      
+    
+    {\displaystyle 0\leq k\leq n}
+   is a commuting set 
+  
+    
+      
+        
+          
+            G
+          
+        
+      
+    
+    {\displaystyle {\mathcal {G}}}
+   of all 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -qubit shifts of a basic generator set 
+  
+    
+      
+        
+          
+            
+              G
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle {\mathcal {G}}_{0}}
+  . The basic generator set 
+  
+    
+      
+        
+          
+            
+              G
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle {\mathcal {G}}_{0}}
+   has
+
+  
+    
+      
+        n
+        −
+        k
+      
+    
+    {\displaystyle n-k}
+   Pauli sequences of finite support:
+
+  
+    
+      
+        
+          
+            
+              G
+            
+          
+          
+            0
+          
+        
+        =
+        
+          {
+          
+            
+              
+                G
+              
+              
+                i
+              
+            
+            ∈
+            F
+            (
+            
+              Π
+              
+                
+                  
+                    Z
+                  
+                  
+                    +
+                  
+                
+              
+            
+            )
+            :
+            1
+            ≤
+            i
+            ≤
+            n
+            −
+            k
+          
+          }
+        
+        .
+      
+    
+    {\displaystyle {\mathcal {G}}_{0}=\left\{\mathbf {G} _{i}\in F(\Pi ^{\mathbb {Z} ^{+}}):1\leq i\leq n-k\right\}.}
+  The constraint length 
+  
+    
+      
+        ν
+      
+    
+    {\displaystyle \nu }
+   of the code is the maximum degree of the
+generators in 
+  
+    
+      
+        
+          
+            
+              G
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle {\mathcal {G}}_{0}}
+  . A frame of the code consists of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   qubits.
+A quantum convolutional code admits an equivalent definition in terms of the delay transform or 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+  -transform. The 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+  -transform captures shifts of the basic generator set 
+  
+    
+      
+        
+          
+            
+              G
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle {\mathcal {G}}_{0}}
+  . Let us define the 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -qubit delay operator 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+   acting on any Pauli sequence 
+  
+    
+      
+        
+          A
+        
+        ∈
+        
+          Π
+          
+            
+              
+                Z
+              
+              
+                +
+              
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {A} \in \Pi ^{\mathbb {Z} ^{+}}}
+   as follows:
+
+  
+    
+      
+        D
+        
+          (
+          
+            A
+          
+          )
+        
+        =
+        
+          I
+          
+            ⊗
+            n
+          
+        
+        ⊗
+        
+          A
+          .
+        
+      
+    
+    {\displaystyle D\left(\mathbf {A} \right)=I^{\otimes n}\otimes \mathbf {A.} }
+  We can write 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   repeated applications of 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+   as a power of 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+  :
+
+  
+    
+      
+        
+          D
+          
+            j
+          
+        
+        
+          (
+          
+            A
+          
+          )
+        
+        =
+        
+          I
+          
+            ⊗
+            j
+            n
+          
+        
+        ⊗
+        
+          A
+          .
+        
+      
+    
+    {\displaystyle D^{j}\left(\mathbf {A} \right)=I^{\otimes jn}\otimes \mathbf {A.} }
+  Let 
+  
+    
+      
+        
+          D
+          
+            j
+          
+        
+        
+          (
+          
+            
+              
+                G
+              
+            
+            
+              0
+            
+          
+          )
+        
+      
+    
+    {\displaystyle D^{j}\left({\mathcal {G}}_{0}\right)}
+   be the set of shifts of elements
+of 
+  
+    
+      
+        
+          
+            
+              G
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle {\mathcal {G}}_{0}}
+   by 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+  . Then the full stabilizer 
+  
+    
+      
+        
+          
+            G
+          
+        
+      
+    
+    {\displaystyle {\mathcal {G}}}
+   for the
+convolutional stabilizer code is
+
+  
+    
+      
+        
+          
+            G
+          
+        
+        =
+        
+          
+            
+              ⋃
+              
+                j
+                ∈
+                
+                  
+                    Z
+                  
+                  
+                    +
+                  
+                
+              
+            
+          
+        
+        
+          D
+          
+            j
+          
+        
+        
+          (
+          
+            
+              
+                G
+              
+            
+            
+              0
+            
+          
+          )
+        
+        .
+      
+    
+    {\displaystyle {\mathcal {G}}={\textstyle \bigcup \limits _{j\in \mathbb {Z} ^{+}}}D^{j}\left({\mathcal {G}}_{0}\right).}
+
+Operation
+The operation of a convolutional stabilizer code is as follows. The protocol begins with the sender encoding a stream of qubits with an online encoding circuit such as that given in (Grassl and Roetteler 2006). The encoding circuit is online if it acts on a few blocks of qubits at a time. The sender transmits a set of qubits as soon as the first unitary finishes processing them. The receiver measures all the generators in 
+  
+    
+      
+        
+          
+            G
+          
+        
+      
+    
+    {\displaystyle {\mathcal {G}}}
+   and corrects for errors as he receives the online encoded qubits. He finally decodes the encoded qubits with a decoding circuit. The qubits decoded from this convolutional procedure should be error free and ready for quantum computation at the receiving end.
+A finite-depth circuit maps a Pauli sequence with finite weight to one with finite weight (Ollivier and Tillich 2004). It does not map a Pauli sequence with finite weight to one with infinite weight. This property is important because we do not want the decoding circuit to propagate uncorrected errors into the information qubit stream (Johannesson and Zigangirov 1999). A finite-depth decoding circuit corresponding to the stabilizer 
+  
+    
+      
+        
+          
+            G
+          
+        
+      
+    
+    {\displaystyle {\mathcal {G}}}
+   exists by the algorithm given in (Grassl and Roetteler 2006).
+
+Example
+Forney et al. provided an example of a rate-1/3 quantum convolutional code by importing a particular classical quaternary convolutional code (Forney and Guha 2005). Grassl and Roetteler determined a noncatastrophic encoding circuit for Forney et al.'s rate-1/3 quantum convolutional code (Grassl and Roetteler 2006). The basic stabilizer and its first shift are as follows:
+
+  
+    
+      
+        ⋯
+        
+          
+            
+              
+                
+                  I
+                
+                
+                  I
+                
+                
+                  I
+                
+                
+                  X
+                
+                
+                  X
+                
+                
+                  X
+                
+                
+                  X
+                
+                
+                  Z
+                
+                
+                  Y
+                
+                
+                  I
+                
+                
+                  I
+                
+                
+                  I
+                
+                
+                  I
+                
+                
+                  I
+                
+                
+                  I
+                
+              
+              
+                
+                  I
+                
+                
+                  I
+                
+                
+                  I
+                
+                
+                  Z
+                
+                
+                  Z
+                
+                
+                  Z
+                
+                
+                  Z
+                
+                
+                  Y
+                
+                
+                  X
+                
+                
+                  I
+                
+                
+                  I
+                
+                
+                  I
+                
+                
+                  I
+                
+                
+                  I
+                
+                
+                  I
+                
+              
+              
+                
+                  I
+                
+                
+                  I
+                
+                
+                  I
+                
+                
+                  I
+                
+                
+                  I
+                
+                
+                  I
+                
+                
+                  X
+                
+                
+                  X
+                
+                
+                  X
+                
+                
+                  X
+                
+                
+                  Z
+                
+                
+                  Y
+                
+                
+                  I
+                
+                
+                  I
+                
+                
+                  I
+                
+              
+              
+                
+                  I
+                
+                
+                  I
+                
+                
+                  I
+                
+                
+                  I
+                
+                
+                  I
+                
+                
+                  I
+                
+                
+                  Z
+                
+                
+                  Z
+                
+                
+                  Z
+                
+                
+                  Z
+                
+                
+                  Y
+                
+                
+                  X
+                
+                
+                  I
+                
+                
+                  I
+                
+                
+                  I
+                
+              
+            
+          
+        
+        ⋯
+      
+    
+    {\displaystyle \cdots {\begin{array}{|ccc|ccc|ccc|ccc|ccc|}I&I&I&X&X&X&X&Z&Y&I&I&I&I&I&I\\I&I&I&Z&Z&Z&Z&Y&X&I&I&I&I&I&I\\I&I&I&I&I&I&X&X&X&X&Z&Y&I&I&I\\I&I&I&I&I&I&Z&Z&Z&Z&Y&X&I&I&I\\\end{array}}\cdots }
+  The code consists of all three-qubit shifts of the above generators. The vertical bars are a visual aid to illustrate the three-qubit shifts of the basic generators. The code can correct for an arbitrary single-qubit error in every other frame.
+
+Extensions
+Wilde and Brun have integrated the theory of entanglement-assisted stabilizer codes and quantum convolutional codes in a series of articles (Wilde and Brun 2007a, 2007b, 2008, 2009) to form a theory of entanglement-assisted quantum convolutional coding. This theory supposes that a sender and receiver share noiseless bipartite entanglement that they can exploit for protecting a stream of quantum information.
+(Wilde 2009), building on work of (Ollivier and Tillich 2004) and (Grassl and Roetteler 2006), also showed how to encode these codes with quantum shift register circuits, a natural extension of the theory of
+classical shift register circuits.
+
+References
+Ollivier, Harold; Tillich, Jean-Pierre (2003). "Description of a Quantum Convolutional Code". Physical Review Letters. 91 (17): 177902. arXiv:quant-ph/0304189. Bibcode:2003PhRvL..91q7902O. doi:10.1103/PhysRevLett.91.177902. PMID 14611378. S2CID 17261900.
+Ollivier, H.; Tillich, J. -P. (2004). "Quantum convolutional codes: Fundamentals". arXiv:quant-ph/0401134. Bibcode:2004quant.ph..1134O. {{cite journal}}: Cite journal requires |journal= (help)
+Forney, G. David (2005). "Simple rate-1/3 convolutional and tail-biting quantum error-correcting codes". Proceedings. International Symposium on Information Theory, 2005. ISIT 2005. pp. 1028–1032. arXiv:quant-ph/0501099. doi:10.1109/ISIT.2005.1523495. ISBN 0-7803-9151-9. S2CID 14484674.
+David Forney, G. David; Grassl, Markus; Guha, Saikat (2007). "Convolutional and Tail-Biting Quantum Error-Correcting Codes". IEEE Transactions on Information Theory. 53 (3): 865–880. arXiv:quant-ph/0511016. doi:10.1109/TIT.2006.890698. S2CID 546490.
+M. Grassl and M. Roetteler, “Quantum convolutional codes: Encoders and structural properties,” in Forty-Fourth Annual Allerton Conference, 2006. Available at http://www.csl.illinois.edu/allerton/archives/allerton06/PDFs/papers/0285.pdf
+Grassl, Markus; Rotteler, Martin (2006). "Non-catastrophic Encoders and Encoder Inverses for Quantum Convolutional Codes". 2006 IEEE International Symposium on Information Theory. pp. 1109–1113. arXiv:quant-ph/0602129. doi:10.1109/ISIT.2006.261956. ISBN 1-4244-0505-X. S2CID 1442.
+R. Johannesson and K. S. Zigangirov, Fundamentals of Convolutional Coding. Wiley-IEEE Press, 1999.
+Wilde, Mark M.; Krovi, Hari; Brun, Todd A. (2010). "Convolutional entanglement distillation". 2010 IEEE International Symposium on Information Theory. pp. 2657–2661. arXiv:0708.3699. doi:10.1109/ISIT.2010.5513666. ISBN 978-1-4244-7892-7. S2CID 2409176.
+Wilde, Mark M.; Brun, Todd A. (2010). "Entanglement-assisted quantum convolutional coding". Physical Review A. 81 (4): 042333. arXiv:0712.2223. Bibcode:2010PhRvA..81d2333W. doi:10.1103/PhysRevA.81.042333. S2CID 8410654.
+Wilde, Mark M.; Brun, Todd A. (2010). "Quantum convolutional coding with shared entanglement: General structure". Quantum Information Processing. 9 (5): 509–540. arXiv:0807.3803. doi:10.1007/s11128-010-0179-9. S2CID 18185704.
+Wilde, Mark M. (2008). "Quantum Coding with Entanglement". arXiv:0806.4214. {{cite journal}}: Cite journal requires |journal= (help)
+Wilde, Mark M.; Brun, Todd A. (2009). "Extra shared entanglement reduces memory demand in quantum convolutional coding". Physical Review A. 79 (3): 032313. arXiv:0812.4449. Bibcode:2009PhRvA..79c2313W. doi:10.1103/PhysRevA.79.032313. S2CID 67826844.
+Wilde, Mark M. (2009). "Quantum-shift-register circuits". Physical Review A. 79 (6): 062325. arXiv:0903.3894. Bibcode:2009PhRvA..79f2325W. doi:10.1103/PhysRevA.79.062325. S2CID 56351003.
+
+
+== Further reading ==

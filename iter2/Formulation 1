@@ -1,0 +1,116 @@
+A Post–Turing machine is a "program formulation" of a type of Turing machine, comprising a variant of Emil Post's Turing-equivalent model of computation. Post's model and Turing's model, though very similar to one another, were developed independently. Turing's paper was received for publication in May 1936, followed by Post's in October.  A Post–Turing machine uses a binary alphabet, an infinite sequence of binary storage locations, and a primitive programming language with instructions for bi-directional movement among the storage locations and alteration of their contents one at a time.  The names "Post–Turing program" and "Post–Turing machine" were used by Martin Davis in 1973–1974 (Davis 1973, p. 69ff). Later in 1980, Davis used the name "Turing–Post program" (Davis, in Steen p. 241).
+
+1936: Post model
+In his 1936 paper "Finite Combinatory Processes—Formulation 1", Emil Post described a model of which he conjectured is "logically equivalent to recursiveness".
+Post's model of a computation differs from the Turing-machine model in a further "atomization" of the acts a human "computer" would perform during a computation.Post's model employs a "symbol space" consisting of a "two-way infinite sequence of spaces or boxes", each box capable of being in either of two possible conditions, namely "marked" (as by a single vertical stroke) and "unmarked" (empty).  Initially, finitely-many of the boxes are marked, the rest being unmarked. A "worker" is then to move among the boxes, being in and operating in only one box at a time, according to a fixed finite "set of directions" (instructions), which are numbered in order (1,2,3,...,n).  Beginning at a box "singled out as the starting point", the worker is to follow the set of instructions one at a time, beginning with instruction 1.
+There are five different primitive operations that the worker can perform:
+
+(a) Marking the box it is in, if it is empty
+(b) Erasing the mark in the box it is in, if it is marked
+(c) Moving to the box on its right
+(d) Moving to the box on its left
+(e) Determining whether the box it is in, is or is not marked.Then, the i th "direction" (instruction) given to the worker is to be one of the following forms:
+
+(The above indented text and italics are as in the original.) Post remarks that this formulation is "in its initial stages" of development, and mentions several possibilities for "greater flexibility" in its final "definitive form", including
+
+replacing the infinity of boxes by a finite extensible symbol space, "extending the primitive operations to allow for the necessary extension of the given finite symbol space as the process proceeds",
+using an alphabet of more than two symbols, "having more than one way to mark a box",
+introducing finitely-many "physical objects to serve as pointers, which the worker can identify and move from box to box".
+
+1947: Post's formal reduction of the Turing 5-tuples to 4-tuples
+As briefly mentioned in the article Turing machine, Post, in his paper of 1947 (Recursive Unsolvability of a Problem of Thue) atomized the Turing 5-tuples to 4-tuples:
+
+"Our quadruplets are quintuplets in the Turing development. That is, where our standard instruction orders either a printing (overprinting) or motion, left or right, Turing's standard instruction always order a printing and a motion, right, left, or none" (footnote 12, Undecidable, p. 300)Like Turing, he defined erasure as printing a symbol "S0". And so his model admitted  quadruplets of only three types (cf. Undecidable, p. 294):
+
+qi Sj L ql,
+qi Sj R ql,
+qi Sj Sk qlAt this time he was still retaining the Turing state-machine convention – he had not formalized the notion of an assumed sequential execution of steps until a specific test of a symbol "branched" the execution elsewhere.
+
+1954, 1957: Wang model
+For an even further reduction – to only four instructions – of the Wang model presented here see Wang B-machine.
+Wang (1957, but presented to the ACM in 1954) is often cited (cf. Minsky (1967), p. 200) as the source of the "program formulation" of binary-tape Turing machines using numbered instructions from the set
+
+write 0
+write 1
+move left
+move right
+if scanning 0 then go to instruction i
+if scanning 1 then go to instruction jAny binary-tape Turing machine is readily converted to an equivalent "Wang program" using the above instructions.
+
+1974: first Davis model
+Martin Davis was an undergraduate student of Emil Post. Along with Stephen Kleene he completed his Ph.D. under Alonzo Church (Davis (2000) 1st and 2nd footnotes p. 188). 
+The following model he presented in a series of lectures to the Courant Institute at NYU in 1973–1974. This is the model to which Davis formally applied the name "Post–Turing machine" with its "Post–Turing language". The instructions are assumed to be executed sequentially (Davis 1974, p. 71):
+
+1978: second Davis model
+The following model appears as an essay What is a computation? in Steen pages 241–267. For some reason Davis has renamed his model a "Turing–Post machine" (with one back-sliding on page 256.) 
+In the following model, Davis assigns the numbers "1" to Post's "mark/slash" and "0" to the blank square. To quote Davis: "We are now ready to introduce the Turing–Post Programming Language. In this language there are seven kinds of instructions:
+
+"PRINT 1
+"PRINT 0
+"GO RIGHT
+"GO LEFT
+"GO TO STEP i IF 1 IS SCANNED
+"GO TO STEP i IF 0 IS SCANNED
+"STOP"A Turing–Post program is then a list of instructions, each of which is of one of these seven kinds. Of course, in an actual program, the letter i in a step of either the fifth or sixth kind must be replaced with a definite (positive whole) number." (Davis in Steen, p. 247).
+
+1994 (2nd edition): Davis–Sigal–Weyuker's Post–Turing program model
+"Although the formulation of Turing we have presented is closer in spirit to that originally given by Emil Post, it was Turing's analysis of the computation that has made this formulation seem so appropriate. This language has played a fundamental role in theoretical computer science." (Davis et al. (1994) p. 129)
+This model allows for the printing of multiple symbols. The model allows for B (blank) instead of S0. The tape is infinite in both directions. Either the head or the tape moves, but their definitions of RIGHT and LEFT always specify the same outcome in either case (Turing used the same convention).
+
+PRINT σ          ;Replace scanned symbol with σ
+IF σ GOTO L      ;IF scanned symbol is σ THEN go to "the first" instruction labelled L
+RIGHT            ;Scan square immediately right of the square currently scanned
+LEFT             ;Scan square immediately left of the square currently scannedThis model reduces to the binary { 0, 1 } versions presented above, as shown here:
+
+PRINT 0 = ERASE  ;Replace scanned symbol with 0 = B = BLANK
+PRINT 1          ;Replace scanned symbol with 1
+IF 0 GOTO L      ;IF scanned symbol is 0 THEN go to "the first" instruction labelled L
+IF 1 GOTO L      ;IF scanned symbol is 1 THEN go to "the first" instruction labelled L
+RIGHT            ;Scan square immediately right of the square currently scanned
+LEFT             ;Scan square immediately left of the square currently scanned
+
+Examples of the Post–Turing machine
+Atomizing Turing quintuples into a sequence of Post–Turing instructions
+The following "reduction" (decomposition, atomizing) method – from 2-symbol Turing 5-tuples to a sequence of 2-symbol Post–Turing instructions – can be found in Minsky (1961). He states that this reduction to "a program ... a sequence of Instructions" is in the spirit of Hao Wang's B-machine (italics in original, cf. Minsky (1961) p. 439). 
+(Minsky's reduction to what he calls "a sub-routine" results in 5 rather than 7 Post–Turing instructions. He did not atomize Wi0: "Write symbol Si0; go to new state Mi0", and Wi1: "Write symbol Si1; go to new state Mi1". The following method further atomizes Wi0 and Wi1; in all other respects the methods are identical.) 
+This reduction of Turing 5-tuples to Post–Turing instructions may not result in an "efficient" Post–Turing program, but it will be faithful to the original Turing-program. 
+In the following example, each Turing 5-tuple of the 2-state busy beaver converts into 
+
+for a total of 1 + 2 + 1 + 2 + 1 = 7 instructions per Turing-state.
+For example, the 2-state busy beaver's "A" Turing-state, written as two lines of 5-tuples, is:
+
+The table represents just a single Turing "instruction", but we see that it consists of two lines of 5-tuples, one for the case "tape symbol under head = 1", the other for the case "tape symbol under head = 0". Turing observed (Undecidable, p. 119) that the left-two columns – "m-configuration" and "symbol" – represent the machine's current "configuration" – its state including both Tape and Table at that instant – and the last three columns are its subsequent "behavior". As the machine cannot be in two "states" at once, the machine must "branch" to either one configuration or the other:    
+
+After the "configuration branch" (J1 xxx) or (J0 xxx) the machine follows one of the two subsequent "behaviors". We list these two behaviors on one line, and number (or label) them sequentially (uniquely). Beneath each jump (branch, go to) we place its jump-to "number" (address, location):
+
+Per the Post–Turing machine conventions each of the Print, Erase, Left, and Right instructions consist of two actions:
+
+And per the Post–Turing machine conventions the conditional "jumps" J0xxx, J1xxx consist of two actions:
+
+And per the Post–Turing machine conventions the unconditional "jump" Jxxx consists of a single action, or if we want to regularize the 2-action sequence:
+
+Which, and how many, jumps are necessary? The unconditional jump Jxxx is simply J0 followed immediately by J1 (or vice versa). Wang (1957) also demonstrates that only one conditional jump is required, i.e. either J0xxx or J1xxx. However, with this restriction, the machine becomes difficult to write instructions for. Often only two are used, i.e.
+
+but the use of all three { J0xxx, J1xxx, Jxxx } does eliminate extra instructions. In the 2-state Busy Beaver example that we use only { J1xxx, Jxxx }.
+
+2-state busy beaver
+The mission of the busy beaver is to print as many ones as possible before halting. The "Print" instruction writes a 1, the "Erase" instruction (not used in this example) writes a 0 (i.e. it is the same as P0). The tape moves "Left" or "Right" (i.e. the "head" is stationary). 
+State table for a 2-state Turing-machine busy beaver: 
+
+Instructions for the Post–Turing version of a 2-state busy beaver: observe that all the instructions are on the same line and in sequence. This is a significant departure from the "Turing" version and is in the same format as what is called a "computer program":
+
+Alternately, we might write the table as a string. The use of "parameter separators" ":" and instruction-separators "," are entirely our choice and do not appear in the model. There are no conventions (but see Booth (1967) p. 374, and Boolos and Jeffrey (1974, 1999) p. 23), for some useful ideas of how to combine state diagram conventions with the instructions – i.e. to use arrows to indicate the destination of the jumps). In the example immediately below, the instructions are sequential starting from "1", and the parameters/"operands" are considered part of their instructions/"opcodes":
+
+J1:5, P, R, J:8, P, L, J:8, J1:12, P, L, J1:1, P, N, J:15, H
+
+Notes
+References
+Stephen C. Kleene, Introduction to Meta-Mathematics, North-Holland Publishing Company, New York, 10th edition 1991, first published 1952. Chapter XIII is an excellent description of Turing machines; Kleene uses a Post-like model in his description and admits the Turing model could be further atomized, see footnote 1.
+Martin Davis, editor: The Undecidable, Basic Papers on Undecidable Propositions, Unsolvable Problems and Computable Functions, Raven Press, New York, 1965. Papers include those by Gödel, Church, Rosser, Kleene, and Post.
+Martin Davis, "What is a computation", in Mathematics Today, Lynn Arthur Steen, Vintage Books (Random House), 1980. A wonderful little paper, perhaps the best ever written about Turing Machines. Davis reduces the Turing Machine to a far-simpler model based on Post's model of a computation. Includes a little biography of Emil Post.
+Martin Davis, Computability: with Notes by Barry Jacobs, Courant Institute of Mathematical Sciences, New York University, 1974.
+Martin Davis, Ron Sigal, Elaine J. Weyuker, (1994) Computability, Complexity, and Languages: Fundamentals of Theoretical Computer Science – 2nd edition, Academic Press: Harcourt, Brace & Company, San Diego, 1994 ISBN 0-12-206382-1 (First edition, 1983).
+Fred Hennie, Introduction to Computability, Addison–Wesley, 1977.
+Marvin Minsky, (1961), Recursive Unsolvability of Post's problem of 'Tag' and other Topics in Theory of Turing Machines, Annals of Mathematics, Vol. 74, No. 3, November, 1961.
+Roger Penrose, The Emperor's New Mind: Concerning computers, Minds and the Laws of Physics, Oxford University Press, Oxford England, 1990 (with corrections). Cf. Chapter 2, "Algorithms and Turing Machines". An overcomplicated presentation (see Davis's paper for a better model), but a thorough presentation of Turing machines and the halting problem, and Church's lambda calculus.
+Hao Wang (1957): "A variant to Turing's theory of computing machines", Journal of the Association for Computing Machinery (JACM) 4, 63–92.

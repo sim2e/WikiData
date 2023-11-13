@@ -1,0 +1,43 @@
+A disk array controller is a device that manages the physical disk drives and presents them to the computer as logical units. It almost always implements hardware RAID, thus it is sometimes referred to as RAID controller. It also often provides additional disk cache.
+Disk array controller is often improperly shortened to disk controller. The two should not be confused as they provide very different functionality.
+
+Front-end and back-end side
+A disk array controller provides front-end interfaces and back-end interfaces.
+
+The back-end interface communicates with the controlled disks. Hence, its protocol is usually ATA (a.k.a. PATA), SATA, SCSI, FC or SAS.
+The front-end interface communicates with a computer's host adapter (HBA, Host Bus Adapter) and uses:
+one of ATA, SATA, SCSI, FC; these are popular protocols used by disks, so by using one of them a controller may transparently emulate a disk for a computer.
+somewhat less popular dedicated protocols for specific solutions: FICON/ESCON, iSCSI, HyperSCSI, ATA over Ethernet or InfiniBand.A single controller may use different protocols for back-end and for front-end communication. Many enterprise controllers use FC on front-end and SATA on back-end.
+
+Enterprise controllers
+In a modern enterprise architecture disk array controllers (sometimes also called storage processors, or SPs) are parts of physically independent enclosures, such as disk arrays placed in a storage area network (SAN) or network-attached storage (NAS) servers.
+Those external disk arrays are usually purchased as an integrated subsystem of RAID controllers, disk drives, power supplies, and management software. It is up to controllers to provide advanced functionality (various vendors name these differently):
+
+Automatic failover to another controller (transparent to computers transmitting data)
+Long-running operations performed without downtime
+Forming a new RAID set
+Reconstructing degraded RAID set (after a disk failure)
+Adding a disk to online RAID set
+Removing a disk from a RAID set (rare functionality)
+Partitioning a RAID set to separate volumes/LUNs
+Snapshots
+Business continuance volumes (BCV)
+Replication with a remote controller....
+
+Simple controllers
+A simple disk array controller may fit inside a computer, either as a PCI expansion card or just built onto a motherboard. Such a controller usually provides host bus adapter (HBA) functionality itself to save physical space. Hence it is sometimes called a RAID adapter.
+As of February  2007 Intel started integrating their own Matrix RAID controller in their more upmarket motherboards, giving control over 4 devices and an additional 2 SATA connectors, and totalling 6 SATA connections (3Gbit/s each). For backward compatibility one IDE connector able to connect 2 ATA devices (100 Mbit/s) is also present.
+
+History
+While hardware RAID controllers were available for a long time, they always required expensive SCSI hard drives and aimed at the server and high-end computing market. SCSI technology advantages include allowing up to 15 devices on one bus, independent data transfers, hot-swapping, much higher MTBF.
+Around 1997, with the introduction of ATAPI-4 (and thus the Ultra-DMA-Mode 0, which enabled fast data-transfers with less CPU utilization) the first ATA RAID controllers were introduced as PCI expansion cards. Those RAID systems made their way to the consumer market, where the users wanted the fault-tolerance of RAID without investing in expensive SCSI drives.
+ATA drives make it possible to build RAID systems at lower cost than with SCSI, but most ATA RAID controllers lack a dedicated buffer or high-performance XOR hardware for parity calculation.   As a result, ATA RAID performs relatively poorly compared to most SCSI RAID controllers. Additionally, data safety suffers if there is no battery backup to finish writes interrupted by a power outage.
+
+OS support
+Because the hardware RAID controllers present assembled RAID volumes, operating systems aren't strictly required to implement the complete configuration and assembly for each controller.  Very often only the basic features are implemented in the open-source software driver, with extended features being provided through binary blobs directly by the hardware manufacturer.
+Normally, RAID controllers can be fully configured through card BIOS before an operating system is booted, and after the operating system is booted, proprietary configuration utilities are available from the manufacturer of each controller, because the exact feature set of each controller may be specific to each manufacturer and product.
+Unlike the network interface controllers for Ethernet, which can be usually be configured and serviced entirely through the common operating system paradigms like ifconfig in Unix, without a need for any third-party tools, each manufacturer of each RAID controller usually provides their own proprietary software tooling for each operating system that they deem to support, ensuring a vendor lock-in, and contributing to reliability issues.For example, in FreeBSD, in order to access the configuration of Adaptec RAID controllers, users are required to enable Linux compatibility layer, and use the Linux tooling from Adaptec, potentially compromising the stability, reliability and security of their setup, especially when taking the long term view in mind.  However, this greatly depends on the controller, and whether appropriate hardware documentation is available in order to write a driver, and some controllers do have open-source versions of their configuration utilities, for example, mfiutil and mptutil is available for FreeBSD since FreeBSD 8.0 (2009), as well as mpsutil/mprutil since 2015, each supporting only their respective device drivers, this latter fact contributing to code bloat.
+Some other operating systems have implemented their own generic frameworks for interfacing with any RAID controller, and provide tools for monitoring RAID volume status, as well as facilitation of drive identification through LED blinking, alarm management, hot spare disk designations and data scrubbing § RAID from within the operating system without having to reboot into card BIOS.  For example, this was the approach taken by OpenBSD in 2005 with its bio(4) pseudo-device driver and the bioctl utility, which provide volume status, and allow LED/alarm/hotspare control, as well as the sensors (including the drive sensor) for health monitoring; this approach has subsequently been adopted and extended by NetBSD in 2007 as well.With bioctl, the feature set is intentionally kept to a minimum, so that each controller can be supported by the tool in the same way; the initial configuration of the controller is meant to be performed through card BIOS, but after the initial configuration, all day-to-day monitoring and repair should be possible with unified and generic tools, which is what bioctl is set to accomplish.
+
+
+== References ==

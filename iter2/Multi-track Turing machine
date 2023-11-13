@@ -1,0 +1,477 @@
+A Multitrack Turing machine is a specific type of multi-tape Turing machine. 
+In a standard n-tape Turing machine, n heads move independently along n tracks. In a n-track Turing machine, one head reads and writes on all tracks simultaneously. A tape position in an n-track Turing Machine contains n symbols from the tape alphabet. It is equivalent to the standard Turing machine and therefore accepts precisely the recursively enumerable languages.
+
+Formal definition
+A multitrack Turing machine with 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -tapes can be formally defined as a 6-tuple
+  
+    
+      
+        M
+        =
+        ⟨
+        Q
+        ,
+        Σ
+        ,
+        Γ
+        ,
+        δ
+        ,
+        
+          q
+          
+            0
+          
+        
+        ,
+        F
+        ⟩
+      
+    
+    {\displaystyle M=\langle Q,\Sigma ,\Gamma ,\delta ,q_{0},F\rangle }
+  , where
+
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+   is a finite set of states;
+
+  
+    
+      
+        Σ
+        ⊆
+        Γ
+        ∖
+        {
+        b
+        }
+      
+    
+    {\displaystyle \Sigma \subseteq \Gamma \setminus \{b\}}
+   is a finite set of input symbols, that is, the set of symbols allowed to appear in the initial tape contents;
+
+  
+    
+      
+        Γ
+      
+    
+    {\displaystyle \Gamma }
+   is a finite set of tape alphabet symbols;
+
+  
+    
+      
+        
+          q
+          
+            0
+          
+        
+        ∈
+        Q
+      
+    
+    {\displaystyle q_{0}\in Q}
+   is the initial state;
+
+  
+    
+      
+        F
+        ⊆
+        Q
+      
+    
+    {\displaystyle F\subseteq Q}
+   is the set of final or accepting states;
+
+  
+    
+      
+        δ
+        :
+        
+          (
+          
+            Q
+            ∖
+            F
+            ×
+            
+              Γ
+              
+                n
+              
+            
+          
+          )
+        
+        →
+        
+          (
+          
+            Q
+            ×
+            
+              Γ
+              
+                n
+              
+            
+            ×
+            {
+            L
+            ,
+            R
+            }
+          
+          )
+        
+      
+    
+    {\displaystyle \delta :\left(Q\backslash F\times \Gamma ^{n}\right)\rightarrow \left(Q\times \Gamma ^{n}\times \{L,R\}\right)}
+   is a partial function called the transition function.Sometimes also denoted as 
+  
+    
+      
+        δ
+        
+          (
+          
+            
+              Q
+              
+                i
+              
+            
+            ,
+            [
+            
+              x
+              
+                1
+              
+            
+            ,
+            
+              x
+              
+                2
+              
+            
+            .
+            .
+            .
+            
+              x
+              
+                n
+              
+            
+            ]
+          
+          )
+        
+        =
+        (
+        
+          Q
+          
+            j
+          
+        
+        ,
+        [
+        
+          y
+          
+            1
+          
+        
+        ,
+        
+          y
+          
+            2
+          
+        
+        .
+        .
+        .
+        
+          y
+          
+            n
+          
+        
+        ]
+        ,
+        d
+        )
+      
+    
+    {\displaystyle \delta \left(Q_{i},[x_{1},x_{2}...x_{n}]\right)=(Q_{j},[y_{1},y_{2}...y_{n}],d)}
+  , where 
+  
+    
+      
+        d
+        ∈
+        {
+        L
+        ,
+        R
+        }
+      
+    
+    {\displaystyle d\in \{L,R\}}
+  .A non-deterministic variant can be defined by replacing the transition function 
+  
+    
+      
+        δ
+      
+    
+    {\displaystyle \delta }
+   by a transition relation 
+  
+    
+      
+        δ
+        ⊆
+        
+          (
+          
+            Q
+            ∖
+            F
+            ×
+            
+              Γ
+              
+                n
+              
+            
+          
+          )
+        
+        ×
+        
+          (
+          
+            Q
+            ×
+            
+              Γ
+              
+                n
+              
+            
+            ×
+            {
+            L
+            ,
+            R
+            }
+          
+          )
+        
+      
+    
+    {\displaystyle \delta \subseteq \left(Q\backslash F\times \Gamma ^{n}\right)\times \left(Q\times \Gamma ^{n}\times \{L,R\}\right)}
+  .
+
+Proof of equivalency to standard Turing machine
+This will prove that a two-track Turing machine is equivalent to a standard Turing machine. This can be generalized to a n-track Turing machine. Let L be a recursively enumerable language. Let M= 
+  
+    
+      
+        ⟨
+        Q
+        ,
+        Σ
+        ,
+        Γ
+        ,
+        δ
+        ,
+        
+          q
+          
+            0
+          
+        
+        ,
+        F
+        ⟩
+      
+    
+    {\displaystyle \langle Q,\Sigma ,\Gamma ,\delta ,q_{0},F\rangle }
+   be standard Turing machine that accepts L. Let M' is a two-track Turing machine. To prove M=M' it must be shown that M 
+  
+    
+      
+        ⊆
+      
+    
+    {\displaystyle \subseteq }
+   M' and M' 
+  
+    
+      
+        ⊆
+      
+    
+    {\displaystyle \subseteq }
+   M
+
+  
+    
+      
+        M
+        ⊆
+        
+          M
+          ′
+        
+      
+    
+    {\displaystyle M\subseteq M'}
+  If the second track is ignored then M and M' are clearly equivalent. 
+
+  
+    
+      
+        
+          M
+          ′
+        
+        ⊆
+        M
+      
+    
+    {\displaystyle M'\subseteq M}
+  The tape alphabet of a one-track Turing machine equivalent to a two-track Turing machine consists of an ordered pair. The input symbol a of a Turing machine M' can be identified as an ordered pair [x,y] of Turing machine M. The one-track Turing machine is:
+M= 
+  
+    
+      
+        ⟨
+        Q
+        ,
+        Σ
+        ×
+        
+          B
+        
+        ,
+        Γ
+        ×
+        Γ
+        ,
+        
+          δ
+          ′
+        
+        ,
+        
+          q
+          
+            0
+          
+        
+        ,
+        F
+        ⟩
+      
+    
+    {\displaystyle \langle Q,\Sigma \times {B},\Gamma \times \Gamma ,\delta ',q_{0},F\rangle }
+   with the transition function 
+  
+    
+      
+        δ
+        
+          (
+          
+            
+              q
+              
+                i
+              
+            
+            ,
+            [
+            
+              x
+              
+                1
+              
+            
+            ,
+            
+              x
+              
+                2
+              
+            
+            ]
+          
+          )
+        
+        =
+        
+          δ
+          ′
+        
+        
+          (
+          
+            
+              q
+              
+                i
+              
+            
+            ,
+            [
+            
+              x
+              
+                1
+              
+            
+            ,
+            
+              x
+              
+                2
+              
+            
+            ]
+          
+          )
+        
+      
+    
+    {\displaystyle \delta \left(q_{i},[x_{1},x_{2}]\right)=\delta '\left(q_{i},[x_{1},x_{2}]\right)}
+  
+This machine also accepts L.
+
+References
+
+Thomas A. Sudkamp (2006). Languages and Machines, Third edition. Addison-Wesley. ISBN 0-321-32221-5. Chapter 8.6: Multitape Machines: pp 269–271

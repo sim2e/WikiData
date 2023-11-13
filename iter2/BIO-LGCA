@@ -1,0 +1,2220 @@
+In computational and mathematical biology, a biological lattice-gas cellular automaton (BIO-LGCA) is a discrete model for moving and interacting biological agents, a type of cellular automaton. The BIO-LGCA is based on the lattice-gas cellular automaton (LGCA) model used in fluid dynamics. A BIO-LGCA model describes cells and other motile biological agents as point particles moving on a discrete lattice, thereby interacting with nearby particles. Contrary to classic cellular automaton models, particles in BIO-LGCA are defined by their position and velocity. This allows to model and analyze active fluids and collective migration mediated primarily through changes in momentum, rather than density. BIO-LGCA applications include cancer invasion and cancer progression.
+
+Model definition
+As are all cellular automaton models, a BIO-LGCA model is defined by a lattice 
+  
+    
+      
+        
+          
+            L
+          
+        
+      
+    
+    {\displaystyle {\mathcal {L}}}
+  , a state space 
+  
+    
+      
+        
+          
+            E
+          
+        
+      
+    
+    {\displaystyle {\mathcal {E}}}
+  , a neighborhood 
+  
+    
+      
+        
+          
+            N
+          
+        
+      
+    
+    {\displaystyle {\mathcal {N}}}
+  , and a rule 
+  
+    
+      
+        
+          
+            R
+          
+        
+      
+    
+    {\displaystyle {\mathcal {R}}}
+  .
+The lattice (
+  
+    
+      
+        
+          
+            L
+          
+        
+      
+    
+    {\displaystyle {\mathcal {L}}}
+  ) defines the set of all possible particle positions. Particles are restricted to occupy only certain positions, typically resulting from a regular and periodic tesselation of space. Mathematically, 
+  
+    
+      
+        
+          
+            L
+          
+        
+        ⊂
+        
+          
+            R
+          
+          
+            d
+          
+        
+      
+    
+    {\displaystyle {\mathcal {L}}\subset \mathbb {R} ^{d}}
+   is a discrete subset of 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+  -dimensional space.
+The state space (
+  
+    
+      
+        
+          
+            E
+          
+        
+      
+    
+    {\displaystyle {\mathcal {E}}}
+  ) describes the possible states of particles within every lattice site 
+  
+    
+      
+        
+          r
+        
+        ∈
+        
+          
+            L
+          
+        
+      
+    
+    {\displaystyle \mathbf {r} \in {\mathcal {L}}}
+  . In BIO-LGCA, multiple particles with different velocities may occupy a single lattice site, as opposed to classic cellular automaton models, where typically only a single cell can reside in every lattice node simultaneously. This makes the state space slightly more complex than that of classic cellular automaton models (see below).
+The neighborhood (
+  
+    
+      
+        
+          
+            N
+          
+        
+      
+    
+    {\displaystyle {\mathcal {N}}}
+  ) indicates the subset of lattice sites which determines the dynamics of a given site in the lattice. Particles only interact with other particles within their neighborhood. Boundary conditions must be chosen for neighborhoods of lattice sites at the boundary of finite lattices. Neighborhoods and boundary conditions are identically defined as those for regular cellular automata (see Cellular automaton).
+The rule (
+  
+    
+      
+        
+          
+            R
+          
+        
+      
+    
+    {\displaystyle {\mathcal {R}}}
+  ) dictates how particles move, proliferate, or die with time. As every cellular automaton, BIO-LGCA evolves in discrete time steps. In order to simulate the system dynamics, the rule is synchronously applied to every lattice site at every time step. Rule application changes the original state of a lattice site to a new state. The rule depends on the states of lattice sites in the interaction neighborhood of the lattice site to be updated. In BIO-LGCA, the rule is divided into two steps, a probabilistic interaction step followed by a deterministic transport step. The interaction step simulates reorientation, birth, and death processes, and is defined specifically for the modeled process. The transport step translocates particles to neighboring lattice nodes in the direction of their velocities. See below for details.
+
+State space
+For modeling particle velocities explicitly, lattice sites are assumed to have a specific substructure. Each lattice site 
+  
+    
+      
+        
+          r
+        
+        ∈
+        
+          
+            L
+          
+        
+      
+    
+    {\displaystyle \mathbf {r} \in {\mathcal {L}}}
+   is connected to its neighboring lattice sites through vectors called "velocity channels", 
+  
+    
+      
+        
+          
+            c
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \mathbf {c} _{i}}
+  , 
+  
+    
+      
+        i
+        ∈
+        {
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        b
+        }
+      
+    
+    {\displaystyle i\in \{1,2,\ldots ,b\}}
+  , where the number of velocity channels 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   is equal to the number of nearest neighbors, and thus depends on the lattice geometry (
+  
+    
+      
+        b
+        =
+        2
+      
+    
+    {\displaystyle b=2}
+   for a one-dimensional lattice, 
+  
+    
+      
+        b
+        =
+        6
+      
+    
+    {\displaystyle b=6}
+   for a two-dimensional hexagonal lattice, and so on). In two dimensions, velocity channels are defined as 
+  
+    
+      
+        
+          
+            c
+          
+          
+            i
+          
+        
+        =
+        
+          (
+          
+            cos
+            ⁡
+            
+              
+                
+                  2
+                  π
+                  i
+                
+                b
+              
+            
+            ,
+            sin
+            ⁡
+            
+              
+                
+                  2
+                  π
+                  i
+                
+                b
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \mathbf {c} _{i}=\left(\cos {\frac {2\pi i}{b}},\sin {\frac {2\pi i}{b}}\right)}
+  . Additionally, an arbitrary number 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   of so-called "rest channels" may be defined, such that 
+  
+    
+      
+        
+          
+            c
+          
+          
+            i
+          
+        
+        =
+        (
+        0
+        ,
+        0
+        )
+      
+    
+    {\displaystyle \mathbf {c} _{i}=(0,0)}
+  , 
+  
+    
+      
+        i
+        ∈
+        {
+        b
+        +
+        1
+        ,
+        b
+        +
+        2
+        ,
+        …
+        ,
+        b
+        +
+        a
+        }
+      
+    
+    {\displaystyle i\in \{b+1,b+2,\ldots ,b+a\}}
+  . A channel is said to be occupied if there is a particle in the lattice site with a velocity equal to the velocity channel. The occupation of channel 
+  
+    
+      
+        
+          
+            c
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \mathbf {c} _{i}}
+   is indicated by the occupation number 
+  
+    
+      
+        
+          s
+          
+            i
+          
+        
+      
+    
+    {\displaystyle s_{i}}
+  . Typically, particles are assumed to obey an exclusion principle, such that no more than one particle may occupy a single velocity channel at a lattice site simultaneously. In this case, occupation numbers are Boolean variables, i.e. 
+  
+    
+      
+        
+          s
+          
+            i
+          
+        
+        ∈
+        
+          
+            S
+          
+        
+        =
+        {
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle s_{i}\in {\mathcal {S}}=\{0,1\}}
+  , and thus, every site has a maximum carrying capacity 
+  
+    
+      
+        K
+        =
+        a
+        +
+        b
+      
+    
+    {\displaystyle K=a+b}
+  . Since the collection of all channel occupation numbers defines the number of particles and their velocities in each lattice site, the vector 
+  
+    
+      
+        
+          s
+        
+        =
+        
+          (
+          
+            
+              s
+              
+                1
+              
+            
+            ,
+            
+              s
+              
+                2
+              
+            
+            ,
+            …
+            ,
+            
+              s
+              
+                K
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \mathbf {s} =\left(s_{1},s_{2},\ldots ,s_{K}\right)}
+   describes the state of a lattice site, and the state space is given by 
+  
+    
+      
+        
+          
+            E
+          
+        
+        =
+        
+          
+            
+              S
+            
+          
+          
+            K
+          
+        
+      
+    
+    {\displaystyle {\mathcal {E}}={\mathcal {S}}^{K}}
+  .
+
+Rule and model dynamics
+The states of every site in the lattice are updated synchronously in discrete time steps to simulate the model dynamics. The rule is divided into two steps. The probabilistic interaction step simulates particle interaction, while the deterministic transport step simulates particle movement.
+
+Interaction step
+Depending on the specific application, the interaction step may be composed of reaction and/or reorientation operators.
+The reaction operator 
+  
+    
+      
+        
+          
+            A
+          
+        
+      
+    
+    {\displaystyle {\mathcal {A}}}
+   replaces the state of a node 
+  
+    
+      
+        
+          s
+        
+      
+    
+    {\displaystyle \mathbf {s} }
+   with a new state 
+  
+    
+      
+        
+          
+            s
+          
+          
+            
+              A
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {s} ^{\mathcal {A}}}
+   following a transition probability 
+  
+    
+      
+        P
+        
+          (
+          
+            
+              
+              
+                
+                  s
+                
+                →
+                
+                  
+                    s
+                  
+                  
+                    
+                      A
+                    
+                  
+                
+              
+              |
+            
+            
+              
+                s
+              
+              
+                
+                  N
+                
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle P\left(\left.\mathbf {s} \rightarrow \mathbf {s} ^{\mathcal {A}}\right|\mathbf {s} _{\mathcal {N}}\right)}
+  , which depends on the state of the neighboring lattice sites 
+  
+    
+      
+        
+          
+            s
+          
+          
+            
+              N
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {s} _{\mathcal {N}}}
+  to simulate the influence of neighboring particles on the reactive process. The reaction operator does not conserve particle number, thus allowing to simulate birth and death of individuals. The reaction operator's transition probability is usually defined ad hoc form phenomenological observations.
+The reorientation operator 
+  
+    
+      
+        
+          
+            O
+          
+        
+      
+    
+    {\displaystyle {\mathcal {O}}}
+   also replaces a state 
+  
+    
+      
+        
+          s
+        
+      
+    
+    {\displaystyle \mathbf {s} }
+   with a new state 
+  
+    
+      
+        
+          
+            s
+          
+          
+            
+              O
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {s} ^{\mathcal {O}}}
+   with probability 
+  
+    
+      
+        P
+        
+          (
+          
+            
+              
+              
+                
+                  s
+                
+                →
+                
+                  
+                    s
+                  
+                  
+                    
+                      O
+                    
+                  
+                
+              
+              |
+            
+            
+              
+                s
+              
+              
+                
+                  N
+                
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle P\left(\left.\mathbf {s} \rightarrow \mathbf {s} ^{\mathcal {O}}\right|\mathbf {s} _{\mathcal {N}}\right)}
+  . However, this operator conserves particle number and therefore only models changes in particle velocity by redistributing particles among velocity channels. The transition probability for this operator can be determined from statistical observations (by using the maximum caliber principle) or from known single-particle dynamics (using the discretized, steady-state angular probability distribution given by the Fokker-Planck equation associated to a Langevin equation describing the reorientation dynamics), and typically takes the form  where 
+  
+    
+      
+        Z
+      
+    
+    {\displaystyle Z}
+   is a normalization constant (also known as the partition function), 
+  
+    
+      
+        H
+        
+          (
+          
+            
+              s
+            
+            
+              
+                N
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle H\left(\mathbf {s} _{\mathcal {N}}\right)}
+   is an energy-like function which particles will likely minimize when changing their direction of motion, 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+   is a free parameter inversely proportional to the randomness of particle reorientation (analogous to the inverse temperature in thermodynamics), and 
+  
+    
+      
+        
+          δ
+          
+            n
+            
+              (
+              
+                s
+              
+              )
+            
+            ,
+            n
+            
+              (
+              
+                
+                  s
+                
+                
+                  
+                    O
+                  
+                
+              
+              )
+            
+          
+        
+      
+    
+    {\displaystyle \delta _{n\left(\mathbf {s} \right),n\left(\mathbf {s} ^{\mathcal {O}}\right)}}
+   is a Kronecker delta which ensures that particle number before 
+  
+    
+      
+        n
+        
+          (
+          
+            s
+          
+          )
+        
+      
+    
+    {\displaystyle n\left(\mathbf {s} \right)}
+   and after reorientation 
+  
+    
+      
+        n
+        
+          (
+          
+            
+              s
+            
+            
+              
+                O
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle n\left(\mathbf {s} ^{\mathcal {O}}\right)}
+   is unchanged.
+The state resulting form applying the reaction and reorientation operator 
+  
+    
+      
+        
+          
+            s
+          
+          
+            
+              
+                O
+              
+            
+            ∘
+            
+              
+                A
+              
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {s} ^{{\mathcal {O}}\circ {\mathcal {A}}}}
+   is known as the post-interaction configuration and denoted by 
+  
+    
+      
+        
+          
+            s
+          
+          
+            
+              I
+            
+          
+        
+        :=
+        
+          
+            s
+          
+          
+            
+              
+                O
+              
+            
+            ∘
+            
+              
+                A
+              
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {s} ^{\mathcal {I}}:=\mathbf {s} ^{{\mathcal {O}}\circ {\mathcal {A}}}}
+  .
+
+Transport step
+After the interaction step, the deterministic transport step is applied synchronously to all lattice sites. The transport step simulates the movement of agents according to their velocity, due to the self-propulsion of living organisms.
+During this step, the occupation numbers of post-interaction states will be defined as the new occupation states of the same channel of the neighboring lattice site in the direction of the velocity channel, i.e. 
+  
+    
+      
+        
+          s
+          
+            i
+          
+        
+        (
+        
+          r
+        
+        +
+        
+          
+            c
+          
+          
+            i
+          
+        
+        )
+        =
+        
+          s
+          
+            i
+          
+          
+            
+              I
+            
+          
+        
+        (
+        
+          r
+        
+        )
+      
+    
+    {\displaystyle s_{i}(\mathbf {r} +\mathbf {c} _{i})=s_{i}^{\mathcal {I}}(\mathbf {r} )}
+  .
+A new time step begins when both interaction and transport steps have occurred. Therefore, the dynamics of the BIO-LGCA can be summarized as the stochastic finite-difference microdynamical equation
+
+Example interaction dynamics
+The transition probability for the reaction and/or reorientation operator must be defined to appropriately simulate the modeled system. Some elementary interactions and the corresponding transition probabilities are listed below.
+
+Random walk
+In the absence of any external or internal stimuli, cells may move randomly without any directional preference. In this case, the reorientation operator may be defined through a transition probability
+
+where 
+  
+    
+      
+        Z
+        =
+        
+          ∑
+          
+            
+              
+                s
+              
+              
+                
+                  O
+                
+              
+            
+          
+        
+        
+          δ
+          
+            n
+            
+              (
+              
+                s
+              
+              )
+            
+            ,
+            n
+            
+              (
+              
+                
+                  s
+                
+                
+                  
+                    O
+                  
+                
+              
+              )
+            
+          
+        
+      
+    
+    {\displaystyle Z=\sum _{\mathbf {s} ^{\mathcal {O}}}\delta _{n\left(\mathbf {s} \right),n\left(\mathbf {s} ^{\mathcal {O}}\right)}}
+  . Such transition probability allows any post-reorientation configuration 
+  
+    
+      
+        
+          
+            s
+          
+          
+            
+              O
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {s} ^{\mathcal {O}}}
+   with the same number of particles as the pre-reorientation configuration 
+  
+    
+      
+        
+          s
+        
+      
+    
+    {\displaystyle \mathbf {s} }
+  , to be picked uniformly.
+
+Simple birth and death process
+If organisms reproduce and die independently of other individuals (with the exception of the finite carrying capacity), then a simple birth/death process can be simulated with a transition probability given by where 
+  
+    
+      
+        
+          r
+          
+            b
+          
+        
+        ,
+        
+          r
+          
+            d
+          
+        
+        ∈
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle r_{b},r_{d}\in [0,1]}
+  , 
+  
+    
+      
+        
+          r
+          
+            b
+          
+        
+        +
+        
+          r
+          
+            d
+          
+        
+        ≤
+        1
+      
+    
+    {\displaystyle r_{b}+r_{d}\leq 1}
+   are constant birth and death probabilities, respectively, 
+  
+    
+      
+        
+          δ
+          
+            i
+            ,
+            j
+          
+        
+      
+    
+    {\displaystyle \delta _{i,j}}
+   is the Kronecker delta which ensures only one birth/death event happens every time step, and 
+  
+    
+      
+        Θ
+        (
+        x
+        )
+      
+    
+    {\displaystyle \Theta (x)}
+   is the Heaviside function, which makes sure particle numbers are positive and bounded by the carrying capacity 
+  
+    
+      
+        K
+      
+    
+    {\displaystyle K}
+  .
+
+Adhesive interactions
+Cells may adhere to one another by cadherin molecules on the cell surface. Cadherin interactions allow cells to form aggregates. The formation of cell aggregates via adhesive biomolecules can be modeled by a reorientation operator with transition probabilities defined as
+
+where 
+  
+    
+      
+        
+          G
+        
+        
+          (
+          
+            
+              s
+            
+            
+              
+                N
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \mathbf {G} \left(\mathbf {s} _{\mathcal {N}}\right)}
+   is a vector pointing in the direction of maximum cell density,  defined as 
+  
+    
+      
+        
+          G
+        
+        
+          (
+          
+            
+              s
+            
+            
+              
+                N
+              
+            
+          
+          )
+        
+        =
+        
+          ∑
+          
+            
+              
+                r
+              
+              ′
+            
+            ∈
+            
+              
+                N
+              
+            
+          
+        
+        
+          (
+          
+            
+              
+                r
+              
+              ′
+            
+            −
+            
+              r
+            
+          
+          )
+        
+        n
+        
+          (
+          
+            
+              s
+            
+            
+              
+                N
+              
+            
+            
+              
+                
+                  r
+                
+                ′
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \mathbf {G} \left(\mathbf {s} _{\mathcal {N}}\right)=\sum _{\mathbf {r} '\in {\mathcal {N}}}\left(\mathbf {r} '-\mathbf {r} \right)n\left(\mathbf {s} _{\mathcal {N}}^{\mathbf {r} '}\right)}
+  , where 
+  
+    
+      
+        
+          
+            s
+          
+          
+            
+              N
+            
+          
+          
+            
+              
+                r
+              
+              ′
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {s} _{\mathcal {N}}^{\mathbf {r} '}}
+  is the configuration of the lattice site 
+  
+    
+      
+        
+          
+            r
+          
+          ′
+        
+      
+    
+    {\displaystyle \mathbf {r} '}
+   within the neighborhood 
+  
+    
+      
+        
+          
+            N
+          
+        
+      
+    
+    {\displaystyle {\mathcal {N}}}
+  , and 
+  
+    
+      
+        
+          J
+        
+        
+          (
+          
+            
+              s
+            
+            
+              
+                O
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \mathbf {J} \left(\mathbf {s} ^{\mathcal {O}}\right)}
+   is the momentum of the post-reorientation configuration, defined as 
+  
+    
+      
+        
+          J
+        
+        
+          (
+          
+            
+              s
+            
+            
+              
+                O
+              
+            
+          
+          )
+        
+        =
+        
+          ∑
+          
+            j
+            =
+            1
+          
+          
+            b
+          
+        
+        
+          s
+          
+            j
+          
+          
+            
+              O
+            
+          
+        
+        
+          
+            c
+          
+          
+            j
+          
+        
+      
+    
+    {\displaystyle \mathbf {J} \left(\mathbf {s} ^{\mathcal {O}}\right)=\sum _{j=1}^{b}s_{j}^{\mathcal {O}}\mathbf {c} _{j}}
+  . This transition probability favors post-reorientation configurations with cells moving towards the cell density gradient.
+
+Mathematical analysis
+Since an exact treatment of a stochastic agent-based model quickly becomes unfeasible due to high-order correlations between all agents, the general method of analyzing a BIO-LGCA model is to cast it into an approximate, deterministic finite difference equation (FDE) describing the mean dynamics of the population, then performing the mathematical analysis of this approximate model, and comparing the results to the original BIO-LGCA model.
+First, the expected value of the microdynamical equation 
+  
+    
+      
+        
+          s
+          
+            m
+          
+        
+        (
+        
+          r
+        
+        +
+        
+          
+            c
+          
+          
+            m
+          
+        
+        ,
+        k
+        +
+        1
+        )
+        =
+        
+          s
+          
+            m
+          
+          
+            
+              I
+            
+          
+        
+        (
+        
+          r
+        
+        ,
+        k
+        )
+      
+    
+    {\displaystyle s_{m}(\mathbf {r} +\mathbf {c} _{m},k+1)=s_{m}^{\mathcal {I}}(\mathbf {r} ,k)}
+   is obtained where 
+  
+    
+      
+        ⟨
+        ⋅
+        ⟩
+      
+    
+    {\displaystyle \langle \cdot \rangle }
+   denotes the expected value, and 
+  
+    
+      
+        
+          f
+          
+            m
+          
+        
+        
+          (
+          
+            
+              r
+            
+            ,
+            k
+          
+          )
+        
+        :=
+        
+          ⟨
+          
+            
+              s
+              
+                m
+              
+            
+            
+              (
+              
+                
+                  r
+                
+                ,
+                k
+              
+              )
+            
+          
+          ⟩
+        
+      
+    
+    {\displaystyle f_{m}\left(\mathbf {r} ,k\right):=\left\langle s_{m}\left(\mathbf {r} ,k\right)\right\rangle }
+   is the expected value of the 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  -th channel occupation number of the lattice site at 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbf {r} }
+   at time step 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+  . However, the term on the right, 
+  
+    
+      
+        
+          ⟨
+          
+            
+              s
+              
+                m
+              
+              
+                
+                  I
+                
+              
+            
+            
+              (
+              
+                
+                  r
+                
+                ,
+                k
+              
+              )
+            
+          
+          ⟩
+        
+      
+    
+    {\displaystyle \left\langle s_{m}^{\mathcal {I}}\left(\mathbf {r} ,k\right)\right\rangle }
+   is highly nonlinear on the occupation numbers of both the lattice site 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbf {r} }
+   and the lattice sites within the interaction neighborhood 
+  
+    
+      
+        
+          
+            N
+          
+        
+      
+    
+    {\displaystyle {\mathcal {N}}}
+  , due to the form of the transition probability 
+  
+    
+      
+        P
+        
+          (
+          
+            
+              
+              
+                
+                  s
+                
+                →
+                
+                  
+                    s
+                  
+                  
+                    
+                      I
+                    
+                  
+                
+              
+              |
+            
+            
+              
+                s
+              
+              
+                
+                  N
+                
+              
+            
+          
+          )
+        
+      
+    
+    {\displaystyle P\left(\left.\mathbf {s} \rightarrow \mathbf {s} ^{\mathcal {I}}\right|\mathbf {s} _{\mathcal {N}}\right)}
+   and the statistics of particle placement within velocity channels (for example, arising from an exclusion principle imposed on channel occupations). This non-linearity would result in high-order correlations and moments among all channel occupations involved. Instead, a mean-field approximation is usually assumed, wherein all correlations and high order moments are neglected, such that direct particle-particle interactions are substituted by interactions with the respective expected values. In other words, if 
+  
+    
+      
+        
+          X
+          
+            1
+          
+        
+        ,
+        
+          X
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          X
+          
+            n
+          
+        
+      
+    
+    {\displaystyle X_{1},X_{2},\ldots ,X_{n}}
+   are random variables, and 
+  
+    
+      
+        F
+        :
+        
+          
+            R
+          
+          
+            n
+          
+        
+        ↦
+        
+          R
+        
+      
+    
+    {\displaystyle F:\mathbb {R} ^{n}\mapsto \mathbb {R} }
+   is a function, then
+  
+    
+      
+        
+          ⟨
+          
+            F
+            
+              (
+              
+                
+                  X
+                  
+                    1
+                  
+                
+                ,
+                
+                  X
+                  
+                    2
+                  
+                
+                ,
+                …
+                ,
+                
+                  X
+                  
+                    n
+                  
+                
+              
+              )
+            
+          
+          ⟩
+        
+        ≈
+        F
+        
+          (
+          
+            
+              ⟨
+              
+                X
+                
+                  1
+                
+              
+              ⟩
+            
+            ,
+            
+              ⟨
+              
+                X
+                
+                  2
+                
+              
+              ⟩
+            
+            ,
+            …
+            ,
+            
+              ⟨
+              
+                X
+                
+                  n
+                
+              
+              ⟩
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \left\langle F\left(X_{1},X_{2},\ldots ,X_{n}\right)\right\rangle \approx F\left(\left\langle X_{1}\right\rangle ,\left\langle X_{2}\right\rangle ,\ldots ,\left\langle X_{n}\right\rangle \right)}
+   under this approximation. Thus, we can simplify the equation to where 
+  
+    
+      
+        
+          
+            C
+          
+        
+        
+          (
+          
+            
+              f
+            
+            
+              (
+              
+                
+                  r
+                
+                ,
+                k
+              
+              )
+            
+            ,
+            
+              
+                f
+              
+              
+                
+                  N
+                
+              
+            
+            
+              (
+              
+                
+                  r
+                
+                ,
+                k
+              
+              )
+            
+          
+          )
+        
+      
+    
+    {\displaystyle {\mathcal {C}}\left(\mathbf {f} \left(\mathbf {r} ,k\right),\mathbf {f} _{\mathcal {N}}\left(\mathbf {r} ,k\right)\right)}
+   is a nonlinear function of the expected lattice site configuration 
+  
+    
+      
+        
+          f
+        
+        
+          (
+          
+            
+              r
+            
+            ,
+            k
+          
+          )
+        
+      
+    
+    {\displaystyle \mathbf {f} \left(\mathbf {r} ,k\right)}
+   and the expected neighborhood configuration 
+  
+    
+      
+        
+          
+            f
+          
+          
+            
+              N
+            
+          
+        
+        
+          (
+          
+            
+              r
+            
+            ,
+            k
+          
+          )
+        
+      
+    
+    {\displaystyle \mathbf {f} _{\mathcal {N}}\left(\mathbf {r} ,k\right)}
+   dependent on the transition probabilities and in-node particle statistics.
+From this nonlinear FDE, one may identify several homogeneous steady states, or constants 
+  
+    
+      
+        
+          
+            
+              
+                f
+                ¯
+              
+            
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle {\bar {f}}_{m}}
+   independent of 
+  
+    
+      
+        
+          r
+        
+      
+    
+    {\displaystyle \mathbf {r} }
+   and 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   which are solutions to the FDE. To study the stability conditions of these steady states and the pattern formation potential of the model, a linear stability analysis can be performed. To do so, the nonlinear FDE is linearized as where 
+  
+    
+      
+        
+          s
+          s
+        
+      
+    
+    {\displaystyle \mathrm {ss} }
+   denotes the homogeneous steady state 
+  
+    
+      
+        
+          f
+          
+            m
+          
+        
+        
+          (
+          
+            
+              r
+            
+            ,
+            k
+          
+          )
+        
+        =
+        
+          
+            
+              
+                f
+                ¯
+              
+            
+          
+          
+            m
+          
+        
+        ,
+        m
+        ∈
+        {
+        1
+        ,
+        …
+        ,
+        K
+        }
+      
+    
+    {\displaystyle f_{m}\left(\mathbf {r} ,k\right)={\bar {f}}_{m},m\in \{1,\ldots ,K\}}
+  , and a von Neumann neighborhood was assumed. In order to cast it into a more familiar finite difference equation with temporal increments only, a discrete Fourier transform can be applied on both sides of the equation. After applying the shift theorem and isolating the term with a temporal increment on the left, one obtains the lattice-Boltzmann equation where 
+  
+    
+      
+        i
+        =
+        
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle i={\sqrt {-1}}}
+   is the imaginary unit, 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   is the size of the lattice along one dimension, 
+  
+    
+      
+        
+          q
+        
+        ∈
+        {
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        L
+        
+          }
+          
+            d
+          
+        
+      
+    
+    {\displaystyle \mathbf {q} \in \{1,2,\ldots ,L\}^{d}}
+   is the Fourier wave number, and 
+  
+    
+      
+        
+          
+            
+              ⋅
+              ^
+            
+          
+        
+        =
+        
+          
+            F
+          
+        
+        {
+        ⋅
+        }
+      
+    
+    {\displaystyle {\hat {\cdot }}={\mathcal {F}}\{\cdot \}}
+   denotes the discrete Fourier transform. In matrix notation, this equation is simplified to 
+  
+    
+      
+        
+          
+            
+              
+                f
+              
+              ^
+            
+          
+        
+        
+          (
+          
+            
+              q
+            
+            ,
+            k
+            +
+            1
+          
+          )
+        
+        =
+        Γ
+        
+          
+            
+              
+                f
+              
+              ^
+            
+          
+        
+        
+          (
+          
+            
+              q
+            
+            ,
+            k
+          
+          )
+        
+      
+    
+    {\displaystyle {\hat {\mathbf {f} }}\left(\mathbf {q} ,k+1\right)=\Gamma {\hat {\mathbf {f} }}\left(\mathbf {q} ,k\right)}
+  , where the matrix 
+  
+    
+      
+        Γ
+      
+    
+    {\displaystyle \Gamma }
+   is called the Boltzmann propagator and is defined as The eigenvalues 
+  
+    
+      
+        λ
+        
+          (
+          
+            q
+          
+          )
+        
+      
+    
+    {\displaystyle \lambda \left(\mathbf {q} \right)}
+   of the Boltzmann propagator dictate the stability properties of the steady state:If 
+  
+    
+      
+        
+          |
+          
+            λ
+            
+              (
+              
+                q
+              
+              )
+            
+          
+          |
+        
+        >
+        1
+      
+    
+    {\displaystyle \left|\lambda \left(\mathbf {q} \right)\right|>1}
+  , where 
+  
+    
+      
+        
+          |
+        
+        ⋅
+        
+          |
+        
+      
+    
+    {\displaystyle |\cdot |}
+   denotes the modulus, then perturbations with wave number 
+  
+    
+      
+        
+          q
+        
+      
+    
+    {\displaystyle \mathbf {q} }
+   grow with time. If 
+  
+    
+      
+        
+          |
+          
+            λ
+            
+              (
+              
+                
+                  q
+                
+                
+                  
+                    m
+                    a
+                    x
+                  
+                
+              
+              )
+            
+          
+          |
+        
+        >
+        1
+      
+    
+    {\displaystyle \left|\lambda \left(\mathbf {q} _{\mathrm {max} }\right)\right|>1}
+  , and 
+  
+    
+      
+        
+          |
+          
+            λ
+            
+              (
+              
+                
+                  q
+                
+                
+                  
+                    m
+                    a
+                    x
+                  
+                
+              
+              )
+            
+          
+          |
+        
+        ≥
+        
+          |
+          
+            λ
+            
+              (
+              
+                q
+              
+              )
+            
+          
+          |
+        
+        ∀
+        
+          q
+        
+        ∈
+        {
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        L
+        
+          }
+          
+            d
+          
+        
+      
+    
+    {\displaystyle \left|\lambda \left(\mathbf {q} _{\mathrm {max} }\right)\right|\geq \left|\lambda \left(\mathbf {q} \right)\right|\forall \mathbf {q} \in \{1,2,\ldots ,L\}^{d}}
+  , then perturbations with wave number 
+  
+    
+      
+        
+          
+            q
+          
+          
+            
+              m
+              a
+              x
+            
+          
+        
+      
+    
+    {\displaystyle \mathbf {q} _{\mathrm {max} }}
+   will dominate and patterns with a clear wavelength will be observed. Otherwise, the steady state is stable and any perturbations will decay.
+If 
+  
+    
+      
+        
+          a
+          r
+          g
+        
+        
+          [
+          
+            λ
+            
+              (
+              q
+              )
+            
+          
+          ]
+        
+        ≠
+        0
+      
+    
+    {\displaystyle \mathrm {arg} \left[\lambda \left(q\right)\right]\neq 0}
+  , where 
+  
+    
+      
+        
+          a
+          r
+          g
+        
+        (
+        ⋅
+        )
+      
+    
+    {\displaystyle \mathrm {arg} (\cdot )}
+   denotes the argument, then perturbations are transported and non-stationary population behaviors are observed. Otherwise, the population will appear static at the macroscopic level.
+
+Applications
+Constructing a BIO-LGCA for the study of biological phenomena mainly involves defining appropriate transition probabilities for the interaction operator, though precise definitions of the state space (to consider several cellular phenotypes, for example), boundary conditions (for modeling phenomena in confined conditions), neighborhood (to match experimental interaction ranges quantitatively), and carrying capacity (to simulate crowding effects for given cell sizes) may be important for specific applications. While the distribution of the reorientation operator can be obtained through the aforementioned statistical and biophysical methods, the distribution of the reaction operators can be estimated from the statistics of in vitro experiments, for example.BIO-LGCA models have been used to study several cellular, biophysical and medical phenomena. Some examples include:
+
+Angiogenesis: an in vitro experiment with endothelial cells and BIO-LGCA simulation observables were compared to determine the processes involved during angiogenesis and their weight. They found that adhesion, alignment, contact guidance, and ECM remodeling are all involved in angiogenesis, while long-range interactions are not vital to the process.
+Active fluids: the macroscopic physical properties of a population of particles interacting through polar alignment interactions were investigated using a BIO-LGCA model. It was found that increasing initial particle density and interaction strength result in a second order phase transition from a homogeneous, disordered state to an ordered, patterned, moving state.
+Epidemiology: a spatial SIR BIO-LGCA model was used to study the effect of different vaccination strategies, and the effect of approximating a spatial epidemic with a non-spatial model. They found that barrier-type vaccination strategies are much more effective than spatially uniform vaccination strategies. Furthermore, they found that non-spatial models greatly overestimate the rate of infection.
+Cell jamming: in vitro and Bio-LGCA models were used for studying metastatic behavior in breast cancer. The BIO-LGCA model revealed that metastasis may exhibit different behaviors, such as random gas-like, jammed solid-like, and correlated fluid-like states, depending on the adhesivity level among cells, ECM density, and cell-ECM interactions.
+
+References
+External links
+Bio-LGCA Simulator - An online simulator with elementary interactions with personalizable parameter values.
+BIO-LGCA Python Package - An open source Python package for implementing BIO-LGCA model simulations.

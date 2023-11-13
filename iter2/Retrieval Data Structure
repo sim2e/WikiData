@@ -1,0 +1,780 @@
+In computer science, a retrieval data structure, also known as static function, is a space-efficient dictionary-like data type composed of a collection of (key, value) pairs that allows the following operations:
+Construction from a collection of (key, value) pairs
+Retrieve the value associated with the given key or anything if the key is not contained in the collection
+Update the value associated with a key (optional)They can also be thought of as a function 
+  
+    
+      
+        b
+        :
+        
+        
+          
+            U
+          
+        
+        →
+        {
+        0
+        ,
+        1
+        
+          }
+          
+            r
+          
+        
+      
+    
+    {\displaystyle b\colon \,{\mathcal {U}}\to \{0,1\}^{r}}
+   for a universe 
+  
+    
+      
+        
+          
+            U
+          
+        
+      
+    
+    {\displaystyle {\mathcal {U}}}
+   and the set of keys 
+  
+    
+      
+        S
+        ⊆
+        
+          
+            U
+          
+        
+      
+    
+    {\displaystyle S\subseteq {\mathcal {U}}}
+   where retrieve has to return 
+  
+    
+      
+        b
+        (
+        x
+        )
+      
+    
+    {\displaystyle b(x)}
+   for any value 
+  
+    
+      
+        x
+        ∈
+        S
+      
+    
+    {\displaystyle x\in S}
+   and an arbitrary value from 
+  
+    
+      
+        {
+        0
+        ,
+        1
+        
+          }
+          
+            r
+          
+        
+      
+    
+    {\displaystyle \{0,1\}^{r}}
+   otherwise.
+In contrast to static functions, AMQ-filters support (probabilistic) membership queries and dictionaries additionally allow operations like listing keys or looking up the value associated with a key and returning some other symbol if the key is not contained.
+As can be derived from the operations, this data structure does not need to store the keys at all and may actually use less space than would be needed for a simple list of the key value pairs. This makes it attractive in situations where the associated data is small (e.g. a few bits) compared to the keys because we can save a lot by reducing the space used by keys.
+To give a simple example suppose 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   video game names annotated with a boolean indicating whether the game contains a dog that can be petted are given. A static function built from this database can reproduce the associated flag for all names contained in the original set and an arbitrary one for other names. The size of this static function can be made to be only 
+  
+    
+      
+        (
+        1
+        +
+        ϵ
+        )
+        n
+      
+    
+    {\displaystyle (1+\epsilon )n}
+   bits for a small 
+  
+    
+      
+        ϵ
+      
+    
+    {\displaystyle \epsilon }
+   which is obviously much less than any pair based representation.
+
+Examples
+A trivial example of a static function is a sorted list of the keys and values which implements all the above operations and many more.
+However, the retrieve on a list is slow and we implement many unneeded operations that can be removed to allow optimizations.
+Furthermore, we are even allowed to return junk if the queried key is not contained which we did not use at all.
+
+Perfect hash functions
+Another simple example to build a static function is using a perfect hash function: After building the PHF for our keys, store the corresponding values at the correct position for the key. As can be seen, this approach also allows updating the associated values, the keys have to be static. The correctness follows from the correctness of the perfect hash function. Using a minimum perfect hash function gives a big space improvement if the associated values are relatively small.
+
+XOR-retrieval
+Hashed filters can be categorized by their queries into OR, AND and XOR-filters. For example, the bloom filter is an AND-filter since it returns true for a membership query if all probed locations match. XOR filters work only for static retrievals and are the most promising for building them space efficiently. They are built by solving a linear system which ensures that a query for every key returns true.
+
+Construction
+Given a hash function 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   that maps each key to a bitvector of length 
+  
+    
+      
+        m
+        ≥
+        
+          |
+          S
+          |
+        
+        =
+        n
+      
+    
+    {\displaystyle m\geq \left\vert S\right\vert =n}
+   where all 
+  
+    
+      
+        (
+        h
+        (
+        x
+        )
+        
+          )
+          
+            x
+            ∈
+            S
+          
+        
+      
+    
+    {\displaystyle (h(x))_{x\in S}}
+   are linearly independent the following system of linear equations has a solution 
+  
+    
+      
+        Z
+        ∈
+        {
+        0
+        ,
+        1
+        
+          }
+          
+            m
+            ×
+            r
+          
+        
+      
+    
+    {\displaystyle Z\in \{0,1\}^{m\times r}}
+  :
+
+  
+    
+      
+        (
+        h
+        (
+        x
+        )
+        ⋅
+        Z
+        =
+        b
+        (
+        x
+        )
+        
+          )
+          
+            x
+            ∈
+            S
+          
+        
+      
+    
+    {\displaystyle (h(x)\cdot Z=b(x))_{x\in S}}
+  Therefore, the static function is given by 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   and 
+  
+    
+      
+        Z
+      
+    
+    {\displaystyle Z}
+   and the space usage is dominated by 
+  
+    
+      
+        Z
+      
+    
+    {\displaystyle Z}
+   which is roughly 
+  
+    
+      
+        (
+        1
+        +
+        ϵ
+        )
+        n
+      
+    
+    {\displaystyle (1+\epsilon )n}
+   bits per key for 
+  
+    
+      
+        m
+        =
+        (
+        1
+        +
+        ϵ
+        )
+        n
+      
+    
+    {\displaystyle m=(1+\epsilon )n}
+  , the hash function is assumed to be small.
+A retrieval for 
+  
+    
+      
+        x
+        ∈
+        
+          
+            U
+          
+        
+      
+    
+    {\displaystyle x\in {\mathcal {U}}}
+   can be expressed as the bitwise XOR of the rows 
+  
+    
+      
+        
+          Z
+          
+            i
+          
+        
+      
+    
+    {\displaystyle Z_{i}}
+   for all set bits 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   of 
+  
+    
+      
+        h
+        (
+        x
+        )
+      
+    
+    {\displaystyle h(x)}
+  . Furthermore, fast queries require sparse 
+  
+    
+      
+        h
+        (
+        x
+        )
+      
+    
+    {\displaystyle h(x)}
+  , thus the problems that need to be solved for this method are finding a suitable hash function and still being able to solve the system of linear equations efficiently.
+
+Ribbon retrieval
+Using a sparse random matrix 
+  
+    
+      
+        h
+      
+    
+    {\displaystyle h}
+   makes retrievals cache inefficient because they access most of 
+  
+    
+      
+        Z
+      
+    
+    {\displaystyle Z}
+   in a random non local pattern. Ribbon retrieval improves on this by giving each 
+  
+    
+      
+        h
+        (
+        x
+        )
+      
+    
+    {\displaystyle h(x)}
+   a consecutive "ribbon" of width 
+  
+    
+      
+        w
+        =
+        
+          
+            O
+          
+        
+        (
+        log
+        ⁡
+        n
+        
+          /
+        
+        ϵ
+        )
+      
+    
+    {\displaystyle w={\mathcal {O}}(\log n/\epsilon )}
+   in which bits are set at random.Using the properties of 
+  
+    
+      
+        (
+        h
+        (
+        x
+        )
+        
+          )
+          
+            x
+            ∈
+            S
+          
+        
+      
+    
+    {\displaystyle (h(x))_{x\in S}}
+   the matrix 
+  
+    
+      
+        Z
+      
+    
+    {\displaystyle Z}
+   can be computed in 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        n
+        
+          /
+        
+        
+          ϵ
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(n/\epsilon ^{2})}
+   expected time: Ribbon solving works by first sorting the rows by their starting position (e.g. counting sort). Then, a REM form can be constructed iteratively by performing row operations on rows strictly below the current row, eliminating all 1-entries in all columns below the first 1-entry of this row. Row operations do not produce any values outside of the ribbon and are very cheap since they only require an XOR of 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        log
+        ⁡
+        n
+        
+          /
+        
+        ϵ
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(\log n/\epsilon )}
+   bits which can be done in 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        1
+        
+          /
+        
+        ϵ
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(1/\epsilon )}
+   time on a RAM. It can be shown that the expected amount of row operations is 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        n
+        
+          /
+        
+        ϵ
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(n/\epsilon )}
+  . Finally, the solution is obtained by backsubstitution.
+
+Applications
+Approximate membership
+To build an approximate membership data structure use a fingerprinting function 
+  
+    
+      
+        h
+        :
+        
+        
+          
+            U
+          
+        
+        →
+        {
+        0
+        ,
+        1
+        
+          }
+          
+            r
+          
+        
+      
+    
+    {\displaystyle h\colon \,{\mathcal {U}}\to \{0,1\}^{r}}
+  . Then build a static function 
+  
+    
+      
+        
+          D
+          
+            
+              h
+              
+                S
+              
+            
+          
+        
+      
+    
+    {\displaystyle D_{h_{S}}}
+   on 
+  
+    
+      
+        
+          h
+          
+            S
+          
+        
+      
+    
+    {\displaystyle h_{S}}
+   restricted to the domain of our keys 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+  .
+Checking the membership of an element 
+  
+    
+      
+        x
+        ∈
+        
+          
+            U
+          
+        
+      
+    
+    {\displaystyle x\in {\mathcal {U}}}
+   is done by evaluating 
+  
+    
+      
+        
+          D
+          
+            
+              h
+              
+                S
+              
+            
+          
+        
+      
+    
+    {\displaystyle D_{h_{S}}}
+   with 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   and returning true if the returned value equals 
+  
+    
+      
+        h
+        (
+        x
+        )
+      
+    
+    {\displaystyle h(x)}
+  .
+
+If 
+  
+    
+      
+        x
+        ∈
+        S
+      
+    
+    {\displaystyle x\in S}
+  , 
+  
+    
+      
+        
+          D
+          
+            
+              h
+              
+                S
+              
+            
+          
+        
+      
+    
+    {\displaystyle D_{h_{S}}}
+  returns the correct value 
+  
+    
+      
+        h
+        (
+        x
+        )
+      
+    
+    {\displaystyle h(x)}
+   and we return true.
+Otherwise, 
+  
+    
+      
+        
+          D
+          
+            
+              h
+              
+                S
+              
+            
+          
+        
+      
+    
+    {\displaystyle D_{h_{S}}}
+  returns a random value and we might give a wrong answer. The length 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   of the hash allows controlling the false positive rate
+  
+    
+      
+        f
+        =
+        
+          2
+          
+            r
+          
+        
+      
+    
+    {\displaystyle f=2^{r}}
+  .The performance of this data structure is exactly the performance of the underlying static function.
+
+Perfect hash functions
+A retrieval data structure can be used to construct a perfect hash function: First insert the keys into a cuckoo hash table with 
+  
+    
+      
+        H
+        =
+        
+          2
+          
+            r
+          
+        
+      
+    
+    {\displaystyle H=2^{r}}
+   hash functions 
+  
+    
+      
+        
+          h
+          
+            i
+          
+        
+      
+    
+    {\displaystyle h_{i}}
+   and buckets of size 1. Then, for every key store the index of the hash function that lead to a key's insertion into the hash table in a 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  -bit retrieval data structure 
+  
+    
+      
+        D
+      
+    
+    {\displaystyle D}
+  . The perfect hash function is given by 
+  
+    
+      
+        
+          h
+          
+            D
+            (
+            x
+            )
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle h_{D(x)}(x)}
+  .
+
+
+== References ==

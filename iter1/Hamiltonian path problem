@@ -1,0 +1,101 @@
+The Hamiltonian path problem is a topic discussed in the fields of complexity theory and graph theory. It decides if a directed or undirected graph, G, contains a Hamiltonian path, a path that visits every vertex in the graph exactly once. The problem may specify the start and end of the path, in which case the starting vertex s and ending vertex t must be identified.The Hamiltonian cycle problem is similar to the Hamiltonian path problem, except it asks if a given graph contains a Hamiltonian cycle. This problem may also specify the start of the cycle. The Hamiltonian cycle problem is a special case of the travelling salesman problem, obtained by setting the distance between two cities to one if they are adjacent and two otherwise, and verifying that the total distance travelled is equal to n. If so, the route is a Hamiltonian cycle.
+The Hamiltonian path problem and the Hamiltonian cycle problem belong to the class of NP-complete problems, as shown in Michael Garey and David S. Johnson's book Computers and Intractability: A Guide to the Theory of NP-Completeness and Richard Karp's list of 21 NP-complete problems.
+
+Reductions
+Reduction from the Path Problem to the Cycle Problem
+The problems of finding a Hamiltonian path and a Hamiltonian cycle can be related as follows:
+
+In one direction, the Hamiltonian path problem for graph G can be related to the Hamiltonian cycle problem in a graph H obtained from G by adding a new universal vertex x, connecting x to all vertices of G. Thus, finding a Hamiltonian path cannot be significantly slower (in the worst case, as a function of the number of vertices) than finding a Hamiltonian cycle.
+In the other direction, the Hamiltonian cycle problem for a graph G is equivalent to the Hamiltonian path problem in the graph H obtained by adding terminal (degree-one) vertices s and t attached respectively to a vertex v of G and to v', a cleaved copy of v which gives v' the same neighbourhood as v. The Hamiltonian path in H running through vertices 
+  
+    
+      
+        s
+        −
+        v
+        −
+        x
+        −
+        ⋯
+        −
+        y
+        −
+        
+          v
+          ′
+        
+        −
+        t
+      
+    
+    {\displaystyle s-v-x-\cdots -y-v'-t}
+   corresponds to the Hamiltonian cycle in G running through 
+  
+    
+      
+        v
+        −
+        x
+        −
+        ⋯
+        −
+        y
+        (
+        −
+        v
+        )
+      
+    
+    {\displaystyle v-x-\cdots -y(-v)}
+  .
+
+Algorithms
+Brute Force
+To decide if a graph has a Hamiltonian path, one would have to check each possible path in the input graph G. There are n! different sequences of vertices that might be Hamiltonian paths in a given n-vertex graph (and are, in a complete graph), so a brute force search algorithm that tests all possible sequences would be very slow.
+
+Partial Paths
+An early exact algorithm for finding a Hamiltonian cycle on a directed graph was the enumerative algorithm of Martello. A search procedure by Frank Rubin divides the edges of the graph into three classes: those that must be in the path, those that cannot be in the path, and undecided. As the search proceeds, a set of decision rules classifies the undecided edges, and determines whether to halt or continue the search. The algorithm divides the graph into components that can be solved separately.
+
+Dynamic Programming
+Also, a dynamic programming algorithm of Bellman, Held, and Karp can be used to solve the problem in time O(n2 2n). In this method, one determines, for each set S of vertices and each vertex v in S, whether there is a path that covers exactly the vertices in S and ends at v. For each choice of S and v, a path exists for (S,v) if and only if v has a neighbor w such that a path exists for (S − v,w), which can be looked up from already-computed information in the dynamic program.
+
+Monte Carlo
+Andreas Björklund provided an alternative approach using the inclusion–exclusion principle to reduce the problem of counting the number of Hamiltonian cycles to a simpler counting problem, of counting cycle covers, which can be solved by computing certain matrix determinants. Using this method, he showed how to solve the Hamiltonian cycle problem in arbitrary n-vertex graphs by a Monte Carlo algorithm in time O(1.657n); for bipartite graphs this algorithm can be further improved to time O(1.415n).
+
+Backtracking
+For graphs of maximum degree three, a careful backtracking search can find a Hamiltonian cycle (if one exists) in time O(1.251n).
+
+Boolean Satisfiability
+Hamiltonian paths can be found using a SAT solver. The Hamiltonian path is NP-Complete meaning it can be mapping reduced to the 3-SAT problem. As a result, finding a solution to the Hamiltonian Path problem is equivalent to finding a solution for 3-SAT.
+
+Unconventional Methods
+Because of the difficulty of solving the Hamiltonian path and cycle problems on conventional computers, they have also been studied in unconventional models of computing. For instance, Leonard Adleman showed that the Hamiltonian path problem may be solved using a DNA computer. Exploiting the parallelism inherent in chemical reactions, the problem may be solved using a number of chemical reaction steps linear in the number of vertices of the graph; however, it requires a factorial number of DNA molecules to participate in the reaction.An optical solution to the Hamiltonian problem has been proposed as well. The idea is to create a graph-like structure made from optical cables and beam splitters which are traversed by light in order to construct a solution for the problem. The weak point of this approach is the required amount of energy which is exponential in the number of nodes.
+
+Complexity
+The problem of finding a Hamiltonian cycle or path is in FNP; the analogous decision problem is to test whether a Hamiltonian cycle or path exists. The directed and undirected Hamiltonian cycle problems were two of Karp's 21 NP-complete problems. They remain NP-complete even for special kinds of graphs, such as:
+
+bipartite graphs,
+undirected planar graphs of maximum degree three,
+directed planar graphs with indegree and outdegree at most two,
+bridgeless undirected planar 3-regular bipartite graphs,
+3-connected 3-regular bipartite graphs,
+subgraphs of the square grid graph,
+cubic subgraphs of the square grid graph.However, for some special classes of graphs, the problem can be solved in polynomial time:
+
+4-connected planar graphs are always Hamiltonian by a result due to Tutte, and the computational task of finding a Hamiltonian cycle in these graphs can be carried out in linear time by computing a so-called Tutte path.
+Tutte proved this result by showing that every 2-connected planar graph contains a Tutte path. Tutte paths in turn can be computed in quadratic time even for 2-connected planar graphs, which may be used to find Hamiltonian cycles and long cycles in generalizations of planar graphs.Putting all of these conditions together, it remains open whether 3-connected 3-regular bipartite planar graphs must always contain a Hamiltonian cycle, in which case the problem restricted to those graphs could not be NP-complete; see Barnette's conjecture.
+In graphs in which all vertices have odd degree, an argument related to the handshaking lemma shows that the number of Hamiltonian cycles through any fixed edge is always even, so if one Hamiltonian cycle is given, then a second one must also exist. However, finding this second cycle does not seem to be an easy computational task. Papadimitriou defined the complexity class PPA to encapsulate problems such as this one.
+
+Polynomial Time Verifier
+The Hamiltonian path problem is NP-Complete meaning a proposed solution can be verified in polynomial time.A verifier algorithm for Hamiltonian path will take as input a graph G, starting vertex s, and ending vertex t. Additionally, verifiers require a potential solution known as a certificate, c. For the Hamiltonian Path problem, c would consist of a string of vertices where the first vertex is the start of the proposed path and the last is the end. The algorithm will determine if c is a valid Hamiltonian Path in G and if so, accept.
+To decide this, the algorithm first verifies that all of the vertices in G appear exactly once in c. If this check passes, next, the algorithm will ensure that the first vertex in c is equal to s and the last vertex is equal to t. Lastly, to verify that c is a valid path, the algorithm must check that every edge between vertices in c is indeed an edge in G. If any of these checks fail, the algorithm will reject. Otherwise, it will accept.The algorithm can check in polynomial time if the vertices in G appear once in c. Additionally, it takes polynomial time to check the start and end vertices, as well as the edges between vertices. Therefore, the algorithm is a polynomial time verifier for the Hamiltonian path problem.
+
+Applications
+Networks on Chip (NoC)
+Networks on Chip are used in computer systems and processors serving as communication for on-chip components. The performance of NoC is determined by the method it uses to move packets of data across a network. The Hamiltonian Path problem can be implemented as a path-based method in multicast routing. Path-based multicast algorithms will determine if there is a Hamiltonian path from the start node to each end node and send packets across the corresponding path. Utilizing this strategy guarantees deadlock and livelock free routing, increasing the efficiency of the NoC.
+
+Computer Graphics
+Rendering engines are a form of software used in computer graphics to generate images or models from input data.  In three dimensional graphics rendering, a common input to the engine is a polygon mesh. The time it takes to render the object is dependent on the rate at which the input is received, meaning the larger the input the longer the rendering time. For triangle meshes, however, the rendering time can be decreased by up to a factor if three. This is done through "ordering the triangles so that consecutive triangles share a face." That way, only one vertex changes between each consecutive triangle. This ordering exists if the dual graph of the triangular mesh contains a Hamiltonian path.
+
+References
+ Media related to Hamiltonian path problem at Wikimedia Commons

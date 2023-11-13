@@ -1,0 +1,63 @@
+A web shell is a shell-like interface that enables a web server to be remotely accessed, often for the purposes of cyberattacks. A web shell is unique in that a web browser is used to interact with it.A web shell could be programmed in any programming language that is supported on a server. Web shells are most commonly written in PHP due to the widespread usage of PHP for web applications. Though Active Server Pages, ASP.NET, Python, Perl, Ruby, and Unix shell scripts are also used.Using network monitoring tools, an attacker can find vulnerabilities that can potentially allow delivery of a web shell. These vulnerabilities are often present in applications that are run on a web server.An attacker can use a web shell to issue shell commands, perform privilege escalation on the web server, and the ability to upload, delete, download, and execute files to and from the web server.
+
+General usage
+Web shells are used in attacks mostly because they are multi-purpose and difficult to detect.Web shells are commonly used for:
+
+Data theft
+Infecting website visitors (watering hole attacks)
+Website defacement by modifying files with a malicious intent
+Launch distributed denial-of-service (DDoS) attacks
+To relay commands inside the network which is inaccessible over the Internet
+To use as command and control base, for example as a bot in a botnet system or in way to compromise the security of additional external networks.
+
+Delivery of web shells
+Web shells are installed through vulnerabilities in web application or weak server security configuration including the following:
+SQL injection;
+Vulnerabilities in applications and services (e.g. web server software such as NGINX or content management system applications such as WordPress);
+File processing and uploading vulnerabilities, which can be mitigated by e.g. limiting the file types that can be uploaded;
+Remote file inclusion (RFI) and local file inclusion (LFI) vulnerabilities;
+Remote code execution;
+Exposed administration interfaces;An attacker may also modify (spoof) the Content-Type header to be sent by the attacker in a file upload to bypass improper file validation (validation using MIME type sent by the client), which will result in a successful upload of the attacker's shell.
+
+Example
+The following is a simple example of a web shell written in PHP that executes and outputs the result of a shell command:
+
+Assuming the filename is example.php, an example that would output the contents of the /etc/passwd file is shown below:
+
+https://example.com/example.php?x=cat%20%2Fetc%2Fpasswd
+
+The above request will take the value of the x parameter of the query string, sending the following shell command:
+
+This could have been prevented if the shell functions of PHP were disabled so that arbitrary shell commands cannot be executed from PHP.
+
+Prevention and mitigation
+A web shell is usually installed by taking advantage of vulnerabilities present in the web server's software. That is why removal of these vulnerabilities is important to avoid the potential risk of a compromised web server.
+The following are security measures for preventing the installation of a web shell:
+Regularly update the applications and the host server's operating system to ensure immunity from known bugs
+Deploying a demilitarized zone (DMZ) between the web facing servers and the internal networks
+Secure configuration of the web server
+Closing or blocking ports and services which are not used
+Using user input data validation to limit local and remote file inclusion vulnerabilities
+Use a reverse proxy service to restrict the administrative URL's to known legitimate ones 
+Frequent vulnerability scan to detect areas of risk and conduct regular scans using web security software (this does not prevent zero day attacks)
+Deploy a firewall
+Disable directory browsing
+Not using default passwords
+
+Detection
+Web shells can be easily modified, so it's not easy to detect web shells and antivirus software are often not able to detect web shells.The following are common indicators that a web shell is present on a web server:
+Abnormal high web server usage (due to heavy downloading and uploading by the attacker);
+Files with an abnormal timestamp (e.g. newer than the last modification date);
+Unknown files in a web server;
+Files having dubious references, for example, cmd.exe or eval;
+Unknown connections in the logs of web serverFor example, a file generating suspicious traffic (e.g. a PNG file requesting with POST parameters). Dubious logins  from DMZ servers  to internal sub-nets and vice versa.Web shells may also contain a login form, which is often disguised as an error page.Using web shells, adversaries can modify the .htaccess file (on servers running the Apache HTTP Server software) on web servers to redirect search engine requests to the web page with malware or spam. Often web shells detect the user-agent and the content presented to the search engine spider is different from that presented to the user's browser. To find a web shell a user-agent change of the crawler bot is usually required. Once the web shell is identified, it can be deleted easily.Analyzing the web server's log could specify the exact location of the web shell. Legitimate users/visitor usually have different user-agents and referers, on the other hand, a web shell is usually only visited by the attacker, therefore have very few variants of user-agent strings.
+
+See also
+Backdoor (computing)
+Cyberwarfare
+Internet security
+Network security
+China Chopper
+
+
+== References ==

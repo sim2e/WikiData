@@ -1,0 +1,34 @@
+An application-level gateway (ALG, also known as application layer gateway, application gateway, application proxy, or application-level proxy) is a security component that augments a firewall or NAT employed in a computer network. It allows customized NAT traversal filters to be plugged into the gateway to support address and port translation for certain application layer "control/data" protocols such as FTP, BitTorrent, SIP, RTSP, file transfer in IM applications. In order for these protocols to work through NAT or a firewall, either the application has to know about an address/port number combination that allows incoming packets, or the NAT has to monitor the control traffic and open up port mappings (firewall pinholes) dynamically as required. Legitimate application data can thus be passed through the security checks of the firewall or NAT that would have otherwise restricted the traffic for not meeting its limited filter criteria.
+
+Functions
+An ALG may offer the following functions:
+
+allowing client applications to use dynamic ephemeral TCP/UDP ports to communicate with the known ports used by the server applications, even though a firewall configuration may allow only a limited number of known ports. In the absence of an ALG, either the ports would get blocked or the network administrator would need to explicitly open up a large number of ports in the firewall — rendering the network vulnerable to attacks on those ports.
+converting the network layer address information found inside an application payload between the addresses acceptable by the hosts on either side of the firewall/NAT. This aspect introduces the term 'gateway' for an ALG.
+recognizing application-specific commands and offering granular security controls over them
+synchronizing between multiple streams/sessions of data between two hosts exchanging data. For example, an FTP application may use separate connections for passing control commands and for exchanging data between the client and a remote server. During large file transfers, the control connection may remain idle. An ALG can prevent the control connection getting timed out by network devices before the lengthy file transfer completes.Deep packet inspection of all the packets handled by ALGs over a given network makes this functionality possible. An ALG understands the protocol used by the specific applications that it supports.
+For instance, for Session Initiation Protocol (SIP) Back-to-Back User agent (B2BUA), an ALG can allow firewall traversal with SIP. If the firewall has its SIP traffic terminated on an ALG then the responsibility for permitting SIP sessions passes to the ALG instead of the firewall. An ALG can solve another major SIP headache: NAT traversal. Basically a NAT with a built-in ALG can rewrite information within the SIP messages and can hold address bindings until the session terminates. A SIP ALG will also handle SDP in the body of SIP messages (which is used ubiquitously in VoIP to set up media endpoints), since SDP also contains literal IP addresses and ports that must be translated.
+It is common for SIP ALG on some equipment to interfere with other technologies that try to solve the same problem, and various providers recommend turning it off.An ALG is very similar to a proxy server, as it sits between the client and real server, facilitating the exchange. There seems to be an industry convention that an ALG does its job without the application being configured to use it, by intercepting the messages. A proxy, on the other hand, usually needs to be configured in the client application. The client is then explicitly aware of the proxy and connects to it, rather than the real server.
+
+Microsoft Windows
+The Application Layer Gateway service in Microsoft Windows provides support for third-party plugins that allow network protocols to pass through the Windows Firewall and work behind it and Internet Connection Sharing. ALG plugins can open ports and change data that is embedded in packets, such as ports and IP addresses. Windows Server 2003 also includes an ALG FTP plugin. The ALG FTP plugin is designed to support active FTP sessions through the NAT engine in Windows. To do this, the ALG FTP plugin redirects all traffic that passes through the NAT and that is destined for port 21 (FTP control port) to a private listening port in the 3000–5000 range on the Microsoft loopback adapter. The ALG FTP plugin then monitors/updates traffic on the FTP control channel so that the FTP plugin can plumb port mappings through the NAT for the FTP data channels.
+
+Linux
+The Linux kernel's Netfilter framework, which implements NAT in Linux, has features and modules for several NAT ALGs:
+
+Amanda protocol
+FTP
+IRC
+SIP
+TFTP
+IPsec
+H.323
+PPTP
+L2TP
+
+See also
+Session border controller
+
+References
+External links
+DNS Application Level Gateway (DNS_ALG)

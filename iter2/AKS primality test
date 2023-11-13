@@ -1,0 +1,963 @@
+The AKS primality test (also known as Agrawal–Kayal–Saxena primality test and cyclotomic AKS test) is a deterministic primality-proving algorithm created and published by Manindra Agrawal, Neeraj Kayal, and Nitin Saxena, computer scientists at the Indian Institute of Technology Kanpur, on August 6, 2002, in an article titled "PRIMES is in P". The algorithm was the first one which is able to determine in polynomial time, whether a given number is prime or composite and this without relying on mathematical conjectures such as the generalized Riemann hypothesis. The proof is also notable for not relying on the field of analysis. In 2006 the authors received both the Gödel Prize and Fulkerson Prize for their work.
+
+Importance
+AKS is the first primality-proving algorithm to be simultaneously general, polynomial-time, deterministic, and unconditionally correct. Previous algorithms had been developed for centuries and achieved three of these properties at most, but not all four. 
+
+The AKS algorithm can be used to verify the primality of any general number given. Many fast primality tests are known that work only for numbers with certain properties. For example, the Lucas–Lehmer test works only for Mersenne numbers, while Pépin's test can be applied to Fermat numbers only.
+The maximum running time of the algorithm can be bounded by a polynomial over the number of digits in the target number. ECPP and APR conclusively prove or disprove that a given number is prime, but are not known to have polynomial time bounds for all inputs.
+The algorithm is guaranteed to distinguish deterministically whether the target number is prime or composite. Randomized tests, such as Miller–Rabin and Baillie–PSW, can test any given number for primality in polynomial time, but are known to produce only a probabilistic result.
+The correctness of AKS is not conditional on any subsidiary unproven hypothesis. In contrast, Miller's version of the Miller–Rabin test is fully deterministic and runs in polynomial time over all inputs, but its correctness depends on the truth of the yet-unproven generalized Riemann hypothesis.While the algorithm is of immense theoretical importance, it is not used in practice, rendering it a galactic algorithm.  For 64-bit inputs, the Baillie–PSW test is deterministic and runs many orders of magnitude faster.  For larger inputs, the performance of the (also unconditionally correct) ECPP and APR tests is far superior to AKS.  Additionally, ECPP can output a primality certificate that allows independent and rapid verification of the results, which is not possible with the AKS algorithm.
+
+Concepts
+The AKS primality test is based upon the following theorem: Given an integer 
+  
+    
+      
+        n
+        ≥
+        2
+      
+    
+    {\displaystyle n\geq 2}
+   and integer 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   coprime to 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  , 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is prime if and only if the polynomial congruence relation
+
+holds within the polynomial ring 
+  
+    
+      
+        (
+        
+          Z
+        
+        
+          /
+        
+        n
+        
+          Z
+        
+        )
+        [
+        X
+        ]
+      
+    
+    {\displaystyle (\mathbb {Z} /n\mathbb {Z} )[X]}
+  . Note that 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   denotes the indeterminate which generates this polynomial ring.
+This theorem is a generalization to polynomials of Fermat's little theorem.  In one direction it can easily be proven using the binomial theorem together with the following property of the binomial coefficient:
+
+  
+    
+      
+        
+          
+            
+              (
+            
+            
+              n
+              k
+            
+            
+              )
+            
+          
+        
+        ≡
+        0
+        
+          
+          (
+          mod
+          
+          n
+          )
+        
+      
+    
+    {\displaystyle {n \choose k}\equiv 0{\pmod {n}}}
+   for all 
+  
+    
+      
+        0
+        <
+        k
+        <
+        n
+      
+    
+    {\displaystyle 0<k<n}
+   if 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is prime.While the relation (1) constitutes a primality test in itself, verifying it takes exponential time: the brute force approach would require the expansion of the 
+  
+    
+      
+        (
+        X
+        +
+        a
+        
+          )
+          
+            n
+          
+        
+      
+    
+    {\displaystyle (X+a)^{n}}
+   polynomial and a reduction 
+  
+    
+      
+        
+          
+          (
+          mod
+          
+          n
+          )
+        
+      
+    
+    {\displaystyle {\pmod {n}}}
+   of the resulting 
+  
+    
+      
+        n
+        +
+        1
+      
+    
+    {\displaystyle n+1}
+   coefficients.
+The congruence is an equality in the polynomial ring 
+  
+    
+      
+        (
+        
+          Z
+        
+        
+          /
+        
+        n
+        
+          Z
+        
+        )
+        [
+        X
+        ]
+      
+    
+    {\displaystyle (\mathbb {Z} /n\mathbb {Z} )[X]}
+  . Evaluating in a quotient ring of 
+  
+    
+      
+        (
+        
+          Z
+        
+        
+          /
+        
+        n
+        
+          Z
+        
+        )
+        [
+        X
+        ]
+      
+    
+    {\displaystyle (\mathbb {Z} /n\mathbb {Z} )[X]}
+   creates an upper bound for the degree of the polynomials involved. The AKS evaluates the equality in 
+  
+    
+      
+        (
+        
+          Z
+        
+        
+          /
+        
+        n
+        
+          Z
+        
+        )
+        [
+        X
+        ]
+        
+          /
+        
+        (
+        
+          X
+          
+            r
+          
+        
+        −
+        1
+        )
+      
+    
+    {\displaystyle (\mathbb {Z} /n\mathbb {Z} )[X]/(X^{r}-1)}
+  , making the computational complexity dependent on the size of 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  . For clarity, this is expressed as the congruence
+
+which is the same as:
+
+for some polynomials 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   and 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+  .
+Note that all primes satisfy this relation (choosing 
+  
+    
+      
+        g
+        =
+        0
+      
+    
+    {\displaystyle g=0}
+   in (3) gives (1), which holds for 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   prime). This congruence can be checked in polynomial time when 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   is polynomial to the digits of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  . The AKS algorithm evaluates this congruence for a large set of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   values, whose size is polynomial to the digits of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  . The proof of validity of the AKS algorithm shows that one can find an 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   and a set of 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   values with the above properties such that if the congruences hold then 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is a power of a prime.
+
+History and running time
+In the first version of the above-cited paper, the authors proved the asymptotic time complexity of the algorithm to be 
+  
+    
+      
+        
+          
+            
+              O
+              ~
+            
+          
+        
+        (
+        log
+        ⁡
+        (
+        n
+        
+          )
+          
+            12
+          
+        
+        )
+      
+    
+    {\displaystyle {\tilde {O}}(\log(n)^{12})}
+   (using Õ from big O notation)—the twelfth power of the number of digits in n times a factor that is polylogarithmic in the number of digits. However, this upper bound was rather loose; a widely-held conjecture about the distribution of the Sophie Germain primes would, if true, immediately cut the worst case down to 
+  
+    
+      
+        
+          
+            
+              O
+              ~
+            
+          
+        
+        (
+        log
+        ⁡
+        (
+        n
+        
+          )
+          
+            6
+          
+        
+        )
+      
+    
+    {\displaystyle {\tilde {O}}(\log(n)^{6})}
+  .
+In the months following the discovery, new variants appeared (Lenstra 2002, Pomerance 2002, Berrizbeitia 2002, Cheng 2003, Bernstein 2003a/b, Lenstra and Pomerance 2003), which improved the speed of computation greatly. Owing to the existence of the many variants, Crandall and Papadopoulos refer to the "AKS-class" of algorithms in their scientific paper "On the implementation of AKS-class primality tests", published in March 2003.
+In response to some of these variants, and to other feedback, the paper "PRIMES is in P" was updated with a new formulation of the AKS algorithm and of its proof of correctness. (This version was eventually published in Annals of Mathematics.) While the basic idea remained the same, r was chosen in a new manner, and the proof of correctness was more coherently organized. The new proof relied almost exclusively on the behavior of cyclotomic polynomials over finite fields. The new upper bound on time complexity was 
+  
+    
+      
+        
+          
+            
+              O
+              ~
+            
+          
+        
+        (
+        log
+        ⁡
+        (
+        n
+        
+          )
+          
+            10.5
+          
+        
+        )
+      
+    
+    {\displaystyle {\tilde {O}}(\log(n)^{10.5})}
+  , later reduced using additional results from sieve theory to 
+  
+    
+      
+        
+          
+            
+              O
+              ~
+            
+          
+        
+        (
+        log
+        ⁡
+        (
+        n
+        
+          )
+          
+            7.5
+          
+        
+        )
+      
+    
+    {\displaystyle {\tilde {O}}(\log(n)^{7.5})}
+  .
+In 2005, Pomerance and Lenstra demonstrated a variant of AKS that runs in 
+  
+    
+      
+        
+          
+            
+              O
+              ~
+            
+          
+        
+        (
+        log
+        ⁡
+        (
+        n
+        
+          )
+          
+            6
+          
+        
+        )
+      
+    
+    {\displaystyle {\tilde {O}}(\log(n)^{6})}
+  operations, leading to another updated version of the paper. Agrawal, Kayal and Saxena proposed a variant which would run in 
+  
+    
+      
+        
+          
+            
+              O
+              ~
+            
+          
+        
+        (
+        log
+        ⁡
+        (
+        n
+        
+          )
+          
+            3
+          
+        
+        )
+      
+    
+    {\displaystyle {\tilde {O}}(\log(n)^{3})}
+   if Agrawal's conjecture were true; however, a heuristic argument by Pomerance and Lenstra suggested that it is probably false.
+
+The algorithm
+The algorithm is as follows:
+Input: integer n > 1.Check if n is a perfect power: if n = ab for integers a > 1 and b > 1, output composite.
+Find the smallest r such that ordr(n) > (log2 n)2. (if r and n are not coprime, then skip this r)
+For all 2 ≤ a ≤ min (r, n−1), check that a does not divide n: If a|n for some 2 ≤ a ≤ min (r, n−1), output composite.
+If n ≤ r, output prime.
+For a = 1 to 
+  
+    
+      
+        
+          ⌊
+          
+            
+              
+                φ
+                (
+                r
+                )
+              
+            
+            
+              log
+              
+                2
+              
+            
+            ⁡
+            (
+            n
+            )
+          
+          ⌋
+        
+      
+    
+    {\displaystyle \left\lfloor {\sqrt {\varphi (r)}}\log _{2}(n)\right\rfloor }
+   do
+if (X+a)n ≠ Xn+a (mod Xr − 1,n), output composite;
+Output prime.Here ordr(n) is the multiplicative order of n modulo r, log2 is the binary logarithm, and 
+  
+    
+      
+        φ
+        (
+        r
+        )
+      
+    
+    {\displaystyle \varphi (r)}
+   is Euler's totient function of r.
+Step 3 is shown in the paper as checking 1 < (a,n) < n for all a ≤ r.  It can be seen this is equivalent to trial division up to r, which can be done very efficiently without using gcd.  Similarly the comparison in step 4 can be replaced by having the trial division return prime once it has checked all values up to and including 
+  
+    
+      
+        
+          ⌊
+          
+            
+              n
+            
+          
+          ⌋
+        
+        .
+      
+    
+    {\displaystyle \left\lfloor {\sqrt {n}}\right\rfloor .}
+  
+Once beyond very small inputs, step 5 dominates the time taken.  The essential reduction in complexity (from exponential to polynomial) is achieved by performing all calculations in the finite ring
+
+  
+    
+      
+        R
+        :=
+        (
+        
+          Z
+        
+        
+          /
+        
+        n
+        
+          Z
+        
+        )
+        [
+        X
+        ]
+        
+          /
+        
+        (
+        
+          X
+          
+            r
+          
+        
+        −
+        1
+        )
+      
+    
+    {\displaystyle R:=(\mathbb {Z} /n\mathbb {Z} )[X]/(X^{r}-1)}
+  consisting of 
+  
+    
+      
+        
+          n
+          
+            r
+          
+        
+      
+    
+    {\displaystyle n^{r}}
+   elements. This ring contains only the 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   monomials 
+  
+    
+      
+        {
+        
+          X
+          
+            0
+          
+        
+        ,
+        
+          X
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          X
+          
+            r
+            −
+            1
+          
+        
+        }
+      
+    
+    {\displaystyle \{X^{0},X^{1},\ldots ,X^{r-1}\}}
+  , and the coefficients are in 
+  
+    
+      
+        
+          Z
+        
+        
+          /
+        
+        n
+        
+          Z
+        
+      
+    
+    {\displaystyle \mathbb {Z} /n\mathbb {Z} }
+   which has 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   elements all of them codable within 
+  
+    
+      
+        
+          log
+          
+            2
+          
+        
+        ⁡
+        (
+        n
+        )
+      
+    
+    {\displaystyle \log _{2}(n)}
+   bits.
+Most later improvements made to the algorithm have concentrated on reducing the size of r which makes the core operation in step 5 faster, and in reducing the size of s, the number of loops performed in step 5.  Typically these changes do not change the computational complexity, but can lead to many orders of magnitude less time taken, e.g. Bernstein's final version has a theoretical speedup by a factor of over 2 million.
+
+Proof of validity outline
+For the algorithm to be correct, all steps that identify n must be correct. Steps 1, 3 and 4 are trivially correct, since they are based on direct tests of the divisibility of n. Step 5 is also correct: since (2) is true for any choice of a coprime to n and r if n is prime, an inequality means that n must be composite.
+The difficult part of the proof is showing that step 6 is true. Its proof of correctness is based on the upper and lower bounds of a multiplicative group in 
+  
+    
+      
+        
+          
+            Z
+          
+          
+            n
+          
+        
+        [
+        x
+        ]
+      
+    
+    {\displaystyle \mathbb {Z} _{n}[x]}
+   constructed from the (X + a) binomials that are tested in step 5. Step 4 guarantees that these binomials are 
+  
+    
+      
+        
+          ⌊
+          
+            
+              
+                φ
+                (
+                r
+                )
+              
+            
+            
+              log
+              
+                2
+              
+            
+            ⁡
+            (
+            n
+            )
+          
+          ⌋
+        
+      
+    
+    {\displaystyle \left\lfloor {\sqrt {\varphi (r)}}\log _{2}(n)\right\rfloor }
+   distinct elements of 
+  
+    
+      
+        
+          
+            Z
+          
+          
+            n
+          
+        
+        [
+        x
+        ]
+      
+    
+    {\displaystyle \mathbb {Z} _{n}[x]}
+  . For the particular choice of r, the bounds produce a contradiction unless n is prime or a power of a prime. Together with the test of step 1, this implies that n is always prime at step 6.
+
+Example 1: n = 31 is prime
+Input: integer n = 31 > 1.
+
+   (* Step 1 *)
+   If (n = ab for integers a > 1 and b > 1), 
+     output composite.
+     For ( b = 2; b <= log2(n); b++) {
+       a = n1/b;
+       If (a is integer), 
+         Return[Composite]
+     }
+     a = n1/2...n1/4 = {5.568, 3.141, 2.360}
+
+   (* Step 2 *)
+   Find the smallest r such that Or(n) > (log2 n)2.
+     maxk = ⌊(log2 n)2⌋;
+     maxr = Max[3, ⌈(Log2 n)5⌉]; (* maxr really isn't needed *)
+     nextR = True;
+     For (r = 2; nextR && r < maxr; r++) {
+       nextR = False;
+       For (k = 1; (!nextR) && k ≤ maxk; k++) {
+         nextR = (Mod[nk, r] == 1 || Mod[nk, r]==0)
+       }
+     }
+     r--; (*the loop over increments by one*)
+      
+     r = 29
+
+   (* Step 3 *)
+   If (1 < gcd(a,n) < n for some a ≤ r), 
+     output composite.
+     For (a = r; a > 1; a--) {
+       If ((gcd = GCD[a,n]) > 1 && gcd < n), 
+         Return[Composite]
+     }
+      
+     gcd = {GCD(29,31)=1, GCD(28,31)=1, ..., GCD(2,31)=1} ≯ 1
+
+   (* Step 4 *)
+   If (n ≤ r), 
+     output prime.
+     If (n ≤ r), 
+       Return[Prime] (* this step may be omitted if n > 5690034 *)
+      
+     31 > 29
+   
+   (* Step 5 *)
+   For a = 1 to 
+  
+    
+      
+        
+          ⌊
+          
+            
+              
+                φ
+                (
+                r
+                )
+              
+            
+            
+              log
+              
+                2
+              
+            
+            ⁡
+            (
+            n
+            )
+          
+          ⌋
+        
+      
+    
+    {\displaystyle \left\lfloor {\sqrt {\varphi (r)}}\log _{2}(n)\right\rfloor }
+   do
+     If ((X+a)n ≠ Xn + a (mod Xr − 1,n)), 
+       output composite;
+      
+     φ[x_] := EulerPhi[x];
+     PolyModulo[f_] := PolynomialMod[PolynomialRemainder[f, xr-1, x], n];
+     max = Floor[Log[2, n]√φ[r]];
+     For (a = 1; a ≤ max; a++) {
+       If (PolyModulo[(x+a)n - PolynomialRemainder[xn+a, xr-1], x] ≠ 0) {
+         Return[Composite]
+       {
+     }
+      
+     (x+a)31 =
+       a31 +31a30x +465a29x2 +4495a28x3 +31465a27x4 +169911a26x5 +736281a25x6 +2629575a24x7 +7888725a23x8 +20160075a22x9 +44352165a21x10 +84672315a20x11 +141120525a19x12 +206253075a18x13 +265182525a17x14 +300540195a16x15 +300540195a15x16 +265182525a14x17 +206253075a13x18 +141120525a12x19 +84672315a11x20 +44352165a10x21 +20160075a9x22 +7888725a8x23 +2629575a7x24 +736281a6x25 +169911a5x26 +31465a4x27 +4495a3x28 +465a2x29 +31ax30 +x31
+      
+     PolynomialRemainder [(x+a)31, x29-1] =
+       465a2 +a31 +(31a+31a30)x +(1+465a29)x2 +4495a28x3 +31465a27x4 +169911a26x5 +736281a25x6 +2629575a24x7 +7888725a23x8 +20160075a22x9 +44352165a21x10 +84672315a20x11 +141120525a19x12 +206253075a18x13 +265182525a17x14 +300540195a16x15 +300540195a15x16 +265182525a14x17 +206253075a13x18 +141120525a12x19 +84672315a11x20 +44352165a10x21 +20160075a9x22 +7888725a8x23 +2629575a7x24 +736281a6x25 +169911a5x26 +31465a4x27 +4495a3x28
+      
+     (A) PolynomialMod [PolynomialRemainder [(x+a)31, x29-1], 31] = a31+x2
+      
+     (B) PolynomialRemainder [x31+a, x29-1] = a+x2
+      
+     (A) - (B) = a31+x2 - (a+x2) = a31-a
+      
+     
+  
+    
+      
+        max
+        =
+        
+          ⌊
+          
+            
+              log
+              
+                2
+              
+            
+            ⁡
+            (
+            31
+            )
+            
+              
+                φ
+                (
+                29
+                )
+              
+            
+          
+          ⌋
+        
+        =
+        26
+      
+    
+    {\displaystyle \max =\left\lfloor \log _{2}(31){\sqrt {\varphi (29)}}\right\rfloor =26}
+  
+      
+     {131-1 = 0 (mod 31), 231-2 = 0 (mod 31), 331-3 = 0 (mod 31), ..., 2631-26 = 0 (mod 31)}
+   
+   (* Step 6 *)
+   Output prime.
+     31 Must be Prime
+Where PolynomialMod is a term-wise modulo reduction of the polynomial. e.g. PolynomialMod[x+2x2+3x3, 3] = x+2x2+0x3
+
+References
+Further reading
+Dietzfelbinger, Martin (2004). Primality testing in polynomial time. From randomized algorithms to PRIMES is in P. Lecture Notes in Computer Science. Vol. 3000. Berlin: Springer-Verlag. ISBN 3-540-40344-2. Zbl 1058.11070.
+
+External links
+Weisstein, Eric W. "AKS Primality Test". MathWorld.
+R. Crandall, Apple ACG, and J. Papadopoulos (March 18, 2003): On the implementation of AKS-class primality tests (PDF)
+Article by Borneman, containing photos and information about the three Indian scientists (PDF)
+Andrew Granville: It is easy to determine whether a given integer is prime
+The Prime Facts: From Euclid to AKS, by Scott Aaronson (PDF)
+The PRIMES is in P little FAQ by Anton Stiglic
+2006 Gödel Prize Citation
+2006 Fulkerson Prize Citation
+The AKS "PRIMES in P" Algorithm Resource

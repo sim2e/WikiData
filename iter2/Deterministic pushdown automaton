@@ -1,0 +1,430 @@
+In automata theory, a deterministic pushdown automaton (DPDA or DPA) is a variation of the pushdown automaton. The class of deterministic pushdown automata accepts the deterministic context-free languages, a proper subset of context-free languages.Machine transitions are based on the current state and input symbol, and also the current topmost symbol of the stack.  Symbols lower in the stack are not visible and have no immediate effect. Machine actions include pushing, popping, or replacing the stack top.  A deterministic pushdown automaton has at most one legal transition for the same combination of input symbol, state, and top stack symbol. This is where it differs from the nondeterministic pushdown automaton.
+
+Formal definition
+A (not necessarily deterministic) PDA 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   can be defined as a 7-tuple:
+
+  
+    
+      
+        M
+        =
+        (
+        Q
+        
+        ,
+        Σ
+        
+        ,
+        Γ
+        
+        ,
+        
+          q
+          
+            0
+          
+        
+        
+        ,
+        
+          Z
+          
+            0
+          
+        
+        
+        ,
+        A
+        
+        ,
+        δ
+        
+        )
+      
+    
+    {\displaystyle M=(Q\,,\Sigma \,,\Gamma \,,q_{0}\,,Z_{0}\,,A\,,\delta \,)}
+  where
+
+  
+    
+      
+        Q
+        
+      
+    
+    {\displaystyle Q\,}
+   is a finite set of states
+
+  
+    
+      
+        Σ
+        
+      
+    
+    {\displaystyle \Sigma \,}
+   is a finite set of input symbols
+
+  
+    
+      
+        Γ
+        
+      
+    
+    {\displaystyle \Gamma \,}
+   is a finite set of stack symbols
+
+  
+    
+      
+        
+          q
+          
+            0
+          
+        
+        
+        ∈
+        Q
+        
+      
+    
+    {\displaystyle q_{0}\,\in Q\,}
+   is the start state
+
+  
+    
+      
+        
+          Z
+          
+            0
+          
+        
+        
+        ∈
+        Γ
+        
+      
+    
+    {\displaystyle Z_{0}\,\in \Gamma \,}
+   is the starting stack symbol
+
+  
+    
+      
+        A
+        
+        ⊆
+        Q
+        
+      
+    
+    {\displaystyle A\,\subseteq Q\,}
+  , where 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is the set of accepting, or final, states
+
+  
+    
+      
+        δ
+        
+      
+    
+    {\displaystyle \delta \,}
+   is a transition function, where
+  
+    
+      
+        δ
+        :
+        (
+        Q
+        
+        ×
+        (
+        Σ
+        
+        ∪
+        
+          {
+          
+            ε
+            
+          
+          }
+        
+        )
+        ×
+        Γ
+        
+        )
+        ⟶
+        
+          
+            P
+          
+        
+        (
+        Q
+        ×
+        
+          Γ
+          
+            ∗
+          
+        
+        )
+      
+    
+    {\displaystyle \delta \colon (Q\,\times (\Sigma \,\cup \left\{\varepsilon \,\right\})\times \Gamma \,)\longrightarrow {\mathcal {P}}(Q\times \Gamma ^{*})}
+  
+where 
+  
+    
+      
+        ∗
+      
+    
+    {\displaystyle *}
+   is the Kleene star, meaning that 
+  
+    
+      
+        
+          Γ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \Gamma ^{*}}
+   is "the set of all finite strings (including the empty string 
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+  ) of elements of 
+  
+    
+      
+        Γ
+      
+    
+    {\displaystyle \Gamma }
+  ", 
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+   denotes the empty string, and 
+  
+    
+      
+        
+          
+            P
+          
+        
+        (
+        X
+        )
+      
+    
+    {\displaystyle {\mathcal {P}}(X)}
+   is the power set of a set 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+  .M is deterministic if it satisfies both the following conditions:
+
+For any 
+  
+    
+      
+        q
+        ∈
+        Q
+        ,
+        a
+        ∈
+        Σ
+        ∪
+        
+          {
+          ε
+          }
+        
+        ,
+        x
+        ∈
+        Γ
+      
+    
+    {\displaystyle q\in Q,a\in \Sigma \cup \left\{\varepsilon \right\},x\in \Gamma }
+  , the set 
+  
+    
+      
+        δ
+        (
+        q
+        ,
+        a
+        ,
+        x
+        )
+        
+      
+    
+    {\displaystyle \delta (q,a,x)\,}
+   has at most one element.
+For any 
+  
+    
+      
+        q
+        ∈
+        Q
+        ,
+        x
+        ∈
+        Γ
+      
+    
+    {\displaystyle q\in Q,x\in \Gamma }
+  , if 
+  
+    
+      
+        δ
+        (
+        q
+        ,
+        ε
+        ,
+        x
+        )
+        ≠
+        ∅
+        
+      
+    
+    {\displaystyle \delta (q,\varepsilon ,x)\not =\emptyset \,}
+  , then 
+  
+    
+      
+        δ
+        
+          (
+          
+            q
+            ,
+            a
+            ,
+            x
+          
+          )
+        
+        =
+        ∅
+      
+    
+    {\displaystyle \delta \left(q,a,x\right)=\emptyset }
+   for every 
+  
+    
+      
+        a
+        ∈
+        Σ
+        .
+      
+    
+    {\displaystyle a\in \Sigma .}
+  There are two possible acceptance criteria: acceptance by empty stack and acceptance by final state. The two are not equivalent for the deterministic pushdown automaton (although they are for the non-deterministic pushdown automaton). The languages accepted by empty stack are those languages that are accepted by final state and are prefix-free: no word in the language is the prefix of another word in the language.The usual acceptance criterion is final state, and it is this acceptance criterion which is used to define the deterministic context-free languages.
+
+Languages recognized
+If 
+  
+    
+      
+        L
+        (
+        A
+        )
+      
+    
+    {\displaystyle L(A)}
+   is a language accepted by a PDA 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  , it can also be accepted by a DPDA if and only if there is a single computation from the initial configuration until an accepting one for all strings belonging to 
+  
+    
+      
+        L
+        (
+        A
+        )
+      
+    
+    {\displaystyle L(A)}
+  . If 
+  
+    
+      
+        L
+        (
+        A
+        )
+      
+    
+    {\displaystyle L(A)}
+   can be accepted by a PDA it is a context free language and if it can be accepted by a DPDA it is a deterministic context-free language (DCFL).
+Not all context-free languages are deterministic. This makes the DPDA a strictly weaker device than the PDA. For example, the language Lp of even-length palindromes on the alphabet of 0 and 1 has the context-free grammar S → 0S0 | 1S1 | ε. If a DPDA for this language exists, and it sees a string 0n, it must use its stack to memorize the length n, in order to be able to distinguish its possible continuations 0n 11 0n ∈ Lp and 0n 11 0n+2 ∉ Lp. Hence, after reading 0n 11 0n, comparing the post-"11" length to the pre-"11" length will make the stack empty again. For this reason, the strings 0n 11 0n 0n 11 0n ∈ Lp and 0n 11 0n 0n+2 11 0n+2 ∉ Lp cannot be distinguished.Restricting the DPDA to a single state reduces the class of languages accepted to the LL(1) languages, which is a proper subclass of the DCFL. In the case of a PDA, this restriction has no effect on the class of languages accepted.
+
+Properties
+Closure
+Closure properties of deterministic context-free languages (accepted by deterministic PDA by final state) are drastically different from the context-free languages. As an example they are (effectively) closed under complementation, but not closed under union. To prove that the complement of a language accepted by a deterministic PDA is also accepted by a deterministic PDA is tricky. In principle one has to avoid infinite computations.
+As a consequence of the complementation it is decidable whether a deterministic PDA accepts all words over its input alphabet, by testing its complement for emptiness. This is not possible for context-free grammars (hence not for general PDA).
+
+Equivalence problem
+Géraud Sénizergues (1997) proved that the equivalence problem for deterministic PDA (i.e. given two deterministic PDA A and B, is L(A)=L(B)?) is decidable, a proof that earned him the 2002 Gödel Prize. For nondeterministic PDA, equivalence is undecidable.
+
+Notes
+Further reading
+Hamburger, Henry; Dana S. Richards (2002). Logic and Language Models for Computer Science. Upper Saddle River, NJ 07458: Prentice Hall. pp. 284–331. ISBN 0-13-065487-6.{{cite book}}:  CS1 maint: location (link)

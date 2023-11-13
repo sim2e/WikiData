@@ -1,0 +1,34 @@
+An object code optimizer, sometimes also known as a post pass optimizer or, for small sections of code, peephole optimizer, forms part of a software compiler.  It takes the output from the source language compile step - the object code or binary file - and tries to replace identifiable sections of the code with replacement code that is more algorithmically efficient (usually improved speed).
+
+Examples
+The earliest "COBOL Optimizer" was developed by Capex Corporation in the mid 1970s for COBOL. This type of optimizer depended, in this case, upon knowledge of 'weaknesses' in the standard IBM COBOL compiler, and actually replaced (or patched) sections of the object code with more efficient code. The replacement code might replace a linear table lookup with a binary search for example or sometimes simply replace a relatively slow instruction with a known faster one that was otherwise functionally equivalent within its context. This technique is now known as strength reduction. For example, on the IBM/360 hardware the CLI instruction was, depending on the particular model, between twice and 5 times as fast as a CLC instruction for single byte comparisons.
+
+Advantages
+The main advantage of re-optimizing existing programs was that the stock of already compiled customer programs (object code) could be improved almost instantly with minimal effort, reducing CPU resources at a fixed cost (the price of the proprietary software). A disadvantage was that new releases of COBOL, for example, would require (charged) maintenance to the optimizer to cater for possibly changed internal COBOL algorithms. However, since new releases of COBOL compilers frequently coincided with hardware upgrades, the faster hardware would usually more than compensate for the application programs reverting to their pre-optimized versions (until a supporting optimizer was released).
+
+Other optimizers
+Some binary optimizers do executable compression, which reduces the size of binary files using generic data compression techniques, reducing storage requirements and transfer and loading times, but not improving run-time performance. Actual consolidation of duplicate library modules would also reduce memory requirements.
+Some binary optimizers utilize run-time metrics (profiling) to introspectively improve performance using techniques similar to JIT compilers.
+
+Recent developments
+More recently developed 'binary optimizers' for various platforms, some claiming novelty but, nevertheless, essentially using the same (or similar) techniques described above, include:
+
+IBM Automatic Binary Optimizer for z/OS (ABO) (2015)
+IBM Automatic Binary Optimizer for z/OS (ABO) Trial Cloud Service (2020)
+The Sun Studio Binary Code Optimizer — which requires a profile phase beforehand
+Design and Engineering of a Dynamic Binary Optimizer — from IBM T. J. Watson Res. Center (February 2005)
+QuaC: Binary Optimization for Fast Runtime Code Generation in C — (which appears to include some elements of JIT)
+DynamoRIO
+COBRA: An Adaptive Runtime Binary Optimization Framework for Multithreaded Applications
+Spike Executable Optimizer (Unix kernel)
+"SOLAR" Software Optimization at Link-time And Run-time
+Dynimize: CPU Performance Virtualization
+BOLT: post-link optimizer built on top of the LLVM framework. Utilizing sample-based profiling, BOLT improves the performance of real-world applications even for highly optimized binaries built with both Feedback Directed Optimization and Link-time optimization. For GCC and Clang compilers, BOLT speeds up their binaries by up to 20.4% on top of FDO and LTO, and up to 52.1% if the binaries are built without FDO and LTO.
+
+See also
+Binary recompilation
+Binary translation
+Dynamic dead code elimination
+
+
+== References ==

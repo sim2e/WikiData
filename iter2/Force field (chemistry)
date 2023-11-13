@@ -1,0 +1,276 @@
+In the context of chemistry and molecular modelling, a force field is a computational method that is used to estimate the forces between atoms within molecules and also between molecules. More precisely, the force field refers to the functional form and parameter sets used to calculate the potential energy of a system of atoms or coarse-grained particles in molecular mechanics, molecular dynamics, or Monte Carlo simulations. The parameters for a chosen energy function may be derived from experiments in physics and chemistry, calculations in quantum mechanics, or both. Force fields are interatomic potentials and utilize the same concept as force fields in classical physics, with the difference that the force field parameters in chemistry describe the energy landscape, from which the acting forces on every particle are derived as a gradient of the potential energy with respect to the particle coordinates.All-atom force fields provide parameters for every type of atom in a system, including hydrogen, while united-atom interatomic potentials treat the hydrogen and carbon atoms in methyl groups and methylene bridges as one interaction center. Coarse-grained potentials, which are often used in long-time simulations of macromolecules such as proteins, nucleic acids, and multi-component complexes, sacrifice chemical details for higher computing efficiency.
+
+Functional form
+The basic functional form of potential energy in molecular mechanics includes bonded terms for interactions of atoms that are linked by covalent bonds, and nonbonded (also termed noncovalent) terms that describe the long-range electrostatic and van der Waals forces. The specific decomposition of the terms depends on the force field, but a general form for the total energy in an additive force field can be written as
+
+where the components of the covalent and noncovalent contributions are given by the following summations:
+
+The bond and angle terms are usually modeled by quadratic energy functions that do not allow bond breaking. A more realistic description of a covalent bond at higher stretching is provided by the more expensive Morse potential. The functional form for dihedral energy is variable from one force field to another. Additional, "improper torsional" terms may be added to enforce the planarity of aromatic rings and other conjugated systems, and "cross-terms" that describe the coupling of different internal variables, such as angles and bond lengths. Some force fields also include explicit terms for hydrogen bonds.
+The nonbonded terms are computationally most intensive. A popular choice is to limit interactions to pairwise energies. The van der Waals term is usually computed with a Lennard-Jones potential and the electrostatic term with Coulomb's law. However, both can be buffered or scaled by a constant factor to account for electronic polarizability. Studies with this energy expression have focused on biomolecules since the 1970s and were generalized to compounds across the periodic table in the early 2000s, including metals, ceramics, minerals, and organic compounds.
+
+Bond stretching
+As it is rare for bonds to deviate significantly from their reference values, the most simplistic approaches utilize a Hooke's law formula:
+
+where 
+  
+    
+      
+        
+          k
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle k_{ij}}
+   is the force constant, 
+  
+    
+      
+        
+          l
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle l_{ij}}
+   is the bond length and 
+  
+    
+      
+        
+          l
+          
+            0
+            ,
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle l_{0,ij}}
+   is the value for the bond length between atoms 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   and 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   when all other terms in the force field are set to 0. The term 
+  
+    
+      
+        
+          l
+          
+            0
+            ,
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle l_{0,ij}}
+   is often referred to as the equilibrium bond length, which may cause confusion. The equilibrium bond length is the value adopted in equilibrium at 298 K with all other force field terms and kinetic energy contributing. Therefore, 
+  
+    
+      
+        
+          l
+          
+            0
+            ,
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle l_{0,ij}}
+   is often a few percent different from the actual bond length in experiments at 298 K.The bond stretching constant 
+  
+    
+      
+        
+          k
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle k_{ij}}
+   can be determined from the experimental Infrared spectrum, Raman spectrum, or high-level quantum mechanical calculations. The constant 
+  
+    
+      
+        
+          k
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle k_{ij}}
+   determines vibrational frequencies in molecular dynamics simulations. The stronger the bond is between atoms, the higher is the value of the force constant, and the higher the wavenumber (energy) in the IR/Raman spectrum. The vibration spectrum according to a given force constant can be computed from short MD trajectories (5 ps) with ~1 fs time steps, calculation of the velocity autocorrelation function, and its Fourier transform.Though the formula of Hooke's law provides a reasonable level of accuracy at bond lengths near the equilibrium distance, it is less accurate as one moves away. In order to model the Morse curve better one could employ cubic and higher powers. However, for most practical applications these differences are negligible and inaccuracies in predictions of bond lengths are on the order of the thousandth of an angstrom, which is also the limit of reliability for common force fields. A Morse potential can be employed instead to enable bond breaking and higher accuracy, even though it is less efficient to compute.
+
+Electrostatic interactions
+Electrostatic interactions are represented by a Coulomb energy, which utilizes atomic charges 
+  
+    
+      
+        
+          q
+          
+            i
+          
+        
+      
+    
+    {\displaystyle q_{i}}
+   to represent chemical bonding ranging from covalent to polar covalent and ionic bonding. The typical formula is the Coulomb law:
+
+where 
+  
+    
+      
+        
+          r
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle r_{ij}}
+   is the distance between two atoms 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   and 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+  . The total Coulomb energy is a summation over all pairwise combinations of atoms and usually excludes 1, 2 bonded atoms, 1, 3 bonded atoms, as well as 1, 4 bonded atoms.Atomic charges can make dominant contributions to the potential energy, especially for polar molecules and ionic compounds, and are critical to simulate the geometry, interaction energy, as well as the reactivity. The assignment of atomic charges often still follows empirical and unreliable quantum mechanical protocols, which often lead to several 100% uncertainty relative to physically justified values in agreement with experimental dipole moments and theory. Reproducible atomic charges for force fields based on experimental data for electron deformation densities, internal dipole moments, and an Extended Born model have been developed. Uncertainties <10%, or ±0.1e, enable a consistent representation of chemical bonding and up to hundred times higher accuracy in computed structures and energies along with physical interpretation of other parameters in the force field.
+
+Parameterization
+In addition to the functional form of the potentials, force fields define a set of parameters for different types of atoms, chemical bonds, dihedral angles, out-of-plane interactions, nonbond interactions, and possible other terms. Many parameter sets are empirical and some force fields use extensive fitting terms that are difficult to assign a physical interpretation. Atom types are defined for different elements as well as for the same elements in sufficiently different chemical environments. For example, oxygen atoms in water and an oxygen atoms in a carbonyl functional group are classified as different force field types. Typical force field parameter sets include values for atomic mass, atomic charge, Lennard-Jones parameters for every atom type, as well as equilibrium values of bond lengths, bond angles, and dihedral angles. The bonded terms refer to pairs, triplets, and quadruplets of bonded atoms, and include values for the effective spring constant for each potential. Most current force fields parameters use a fixed-charge model by which each atom is assigned one value for the atomic charge that is not affected by the local electrostatic environment.Force field parameterizations for simulations with maximum accuracy and transferability, e.g., IFF, follow a well-defined protocol. The workflow may involve (1) retrieving an x-ray crystal structure or chemical formula, (2) defining atom types, (3) obtaining atomic charges, (4) assigning initial Lennard-Jones and bonded parameters, (5) computational tests of density and geometry relative to experimental reference data, (6) computational tests of energetic properties (surface energy, hydration energy) relative to experimental reference data, (7) secondary validation and refinement (thermal, mechanical, and diffusion properties). Major iterative loops occur between steps (5) and (4), as well as between (6) and (4)/(3). The chemical interpretation of the parameters and reliable experimental reference data play a critical role.
+The parameters for molecular simulations of biological macromolecules such as proteins, DNA, and RNA were often derived from observations for small organic molecules, which are more accessible for experimental studies and quantum calculations. Thereby, multiple issues arise, such as (1) unreliable atomic charges from quantum calculations may affect all computed properties and internal consistency, (2) data different derived from quantum mechanics for molecules in the gas phase may not be transferable for simulations in the condensed phase, (3) use of data for small molecules and application to larger polymeric structures involves uncertainty, (4) dissimilar experimental data with variation in accuracy and reference states (e.g. temperature) can cause deviations. As a result, divergent force field parameters have been reported for biological molecules. Experimental reference data included, for example, the enthalpy of vaporization (OPLS), enthalpy of sublimation, dipole moments, and various spectroscopic parameters. Inconsistencies can be overcome by interpretation of all force field parameters and choosing a consistent reference state, for example, room temperature and atmospheric pressure.Several force fields also include no clear chemical rationale, parameterization protocol, incomplete validation of key properties (structures and energies), lack of interpretation of parameters, and of a discussion of uncertainties. In these cases, large, random deviations of computed properties have been reported.
+
+Methods
+Some force fields include explicit models for polarizability, where a particle's effective charge can be influenced by electrostatic interactions with its neighbors. Core-shell models are common, which consist of a positively charged core particle, representing the polarizable atom, and a negatively charged particle attached to the core atom through a springlike harmonic oscillator potential. Recent examples include polarizable models with virtual electrons that reproduce image charges in metals and polarizable biomolecular force fields. By adding such degrees of freedom for polarizability, the interpretation of the parameters becomes more difficult and increases the risk towards arbitrary fit parameters and decreased compatibility. The computational expense increases due to the need to repeatedly calculate the local electrostatic field.
+Polarizable models perform well when it captures essential chemical features and the net atomic charge is relatively accurate (within ±10%). In recent times, such models have been erroneously called "Drude Oscillator potentials". An appropriate term for these models is "Lorentz oscillator models" since Lorentz rather than Drude proposed some form of attachment of electrons to nuclei. Drude models assume unrestricted motion of the electrons, e.g., a free electron gas in metals.
+
+Parameterization
+Historically, many approaches to parameterization of a forcefield have been employed. Numerous classical forcefields relied on relatively intransparent parameterization protocols, for example, using approximate quantum mechanical calculations, often in the gas phase, with the expectation of some correlation with condensed phase properties and empirical modifications of potentials to match experimental observables. The protocols may not be reproducible and semi-automation often played a role to generate parameters, optimizing for speedy parameter generation and wide coverage, and not for chemical consistency, interpretability, reliability, and sustainability.
+Similar, even more automated tools have become recently available to parameterize new force fields and assist users to develop their own parameter sets for chemistries which are not parameterized to date. Efforts to provide open source codes and methods include openMM and openMD. The use of semi-automation or full automation, without input from chemical knowledge, is likely to increase inconsistencies at the level of atomic charges, for the assignment of remaining parameters, and likely to dilute the interpretability and performance of parameters.
+The Interface force field (IFF) assumes one single energy expression for all compounds across the periodic (with 9-6 and 12-6 LJ options) and utilizes rigorous validation with standardized simulation protocols that enable full interpretability and compatibility of the parameters, as well as high accuracy and access to unlimited combinations of compounds.
+
+Transferability
+Functional forms and parameter sets have been defined by the developers of interatomic potentials and feature variable degrees of self-consistency and transferability. When functional forms of the potential terms vary, the parameters from one interatomic potential function can typically not be used together with another interatomic potential function. In some cases, modifications can be made with minor effort, for example, between 9-6 Lennard-Jones potentials to 12-6 Lennard-Jones potentials. Transfers from Buckingham potentials to harmonic potentials, or from Embedded Atom Models to harmonic potentials, on the contrary, would require many additional assumptions and may not be possible.
+
+Limitations
+All interatomic potentials are based on approximations and experimental data, therefore often termed empirical. The performance varies from higher accuracy than density functional theory (DFT) calculations, with access to million times larger systems and time scales, to random guesses depending on the force field. The use of accurate representations of chemical bonding, combined with reproducible experimental data and validation, can lead to lasting interatomic potentials of high quality with much fewer parameters and assumptions in comparison to DFT-level quantum methods.Possible limitations include atomic charges, also called point charges. Most force fields rely on point charges to reproduce the electrostatic potential around molecules, which works less well for anisotropic charge distributions. The remedy is that point charges have a clear interpretation and virtual electrons can be added to capture essential features of the electronic structure, such additional polarizability in metallic systems to describe the image potential, internal multipole moments in π-conjugated systems, and lone pairs in water. Electronic polarization of the environment may be better included by using polarizable force fields or using a macroscopic dielectric constant. However, application of one value of dielectric constant is a coarse approximation in the highly heterogeneous environments of proteins, biological membranes, minerals, or electrolytes.All types of van der Waals forces are also strongly environment-dependent because these forces originate from interactions of induced and "instantaneous" dipoles (see Intermolecular force). The original Fritz London theory of these forces applies only in a vacuum. A more general theory of van der Waals forces in condensed media was developed by A. D. McLachlan in 1963 and included the original London's approach as a special case. The McLachlan theory predicts that van der Waals attractions in media are weaker than in vacuum and follow the like dissolves like rule, which means that different types of atoms interact more weakly than identical types of atoms. This is in contrast to combinatorial rules or Slater-Kirkwood equation applied for development of the classical force fields. The combinatorial rules state that the interaction energy of two dissimilar atoms (e.g., C...N) is an average of the interaction energies of corresponding identical atom pairs (i.e., C...C and N...N). According to McLachlan's theory, the interactions of particles in media can even be fully repulsive, as observed for liquid helium, however, the lack of vaporization and presence of a freezing point contradicts a theory of purely repulsive interactions. Measurements of attractive forces between different materials (Hamaker constant) have been explained by Jacob Israelachvili. For example, "the interaction between hydrocarbons across water is about 10% of that across vacuum". Such effects are represented in molecular dynamics through pairwise interactions that are spatially more dense in the condensed phase relative to the gas phase and reproduced once the parameters for all phases are validated to reproduce chemical bonding, density, and cohesive/surface energy.
+Limitations have been strongly felt in protein structure refinement. The major underlying challenge is the huge conformation space of polymeric molecules, which grows beyond current computational feasibility when containing more than ~20 monomers. Participants in Critical Assessment of protein Structure Prediction (CASP) did not try to refine their models to avoid "a central embarrassment of molecular mechanics, namely that energy minimization or molecular dynamics generally leads to a model that is less like the experimental structure". Force fields have been applied successfully for protein structure refinement in different X-ray crystallography and NMR spectroscopy applications, especially using program XPLOR. However, the refinement is driven mainly by a set of experimental constraints and the interatomic potentials serve mainly to remove interatomic hindrances. The results of calculations were practically the same with rigid sphere potentials implemented in program DYANA (calculations from NMR data), or with programs for crystallographic refinement that use no energy functions at all. These shortcomings are related to interatomic potentials and to the inability to sample the conformation space of large molecules effectively. Thereby also the development of parameters to tackle such large-scale problems requires new approaches. A specific problem area is homology modeling of proteins. Meanwhile, alternative empirical scoring functions have been developed for ligand docking, protein folding, homology model refinement, computational protein design, and modeling of proteins in membranes.It was also argued that some protein force fields operate with energies that are irrelevant to protein folding or ligand binding. The parameters of proteins force fields reproduce the enthalpy of sublimation, i.e., energy of evaporation of molecular crystals. However, protein folding and ligand binding are thermodynamically closer to crystallization, or liquid-solid transitions as these processes represent freezing of mobile molecules in condensed media. Thus, free energy changes during protein folding or ligand binding are expected to represent a combination of an energy similar to heat of fusion (energy absorbed during melting of molecular crystals), a conformational entropy contribution, and solvation free energy. The heat of fusion is significantly smaller than enthalpy of sublimation. Hence, the potentials describing protein folding or ligand binding need more consistent parameterization protocols, e.g., as described for IFF. Indeed, the energies of H-bonds in proteins are ~ -1.5 kcal/mol when estimated from protein engineering or alpha helix to coil transition data, but the same energies estimated from sublimation enthalpy of molecular crystals were -4 to -6 kcal/mol, which is related to re-forming existing hydrogen bonds and not forming hydrogen bonds from scratch. The depths of modified Lennard-Jones potentials derived from protein engineering data were also smaller than in typical potential parameters and followed the like dissolves like rule, as predicted by McLachlan theory.
+
+Force fields available in literature
+Different force fields are designed for different purposes. All are implemented in various computers software. Also, some databases for force fields are available, e.g. the MolMod database and the TraPPE database.
+
+Classical
+AMBER (Assisted Model Building and Energy Refinement) – widely used for proteins and DNA.
+CFF (Consistent Force Field) – a family of force fields adapted to a broad variety of organic compounds, includes force fields for polymers, metals, etc. CFF was developed by Arieh Warshel, Lifson, and coworkers as a general method for unifying studies of energies, structures, and vibration of general molecules and molecular crystals. The CFF program, developed by Levitt and Warshel, is based on the Cartesian representation of all the atoms, and it served as the basis for many subsequent simulation programs.
+CHARMM (Chemistry at HARvard Molecular Mechanics) – originally developed at Harvard, widely used for both small molecules and macromolecules
+COSMOS-NMR – hybrid QM/MM force field adapted to various inorganic compounds, organic compounds, and biological macromolecules, including semi-empirical calculation of atomic charges NMR properties. COSMOS-NMR is optimized for NMR-based structure elucidation and implemented in COSMOS molecular modelling package.
+CVFF – also used broadly for small molecules and macromolecules.
+ECEPP – first force field for polypeptide molecules - developed by F.A. Momany, H.A. Scheraga and colleagues. ECEPP was developed specifically for the modeling of peptides and proteins. It uses fixed geometries of amino acid residues to simplify the potential energy surface. Thus, the energy minimization is conducted in the space of protein torsion angles. Both MM2 and ECEPP include potentials for H-bonds and torsion potentials for describing rotations around single bonds. ECEPP/3 was implemented (with some modifications) in Internal Coordinate Mechanics and FANTOM.
+GROMOS (GROningen MOlecular Simulation) – a force field that comes as part of the GROMOS software, a general-purpose molecular dynamics computer simulation package for the study of biomolecular systems. GROMOS force field A-version has been developed for application to aqueous or apolar solutions of proteins, nucleotides, and sugars. A B-version to simulate gas phase isolated molecules is also available.
+IFF (Interface Force Field) – First force field to cover metals, minerals, 2D materials, and polymers in one platform with cutting-edge accuracy and compatibility with many other force fields (CHARMM, AMBER, OPLS-AA, CFF, CVFF, GROMOS), includes 12-6 LJ and 9-6 LJ options Interface Force Field (IFF) was developed as the first consistent force field for compounds across the periodic table. It overcomes the known limitations of assigning consistent charges, utilizes standard conditions as a reference state, reproduces structures, energies, and energy derivatives, and quantifies limitations for all included compounds.
+MMFF (Merck Molecular Force Field) – developed at Merck for a broad range of molecules.
+MM2 was developed by Norman Allinger mainly for conformational analysis of hydrocarbons and other small organic molecules. It is designed to reproduce the equilibrium covalent geometry of molecules as precisely as possible. It implements a large set of parameters that is continuously refined and updated for many different classes of organic compounds (MM3 and MM4).
+OPLS (Optimized Potential for Liquid Simulations) (variants include OPLS-AA, OPLS-UA, OPLS-2001, OPLS-2005, OPLS3e, OPLS4) – developed by William L. Jorgensen at the Yale University Department of Chemistry.
+QCFF/PI – A general force fields for conjugated molecules.
+UFF (Universal Force Field) – A general force field with parameters for the full periodic table up to and including the actinoids, developed at Colorado State University. The reliability is known to be poor due to lack of validation and interpretation of the parameters for nearly all claimed compounds, especially metals and inorganic compounds.
+
+Polarizable
+AMBER – polarizable force field developed by Jim Caldwell and coworkers.
+AMOEBA (Atomic Multipole Optimized Energetics for Biomolecular Applications) – force field developed by Pengyu Ren (University of Texas at Austin) and Jay W. Ponder (Washington University). AMOEBA force field is gradually moving to more physics-rich AMOEBA+.
+CHARMM – polarizable force field developed by S. Patel (University of Delaware) and C. L. Brooks III (University of Michigan). Based on the classical Drude oscillator developed by A. MacKerell (University of Maryland, Baltimore) and B. Roux (University of Chicago).
+CFF/ind and ENZYMIX – The first polarizable force field which has subsequently been used in many applications to biological systems.
+COSMOS-NMR (Computer Simulation of Molecular Structure) – developed by Ulrich Sternberg and coworkers. Hybrid QM/MM force field enables explicit quantum-mechanical calculation of electrostatic properties using localized bond orbitals with fast BPT formalism. Atomic charge fluctuation is possible in each molecular dynamics step.
+DRF90 developed by P. Th. van Duijnen and coworkers.
+IFF (Interface Force Field) – includes polarizability for metals (Au, W) and pi-conjugated molecules
+NEMO (Non-Empirical Molecular Orbital) – procedure developed by Gunnar Karlström and coworkers at Lund University (Sweden)
+PIPF – The polarizable intermolecular potential for fluids is an induced point-dipole force field for organic liquids and biopolymers. The molecular polarization is based on Thole's interacting dipole (TID) model and was developed by Jiali Gao Gao Research Group | at the University of Minnesota.
+Polarizable Force Field (PFF) – developed by Richard A. Friesner and coworkers.
+SP-basis Chemical Potential Equalization (CPE) – approach developed by R. Chelli and P. Procacci.
+PHAST - polarizable potential developed by Chris Cioce and coworkers.
+ORIENT – procedure developed by Anthony J. Stone (Cambridge University) and coworkers.
+Gaussian Electrostatic Model (GEM) – a polarizable force field based on Density Fitting developed by Thomas A. Darden and G. Andrés Cisneros at NIEHS; and Jean-Philip Piquemal at Paris VI University.
+Atomistic Polarizable Potential for Liquids, Electrolytes, and Polymers(APPLE&P), developed by Oleg Borogin, Dmitry Bedrov and coworkers, which is distributed by Wasatch Molecular Incorporated.
+Polarizable procedure based on the Kim-Gordon approach developed by Jürg Hutter and coworkers (University of Zürich)
+GFN-FF (Geometry, Frequency, and Noncovalent Interaction Force-Field) - a completely automated partially polarizable generic force-field for the accurate description of structures and dynamics of large molecules across the periodic table developed by Stefan Grimme and Sebastian Spicher at the University of Bonn.
+
+Reactive
+EVB (Empirical valence bond) – this reactive force field, introduced by Warshel and coworkers, is probably the most reliable and physically consistent way to use force fields in modeling chemical reactions in different environments. The EVB facilitates calculating activation free energies in condensed phases and in enzymes.
+ReaxFF – reactive force field (interatomic potential) developed by Adri van Duin, William Goddard and coworkers. It is slower than classical MD (50x), needs parameter sets with specific validation, and has no validation for surface and interfacial energies. Parameters are non-interpretable. It can be used atomistic-scale dynamical simulations of chemical reactions. Parallelized ReaxFF allows reactive simulations on >>1,000,000 atoms on large supercomputers.
+
+Coarse-grained
+DPD (Dissipative particle dynamics) - This is a method commonly applied in chemical engineering. It is typically used for studying the hydrodynamics of various simple and complex fluids which require consideration of time and length scales larger than those accessible to classical Molecular dynamics. The potential was originally proposed by Hoogerbrugge and Koelman  with later modifications by Español and Warren  The current state of the art was well documented in a CECAM workshop in 2008. Recently, work has been undertaken to capture some of the chemical subtitles relevant to solutions. This has led to work considering automated parameterisation of the DPD interaction potentials against experimental observables.
+MARTINI – a coarse-grained potential developed by Marrink and coworkers at the University of Groningen, initially developed for molecular dynamics simulations of lipids, later extended to various other molecules. The force field applies a mapping of four heavy atoms to one CG interaction site and is parameterized with the aim of reproducing thermodynamic properties.
+SAFT - A top-down coarse-grained model developed in the Molecular Systems Engineering group at Imperial College London fitted to liquid phase densities and vapor pressures of pure compounds by using the SAFT equation of state.
+SIRAH – a coarse-grained force field developed by Pantano and coworkers of the Biomolecular Simulations Group, Institut Pasteur of Montevideo, Uruguay; developed for molecular dynamics of water, DNA, and proteins. Free available for AMBER and GROMACS packages.
+VAMM (Virtual atom molecular mechanics) – a coarse-grained force field developed by Korkut and Hendrickson for molecular mechanics calculations such as large scale conformational transitions based on the virtual interactions of C-alpha atoms. It is a knowledge based force field and formulated to capture features dependent on secondary structure and on residue-specific contact information in proteins.
+
+Machine learning
+MACE (Multi Atomic Cluster Expansion) is a highly accurate machine learning force field architecture that combines the rigorous many-body expansion of the total potential energy with rotationally equivariant representations of the system.
+ANI (Artificial Narrow Intelligence) is a transferable neural network potential, built from atomic environment vectors, and able to provide DFT accuracy in terms of energies.
+FFLUX (originally QCTFF)  A set of trained Kriging models which operate together to provide a molecular force field trained on Atoms in molecules or Quantum chemical topology energy terms including electrostatic, exchange and electron correlation.
+TensorMol, a mixed model, a neural network provides a short-range potential, whilst more traditional potentials add screened long-range terms.
+Δ-ML not a force field method but a model that adds learnt correctional energy terms to approximate and relatively computationally cheap quantum chemical methods in order to provide an accuracy level of a higher order, more computationally expensive quantum chemical model.
+SchNet a Neural network utilising continuous-filter convolutional layers, to predict chemical properties and potential energy surfaces.
+PhysNet is a Neural Network-based energy function to predict energies, forces and (fluctuating) partial charges.
+
+Water
+The set of parameters used to model water or aqueous solutions (basically a force field for water) is called a water model. Water has attracted a great deal of attention due to its unusual properties and its importance as a solvent. Many water models have been proposed; some examples are TIP3P, TIP4P, SPC, flexible simple point charge water model (flexible SPC), ST2, and mW. Other solvents and methods of solvent representation are also applied within computational chemistry and physics some examples are given on page Solvent model. Recently, novel methods for generating water models have been published.
+
+Modified amino acids
+Forcefield_PTM – An AMBER-based forcefield and webtool for modeling common post-translational modifications of amino acids in proteins developed by Chris Floudas and coworkers. It uses the ff03 charge model and has several side-chain torsion corrections parameterized to match the quantum chemical rotational surface.
+Forcefield_NCAA - An AMBER-based forcefield and webtool for modeling common non-natural amino acids in proteins in condensed-phase simulations using the ff03 charge model. The charges have been reported to be correlated with hydration free energies of corresponding side-chain analogs.
+
+Other
+LFMM (Ligand Field Molecular Mechanics) - functions for the coordination sphere around transition metals based on the angular overlap model (AOM). Implemented in the Molecular Operating Environment (MOE) as DommiMOE and in Tinker
+VALBOND - a function for angle bending that is based on valence bond theory and works for large angular distortions, hypervalent molecules, and transition metal complexes. It can be incorporated into other force fields such as CHARMM and UFF.
+
+See also
+References
+
+
+== Further reading ==

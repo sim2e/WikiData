@@ -1,0 +1,93 @@
+Dissipative particle dynamics (DPD) is an off-lattice mesoscopic simulation technique which involves a set of particles moving in continuous space and discrete time. Particles represent whole molecules or fluid regions, rather than single atoms, and atomistic details are not considered relevant to the processes addressed. The particles' internal degrees of freedom are integrated out and replaced by simplified pairwise dissipative and random forces, so as to conserve momentum locally and ensure correct hydrodynamic behaviour. The main advantage of this method is that it gives access to longer time and length scales than are possible using conventional MD simulations. Simulations of polymeric fluids in volumes up to 100 nm in linear dimension for tens of microseconds are now common.
+DPD was initially devised by Hoogerbrugge and Koelman to avoid the lattice artifacts of the so-called lattice gas automata and to tackle hydrodynamic time and space scales beyond those available with molecular dynamics (MD). It was subsequently reformulated and slightly modified by P. Español to ensure the proper thermal equilibrium state. A series of new DPD algorithms with reduced computational complexity and better control of transport properties are presented. The algorithms presented in this article choose randomly a pair particle for applying DPD thermostating thus reducing the computational complexity.
+
+Equations
+The total non-bonded force acting on a DPD particle i is given by a sum over all particles j that lie within a fixed cut-off distance, of three pairwise-additive forces:
+
+  
+    
+      
+        
+          f
+          
+            i
+          
+        
+        =
+        
+          ∑
+          
+            j
+            ≠
+            i
+          
+        
+        (
+        
+          F
+          
+            i
+            j
+          
+          
+            C
+          
+        
+        +
+        
+          F
+          
+            i
+            j
+          
+          
+            D
+          
+        
+        +
+        
+          F
+          
+            i
+            j
+          
+          
+            R
+          
+        
+        )
+      
+    
+    {\displaystyle f_{i}=\sum _{j\neq i}(F_{ij}^{C}+F_{ij}^{D}+F_{ij}^{R})}
+  where the first term in the above equation is a conservative force, the second a
+dissipative force and the third a random force. The conservative force acts to give beads a chemical identity, while the dissipative and random forces together form a thermostat that keeps the mean temperature of the system constant. A key property of all of the non-bonded forces is that they conserve momentum locally, so that hydrodynamic modes of the fluid emerge even for small particle numbers. Local momentum conservation requires that the random force between two interacting beads be antisymmetric. Each pair of interacting particles therefore requires only a single random force calculation. This distinguishes DPD from Brownian dynamics in which each particle experiences a random force independently of all other particles.  Beads can be connected into ‘molecules’ by tying them together with soft (often Hookean) springs.    The most common applications of DPD keep the particle number, volume and temperature constant, and so take place in the NVT ensemble. Alternatively, the pressure instead of the volume is held constant, so that the simulation is in the NPT ensemble.
+
+Parallelization
+In principle, simulations of very large systems, approaching a cubic micron for milliseconds, are possible using a parallel implementation of DPD running on multiple processors in a Beowulf-style cluster. Because the non-bonded forces are short-ranged in DPD, it is possible to parallelize a DPD code very efficiently using a spatial domain decomposition technique. In this scheme, the total simulation space is divided into a number of cuboidal regions each of which is assigned to a distinct processor in the cluster. Each processor is responsible for integrating the equations of motion of all beads whose centres of mass lie within its region of space. Only beads lying near the boundaries of each processor's space require communication between processors. In order to ensure that the simulation is efficient, the crucial requirement is that the number of particle-particle interactions that require inter-processor communication be much smaller than the number of particle-particle interactions within the bulk of each processor's region of space. Roughly speaking, this means that the volume of space assigned to each processor should be sufficiently large that its surface area (multiplied by a distance comparable to the force cut-off distance) is much less than its volume.
+
+Applications
+A wide variety of complex hydrodynamic phenomena have been simulated using DPD, the list here is necessarily incomplete. The goal of these simulations often is to relate the macroscopic non-Newtonian flow properties of the fluid to its microscopic structure. Such DPD applications range from modeling the rheological properties of concrete to simulating liposome formation in biophysics to other recent three-phase phenomena such as dynamic wetting.The DPD method has also found popularity in modeling heterogeneous multi-phase flows containing deformable objects such as blood cells and polymer micelles.
+
+Further reading
+The full trace of the developments of various important aspects of the DPD methodology since it was first proposed in the early 1990s can be found in "Dissipative Particle Dynamics: Introduction, Methodology and Complex Fluid Applications – A Review".The state-of-the-art in DPD was captured in a CECAM workshop in 2008. Innovations to the technique presented there include DPD with energy conservation; non-central frictional forces that allow the fluid viscosity to be tuned; an algorithm for preventing bond crossing between polymers; and the automated calibration of DPD interaction parameters from atomistic molecular dynamics. Recently, examples of automated calibration and parameterization have been shown against experimental observables. Additionally, datasets for the purpose of interaction potential calibration and parameterisation have been explored.  Swope et al, have provided a detailed analysis of literature data and an experimental dataset based on Critical micelle concentration (CMC) and micellar mean aggregation number (Nagg). Examples of micellar simulations using DPD have been well documented previously.
+
+References
+Available packages
+Some available simulation packages that can (also) perform DPD simulations are:
+
+CULGI: The Chemistry Unified Language Interface, Culgi B.V., The Netherlands
+DL_MESO: Open-source mesoscale simulation software.
+DPDmacs
+ESPResSo: Extensible Simulation Package for the Research on Soft Matter Systems - Open-source
+Fluidix: The Fluidix simulation suite available from OneZero Software.
+GPIUTMD: Graphical processors for Many-Particle Dynamics
+Gromacs-DPD: A modified version of Gromacs including DPD.
+HOOMD-blue: Highly Optimized Object-oriented Many-particle Dynamics—Blue Edition
+LAMMPS
+Materials Studio: Materials Studio - Modeling and simulation for studying chemicals and materials, Accelrys Software Inc.
+OSPREY-DPD: Open Source Polymer Research Engine-DPD
+SYMPLER: A freeware SYMbolic ParticLE simulatoR from the University of Freiburg.
+SunlightDPD: Open-source (GPL) DPD software.
+
+External links
+DPD simulation technique by MatDL (Materials Digital Library Pathway) (MatDL)

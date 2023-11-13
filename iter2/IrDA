@@ -1,0 +1,97 @@
+The Infrared Data Association (IrDA) is an industry-driven interest group that was founded in 1994 by around 50 companies. IrDA provides specifications for a complete set of protocols for wireless infrared communications, and the name "IrDA" also refers to that set of protocols. The main reason for using the IrDA protocols had been wireless data transfer over the "last one meter" using point-and-shoot principles. Thus, it has been implemented in portable devices such as mobile telephones, laptops, cameras, printers, and medical devices. The main characteristics of this kind of wireless optical communication are physically secure data transfer, line-of-sight (LOS) and very low bit error rate (BER) that makes it very efficient.
+
+Specifications
+IrPHY
+The mandatory IrPHY (Infrared Physical Layer Specification) is the physical layer of the IrDA specifications. It comprises optical link definitions, modulation, coding, cyclic redundancy check (CRC) and the framer. Different data rates use different modulation/coding schemes:
+
+SIR: 9.6–115.2 kbit/s, asynchronous, RZI, UART-like, 3/16 pulse. To save energy, the pulse width is often minimized to 3/16 of a 115.2KBAUD pulse width.
+MIR: 0.576–1.152 Mbit/s, RZI, 1/4 pulse, HDLC bit stuffing
+FIR: 4 Mbit/s, 4PPM
+VFIR: 16 Mbit/s, NRZ, HHH(1,13)
+UFIR: 96 Mbit/s, NRZI, 8b/10b
+GigaIR: 512 Mbit/s – 1 Gbit/s, NRZI, 2-ASK, 4-ASK, 8b/10bFurther characteristics are:
+
+Range:
+standard: 2 m;
+low-power to low-power: 0.2 m;
+standard to low-power: 0.3 m.
+The 10 GigaIR also define new usage models that supports higher link distances up to several meters.
+Angle: minimum cone ±15°
+Speed: 2.4 kbit/s to 1 Gbit/s
+Modulation: baseband, no carrier
+Infrared window (part of the device body transparent to infrared light beam)
+Wavelength: 850–900 nmThe frame size depends on the data rate mostly and varies between 64 B and 64 kB. Additionally, bigger blocks of data can be transferred by sending multiple frames consecutively. This can be adjusted with a parameter called "window size" (1–127). Finally, data blocks up to 8 MB can be sent at once. Combined with a low bit error rate of generally <10−9, that communication could be very efficient compared to other wireless solutions.
+IrDA transceivers communicate with infrared pulses (samples) in a cone that extends at least 15 degrees half angle off center. The IrDA physical specifications require the lower and upper limits of irradiance such that a signal is visible up to one meter away, but a receiver is not overwhelmed with brightness when a device comes close. In practice, there are some devices on the market that do not reach one meter, while other devices may reach up to several meters. There are also devices that do not tolerate extreme closeness. The typical sweet spot for IrDA communications is from 5 to 60 cm (2.0 to 23.6 in) away from a transceiver, in the center of the cone. IrDA data communications operate in half-duplex mode because while transmitting, a device's receiver is blinded by the light of its own transmitter, and thus full-duplex communication is not feasible. The two devices that communicate simulate full-duplex communication by quickly turning the link around. The primary device controls the timing of the link, but both sides are bound to certain hard constraints and are encouraged to turn the link around as fast as possible.
+
+IrLAP
+The mandatory IrLAP (Infrared Link Access Protocol) is the second layer of the IrDA specifications. It lies on top of the IrPHY layer and below the IrLMP layer. It represents the data link layer of the OSI model.
+The most important specifications are:
+
+Access control
+Discovery of potential communication partners
+Establishing of a reliable bidirectional connection
+Distribution of the primary/secondary device roles
+Negotiation of QoS parametersOn the IrLAP layer the communicating devices are divided into a "primary device" and one or more "secondary devices". The primary device controls the secondary devices. Only if the primary device requests a secondary device to send, is it allowed to do so.
+
+IrLMP
+The mandatory IrLMP (Infrared Link Management Protocol) is the third layer of the IrDA specifications. It can be broken down into two parts.
+First, the LM-MUX (Link Management Multiplexer), which lies on top of the IrLAP layer. Its most important achievements are:
+
+Provides multiple logical channels
+Allows change of primary/secondary devicesSecond, the LM-IAS (Link Management Information Access Service), which provides a list, where service providers can register their services so other devices can access these services by querying the LM-IAS.
+
+Tiny TP
+The optional Tiny TP (Tiny Transport Protocol) lies on top of the IrLMP layer. It provides:
+
+Transportation of large messages by SAR (Segmentation and Reassembly)
+Flow control by giving credits to every logical channel
+
+IrCOMM
+The optional IrCOMM (Infrared Communications Protocol) lets the infrared device act like either a serial or parallel port. It lies on top of the IrLMP layer.
+
+OBEX
+The optional OBEX (Object Exchange) provides the exchange of arbitrary data objects (e.g., vCard, vCalendar or even applications) between infrared devices. It lies on top of the Tiny TP protocol, so Tiny TP is mandatory for OBEX to work.
+
+IrLAN
+The optional IrLAN (Infrared Local Area Network) provides the possibility to connect an infrared device to a local area network. There are three possible methods:
+
+Access point
+Peer-to-peer
+HostedAs IrLAN lies on top of the Tiny TP protocol, the Tiny TP protocol must be implemented for IrLAN to work.
+
+IrSimple
+IrSimple achieves at least four to ten times faster data transmission speeds by improving the efficiency of the infrared IrDA protocol. A 500 KB normal picture from a cell phone can be transferred within one second.
+
+IrSimpleShot
+One of the primary targets of IrSimpleShot (IrSS) is to allow the millions of IrDA-enabled camera phones to wirelessly transfer pictures to printers, printer kiosks and flat-panel TVs.
+
+Infrared Financial Messaging
+Infrared Financial Messaging (IrFM) is a wireless payment standard developed by the Infrared Data Association. It was thought to be logical because of the excellent privacy of IrDA, which does not pass through walls.
+
+Power meters
+Many modern (2021) implementations are used for semi-automated reading of power meters. This high-volume application is keeping IrDA transceivers in production. Lacking specialized electronics, many power meter implementations utilize a bit-banged SIR phy, running at 9600 BAUD using a minimum-width pulse (i.e. 3/16 of a 115.2KBAUD pulse) to save energy. To drive the LED, a computer-controlled pin is turned on and off at the right time. Cross-talk from the LED to the receiving PIN diode is extreme, so the protocol is half-duplex. To receive, an external interrupt bit is started by the start bit, then polled a half-bit time after following bits. A timer interrupt is often used to free the CPU between pulses. Power meters' higher protocol levels abandon IrDA standards, typically using DLMS/COSEM instead. With IrDA transceivers (a package combining an IR LED and PIN diode), even this crude IrDA SIR is extremely resistant to external optical noise from incandescents, sunlight, etc.
+
+Reception
+IrDA was popular on PDAs, laptops and some desktops from the late 1990s through the early 2000s. However, it has been displaced by other wireless technologies such as Bluetooth, and Wi-Fi, favored because they don't need a direct line of sight and can therefore support hardware like mice and keyboards. It is still used in some environments where interference makes radio-based wireless technologies unusable.
+An attempt was made to revive IrDA around 2005 with IrSimple protocols by providing sub-1-second transfers of pictures between cell phones, printers, and display devices. IrDA hardware was still less expensive and didn't share the same security problems encountered with wireless technologies such as Bluetooth.  For example, some Pentax DSLRs (K-x, K-r) incorporated IrSimple for image transfer and gaming.
+
+See also
+Consumer IR
+Li-Fi
+List of device bandwidths
+RZI
+
+References
+Further reading
+IrDA Principles and Protocols; Knutson and Brown; MCL Press; 214 pages; 2004; ISBN 978-0975389201.
+
+External links
+
+Official
+
+List of official specificationsOther
+
+Linux Infrared HOWTO
+Linux Infrared Remote Control
+Linux status of infrared devices (IrDA, ConsumerIR, Remote Control)
+IrDA project of Universidad Nacional de Colombia SIE board

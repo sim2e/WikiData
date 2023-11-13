@@ -1,0 +1,484 @@
+Lancichinetti–Fortunato–Radicchi benchmark is an algorithm that generates benchmark networks (artificial networks that resemble real-world networks). They have a priori known communities and are used to compare different community detection methods.  The advantage of the benchmark over other methods is that it accounts for the heterogeneity in the distributions of node degrees and of community sizes.
+
+The algorithm
+The node degrees and the community sizes are distributed according to a power law, with different exponents. The benchmark assumes that both the degree and the community size have power law distributions with different exponents, 
+  
+    
+      
+        γ
+      
+    
+    {\displaystyle \gamma }
+   and 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+  , respectively. 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+   is the number of nodes and the average degree is 
+  
+    
+      
+        ⟨
+        k
+        ⟩
+      
+    
+    {\displaystyle \langle k\rangle }
+  . There is a mixing parameter 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+  , which is the average fraction of neighboring nodes of a node that do not belong to any community that the benchmark node belongs to.  This parameter controls the fraction of edges that are between communities. Thus, it reflects the amount of noise in the network. At the extremes, when 
+  
+    
+      
+        μ
+        =
+        0
+      
+    
+    {\displaystyle \mu =0}
+   all links are within community links, if 
+  
+    
+      
+        μ
+        =
+        1
+      
+    
+    {\displaystyle \mu =1}
+   all links are between nodes belonging to different communities.One can generate the benchmark network using the following steps.
+Step 1: Generate a network with nodes following a power law distribution with exponent 
+  
+    
+      
+        γ
+      
+    
+    {\displaystyle \gamma }
+   and choose extremes of the distribution 
+  
+    
+      
+        
+          k
+          
+            min
+          
+        
+      
+    
+    {\displaystyle k_{\min }}
+   and 
+  
+    
+      
+        
+          k
+          
+            max
+          
+        
+      
+    
+    {\displaystyle k_{\max }}
+   to get desired average degree is 
+  
+    
+      
+        ⟨
+        k
+        ⟩
+      
+    
+    {\displaystyle \langle k\rangle }
+  .
+Step 2: 
+  
+    
+      
+        (
+        1
+        −
+        μ
+        )
+      
+    
+    {\displaystyle (1-\mu )}
+   fraction of links of every node is with nodes of the same community, while fraction 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   is with the other nodes.
+Step 3: Generate community sizes from a power law distribution with exponent 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+  . The sum of all sizes must be equal to 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+  . The minimal and maximal community sizes 
+  
+    
+      
+        
+          s
+          
+            min
+          
+        
+      
+    
+    {\displaystyle s_{\min }}
+   and 
+  
+    
+      
+        
+          s
+          
+            max
+          
+        
+      
+    
+    {\displaystyle s_{\max }}
+   must satisfy the definition of community so that every non-isolated node is in at least in one community:
+
+  
+    
+      
+        
+          s
+          
+            min
+          
+        
+        >
+        
+          k
+          
+            min
+          
+        
+      
+    
+    {\displaystyle s_{\min }>k_{\min }}
+  
+
+  
+    
+      
+        
+          s
+          
+            max
+          
+        
+        >
+        
+          k
+          
+            max
+          
+        
+      
+    
+    {\displaystyle s_{\max }>k_{\max }}
+  Step 4: Initially, no nodes are assigned to communities. Then, each node is randomly assigned to a community. As long as the number of neighboring nodes within the community does not exceed the community size a new node is added to the community, otherwise stays out. In the following iterations the “homeless” node is randomly assigned to some community. If that community is complete, i.e. the size is exhausted, a randomly selected node of that community must be unlinked. Stop the iteration when all the communities are complete and all the nodes belong to at least one community.
+Step 5: Implement rewiring of nodes keeping the same node degrees but only affecting the fraction of internal and external links such that the number of links outside the community for each node is approximately equal to the mixing parameter 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+  .
+
+Testing
+Consider a partition into communities that do not overlap. The communities of randomly chosen nodes in each iteration follow a 
+  
+    
+      
+        p
+        (
+        C
+        )
+      
+    
+    {\displaystyle p(C)}
+   distribution that represents the probability that a randomly picked node is from the community 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+  . Consider a partition of the same network that was predicted by some community finding algorithm and has 
+  
+    
+      
+        p
+        (
+        
+          C
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle p(C_{2})}
+   distribution. The benchmark partition has 
+  
+    
+      
+        p
+        (
+        
+          C
+          
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle p(C_{1})}
+   distribution.
+The joint distribution is 
+  
+    
+      
+        p
+        (
+        
+          C
+          
+            1
+          
+        
+        ,
+        
+          C
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle p(C_{1},C_{2})}
+  . The similarity of these two partitions is captured by the normalized mutual information.
+
+  
+    
+      
+        
+          I
+          
+            n
+          
+        
+        =
+        
+          
+            
+              
+                ∑
+                
+                  
+                    C
+                    
+                      1
+                    
+                  
+                  ,
+                  
+                    C
+                    
+                      2
+                    
+                  
+                
+              
+              p
+              (
+              
+                C
+                
+                  1
+                
+              
+              ,
+              
+                C
+                
+                  2
+                
+              
+              )
+              
+                log
+                
+                  2
+                
+              
+              ⁡
+              
+                
+                  
+                    p
+                    (
+                    
+                      C
+                      
+                        1
+                      
+                    
+                    ,
+                    
+                      C
+                      
+                        2
+                      
+                    
+                    )
+                  
+                  
+                    p
+                    (
+                    
+                      C
+                      
+                        1
+                      
+                    
+                    )
+                    p
+                    (
+                    
+                      C
+                      
+                        2
+                      
+                    
+                    )
+                  
+                
+              
+            
+            
+              
+                
+                  1
+                  2
+                
+              
+              H
+              (
+              {
+              p
+              (
+              
+                C
+                
+                  1
+                
+              
+              )
+              }
+              )
+              +
+              
+                
+                  1
+                  2
+                
+              
+              H
+              (
+              {
+              p
+              (
+              
+                C
+                
+                  2
+                
+              
+              )
+              }
+              )
+            
+          
+        
+      
+    
+    {\displaystyle I_{n}={\frac {\sum _{C_{1},C_{2}}p(C_{1},C_{2})\log _{2}{\frac {p(C_{1},C_{2})}{p(C_{1})p(C_{2})}}}{{\frac {1}{2}}H(\{p(C_{1})\})+{\frac {1}{2}}H(\{p(C_{2})\})}}}
+  If  
+  
+    
+      
+        
+          I
+          
+            n
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle I_{n}=1}
+   the benchmark and the detected partitions are identical, and if 
+  
+    
+      
+        
+          I
+          
+            n
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle I_{n}=0}
+   then they are independent of each other.
+
+
+== References ==

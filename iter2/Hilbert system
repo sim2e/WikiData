@@ -1,0 +1,2179 @@
+In mathematical physics, Hilbert system is an infrequently used term for a physical system described by a C*-algebra.In logic, especially mathematical logic, a Hilbert system, sometimes called Hilbert calculus, Hilbert-style deductive system or Hilbert–Ackermann system, is a type of system of formal deduction attributed to Gottlob Frege and David Hilbert. These deductive systems are most often studied for first-order logic, but are of interest for other logics as well.
+Most variants of Hilbert systems take a characteristic tack in the way they balance a trade-off between logical axioms and rules of inference. Hilbert systems can be characterised by the choice of a large number of schemes of logical axioms and a small set of rules of inference. Systems of natural deduction take the opposite tack, including many deduction rules but very few or no axiom schemes. The most commonly studied Hilbert systems have either just one rule of inference –  modus ponens, for propositional logics –  or two –  with generalisation, to handle predicate logics, as well –  and several infinite axiom schemes.   Hilbert systems for propositional modal logics, sometimes called Hilbert-Lewis systems, are generally axiomatised with two additional rules, the necessitation rule and the uniform substitution rule.
+A characteristic feature of the many variants of Hilbert systems is that the context is not changed in any of their rules of inference, while both natural deduction and sequent calculus contain some context-changing rules. Thus, if one is interested only in the derivability of tautologies, no hypothetical judgments, then one can formalize the Hilbert system in such a way that its rules of inference contain only judgments of a rather simple form. The same cannot be done with the other two deductions systems: as context is changed in some of their rules of inferences, they cannot be formalized so that hypothetical judgments could be avoided –  not even if we want to use them just for proving derivability of tautologies.
+
+Formal deductions
+In a Hilbert-style deduction system, a formal deduction is a finite sequence of formulas in which each formula is either an axiom or is obtained from previous formulas by a rule of inference. These formal deductions are meant to mirror natural-language proofs, although they are far more detailed.
+Suppose 
+  
+    
+      
+        Γ
+      
+    
+    {\displaystyle \Gamma }
+   is a set of formulas, considered as hypotheses. For example, 
+  
+    
+      
+        Γ
+      
+    
+    {\displaystyle \Gamma }
+   could be a set of axioms for group theory or set theory. The notation 
+  
+    
+      
+        Γ
+        ⊢
+        ϕ
+      
+    
+    {\displaystyle \Gamma \vdash \phi }
+   means that there is a deduction that ends with 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   using as axioms only logical axioms and elements of 
+  
+    
+      
+        Γ
+      
+    
+    {\displaystyle \Gamma }
+  . Thus, informally, 
+  
+    
+      
+        Γ
+        ⊢
+        ϕ
+      
+    
+    {\displaystyle \Gamma \vdash \phi }
+   means that 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   is provable assuming all the formulas in 
+  
+    
+      
+        Γ
+      
+    
+    {\displaystyle \Gamma }
+  .
+Hilbert-style deduction systems are characterized by the use of numerous schemes of logical axioms. An axiom scheme is an infinite set of axioms obtained by substituting all formulas of some form into a specific pattern. The set of logical axioms includes not only those axioms generated from this pattern, but also any generalization of one of those axioms.  A generalization of a formula is obtained by prefixing zero or more universal quantifiers on the formula; for example 
+  
+    
+      
+        ∀
+        y
+        (
+        ∀
+        x
+        P
+        x
+        y
+        →
+        P
+        t
+        y
+        )
+      
+    
+    {\displaystyle \forall y(\forall xPxy\to Pty)}
+   is a generalization of 
+  
+    
+      
+        ∀
+        x
+        P
+        x
+        y
+        →
+        P
+        t
+        y
+      
+    
+    {\displaystyle \forall xPxy\to Pty}
+  .
+
+Logical axioms
+There are several variant axiomatisations of predicate logic, since for any logic there is freedom in choosing axioms and rules that characterise that logic.  We describe here a Hilbert system with nine axioms and just the rule modus ponens, which we call the one-rule axiomatisation and which describes classical equational logic.  We deal with a minimal language for this logic, where formulas use only the connectives 
+  
+    
+      
+        ¬
+      
+    
+    {\displaystyle \lnot }
+   and 
+  
+    
+      
+        →
+      
+    
+    {\displaystyle \to }
+   and only the quantifier 
+  
+    
+      
+        ∀
+      
+    
+    {\displaystyle \forall }
+  . Later we show how the system can be extended to include additional logical connectives, such as 
+  
+    
+      
+        ∧
+      
+    
+    {\displaystyle \land }
+   and 
+  
+    
+      
+        ∨
+      
+    
+    {\displaystyle \lor }
+  , without enlarging the class of deducible formulas.
+The first four logical axiom schemes allow (together with modus ponens) for the manipulation of logical connectives.
+
+P1. 
+  
+    
+      
+        ϕ
+        →
+        ϕ
+      
+    
+    {\displaystyle \phi \to \phi }
+  
+P2. 
+  
+    
+      
+        ϕ
+        →
+        
+          (
+          
+            ψ
+            →
+            ϕ
+          
+          )
+        
+      
+    
+    {\displaystyle \phi \to \left(\psi \to \phi \right)}
+  
+P3. 
+  
+    
+      
+        
+          (
+          
+            ϕ
+            →
+            
+              (
+              
+                ψ
+                →
+                ξ
+              
+              )
+            
+          
+          )
+        
+        →
+        
+          (
+          
+            
+              (
+              
+                ϕ
+                →
+                ψ
+              
+              )
+            
+            →
+            
+              (
+              
+                ϕ
+                →
+                ξ
+              
+              )
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \left(\phi \to \left(\psi \rightarrow \xi \right)\right)\to \left(\left(\phi \to \psi \right)\to \left(\phi \to \xi \right)\right)}
+  
+P4. 
+  
+    
+      
+        
+          (
+          
+            ¬
+            ϕ
+            →
+            ¬
+            ψ
+          
+          )
+        
+        →
+        
+          (
+          
+            ψ
+            →
+            ϕ
+          
+          )
+        
+      
+    
+    {\displaystyle \left(\lnot \phi \to \lnot \psi \right)\to \left(\psi \to \phi \right)}
+  The axiom P1 is redundant, as it follows from P3, P2 and modus ponens (see proof).  These axioms describe classical propositional logic; without axiom P4 we get positive implicational logic. Minimal logic is achieved either by adding instead the axiom P4m, or by defining 
+  
+    
+      
+        ¬
+        ϕ
+      
+    
+    {\displaystyle \lnot \phi }
+   as 
+  
+    
+      
+        ϕ
+        →
+        ⊥
+      
+    
+    {\displaystyle \phi \to \bot }
+  .
+
+P4m. 
+  
+    
+      
+        
+          (
+          
+            ϕ
+            →
+            ψ
+          
+          )
+        
+        →
+        
+          (
+          
+            
+              (
+              
+                ϕ
+                →
+                ¬
+                ψ
+              
+              )
+            
+            →
+            ¬
+            ϕ
+          
+          )
+        
+      
+    
+    {\displaystyle \left(\phi \to \psi \right)\to \left(\left(\phi \to \lnot \psi \right)\to \lnot \phi \right)}
+  Intuitionistic logic is achieved by adding axioms P4i and P5i to positive implicational logic, or by adding axiom P5i to minimal logic. Both P4i and P5i are theorems of classical propositional logic.
+
+P4i. 
+  
+    
+      
+        
+          (
+          
+            ϕ
+            →
+            ¬
+            ϕ
+          
+          )
+        
+        →
+        ¬
+        ϕ
+      
+    
+    {\displaystyle \left(\phi \to \lnot \phi \right)\to \lnot \phi }
+  
+P5i. 
+  
+    
+      
+        ¬
+        ϕ
+        →
+        
+          (
+          
+            ϕ
+            →
+            ψ
+          
+          )
+        
+      
+    
+    {\displaystyle \lnot \phi \to \left(\phi \to \psi \right)}
+  Note that these are axiom schemes, which represent infinitely many specific instances of axioms.  For example, P1 might represent the particular axiom instance 
+  
+    
+      
+        p
+        →
+        p
+      
+    
+    {\displaystyle p\to p}
+  , or it might represent 
+  
+    
+      
+        
+          (
+          
+            p
+            →
+            q
+          
+          )
+        
+        →
+        
+          (
+          
+            p
+            →
+            q
+          
+          )
+        
+      
+    
+    {\displaystyle \left(p\to q\right)\to \left(p\to q\right)}
+  : the 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   is a place where any formula can be placed.  A variable such as this that ranges over formulae is called a 'schematic variable'.
+With a second rule of uniform substitution (US), we can change each of these axiom schemes into a single axiom, replacing each schematic variable by some propositional variable that isn't mentioned in any axiom to get what we call the substitutional axiomatisation.  Both formalisations have variables, but where the one-rule axiomatisation has schematic variables that are outside the logic's language, the substitutional axiomatisation uses propositional variables that do the same work by expressing the idea of a variable ranging over formulae with a rule that uses substitution.
+
+US. Let 
+  
+    
+      
+        ϕ
+        (
+        p
+        )
+      
+    
+    {\displaystyle \phi (p)}
+   be a formula with one or more instances of the propositional variable 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , and let 
+  
+    
+      
+        ψ
+      
+    
+    {\displaystyle \psi }
+   be another formula.  Then from 
+  
+    
+      
+        ϕ
+        (
+        p
+        )
+      
+    
+    {\displaystyle \phi (p)}
+  , infer 
+  
+    
+      
+        ϕ
+        (
+        ψ
+        )
+      
+    
+    {\displaystyle \phi (\psi )}
+  .The next three logical axiom schemes provide ways to add, manipulate, and remove universal quantifiers.
+
+Q5. 
+  
+    
+      
+        ∀
+        x
+        
+          (
+          ϕ
+          )
+        
+        →
+        ϕ
+        [
+        x
+        :=
+        t
+        ]
+      
+    
+    {\displaystyle \forall x\left(\phi \right)\to \phi [x:=t]}
+   where t may be substituted for x in 
+  
+    
+      
+        
+        
+        ϕ
+      
+    
+    {\displaystyle \,\!\phi }
+  
+Q6. 
+  
+    
+      
+        ∀
+        x
+        
+          (
+          
+            ϕ
+            →
+            ψ
+          
+          )
+        
+        →
+        
+          (
+          
+            ∀
+            x
+            
+              (
+              ϕ
+              )
+            
+            →
+            ∀
+            x
+            
+              (
+              ψ
+              )
+            
+          
+          )
+        
+      
+    
+    {\displaystyle \forall x\left(\phi \to \psi \right)\to \left(\forall x\left(\phi \right)\to \forall x\left(\psi \right)\right)}
+  
+Q7. 
+  
+    
+      
+        ϕ
+        →
+        ∀
+        x
+        
+          (
+          ϕ
+          )
+        
+      
+    
+    {\displaystyle \phi \to \forall x\left(\phi \right)}
+   where x is not free in 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+  .These three additional rules extend the propositional system to axiomatise classical predicate logic.  Likewise, these three rules extend system for intuitionstic propositional logic (with P1-3 and P4i and P5i)  to intuitionistic predicate logic.
+Universal quantification is often given an alternative axiomatisation using an extra rule of generalisation (see the section on Metatheorems), in which case the rules Q6 and Q7 are redundant.The final axiom schemes are required to work with formulas involving the equality symbol.
+
+I8. 
+  
+    
+      
+        x
+        =
+        x
+      
+    
+    {\displaystyle x=x}
+   for every variable x.
+I9. 
+  
+    
+      
+        
+          (
+          
+            x
+            =
+            y
+          
+          )
+        
+        →
+        
+          (
+          
+            ϕ
+            [
+            z
+            :=
+            x
+            ]
+            →
+            ϕ
+            [
+            z
+            :=
+            y
+            ]
+          
+          )
+        
+      
+    
+    {\displaystyle \left(x=y\right)\to \left(\phi [z:=x]\to \phi [z:=y]\right)}
+
+Conservative extensions
+It is common to include in a Hilbert-style deduction system only axioms for implication and negation. Given these axioms, it is possible to form conservative extensions of the deduction theorem that permit the use of additional connectives. These extensions are called conservative because if a formula φ involving new connectives is rewritten as a logically equivalent formula θ involving only negation, implication, and universal quantification, then φ is derivable in the extended system if and only if θ is derivable in the original system. When fully extended, a Hilbert-style system will resemble more closely a system of natural deduction.
+
+Existential quantification
+Introduction
+  
+    
+      
+        ∀
+        x
+        (
+        ϕ
+        →
+        ∃
+        y
+        (
+        ϕ
+        [
+        x
+        :=
+        y
+        ]
+        )
+        )
+      
+    
+    {\displaystyle \forall x(\phi \to \exists y(\phi [x:=y]))}
+  Elimination
+  
+    
+      
+        ∀
+        x
+        (
+        ϕ
+        →
+        ψ
+        )
+        →
+        ∃
+        x
+        (
+        ϕ
+        )
+        →
+        ψ
+      
+    
+    {\displaystyle \forall x(\phi \to \psi )\to \exists x(\phi )\to \psi }
+   where 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is not a free variable of 
+  
+    
+      
+        ψ
+      
+    
+    {\displaystyle \psi }
+  .
+
+Conjunction and disjunction
+Conjunction introduction and eliminationintroduction: 
+  
+    
+      
+        α
+        →
+        (
+        β
+        →
+        α
+        ∧
+        β
+        )
+      
+    
+    {\displaystyle \alpha \to (\beta \to \alpha \land \beta )}
+  
+elimination left: 
+  
+    
+      
+        α
+        ∧
+        β
+        →
+        α
+      
+    
+    {\displaystyle \alpha \wedge \beta \to \alpha }
+  
+elimination right: 
+  
+    
+      
+        α
+        ∧
+        β
+        →
+        β
+      
+    
+    {\displaystyle \alpha \wedge \beta \to \beta }
+  Disjunction introduction and eliminationintroduction left: 
+  
+    
+      
+        α
+        →
+        α
+        ∨
+        β
+      
+    
+    {\displaystyle \alpha \to \alpha \vee \beta }
+  
+introduction right: 
+  
+    
+      
+        β
+        →
+        α
+        ∨
+        β
+      
+    
+    {\displaystyle \beta \to \alpha \vee \beta }
+  
+elimination: 
+  
+    
+      
+        (
+        α
+        →
+        γ
+        )
+        →
+        (
+        (
+        β
+        →
+        γ
+        )
+        →
+        α
+        ∨
+        β
+        →
+        γ
+        )
+      
+    
+    {\displaystyle (\alpha \to \gamma )\to ((\beta \to \gamma )\to \alpha \vee \beta \to \gamma )}
+
+Metatheorems
+Because Hilbert-style systems have very few deduction rules, it is common to prove metatheorems that show that additional deduction rules add no deductive power, in the sense that a deduction using the new deduction rules can be converted into a deduction using only the original deduction rules.
+Some common metatheorems of this form are:
+
+The deduction theorem: 
+  
+    
+      
+        Γ
+        ;
+        ϕ
+        ⊢
+        ψ
+      
+    
+    {\displaystyle \Gamma ;\phi \vdash \psi }
+   if and only if 
+  
+    
+      
+        Γ
+        ⊢
+        ϕ
+        →
+        ψ
+      
+    
+    {\displaystyle \Gamma \vdash \phi \to \psi }
+  .
+
+  
+    
+      
+        Γ
+        ⊢
+        ϕ
+        ↔
+        ψ
+      
+    
+    {\displaystyle \Gamma \vdash \phi \leftrightarrow \psi }
+   if and only if 
+  
+    
+      
+        Γ
+        ⊢
+        ϕ
+        →
+        ψ
+      
+    
+    {\displaystyle \Gamma \vdash \phi \to \psi }
+   and 
+  
+    
+      
+        Γ
+        ⊢
+        ψ
+        →
+        ϕ
+      
+    
+    {\displaystyle \Gamma \vdash \psi \to \phi }
+  .
+Contraposition: If 
+  
+    
+      
+        Γ
+        ;
+        ϕ
+        ⊢
+        ψ
+      
+    
+    {\displaystyle \Gamma ;\phi \vdash \psi }
+   then 
+  
+    
+      
+        Γ
+        ;
+        ¬
+        ψ
+        ⊢
+        ¬
+        ϕ
+      
+    
+    {\displaystyle \Gamma ;\lnot \psi \vdash \lnot \phi }
+  .
+Generalization: If 
+  
+    
+      
+        Γ
+        ⊢
+        ϕ
+      
+    
+    {\displaystyle \Gamma \vdash \phi }
+   and x does not occur free in any formula of 
+  
+    
+      
+        Γ
+      
+    
+    {\displaystyle \Gamma }
+   then 
+  
+    
+      
+        Γ
+        ⊢
+        ∀
+        x
+        ϕ
+      
+    
+    {\displaystyle \Gamma \vdash \forall x\phi }
+  .
+
+Some useful theorems and their proofs
+Following are several theorems in propositional logic, along with their proofs (or links to these proofs in other articles). Note that since (P1) itself can be proved using the other axioms, in fact (P2), (P3) and (P4) suffice for proving all these theorems.
+
+(HS1) 
+  
+    
+      
+        (
+        q
+        →
+        r
+        )
+        →
+        (
+        (
+        p
+        →
+        q
+        )
+        →
+        (
+        p
+        →
+        r
+        )
+        )
+      
+    
+    {\displaystyle (q\to r)\to ((p\to q)\to (p\to r))}
+   - Hypothetical syllogism, see proof.
+(L1) 
+  
+    
+      
+        p
+        →
+        (
+        (
+        p
+        →
+        q
+        )
+        →
+        q
+        )
+      
+    
+    {\displaystyle p\to ((p\to q)\to q)}
+   - proof:
+(1) 
+  
+    
+      
+        (
+        (
+        p
+        →
+        q
+        )
+        →
+        (
+        p
+        →
+        q
+        )
+        )
+        →
+        (
+        (
+        (
+        p
+        →
+        q
+        )
+        →
+        p
+        )
+        →
+        (
+        (
+        p
+        →
+        q
+        )
+        →
+        q
+        )
+        )
+      
+    
+    {\displaystyle ((p\to q)\to (p\to q))\to (((p\to q)\to p)\to ((p\to q)\to q))}
+          (instance of (P3))
+(2) 
+  
+    
+      
+        (
+        p
+        →
+        q
+        )
+        →
+        (
+        p
+        →
+        q
+        )
+      
+    
+    {\displaystyle (p\to q)\to (p\to q)}
+          (instance of (P1))
+(3) 
+  
+    
+      
+        (
+        (
+        p
+        →
+        q
+        )
+        →
+        p
+        )
+        →
+        (
+        (
+        p
+        →
+        q
+        )
+        →
+        q
+        )
+      
+    
+    {\displaystyle ((p\to q)\to p)\to ((p\to q)\to q)}
+          (from (2) and (1) by modus ponens)
+(4) 
+  
+    
+      
+        (
+        (
+        (
+        p
+        →
+        q
+        )
+        →
+        p
+        )
+        →
+        (
+        (
+        p
+        →
+        q
+        )
+        →
+        q
+        )
+        )
+        →
+        (
+        (
+        p
+        →
+        (
+        (
+        p
+        →
+        q
+        )
+        →
+        p
+        )
+        )
+        →
+        (
+        p
+        →
+        (
+        (
+        p
+        →
+        q
+        )
+        →
+        q
+        )
+        )
+        )
+      
+    
+    {\displaystyle (((p\to q)\to p)\to ((p\to q)\to q))\to ((p\to ((p\to q)\to p))\to (p\to ((p\to q)\to q)))}
+          (instance of (HS1))
+(5) 
+  
+    
+      
+        (
+        p
+        →
+        (
+        (
+        p
+        →
+        q
+        )
+        →
+        p
+        )
+        )
+        →
+        (
+        p
+        →
+        (
+        (
+        p
+        →
+        q
+        )
+        →
+        q
+        )
+        )
+      
+    
+    {\displaystyle (p\to ((p\to q)\to p))\to (p\to ((p\to q)\to q))}
+          (from (3) and (4) by modus ponens)
+(6) 
+  
+    
+      
+        p
+        →
+        (
+        (
+        p
+        →
+        q
+        )
+        →
+        p
+        )
+      
+    
+    {\displaystyle p\to ((p\to q)\to p)}
+          (instance of (P2))
+(7) 
+  
+    
+      
+        p
+        →
+        (
+        (
+        p
+        →
+        q
+        )
+        →
+        q
+        )
+      
+    
+    {\displaystyle p\to ((p\to q)\to q)}
+          (from (6) and (5) by modus ponens)The following two theorems are known together as Double negation:
+
+(DN1)
+  
+    
+      
+        ¬
+        ¬
+        p
+        →
+        p
+      
+    
+    {\displaystyle \neg \neg p\to p}
+  
+(DN2) 
+  
+    
+      
+        p
+        →
+        ¬
+        ¬
+        p
+      
+    
+    {\displaystyle p\to \neg \neg p}
+  
+See proofs.(L2) 
+  
+    
+      
+        (
+        p
+        →
+        (
+        q
+        →
+        r
+        )
+        )
+        →
+        (
+        q
+        →
+        (
+        p
+        →
+        r
+        )
+        )
+      
+    
+    {\displaystyle (p\to (q\to r))\to (q\to (p\to r))}
+   - for this proof we use the method of the hypothetical syllogism metatheorem as a shorthand for several proof steps:
+(1) 
+  
+    
+      
+        (
+        p
+        →
+        (
+        q
+        →
+        r
+        )
+        )
+        →
+        (
+        (
+        p
+        →
+        q
+        )
+        →
+        (
+        p
+        →
+        r
+        )
+        )
+      
+    
+    {\displaystyle (p\to (q\to r))\to ((p\to q)\to (p\to r))}
+           (instance of (P3))
+(2) 
+  
+    
+      
+        (
+        (
+        p
+        →
+        q
+        )
+        →
+        (
+        p
+        →
+        r
+        )
+        )
+        →
+        (
+        (
+        q
+        →
+        (
+        p
+        →
+        q
+        )
+        )
+        →
+        (
+        q
+        →
+        (
+        p
+        →
+        r
+        )
+        )
+        )
+      
+    
+    {\displaystyle ((p\to q)\to (p\to r))\to ((q\to (p\to q))\to (q\to (p\to r)))}
+           (instance of (HS1))
+(3) 
+  
+    
+      
+        (
+        p
+        →
+        (
+        q
+        →
+        r
+        )
+        )
+        →
+        (
+        (
+        q
+        →
+        (
+        p
+        →
+        q
+        )
+        )
+        →
+        (
+        q
+        →
+        (
+        p
+        →
+        r
+        )
+        )
+        )
+      
+    
+    {\displaystyle (p\to (q\to r))\to ((q\to (p\to q))\to (q\to (p\to r)))}
+           (from (1) and (2) using the hypothetical syllogism metatheorem)
+(4) 
+  
+    
+      
+        (
+        (
+        p
+        →
+        (
+        q
+        →
+        r
+        )
+        )
+        →
+        (
+        (
+        q
+        →
+        (
+        p
+        →
+        q
+        )
+        )
+        →
+        (
+        q
+        →
+        (
+        p
+        →
+        r
+        )
+        )
+        )
+        )
+        →
+        (
+        (
+        (
+        p
+        →
+        (
+        q
+        →
+        r
+        )
+        )
+        →
+        (
+        q
+        →
+        (
+        p
+        →
+        q
+        )
+        )
+        )
+        →
+        (
+        (
+        p
+        →
+        (
+        q
+        →
+        r
+        )
+        )
+        →
+        (
+        q
+        →
+        (
+        p
+        →
+        r
+        )
+        )
+        )
+        )
+      
+    
+    {\displaystyle ((p\to (q\to r))\to ((q\to (p\to q))\to (q\to (p\to r))))\to (((p\to (q\to r))\to (q\to (p\to q)))\to ((p\to (q\to r))\to (q\to (p\to r))))}
+            (instance of (P3))
+(5) 
+  
+    
+      
+        (
+        (
+        p
+        →
+        (
+        q
+        →
+        r
+        )
+        )
+        →
+        (
+        q
+        →
+        (
+        p
+        →
+        q
+        )
+        )
+        )
+        →
+        (
+        (
+        p
+        →
+        (
+        q
+        →
+        r
+        )
+        )
+        →
+        (
+        q
+        →
+        (
+        p
+        →
+        r
+        )
+        )
+        )
+      
+    
+    {\displaystyle ((p\to (q\to r))\to (q\to (p\to q)))\to ((p\to (q\to r))\to (q\to (p\to r)))}
+            (from (3) and (4) using modus ponens)
+(6) 
+  
+    
+      
+        q
+        →
+        (
+        p
+        →
+        q
+        )
+      
+    
+    {\displaystyle q\to (p\to q)}
+           (instance of (P2))
+(7) 
+  
+    
+      
+        (
+        q
+        →
+        (
+        p
+        →
+        q
+        )
+        )
+        →
+        (
+        (
+        p
+        →
+        (
+        q
+        →
+        r
+        )
+        )
+        →
+        (
+        q
+        →
+        (
+        p
+        →
+        q
+        )
+        )
+        )
+      
+    
+    {\displaystyle (q\to (p\to q))\to ((p\to (q\to r))\to (q\to (p\to q)))}
+           (instance of (P2))
+(8) 
+  
+    
+      
+        (
+        p
+        →
+        (
+        q
+        →
+        r
+        )
+        )
+        →
+        (
+        q
+        →
+        (
+        p
+        →
+        q
+        )
+        )
+      
+    
+    {\displaystyle (p\to (q\to r))\to (q\to (p\to q))}
+           (from (6) and (7) using modus ponens)
+(9) 
+  
+    
+      
+        (
+        p
+        →
+        (
+        q
+        →
+        r
+        )
+        )
+        →
+        (
+        q
+        →
+        (
+        p
+        →
+        r
+        )
+        )
+      
+    
+    {\displaystyle (p\to (q\to r))\to (q\to (p\to r))}
+            (from (8) and (5) using modus ponens)(HS2)  
+  
+    
+      
+        (
+        p
+        →
+        q
+        )
+        →
+        (
+        (
+        q
+        →
+        r
+        )
+        →
+        (
+        p
+        →
+        r
+        )
+        )
+      
+    
+    {\displaystyle (p\to q)\to ((q\to r)\to (p\to r))}
+   - an alternative form of the hypothetical syllogism. proof:
+(1) 
+  
+    
+      
+        (
+        q
+        →
+        r
+        )
+        →
+        (
+        (
+        p
+        →
+        q
+        )
+        →
+        (
+        p
+        →
+        r
+        )
+        )
+      
+    
+    {\displaystyle (q\to r)\to ((p\to q)\to (p\to r))}
+           (instance of (HS1))
+(2) 
+  
+    
+      
+        (
+        (
+        q
+        →
+        r
+        )
+        →
+        (
+        (
+        p
+        →
+        q
+        )
+        →
+        (
+        p
+        →
+        r
+        )
+        )
+        )
+        →
+        (
+        (
+        p
+        →
+        q
+        )
+        →
+        (
+        (
+        q
+        →
+        r
+        )
+        →
+        (
+        p
+        →
+        r
+        )
+        )
+        )
+      
+    
+    {\displaystyle ((q\to r)\to ((p\to q)\to (p\to r)))\to ((p\to q)\to ((q\to r)\to (p\to r)))}
+           (instance of (L2))
+(3) 
+  
+    
+      
+        (
+        p
+        →
+        q
+        )
+        →
+        (
+        (
+        q
+        →
+        r
+        )
+        →
+        (
+        p
+        →
+        r
+        )
+        )
+      
+    
+    {\displaystyle (p\to q)\to ((q\to r)\to (p\to r))}
+   (from (1) and (2) by modus ponens)(TR1) 
+  
+    
+      
+        (
+        p
+        →
+        q
+        )
+        →
+        (
+        ¬
+        q
+        →
+        ¬
+        p
+        )
+      
+    
+    {\displaystyle (p\to q)\to (\neg q\to \neg p)}
+   - Transposition, see proof (the other direction of transposition is (P4)).(TR2) 
+  
+    
+      
+        (
+        ¬
+        p
+        →
+        q
+        )
+        →
+        (
+        ¬
+        q
+        →
+        p
+        )
+      
+    
+    {\displaystyle (\neg p\to q)\to (\neg q\to p)}
+   - another form of transposition; proof:
+(1) 
+  
+    
+      
+        (
+        ¬
+        p
+        →
+        q
+        )
+        →
+        (
+        ¬
+        q
+        →
+        ¬
+        ¬
+        p
+        )
+      
+    
+    {\displaystyle (\neg p\to q)\to (\neg q\to \neg \neg p)}
+            (instance of (TR1))
+(2) 
+  
+    
+      
+        ¬
+        ¬
+        p
+        →
+        p
+      
+    
+    {\displaystyle \neg \neg p\to p}
+            (instance of (DN1))
+(3) 
+  
+    
+      
+        (
+        ¬
+        ¬
+        p
+        →
+        p
+        )
+        →
+        (
+        (
+        ¬
+        q
+        →
+        ¬
+        ¬
+        p
+        )
+        →
+        (
+        ¬
+        q
+        →
+        p
+        )
+        )
+      
+    
+    {\displaystyle (\neg \neg p\to p)\to ((\neg q\to \neg \neg p)\to (\neg q\to p))}
+            (instance of (HS1))
+(4) 
+  
+    
+      
+        (
+        ¬
+        q
+        →
+        ¬
+        ¬
+        p
+        )
+        →
+        (
+        ¬
+        q
+        →
+        p
+        )
+      
+    
+    {\displaystyle (\neg q\to \neg \neg p)\to (\neg q\to p)}
+            (from (2) and (3) by modus ponens)
+(5) 
+  
+    
+      
+        (
+        ¬
+        p
+        →
+        q
+        )
+        →
+        (
+        ¬
+        q
+        →
+        p
+        )
+      
+    
+    {\displaystyle (\neg p\to q)\to (\neg q\to p)}
+            (from (1) and (4) using the hypothetical syllogism metatheorem)(L3) 
+  
+    
+      
+        (
+        ¬
+        p
+        →
+        p
+        )
+        →
+        p
+      
+    
+    {\displaystyle (\neg p\to p)\to p}
+   - proof:
+(1) 
+  
+    
+      
+        ¬
+        p
+        →
+        (
+        ¬
+        ¬
+        (
+        q
+        →
+        q
+        )
+        →
+        ¬
+        p
+        )
+      
+    
+    {\displaystyle \neg p\to (\neg \neg (q\to q)\to \neg p)}
+           (instance of (P2))
+(2) 
+  
+    
+      
+        (
+        ¬
+        ¬
+        (
+        q
+        →
+        q
+        )
+        →
+        ¬
+        p
+        )
+        →
+        (
+        p
+        →
+        ¬
+        (
+        q
+        →
+        q
+        )
+        )
+      
+    
+    {\displaystyle (\neg \neg (q\to q)\to \neg p)\to (p\to \neg (q\to q))}
+           (instance of (P4))
+(3) 
+  
+    
+      
+        ¬
+        p
+        →
+        (
+        p
+        →
+        ¬
+        (
+        q
+        →
+        q
+        )
+        )
+      
+    
+    {\displaystyle \neg p\to (p\to \neg (q\to q))}
+           (from (1) and (2) using the hypothetical syllogism metatheorem)
+(4) 
+  
+    
+      
+        (
+        ¬
+        p
+        →
+        (
+        p
+        →
+        ¬
+        (
+        q
+        →
+        q
+        )
+        )
+        )
+        →
+        (
+        (
+        ¬
+        p
+        →
+        p
+        )
+        →
+        (
+        ¬
+        p
+        →
+        ¬
+        (
+        q
+        →
+        q
+        )
+        )
+        )
+      
+    
+    {\displaystyle (\neg p\to (p\to \neg (q\to q)))\to ((\neg p\to p)\to (\neg p\to \neg (q\to q)))}
+           (instance of (P3))
+(5) 
+  
+    
+      
+        (
+        ¬
+        p
+        →
+        p
+        )
+        →
+        (
+        ¬
+        p
+        →
+        ¬
+        (
+        q
+        →
+        q
+        )
+        )
+      
+    
+    {\displaystyle (\neg p\to p)\to (\neg p\to \neg (q\to q))}
+           (from (3) and (4) using modes ponens)
+(6) 
+  
+    
+      
+        (
+        ¬
+        p
+        →
+        ¬
+        (
+        q
+        →
+        q
+        )
+        )
+        →
+        (
+        (
+        q
+        →
+        q
+        )
+        →
+        p
+        )
+      
+    
+    {\displaystyle (\neg p\to \neg (q\to q))\to ((q\to q)\to p)}
+           (instance of (P4))
+(7) 
+  
+    
+      
+        (
+        ¬
+        p
+        →
+        p
+        )
+        →
+        (
+        (
+        q
+        →
+        q
+        )
+        →
+        p
+        )
+      
+    
+    {\displaystyle (\neg p\to p)\to ((q\to q)\to p)}
+           (from (5) and (6) using the hypothetical syllogism metatheorem)
+(8) 
+  
+    
+      
+        q
+        →
+        q
+      
+    
+    {\displaystyle q\to q}
+           (instance of (P1))
+(9) 
+  
+    
+      
+        (
+        q
+        →
+        q
+        )
+        →
+        (
+        (
+        (
+        q
+        →
+        q
+        )
+        →
+        p
+        )
+        →
+        p
+        )
+      
+    
+    {\displaystyle (q\to q)\to (((q\to q)\to p)\to p)}
+           (instance of (L1))
+(10) 
+  
+    
+      
+        (
+        (
+        q
+        →
+        q
+        )
+        →
+        p
+        )
+        →
+        p
+      
+    
+    {\displaystyle ((q\to q)\to p)\to p}
+           (from (8) and (9) using modes ponens)
+(11) 
+  
+    
+      
+        (
+        ¬
+        p
+        →
+        p
+        )
+        →
+        p
+      
+    
+    {\displaystyle (\neg p\to p)\to p}
+           (from (7) and (10) using the hypothetical syllogism metatheorem)
+
+Alternative axiomatizations
+The axiom 3 above is credited to Łukasiewicz. The original system by Frege had axioms P2 and P3 but four other axioms instead of axiom P4 (see Frege's propositional calculus).
+Russell and Whitehead also suggested a system with five propositional axioms.
+
+Further connections
+Axioms P1, P2 and P3, with the deduction rule modus ponens (formalising intuitionistic propositional logic), correspond to combinatory logic base combinators I, K and S with the application operator. Proofs in the Hilbert system then correspond to combinator terms in combinatory logic.  See also Curry–Howard correspondence.
+
+See also
+List of Hilbert systems
+Natural deduction
+
+Notes
+References
+Curry, Haskell B.; Robert Feys (1958). Combinatory Logic Vol. I. Vol. 1. Amsterdam: North Holland.
+Monk, J. Donald (1976). Mathematical Logic. Graduate Texts in Mathematics. Berlin, New York: Springer-Verlag. ISBN 978-0-387-90170-1.
+Ruzsa, Imre; Máté, András (1997). Bevezetés a modern logikába (in Hungarian). Budapest: Osiris Kiadó.
+Tarski, Alfred (1990). Bizonyítás és igazság (in Hungarian). Budapest: Gondolat. It is a Hungarian translation of Alfred Tarski's selected papers on semantic theory of truth.
+David Hilbert (1927) "The foundations of mathematics", translated by Stephan Bauer-Menglerberg and Dagfinn Føllesdal (pp. 464–479).  in:
+van Heijenoort, Jean (1967). From Frege to Gödel: A Source Book in Mathematical Logic, 1879–1931 (3rd printing 1976 ed.). Cambridge MA: Harvard University Press. ISBN 0-674-32449-8.
+Hilbert's 1927, Based on an earlier 1925 "foundations" lecture (pp. 367–392), presents his 17 axioms -- axioms of implication #1-4, axioms about & and V #5-10, axioms of negation #11-12, his logical ε-axiom #13, axioms of equality #14-15, and axioms of number #16-17 -- along with the other necessary elements of his Formalist "proof theory" -- e.g. induction axioms, recursion axioms, etc; he also offers up a spirited defense against L.E.J. Brouwer's Intuitionism. Also see  Hermann Weyl's (1927) comments and rebuttal (pp. 480–484), Paul Bernay's (1927) appendix to Hilbert's lecture (pp. 485–489) and Luitzen Egbertus Jan Brouwer's (1927) response (pp. 490–495)
+Kleene, Stephen Cole (1952). Introduction to Metamathematics (10th impression with 1971 corrections ed.). Amsterdam NY: North Holland Publishing Company. ISBN 0-7204-2103-9.
+See in particular Chapter IV Formal System (pp. 69–85) wherein Kleene presents subchapters §16 Formal symbols, §17 Formation rules, §18 Free and bound variables (including substitution), §19 Transformation rules (e.g. modus ponens) -- and from these he presents 21 "postulates" -- 18 axioms and 3 "immediate-consequence" relations divided as follows: Postulates for the propostional calculus #1-8, Additional postulates for the predicate calculus #9-12, and Additional postulates for number theory #13-21.
+
+External links
+Gaifman, Haim. "A Hilbert Type Deductive System for Sentential Logic, Completeness and Compactness" (PDF).
+Farmer, W. M. "Propositional logic" (PDF). It describes (among others) a part of the Hilbert-style deduction system (restricted to propositional calculus).

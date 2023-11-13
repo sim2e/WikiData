@@ -1,0 +1,209 @@
+In automata theory, a branch of theoretical computer science, an ω-automaton (or stream automaton) is a variation of finite automata that runs on infinite, rather than finite, strings as input. Since ω-automata do not stop, they have a variety of acceptance conditions rather than simply a set of accepting states.
+ω-automata are useful for specifying behavior of systems that are not expected to terminate, such as hardware, operating systems and control systems. For such systems, one may want to specify a property such as "for every request, an acknowledge eventually follows", or its negation "there is a request that is not followed by an acknowledge". The former is a property of infinite words: one cannot say of a finite sequence that it satisfies this property.
+Classes of ω-automata include the Büchi automata, Rabin automata, Streett automata, parity automata and Muller automata, each deterministic or non-deterministic. These classes of ω-automata differ only in terms of acceptance condition. They all recognize precisely the regular ω-languages except for the deterministic Büchi automata, which is strictly weaker than all the others. Although all these types of automata recognize the same set of ω-languages, they nonetheless differ in succinctness of representation for a given ω-language.
+
+Deterministic ω-automata
+Formally, a deterministic ω-automaton is a tuple A = (Q,Σ,δ,Q0,Acc) that consists of the following components:
+
+Q is a finite set. The elements of Q are called the states of A.
+Σ is a finite set called the alphabet of A.
+δ: Q × Σ → Q is a function, called the transition function of A.
+Q0 is an element of Q, called the initial state.
+Acc is the acceptance condition, formally a subset of Qω.An input for A is an infinite string over the alphabet Σ, i.e. it is an infinite sequence α = (a1,a2,a3,...).
+The run of A on such an input is an infinite sequence ρ = (r0,r1,r2,...) of states, defined as follows:
+
+r0 = q0.
+r1 = δ(r0,a1).
+r2 = δ(r1,a2)....that is, for every i: ri = δ(ri-1,ai).The main purpose of an ω-automaton is to define a subset of the set of all inputs: The set of accepted inputs. Whereas in the case of an ordinary finite automaton every run ends with a state rn and the input is accepted if and only if rn is an accepting state, the definition of the set of accepted inputs is more complicated for ω-automata. Here we must look at the entire run ρ. The input is accepted if the corresponding run is in Acc. The set of accepted input ω-words is called the recognized ω-language by the automaton, which is denoted as L(A).
+The definition of Acc as a subset of Qω is purely formal and not suitable for practice because normally such sets are infinite. The difference between various types of ω-automata (Büchi, Rabin etc.) consists in how they encode certain subsets Acc of Qω as finite sets, and therefore in which such subsets they can encode.
+
+Nondeterministic ω-automata
+Formally, a nondeterministic ω-automaton is a tuple A = (Q,Σ,Δ,Q0,Acc) that consists of the following components:
+
+Q is a finite set. The elements of Q are called the states of A.
+Σ is a finite set called the alphabet of A.
+Δ is a subset of Q × Σ × Q and is called the transition relation of A.
+Q0 is a subset of Q, called the initial set of states.
+Acc is the acceptance condition, a subset of Qω.Unlike a deterministic ω-automaton, which has a transition function δ, the non-deterministic version has a transition relation Δ. Note that Δ can be regarded as a function : Q × Σ → P(Q) from Q × Σ to the power set P(Q). Thus, given a state qn and a symbol an, the next state qn+1 is not necessarily determined uniquely, rather there is a set of possible next states.
+A run of A on the input α = (a1,a2,a3,...) is any infinite sequence ρ = (r0,r1,r2,...) of states that satisfies the following conditions:
+
+r0 is an element of Q0.
+r1 is an element of Δ(r0,a1).
+r2 is an element of Δ(r1,a2)....that is, for every i: ri is an element of Δ(ri-1,ai).A nondeterministic ω-automaton may admit many different runs on any given input, or none at all. The input is accepted if at least one of the possible runs is accepting. Whether a run is accepting depends only on Acc, as for deterministic ω-automata.
+Every deterministic ω-automaton can be regarded as a nondeterministic ω-automaton by taking Δ to be the graph of δ. The definitions of runs and acceptance for deterministic ω-automata are then special cases of the nondeterministic cases.
+
+Acceptance conditions
+Acceptance conditions may be infinite sets of ω-words. However, people mostly study acceptance conditions that are finitely representable. The following lists a variety of popular acceptance conditions.
+Before discussing the list, let's make the following observation. In the case of infinitely running systems, one is often interested in whether certain behavior is repeated infinitely often. For example, if a network card receives infinitely many ping requests, then it may fail to respond to some of the requests but should respond to an infinite subset of received ping requests. This motivates the following definition: For any run ρ, let Inf(ρ) be the set of states that occur infinitely often in ρ. This notion of certain states being visited infinitely often will be helpful in defining the following acceptance conditions.
+
+A Büchi automaton is an ω-automaton A that uses the following acceptance condition, for some subset F of Q:Büchi condition
+A accepts exactly those runs ρ for which Inf(ρ) ∩ F is not empty, i.e. there is an accepting state that occurs infinitely often in ρ.A Rabin automaton is an ω-automaton A that uses the following acceptance condition, for some set Ω of pairs (Bi,Gi) of sets of states:Rabin condition
+A accepts exactly those runs ρ for which there exists a pair (Bi,Gi) in Ω such that Bi ∩ Inf(ρ) is empty and Gi ∩ Inf(ρ) is not empty.A Streett automaton is an ω-automaton A that uses the following acceptance condition, for some set Ω of pairs (Bi,Gi) of sets of states:Streett condition
+A accepts exactly those runs ρ such that for all pairs (Bi,Gi) in Ω, Bi ∩ Inf(ρ) is empty or Gi ∩ Inf(ρ) is not empty.A parity automaton is an automaton A whose set of states is Q = {0,1,2,...,k} for some natural number k, and that has the following acceptance condition:Parity condition
+A accepts ρ if and only if the smallest number in Inf(ρ) is even.A Muller automaton is an ω-automaton A that uses the following acceptance condition, for a subset F of P(Q) (the power set of Q):Muller condition
+A accepts exactly those runs ρ for which Inf(ρ) is an element of F.Every Büchi automaton can be regarded as a Muller automaton. It suffices to replace F by F' consisting of all subsets of Q that contain at least one element of F.
+Similarly every Rabin, Streett or parity automaton can also be regarded as a Muller automaton.
+
+Example
+The following ω-language L over the alphabet Σ = {0,1}, which can be recognized by a nondeterministic Büchi automaton:
+L consists of all ω-words in Σω in which 1 occurs only finitely many times.
+A non-deterministic Büchi automaton recognizing L needs only two states q0 (the initial state) and q1. Δ consists of the triples (q0,0,q0), (q0,1,q0), (q0,0,q1) and (q1,0,q1).
+F = {q1}. For any input α in which 1 occurs only finitely many times, there is a run that stays in state q0 as long as there are 1s to read, and goes to state q1 afterwards. This run is successful.
+If there are infinitely many 1s, then there is only one possible run: the one that always stays in state q0. (Once the machine has left q0 and reached q1, it cannot return. If another 1 is read, there is no successor state.)
+Notice that above language cannot be recognized by a deterministic Büchi automaton, which is strictly less expressive than its non-deterministic counterpart.
+
+Expressive power of ω-automata
+An ω-language over a finite alphabet Σ is a set of ω-words over Σ, i.e. it is a subset of Σω. An ω-language over Σ is said to be recognized by an ω-automaton A (with the same alphabet) if it is the set of all ω-words accepted by A.
+The expressive power of a class of ω-automata is measured by the class of all ω-languages that can be recognized by some automaton in the class.
+The nondeterministic Büchi, parity, Rabin, Streett, and Muller automata, respectively, all recognize exactly the same class of ω-languages.
+These are known as the ω-Kleene closure of the regular languages or as the regular ω-languages.
+Using different proofs it can also be shown that the deterministic parity, Rabin, Streett, and Muller automata all recognize the regular ω-languages.
+It follows from this that the class of regular ω-languages is closed under complementation.
+However, the example above shows that the class of deterministic Büchi automata is strictly weaker.
+
+Conversion between ω-automata
+Because nondeterministic Muller, Rabin, Streett, parity, and Büchi automata are equally expressive, they can be translated to each other.
+Let us use the following abbreviation 
+  
+    
+      
+        {
+        N
+        ,
+        D
+        }
+        ×
+        {
+        M
+        ,
+        R
+        ,
+        S
+        ,
+        P
+        ,
+        B
+        }
+      
+    
+    {\displaystyle \{N,D\}\times \{M,R,S,P,B\}}
+  : for example, NB stands for nondeterministic Büchi ω-automaton, while DP stands for deterministic parity ω-automaton. Then the following holds.
+
+Clearly, any deterministic automaton can be viewed as a nondeterministic one.
+
+  
+    
+      
+        N
+        B
+        →
+        N
+        R
+        
+          /
+        
+        N
+        S
+        
+          /
+        
+        N
+        P
+      
+    
+    {\displaystyle NB\rightarrow NR/NS/NP}
+   with no blow-up in the state space.
+
+  
+    
+      
+        N
+        R
+        →
+        N
+        B
+      
+    
+    {\displaystyle NR\rightarrow NB}
+   with a polynomial blow-up in the state space, i.e., the number of states in the resulting NB is 
+  
+    
+      
+        2
+        n
+        m
+        +
+        1
+      
+    
+    {\displaystyle 2nm+1}
+  , where 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is the number of states in the NB and 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   is the number of Rabin acceptance pairs (see, for example, ).
+
+  
+    
+      
+        N
+        S
+        
+          /
+        
+        N
+        M
+        
+          /
+        
+        N
+        P
+        →
+        N
+        B
+      
+    
+    {\displaystyle NS/NM/NP\rightarrow NB}
+   with exponential blow-up in the state space.
+
+  
+    
+      
+        N
+        B
+        →
+        D
+        R
+        
+          /
+        
+        D
+        P
+      
+    
+    {\displaystyle NB\rightarrow DR/DP}
+   with exponential blow-up in the state space. This determinization result uses Safra's construction.A comprehensive overview of translations can be found on the referenced web source.
+
+Applications to decidability
+ω-automata can be used to prove decidability of S1S, the  monadic second-order (MSO) theory of natural numbers under successor.   Infinite-tree automata extend ω-automata to infinite trees and can be used to prove decidability of  S2S, the MSO theory with two successors, and this can be extended to the MSO theory of graphs with bounded (given a fixed bound) treewidth.
+
+Further reading
+Farwer, Berndt (2002), "ω-Automata", in Grädel, Erich; Thomas, Wolfgang; Wilke, Thomas (eds.), Automata, Logics, and Infinite Games, Lecture Notes in Computer Science, Springer, pp. 3–21, ISBN 978-3-540-00388-5.
+Perrin, Dominique; Pin, Jean-Éric (2004), Infinite Words: Automata, Semigroups, Logic and Games, Elsevier, ISBN 978-0-12-532111-2
+Thomas, Wolfgang (1990), "Automata on infinite objects", in van Leeuwen, Jan (ed.), Handbook of Theoretical Computer Science, vol. B, MIT Press, pp. 133–191, ISBN 978-0-262-22039-2
+Bakhadyr Khoussainov; Anil Nerode (6 December 2012). Automata Theory and its Applications. Springer Science & Business Media. ISBN 978-1-4612-0171-7.
+
+
+== References ==

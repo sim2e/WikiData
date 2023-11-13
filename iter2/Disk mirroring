@@ -1,0 +1,21 @@
+In data storage, disk mirroring is the replication of logical disk volumes onto separate physical hard disks in real time to ensure continuous availability. It is most commonly used in RAID 1. A mirrored volume is a complete logical representation of separate volume copies.
+In a disaster recovery context, mirroring data over long distance is referred to as storage replication. Depending on the technologies used, replication can be performed synchronously, asynchronously, semi-synchronously, or point-in-time. Replication is enabled via microcode on the disk array controller or via server software. It is typically a proprietary solution, not compatible between various data storage device vendors.
+Mirroring is typically only synchronous. Synchronous writing typically achieves a recovery point objective (RPO) of zero lost data. Asynchronous replication can achieve an RPO of just a few seconds while the remaining methodologies provide an RPO of a few minutes to perhaps several hours.
+Disk mirroring differs from file shadowing that operates on the file level, and disk snapshots where data images are never re-synced with their origins.
+
+Overview
+Typically, mirroring is provided in either hardware solutions such as disk arrays, or in software within the operating system (such as Linux mdadm and device mapper).  Additionally, file systems like Btrfs or ZFS provide integrated data mirroring.  There are additional benefits from Btrfs and ZFS, which maintain both data and metadata integrity checksums, making themselves capable of detecting bad copies of blocks, and using mirrored data to pull up data from correct blocks.There are several scenarios for what happens when a disk fails. In a hot swap system, in the event of a disk failure, the system itself typically diagnoses a disk failure and signals a failure. Sophisticated systems may automatically activate a hot standby disk and use the remaining active disk to copy live data onto this disk. Alternatively, a new disk is installed and the data is copied to it. In less sophisticated systems, the system is operated on the remaining disk until a spare disk can be installed.
+The copying of data from one side of a mirror pair to another is called rebuilding or, less commonly, resilvering.Mirroring can be performed site to site either by rapid data links, for example fibre optic links, which over distances of 500 m or so can maintain adequate performance to support real-time mirroring. Longer distances or slower links maintain mirrors using an asynchronous copying system. For remote disaster recovery systems, this mirroring may not be done by integrated systems but simply by additional applications on primary and secondary machines.
+
+Additional benefits
+In addition to providing an additional copy of the data for the purpose of redundancy in case of hardware failure, disk mirroring can allow each disk to be accessed separately for reading purposes. Under certain circumstances, this can significantly improve performance as the system can choose for each read which disk can seek most quickly to the required data. This is especially significant where there are several tasks competing for data on the same disk, and thrashing (where the switching between tasks takes up more time than the task itself) can be reduced. This is an important consideration in hardware configurations that frequently access the data on the disk.
+
+See also
+Business continuance volume – EMC Corporation's term for redundant copies of data in a disk array
+Disk cloning
+Distributed Replicated Block Device (DRBD)
+Mirror site
+Stable storage
+
+
+== References ==

@@ -1,0 +1,1341 @@
+In mathematical logic and computer science, a general recursive function, partial recursive function, or μ-recursive function is a partial function from natural numbers to natural numbers that is "computable" in an intuitive sense – as well as in a formal one. If the function is total, it is also called a total recursive function (sometimes shortened to recursive function). In computability theory, it is shown that the μ-recursive functions are precisely the functions that can be computed by Turing machines (this is one of the theorems that supports the Church–Turing thesis).  The μ-recursive functions are closely related to primitive recursive functions, and their inductive definition (below) builds upon that of the primitive recursive functions. However, not every total recursive function is a primitive recursive function—the most famous example is the Ackermann function.
+Other equivalent classes of functions are the functions of lambda calculus and the functions that can be computed by Markov algorithms.
+The subset of all total recursive functions with values in {0,1} is known in computational complexity theory as the complexity class R.
+
+Definition
+The μ-recursive functions (or general recursive functions) are partial functions that take finite tuples of natural numbers and return a single natural number.  They are the smallest class of partial functions that includes the initial functions and is closed under composition, primitive recursion, and the minimization operator μ.
+The smallest class of functions including the initial functions and closed under composition and primitive recursion (i.e. without minimisation) is the class of primitive recursive functions.  While all primitive recursive functions are total, this is not true of partial recursive functions; for example, the minimisation of the successor function is undefined. The primitive recursive functions are a subset of the total recursive functions, which are a subset of the partial recursive functions. For example, the Ackermann function can be proven to be total recursive, and to be non-primitive.
+Primitive or "basic" functions:
+
+Constant functions Ckn: For each natural number n and every k
+
+  
+    
+      
+        
+          C
+          
+            n
+          
+          
+            k
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+         
+        
+          
+            
+              
+                =
+              
+              
+                
+                  d
+                  e
+                  f
+                
+              
+            
+          
+        
+         
+        n
+      
+    
+    {\displaystyle C_{n}^{k}(x_{1},\ldots ,x_{k})\ {\stackrel {\mathrm {def} }{=}}\ n}
+  
+Alternative definitions use instead a zero function as a primitive function that always returns zero, and build the constant functions from the zero function, the successor function and the composition operator.
+Successor function S:
+
+  
+    
+      
+        S
+        (
+        x
+        )
+         
+        
+          
+            
+              
+                =
+              
+              
+                
+                  d
+                  e
+                  f
+                
+              
+            
+          
+        
+         
+        x
+        +
+        1
+        
+      
+    
+    {\displaystyle S(x)\ {\stackrel {\mathrm {def} }{=}}\ x+1\,}
+  
+Projection function 
+  
+    
+      
+        
+          P
+          
+            i
+          
+          
+            k
+          
+        
+      
+    
+    {\displaystyle P_{i}^{k}}
+   (also called the Identity function): For all natural numbers 
+  
+    
+      
+        i
+        ,
+        k
+      
+    
+    {\displaystyle i,k}
+   such that 
+  
+    
+      
+        1
+        ≤
+        i
+        ≤
+        k
+      
+    
+    {\displaystyle 1\leq i\leq k}
+  :
+
+  
+    
+      
+        
+          P
+          
+            i
+          
+          
+            k
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+         
+        
+          
+            
+              
+                =
+              
+              
+                
+                  d
+                  e
+                  f
+                
+              
+            
+          
+        
+         
+        
+          x
+          
+            i
+          
+        
+        
+        .
+      
+    
+    {\displaystyle P_{i}^{k}(x_{1},\ldots ,x_{k})\ {\stackrel {\mathrm {def} }{=}}\ x_{i}\,.}
+  Operators (the domain of a function defined by an operator is the set of the values of the arguments such that every function application that must be done during the computation provides a well-defined result):
+
+Composition operator 
+  
+    
+      
+        ∘
+        
+      
+    
+    {\displaystyle \circ \,}
+   (also called the substitution operator): Given an m-ary function 
+  
+    
+      
+        h
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            m
+          
+        
+        )
+        
+      
+    
+    {\displaystyle h(x_{1},\ldots ,x_{m})\,}
+   and m k-ary functions 
+  
+    
+      
+        
+          g
+          
+            1
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+        ,
+        …
+        ,
+        
+          g
+          
+            m
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle g_{1}(x_{1},\ldots ,x_{k}),\ldots ,g_{m}(x_{1},\ldots ,x_{k})}
+  :
+
+  
+    
+      
+        h
+        ∘
+        (
+        
+          g
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          g
+          
+            m
+          
+        
+        )
+         
+        
+          
+            
+              
+                =
+              
+              
+                
+                  d
+                  e
+                  f
+                
+              
+            
+          
+        
+         
+        f
+        ,
+        
+        
+          where
+        
+        
+        f
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+        =
+        h
+        (
+        
+          g
+          
+            1
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+        ,
+        …
+        ,
+        
+          g
+          
+            m
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+        )
+        .
+      
+    
+    {\displaystyle h\circ (g_{1},\ldots ,g_{m})\ {\stackrel {\mathrm {def} }{=}}\ f,\quad {\text{where}}\quad f(x_{1},\ldots ,x_{k})=h(g_{1}(x_{1},\ldots ,x_{k}),\ldots ,g_{m}(x_{1},\ldots ,x_{k})).}
+  
+This means that 
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle f(x_{1},\ldots ,x_{k})}
+   is defined only if 
+  
+    
+      
+        
+          g
+          
+            1
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+        ,
+        …
+        ,
+        
+          g
+          
+            m
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+        ,
+      
+    
+    {\displaystyle g_{1}(x_{1},\ldots ,x_{k}),\ldots ,g_{m}(x_{1},\ldots ,x_{k}),}
+   and 
+  
+    
+      
+        h
+        (
+        
+          g
+          
+            1
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+        ,
+        …
+        ,
+        
+          g
+          
+            m
+          
+        
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle h(g_{1}(x_{1},\ldots ,x_{k}),\ldots ,g_{m}(x_{1},\ldots ,x_{k}))}
+   are all defined.
+Primitive recursion operator ρ: Given the k-ary function 
+  
+    
+      
+        g
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+        
+      
+    
+    {\displaystyle g(x_{1},\ldots ,x_{k})\,}
+   and k+2 -ary function 
+  
+    
+      
+        h
+        (
+        y
+        ,
+        z
+        ,
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+        
+      
+    
+    {\displaystyle h(y,z,x_{1},\ldots ,x_{k})\,}
+  :
+
+  
+    
+      
+        
+          
+            
+              
+                ρ
+                (
+                g
+                ,
+                h
+                )
+              
+              
+                 
+                
+                  
+                    
+                      
+                        =
+                      
+                      
+                        
+                          d
+                          e
+                          f
+                        
+                      
+                    
+                  
+                
+                 
+                f
+                
+                
+                  where the k+1 -ary function 
+                
+                f
+                
+                   is defined by
+                
+              
+            
+            
+              
+                f
+                (
+                0
+                ,
+                
+                  x
+                  
+                    1
+                  
+                
+                ,
+                …
+                ,
+                
+                  x
+                  
+                    k
+                  
+                
+                )
+              
+              
+                
+                =
+                g
+                (
+                
+                  x
+                  
+                    1
+                  
+                
+                ,
+                …
+                ,
+                
+                  x
+                  
+                    k
+                  
+                
+                )
+              
+            
+            
+              
+                f
+                (
+                S
+                (
+                y
+                )
+                ,
+                
+                  x
+                  
+                    1
+                  
+                
+                ,
+                …
+                ,
+                
+                  x
+                  
+                    k
+                  
+                
+                )
+              
+              
+                
+                =
+                h
+                (
+                y
+                ,
+                f
+                (
+                y
+                ,
+                
+                  x
+                  
+                    1
+                  
+                
+                ,
+                …
+                ,
+                
+                  x
+                  
+                    k
+                  
+                
+                )
+                ,
+                
+                  x
+                  
+                    1
+                  
+                
+                ,
+                …
+                ,
+                
+                  x
+                  
+                    k
+                  
+                
+                )
+                
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\rho (g,h)&\ {\stackrel {\mathrm {def} }{=}}\ f\quad {\text{where the k+1 -ary function }}f{\text{ is defined by}}\\f(0,x_{1},\ldots ,x_{k})&=g(x_{1},\ldots ,x_{k})\\f(S(y),x_{1},\ldots ,x_{k})&=h(y,f(y,x_{1},\ldots ,x_{k}),x_{1},\ldots ,x_{k})\,.\end{aligned}}}
+  
+This means that 
+  
+    
+      
+        f
+        (
+        y
+        ,
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle f(y,x_{1},\ldots ,x_{k})}
+   is defined only if 
+  
+    
+      
+        g
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle g(x_{1},\ldots ,x_{k})}
+   and 
+  
+    
+      
+        h
+        (
+        z
+        ,
+        f
+        (
+        z
+        ,
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+        ,
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+      
+    
+    {\displaystyle h(z,f(z,x_{1},\ldots ,x_{k}),x_{1},\ldots ,x_{k})}
+   are defined for all 
+  
+    
+      
+        z
+        <
+        y
+        .
+      
+    
+    {\displaystyle z<y.}
+  
+Minimization operator  μ: Given a (k+1)-ary function 
+  
+    
+      
+        f
+        (
+        y
+        ,
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+        
+      
+    
+    {\displaystyle f(y,x_{1},\ldots ,x_{k})\,}
+  , the k-ary function 
+  
+    
+      
+        μ
+        (
+        f
+        )
+      
+    
+    {\displaystyle \mu (f)}
+   is defined by:
+
+  
+    
+      
+        
+          
+            
+              
+                μ
+                (
+                f
+                )
+                (
+                
+                  x
+                  
+                    1
+                  
+                
+                ,
+                …
+                ,
+                
+                  x
+                  
+                    k
+                  
+                
+                )
+                =
+                z
+                
+                  
+                    
+                      
+                        
+                        ⟺
+                        
+                      
+                      
+                        
+                          d
+                          e
+                          f
+                        
+                      
+                    
+                  
+                
+                 
+                f
+                (
+                i
+                ,
+                
+                  x
+                  
+                    1
+                  
+                
+                ,
+                …
+                ,
+                
+                  x
+                  
+                    k
+                  
+                
+                )
+              
+              
+                
+                >
+                0
+                
+                
+                  for
+                
+                
+                i
+                =
+                0
+                ,
+                …
+                ,
+                z
+                −
+                1
+                
+                
+                  and
+                
+              
+            
+            
+              
+                f
+                (
+                z
+                ,
+                
+                  x
+                  
+                    1
+                  
+                
+                ,
+                …
+                ,
+                
+                  x
+                  
+                    k
+                  
+                
+                )
+              
+              
+                
+                =
+                0
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\mu (f)(x_{1},\ldots ,x_{k})=z{\stackrel {\mathrm {def} }{\iff }}\ f(i,x_{1},\ldots ,x_{k})&>0\quad {\text{for}}\quad i=0,\ldots ,z-1\quad {\text{and}}\\f(z,x_{1},\ldots ,x_{k})&=0\quad \end{aligned}}}
+  Intuitively, minimisation seeks—beginning the search from 0 and proceeding upwards—the smallest argument that causes the function to return zero; if there is no such argument, or if one encounters an argument for which f is not defined, then the search never terminates, and 
+  
+    
+      
+        μ
+        (
+        f
+        )
+      
+    
+    {\displaystyle \mu (f)}
+   is not defined for the argument 
+  
+    
+      
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle (x_{1},\ldots ,x_{k}).}
+  
+While some textbooks use the μ-operator as defined here, others like demand that the μ-operator is applied to total functions f only. Although this restricts the μ-operator as compared to the definition given here, the class of μ-recursive functions remains the same, which follows from Kleene's Normal Form Theorem (see below). The only difference is, that it becomes undecidable whether a specific function definition defines a μ-recursive function, as it is undecidable whether a computable (i.e. μ-recursive) function is total.The strong equality operator 
+  
+    
+      
+        ≃
+      
+    
+    {\displaystyle \simeq }
+   can be used to compare partial μ-recursive functions.  This is defined for all partial functions f and g so that
+
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+        ≃
+        g
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            l
+          
+        
+        )
+      
+    
+    {\displaystyle f(x_{1},\ldots ,x_{k})\simeq g(x_{1},\ldots ,x_{l})}
+  holds if and only if for any choice of arguments either both functions are defined and their values are equal or both functions are undefined.
+
+Examples
+Examples not involving the minimization operator can be found at Primitive recursive function#Examples.
+The following examples are intended just to demonstrate the use of the minimization operator;  they could also be defined without it, albeit in a more complicated way, since they are all primitive recursive.
+
+The following examples define general recursive functions that are not primitive recursive; hence they cannot avoid using the minimization operator.
+
+Total recursive function
+A general recursive function is called total recursive function if it is defined for every input, or, equivalently, if it can be computed by a total Turing machine. There is no way to computably tell if a given general recursive function is total - see Halting problem.
+
+Equivalence with other models of computability
+In the equivalence of models of computability, a parallel is drawn between Turing machines that do not terminate for certain inputs and an undefined result for that input in the corresponding partial recursive function.
+The unbounded search operator is not definable by the rules of primitive recursion as those do not provide a mechanism for "infinite loops" (undefined values).
+
+Normal form theorem
+A normal form theorem due to Kleene says that for each k there are primitive recursive functions 
+  
+    
+      
+        U
+        (
+        y
+        )
+        
+      
+    
+    {\displaystyle U(y)\!}
+   and 
+  
+    
+      
+        T
+        (
+        y
+        ,
+        e
+        ,
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+        
+      
+    
+    {\displaystyle T(y,e,x_{1},\ldots ,x_{k})\!}
+   such that for any μ-recursive function 
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+        
+      
+    
+    {\displaystyle f(x_{1},\ldots ,x_{k})\!}
+   with k free variables there is an e such that
+
+  
+    
+      
+        f
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+        ≃
+        U
+        (
+        μ
+        (
+        T
+        )
+        (
+        e
+        ,
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle f(x_{1},\ldots ,x_{k})\simeq U(\mu (T)(e,x_{1},\ldots ,x_{k}))}
+  .The number e is called an index or Gödel number for the function f.: 52–53   A consequence of this result is that any μ-recursive function can be defined using a single instance of the μ operator applied to a (total) primitive recursive function.
+Minsky observes the 
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+   defined above is in essence the μ-recursive equivalent of the universal Turing machine:
+
+To construct U is to write down the definition of a general-recursive function U(n, x) that correctly interprets the number n and computes the appropriate function of x. to construct U directly would involve essentially the same amount of effort, and essentially the same ideas, as we have invested in constructing the universal Turing machine
+
+Symbolism
+A number of different symbolisms are used in the literature. An advantage to using the symbolism is a derivation of a function by "nesting" of the operators one inside the other is easier to write in a compact form. In the following the string of parameters x1, ..., xn is abbreviated as x:
+
+Constant function: Kleene uses " Cnq(x) = q " and Boolos-Burgess-Jeffrey (2002) (B-B-J) use the abbreviation " constn( x) = n ":e.g. C713 ( r, s, t, u, v, w, x ) = 13
+e.g. const13 ( r, s, t, u, v, w, x ) = 13Successor function: Kleene uses x' and S for "Successor". As "successor" is considered to be primitive, most texts use the apostrophe as follows:S(a) = a +1 =def a', where 1 =def  0', 2 =def 0 ' ', etc.Identity function: Kleene (1952) uses " Uni " to indicate the identity function over the variables xi; B-B-J use the identity function idni over the variables x1 to xn:Uni( x ) = idni( x ) = xi
+e.g. U73 = id73 ( r, s, t, u, v, w, x ) = tComposition (Substitution) operator: Kleene uses a bold-face Smn (not to be confused with his S for "successor" ! ). The superscript "m" refers to the mth of function "fm", whereas the subscript "n" refers to the nth variable "xn":If we are given h( x )= g( f1(x), ... , fm(x) )
+h(x) = Snm(g, f1, ... , fm )In a similar manner, but without the sub- and superscripts, B-B-J write:
+h(x')= Cn[g, f1 ,..., fm](x)Primitive Recursion: Kleene uses the symbol " Rn(base step, induction step) " where n indicates the number of variables, B-B-J use " Pr(base step, induction step)(x)". Given:base step: h( 0, x )= f( x ), and
+induction step: h( y+1, x ) = g( y, h(y, x),x )Example: primitive recursion definition of a + b:
+base step: f( 0, a ) = a = U11(a)
+induction step: f( b' , a ) = ( f ( b, a ) )' = g( b, f( b, a), a ) = g( b, c, a ) = c' = S(U32( b, c, a ))R2 { U11(a), S [ (U32( b, c, a ) ] }
+Pr{ U11(a), S[ (U32( b, c, a ) ] }Example: Kleene gives an example of how to perform the recursive derivation of f(b, a) = b + a (notice reversal of variables a and b). He starts with 3 initial functions 
+
+S(a) = a'
+U11(a) = a
+U32( b, c, a ) = c
+g(b, c, a) = S(U32( b, c, a )) = c'
+base step: h( 0, a ) = U11(a)induction step: h( b', a ) = g( b, h( b, a ), a )He arrives at:
+
+a+b = R2[ U11, S31(S, U32) ]
+
+Examples
+Fibonacci number
+McCarthy 91 function
+
+See also
+Recursion theory
+Recursion
+Recursion (computer science)
+
+References
+External links
+Stanford Encyclopedia of Philosophy entry
+A compiler for transforming a recursive function into an equivalent Turing machine

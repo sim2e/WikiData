@@ -1,0 +1,1548 @@
+A formula of the predicate calculus is in prenex normal form (PNF) if it is written as a string of quantifiers and bound variables, called the prefix, followed by a quantifier-free part, called the matrix. Together with the normal forms in propositional logic (e.g. disjunctive normal form or conjunctive normal form), it provides a canonical normal form useful in automated theorem proving. 
+Every formula in classical logic is logically equivalent to a formula in prenex normal form. For example, if 
+  
+    
+      
+        ϕ
+        (
+        y
+        )
+      
+    
+    {\displaystyle \phi (y)}
+  , 
+  
+    
+      
+        ψ
+        (
+        z
+        )
+      
+    
+    {\displaystyle \psi (z)}
+  , and 
+  
+    
+      
+        ρ
+        (
+        x
+        )
+      
+    
+    {\displaystyle \rho (x)}
+   are quantifier-free formulas with the free variables shown then
+
+  
+    
+      
+        ∀
+        x
+        ∃
+        y
+        ∀
+        z
+        (
+        ϕ
+        (
+        y
+        )
+        ∨
+        (
+        ψ
+        (
+        z
+        )
+        →
+        ρ
+        (
+        x
+        )
+        )
+        )
+      
+    
+    {\displaystyle \forall x\exists y\forall z(\phi (y)\lor (\psi (z)\rightarrow \rho (x)))}
+  is in prenex normal form with matrix 
+  
+    
+      
+        ϕ
+        (
+        y
+        )
+        ∨
+        (
+        ψ
+        (
+        z
+        )
+        →
+        ρ
+        (
+        x
+        )
+        )
+      
+    
+    {\displaystyle \phi (y)\lor (\psi (z)\rightarrow \rho (x))}
+  , while
+
+  
+    
+      
+        ∀
+        x
+        (
+        (
+        ∃
+        y
+        ϕ
+        (
+        y
+        )
+        )
+        ∨
+        (
+        (
+        ∃
+        z
+        ψ
+        (
+        z
+        )
+        )
+        →
+        ρ
+        (
+        x
+        )
+        )
+        )
+      
+    
+    {\displaystyle \forall x((\exists y\phi (y))\lor ((\exists z\psi (z))\rightarrow \rho (x)))}
+  is logically equivalent but not in prenex normal form.
+
+Conversion to prenex form
+Every first-order formula is logically equivalent (in classical logic) to some formula in prenex normal form.  There are several conversion rules that can be recursively applied to convert a formula to prenex normal form.  The rules depend on which logical connectives appear in the formula.
+
+Conjunction and disjunction
+The rules for conjunction and disjunction say that
+
+  
+    
+      
+        (
+        ∀
+        x
+        ϕ
+        )
+        ∧
+        ψ
+      
+    
+    {\displaystyle (\forall x\phi )\land \psi }
+   is equivalent to 
+  
+    
+      
+        ∀
+        x
+        (
+        ϕ
+        ∧
+        ψ
+        )
+      
+    
+    {\displaystyle \forall x(\phi \land \psi )}
+   under (mild) additional condition 
+  
+    
+      
+        ∃
+        x
+        ⊤
+      
+    
+    {\displaystyle \exists x\top }
+  , or, equivalently, 
+  
+    
+      
+        ¬
+        ∀
+        x
+        ⊥
+      
+    
+    {\displaystyle \lnot \forall x\bot }
+   (meaning that at least one individual exists),
+
+  
+    
+      
+        (
+        ∀
+        x
+        ϕ
+        )
+        ∨
+        ψ
+      
+    
+    {\displaystyle (\forall x\phi )\lor \psi }
+   is equivalent to 
+  
+    
+      
+        ∀
+        x
+        (
+        ϕ
+        ∨
+        ψ
+        )
+      
+    
+    {\displaystyle \forall x(\phi \lor \psi )}
+  ;and 
+
+  
+    
+      
+        (
+        ∃
+        x
+        ϕ
+        )
+        ∧
+        ψ
+      
+    
+    {\displaystyle (\exists x\phi )\land \psi }
+   is equivalent to 
+  
+    
+      
+        ∃
+        x
+        (
+        ϕ
+        ∧
+        ψ
+        )
+      
+    
+    {\displaystyle \exists x(\phi \land \psi )}
+  ,
+
+  
+    
+      
+        (
+        ∃
+        x
+        ϕ
+        )
+        ∨
+        ψ
+      
+    
+    {\displaystyle (\exists x\phi )\lor \psi }
+   is equivalent to 
+  
+    
+      
+        ∃
+        x
+        (
+        ϕ
+        ∨
+        ψ
+        )
+      
+    
+    {\displaystyle \exists x(\phi \lor \psi )}
+   under additional condition 
+  
+    
+      
+        ∃
+        x
+        ⊤
+      
+    
+    {\displaystyle \exists x\top }
+  .The equivalences are valid when 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   does not appear as a free variable of 
+  
+    
+      
+        ψ
+      
+    
+    {\displaystyle \psi }
+  ; if 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   does appear free in 
+  
+    
+      
+        ψ
+      
+    
+    {\displaystyle \psi }
+  , one can rename the bound 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   in 
+  
+    
+      
+        (
+        ∃
+        x
+        ϕ
+        )
+      
+    
+    {\displaystyle (\exists x\phi )}
+   and obtain the equivalent 
+  
+    
+      
+        (
+        ∃
+        
+          x
+          ′
+        
+        ϕ
+        [
+        x
+        
+          /
+        
+        
+          x
+          ′
+        
+        ]
+        )
+      
+    
+    {\displaystyle (\exists x'\phi [x/x'])}
+  .
+For example, in the language of rings,
+
+  
+    
+      
+        (
+        ∃
+        x
+        (
+        
+          x
+          
+            2
+          
+        
+        =
+        1
+        )
+        )
+        ∧
+        (
+        0
+        =
+        y
+        )
+      
+    
+    {\displaystyle (\exists x(x^{2}=1))\land (0=y)}
+   is equivalent to  
+  
+    
+      
+        ∃
+        x
+        (
+        
+          x
+          
+            2
+          
+        
+        =
+        1
+        ∧
+        0
+        =
+        y
+        )
+      
+    
+    {\displaystyle \exists x(x^{2}=1\land 0=y)}
+  ,but
+
+  
+    
+      
+        (
+        ∃
+        x
+        (
+        
+          x
+          
+            2
+          
+        
+        =
+        1
+        )
+        )
+        ∧
+        (
+        0
+        =
+        x
+        )
+      
+    
+    {\displaystyle (\exists x(x^{2}=1))\land (0=x)}
+   is not equivalent to 
+  
+    
+      
+        ∃
+        x
+        (
+        
+          x
+          
+            2
+          
+        
+        =
+        1
+        ∧
+        0
+        =
+        x
+        )
+      
+    
+    {\displaystyle \exists x(x^{2}=1\land 0=x)}
+  because the formula on the left is true in any ring when the free variable x is equal to 0, while the formula on the right has no free variables and is false in any nontrivial ring. So 
+  
+    
+      
+        (
+        ∃
+        x
+        (
+        
+          x
+          
+            2
+          
+        
+        =
+        1
+        )
+        )
+        ∧
+        (
+        0
+        =
+        x
+        )
+      
+    
+    {\displaystyle (\exists x(x^{2}=1))\land (0=x)}
+   will be first rewritten as 
+  
+    
+      
+        (
+        ∃
+        
+          x
+          ′
+        
+        (
+        
+          x
+          
+            ′
+            
+              2
+            
+          
+        
+        =
+        1
+        )
+        )
+        ∧
+        (
+        0
+        =
+        x
+        )
+      
+    
+    {\displaystyle (\exists x'(x'^{2}=1))\land (0=x)}
+   and then put in prenex normal form 
+  
+    
+      
+        ∃
+        
+          x
+          ′
+        
+        (
+        
+          x
+          
+            ′
+            
+              2
+            
+          
+        
+        =
+        1
+        ∧
+        0
+        =
+        x
+        )
+      
+    
+    {\displaystyle \exists x'(x'^{2}=1\land 0=x)}
+  .
+
+Negation
+The rules for negation say that 
+
+  
+    
+      
+        ¬
+        ∃
+        x
+        ϕ
+      
+    
+    {\displaystyle \lnot \exists x\phi }
+   is equivalent to 
+  
+    
+      
+        ∀
+        x
+        ¬
+        ϕ
+      
+    
+    {\displaystyle \forall x\lnot \phi }
+  and 
+
+  
+    
+      
+        ¬
+        ∀
+        x
+        ϕ
+      
+    
+    {\displaystyle \lnot \forall x\phi }
+   is equivalent to 
+  
+    
+      
+        ∃
+        x
+        ¬
+        ϕ
+      
+    
+    {\displaystyle \exists x\lnot \phi }
+  .
+
+Implication
+There are four rules for implication: two that remove quantifiers from the antecedent and two that remove quantifiers from the consequent. These rules can be derived by rewriting the implication
+
+  
+    
+      
+        ϕ
+        →
+        ψ
+      
+    
+    {\displaystyle \phi \rightarrow \psi }
+   as 
+  
+    
+      
+        ¬
+        ϕ
+        ∨
+        ψ
+      
+    
+    {\displaystyle \lnot \phi \lor \psi }
+   and applying the rules for disjunction and negation above.  As with the rules for disjunction, these rules require that the variable quantified in one subformula does not appear free in the other subformula. 
+The rules for removing quantifiers from the antecedent are (note the change of quantifiers):
+
+  
+    
+      
+        (
+        ∀
+        x
+        ϕ
+        )
+        →
+        ψ
+      
+    
+    {\displaystyle (\forall x\phi )\rightarrow \psi }
+   is equivalent to 
+  
+    
+      
+        ∃
+        x
+        (
+        ϕ
+        →
+        ψ
+        )
+      
+    
+    {\displaystyle \exists x(\phi \rightarrow \psi )}
+   (under the assumption that 
+  
+    
+      
+        ∃
+        x
+        ⊤
+      
+    
+    {\displaystyle \exists x\top }
+  ),
+
+  
+    
+      
+        (
+        ∃
+        x
+        ϕ
+        )
+        →
+        ψ
+      
+    
+    {\displaystyle (\exists x\phi )\rightarrow \psi }
+   is equivalent to 
+  
+    
+      
+        ∀
+        x
+        (
+        ϕ
+        →
+        ψ
+        )
+      
+    
+    {\displaystyle \forall x(\phi \rightarrow \psi )}
+  .The rules for removing quantifiers from the consequent are:
+
+  
+    
+      
+        ϕ
+        →
+        (
+        ∃
+        x
+        ψ
+        )
+      
+    
+    {\displaystyle \phi \rightarrow (\exists x\psi )}
+   is equivalent to 
+  
+    
+      
+        ∃
+        x
+        (
+        ϕ
+        →
+        ψ
+        )
+      
+    
+    {\displaystyle \exists x(\phi \rightarrow \psi )}
+   (under the assumption that 
+  
+    
+      
+        ∃
+        x
+        ⊤
+      
+    
+    {\displaystyle \exists x\top }
+  ),
+
+  
+    
+      
+        ϕ
+        →
+        (
+        ∀
+        x
+        ψ
+        )
+      
+    
+    {\displaystyle \phi \rightarrow (\forall x\psi )}
+   is equivalent to 
+  
+    
+      
+        ∀
+        x
+        (
+        ϕ
+        →
+        ψ
+        )
+      
+    
+    {\displaystyle \forall x(\phi \rightarrow \psi )}
+  .For example, when the range of quantification is the non-negative natural number (viz. 
+  
+    
+      
+        n
+        ∈
+        
+          N
+        
+      
+    
+    {\displaystyle n\in \mathbb {N} }
+  ), the statement
+
+  
+    
+      
+        [
+        ∀
+        n
+        ∈
+        
+          N
+        
+        (
+        x
+        <
+        n
+        )
+        ]
+        →
+        (
+        x
+        <
+        0
+        )
+      
+    
+    {\displaystyle [\forall n\in \mathbb {N} (x<n)]\rightarrow (x<0)}
+  is logically equivalent to the statement
+
+  
+    
+      
+        ∃
+        n
+        ∈
+        
+          N
+        
+        [
+        (
+        x
+        <
+        n
+        )
+        →
+        (
+        x
+        <
+        0
+        )
+        ]
+      
+    
+    {\displaystyle \exists n\in \mathbb {N} [(x<n)\rightarrow (x<0)]}
+  The former statement says that if x is less than any natural number, then x is less than zero. The latter statement says that there exists some natural number n such that if x is less than n, then x is less than zero. Both statements are true. The former statement is true because if x is less than any natural number, it must be less than the smallest natural number (zero). The latter statement is true because n=0 makes the implication a tautology.
+Note that the placement of brackets implies the scope of the quantification, which is very important for the meaning of the formula. Consider the following two statements:
+
+  
+    
+      
+        ∀
+        n
+        ∈
+        
+          N
+        
+        [
+        (
+        x
+        <
+        n
+        )
+        →
+        (
+        x
+        <
+        0
+        )
+        ]
+      
+    
+    {\displaystyle \forall n\in \mathbb {N} [(x<n)\rightarrow (x<0)]}
+  and its logically equivalent statement
+
+  
+    
+      
+        [
+        ∃
+        n
+        ∈
+        
+          N
+        
+        (
+        x
+        <
+        n
+        )
+        ]
+        →
+        (
+        x
+        <
+        0
+        )
+      
+    
+    {\displaystyle [\exists n\in \mathbb {N} (x<n)]\rightarrow (x<0)}
+  The former statement says that for any natural number n, if x is less than n then x is less than zero. The latter statement says that if there exists some natural number n such that x is less than n, then x is less than zero. Both statements are false. The former statement doesn't hold for n=2, because x=1 is less than n, but not less than zero. The latter statement doesn't hold for x=1, because the natural number n=2 satisfies x<n, but x=1 is not less than zero.
+
+Example
+Suppose that 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+  , 
+  
+    
+      
+        ψ
+      
+    
+    {\displaystyle \psi }
+  , and 
+  
+    
+      
+        ρ
+      
+    
+    {\displaystyle \rho }
+   are quantifier-free formulas and no two of these formulas share any free variable.   Consider the formula
+
+  
+    
+      
+        (
+        ϕ
+        ∨
+        ∃
+        x
+        ψ
+        )
+        →
+        ∀
+        z
+        ρ
+      
+    
+    {\displaystyle (\phi \lor \exists x\psi )\rightarrow \forall z\rho }
+  .By recursively applying the rules starting at the innermost subformulas, the following sequence of logically equivalent formulas can be obtained:
+
+  
+    
+      
+        (
+        ϕ
+        ∨
+        ∃
+        x
+        ψ
+        )
+        →
+        ∀
+        z
+        ρ
+      
+    
+    {\displaystyle (\phi \lor \exists x\psi )\rightarrow \forall z\rho }
+  .
+
+  
+    
+      
+        (
+        ∃
+        x
+        (
+        ϕ
+        ∨
+        ψ
+        )
+        )
+        →
+        ∀
+        z
+        ρ
+      
+    
+    {\displaystyle (\exists x(\phi \lor \psi ))\rightarrow \forall z\rho }
+  ,
+
+  
+    
+      
+        ¬
+        (
+        ∃
+        x
+        (
+        ϕ
+        ∨
+        ψ
+        )
+        )
+        ∨
+        ∀
+        z
+        ρ
+      
+    
+    {\displaystyle \neg (\exists x(\phi \lor \psi ))\lor \forall z\rho }
+  ,
+
+  
+    
+      
+        (
+        ∀
+        x
+        ¬
+        (
+        ϕ
+        ∨
+        ψ
+        )
+        )
+        ∨
+        ∀
+        z
+        ρ
+      
+    
+    {\displaystyle (\forall x\neg (\phi \lor \psi ))\lor \forall z\rho }
+  ,
+
+  
+    
+      
+        ∀
+        x
+        (
+        ¬
+        (
+        ϕ
+        ∨
+        ψ
+        )
+        ∨
+        ∀
+        z
+        ρ
+        )
+      
+    
+    {\displaystyle \forall x(\neg (\phi \lor \psi )\lor \forall z\rho )}
+  ,
+
+  
+    
+      
+        ∀
+        x
+        (
+        (
+        ϕ
+        ∨
+        ψ
+        )
+        →
+        ∀
+        z
+        ρ
+        )
+      
+    
+    {\displaystyle \forall x((\phi \lor \psi )\rightarrow \forall z\rho )}
+  ,
+
+  
+    
+      
+        ∀
+        x
+        (
+        ∀
+        z
+        (
+        (
+        ϕ
+        ∨
+        ψ
+        )
+        →
+        ρ
+        )
+        )
+      
+    
+    {\displaystyle \forall x(\forall z((\phi \lor \psi )\rightarrow \rho ))}
+  ,
+
+  
+    
+      
+        ∀
+        x
+        ∀
+        z
+        (
+        (
+        ϕ
+        ∨
+        ψ
+        )
+        →
+        ρ
+        )
+      
+    
+    {\displaystyle \forall x\forall z((\phi \lor \psi )\rightarrow \rho )}
+  .This is not the only prenex form equivalent to the original formula.  For example, by dealing with the consequent before the antecedent in the example above, the prenex form
+
+  
+    
+      
+        ∀
+        z
+        ∀
+        x
+        (
+        (
+        ϕ
+        ∨
+        ψ
+        )
+        →
+        ρ
+        )
+      
+    
+    {\displaystyle \forall z\forall x((\phi \lor \psi )\rightarrow \rho )}
+  can be obtained: 
+
+  
+    
+      
+        ∀
+        z
+        (
+        (
+        ϕ
+        ∨
+        ∃
+        x
+        ψ
+        )
+        →
+        ρ
+        )
+      
+    
+    {\displaystyle \forall z((\phi \lor \exists x\psi )\rightarrow \rho )}
+  
+
+  
+    
+      
+        ∀
+        z
+        (
+        (
+        ∃
+        x
+        (
+        ϕ
+        ∨
+        ψ
+        )
+        )
+        →
+        ρ
+        )
+      
+    
+    {\displaystyle \forall z((\exists x(\phi \lor \psi ))\rightarrow \rho )}
+  ,
+
+  
+    
+      
+        ∀
+        z
+        (
+        ∀
+        x
+        (
+        (
+        ϕ
+        ∨
+        ψ
+        )
+        →
+        ρ
+        )
+        )
+      
+    
+    {\displaystyle \forall z(\forall x((\phi \lor \psi )\rightarrow \rho ))}
+  ,
+
+  
+    
+      
+        ∀
+        z
+        ∀
+        x
+        (
+        (
+        ϕ
+        ∨
+        ψ
+        )
+        →
+        ρ
+        )
+      
+    
+    {\displaystyle \forall z\forall x((\phi \lor \psi )\rightarrow \rho )}
+  .The ordering of the two universal quantifier with the same scope doesn't change the meaning/truth value of the statement.
+
+Intuitionistic logic
+The rules for converting a formula to prenex form make heavy use of classical logic.  In intuitionistic logic, it is not true that every formula is logically equivalent to a prenex formula.  The negation connective is one obstacle, but not the only one.  The implication operator is also treated differently in intuitionistic logic than classical logic; in intuitionistic logic, it is not definable using disjunction and negation.  
+The BHK interpretation illustrates why some formulas have no intuitionistically-equivalent prenex form. In this interpretation, a proof of 
+
+  
+    
+      
+        (
+        ∃
+        x
+        ϕ
+        )
+        →
+        ∃
+        y
+        ψ
+        
+        (
+        1
+        )
+      
+    
+    {\displaystyle (\exists x\phi )\rightarrow \exists y\psi \qquad (1)}
+  is a function which, given a concrete x and a proof of 
+  
+    
+      
+        ϕ
+        (
+        x
+        )
+      
+    
+    {\displaystyle \phi (x)}
+  , produces a concrete y and a proof of 
+  
+    
+      
+        ψ
+        (
+        y
+        )
+      
+    
+    {\displaystyle \psi (y)}
+  .  In this case it is allowable for the value of y to be computed from the given value of x.  A proof of 
+
+  
+    
+      
+        ∃
+        y
+        (
+        ∃
+        x
+        ϕ
+        →
+        ψ
+        )
+        ,
+        
+        (
+        2
+        )
+      
+    
+    {\displaystyle \exists y(\exists x\phi \rightarrow \psi ),\qquad (2)}
+  on the other hand, produces a single concrete value of y and a function that converts any proof of 
+  
+    
+      
+        ∃
+        x
+        ϕ
+      
+    
+    {\displaystyle \exists x\phi }
+   into a proof of 
+  
+    
+      
+        ψ
+        (
+        y
+        )
+      
+    
+    {\displaystyle \psi (y)}
+  .   If each x  satisfying 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   can be used to construct a y satisfying 
+  
+    
+      
+        ψ
+      
+    
+    {\displaystyle \psi }
+   but no such y can be constructed without knowledge of such an x then formula (1) will not be equivalent to formula (2).
+The rules for converting a formula to prenex form that do fail in intuitionistic logic are:
+
+(1) 
+  
+    
+      
+        ∀
+        x
+        (
+        ϕ
+        ∨
+        ψ
+        )
+      
+    
+    {\displaystyle \forall x(\phi \lor \psi )}
+   implies 
+  
+    
+      
+        (
+        ∀
+        x
+        ϕ
+        )
+        ∨
+        ψ
+      
+    
+    {\displaystyle (\forall x\phi )\lor \psi }
+  ,
+(2) 
+  
+    
+      
+        ∀
+        x
+        (
+        ϕ
+        ∨
+        ψ
+        )
+      
+    
+    {\displaystyle \forall x(\phi \lor \psi )}
+   implies 
+  
+    
+      
+        ϕ
+        ∨
+        (
+        ∀
+        x
+        ψ
+        )
+      
+    
+    {\displaystyle \phi \lor (\forall x\psi )}
+  ,
+(3) 
+  
+    
+      
+        (
+        ∀
+        x
+        ϕ
+        )
+        →
+        ψ
+      
+    
+    {\displaystyle (\forall x\phi )\rightarrow \psi }
+   implies 
+  
+    
+      
+        ∃
+        x
+        (
+        ϕ
+        →
+        ψ
+        )
+      
+    
+    {\displaystyle \exists x(\phi \rightarrow \psi )}
+  ,
+(4) 
+  
+    
+      
+        ϕ
+        →
+        (
+        ∃
+        x
+        ψ
+        )
+      
+    
+    {\displaystyle \phi \rightarrow (\exists x\psi )}
+   implies 
+  
+    
+      
+        ∃
+        x
+        (
+        ϕ
+        →
+        ψ
+        )
+      
+    
+    {\displaystyle \exists x(\phi \rightarrow \psi )}
+  ,
+(5) 
+  
+    
+      
+        ¬
+        ∀
+        x
+        ϕ
+      
+    
+    {\displaystyle \lnot \forall x\phi }
+   implies 
+  
+    
+      
+        ∃
+        x
+        ¬
+        ϕ
+      
+    
+    {\displaystyle \exists x\lnot \phi }
+  ,(x does not appear as a free variable of 
+  
+    
+      
+        
+        ψ
+      
+    
+    {\displaystyle \,\psi }
+   in (1) and (3); x does not appear as a free variable of 
+  
+    
+      
+        
+        ϕ
+      
+    
+    {\displaystyle \,\phi }
+   in (2) and (4)).
+
+Use of prenex form
+Some proof calculi will only deal with a theory whose formulae are written in prenex normal form. The concept is essential for developing the arithmetical hierarchy and the analytical hierarchy.
+Gödel's proof of his completeness theorem for first-order logic presupposes that all formulae have been recast in prenex normal form.
+Tarski's axioms for geometry is a logical system whose sentences can all be written in universal–existential form, a special case of the prenex normal form that has every universal quantifier preceding any existential quantifier, so that all sentences can be rewritten in the form 
+  
+    
+      
+        ∀
+        u
+      
+    
+    {\displaystyle \forall u}
+   
+  
+    
+      
+        ∀
+        v
+      
+    
+    {\displaystyle \forall v}
+   
+  
+    
+      
+        …
+      
+    
+    {\displaystyle \ldots }
+   
+  
+    
+      
+        ∃
+        a
+      
+    
+    {\displaystyle \exists a}
+   
+  
+    
+      
+        ∃
+        b
+      
+    
+    {\displaystyle \exists b}
+   
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+  , where 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   is a sentence that does not contain any quantifier. This fact allowed Tarski to prove that Euclidean geometry is decidable.
+
+See also
+Arithmetical hierarchy
+Herbrandization
+Skolemization
+
+Notes
+References
+Richard L. Epstein (18 December 2011). Classical Mathematical Logic: The Semantic Foundations of Logic. Princeton University Press. pp. 108–. ISBN 978-1-4008-4155-4.
+Peter B. Andrews (17 April 2013). An Introduction to Mathematical Logic and Type Theory: To Truth Through Proof. Springer Science & Business Media. pp. 111–. ISBN 978-94-015-9934-4.
+Elliott Mendelson (1 June 1997). Introduction to Mathematical Logic, Fourth Edition. CRC Press. pp. 109–. ISBN 978-0-412-80830-2.
+Hinman, Peter (2005), Fundamentals of Mathematical Logic, A K Peters, ISBN 978-1-56881-262-5

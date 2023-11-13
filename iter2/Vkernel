@@ -1,0 +1,15 @@
+A virtual kernel architecture (vkernel) is an operating system virtualisation paradigm where kernel code can be compiled to run in the user space, for example, to ease debugging of various kernel-level components, in addition to general-purpose virtualisation and compartmentalisation of system resources.  It is used by DragonFly BSD in its vkernel implementation since DragonFly 1.7, having been first revealed in September 2006 (2006-09), and first released in the stable branch with DragonFly 1.8 in January 2007 (2007-01).
+The long-term goal, in addition to easing kernel development, is to make it easier to support internet-connected computer clusters without compromising local security.
+Similar concepts exist in other operating systems as well; in Linux, a similar virtualisation concept is known as user-mode Linux; whereas in NetBSD since the summer of 2007, it has been the initial focus of the rump kernel infrastructure.The virtual kernel concept is nearly the exact opposite of the unikernel concept — with vkernel, kernel components get to run in userspace to ease kernel development and debugging, supported by a regular operating system kernel; whereas with a unikernel, userspace-level components get to run directly in kernel space for extra performance, supported by baremetal hardware or a hardware virtualisation stack.  However, both vkernels and unikernels can be used for similar tasks as well, for example, to self-contain software to a virtualised environment with low overhead.  In fact, NetBSD's rump kernel, originally having a focus of running kernel components in userspace, has since shifted into the unikernel space as well (going after the anykernel moniker for supporting both paradigms).
+The vkernel concept is different from a FreeBSD jail in that a jail is only meant for resource isolation, and cannot be used to develop and test new kernel functionality in the userland, because each jail is sharing the same kernel.  (DragonFly, however, still has FreeBSD jail support as well.)
+In DragonFly, the vkernel can be thought of as a first-class computer architecture, comparable to i386 or amd64, and, according to Matthew Dillon circa 2007, can be used as a starting point for porting DragonFly BSD to new architectures.
+DragonFly's vkernel is supported by the host kernel through new system calls that help manage virtual memory address space (vmspace) — vmspace_create() et al., as well as extensions to several existing system calls like mmap's madvise — mcontrol.
+
+See also
+user-mode Linux
+rump kernel
+
+References
+External links
+vkernel(7) man-page
+The DragonFly virtual kernels

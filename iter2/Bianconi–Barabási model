@@ -1,0 +1,1174 @@
+The Bianconi–Barabási model is a model in network science that explains the growth of complex evolving networks. This model can explain that nodes with different characteristics acquire links at different rates. It predicts that a node's growth depends on its fitness and can calculate the degree distribution. The Bianconi–Barabási model  is named after its inventors Ginestra Bianconi and Albert-László Barabási. This model is a variant of the  Barabási–Albert model. The model can be mapped to a Bose gas and this mapping can predict a topological phase transition between a "rich-get-richer" phase and a "winner-takes-all" phase.
+
+Concepts
+The Barabási–Albert (BA) model uses two concepts: growth and preferential attachment. Here, growth indicates the increase in the number of nodes in the network with time, and preferential attachment means that more connected nodes receive more links. The Bianconi–Barabási model, on top of these two concepts, uses another new concept called the fitness. This model makes use of an analogy with evolutionary models. It assigns an intrinsic fitness value to each node, which embodies all the properties other than the degree. The higher the fitness, the higher the probability of attracting new edges. Fitness can be defined as the ability to attract new links – "a quantitative measure of a node's ability to stay in front of the competition".While the Barabási–Albert (BA) model explains the "first mover advantage" phenomenon, the Bianconi–Barabási model explains how latecomers also can win. In a network where fitness is an attribute, a node with higher fitness will acquire links at a higher rate than less fit nodes. This model explains that age is not the best predictor of a node's success, rather latecomers also have the chance to attract links to become a hub.
+The Bianconi–Barabási model can reproduce the degree correlations of the Internet Autonomous Systems. This model can also show condensation phase transitions in the evolution of complex network.
+The BB model can predict the topological properties of Internet.
+
+Algorithm
+The fitness network begins with a fixed number of interconnected nodes. They have different fitness, which can be described with fitness parameter,  
+  
+    
+      
+        
+          η
+          
+            j
+          
+        
+      
+    
+    {\displaystyle \eta _{j}}
+   which is chosen from a fitness distribution 
+  
+    
+      
+        ρ
+        (
+        η
+        )
+      
+    
+    {\displaystyle \rho (\eta )}
+  .
+
+Growth
+The assumption here is that a node’s fitness is independent of time, and is fixed. 
+A new node j with m links and a fitness  
+  
+    
+      
+        
+          η
+          
+            j
+          
+        
+      
+    
+    {\displaystyle \eta _{j}}
+   is added with each time-step.
+
+Preferential attachment
+The probability 
+  
+    
+      
+        
+          Π
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \Pi _{i}}
+   that a new node connects to one of the existing links to a node 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   in the network depends on the number of edges, 
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+      
+    
+    {\displaystyle k_{i}}
+  , and on the fitness 
+  
+    
+      
+        
+          η
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \eta _{i}}
+   of node 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  , such that,
+
+  
+    
+      
+        
+          Π
+          
+            i
+          
+        
+        =
+        
+          
+            
+              
+                η
+                
+                  i
+                
+              
+              
+                k
+                
+                  i
+                
+              
+            
+            
+              
+                ∑
+                
+                  j
+                
+              
+              
+                η
+                
+                  j
+                
+              
+              
+                k
+                
+                  j
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \Pi _{i}={\frac {\eta _{i}k_{i}}{\sum _{j}\eta _{j}k_{j}}}.}
+  Each node’s evolution with time can be predicted using the continuum theory. If initial number of node is 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  , then the degree of node 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   changes at the rate:
+
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                k
+                
+                  i
+                
+              
+            
+            
+              ∂
+              t
+            
+          
+        
+        =
+        m
+        
+          
+            
+              
+                η
+                
+                  i
+                
+              
+              
+                k
+                
+                  i
+                
+              
+            
+            
+              
+                ∑
+                
+                  j
+                
+              
+              
+                η
+                
+                  j
+                
+              
+              
+                k
+                
+                  j
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial k_{i}}{\partial t}}=m{\frac {\eta _{i}k_{i}}{\sum _{j}\eta _{j}k_{j}}}}
+  Assuming the evolution of 
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+      
+    
+    {\displaystyle k_{i}}
+   follows a power law with a fitness exponent 
+  
+    
+      
+        β
+        (
+        
+          η
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle \beta (\eta _{i})}
+  
+
+  
+    
+      
+        k
+        (
+        t
+        ,
+        
+          t
+          
+            i
+          
+        
+        ,
+        
+          η
+          
+            i
+          
+        
+        )
+        =
+        m
+        
+          
+            (
+            
+              
+                t
+                
+                  t
+                  
+                    i
+                  
+                
+              
+            
+            )
+          
+          
+            β
+            (
+            
+              η
+              
+                i
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle k(t,t_{i},\eta _{i})=m\left({\frac {t}{t_{i}}}\right)^{\beta (\eta _{i})}}
+  ,where 
+  
+    
+      
+        
+          t
+          
+            i
+          
+        
+      
+    
+    {\displaystyle t_{i}}
+   is the time since the creation of node 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  .
+Here, 
+  
+    
+      
+        β
+        (
+        η
+        )
+        =
+        
+          
+            η
+            C
+          
+        
+        
+           and 
+        
+        C
+        =
+        ∫
+        ρ
+        (
+        η
+        )
+        
+          
+            η
+            
+              1
+              −
+              β
+              (
+              η
+              )
+            
+          
+        
+        
+        d
+        η
+        .
+      
+    
+    {\displaystyle \beta (\eta )={\frac {\eta }{C}}{\text{ and }}C=\int \rho (\eta ){\frac {\eta }{1-\beta (\eta )}}\,d\eta .}
+
+Properties
+Equal fitnesses
+If all fitnesses are equal in a fitness network, the Bianconi–Barabási model reduces to the Barabási–Albert model, when the degree is not considered, the model reduces to the fitness model (network theory).
+When fitnesses are equal, the probability 
+  
+    
+      
+        
+          Π
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \Pi _{i}}
+   that the new node is connected to node 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   when 
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+      
+    
+    {\displaystyle k_{i}}
+   is the degree of node 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   is,
+
+  
+    
+      
+        
+          Π
+          
+            i
+          
+        
+        =
+        
+          
+            
+              k
+              
+                i
+              
+            
+            
+              
+                ∑
+                
+                  j
+                
+              
+              
+                k
+                
+                  j
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \Pi _{i}={\frac {k_{i}}{\sum _{j}k_{j}}}.}
+
+Degree distribution
+Degree distribution of the Bianconi–Barabási model depends on the fitness distribution 
+  
+    
+      
+        ρ
+        (
+        η
+        )
+      
+    
+    {\displaystyle \rho (\eta )}
+  . There are two scenarios that can happen based on the probability distribution. If the fitness distribution  has a finite domain, then the degree distribution will have a power-law just like the BA model. In the second case, if the fitness distribution has an infinite domain, then the node with the highest fitness value will attract a large number of nodes and show a winners-take-all scenario.
+
+Measuring node fitnesses from empirical network data
+There are various statistical methods to measure node fitnesses 
+  
+    
+      
+        
+          η
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \eta _{i}}
+   in the Bianconi–Barabási model from real-world network data.  From the measurement, one can investigate the fitness distribution 
+  
+    
+      
+        ρ
+        (
+        η
+        )
+      
+    
+    {\displaystyle \rho (\eta )}
+   or compare the Bianconi–Barabási model with various competing network models in that particular network.
+
+Variations of the Bianconi–Barabási model
+The Bianconi–Barabási model has been extended to weighted networks  displaying linear and superlinear scaling of the strength with the degree of the nodes as observed in real network data. This weighted model can  lead to condensation of the weights of the network when few links acquire a finite fraction of the weight of the entire network.
+Recently it has been shown that the Bianconi–Barabási model can be interpreted as a limit case of the model for emergent hyperbolic network geometry  called Network Geometry with Flavor. 
+The Bianconi–Barabási model can be also modified to study  static networks where the number of nodes is fixed.
+
+Bose-Einstein condensation
+Bose–Einstein condensation in networks is a phase transition observed in complex networks that can be described by the Bianconi–Barabási model. This phase transition predicts a "winner-takes-all" phenomena in complex networks and  can be mathematically mapped to the mathematical model  explaining Bose–Einstein condensation in physics.
+
+Background
+In physics, a Bose–Einstein condensate is a state of matter that occurs in certain gases at very low temperatures. Any elementary particle, atom, or molecule, can be classified as one of two types: a boson or a fermion. For example, an electron is a fermion, while a photon or a helium atom is a boson.  In quantum mechanics, the energy of a (bound) particle is limited to a set of discrete values, called energy levels. An important characteristic of a fermion is that it obeys the Pauli exclusion principle, which states that no two fermions may occupy the same state. Bosons, on the other hand, do not obey the exclusion principle, and any number can exist in the same state. As a result, at very low energies (or temperatures), a great majority of the bosons in a Bose gas can be crowded into the lowest energy state, creating a Bose–Einstein condensate.
+Bose and Einstein have established that the statistical properties of a Bose gas are governed by the Bose–Einstein statistics. In Bose–Einstein statistics, any number of identical bosons can be in the same state. In particular, given an energy state ε, the number of non-interacting bosons in thermal equilibrium at temperature T = 1/β is given by the Bose occupation number
+
+  
+    
+      
+        n
+        (
+        ε
+        )
+        =
+        
+          
+            1
+            
+              
+                e
+                
+                  β
+                  (
+                  ε
+                  −
+                  μ
+                  )
+                
+              
+              −
+              1
+            
+          
+        
+      
+    
+    {\displaystyle n(\varepsilon )={\frac {1}{e^{\beta (\varepsilon -\mu )}-1}}}
+  where the constant μ is determined by an equation describing the conservation of the number of particles
+
+  
+    
+      
+        N
+        =
+        ∫
+        d
+        ε
+        
+        g
+        (
+        ε
+        )
+        
+        n
+        (
+        ε
+        )
+      
+    
+    {\displaystyle N=\int d\varepsilon \,g(\varepsilon )\,n(\varepsilon )}
+  with g(ε) being the density of states of the system.
+This last equation may lack a solution at low enough temperatures when g(ε) → 0 for ε → 0. In this case a critical temperature Tc is found such that for T < Tc the system is in a Bose-Einstein condensed phase and a finite fraction of the bosons are in the ground state.
+The density of states g(ε) depends on the dimensionality of the space.  In particular 
+  
+    
+      
+        g
+        (
+        ε
+        )
+        ∼
+        
+          ε
+          
+            
+              
+                d
+                −
+                2
+              
+              2
+            
+          
+        
+      
+    
+    {\displaystyle g(\varepsilon )\sim \varepsilon ^{\frac {d-2}{2}}}
+   therefore g(ε) → 0 for ε → 0 only in dimensions d > 2. Therefore, a Bose-Einstein condensation of an ideal Bose gas can only occur for dimensions d > 2.
+
+The concept
+The evolution of many complex systems, including the World Wide Web, business, and citation networks, is encoded in the dynamic web describing the interactions between the system’s constituents. The evolution of these networks is captured by the Bianconi-Barabási model, which includes two main characteristics of growing networks: their constant growth by the addition of new nodes and links and the heterogeneous ability of each node to acquire new links described by the node fitness. Therefore the model is also known as fitness model.
+Despite their irreversible and nonequilibrium nature, these networks follow the Bose statistics and can be mapped to a Bose gas.
+In this mapping, each node is mapped to an energy state determined by its fitness and each new link attached to a given node is mapped to a Bose particle occupying the corresponding energy state. This mapping predicts that the Bianconi–Barabási model can undergo a topological phase transition in correspondence to the  Bose–Einstein condensation of the Bose gas. This phase transition is therefore called Bose-Einstein condensation in complex networks.
+Consequently addressing  the dynamical properties of these nonequilibrium systems within the framework of equilibrium quantum gases predicts that the “first-mover-advantage,” “fit-get-rich (FGR),” and “winner-takes-all” phenomena observed in a competitive systems are thermodynamically distinct phases of the underlying evolving networks.
+
+The mathematical mapping of the network evolution to the Bose gas
+Starting from the Bianconi-Barabási model, the mapping of a Bose gas to a network can be done by assigning an energy εi to each node, determined by its fitness through the relation
+
+  
+    
+      
+        
+          ε
+          
+            i
+          
+        
+        =
+        −
+        
+          
+            1
+            β
+          
+        
+        ln
+        ⁡
+        
+          
+            η
+            
+              i
+            
+          
+        
+      
+    
+    {\displaystyle \varepsilon _{i}=-{\frac {1}{\beta }}\ln {\eta _{i}}}
+  where β = 1 / T . In particular when β = 0 all the nodes have equal fitness, when instead β ≫ 1 nodes with different "energy" have very different fitness. We assume that the network evolves through a modified preferential attachment mechanism. At each time a new node i with energy εi drawn from a probability distribution p(ε) enters in the network and attach a new link to a node j chosen with probability:
+
+  
+    
+      
+        
+          Π
+          
+            j
+          
+        
+        =
+        
+          
+            
+              
+                e
+                
+                  −
+                  β
+                  
+                    ε
+                    
+                      j
+                    
+                  
+                
+              
+              
+                k
+                
+                  j
+                
+              
+            
+            
+              
+                ∑
+                
+                  r
+                
+              
+              
+                e
+                
+                  −
+                  β
+                  
+                    ε
+                    
+                      r
+                    
+                  
+                
+              
+              
+                k
+                
+                  r
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \Pi _{j}={\frac {e^{-\beta \varepsilon _{j}}k_{j}}{\sum _{r}e^{-\beta \varepsilon _{r}}k_{r}}}.}
+  In the mapping to a Bose gas, we assign to every new link linked by preferential attachment to node j a particle in the energy state εj.
+The continuum theory predicts that the rate at which links accumulate on node i with "energy" εi is given by
+
+  
+    
+      
+        
+          
+            
+              ∂
+              
+                k
+                
+                  i
+                
+              
+              (
+              
+                ε
+                
+                  i
+                
+              
+              ,
+              t
+              ,
+              
+                t
+                
+                  i
+                
+              
+              )
+            
+            
+              ∂
+              t
+            
+          
+        
+        =
+        m
+        
+          
+            
+              
+                e
+                
+                  −
+                  β
+                  
+                    ε
+                    
+                      i
+                    
+                  
+                
+              
+              
+                k
+                
+                  i
+                
+              
+              (
+              
+                ε
+                
+                  i
+                
+              
+              ,
+              t
+              ,
+              
+                t
+                
+                  i
+                
+              
+              )
+            
+            
+              Z
+              
+                t
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial k_{i}(\varepsilon _{i},t,t_{i})}{\partial t}}=m{\frac {e^{-\beta \varepsilon _{i}}k_{i}(\varepsilon _{i},t,t_{i})}{Z_{t}}}}
+  where 
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+        (
+        
+          ε
+          
+            i
+          
+        
+        ,
+        t
+        ,
+        
+          t
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle k_{i}(\varepsilon _{i},t,t_{i})}
+   indicating the number of links attached to node i that was added to the network at the time step 
+  
+    
+      
+        
+          t
+          
+            i
+          
+        
+      
+    
+    {\displaystyle t_{i}}
+  . 
+  
+    
+      
+        
+          Z
+          
+            t
+          
+        
+      
+    
+    {\displaystyle Z_{t}}
+   is the partition function, defined as:
+
+  
+    
+      
+        
+          Z
+          
+            t
+          
+        
+        =
+        
+          ∑
+          
+            i
+          
+        
+        
+          e
+          
+            −
+            β
+            
+              ε
+              
+                i
+              
+            
+          
+        
+        
+          k
+          
+            i
+          
+        
+        (
+        
+          ε
+          
+            i
+          
+        
+        ,
+        t
+        ,
+        
+          t
+          
+            i
+          
+        
+        )
+        .
+      
+    
+    {\displaystyle Z_{t}=\sum _{i}e^{-\beta \varepsilon _{i}}k_{i}(\varepsilon _{i},t,t_{i}).}
+  The solution of this differential equation is:
+
+  
+    
+      
+        
+          k
+          
+            i
+          
+        
+        (
+        
+          ε
+          
+            i
+          
+        
+        ,
+        t
+        ,
+        
+          t
+          
+            i
+          
+        
+        )
+        =
+        m
+        
+          
+            (
+            
+              
+                t
+                
+                  t
+                  
+                    i
+                  
+                
+              
+            
+            )
+          
+          
+            f
+            (
+            
+              ε
+              
+                i
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle k_{i}(\varepsilon _{i},t,t_{i})=m\left({\frac {t}{t_{i}}}\right)^{f(\varepsilon _{i})}}
+  where the dynamic exponent 
+  
+    
+      
+        f
+        (
+        ε
+        )
+      
+    
+    {\displaystyle f(\varepsilon )}
+   satisfies 
+  
+    
+      
+        f
+        (
+        ε
+        )
+        =
+        
+          e
+          
+            −
+            β
+            (
+            ε
+            −
+            μ
+            )
+          
+        
+      
+    
+    {\displaystyle f(\varepsilon )=e^{-\beta (\varepsilon -\mu )}}
+  , μ plays the role of the chemical potential, satisfying the equation
+
+  
+    
+      
+        ∫
+        d
+        ε
+        
+        p
+        (
+        ε
+        )
+        
+          
+            1
+            
+              
+                e
+                
+                  β
+                  (
+                  ε
+                  −
+                  μ
+                  )
+                
+              
+              −
+              1
+            
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle \int d\varepsilon \,p(\varepsilon ){\frac {1}{e^{\beta (\varepsilon -\mu )}-1}}=1}
+  where p(ε) is the probability that a node has "energy" ε and "fitness" η = e−βε. In the limit, t → ∞, the occupation number, giving the number of links linked to nodes with "energy" ε, follows the familiar Bose statistics
+
+  
+    
+      
+        n
+        (
+        ε
+        )
+        =
+        
+          
+            1
+            
+              
+                e
+                
+                  β
+                  (
+                  ε
+                  −
+                  μ
+                  )
+                
+              
+              −
+              1
+            
+          
+        
+        .
+      
+    
+    {\displaystyle n(\varepsilon )={\frac {1}{e^{\beta (\varepsilon -\mu )}-1}}.}
+  The definition of the constant μ in the network models is surprisingly similar to the definition of the chemical potential in a Bose gas. In particular for probabilities p(ε) such that p(ε) → 0 for ε → 0 at high enough value of β we have a condensation phase transition in the network model. When this occurs, one node, the one with higher fitness acquires a finite fraction of all the links. The Bose–Einstein condensation in complex networks is, therefore, a topological phase transition after which the network has a star-like dominant structure.
+
+Bose–Einstein phase transition in complex networks
+The mapping of a Bose gas predicts the existence of two distinct phases as a function of the energy distribution. In the fit-get-rich phase, describing the case of uniform fitness, the fitter nodes acquire edges at a higher rate than older but less fit nodes. In the end the fittest node will have the most edges, but the richest node is not the absolute winner, since its share of the edges (i.e. the ratio of its edges to the total number of edges in the system) reduces to zero in the limit of large system sizes (Fig.2(b)). The unexpected outcome of this mapping is the possibility of Bose–Einstein condensation for T < TBE, when the fittest node acquires a finite fraction of the edges and maintains this share of edges over time (Fig.2(c)).
+A representative fitness distribution 
+  
+    
+      
+        ρ
+        (
+        η
+        )
+      
+    
+    {\displaystyle \rho (\eta )}
+   that leads to condensation is given by
+
+  
+    
+      
+        ρ
+        (
+        η
+        )
+        =
+        (
+        λ
+        +
+        1
+        )
+        (
+        1
+        −
+        η
+        
+          )
+          
+            λ
+          
+        
+        ,
+      
+    
+    {\displaystyle \rho (\eta )=(\lambda +1)(1-\eta )^{\lambda },}
+  where 
+  
+    
+      
+        λ
+        =
+        1
+      
+    
+    {\displaystyle \lambda =1}
+  .
+However, the existence of the Bose–Einstein condensation or the fit-get-rich phase does not depend on the temperature or β of the system but depends only on the functional form of the fitness distribution 
+  
+    
+      
+        ρ
+        (
+        η
+        )
+      
+    
+    {\displaystyle \rho (\eta )}
+   of the system. In the end, β falls out of all topologically important quantities. In fact, it can be shown that Bose–Einstein condensation exists in the fitness model even without mapping to a Bose gas. A similar gelation can be seen in models with superlinear preferential attachment, however, it is not clear whether this is an accident or a deeper connection lies between this and the fitness model.
+
+See also
+Barabási–Albert model
+
+References
+External links
+Networks: A Very Short Introduction 
+Advance Network Dynamics

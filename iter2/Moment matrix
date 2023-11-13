@@ -1,0 +1,1096 @@
+In mathematics, a moment matrix is a special symmetric square matrix whose rows and columns are indexed by monomials. The entries of the matrix depend on the product of the indexing monomials only (cf. Hankel matrices.)
+Moment matrices play an important role in polynomial fitting, polynomial optimization (since positive semidefinite moment matrices correspond to polynomials which are sums of squares) and econometrics.
+
+Application in regression
+A multiple linear regression model can be written as
+
+  
+    
+      
+        y
+        =
+        
+          β
+          
+            0
+          
+        
+        +
+        
+          β
+          
+            1
+          
+        
+        
+          x
+          
+            1
+          
+        
+        +
+        
+          β
+          
+            2
+          
+        
+        
+          x
+          
+            2
+          
+        
+        +
+        …
+        
+          β
+          
+            k
+          
+        
+        
+          x
+          
+            k
+          
+        
+        +
+        u
+      
+    
+    {\displaystyle y=\beta _{0}+\beta _{1}x_{1}+\beta _{2}x_{2}+\dots \beta _{k}x_{k}+u}
+  where 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   is the explained variable, 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        …
+        ,
+        
+          x
+          
+            k
+          
+        
+      
+    
+    {\displaystyle x_{1},x_{2}\dots ,x_{k}}
+   are the explanatory variables, 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   is the error, and 
+  
+    
+      
+        
+          β
+          
+            0
+          
+        
+        ,
+        
+          β
+          
+            1
+          
+        
+        …
+        ,
+        
+          β
+          
+            k
+          
+        
+      
+    
+    {\displaystyle \beta _{0},\beta _{1}\dots ,\beta _{k}}
+   are unknown coefficients to be estimated. Given observations 
+  
+    
+      
+        
+          
+            {
+            
+              
+                y
+                
+                  i
+                
+              
+              ,
+              
+                x
+                
+                  1
+                  i
+                
+              
+              ,
+              
+                x
+                
+                  2
+                  i
+                
+              
+              ,
+              …
+              ,
+              
+                x
+                
+                  k
+                  i
+                
+              
+            
+            }
+          
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \left\{y_{i},x_{1i},x_{2i},\dots ,x_{ki}\right\}_{i=1}^{n}}
+  , we have a system of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   linear equations that can be expressed in matrix notation.
+
+  
+    
+      
+        
+          
+            [
+            
+              
+                
+                  
+                    y
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    y
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    y
+                    
+                      n
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  
+                    x
+                    
+                      11
+                    
+                  
+                
+                
+                  
+                    x
+                    
+                      12
+                    
+                  
+                
+                
+                  …
+                
+                
+                  
+                    x
+                    
+                      1
+                      k
+                    
+                  
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    x
+                    
+                      21
+                    
+                  
+                
+                
+                  
+                    x
+                    
+                      22
+                    
+                  
+                
+                
+                  …
+                
+                
+                  
+                    x
+                    
+                      2
+                      k
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+                
+                  ⋮
+                
+                
+                  ⋮
+                
+                
+                  ⋱
+                
+                
+                  ⋮
+                
+              
+              
+                
+                  1
+                
+                
+                  
+                    x
+                    
+                      n
+                      1
+                    
+                  
+                
+                
+                  
+                    x
+                    
+                      n
+                      2
+                    
+                  
+                
+                
+                  …
+                
+                
+                  
+                    x
+                    
+                      n
+                      k
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        
+          
+            [
+            
+              
+                
+                  
+                    β
+                    
+                      0
+                    
+                  
+                
+              
+              
+                
+                  
+                    β
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    β
+                    
+                      k
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        +
+        
+          
+            [
+            
+              
+                
+                  
+                    u
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    u
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+              
+              
+                
+                  
+                    u
+                    
+                      n
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle {\begin{bmatrix}y_{1}\\y_{2}\\\vdots \\y_{n}\end{bmatrix}}={\begin{bmatrix}1&x_{11}&x_{12}&\dots &x_{1k}\\1&x_{21}&x_{22}&\dots &x_{2k}\\\vdots &\vdots &\vdots &\ddots &\vdots \\1&x_{n1}&x_{n2}&\dots &x_{nk}\\\end{bmatrix}}{\begin{bmatrix}\beta _{0}\\\beta _{1}\\\vdots \\\beta _{k}\end{bmatrix}}+{\begin{bmatrix}u_{1}\\u_{2}\\\vdots \\u_{n}\end{bmatrix}}}
+  or
+
+  
+    
+      
+        
+          y
+        
+        =
+        
+          X
+        
+        
+          β
+        
+        +
+        
+          u
+        
+      
+    
+    {\displaystyle \mathbf {y} =\mathbf {X} {\boldsymbol {\beta }}+\mathbf {u} }
+  where 
+  
+    
+      
+        
+          y
+        
+      
+    
+    {\displaystyle \mathbf {y} }
+   and 
+  
+    
+      
+        
+          u
+        
+      
+    
+    {\displaystyle \mathbf {u} }
+   are each a vector of dimension 
+  
+    
+      
+        n
+        ×
+        1
+      
+    
+    {\displaystyle n\times 1}
+  , 
+  
+    
+      
+        
+          X
+        
+      
+    
+    {\displaystyle \mathbf {X} }
+   is the design matrix of order 
+  
+    
+      
+        N
+        ×
+        (
+        k
+        +
+        1
+        )
+      
+    
+    {\displaystyle N\times (k+1)}
+  , and 
+  
+    
+      
+        
+          β
+        
+      
+    
+    {\displaystyle {\boldsymbol {\beta }}}
+   is a vector of dimension 
+  
+    
+      
+        (
+        k
+        +
+        1
+        )
+        ×
+        1
+      
+    
+    {\displaystyle (k+1)\times 1}
+  . Under the Gauss–Markov assumptions, the best linear unbiased estimator of 
+  
+    
+      
+        
+          β
+        
+      
+    
+    {\displaystyle {\boldsymbol {\beta }}}
+   is the linear least squares estimator 
+  
+    
+      
+        
+          b
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  X
+                
+                
+                  
+                    T
+                  
+                
+              
+              
+                X
+              
+            
+            )
+          
+          
+            −
+            1
+          
+        
+        
+          
+            X
+          
+          
+            
+              T
+            
+          
+        
+        
+          y
+        
+      
+    
+    {\displaystyle \mathbf {b} =\left(\mathbf {X} ^{\mathsf {T}}\mathbf {X} \right)^{-1}\mathbf {X} ^{\mathsf {T}}\mathbf {y} }
+  , involving the two moment matrices 
+  
+    
+      
+        
+          
+            X
+          
+          
+            
+              T
+            
+          
+        
+        
+          X
+        
+      
+    
+    {\displaystyle \mathbf {X} ^{\mathsf {T}}\mathbf {X} }
+   and 
+  
+    
+      
+        
+          
+            X
+          
+          
+            
+              T
+            
+          
+        
+        
+          y
+        
+      
+    
+    {\displaystyle \mathbf {X} ^{\mathsf {T}}\mathbf {y} }
+   defined as
+
+  
+    
+      
+        
+          
+            X
+          
+          
+            
+              T
+            
+          
+        
+        
+          X
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  n
+                
+                
+                  ∑
+                  
+                    x
+                    
+                      i
+                      1
+                    
+                  
+                
+                
+                  ∑
+                  
+                    x
+                    
+                      i
+                      2
+                    
+                  
+                
+                
+                  …
+                
+                
+                  ∑
+                  
+                    x
+                    
+                      i
+                      k
+                    
+                  
+                
+              
+              
+                
+                  ∑
+                  
+                    x
+                    
+                      i
+                      1
+                    
+                  
+                
+                
+                  ∑
+                  
+                    x
+                    
+                      i
+                      1
+                    
+                    
+                      2
+                    
+                  
+                
+                
+                  ∑
+                  
+                    x
+                    
+                      i
+                      1
+                    
+                  
+                  
+                    x
+                    
+                      i
+                      2
+                    
+                  
+                
+                
+                  …
+                
+                
+                  ∑
+                  
+                    x
+                    
+                      i
+                      1
+                    
+                  
+                  
+                    x
+                    
+                      i
+                      k
+                    
+                  
+                
+              
+              
+                
+                  ∑
+                  
+                    x
+                    
+                      i
+                      2
+                    
+                  
+                
+                
+                  ∑
+                  
+                    x
+                    
+                      i
+                      1
+                    
+                  
+                  
+                    x
+                    
+                      i
+                      2
+                    
+                  
+                
+                
+                  ∑
+                  
+                    x
+                    
+                      i
+                      2
+                    
+                    
+                      2
+                    
+                  
+                
+                
+                  …
+                
+                
+                  ∑
+                  
+                    x
+                    
+                      i
+                      2
+                    
+                  
+                  
+                    x
+                    
+                      i
+                      k
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+                
+                  ⋮
+                
+                
+                  ⋮
+                
+                
+                  ⋱
+                
+                
+                  ⋮
+                
+              
+              
+                
+                  ∑
+                  
+                    x
+                    
+                      i
+                      k
+                    
+                  
+                
+                
+                  ∑
+                  
+                    x
+                    
+                      i
+                      1
+                    
+                  
+                  
+                    x
+                    
+                      i
+                      k
+                    
+                  
+                
+                
+                  ∑
+                  
+                    x
+                    
+                      i
+                      2
+                    
+                  
+                  
+                    x
+                    
+                      i
+                      k
+                    
+                  
+                
+                
+                  …
+                
+                
+                  ∑
+                  
+                    x
+                    
+                      i
+                      k
+                    
+                    
+                      2
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle \mathbf {X} ^{\mathsf {T}}\mathbf {X} ={\begin{bmatrix}n&\sum x_{i1}&\sum x_{i2}&\dots &\sum x_{ik}\\\sum x_{i1}&\sum x_{i1}^{2}&\sum x_{i1}x_{i2}&\dots &\sum x_{i1}x_{ik}\\\sum x_{i2}&\sum x_{i1}x_{i2}&\sum x_{i2}^{2}&\dots &\sum x_{i2}x_{ik}\\\vdots &\vdots &\vdots &\ddots &\vdots \\\sum x_{ik}&\sum x_{i1}x_{ik}&\sum x_{i2}x_{ik}&\dots &\sum x_{ik}^{2}\end{bmatrix}}}
+  and
+
+  
+    
+      
+        
+          
+            X
+          
+          
+            
+              T
+            
+          
+        
+        
+          y
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  ∑
+                  
+                    y
+                    
+                      i
+                    
+                  
+                
+              
+              
+                
+                  ∑
+                  
+                    x
+                    
+                      i
+                      1
+                    
+                  
+                  
+                    y
+                    
+                      i
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+              
+              
+                
+                  ∑
+                  
+                    x
+                    
+                      i
+                      k
+                    
+                  
+                  
+                    y
+                    
+                      i
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle \mathbf {X} ^{\mathsf {T}}\mathbf {y} ={\begin{bmatrix}\sum y_{i}\\\sum x_{i1}y_{i}\\\vdots \\\sum x_{ik}y_{i}\end{bmatrix}}}
+  where 
+  
+    
+      
+        
+          
+            X
+          
+          
+            
+              T
+            
+          
+        
+        
+          X
+        
+      
+    
+    {\displaystyle \mathbf {X} ^{\mathsf {T}}\mathbf {X} }
+   is a square normal matrix of dimension 
+  
+    
+      
+        (
+        k
+        +
+        1
+        )
+        ×
+        (
+        k
+        +
+        1
+        )
+      
+    
+    {\displaystyle (k+1)\times (k+1)}
+  , and 
+  
+    
+      
+        
+          
+            X
+          
+          
+            
+              T
+            
+          
+        
+        
+          y
+        
+      
+    
+    {\displaystyle \mathbf {X} ^{\mathsf {T}}\mathbf {y} }
+   is a vector of dimension 
+  
+    
+      
+        (
+        k
+        +
+        1
+        )
+        ×
+        1
+      
+    
+    {\displaystyle (k+1)\times 1}
+  .
+
+See also
+Design matrix
+Gramian matrix
+Projection matrix
+
+References
+External links
+"Moment matrix", Encyclopedia of Mathematics, EMS Press, 2001 [1994]

@@ -1,0 +1,478 @@
+A Boolean network consists of a discrete set of boolean variables each of which has a Boolean function (possibly different for each variable) assigned to it which takes inputs from a subset of those variables and output that determines the state of the variable it is assigned to.  This set of functions in effect determines a topology (connectivity) on the set of variables, which then become nodes in a network. Usually, the dynamics of the system is taken as a discrete time series where the state of the entire network at time t+1 is determined by evaluating each variable's function on the state of the network at time t.  This may be done synchronously or asynchronously.Boolean networks have been used in biology to model regulatory networks. Although Boolean networks are a crude simplification of genetic reality where genes are not simple binary switches, there are several cases where they correctly convey the correct pattern of expressed and suppressed genes. 
+The seemingly mathematical easy (synchronous) model was only fully understood in the mid 2000s.
+
+Classical model
+A Boolean network is a particular kind of sequential dynamical system, where time and states are discrete, i.e. both the set of variables and the set of states in the time series each have a bijection onto an integer series.
+A random Boolean network (RBN) is one that is randomly selected from the set of all possible boolean networks of a particular size, N.  One then can study statistically, how the expected properties of such networks depend on various statistical properties of the ensemble of all possible networks.  For example, one may study how the RBN behavior changes as the average connectivity is changed.
+The first Boolean networks were proposed by Stuart A. Kauffman in 1969, as random models of genetic regulatory networks but their mathematical understanding only started in the 2000s.
+
+Attractors
+Since a Boolean network has only 2N possible states, a trajectory will sooner or later  reach a previously visited state, and thus, since the dynamics are deterministic, the trajectory will fall into a steady state or cycle called an attractor (though in the broader field of dynamical systems a cycle is only an attractor if perturbations from it lead back to it). If the attractor has only a single state it is called a point attractor, and if the attractor consists of more than one state it is called a cycle attractor. The set of states that lead to an attractor is called the basin of the attractor. States which occur only at the beginning of trajectories (no trajectories lead to them), are called garden-of-Eden states and the dynamics of the network flow from these states towards attractors. The time it takes to reach an attractor is called transient time.With growing computer power and increasing understanding of the seemingly simple model, different authors gave different estimates for the mean number and length of the attractors, here a brief summary of key publications.
+
+Stability
+In dynamical systems theory, the structure and length of the attractors of a network corresponds to the dynamic phase of the network. The stability of Boolean networks depends on the connections of their nodes. A Boolean network can exhibit stable, critical or chaotic behavior. This phenomenon is governed by a critical value of the average number of connections of nodes (
+  
+    
+      
+        
+          K
+          
+            c
+          
+        
+      
+    
+    {\displaystyle K_{c}}
+  ), and can be characterized by the Hamming distance as distance measure. In the unstable regime, the distance between two initially close states on average grows exponentially in time, while in the stable regime it decreases exponentially. In this, with "initially close states" one means that the Hamming distance is small compared with the number of nodes (
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+  ) in the network.
+For N-K-model the network is stable if 
+  
+    
+      
+        K
+        <
+        
+          K
+          
+            c
+          
+        
+      
+    
+    {\displaystyle K<K_{c}}
+  , critical if 
+  
+    
+      
+        K
+        =
+        
+          K
+          
+            c
+          
+        
+      
+    
+    {\displaystyle K=K_{c}}
+  , and unstable if 
+  
+    
+      
+        K
+        >
+        
+          K
+          
+            c
+          
+        
+      
+    
+    {\displaystyle K>K_{c}}
+  .
+The state of a given node 
+  
+    
+      
+        
+          n
+          
+            i
+          
+        
+      
+    
+    {\displaystyle n_{i}}
+   is updated according to its truth table, whose outputs are randomly populated. 
+  
+    
+      
+        
+          p
+          
+            i
+          
+        
+      
+    
+    {\displaystyle p_{i}}
+   denotes the probability of assigning an off output to a given series of input signals.
+If 
+  
+    
+      
+        
+          p
+          
+            i
+          
+        
+        =
+        p
+        =
+        c
+        o
+        n
+        s
+        t
+        .
+      
+    
+    {\displaystyle p_{i}=p=const.}
+   for every node, the transition between the stable and chaotic range depends on 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  . According to Bernard Derrida and Yves Pomeau
+, the critical value of the average  number of connections is 
+  
+    
+      
+        
+          K
+          
+            c
+          
+        
+        =
+        1
+        
+          /
+        
+        [
+        2
+        p
+        (
+        1
+        −
+        p
+        )
+        ]
+      
+    
+    {\displaystyle K_{c}=1/[2p(1-p)]}
+  .
+If 
+  
+    
+      
+        K
+      
+    
+    {\displaystyle K}
+   is not constant, and there is no correlation between the in-degrees and out-degrees, the conditions of stability is determined by 
+  
+    
+      
+        ⟨
+        
+          K
+          
+            i
+            n
+          
+        
+        ⟩
+      
+    
+    {\displaystyle \langle K^{in}\rangle }
+   The network is stable if 
+  
+    
+      
+        ⟨
+        
+          K
+          
+            i
+            n
+          
+        
+        ⟩
+        <
+        
+          K
+          
+            c
+          
+        
+      
+    
+    {\displaystyle \langle K^{in}\rangle <K_{c}}
+  , critical if  
+  
+    
+      
+        ⟨
+        
+          K
+          
+            i
+            n
+          
+        
+        ⟩
+        =
+        
+          K
+          
+            c
+          
+        
+      
+    
+    {\displaystyle \langle K^{in}\rangle =K_{c}}
+  , and unstable if 
+  
+    
+      
+        ⟨
+        
+          K
+          
+            i
+            n
+          
+        
+        ⟩
+        >
+        
+          K
+          
+            c
+          
+        
+      
+    
+    {\displaystyle \langle K^{in}\rangle >K_{c}}
+  .
+The conditions of stability are the same in the case of networks with scale-free topology where the in-and out-degree distribution is a power-law distribution: 
+  
+    
+      
+        P
+        (
+        K
+        )
+        ∝
+        
+          K
+          
+            −
+            γ
+          
+        
+      
+    
+    {\displaystyle P(K)\propto K^{-\gamma }}
+  , and 
+  
+    
+      
+        ⟨
+        
+          K
+          
+            i
+            n
+          
+        
+        ⟩
+        =
+        ⟨
+        
+          K
+          
+            o
+            u
+            t
+          
+        
+        ⟩
+      
+    
+    {\displaystyle \langle K^{in}\rangle =\langle K^{out}\rangle }
+  , since every out-link from a node is an in-link to another.Sensitivity shows the probability that the output of the Boolean function of a given node changes if its input changes. For random Boolean networks,
+
+  
+    
+      
+        
+          q
+          
+            i
+          
+        
+        =
+        2
+        
+          p
+          
+            i
+          
+        
+        (
+        1
+        −
+        
+          p
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle q_{i}=2p_{i}(1-p_{i})}
+  . In the general case, stability of the network is governed by the largest eigenvalue 
+  
+    
+      
+        
+          λ
+          
+            Q
+          
+        
+      
+    
+    {\displaystyle \lambda _{Q}}
+   of matrix 
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+  , where 
+  
+    
+      
+        
+          Q
+          
+            i
+            j
+          
+        
+        =
+        
+          q
+          
+            i
+          
+        
+        
+          A
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle Q_{ij}=q_{i}A_{ij}}
+  , and  
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   is the adjacency matrix of the network. The network is stable if 
+  
+    
+      
+        
+          λ
+          
+            Q
+          
+        
+        <
+        1
+      
+    
+    {\displaystyle \lambda _{Q}<1}
+  , critical if 
+  
+    
+      
+        
+          λ
+          
+            Q
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle \lambda _{Q}=1}
+  , unstable if 
+  
+    
+      
+        
+          λ
+          
+            Q
+          
+        
+        >
+        1
+      
+    
+    {\displaystyle \lambda _{Q}>1}
+  .
+
+Variations of the model
+Other topologies
+One theme is to study different underlying graph topologies.
+
+The homogeneous case simply refers to a grid which is simply the reduction to the famous Ising model.
+Scale-free topologies may be chosen for Boolean networks. One can distinguish the case where only in-degree distribution in power-law distributed, or only the out-degree-distribution or both.
+
+Other updating schemes
+Classical Boolean networks (sometimes called CRBN, i.e. Classic Random Boolean Network) are synchronously updated. Motivated by the fact that genes don't usually change their state simultaneously, different alternatives have been introduced. A common classification is the following:
+
+Deterministic asynchronous updated Boolean networks (DRBNs) are not synchronously updated but a deterministic solution still exists. A node i will be updated when t ≡ Qi (mod Pi) where t is the time step.
+The most general case is full stochastic updating (GARBN, general asynchronous random boolean networks). Here, one (or more) node(s) are selected at each computational step to be updated.
+The Partially-Observed Boolean Dynamical System (POBDS) signal model differs from all previous deterministic and stochastic Boolean network models by removing the assumption of direct observability of the Boolean state vector and allowing uncertainty in the observation process, addressing the scenario encountered in practice.
+Autonomous Boolean networks (ABNs) are updated in continuous time (t is a real number, not an integer), which leads to race conditions and complex dynamical behavior such as deterministic chaos.
+
+Application of Boolean Networks
+Classification
+The Scalable Optimal Bayesian Classification  developed an optimal classification of trajectories accounting for potential model uncertainty and also proposed a particle-based trajectory classification that is highly scalable for large networks with much lower complexity than the optimal solution.
+
+See also
+NK model
+
+References
+Dubrova, E., Teslenko, M., Martinelli, A., (2005). *Kauffman Networks: Analysis and Applications,  in "Proceedings of International Conference on Computer-Aided Design", pages 479-484.
+
+External links
+Analysis of Dynamic Algebraic Models (ADAM) v1.1
+bioasp/bonesis: Synthesis of Most Permissive Boolean Networks from network architecture and dynamical properties
+CoLoMoTo (Consortium for Logical Models and Tools)
+DDLab
+NetBuilder Boolean Networks Simulator
+Open Source Boolean Network Simulator
+JavaScript Kauffman Network
+Probabilistic Boolean Networks (PBN)
+RBNLab
+A SAT-based tool for computing attractors in Boolean Networks

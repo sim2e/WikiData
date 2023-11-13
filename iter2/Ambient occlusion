@@ -1,0 +1,244 @@
+In 3D computer graphics, modeling, and animation, ambient occlusion is a shading and rendering technique used to calculate how exposed each point in a scene is to ambient lighting. For example, the interior of a tube is typically more occluded (and hence darker) than the exposed outer surfaces, and becomes darker the deeper inside the tube one goes.
+Ambient occlusion can be seen as an accessibility value that is calculated for each surface point. In scenes with open sky, this is done by estimating the amount of visible sky for each point, while in indoor environments, only objects within a certain radius are taken into account and the walls are assumed to be the origin of the ambient light. The result is a diffuse, non-directional shading effect that casts no clear shadows, but that darkens enclosed and sheltered areas and can affect the rendered image's overall tone. It is often used as a post-processing effect.
+Unlike local methods such as Phong shading, ambient occlusion is a global method, meaning that the illumination at each point is a function of other geometry in the scene. However, it is a very crude approximation to full global illumination.  The appearance achieved by ambient occlusion alone is similar to the way an object might appear on an overcast day.
+The first method that allowed simulating ambient occlusion in real time was developed by the research and development department of Crytek (CryEngine 2). With the release of hardware capable of real time ray tracing (GeForce 20 series) by Nvidia in 2018, ray traced ambient occlusion (RTAO) became possible in games and other real time applications. This feature was added to the Unreal Engine with version 4.22.
+
+Implementation
+In the absence of hardware-assisted ray traced ambient occlusion, real-time applications such as computer games can use screen space ambient occlusion (SSAO) or horizon-based ambient occlusion (HBAO) as a faster approximation of true ambient occlusion, using per-pixel depth, rather than scene geometry, to form an ambient occlusion map.
+Ambient occlusion is related to accessibility shading, which determines appearance based on how easy it is for a surface to be touched by various elements (e.g., dirt, light, etc.). It has been popularized in production animation due to its relative simplicity and efficiency.
+The ambient occlusion shading model offers a better perception of the 3D shape of the displayed objects. This was shown in a paper where the authors report the results of perceptual experiments showing that depth discrimination under diffuse uniform sky lighting is superior to that predicted by a direct lighting model.The occlusion 
+  
+    
+      
+        
+          A
+          
+            
+              
+                p
+                ¯
+              
+            
+          
+        
+      
+    
+    {\displaystyle A_{\bar {p}}}
+   at a point 
+  
+    
+      
+        
+          
+            
+              p
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {p}}}
+   on a surface with normal 
+  
+    
+      
+        
+          
+            
+              n
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {n}}}
+   can be computed by integrating the visibility function over the hemisphere 
+  
+    
+      
+        Ω
+      
+    
+    {\displaystyle \Omega }
+   with respect to projected solid angle:
+
+where 
+  
+    
+      
+        
+          V
+          
+            
+              
+                
+                  p
+                  ¯
+                
+              
+            
+            ,
+            
+              
+                
+                  ω
+                  ^
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle V_{{\bar {p}},{\hat {\omega }}}}
+   is the visibility function at 
+  
+    
+      
+        
+          
+            
+              p
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {p}}}
+  , defined to be zero if 
+  
+    
+      
+        
+          
+            
+              p
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {p}}}
+   is occluded in the direction 
+  
+    
+      
+        
+          
+            
+              ω
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {\omega }}}
+   and one otherwise, and 
+  
+    
+      
+        d
+        ⁡
+        ω
+      
+    
+    {\displaystyle \operatorname {d} \omega }
+   is the infinitesimal solid angle step of the integration variable 
+  
+    
+      
+        
+          
+            
+              ω
+              ^
+            
+          
+        
+      
+    
+    {\displaystyle {\hat {\omega }}}
+  . A variety of techniques are used to approximate this integral in practice: perhaps the most straightforward way is to use the Monte Carlo method by casting rays from the point 
+  
+    
+      
+        
+          
+            
+              p
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {p}}}
+   and testing for intersection with other scene geometry (i.e., ray casting).  Another approach (more suited to hardware acceleration) is to render the view from 
+  
+    
+      
+        
+          
+            
+              p
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {p}}}
+   by rasterizing black geometry against a white background and taking the (cosine-weighted) average of rasterized fragments. This approach is an example of a "gathering" or "inside-out" approach, whereas other algorithms (such as depth-map ambient occlusion) employ "scattering" or "outside-in" techniques.
+In addition to the ambient occlusion value, a "bent normal" vector 
+  
+    
+      
+        
+          
+            
+              
+                n
+                ^
+              
+            
+          
+          
+            b
+          
+        
+      
+    
+    {\displaystyle {\hat {n}}_{b}}
+   is often generated, which points in the average direction of occluded samples.  The bent normal can be used to look up incident radiance from an environment map to approximate image-based lighting.  However, there are some situations in which the direction of the bent normal is a misrepresentation of the dominant direction of illumination, e.g.,
+
+In this example, light may reach the point p only from the left or right sides, but the bent normal points to the average of those two sources, which is directly toward the obstruction.
+
+Variants
+Screen space ambient occlusion (SSAO)
+Screen space directional occlusion (SSDO)
+Ray-traced ambient occlusion (RTAO)
+High Definition Ambient Occlusion (HDAO)
+Horizon Based Ambient Occlusion+ (HBAO)
+Alchemy Ambient Occlusion (AAO)
+Angle Based Ambient Occlusion (ABAO)
+Pre Baked Ambient Occlusion (PBAO)
+Voxel Accelerated Ambient Occlusion (VXAO)
+Ground Truth based Ambient Occlusion (GTAO)
+
+Recognition
+In 2010, Hayden Landis, Ken McGaugh and Hilmar Koch were awarded a Scientific and Technical Academy Award for their work on  ambient occlusion rendering.
+
+See also
+Global illumination
+Photon mapping
+Radiosity
+Ray tracing
+High-dynamic-range rendering
+
+
+== References ==

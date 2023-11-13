@@ -1,0 +1,83 @@
+In computer programming, a virtual method table (VMT), virtual function table, virtual call table, dispatch table, vtable, or vftable is a mechanism used in a programming language to support dynamic dispatch (or run-time method binding).
+Whenever a class defines a virtual function (or method), most compilers add a hidden member variable to the class that points to an array of pointers to (virtual) functions called the virtual method table. These pointers are used at runtime to invoke the appropriate function implementations, because at compile time it may not yet be known if the base function is to be called or a derived one implemented by a class that inherits from the base class.
+There are many different ways to implement such dynamic dispatch, but use of virtual method tables is especially common among C++ and related languages (such as D and C#). Languages that separate the programmatic interface of objects from the implementation, like Visual Basic and Delphi, also tend to use this approach, because it allows objects to use a different implementation simply by using a different set of method pointers.  The method allows creation of external libraries, where other techniques perhaps may not.Suppose a program contains three classes in an inheritance hierarchy: a superclass, Cat, and two subclasses, HouseCat and Lion. Class Cat defines a virtual function named speak, so its subclasses may provide an appropriate implementation (e.g. either meow or roar). When the program calls the speak function on a Cat reference (which can refer to an instance of Cat, or an instance of HouseCat or Lion), the code must be able to determine which implementation of the function the call should be dispatched to. This depends on the actual class of the object, not the class of the reference to it (Cat). The class cannot generally be determined statically (that is, at compile time), so neither can the compiler decide which function to call at that time. The call must be dispatched to the right function dynamically (that is, at run time) instead.
+
+Implementation
+An object's virtual method table will contain the addresses of the object's dynamically bound methods. Method calls are performed by fetching the method's address from the object's virtual method table. The virtual method table is the same for all objects belonging to the same class, and is therefore typically shared between them. Objects belonging to type-compatible classes (for example siblings in an inheritance hierarchy) will have virtual method tables with the same layout: the address of a given method will appear at the same offset for all type-compatible classes. Thus, fetching the method's address from a given offset into a virtual method table will get the method corresponding to the object's actual class.The C++ standards do not mandate exactly how dynamic dispatch must be implemented, but compilers generally use minor variations on the same basic model.
+Typically, the compiler creates a separate virtual method table for each class. When an object is created, a pointer to this table, called the virtual table pointer, vpointer or VPTR, is added as a hidden member of this object. As such, the compiler must also generate "hidden" code in the constructors of each class to initialize a new object's virtual table pointer to the address of its class's virtual method table.
+Many compilers place the virtual table pointer as the last member of the object; other compilers place it as the first; portable source code works either way.
+For example, g++ previously placed the pointer at the end of the object.
+
+Example
+Consider the following class declarations in C++ syntax:
+
+used to derive the following class:
+
+and the following piece of C++ code:
+
+g++ 3.4.6 from GCC produces the following 32-bit memory layout for the object b2:
+b2:
+  +0: pointer to virtual method table of B2
+  +4: value of int_in_b2
+
+virtual method table of B2:
+  +0: B2::f2()   
+
+and the following memory layout for the object d:
+
+d:
+  +0: pointer to virtual method table of D (for B1)
+  +4: value of int_in_b1
+  +8: pointer to virtual method table of D (for B2)
+ +12: value of int_in_b2
+ +16: value of int_in_d
+
+Total size: 20 Bytes.
+
+virtual method table of D (for B1):
+  +0: B1::f1()  // B1::f1() is not overridden
+
+virtual method table of D (for B2):
+  +0: D::f2()   // B2::f2() is overridden by D::f2()
+                // The location of B2::f2 is not in the virtual method table for D
+
+Note that those functions not carrying the keyword virtual in their declaration (such as fnonvirtual() and d()) do not generally appear in the virtual method table. There are exceptions for special cases as posed by the default constructor.
+Also note the virtual destructors in the base classes, B1 and B2. They are necessary to ensure delete d can free up memory not just for D, but also for B1 and B2, if d is a pointer or reference to the types B1 or B2. They were excluded from the memory layouts to keep the example simple. Overriding of the method f2() in class D is implemented by duplicating the virtual method table of B2 and replacing the pointer to B2::f2() with a pointer to D::f2().
+
+Multiple inheritance and thunks
+The g++ compiler implements the multiple inheritance of the classes B1 and B2 in class D using two virtual method tables, one for each base class. (There are other ways to implement multiple inheritance, but this is the most common.) This leads to the necessity for "pointer fixups", also called thunks, when casting.
+Consider the following C++ code:
+
+While d and b1 will point to the same memory location after execution of this code, b2 will point to the location d+8 (eight bytes beyond the memory location of d). Thus, b2 points to the region within d that "looks like" an instance of B2, i.e., has the same memory layout as an instance of B2.
+
+Invocation
+A call to d->f1() is handled by dereferencing d's D::B1 vpointer, looking up the f1 entry in the virtual method table, and then dereferencing that pointer to call the code.
+Single inheritance
+In the case of single inheritance (or in a language with only single inheritance), if the vpointer is always the first element in d (as it is with many compilers), this reduces to the following pseudo-C++:
+
+Where *d refers to the virtual method table of D and [0] refers to the first method in the virtual method table.  The parameter d becomes the "this" pointer to the object.
+Multiple inheritance
+In the more general case, calling B1::f1() or D::f2() is more complicated:
+
+The call to d->f1() passes a B1 pointer as a parameter.  The call to d->f2() passes a B2 pointer as a parameter.  This second call requires a fixup to produce the correct pointer. The location of B2::f2 is not in the virtual method table for D.
+By comparison, a call to d->fnonvirtual() is much simpler:
+
+Efficiency
+A virtual call requires at least an extra indexed dereference and sometimes a "fixup" addition, compared to a non-virtual call, which is simply a jump to a compiled-in pointer. Therefore, calling virtual functions is inherently slower than calling non-virtual functions. An experiment done in 1996 indicates that approximately 6–13% of execution time is spent simply dispatching to the correct function, though the overhead can be as high as 50%. The cost of virtual functions may not be so high on modern CPU architectures due to much larger caches and better branch prediction.
+Furthermore, in environments where JIT compilation is not in use, virtual function calls usually cannot be inlined. In certain cases it may be possible for the compiler to perform a process known as devirtualization in which, for instance, the lookup and indirect call are replaced with a conditional execution of each inlined body, but such optimizations are not common.
+To avoid this overhead, compilers usually avoid using virtual method tables whenever the call can be resolved at compile time.
+Thus, the call to f1 above may not require a table lookup because the compiler may be able to tell that d can only hold a D at this point, and D does not override f1. Or the compiler (or optimizer) may be able to detect that there are no subclasses of B1 anywhere in the program that override f1. The call to B1::f1 or B2::f2 will probably not require a table lookup because the implementation is specified explicitly (although it does still require the 'this'-pointer fixup).
+
+Comparison with alternatives
+The virtual method table is generally a good performance trade-off to achieve dynamic dispatch, but there are alternatives, such as binary tree dispatch, with higher performance in some typical cases, but different trade-offs.However, virtual method tables only allow for single dispatch on the special "this" parameter, in contrast to multiple dispatch (as in CLOS, Dylan, or Julia), where the types of all parameters can be taken into account in dispatching.
+Virtual method tables also only work if dispatching is constrained to a known set of methods, so they can be placed in a simple array built at compile time, in contrast to duck typing languages (such as Smalltalk, Python or JavaScript).
+Languages that provide either or both of these features often dispatch by looking up a string in a hash table, or some other equivalent method. There are a variety of techniques to make this faster (e.g., interning/tokenizing method names, caching lookups, just-in-time compilation).
+
+See also
+Virtual function
+Virtual inheritance
+Branch table
+
+Notes
+References
+Margaret A. Ellis and Bjarne Stroustrup (1990) The Annotated C++ Reference Manual. Reading, MA: Addison-Wesley. (ISBN 0-201-51459-1)

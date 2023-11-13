@@ -1,0 +1,228 @@
+Quil is a quantum instruction set architecture that first introduced a shared quantum/classical memory model. It was introduced by Robert Smith, Michael Curtis, and William Zeng in A Practical Quantum Instruction Set Architecture.  Many quantum algorithms (including quantum teleportation, quantum error correction, simulation, and optimization algorithms) require a shared memory architecture. Quil is being developed for the superconducting quantum processors developed by Rigetti Computing through the Forest quantum programming API.  A Python library called pyQuil was introduced to develop Quil programs with higher level constructs. A Quil backend is also supported by other quantum programming environments.
+
+Underlying quantum abstract machine
+In the paper presented by Smith, Curtis and Zeng, Quil specifies the instruction set for a Quantum Abstract Machine (QAM,) akin to a Turing machine, yet more practical for accomplishing "real-world" tasks. The state of the QAM can be represented as a 6-tuple 
+  
+    
+      
+        (
+        
+          |
+        
+        Ψ
+        ⟩
+        ,
+        C
+        ,
+        G
+        ,
+        
+          G
+          ′
+        
+        ,
+        P
+        ,
+        κ
+        )
+      
+    
+    {\displaystyle (|\Psi \rangle ,C,G,G',P,\kappa )}
+   where:
+
+  
+    
+      
+        
+          |
+        
+        Ψ
+        ⟩
+      
+    
+    {\displaystyle |\Psi \rangle }
+   is the (quantum) state of a fixed but arbitrary number of qubits 
+  
+    
+      
+        
+          N
+          
+            q
+          
+        
+      
+    
+    {\displaystyle N_{q}}
+   indexed using a 0-based indexing.
+
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   is a classical memory of a number 
+  
+    
+      
+        
+          N
+          
+            c
+          
+        
+      
+    
+    {\displaystyle N_{c}}
+   of classical bits indexed using a 0-based indexing.
+
+  
+    
+      
+        G
+      
+    
+    {\displaystyle G}
+   a fixed but arbitrary list of static gates (quantum gates that do not depend on parameters, like the Hadamard gate.)
+
+  
+    
+      
+        
+          G
+          ′
+        
+      
+    
+    {\displaystyle G'}
+   a fixed but arbitrary list of parametric gates (gates that depend on a number of complex parameters like the phase shift gate that requires an angle parameter to be completely defined.)
+
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   a sequence of Quil instructions to be executed, representing the program. The length of 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   is denoted by 
+  
+    
+      
+        
+          |
+        
+        P
+        
+          |
+        
+      
+    
+    {\displaystyle |P|}
+  .
+
+  
+    
+      
+        κ
+      
+    
+    {\displaystyle \kappa }
+   an integer program counter pointing to the next instruction to be executed. 
+  
+    
+      
+        κ
+      
+    
+    {\displaystyle \kappa }
+   always starts at 0 (pointing to the 
+  
+    
+      
+        
+          0
+          
+            t
+            h
+          
+        
+      
+    
+    {\displaystyle 0^{th}}
+   instruction) and ends at 
+  
+    
+      
+        
+          |
+        
+        P
+        
+          |
+        
+      
+    
+    {\displaystyle |P|}
+   indicating program halting (note that the last instruction has the index 
+  
+    
+      
+        
+          |
+        
+        P
+        
+          |
+        
+        −
+        1
+      
+    
+    {\displaystyle |P|-1}
+  .) The program counter is incremented after every instruction, except for special control flow instructions (conditional and unconditional jumps, and the special HALT instruction that halts the program by setting 
+  
+    
+      
+        κ
+      
+    
+    {\displaystyle \kappa }
+   to 
+  
+    
+      
+        
+          |
+        
+        P
+        
+          |
+        
+      
+    
+    {\displaystyle |P|}
+  .The semantics of the QAM are defined using tensor products of Hilbert spaces and the linear maps between them.
+
+Features
+Quil has support for defining possibly parametrized gates in matrix form (the language does not include a way to verify that the matrices are unitary, which is a necessary condition for the physical realizability of the defined gate) and their application on qubits. The language also supports macro-like definitions of possibly parametrized quantum circuits and their expansion, qubit measurement and recording of the outcome in classical memory, synchronization with classical computers with the WAIT instruction which pauses the execution of a Quil program until a classical program has ended its execution, conditional and unconditional branching, pragma support, as well as inclusion of files for use as libraries (a standard set of gates is provided as one of the libraries.)
+
+Rigetti QVM
+Rigetti Computing developed a Quantum Virtual Machine in Common Lisp that simulates the defined Quantum Abstract Machine on a classical computer and is capable of the parsing and execution of Quil programs with possibly remote execution via HTTP.
+
+Example
+The following example demonstrates the classical control flow needed to do quantum teleportation of the qubit in register 2 to register 1:
+Examples of the implementations of the quantum fourier transform and the variational quantum Eigensolver are given in the paper.
+
+References
+External links
+quil on GitHub  GitHub repository

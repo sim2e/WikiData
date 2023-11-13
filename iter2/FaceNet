@@ -1,0 +1,572 @@
+FaceNet is a facial recognition system developed by Florian Schroff, Dmitry Kalenichenko and James Philbina, a group of researchers affiliated to Google. The system was first presented in the   IEEE Conference on Computer Vision and Pattern Recognition held in 2015. The system uses a deep convolutional neural network to learn a mapping (also called an embedding) from  a set of face images to the 128-dimensional Euclidean space and the similarity between two face images is assessed based on the  square of the Euclidean distance between the corresponding normalized vectors in the 128-dimensional Euclidean space. The system used the triplet loss function as the cost function and introduced a new online triplet mining method. The system achieved an accuracy of 99.63% which is the highest score on Labeled Faces in the Wild dataset in the unrestricted with labeled outside data protocol.
+
+Structure
+Basic structure
+The structure of the  FaceNet facenet recognition system is represented schematically in Figure 1.
+
+For training, the researchers used as input batches of  about 1800 images in which for each identity there were about 40 similar images and several randomly sampled images relating to other identities. These batches were fed to a deep convolutional neural network and the network was trained using stochastic gradient descent method with standard backpropagation and the Adaptive Gradient Optimizer (AdaGrad) algorithm. The learning rate was initially set at 0.05 which was later lowered while finalizing the model.
+
+Structure of the CNN
+The researchers used used two types of architectures, which they called NN1 and NN2, and explored their trade-offs. The practical differences between the models lie in the difference of parameters and
+FLOPS. The details of the NN1 model are presented in the table below.
+
+Triplet loss function
+The loss function that was used in the FaceNet system was called the "Triplet Loss Function". This was a novel idea introuced by the developers of the FaceNet system. This function is defined using certain triplets of the form 
+  
+    
+      
+        (
+        A
+        ,
+        P
+        ,
+        N
+        )
+      
+    
+    {\displaystyle (A,P,N)}
+   of training images. In this triplet, 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   (called  an "anchor image") denotes the image of a person, 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+    (called a "positive image")  denotes some other image of the  person whose image is 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   and 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+   (called a "negative image")  denotes the image of some other person different from the person whose image is 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  . Let 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   be some image and let 
+  
+    
+      
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle f(x)}
+   be the embedding of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   in the 128-dimensional Euclidean space. It shall be assumed that the L2-norm of 
+  
+    
+      
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle f(x)}
+   is unity. (The L2 norm of a vector 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   in a finite dimensional Euclidean space is denoted by 
+  
+    
+      
+        ‖
+        X
+        ‖
+      
+    
+    {\displaystyle \Vert X\Vert }
+  .) We pick such triplets from the training data set and let there be 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   such triplets and 
+  
+    
+      
+        (
+        
+          A
+          
+            (
+            i
+            )
+          
+        
+        ,
+        
+          P
+          
+            (
+            i
+            )
+          
+        
+        ,
+        
+          N
+          
+            (
+            i
+            )
+          
+        
+        )
+      
+    
+    {\displaystyle (A^{(i)},P^{(i)},N^{(i)})}
+   be a typical triplet. The training is to ensure that, after learning, the following condition called the "triplet constraint" should be satisfied by all triplets 
+  
+    
+      
+        (
+        
+          A
+          
+            (
+            i
+            )
+          
+        
+        ,
+        
+          P
+          
+            (
+            i
+            )
+          
+        
+        ,
+        
+          N
+          
+            (
+            i
+            )
+          
+        
+        )
+      
+    
+    {\displaystyle (A^{(i)},P^{(i)},N^{(i)})}
+   in the training data set:
+
+  
+    
+      
+        ‖
+        f
+        (
+        
+          A
+          
+            (
+            i
+            )
+          
+        
+        )
+        −
+        f
+        (
+        
+          P
+          
+            (
+            i
+            )
+          
+        
+        )
+        
+          ‖
+          
+            2
+          
+          
+            2
+          
+        
+        +
+        α
+        <
+        ‖
+        f
+        (
+        
+          A
+          
+            (
+            i
+            )
+          
+        
+        )
+        −
+        f
+        (
+        
+          N
+          
+            (
+            i
+            )
+          
+        
+        )
+        
+          ‖
+          
+            2
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Vert f(A^{(i)})-f(P^{(i)})\Vert _{2}^{2}+\alpha <\Vert f(A^{(i)})-f(N^{(i)})\Vert _{2}^{2}}
+  where 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   is a constant called the margin and its value has to be set manually. Its value has been set as 0.2.
+Thus, the function to be minimized is the following function called the triplet loss function:
+
+  
+    
+      
+        L
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            m
+          
+        
+        max
+        
+          
+            (
+          
+        
+        ‖
+        f
+        (
+        
+          A
+          
+            (
+            i
+            )
+          
+        
+        )
+        −
+        f
+        (
+        
+          P
+          
+            (
+            i
+            )
+          
+        
+        )
+        
+          ‖
+          
+            2
+          
+          
+            2
+          
+        
+        −
+        ‖
+        f
+        (
+        
+          A
+          
+            (
+            i
+            )
+          
+        
+        )
+        −
+        f
+        (
+        
+          N
+          
+            (
+            i
+            )
+          
+        
+        )
+        
+          ‖
+          
+            2
+          
+          
+            2
+          
+        
+        +
+        α
+        ,
+        0
+        
+          
+            )
+          
+        
+      
+    
+    {\displaystyle L=\sum _{i=1}^{m}\max {\Big (}\Vert f(A^{(i)})-f(P^{(i)})\Vert _{2}^{2}-\Vert f(A^{(i)})-f(N^{(i)})\Vert _{2}^{2}+\alpha ,0{\Big )}}
+
+Selection of triplets
+In general the number of triplets of the form 
+  
+    
+      
+        (
+        
+          A
+          
+            (
+            i
+            )
+          
+        
+        ,
+        
+          P
+          
+            (
+            i
+            )
+          
+        
+        ,
+        
+          N
+          
+            (
+            i
+            )
+          
+        
+        )
+      
+    
+    {\displaystyle (A^{(i)},P^{(i)},N^{(i)})}
+   is very large. To make computations faster, the Google researchers considered only those triplets which violate the triplet constraint. For this, for a given anchor image 
+  
+    
+      
+        
+          A
+          
+            (
+            i
+            )
+          
+        
+      
+    
+    {\displaystyle A^{(i)}}
+   they chose that positive image 
+  
+    
+      
+        
+          P
+          
+            (
+            i
+            )
+          
+        
+      
+    
+    {\displaystyle P^{(i)}}
+   for which 
+  
+    
+      
+        ‖
+        f
+        (
+        
+          A
+          
+            (
+            i
+            )
+          
+        
+        )
+        −
+        f
+        (
+        
+          P
+          
+            (
+            i
+            )
+          
+        
+        )
+        
+          ‖
+          
+            2
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Vert f(A^{(i)})-f(P^{(i)})\Vert _{2}^{2}}
+   is maximum (such a positive image was called a "hard positive image") and that negative image 
+  
+    
+      
+        
+          N
+          
+            (
+            i
+            )
+          
+        
+      
+    
+    {\displaystyle N^{(i)}}
+   for which 
+  
+    
+      
+        ‖
+        f
+        (
+        
+          A
+          
+            (
+            i
+            )
+          
+        
+        )
+        −
+        f
+        (
+        
+          N
+          
+            (
+            i
+            )
+          
+        
+        )
+        
+          ‖
+          
+            2
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \Vert f(A^{(i)})-f(N^{(i)})\Vert _{2}^{2}}
+   is minimum (such a positive image was called a "hard negative image"). since using the whole training data set to determine the hard positive and hard negative images was computationally expensive and infeasible, the researchers experimented with several methods for selecting the triplets.
+
+Generate triplets offline computing the minimum and maximum on a subset of the data.
+Generate triplets online by selecting the hard positive/negative examples from within a mini-batch.
+
+Performance
+On the widely used Labeled Faces in the Wild (LFW) dataset, the FaceNet system achieved an accuracy of 99.63% which is the highest score on LFW in the unrestricted with labeled outside data protocol.  On YouTube Faces DB the system achieved an accuracy of 95.12%.
+
+See also
+DeepFace
+FindFace
+
+Further reading
+Rajesh Gopakumar; Karunagar A; Kotegar, M.; Vishal Anand (September 2023). "A Quantitative Study on the FaceNet System": in Proceedings of ICACCP 2023. Singapore: Springer Nature. pp. 211–222. ISBN 9789819942848.
+Ivan William; De Rosal Ignatius Moses Setiadi; Eko Hari Rachmawanto; Heru Agus Santoso; Christy Atika Sari (2019). "Face Recognition using FaceNet (Survey, Performance Test, and Comparison)" in Proceedings of Fourth International Conference on Informatics and Computing. IEEE Xplore. Retrieved 6 October 2023.
+For a discussion on the vulnerabilities of  Facenet-based face recognition algorithms in applications to the Deepfake videos: Pavel Korshunov; Sébastien Marcel (2022). "The Threat of Deepfakes to Computer and Human Visions" in: Handbook of Digital Face Manipulation and Detection From DeepFakes to Morphing Attacks (PDF). Springer. pp. 97–114. ISBN 978-3-030-87664-7. Retrieved 5 October 2023.
+For a discussion on applying FaceNet for verifying faces in Android: Vasco Correia Veloso (January 2022). Hands-On Artificial Intelligence for Android. BPB Publications. ISBN 9789355510242. Amazon
+
+
+== References ==

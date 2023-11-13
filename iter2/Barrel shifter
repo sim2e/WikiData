@@ -1,0 +1,172 @@
+A barrel shifter is a digital circuit that can shift a data word by a specified number of bits without the use of any sequential logic, only pure combinational logic, i.e. it inherently provides a binary operation. It can however in theory also be used to implement unary operations, such as logical shift left, in cases where limited by a fixed amount (e.g. for address generation unit). One way to implement a barrel shifter is as a sequence of multiplexers where the output of one multiplexer is connected to the input of the next multiplexer in a way that depends on the shift distance. A barrel shifter is often used to shift and rotate n-bits in modern microprocessors, typically within a single clock cycle.
+For example, take a four-bit barrel shifter, with inputs A, B, C and D. The shifter can cycle the order of the bits ABCD as DABC, CDAB, or BCDA; in this case, no bits are lost. That is, it can shift all of the outputs up to three positions to the right (and thus make any cyclic combination of A, B, C and D). The barrel shifter has a variety of applications, including being a useful component in microprocessors (alongside the ALU).
+
+Implementation
+The very fastest shifters are implemented as full crossbars, in a manner similar to the 4-bit shifter depicted above, only larger. These incur the least delay, with the output always a single gate delay behind the input to be shifted (after allowing the small time needed for the shift count decoder to settle; this penalty, however, is only incurred when the shift count changes). These crossbar shifters require however n2 gates for n-bit shifts. Because of this, the barrel shifter is often implemented as a cascade of parallel 2×1 multiplexers instead, which allows a large reduction in gate count, now growing only with n x log n; the propagation delay is however larger, growing with log n (instead of being constant as with the crossbar shifter).
+For an 8-bit barrel shifter, two intermediate signals are used which shifts by four and two bits, or passes the same data, based on the value of S[2] and S[1].  This signal is then shifted by another multiplexer, which is controlled by S[0]:
+
+ int1  = IN       , if S[2] == 0
+       = IN   << 4, if S[2] == 1
+ int2  = int1     , if S[1] == 0
+       = int1 << 2, if S[1] == 1
+ OUT   = int2     , if S[0] == 0
+       = int2 << 1, if S[0] == 1
+
+Larger barrel shifters have additional stages.
+The cascaded shifter has the further advantage over the full crossbar shifter of not requiring any decoding logic for the shift count.
+
+Cost
+The number of multiplexers required for an n-bit word is 
+  
+    
+      
+        n
+        
+          log
+          
+            2
+          
+        
+        ⁡
+        n
+      
+    
+    {\displaystyle n\log _{2}n}
+  .  Five common word sizes and the number of multiplexers needed are listed below:
+
+128-bit — 
+  
+    
+      
+        128
+        ×
+        
+          log
+          
+            2
+          
+        
+        ⁡
+        128
+        =
+        128
+        ×
+        7
+        =
+        896
+      
+    
+    {\displaystyle 128\times \log _{2}128=128\times 7=896}
+  
+64-bit — 
+  
+    
+      
+        64
+        ×
+        
+          log
+          
+            2
+          
+        
+        ⁡
+        64
+        =
+        64
+        ×
+        6
+        =
+        384
+      
+    
+    {\displaystyle 64\times \log _{2}64=64\times 6=384}
+  
+32-bit — 
+  
+    
+      
+        32
+        ×
+        
+          log
+          
+            2
+          
+        
+        ⁡
+        32
+        =
+        32
+        ×
+        5
+        =
+        160
+      
+    
+    {\displaystyle 32\times \log _{2}32=32\times 5=160}
+  
+16-bit — 
+  
+    
+      
+        16
+        ×
+        
+          log
+          
+            2
+          
+        
+        ⁡
+        16
+        =
+        16
+        ×
+        4
+        =
+        64
+      
+    
+    {\displaystyle 16\times \log _{2}16=16\times 4=64}
+  
+8-bit — 
+  
+    
+      
+        8
+        ×
+        
+          log
+          
+            2
+          
+        
+        ⁡
+        8
+        =
+        8
+        ×
+        3
+        =
+        24
+      
+    
+    {\displaystyle 8\times \log _{2}8=8\times 3=24}
+  Cost of critical path in FO4 (estimated, without wire delay):
+
+32-bit: from 18 FO4 to 14 FO4
+
+Uses
+A common usage of a barrel shifter is in the hardware implementation of floating-point arithmetic. For a floating-point add or subtract operation, the significands of the two numbers must be aligned, which requires shifting the smaller number to the right, increasing its exponent, until it matches the exponent of the larger number. This is done by subtracting the exponents and using the barrel shifter to shift the smaller number to the right by the difference, in one cycle.
+
+See also
+Circular shift
+
+References
+Further reading
+Kroening, Daniel; Strichman, Ofer (2008). Decision Procedures. Springer. ISBN 978-3-540-74104-6.
+
+External links
+Barrel-shifter (8 bit), University of Hamburg
+Implementing Barrel Shifters Using Multipliers (Paul Gigliotti, 2004-08-17)

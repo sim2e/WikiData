@@ -1,0 +1,455 @@
+In computer science, an evolution strategy (ES) is an optimization technique based on ideas of evolution. It belongs to the general class of evolutionary computation or artificial evolution methodologies.
+
+History
+The 'evolution strategy' optimization technique was created in the early 1960s and developed further in the 1970s and later by Ingo Rechenberg, Hans-Paul Schwefel and their co-workers.
+
+Methods
+Evolution strategies use natural problem-dependent representations, so problem space and search space are identical. In common with evolutionary algorithms, the operators are applied in a loop. An iteration of the loop is called a generation. The sequence of generations is continued until a termination criterion is met.
+The special feature of the ES is the self-adaptation of mutation step sizes and the coevolution associated with it. The ES is briefly presented using the standard form, pointing out that there are many variants. The real-valued chromosome contains, in addition to the 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   decision variables, 
+  
+    
+      
+        
+          n
+          ′
+        
+      
+    
+    {\displaystyle n'}
+   mutation step sizes 
+  
+    
+      
+        
+          
+            σ
+          
+          
+            j
+          
+        
+      
+    
+    {\displaystyle {\sigma }_{j}}
+  , where: 
+  
+    
+      
+        1
+        ≤
+        j
+        ≤
+        
+          n
+          ′
+        
+        ≤
+        n
+      
+    
+    {\displaystyle 1\leq j\leq n'\leq n}
+  . Often one mutation step size is used for all decision variables or each has its own step size. Mate selection to produce 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   offspring is random, i.e. independent of fitness. First, new mutation step sizes are generated per mating by intermediate recombination of the parental 
+  
+    
+      
+        
+          
+            σ
+          
+          
+            j
+          
+        
+      
+    
+    {\displaystyle {\sigma }_{j}}
+   with subsequent mutation as follows:
+
+  
+    
+      
+        
+          
+            σ
+          
+          
+            j
+          
+          ′
+        
+        =
+        
+          σ
+          
+            j
+          
+        
+        ⋅
+        
+          e
+          
+            (
+            
+              
+                N
+              
+            
+            (
+            0
+            ,
+            1
+            )
+            −
+            
+              
+                
+                  N
+                
+              
+              
+                j
+              
+            
+            (
+            0
+            ,
+            1
+            )
+            )
+          
+        
+      
+    
+    {\displaystyle {\sigma }'_{j}=\sigma _{j}\cdot e^{({\mathcal {N}}(0,1)-{\mathcal {N}}_{j}(0,1))}}
+  where 
+  
+    
+      
+        
+          
+            N
+          
+        
+        (
+        0
+        ,
+        1
+        )
+      
+    
+    {\displaystyle {\mathcal {N}}(0,1)}
+   is a normally distributed random variable with mean 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+   and standard deviation 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+  . 
+  
+    
+      
+        
+          
+            N
+          
+        
+        (
+        0
+        ,
+        1
+        )
+      
+    
+    {\displaystyle {\mathcal {N}}(0,1)}
+   applies to all 
+  
+    
+      
+        
+          
+            σ
+          
+          
+            j
+          
+          ′
+        
+      
+    
+    {\displaystyle {\sigma }'_{j}}
+  , while 
+  
+    
+      
+        
+          
+            
+              N
+            
+          
+          
+            j
+          
+        
+        (
+        0
+        ,
+        1
+        )
+      
+    
+    {\displaystyle {\mathcal {N}}_{j}(0,1)}
+   is newly determined for each 
+  
+    
+      
+        
+          
+            σ
+          
+          
+            j
+          
+          ′
+        
+      
+    
+    {\displaystyle {\sigma }'_{j}}
+  . Next, discrete recombination of the decision variables is followed by a mutation using the new mutation step sizes as standard deviations of the normal distribution. The new decision variables 
+  
+    
+      
+        
+          x
+          
+            j
+          
+          ′
+        
+      
+    
+    {\displaystyle x_{j}'}
+   are calculated as follows:
+
+  
+    
+      
+        
+          x
+          
+            j
+          
+          ′
+        
+        =
+        
+          x
+          
+            j
+          
+        
+        +
+        
+          
+            
+              N
+            
+          
+          
+            j
+          
+        
+        (
+        0
+        ,
+        
+          
+            σ
+          
+          
+            j
+          
+          ′
+        
+        )
+      
+    
+    {\displaystyle x_{j}'=x_{j}+{\mathcal {N}}_{j}(0,{\sigma }_{j}')}
+  This results in an evolutionary search on two levels: First, at the problem level itself and second, at the mutation step size level. In this way, it can be ensured that the ES searches for its target in ever finer steps. However, there is also the danger of being able to skip larger invalid areas in the search space only with difficulty.
+The ES knows two variants of best selection for the generation of the next parent population: In the 
+  
+    
+      
+        (
+        μ
+        ,
+        λ
+        )
+      
+    
+    {\displaystyle (\mu ,\lambda )}
+  -ES, only the 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   best offspring are used, whereas in the elitist 
+  
+    
+      
+        (
+        μ
+        +
+        λ
+        )
+      
+    
+    {\displaystyle (\mu +\lambda )}
+  -ES, the 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   best are selected from parents and children.
+Bäck and Schwefel recommend that the value of 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   should be seven times the population size 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+  , whereby 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   must not be chosen too small because of the strong selection pressure. Suitable values for 
+  
+    
+      
+        μ
+      
+    
+    {\displaystyle \mu }
+   are application-dependent and must be determined experimentally.
+Individual step sizes for each coordinate, or correlations between coordinates, which are essentially defined by an underlying covariance matrix, are controlled in practice either by self-adaptation or by covariance matrix adaptation (CMA-ES). When the mutation step is drawn from a multivariate normal distribution using an evolving covariance matrix, it has been hypothesized that this adapted matrix approximates the inverse Hessian of the search landscape. This hypothesis has been proven for a static model relying on a quadratic approximation.The selection of the next generation in evolution strategies is deterministic and only based on the fitness rankings, not on the actual fitness values. The resulting algorithm is therefore invariant with respect to monotonic transformations of the objective function. The simplest evolution strategy operates on a population of size two: the current point (parent) and the result of its mutation. Only if the mutant's fitness is at least as good as the parent one, it becomes the parent of the next generation. Otherwise the mutant is disregarded. This is a 
+  
+    
+      
+        
+          
+            (
+            1
+            +
+            1
+            )
+          
+        
+      
+    
+    {\displaystyle {\mathit {(1+1)}}}
+  -ES. More generally, 
+  
+    
+      
+        λ
+      
+    
+    {\displaystyle \lambda }
+   mutants can be generated and compete with the parent, called 
+  
+    
+      
+        
+          
+            (
+            1
+            +
+            λ
+            )
+          
+        
+      
+    
+    {\displaystyle {\mathit {(1+\lambda )}}}
+  -ES. In 
+  
+    
+      
+        (
+        1
+        ,
+        λ
+        )
+      
+    
+    {\displaystyle (1,\lambda )}
+  -ES the best mutant becomes the parent of the next generation while the current parent is always disregarded. For some of these variants, proofs of linear convergence (in a stochastic sense) have been derived on unimodal objective functions.
+
+See also
+Covariance matrix adaptation evolution strategy (CMA-ES)
+Derivative-free optimization
+Evolutionary computation
+Genetic algorithm
+Natural evolution strategy
+Evolutionary game theory
+
+References
+Bibliography
+Ingo Rechenberg (1971): Evolutionsstrategie – Optimierung technischer Systeme nach Prinzipien der biologischen Evolution (PhD thesis). Reprinted by Frommann-Holzboog (1973). ISBN 3-7728-1642-8
+Hans-Paul Schwefel (1974): Numerische Optimierung von Computer-Modellen (PhD thesis). Reprinted by Birkhäuser (1977).
+Hans-Paul Schwefel: Evolution and Optimum Seeking. New York: Wiley & Sons 1995. ISBN 0-471-57148-2
+H.-G. Beyer and H.-P. Schwefel. Evolution Strategies: A Comprehensive Introduction. Journal Natural Computing, 1(1):3–52, 2002.
+Hans-Georg Beyer: The Theory of Evolution Strategies. Springer, April 27, 2001. ISBN 3-540-67297-4
+Ingo Rechenberg: Evolutionsstrategie '94. Stuttgart: Frommann-Holzboog 1994. ISBN 3-7728-1642-8
+J. Klockgether and H. P. Schwefel (1970). Two-Phase Nozzle And Hollow Core Jet Experiments. AEG-Forschungsinstitut. MDH Staustrahlrohr Project Group. Berlin, Federal Republic of Germany. Proceedings of the 11th Symposium on Engineering Aspects of Magneto-Hydrodynamics, Caltech, Pasadena, Cal., 24.–26.3. 1970.
+M. Emmerich, O.M. Shir, and H. Wang: Evolution Strategies. In: Handbook of Heuristics, 1-31. Springer International Publishing (2018).
+
+Research centers
+Bionics & Evolutiontechnique at the Technical University Berlin
+Chair of Algorithm Engineering (Ls11) – University of Dortmund
+Collaborative Research Center 531 – University of Dortmund

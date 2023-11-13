@@ -1,0 +1,1619 @@
+The KLM scheme or KLM protocol is an implementation of linear optical quantum computing (LOQC), developed in 2000 by Emanuel Knill, Raymond Laflamme, and Gerard J. Milburn. This protocol allows for the creation of universal quantum computers using solely linear optical tools. The KLM protocol uses linear optical elements, single-photon sources, and photon detectors as resources to construct a quantum computation scheme involving only ancilla resources, quantum teleportations, and error corrections.
+
+Overview
+The KLM scheme induces an effective interaction between photons by making projective measurements with photodetectors, which falls into the category of non-deterministic quantum computation. It is based on a non-linear sign shift between two qubits that uses two ancilla photons and post-selection. It is also based on the demonstrations that the probability of success of the quantum gates can be made close to one by using entangled states prepared non-deterministically and quantum teleportation with single-qubit operations. Without a high enough success rate of a single quantum gate unit, it may require an exponential amount of computing resources. The KLM scheme is based on the fact that proper quantum coding can reduce the resources for obtaining accurately encoded qubits efficiently with respect to the accuracy achieved, and can make LOQC fault-tolerant for photon loss, detector inefficiency and phase decoherence. LOQC can be robustly implemented through the KLM scheme with a low enough resource requirement to suggest practical scalability, making it as promising a technology for quantum information processing as other known implementations.
+
+Elements of LOQC in the KLM scheme
+Qubits and modes
+To avoid losing generality, the discussion below does not limit itself to a particular instance of mode representation. A state written as 
+  
+    
+      
+        
+          |
+        
+        0
+        ,
+        1
+        
+          ⟩
+          
+            V
+            H
+          
+        
+      
+    
+    {\displaystyle |0,1\rangle _{VH}}
+   means a state with zero photons in mode 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   (could be the "vertical" polarization channel) and one photon in the mode 
+  
+    
+      
+        H
+      
+    
+    {\displaystyle H}
+   (could be the "horizontal" polarization channel).
+In the KLM protocol, each of the photons is usually in one of two modes, and the modes are different between the photons (the possibility that a mode is occupied by more than one photon is zero). This is not the case only during implementations of controlled quantum gates such as CNOT. When the state of the system is as described, the photons can be distinguished, since they are in different modes, and therefore a qubit state can be represented using a single photon in two modes, vertical (V) and horizontal (H): for example, 
+  
+    
+      
+        
+          |
+        
+        0
+        ⟩
+        ≡
+        
+          |
+        
+        0
+        ,
+        1
+        
+          ⟩
+          
+            V
+            H
+          
+        
+      
+    
+    {\displaystyle |0\rangle \equiv |0,1\rangle _{VH}}
+   and 
+  
+    
+      
+        
+          |
+        
+        1
+        ⟩
+        ≡
+        
+          |
+        
+        1
+        ,
+        0
+        
+          ⟩
+          
+            V
+            H
+          
+        
+      
+    
+    {\displaystyle |1\rangle \equiv |1,0\rangle _{VH}}
+  . It is common to refer to the states defined via occupation of modes as Fock states.
+Such notations are useful in quantum computing, quantum communication and quantum cryptography. For example, it is very easy to consider a loss of a single photon using these notations, simply by adding the vacuum state 
+  
+    
+      
+        
+          |
+        
+        0
+        ,
+        0
+        
+          ⟩
+          
+            V
+            H
+          
+        
+      
+    
+    {\displaystyle |0,0\rangle _{VH}}
+   containing zero photons in those two modes. As another example, when having two photons in two separated modes (e.g. two time bins or two arms of an interferometer), it is easy to describe an entangled state of the two photons. The singlet state (two linked photons with overall spin quantum number 
+  
+    
+      
+        s
+        =
+        0
+      
+    
+    {\displaystyle s=0}
+  ) can be described as follows:
+if 
+  
+    
+      
+        
+          |
+        
+        1
+        ,
+        0
+        
+          ⟩
+          
+            V
+            H
+          
+          
+            a
+          
+        
+        ,
+        
+          |
+        
+        0
+        ,
+        1
+        
+          ⟩
+          
+            V
+            H
+          
+          
+            a
+          
+        
+      
+    
+    {\displaystyle |1,0\rangle _{VH}^{a},|0,1\rangle _{VH}^{a}}
+   and 
+  
+    
+      
+        
+          |
+        
+        1
+        ,
+        0
+        
+          ⟩
+          
+            V
+            H
+          
+          
+            b
+          
+        
+        ,
+        
+          |
+        
+        0
+        ,
+        1
+        
+          ⟩
+          
+            V
+            H
+          
+          
+            b
+          
+        
+      
+    
+    {\displaystyle |1,0\rangle _{VH}^{b},|0,1\rangle _{VH}^{b}}
+   describe the basis states of the two separated modes, then the singlet state is 
+  
+    
+      
+        (
+        
+          |
+        
+        1
+        ,
+        0
+        
+          ⟩
+          
+            V
+            H
+          
+          
+            a
+          
+        
+        
+          |
+        
+        0
+        ,
+        1
+        
+          ⟩
+          
+            V
+            H
+          
+          
+            b
+          
+        
+        −
+        
+          |
+        
+        0
+        ,
+        1
+        
+          ⟩
+          
+            V
+            H
+          
+          
+            a
+          
+        
+        
+          |
+        
+        1
+        ,
+        0
+        
+          ⟩
+          
+            V
+            H
+          
+          
+            b
+          
+        
+        )
+        
+          /
+        
+        
+          
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle (|1,0\rangle _{VH}^{a}|0,1\rangle _{VH}^{b}-|0,1\rangle _{VH}^{a}|1,0\rangle _{VH}^{b})/{\sqrt {2}}.}
+
+State measurement/readout
+In the KLM protocol, a quantum state can be read out or measured using photon detectors along selected modes. If a photodetector detects a photon signal in a given mode, it means the corresponding mode state is a 1-photon state before measuring. As discussed in KLM's proposal, photon loss and detection efficiency dramatically influence the reliability of the measurement results. The corresponding failure issue and error correction methods will be described later.
+A left-pointed triangle will be used in circuit diagrams to represent the state readout operator in this article.
+
+Implementations of elementary quantum gates
+Ignoring error correction and other issues, the basic principle in implementations of elementary quantum gates using only mirrors, beam splitters and phase shifters is that by using these linear optical elements, one can construct any arbitrary 1-qubit unitary operation; in other words, those linear optical elements support a complete set of operators on any single qubit.
+The unitary matrix associated with a beam splitter 
+  
+    
+      
+        
+          
+            B
+          
+          
+            θ
+            ,
+            ϕ
+          
+        
+      
+    
+    {\displaystyle \mathbf {B} _{\theta ,\phi }}
+   is:
+
+  
+    
+      
+        U
+        (
+        
+          
+            B
+          
+          
+            θ
+            ,
+            ϕ
+          
+        
+        )
+        =
+        
+          
+            [
+            
+              
+                
+                  cos
+                  ⁡
+                  θ
+                
+                
+                  −
+                  
+                    e
+                    
+                      i
+                      ϕ
+                    
+                  
+                  sin
+                  ⁡
+                  θ
+                
+              
+              
+                
+                  
+                    e
+                    
+                      −
+                      i
+                      ϕ
+                    
+                  
+                  sin
+                  ⁡
+                  θ
+                
+                
+                  cos
+                  ⁡
+                  θ
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle U(\mathbf {B} _{\theta ,\phi })={\begin{bmatrix}\cos \theta &-e^{i\phi }\sin \theta \\e^{-i\phi }\sin \theta &\cos \theta \end{bmatrix}}}
+  ,where 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   and 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+   are determined by the reflection amplitude 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   and the transmission amplitude 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   (relationship will be given later for a simpler case). For a symmetric beam splitter, which has a phase shift 
+  
+    
+      
+        ϕ
+        =
+        
+          
+            π
+            2
+          
+        
+      
+    
+    {\displaystyle \phi ={\frac {\pi }{2}}}
+   under the unitary transformation condition 
+  
+    
+      
+        
+          |
+        
+        t
+        
+          
+            |
+          
+          
+            2
+          
+        
+        +
+        
+          |
+        
+        r
+        
+          
+            |
+          
+          
+            2
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle |t|^{2}+|r|^{2}=1}
+   and 
+  
+    
+      
+        
+          t
+          
+            ∗
+          
+        
+        r
+        +
+        t
+        
+          r
+          
+            ∗
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle t^{*}r+tr^{*}=0}
+  , one can show that
+
+  
+    
+      
+        U
+        (
+        
+          
+            B
+          
+          
+            θ
+            ,
+            ϕ
+            =
+            
+              
+                π
+                2
+              
+            
+          
+        
+        )
+        =
+        
+          
+            [
+            
+              
+                
+                  t
+                
+                
+                  r
+                
+              
+              
+                
+                  r
+                
+                
+                  t
+                
+              
+            
+            ]
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  cos
+                  ⁡
+                  θ
+                
+                
+                  −
+                  i
+                  sin
+                  ⁡
+                  θ
+                
+              
+              
+                
+                  −
+                  i
+                  sin
+                  ⁡
+                  θ
+                
+                
+                  cos
+                  ⁡
+                  θ
+                
+              
+            
+            ]
+          
+        
+        =
+        cos
+        ⁡
+        θ
+        
+          
+            
+              I
+              ^
+            
+          
+        
+        −
+        i
+        sin
+        ⁡
+        θ
+        
+          
+            
+              
+                σ
+                ^
+              
+            
+          
+          
+            x
+          
+        
+        =
+        
+          e
+          
+            −
+            i
+            θ
+            
+              
+                
+                  
+                    σ
+                    ^
+                  
+                
+              
+              
+                x
+              
+            
+          
+        
+      
+    
+    {\displaystyle U(\mathbf {B} _{\theta ,\phi ={\frac {\pi }{2}}})={\begin{bmatrix}t&r\\r&t\end{bmatrix}}={\begin{bmatrix}\cos \theta &-i\sin \theta \\-i\sin \theta &\cos \theta \end{bmatrix}}=\cos \theta {\hat {I}}-i\sin \theta {\hat {\sigma }}_{x}=e^{-i\theta {\hat {\sigma }}_{x}}}
+  ,which is a rotation of the single qubit state about the 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  -axis by 
+  
+    
+      
+        2
+        θ
+        =
+        2
+        
+          cos
+          
+            −
+            1
+          
+        
+        ⁡
+        (
+        
+          |
+        
+        t
+        
+          |
+        
+        )
+      
+    
+    {\displaystyle 2\theta =2\cos ^{-1}(|t|)}
+   in the Bloch sphere.
+A mirror is a special case where the reflecting rate is 1, so that the corresponding unitary operator is a rotation matrix given by
+
+  
+    
+      
+        R
+        (
+        θ
+        )
+        =
+        
+          
+            [
+            
+              
+                
+                  cos
+                  ⁡
+                  θ
+                
+                
+                  −
+                  sin
+                  ⁡
+                  θ
+                
+              
+              
+                
+                  sin
+                  ⁡
+                  θ
+                
+                
+                  cos
+                  ⁡
+                  θ
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle R(\theta )={\begin{bmatrix}\cos \theta &-\sin \theta \\\sin \theta &\cos \theta \\\end{bmatrix}}}
+  .For most cases of beam splitters used in QIP, the incident angle 
+  
+    
+      
+        θ
+        =
+        
+          45
+          
+            ∘
+          
+        
+      
+    
+    {\displaystyle \theta =45^{\circ }}
+  .
+Similarly, a phase shifter operator 
+  
+    
+      
+        
+          
+            P
+          
+          
+            ϕ
+          
+        
+      
+    
+    {\displaystyle \mathbf {P} _{\phi }}
+   associates with a unitary operator described by 
+  
+    
+      
+        U
+        (
+        
+          
+            P
+          
+          
+            ϕ
+          
+        
+        )
+        =
+        
+          e
+          
+            i
+            ϕ
+          
+        
+      
+    
+    {\displaystyle U(\mathbf {P} _{\phi })=e^{i\phi }}
+  , or, if written in a 2-mode format
+
+  
+    
+      
+        U
+        (
+        
+          
+            P
+          
+          
+            ϕ
+          
+        
+        )
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    e
+                    
+                      i
+                      ϕ
+                    
+                  
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  1
+                
+              
+            
+            ]
+          
+        
+        =
+        
+          
+            [
+            
+              
+                
+                  
+                    e
+                    
+                      i
+                      ϕ
+                      
+                        /
+                      
+                      2
+                    
+                  
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  
+                    e
+                    
+                      −
+                      i
+                      ϕ
+                      
+                        /
+                      
+                      2
+                    
+                  
+                
+              
+            
+            ]
+          
+        
+        
+          (global phase ignored)
+        
+        =
+        
+          e
+          
+            i
+            
+              
+                ϕ
+                2
+              
+            
+            
+              
+                
+                  
+                    σ
+                    ^
+                  
+                
+              
+              
+                z
+              
+            
+          
+        
+      
+    
+    {\displaystyle U(\mathbf {P} _{\phi })={\begin{bmatrix}e^{i\phi }&0\\0&1\end{bmatrix}}={\begin{bmatrix}e^{i\phi /2}&0\\0&e^{-i\phi /2}\end{bmatrix}}{\text{(global phase ignored)}}=e^{i{\frac {\phi }{2}}{\hat {\sigma }}_{z}}}
+  ,which is equivalent to a rotation of 
+  
+    
+      
+        −
+        ϕ
+      
+    
+    {\displaystyle -\phi }
+   about the 
+  
+    
+      
+        z
+      
+    
+    {\displaystyle z}
+  -axis.
+Since any two 
+  
+    
+      
+        S
+        U
+        (
+        2
+        )
+      
+    
+    {\displaystyle SU(2)}
+   rotations along orthogonal rotating axes can generate arbitrary rotations in the Bloch sphere, one can use a set of symmetric beam splitters and mirrors to realize an arbitrary 
+  
+    
+      
+        S
+        U
+        (
+        2
+        )
+      
+    
+    {\displaystyle SU(2)}
+   operators for QIP. The figures below are examples of implementing a Hadamard gate and a Pauli-X-gate (NOT gate) by using beam splitters (illustrated as rectangles connecting two sets of crossing lines with parameters 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   and 
+  
+    
+      
+        ϕ
+      
+    
+    {\displaystyle \phi }
+  ) and mirrors (illustrated as rectangles connecting two sets of crossing lines with parameter 
+  
+    
+      
+        R
+        (
+        θ
+        )
+      
+    
+    {\displaystyle R(\theta )}
+  ).
+
+In the above figures, a qubit is encoded using two mode channels (horizontal lines): 
+  
+    
+      
+        
+          |
+          0
+          ⟩
+        
+      
+    
+    {\displaystyle \left\vert 0\right\rangle }
+   represents a photon in the top mode, and 
+  
+    
+      
+        
+          |
+          1
+          ⟩
+        
+      
+    
+    {\displaystyle \left\vert 1\right\rangle }
+   represents a photon in the bottom mode.
+In the KLM scheme, qubit manipulations are realized via a series of non-deterministic operations with increasing probability of success. The first improvement to this implementation that will be discussed is the nondeterministic conditional sign flip gate.
+
+Implementation of nondeterministic conditional sign flip gate
+An important element of the KLM scheme is the conditional sign flip or nonlinear sign flip gate (NS-gate) as shown in the figure below on the right. It gives a nonlinear phase shift on one mode conditioned on two ancilla modes.
+
+In the picture on the right, the labels on the left of the bottom box indicate the modes. The output is accepted only if there is one photon in mode 2 and zero photons in mode 3 detected, where the ancilla modes 2 and 3 are prepared as the 
+  
+    
+      
+        
+          |
+        
+        1
+        ,
+        0
+        
+          ⟩
+          
+            2
+            ,
+            3
+          
+        
+      
+    
+    {\displaystyle |1,0\rangle _{2,3}}
+   state. The subscript 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is the phase shift of the output, and is determined by the parameters of inner optical elements chosen. For 
+  
+    
+      
+        x
+        =
+        −
+        1
+      
+    
+    {\displaystyle x=-1}
+   case, the following parameters are used: 
+  
+    
+      
+        
+          θ
+          
+            1
+          
+        
+        =
+        
+          22.5
+          
+            ∘
+          
+        
+      
+    
+    {\displaystyle \theta _{1}=22.5^{\circ }}
+  , 
+  
+    
+      
+        
+          ϕ
+          
+            1
+          
+        
+        =
+        
+          0
+          
+            ∘
+          
+        
+      
+    
+    {\displaystyle \phi _{1}=0^{\circ }}
+  , 
+  
+    
+      
+        
+          θ
+          
+            2
+          
+        
+        =
+        
+          65.5302
+          
+            ∘
+          
+        
+      
+    
+    {\displaystyle \theta _{2}=65.5302^{\circ }}
+  , 
+  
+    
+      
+        
+          ϕ
+          
+            2
+          
+        
+        =
+        
+          0
+          
+            ∘
+          
+        
+      
+    
+    {\displaystyle \phi _{2}=0^{\circ }}
+  , 
+  
+    
+      
+        
+          θ
+          
+            3
+          
+        
+        =
+        −
+        
+          22.5
+          
+            ∘
+          
+        
+      
+    
+    {\displaystyle \theta _{3}=-22.5^{\circ }}
+  , 
+  
+    
+      
+        
+          ϕ
+          
+            3
+          
+        
+        =
+        
+          0
+          
+            ∘
+          
+        
+      
+    
+    {\displaystyle \phi _{3}=0^{\circ }}
+  , and 
+  
+    
+      
+        
+          ϕ
+          
+            4
+          
+        
+        =
+        
+          180
+          
+            ∘
+          
+        
+      
+    
+    {\displaystyle \phi _{4}=180^{\circ }}
+  . For the 
+  
+    
+      
+        x
+        =
+        
+          e
+          
+            i
+            π
+            
+              /
+            
+            2
+          
+        
+      
+    
+    {\displaystyle x=e^{i\pi /2}}
+   case, the parameters can be chosen as 
+  
+    
+      
+        
+          θ
+          
+            1
+          
+        
+        =
+        
+          36.53
+          
+            ∘
+          
+        
+      
+    
+    {\displaystyle \theta _{1}=36.53^{\circ }}
+  , 
+  
+    
+      
+        
+          ϕ
+          
+            1
+          
+        
+        =
+        
+          88.24
+          
+            ∘
+          
+        
+      
+    
+    {\displaystyle \phi _{1}=88.24^{\circ }}
+  , 
+  
+    
+      
+        
+          θ
+          
+            2
+          
+        
+        =
+        
+          62.25
+          
+            ∘
+          
+        
+      
+    
+    {\displaystyle \theta _{2}=62.25^{\circ }}
+  , 
+  
+    
+      
+        
+          ϕ
+          
+            2
+          
+        
+        =
+        −
+        
+          66.53
+          
+            ∘
+          
+        
+      
+    
+    {\displaystyle \phi _{2}=-66.53^{\circ }}
+  , 
+  
+    
+      
+        
+          θ
+          
+            3
+          
+        
+        =
+        −
+        
+          36.53
+          
+            ∘
+          
+        
+      
+    
+    {\displaystyle \theta _{3}=-36.53^{\circ }}
+  , 
+  
+    
+      
+        
+          ϕ
+          
+            3
+          
+        
+        =
+        −
+        
+          11.25
+          
+            ∘
+          
+        
+      
+    
+    {\displaystyle \phi _{3}=-11.25^{\circ }}
+  , and 
+  
+    
+      
+        
+          ϕ
+          
+            4
+          
+        
+        =
+        
+          102.24
+          
+            ∘
+          
+        
+      
+    
+    {\displaystyle \phi _{4}=102.24^{\circ }}
+  . Similarly, by changing the parameters of beam splitters and phase shifters, or by combining multiple NS gates, one can create various quantum gates. By sharing two ancilla modes, Knill invented the following controlled-Z gate (see the figure on the right) with success rate of 2/27.
+The advantage of using NS gates is that the output can be guaranteed conditionally processed with some success rate which can be improved to nearly 1. Using the configuration as shown in the figure above on the right, the success rate of an 
+  
+    
+      
+        x
+        =
+        −
+        1
+      
+    
+    {\displaystyle x=-1}
+   NS gate is 
+  
+    
+      
+        1
+        
+          /
+        
+        4
+      
+    
+    {\displaystyle 1/4}
+  . To further improve successful rate and solve the scalability problem, one needs to use gate teleportation, described next.
+
+Gates teleportation and near-deterministic gates
+Given the use of non-deterministic quantum gates for KLM, there may be only a very small probability 
+  
+    
+      
+        
+          p
+          
+            N
+          
+        
+      
+    
+    {\displaystyle p^{N}}
+   that a circuit with 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+   gates with a single-gate success possibility of 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   will work perfectly by running the circuit once. Therefore, the operations must on average be repeated on the order of 
+  
+    
+      
+        
+          p
+          
+            −
+            N
+          
+        
+      
+    
+    {\displaystyle p^{-N}}
+   times or 
+  
+    
+      
+        
+          p
+          
+            −
+            N
+          
+        
+      
+    
+    {\displaystyle p^{-N}}
+   such systems must be run in parallel. Either way, the required time or circuit resources scale exponentially. In 1999, Gottesman and Chuang pointed out that one can prepare the probabilistic gates offline from the quantum circuit by using quantum teleportation. The basic idea is that each probabilistic gate is prepared offline, and the successful event signal is teleported back to the quantum circuit. An illustration of quantum teleportation is given in the figure on the right. As can be seen, the quantum state in mode 1 is teleported to mode 3 through a Bell measurement and an entangled resource Bell state 
+  
+    
+      
+        
+          |
+        
+        
+          Φ
+          
+            +
+          
+        
+        ⟩
+        =
+        
+          
+            1
+            
+              2
+            
+          
+        
+        (
+        
+          |
+        
+        01
+        ⟩
+        +
+        
+          |
+        
+        10
+        ⟩
+        )
+      
+    
+    {\displaystyle |\Phi ^{+}\rangle ={\frac {1}{\sqrt {2}}}(|01\rangle +|10\rangle )}
+  , where the state 1 may be regarded as prepared offline.
+The resource Bell state 
+  
+    
+      
+        
+          |
+        
+        
+          Φ
+          
+            +
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\Phi ^{+}\rangle }
+   can be generated from the state 
+  
+    
+      
+        
+          |
+        
+        10
+        ⟩
+      
+    
+    {\displaystyle |10\rangle }
+   by use of a mirror with parameter 
+  
+    
+      
+        θ
+        =
+        
+          
+            π
+            4
+          
+        
+        .
+      
+    
+    {\displaystyle \theta ={\frac {\pi }{4}}.}
+  
+
+By using teleportation, many probabilistic gates may be prepared in parallel with 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -photon entangled states, sending a control signal to the output mode. Through using 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   probabilistic gates in parallel offline, a success rate of 
+  
+    
+      
+        
+          
+            
+              n
+              
+                2
+              
+            
+            
+              (
+              n
+              +
+              1
+              
+                )
+                
+                  2
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {n^{2}}{(n+1)^{2}}}}
+   can be obtained, which is close to 1 as 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   becomes large. The number of gates needed to realize a certain accuracy scales polynomially rather than exponentially. In this sense, the KLM protocol is resource-efficient. One experiment using the KLM originally proposed controlled-NOT gate with four-photon input was demonstrated in 2011, and gave an average fidelity of 
+  
+    
+      
+        F
+        =
+        0.82
+        ±
+        0.01
+      
+    
+    {\displaystyle F=0.82\pm 0.01}
+  .
+
+Error detection and correction
+As discussed above, the success probability of teleportation gates can be made arbitrarily close to 1 by preparing larger entangled states. However, the asymptotic approach to the probability of 1 is quite slow with respect to the photon number 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  . A more efficient approach is to encode against gate failure (error) based on the well-defined failure mode of the teleporters. In the KLM protocol, the teleporter's failure can be diagnosed if zero or 
+  
+    
+      
+        n
+        +
+        1
+      
+    
+    {\displaystyle n+1}
+   photons are detected. If the computing device can be encoded against accidental measurements of some certain number of photons, then it will be possible to correct gate failures and the probability of eventually successfully applying the gate will increase.
+Many experimental trials using this idea have been carried out (see, for example, Refs). However, a large number of operations are still needed to achieve a success probability very close to 1. In order to promote the KLM protocol as a viable technology, more efficient quantum gates are needed. This is the subject of the next part.
+
+Improvements
+This section discusses the improvements of the KLM protocol that have been studied after the initial proposal.
+There are many ways to improve the KLM protocol for LOQC and to make LOQC more promising. Below are some proposals from the review article Ref. and other subsequent articles:
+
+Using cluster states in optical quantum computing.
+Circuit-based optical quantum computing revisited.
+Using one-step deterministic multipartite entanglement purification with linear optics to generate entangled photon states.There are several protocols for using cluster states to improve the KLM protocol, the computation model with those protocols is an LOQC implementation of the one-way quantum computer:
+
+The Yoran-Reznik protocol - this protocol makes use of cluster-chains in order to increase the success probability of teleportation.
+The Nielsen protocol - this protocol improves the Yoran-Reznik protocol by first using teleportation to add qubits to cluster-chains and then uses the enlarged cluster chains to further increase the success probability of teleportation.
+The Browne-Rudolph protocol - this protocol improves the Nielsen protocol by using teleportation not only to add qubits to cluster-chains but also to fuse them .
+
+See also
+Boson sampling
+
+
+== References ==

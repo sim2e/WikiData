@@ -1,0 +1,394 @@
+A coupled map lattice (CML) is a dynamical system that models the behavior of non-linear systems (especially partial differential equations). They are predominantly used to qualitatively study the chaotic dynamics of spatially extended systems. This includes the dynamics of spatiotemporal chaos where the number of effective degrees of freedom diverges as the size of the system increases.Features of the CML are discrete time dynamics, discrete underlying spaces (lattices or networks), and real (number or vector), local, continuous state variables. Studied systems include populations, chemical reactions, convection, fluid flow and biological networks. More recently, CMLs have been applied to computational networks  identifying detrimental attack methods and cascading failures.
+CMLs are comparable to cellular automata models in terms of their discrete features. However, the value of each site in a cellular automata network is strictly dependent on its neighbor (s) from the previous time step. Each site of the CML is only dependent upon its neighbors relative to the coupling term in the recurrence equation. However, the similarities can be compounded when considering multi-component dynamical systems.
+
+Introduction
+A CML generally incorporates a system of equations (coupled or uncoupled), a finite number of variables, a global or local coupling scheme and the corresponding coupling terms. The underlying lattice can exist in infinite dimensions. Mappings of interest in CMLs generally demonstrate chaotic behavior. Such maps can be found here: List of chaotic maps.
+A logistic mapping demonstrates chaotic behavior, easily identifiable in one dimension for parameter r > 3.57:
+
+  
+    
+      
+        
+        
+          x
+          
+            n
+            +
+            1
+          
+        
+        =
+        r
+        
+          x
+          
+            n
+          
+        
+        (
+        1
+        −
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle \qquad x_{n+1}=rx_{n}(1-x_{n})}
+  In Figure 1, 
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+      
+    
+    {\displaystyle x_{0}}
+   is initialized to random values across a small lattice; the values are decoupled with respect to neighboring sites. The same recurrence relation is applied at each lattice point, although the parameter r is slightly increased with each time step. The result is a raw form of chaotic behavior in a map lattice. However, there are no significant spatial correlations or pertinent fronts to the chaotic behavior. No obvious order is apparent.
+For a basic coupling, we consider a 'single neighbor' coupling where the value at any given site 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   is computed from the recursive maps both on 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   itself and on the neighboring site 
+  
+    
+      
+        s
+        −
+        1
+      
+    
+    {\displaystyle s-1}
+  . The coupling parameter 
+  
+    
+      
+        ϵ
+        =
+        0.5
+      
+    
+    {\displaystyle \epsilon =0.5}
+   is equally weighted. Again, the value of 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   is constant across the lattice, but slightly increased with each time step.
+
+  
+    
+      
+        
+        
+          x
+          
+            n
+            +
+            1
+          
+        
+        =
+        (
+        ϵ
+        )
+        [
+        r
+        
+          x
+          
+            n
+          
+        
+        (
+        1
+        −
+        
+          x
+          
+            n
+          
+        
+        )
+        
+          ]
+          
+            s
+          
+        
+        +
+        (
+        1
+        −
+        ϵ
+        )
+        [
+        r
+        
+          x
+          
+            n
+          
+        
+        (
+        1
+        −
+        
+          x
+          
+            n
+          
+        
+        )
+        
+          ]
+          
+            s
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle \qquad x_{n+1}=(\epsilon )[rx_{n}(1-x_{n})]_{s}+(1-\epsilon )[rx_{n}(1-x_{n})]_{s-1}}
+  Even though the recursion is chaotic, a more solid form develops in the evolution. Elongated convective spaces persist throughout the lattice (see Figure 2).
+
+History
+CMLs were first introduced in the mid 1980s through a series of closely released publications. Kapral used CMLs for modeling chemical spatial phenomena. Kuznetsov sought to apply CMLs to electrical circuitry by developing a renormalization group approach (similar to Feigenbaum's universality to spatially extended systems). Kaneko's focus was more broad and he is still known as the most active researcher in this area. The most examined CML model was introduced by Kaneko in 1983 where the recurrence equation is as follows:
+
+  
+    
+      
+        
+          u
+          
+            s
+          
+          
+            t
+            +
+            1
+          
+        
+        =
+        (
+        1
+        −
+        ε
+        )
+        f
+        (
+        
+          u
+          
+            s
+          
+          
+            t
+          
+        
+        )
+        +
+        
+          
+            ε
+            2
+          
+        
+        
+          (
+          
+            f
+            (
+            
+              u
+              
+                s
+                +
+                1
+              
+              
+                t
+              
+            
+            )
+            +
+            f
+            (
+            
+              u
+              
+                s
+                −
+                1
+              
+              
+                t
+              
+            
+            )
+          
+          )
+        
+         
+         
+         
+        t
+        ∈
+        
+          N
+        
+        ,
+         
+        ε
+        ∈
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle u_{s}^{t+1}=(1-\varepsilon )f(u_{s}^{t})+{\frac {\varepsilon }{2}}\left(f(u_{s+1}^{t})+f(u_{s-1}^{t})\right)\ \ \ t\in \mathbb {N} ,\ \varepsilon \in [0,1]}
+  where 
+  
+    
+      
+        
+          u
+          
+            s
+          
+          
+            t
+          
+        
+        ∈
+        
+          
+            R
+          
+        
+         
+        ,
+      
+    
+    {\displaystyle u_{s}^{t}\in {\mathbb {R} }\ ,}
+   and 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   is a real mapping.
+The applied CML strategy was as follows: 
+
+Choose a set of field variables on the lattice at a macroscopic level.  The dimension (not limited by the CML system) should be chosen to correspond to the physical space being researched.
+Decompose the process (underlying the phenomena) into independent components.
+Replace each component by a nonlinear transformation of field variables on each lattice point and the coupling term on suitable, chosen neighbors.
+Carry out each unit dynamics ("procedure") successively.
+
+Classification
+The CML system evolves through discrete time by a mapping on vector sequences. These mappings are a recursive function of two competing terms: an individual non-linear reaction, and a spatial interaction (coupling) of variable intensity. CMLs can be classified by the strength of this coupling parameter(s).
+Much of the current published work in CMLs is based in weak coupled systems  where diffeomorphisms of the state space close to identity are studied. Weak coupling with monotonic (bistable) dynamical regimes demonstrate spatial chaos phenomena and are popular in neural models. Weak coupling unimodal maps are characterized by their stable periodic points and are used by gene regulatory network models. Space-time chaotic phenomena can be demonstrated from chaotic mappings subject to weak coupling coefficients and are popular in phase transition phenomena models.
+Intermediate and strong coupling interactions are less prolific areas of study. Intermediate interactions are studied with respect to fronts and traveling waves, riddled basins, riddled bifurcations, clusters and non-unique phases. Strong coupling interactions are most well known to model synchronization effects of dynamic spatial systems such as the Kuramoto model.
+These classifications do not reflect the local or global (GMLs ) coupling nature of the interaction. Nor do they consider the frequency of the coupling which can exist as a degree of freedom in the system. Finally, they do not distinguish between sizes of the underlying space or boundary conditions.
+Surprisingly the dynamics of CMLs have little to do with the local maps that constitute their elementary components. With each model a rigorous mathematical investigation is needed to identify a chaotic state (beyond visual interpretation). Rigorous proofs have been performed to this effect. By example: the existence of space-time chaos in weak space interactions of one-dimensional maps with strong statistical properties was proven by Bunimovich and Sinai in 1988. Similar proofs exist for weakly coupled  hyperbolic maps under the same conditions.
+
+Unique CML qualitative classes
+CMLs have revealed novel qualitative universality classes in (CML) phenomenology. Such classes include:
+
+Spatial bifurcation and frozen chaos
+Pattern Selection
+Selection of zig-zag patterns and chaotic diffusion of defects
+Spatio-temporal intermittency
+Soliton turbulence
+Global traveling waves generated by local phase slips
+Spatial bifurcation to down-flow in open flow systems.
+
+Visual phenomena
+The unique qualitative classes listed above can be visualized. By applying the Kaneko 1983 model to the logistic 
+  
+    
+      
+        
+          f
+          (
+          
+            x
+            
+              n
+            
+          
+          )
+        
+        =
+        1
+        −
+        a
+        
+          x
+          
+            2
+          
+        
+      
+    
+    {\displaystyle {f(x_{n})}=1-ax^{2}}
+   map, several of the CML qualitative classes may be observed. These are demonstrated below, note the unique parameters:
+
+Quantitative analysis quantifiers
+Coupled map lattices being a prototype of spatially extended systems easy to simulate have represented a benchmark 
+for the definition and introduction of many indicators of spatio-temporal chaos, the most relevant ones are
+
+The power spectrum in space and time
+Lyapunov spectra
+Dimension density
+Kolmogorov–Sinai entropy density
+Distributions of patterns
+Pattern entropy
+Propagation speed of finite and infinitesimal disturbance
+Mutual information and correlation in space-time
+Lyapunov exponents, localization of Lyapunov vectors
+Comoving and sub-space time Lyapunov exponents.
+Spatial and temporal Lyapunov exponents
+
+See also
+Cellular automata
+Lyapunov exponent
+Stochastic cellular automata
+Rulkov map
+Chialvo map
+
+References
+Further reading
+External links
+Kaneko Laboratory
+Institut Henri Poincaré,   Paris, June 21 – July 2, 2004
+Istituto dei Sistemi Complessi, Florence, Italy
+Java CML/GML web-app
+AnT 4.669 – A simulation and Analysis  Tool for Dynamical Systems

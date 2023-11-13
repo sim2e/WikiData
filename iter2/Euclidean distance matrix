@@ -1,0 +1,1398 @@
+In mathematics, a Euclidean distance matrix is an n×n matrix representing the spacing of a set of n points in Euclidean space.
+For points 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{1},x_{2},\ldots ,x_{n}}
+   in k-dimensional space ℝk, the elements of their Euclidean distance matrix A are given by squares of distances between them.
+That is
+
+  
+    
+      
+        
+          
+            
+              
+                A
+              
+              
+                
+                =
+                (
+                
+                  a
+                  
+                    i
+                    j
+                  
+                
+                )
+                ;
+              
+            
+            
+              
+                
+                  a
+                  
+                    i
+                    j
+                  
+                
+              
+              
+                
+                =
+                
+                  d
+                  
+                    i
+                    j
+                  
+                  
+                    2
+                  
+                
+                
+                =
+                
+                ‖
+                
+                  x
+                  
+                    i
+                  
+                
+                −
+                
+                  x
+                  
+                    j
+                  
+                
+                
+                  ‖
+                  
+                    2
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}A&=(a_{ij});\\a_{ij}&=d_{ij}^{2}\;=\;\lVert x_{i}-x_{j}\rVert ^{2}\end{aligned}}}
+  where 
+  
+    
+      
+        ‖
+        ⋅
+        ‖
+      
+    
+    {\displaystyle \|\cdot \|}
+   denotes the Euclidean norm on ℝk.
+
+  
+    
+      
+        A
+        =
+        
+          
+            [
+            
+              
+                
+                  0
+                
+                
+                  
+                    d
+                    
+                      12
+                    
+                    
+                      2
+                    
+                  
+                
+                
+                  
+                    d
+                    
+                      13
+                    
+                    
+                      2
+                    
+                  
+                
+                
+                  …
+                
+                
+                  
+                    d
+                    
+                      1
+                      n
+                    
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  
+                    d
+                    
+                      21
+                    
+                    
+                      2
+                    
+                  
+                
+                
+                  0
+                
+                
+                  
+                    d
+                    
+                      23
+                    
+                    
+                      2
+                    
+                  
+                
+                
+                  …
+                
+                
+                  
+                    d
+                    
+                      2
+                      n
+                    
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  
+                    d
+                    
+                      31
+                    
+                    
+                      2
+                    
+                  
+                
+                
+                  
+                    d
+                    
+                      32
+                    
+                    
+                      2
+                    
+                  
+                
+                
+                  0
+                
+                
+                  …
+                
+                
+                  
+                    d
+                    
+                      3
+                      n
+                    
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  ⋮
+                
+                
+                  ⋮
+                
+                
+                  ⋮
+                
+                
+                  ⋱
+                
+                
+                  ⋮
+                
+                
+              
+              
+                
+                  
+                    d
+                    
+                      n
+                      1
+                    
+                    
+                      2
+                    
+                  
+                
+                
+                  
+                    d
+                    
+                      n
+                      2
+                    
+                    
+                      2
+                    
+                  
+                
+                
+                  
+                    d
+                    
+                      n
+                      3
+                    
+                    
+                      2
+                    
+                  
+                
+                
+                  …
+                
+                
+                  0
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle A={\begin{bmatrix}0&d_{12}^{2}&d_{13}^{2}&\dots &d_{1n}^{2}\\d_{21}^{2}&0&d_{23}^{2}&\dots &d_{2n}^{2}\\d_{31}^{2}&d_{32}^{2}&0&\dots &d_{3n}^{2}\\\vdots &\vdots &\vdots &\ddots &\vdots &\\d_{n1}^{2}&d_{n2}^{2}&d_{n3}^{2}&\dots &0\\\end{bmatrix}}}
+  In the context of (not necessarily Euclidean) distance matrices, the entries are usually defined directly as distances, not their squares.
+However, in the Euclidean case, squares of distances are used to avoid computing square roots and to simplify relevant theorems and algorithms.
+Euclidean distance matrices are closely related to Gram matrices (matrices of dot products, describing norms of vectors and angles between them).
+The latter are easily analyzed using methods of linear algebra.
+This allows to characterize Euclidean distance matrices and recover the points 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{1},x_{2},\ldots ,x_{n}}
+   that realize it.
+A realization, if it exists, is unique up to rigid transformations, i.e. distance-preserving transformations of Euclidean space (rotations, reflections, translations).
+In practical applications, distances are noisy measurements or come from arbitrary dissimilarity estimates (not necessarily metric).
+The goal may be to visualize such data by points in Euclidean space whose distance matrix approximates a given dissimilarity matrix as well as possible — this is known as multidimensional scaling.
+Alternatively, given two sets of data already represented by points in Euclidean space, one may ask how similar they are in shape, that is, how closely can they be related by a distance-preserving transformation — this is Procrustes analysis.
+Some of the distances may also be missing or come unlabelled (as an unordered set or multiset instead of a matrix), leading to more complex algorithmic tasks, such as the graph realization problem or the turnpike problem (for points on a line).
+
+Properties
+By the fact that Euclidean distance is a metric, the matrix A has the following properties.
+
+All elements on the diagonal of A are zero (i.e. it is a hollow matrix); hence the trace of A is zero.
+A is symmetric (i.e. 
+  
+    
+      
+        
+          a
+          
+            i
+            j
+          
+        
+        =
+        
+          a
+          
+            j
+            i
+          
+        
+      
+    
+    {\displaystyle a_{ij}=a_{ji}}
+  ).
+
+  
+    
+      
+        
+          
+            
+              a
+              
+                i
+                j
+              
+            
+          
+        
+        ≤
+        
+          
+            
+              a
+              
+                i
+                k
+              
+            
+          
+        
+        +
+        
+          
+            
+              a
+              
+                k
+                j
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\sqrt {a_{ij}}}\leq {\sqrt {a_{ik}}}+{\sqrt {a_{kj}}}}
+   (by the triangle inequality)
+
+  
+    
+      
+        
+          a
+          
+            i
+            j
+          
+        
+        ≥
+        0
+      
+    
+    {\displaystyle a_{ij}\geq 0}
+  In dimension k, a Euclidean distance matrix has rank less than or equal to k+2. If the points 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{1},x_{2},\ldots ,x_{n}}
+   are in general position, the rank is exactly min(n, k + 2).
+Distances can be shrunk by any power to obtain another Euclidean distance matrix. That is, if 
+  
+    
+      
+        A
+        =
+        (
+        
+          a
+          
+            i
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle A=(a_{ij})}
+   is a Euclidean distance matrix, then 
+  
+    
+      
+        (
+        
+          
+            
+              a
+              
+                i
+                j
+              
+            
+          
+          
+            s
+          
+        
+        )
+      
+    
+    {\displaystyle ({a_{ij}}^{s})}
+   is a Euclidean distance matrix for every 0<s<1.
+
+Relation to Gram matrix
+The Gram matrix of a sequence of points 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{1},x_{2},\ldots ,x_{n}}
+   in k-dimensional space ℝk
+is the n×n matrix 
+  
+    
+      
+        G
+        =
+        (
+        
+          g
+          
+            i
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle G=(g_{ij})}
+   of their dot products (here a point 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+   is thought of as a vector from 0 to that point):
+
+  
+    
+      
+        
+          g
+          
+            i
+            j
+          
+        
+        =
+        
+          x
+          
+            i
+          
+        
+        ⋅
+        
+          x
+          
+            j
+          
+        
+        =
+        ‖
+        
+          x
+          
+            i
+          
+        
+        ‖
+        ‖
+        
+          x
+          
+            j
+          
+        
+        ‖
+        cos
+        ⁡
+        θ
+      
+    
+    {\displaystyle g_{ij}=x_{i}\cdot x_{j}=\|x_{i}\|\|x_{j}\|\cos \theta }
+  , where 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   is the angle between the vector 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+   and 
+  
+    
+      
+        
+          x
+          
+            j
+          
+        
+      
+    
+    {\displaystyle x_{j}}
+  .In particular
+
+  
+    
+      
+        
+          g
+          
+            i
+            i
+          
+        
+        =
+        ‖
+        
+          x
+          
+            i
+          
+        
+        
+          ‖
+          
+            2
+          
+        
+      
+    
+    {\displaystyle g_{ii}=\|x_{i}\|^{2}}
+   is the square of the distance of 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+   from 0.Thus the Gram matrix describes norms and angles of vectors (from 0 to) 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{1},x_{2},\ldots ,x_{n}}
+  .
+Let 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   be the k×n matrix containing 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{1},x_{2},\ldots ,x_{n}}
+   as columns.
+Then
+
+  
+    
+      
+        G
+        =
+        
+          X
+          
+            
+              T
+            
+          
+        
+        X
+      
+    
+    {\displaystyle G=X^{\textsf {T}}X}
+  , because 
+  
+    
+      
+        
+          g
+          
+            i
+            j
+          
+        
+        =
+        
+          x
+          
+            i
+          
+          
+            
+              T
+            
+          
+        
+        
+          x
+          
+            j
+          
+        
+      
+    
+    {\displaystyle g_{ij}=x_{i}^{\textsf {T}}x_{j}}
+   (seeing 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+   as a column vector).Matrices that can be decomposed as 
+  
+    
+      
+        
+          X
+          
+            
+              T
+            
+          
+        
+        X
+      
+    
+    {\displaystyle X^{\textsf {T}}X}
+  , that is, Gram matrices of some sequence of vectors (columns of 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+  ), are well understood — these are precisely positive semidefinite matrices.
+
+To relate the Euclidean distance matrix to the Gram matrix, observe that
+
+  
+    
+      
+        
+          d
+          
+            i
+            j
+          
+          
+            2
+          
+        
+        =
+        ‖
+        
+          x
+          
+            i
+          
+        
+        −
+        
+          x
+          
+            j
+          
+        
+        
+          ‖
+          
+            2
+          
+        
+        =
+        (
+        
+          x
+          
+            i
+          
+        
+        −
+        
+          x
+          
+            j
+          
+        
+        
+          )
+          
+            
+              T
+            
+          
+        
+        (
+        
+          x
+          
+            i
+          
+        
+        −
+        
+          x
+          
+            j
+          
+        
+        )
+        =
+        
+          x
+          
+            i
+          
+          
+            
+              T
+            
+          
+        
+        
+          x
+          
+            i
+          
+        
+        −
+        2
+        
+          x
+          
+            i
+          
+          
+            
+              T
+            
+          
+        
+        
+          x
+          
+            j
+          
+        
+        +
+        
+          x
+          
+            j
+          
+          
+            
+              T
+            
+          
+        
+        
+          x
+          
+            j
+          
+        
+        =
+        
+          g
+          
+            i
+            i
+          
+        
+        −
+        2
+        
+          g
+          
+            i
+            j
+          
+        
+        +
+        
+          g
+          
+            j
+            j
+          
+        
+      
+    
+    {\displaystyle d_{ij}^{2}=\|x_{i}-x_{j}\|^{2}=(x_{i}-x_{j})^{\textsf {T}}(x_{i}-x_{j})=x_{i}^{\textsf {T}}x_{i}-2x_{i}^{\textsf {T}}x_{j}+x_{j}^{\textsf {T}}x_{j}=g_{ii}-2g_{ij}+g_{jj}}
+  That is, the norms and angles determine the distances.
+Note that the Gram matrix contains additional information: distances from 0. 
+Conversely, distances 
+  
+    
+      
+        
+          d
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle d_{ij}}
+   between pairs of n+1 points 
+  
+    
+      
+        
+          x
+          
+            0
+          
+        
+        ,
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{0},x_{1},\ldots ,x_{n}}
+   determine dot products between n vectors 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+        −
+        
+          x
+          
+            0
+          
+        
+      
+    
+    {\displaystyle x_{i}-x_{0}}
+   (1≤i≤n):
+
+  
+    
+      
+        
+          g
+          
+            i
+            j
+          
+        
+        =
+        (
+        
+          x
+          
+            i
+          
+        
+        −
+        
+          x
+          
+            0
+          
+        
+        )
+        ⋅
+        (
+        
+          x
+          
+            j
+          
+        
+        −
+        
+          x
+          
+            0
+          
+        
+        )
+        =
+        
+          
+            1
+            2
+          
+        
+        
+          (
+          
+            ‖
+            
+              x
+              
+                i
+              
+            
+            −
+            
+              x
+              
+                0
+              
+            
+            
+              ‖
+              
+                2
+              
+            
+            +
+            ‖
+            
+              x
+              
+                j
+              
+            
+            −
+            
+              x
+              
+                0
+              
+            
+            
+              ‖
+              
+                2
+              
+            
+            −
+            ‖
+            
+              x
+              
+                i
+              
+            
+            −
+            
+              x
+              
+                j
+              
+            
+            
+              ‖
+              
+                2
+              
+            
+          
+          )
+        
+        =
+        
+          
+            1
+            2
+          
+        
+        (
+        
+          d
+          
+            0
+            i
+          
+          
+            2
+          
+        
+        +
+        
+          d
+          
+            0
+            j
+          
+          
+            2
+          
+        
+        −
+        
+          d
+          
+            i
+            j
+          
+          
+            2
+          
+        
+        )
+      
+    
+    {\displaystyle g_{ij}=(x_{i}-x_{0})\cdot (x_{j}-x_{0})={\frac {1}{2}}\left(\|x_{i}-x_{0}\|^{2}+\|x_{j}-x_{0}\|^{2}-\|x_{i}-x_{j}\|^{2}\right)={\frac {1}{2}}(d_{0i}^{2}+d_{0j}^{2}-d_{ij}^{2})}
+  (this is known as the polarization identity).
+
+Characterizations
+For a n×n matrix A, a sequence of points 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+          x
+          
+            2
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{1},x_{2},\ldots ,x_{n}}
+   in k-dimensional Euclidean space ℝk
+is called a realization of A in ℝk if A is their Euclidean distance matrix.
+One can assume without loss of generality that 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        =
+        
+          0
+        
+      
+    
+    {\displaystyle x_{1}=\mathbf {0} }
+   (because translating by 
+  
+    
+      
+        −
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle -x_{1}}
+   preserves distances).
+
+This follows from the previous discussion because G is positive semidefinite of rank at most k if and only if it can be decomposed as 
+  
+    
+      
+        G
+        =
+        
+          X
+          
+            
+              T
+            
+          
+        
+        X
+      
+    
+    {\displaystyle G=X^{\textsf {T}}X}
+   where X is an k×n matrix.
+Moreover, the columns of X give a realization in ℝk.
+Therefore, any method to decompose G allows to find a realization.
+The two main approaches are variants of Cholesky decomposition or using spectral decompositions to find the principal square root of G, see Definite matrix#Decomposition.
+The statement of theorem distinguishes the first point 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle x_{1}}
+  . A more symmetric variant of the same theorem is the following:
+
+Other characterizations involve Cayley–Menger determinants.
+In particular, these allow to show that a symmetric hollow n×n matrix is realizable in ℝk if and only if every (k+3)×(k+3) principal submatrix is.
+In other words, a semimetric on finitely many points is embedabble isometrically in ℝk if and only if every  k+3 points are.In practice, the definiteness or rank conditions may fail due to numerical errors, noise in measurements, or due to the data not coming from actual Euclidean distances.
+Points that realize optimally similar distances can then be found by semidefinite approximation (and low rank approximation, if desired) using linear algebraic tools such as singular value decomposition or semidefinite programming.
+This is known as multidimensional scaling.
+Variants of these methods can also deal with incomplete distance data.
+Unlabeled data, that is, a set or multiset of distances not assigned to particular pairs, is much more difficult to deal with.
+Such data arises, for example, in DNA sequencing (specifically, genome recovery from partial digest) or phase retrieval.
+Two sets of points are called homometric if they have the same multiset of distances (but are not necessarily related by a rigid transformation).
+Deciding whether a given multiset of n(n-1)/2 distances can be realized in a given dimension k is strongly NP-hard.
+In one dimension this is known as the turnpike problem; it is an open question whether it can be solved in polynomial time.
+When the multiset of distances is given with error bars, even the one dimensional case is NP-hard.
+Nevertheless, practical algorithms exist for many cases, e.g. random points.
+
+Uniqueness of representations
+Given a Euclidean distance matrix, the sequence of points that realize it is unique up to rigid transformations – these are isometries of Euclidean space: rotations, reflections, translations, and their compositions.
+
+In applications, when distances don't match exactly, Procrustes analysis aims to relate two point sets as close as possible via rigid transformations, usually using singular value decomposition.
+The ordinary Euclidean case is known as the orthogonal Procrustes problem or Wahba's problem (when observations are weighted to account for varying uncertainties).
+Examples of applications include determining orientations of satellites, comparing molecule structure (in cheminformatics), protein structure (structural alignment in bioinformatics), or bone structure (statistical shape analysis in biology).
+
+See also
+Adjacency matrix
+Coplanarity
+Distance geometry
+Hollow matrix
+Distance matrix
+Euclidean random matrix
+Classical multidimensional scaling, a visualization technique that approximates an arbitrary dissimilarity matrix by a Euclidean distance matrix
+Cayley–Menger determinant
+Semidefinite embedding
+
+Notes
+References
+Dokmanic, Ivan; Parhizkar, Reza; Ranieri, Juri; Vetterli, Martin (2015). "Euclidean Distance Matrices: Essential theory, algorithms, and applications". IEEE Signal Processing Magazine. 32 (6): 12–30. arXiv:1502.07541. doi:10.1109/MSP.2015.2398954. ISSN 1558-0792. S2CID 8603398.
+James E. Gentle (2007). Matrix Algebra: Theory, Computations, and Applications in Statistics. Springer-Verlag. p. 299. ISBN 978-0-387-70872-0.
+So, Anthony Man-Cho (2007). A Semidefinite Programming Approach to the Graph Realization Problem: Theory, Applications and Extensions (PDF) (PhD).
+Liberti, Leo; Lavor, Carlile; Maculan, Nelson; Mucherino, Antonio (2014). "Euclidean Distance Geometry and Applications". SIAM Review. 56 (1): 3–69. arXiv:1205.0349. doi:10.1137/120875909. ISSN 0036-1445. S2CID 15472897.
+Alfakih, Abdo Y. (2018). Euclidean Distance Matrices and Their Applications in Rigidity Theory. Cham: Springer International Publishing. doi:10.1007/978-3-319-97846-8. ISBN 978-3-319-97845-1.

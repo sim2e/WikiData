@@ -1,0 +1,49 @@
+Reflection in computer graphics is used to render reflective objects like mirrors and shiny surfaces.
+Accurate reflections are commonly computed using ray tracing whereas approximate reflections can usually be computed faster by using simpler methods such as environment mapping. Reflections on shiny surfaces like wood or tile can add to the photorealistic effects of a 3D rendering.
+
+Approaches to reflection rendering
+For rendering environment reflections there exist many techniques that differ in precision, computational and implementation complexity. Combination of these techniques are also possible.
+Image order rendering algorithms based on tracing rays of light, such as ray tracing or path tracing, typically compute accurate reflections on general surfaces, including multiple reflections and self reflections. However these algorithms are generally still too computationally expensive for real time rendering (even though specialized HW exists, such as Nvidia RTX) and require a different rendering approach from typically used rasterization.
+Reflections on planar surfaces, such as planar mirrors or water surfaces, can be computed simply and accurately in real time with two pass rendering — one for the viewer, one for the view in the mirror, usually with the help of stencil buffer. Some older video games used a trick to achieve this effect with one pass rendering by putting the whole mirrored scene behind a transparent plane representing the mirror.Reflections on non-planar (curved) surfaces are more challenging for real time rendering. Main approaches that are used include:
+
+Environment mapping (e.g. cube mapping): a technique that has been widely used e.g. in video games, offering reflection approximation that's mostly sufficient to the eye, but lacking self-reflections and requiring prerendering of the environment map.: 174  The precision can be increased by using a spatial array of environment maps instead of just one.
+Screen space reflections (SSR): a more expensive technique that traces reflection rays in screen space (as opposed to world space in e.g. ray tracing). This is done for each rendered pixel of the reflected surface, using the surface normal and scene depth. The disadvantage is that objects not captured in the rendered frame cannot appear in the reflections, which results in unresolved intersections and incomplete reflection image subsequently causing artefacts on the edge of the reflection. SSR was originally introduced as Real Time Local Reflections and was later changed.
+
+Types of reflection
+Polished- A polished reflection is an undisturbed reflection, like a mirror or chrome surface.
+
+Blurry- A blurry reflection means that tiny random bumps on the surface of the material causes the reflection to be blurry.
+
+Metallic- A reflection is metallic if the highlights and reflections retain the color of the reflective object.
+
+Glossy- This term can be misused: sometimes, it is a setting which is the opposite of blurry (e.g. when "glossiness" has a low value, the reflection is blurry).  Sometimes the term is used as a synonym for "blurred reflection".  Glossy used in this context means that the reflection is actually blurred.
+
+Polished or mirror reflection
+Mirrors are usually almost 100% reflective.
+
+Metallic reflection
+Normal (nonmetallic) objects reflect light and colors in the original color of the object being reflected.
+Metallic objects reflect lights and colors altered by the color of the metallic object itself.
+
+Blurry reflection
+Many materials are imperfect reflectors, where the reflections are blurred to various
+degrees due to surface roughness that scatters the rays of the reflections.
+
+Glossy reflection
+Fully glossy reflection, shows highlights from light sources, but does not show a clear reflection from objects.
+
+Examples of reflections
+Wet floor reflections
+The wet floor effect
+is a graphic effects technique popular in conjunction with Web 2.0 style pages, particularly in logos. The effect can be done manually or created with an auxiliary tool which can be installed to create the effect automatically. Unlike a standard computer reflection (and the Java water effect popular in first-generation web graphics), the wet floor effect involves a gradient and often a slant in the reflection, so that the mirrored image appears to be hovering over or resting on a wet floor.
+
+See also
+Illumination model
+Lambertian reflectance
+Ray tracing
+Reflection mapping
+Rendering (computer graphics)
+Specular reflection (optics)
+
+
+== References ==

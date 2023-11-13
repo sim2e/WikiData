@@ -1,0 +1,645 @@
+In graph theory, a component of an undirected graph is a connected subgraph that is not part of any larger connected subgraph. The components of any graph partition its vertices into disjoint sets, and are the induced subgraphs of those sets. A graph that is itself connected has exactly one component, consisting of the whole graph. Components are sometimes called connected components.
+The number of components in a given graph is an important graph invariant, and is closely related to invariants of matroids, topological spaces, and matrices. In random graphs, a frequently occurring phenomenon is the incidence of a giant component, one component that is significantly larger than the others; and of a percolation threshold, an edge probability above which a giant component exists and below which it does not.
+The components of a graph can be constructed in linear time, and a special case of the problem, connected-component labeling, is a basic technique in image analysis. Dynamic connectivity algorithms maintain components as edges are inserted or deleted in a graph, in low time per change. In computational complexity theory, connected components have been used to study algorithms with limited space complexity, and sublinear time algorithms can accurately estimate the number of components.
+
+Definitions and examples
+A component of a given undirected graph may be defined as a connected subgraph that is not part of any larger connected subgraph. For instance, the graph shown in the first illustration has three components. Every vertex 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   of a graph belongs to one of the graph's components, which may be found as the induced subgraph of the set of vertices reachable from 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+  . Every graph is the disjoint union of its components. Additional examples include the following special cases:
+
+In an empty graph, each vertex forms a component with one vertex and zero edges. More generally, a component of this type is formed for every isolated vertex in any graph.
+In a connected graph, there is exactly one component: the whole graph.
+In a forest, every component is a tree.
+In a cluster graph, every component is a maximal clique. These graphs may be produced as the transitive closures of arbitrary undirected graphs, for which finding the transitive closure is an equivalent formulation of identifying the connected components.Another definition of components involves the equivalence classes of an equivalence relation defined on the graph's vertices.
+In an undirected graph, a vertex 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   is reachable from a vertex 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   if there is a path from 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   to 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+  , or equivalently a walk (a path allowing repeated vertices and edges).
+Reachability is an equivalence relation, since:
+
+It is reflexive: There is a trivial path of length zero from any vertex to itself.
+It is symmetric: If there is a path from 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   to 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+  , the same edges in the reverse order form a path from 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   to 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+  .
+It is transitive: If there is a path from 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   to 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   and a path from 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   to 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+  , the two paths may be concatenated together to form a walk from 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   to 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+  .The equivalence classes of this relation partition the vertices of the graph into disjoint sets, subsets of vertices that are all reachable from each other, with no additional reachable pairs outside of any of these subsets. Each vertex belongs to exactly one equivalence class. The components are then the induced subgraphs formed by each of these equivalence classes. Alternatively, some sources define components as the sets of vertices rather than as the subgraphs they induce.Similar definitions involving equivalence classes have been used to defined components for other forms of graph connectivity, including the weak components and strongly connected components of directed graphs and the biconnected components of undirected graphs.
+
+Number of components
+The number of components of a given finite graph can be used to count the number of edges in its spanning forests: In a graph with 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   vertices and 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   components, every spanning forest will have exactly 
+  
+    
+      
+        n
+        −
+        c
+      
+    
+    {\displaystyle n-c}
+   edges. This number 
+  
+    
+      
+        n
+        −
+        c
+      
+    
+    {\displaystyle n-c}
+   is the matroid-theoretic rank of the graph, and  the rank of its graphic matroid. The rank of the dual cographic matroid equals the circuit rank of the graph, the minimum number of edges that must be removed from the graph to break all its cycles. In a graph with 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   edges, 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   vertices and 
+  
+    
+      
+        c
+      
+    
+    {\displaystyle c}
+   components, the circuit rank is 
+  
+    
+      
+        m
+        −
+        n
+        +
+        c
+      
+    
+    {\displaystyle m-n+c}
+  .
+A graph can be interpreted as a topological space in multiple ways, for instance by placing its vertices as points in general position in three-dimensional Euclidean space and representing its edges as line segments between those points. The components of a graph can be generalized through these interpretations as the topological connected components of the corresponding space; these are equivalence classes of points that cannot be separated by pairs of disjoint closed sets. Just as the number of connected components of a topological space is an important topological invariant, the zeroth Betti number, the number of components of a graph is an important graph invariant, and in topological graph theory it can be interpreted as the zeroth Betti number of the graph.The number of components arises in other ways in graph theory as well. In algebraic graph theory it equals the multiplicity of 0 as an eigenvalue of the Laplacian matrix of a finite graph. It is also the index of the first nonzero coefficient of the chromatic polynomial of the graph, and the chromatic polynomial of the whole graph can be obtained as the product of the polynomials of its components. Numbers of components play a key role in the Tutte theorem characterizing finite graphs that have perfect matchings and the associated Tutte–Berge formula for the size of a maximum matching, and in the definition of graph toughness.
+
+Algorithms
+It is straightforward to compute the components of a finite graph in linear time (in terms of the numbers of the vertices and edges of the graph) using either breadth-first search or depth-first search. In either case, a search that begins at some particular vertex 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   will find the entire component containing 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   (and no more) before returning. All components of a graph can be found by looping through its vertices, starting a new breadth-first or depth-first search whenever the loop reaches a vertex that has not already been included in a previously found component.  Hopcroft & Tarjan (1973) describe essentially this algorithm, and state that it was already "well known".Connected-component labeling, a basic technique in computer image analysis, involves the construction of a graph from the image and component analysis on the graph.
+The vertices are the subset of the pixels of the image, chosen as being of interest or as likely to be part of depicted objects. Edges connect adjacent pixels, with adjacency defined either orthogonally according to the Von Neumann neighborhood, or both orthogonally and diagonally according to the Moore neighborhood. Identifying the connected components of this graph allows additional processing to find more structure in those parts of the image or identify what kind of object is depicted.  Researchers have developed component-finding algorithms specialized for this type of graph, allowing it to be processed in pixel order rather than in the more scattered order that would be generated by breadth-first or depth-first searching. This can be useful in situations where sequential access to the pixels is more efficient than random access, either because the image is represented in a hierarchical way that does not permit fast random access or because sequential access produces better memory access patterns.There are also efficient algorithms to dynamically track the components of a graph as vertices and edges are added, by using a disjoint-set data structure to keep track of the partition of the vertices into equivalence classes, replacing any two classes by their union when an edge connecting them is added. These algorithms take amortized time 
+  
+    
+      
+        O
+        (
+        α
+        (
+        n
+        )
+        )
+      
+    
+    {\displaystyle O(\alpha (n))}
+   per operation, where adding vertices and edges and determining the component in which a vertex falls are both operations, and 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+    is a very slowly growing inverse of the very quickly growing Ackermann function. One application of this sort of incremental connectivity algorithm is in Kruskal's algorithm for minimum spanning trees, which adds edges to a graph in sorted order by length and includes an edge in the minimum spanning tree only when it connects two different components of the previously-added subgraph. When both edge insertions and edge deletions are allowed, dynamic connectivity algorithms can still maintain the same information, in amortized time 
+  
+    
+      
+        O
+        (
+        
+          log
+          
+            2
+          
+        
+        ⁡
+        n
+        
+          /
+        
+        log
+        ⁡
+        log
+        ⁡
+        n
+        )
+      
+    
+    {\displaystyle O(\log ^{2}n/\log \log n)}
+   per change and time 
+  
+    
+      
+        O
+        (
+        log
+        ⁡
+        n
+        
+          /
+        
+        log
+        ⁡
+        log
+        ⁡
+        n
+        )
+      
+    
+    {\displaystyle O(\log n/\log \log n)}
+   per connectivity query, or in near-logarithmic randomized expected time.Components of graphs have been used in computational complexity theory to study the power of Turing machines that have a working memory limited to a logarithmic number of bits, with the much larger input accessible only through read access rather than being modifiable. The problems that can be solved by machines limited in this way define the complexity class L. It was unclear for many years whether connected components could be found in this model, when formalized as a decision problem of testing whether two vertices belong to the same component, and in 1982 a related complexity class, SL, was defined to include this connectivity problem and any other problem equivalent to it under logarithmic-space reductions. It was finally proven in 2008 that this connectivity problem can be solved in logarithmic space, and therefore that SL = L.
+In a graph represented as an adjacency list, with random access to its vertices, it is possible to estimate the number of connected components, with constant probability of obtaining additive (absolute) error at most 
+  
+    
+      
+        ε
+        n
+      
+    
+    {\displaystyle \varepsilon n}
+  , in sublinear time 
+  
+    
+      
+        O
+        (
+        
+          ε
+          
+            −
+            2
+          
+        
+        log
+        ⁡
+        
+          ε
+          
+            −
+            1
+          
+        
+        )
+      
+    
+    {\displaystyle O(\varepsilon ^{-2}\log \varepsilon ^{-1})}
+  .
+
+In random graphs
+In random graphs the sizes of components are given by a random variable, which, in turn, depends on the specific model of how random graphs are chosen. 
+In the 
+  
+    
+      
+        G
+        (
+        n
+        ,
+        p
+        )
+      
+    
+    {\displaystyle G(n,p)}
+   version of the Erdős–Rényi–Gilbert model, a graph on 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   vertices is generated by choosing randomly and independently for each pair of vertices whether to include an edge connecting that pair, with probability 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   of including an edge and probability 
+  
+    
+      
+        1
+        −
+        p
+      
+    
+    {\displaystyle 1-p}
+   of leaving those two vertices without an edge connecting them. The connectivity of this model depends on 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , and there are three different ranges of 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   with very different behavior from each other. In the analysis below, all outcomes occur with high probability, meaning that the probability of the outcome is arbitrarily close to one for sufficiently large values of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  . The analysis depends on a parameter 
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+  , a positive constant independent of 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   that can be arbitrarily close to zero.
+
+Subcritical 
+  
+    
+      
+        p
+        <
+        (
+        1
+        −
+        ε
+        )
+        
+          /
+        
+        n
+      
+    
+    {\displaystyle p<(1-\varepsilon )/n}
+  
+In this range of 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+  , all components are simple and very small. The largest component has logarithmic size. The graph is a pseudoforest. Most of its components are trees: the number of vertices in components that have cycles grows more slowly than any unbounded function of the number of vertices. Every tree of fixed size occurs linearly many times.
+Critical 
+  
+    
+      
+        p
+        ≈
+        1
+        
+          /
+        
+        n
+      
+    
+    {\displaystyle p\approx 1/n}
+  
+The largest connected component has a number of vertices proportional to 
+  
+    
+      
+        
+          n
+          
+            2
+            
+              /
+            
+            3
+          
+        
+      
+    
+    {\displaystyle n^{2/3}}
+  . There may exist several other large components; however, the total number of vertices in non-tree components is again proportional to 
+  
+    
+      
+        
+          n
+          
+            2
+            
+              /
+            
+            3
+          
+        
+      
+    
+    {\displaystyle n^{2/3}}
+  .
+Supercritical 
+  
+    
+      
+        p
+        >
+        (
+        1
+        +
+        ε
+        )
+        
+          /
+        
+        n
+      
+    
+    {\displaystyle p>(1+\varepsilon )/n}
+  
+There is a single giant component containing a linear number of vertices. For large values of 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   its size approaches the whole graph: 
+  
+    
+      
+        
+          |
+        
+        
+          C
+          
+            1
+          
+        
+        
+          |
+        
+        ≈
+        y
+        n
+      
+    
+    {\displaystyle |C_{1}|\approx yn}
+   where 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   is the positive solution to the equation 
+  
+    
+      
+        
+          e
+          
+            −
+            p
+            n
+            y
+          
+        
+        =
+        1
+        −
+        y
+      
+    
+    {\displaystyle e^{-pny}=1-y}
+  . The remaining components are small, with logarithmic size.In the same model of random graphs, there will exist multiple connected components with high probability for values of 
+  
+    
+      
+        p
+      
+    
+    {\displaystyle p}
+   below a significantly higher threshold, 
+  
+    
+      
+        p
+        <
+        (
+        1
+        −
+        ε
+        )
+        (
+        log
+        ⁡
+        n
+        )
+        
+          /
+        
+        n
+      
+    
+    {\displaystyle p<(1-\varepsilon )(\log n)/n}
+  , and a single connected component for values above the threshold, 
+  
+    
+      
+        p
+        >
+        (
+        1
+        +
+        ε
+        )
+        (
+        log
+        ⁡
+        n
+        )
+        
+          /
+        
+        n
+      
+    
+    {\displaystyle p>(1+\varepsilon )(\log n)/n}
+  . This phenomenon is closely related to the coupon collector's problem: in order to be connected, a random graph needs enough edges for each vertex to be incident to at least one edge. More precisely, if random edges are added one by one to a graph, then with high probability the first edge whose addition connects the whole graph touches the last isolated vertex.For different models including the random subgraphs of grid graphs, the connected components are described by percolation theory. A key question in this theory is the existence of a percolation threshold, a critical probability above which a giant component (or infinite component) exists and below which it does not.
+
+References
+External links
+MATLAB code to find components in undirected graphs, MATLAB File Exchange.
+Connected components, Steven Skiena, The Stony Brook Algorithm Repository

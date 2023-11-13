@@ -1,0 +1,1008 @@
+A hyperbolic geometric graph (HGG) or hyperbolic geometric network (HGN) is a special type of spatial network where (1) latent coordinates of nodes are sprinkled according to a probability density function into a
+hyperbolic space of constant negative curvature and (2)  an edge between two nodes is present if they are close according to a function of the metric (typically either a Heaviside step function resulting in deterministic connections between vertices closer than a certain threshold distance, or a decaying function of hyperbolic distance yielding the connection probability). A HGG generalizes a random geometric graph (RGG) whose embedding space is Euclidean.
+
+Mathematical formulation
+Mathematically, a HGG is a graph 
+  
+    
+      
+        G
+        (
+        V
+        ,
+        E
+        )
+      
+    
+    {\displaystyle G(V,E)}
+   with a vertex set V (cardinality 
+  
+    
+      
+        N
+        =
+        
+          |
+        
+        V
+        
+          |
+        
+      
+    
+    {\displaystyle N=|V|}
+  ) and an edge set E constructed by considering the nodes as points placed onto a 2-dimensional hyperbolic space 
+  
+    
+      
+        
+          
+            H
+          
+          
+            ζ
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \mathbb {H} _{\zeta }^{2}}
+   of constant negative Gaussian curvature, 
+  
+    
+      
+        −
+        
+          ζ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle -\zeta ^{2}}
+   and cut-off radius 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+  , i.e. the radius of the Poincaré disk which can be visualized using a hyperboloid model.
+Each point 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   has hyperbolic polar coordinates 
+  
+    
+      
+        (
+        
+          r
+          
+            i
+          
+        
+        ,
+        
+          θ
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle (r_{i},\theta _{i})}
+   with 
+  
+    
+      
+        0
+        ≤
+        
+          r
+          
+            i
+          
+        
+        ≤
+        R
+      
+    
+    {\displaystyle 0\leq r_{i}\leq R}
+   and 
+  
+    
+      
+        0
+        ≤
+        
+          θ
+          
+            i
+          
+        
+        <
+        2
+        π
+      
+    
+    {\displaystyle 0\leq \theta _{i}<2\pi }
+  .
+The hyperbolic law of cosines allows to measure the distance 
+  
+    
+      
+        
+          d
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle d_{ij}}
+   between two points 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+   and 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+  ,
+
+  
+    
+      
+        cosh
+        ⁡
+        (
+        ζ
+        
+          d
+          
+            i
+            j
+          
+        
+        )
+        =
+        cosh
+        ⁡
+        (
+        ζ
+        
+          r
+          
+            i
+          
+        
+        )
+        cosh
+        ⁡
+        (
+        ζ
+        
+          r
+          
+            j
+          
+        
+        )
+      
+    
+    {\displaystyle \cosh(\zeta d_{ij})=\cosh(\zeta r_{i})\cosh(\zeta r_{j})}
+  
+  
+    
+      
+        −
+        sinh
+        ⁡
+        (
+        ζ
+        
+          r
+          
+            i
+          
+        
+        )
+        sinh
+        ⁡
+        (
+        ζ
+        
+          r
+          
+            j
+          
+        
+        )
+        cos
+        ⁡
+        
+          
+            (
+          
+        
+        
+          
+            
+              
+                π
+                
+                −
+                
+                
+                  
+                    |
+                  
+                
+                π
+                −
+                
+                  |
+                
+                
+                  θ
+                  
+                    i
+                  
+                
+                
+                −
+                
+                
+                  θ
+                  
+                    j
+                  
+                
+                
+                  |
+                
+                
+                  
+                    |
+                  
+                
+              
+              ⏟
+            
+          
+          
+            Δ
+          
+        
+        
+          
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle -\sinh(\zeta r_{i})\sinh(\zeta r_{j})\cos {\bigg (}\underbrace {\pi \!-\!{\bigg |}\pi -|\theta _{i}\!-\!\theta _{j}|{\bigg |}} _{\Delta }{\bigg )}.}
+  The angle 
+  
+    
+      
+        Δ
+      
+    
+    {\displaystyle \Delta }
+   is the (smallest) angle between the two
+position vectors.
+In the simplest case, an edge 
+  
+    
+      
+        (
+        i
+        ,
+        j
+        )
+      
+    
+    {\displaystyle (i,j)}
+   is established iff (if and only if) two nodes are within a certain neighborhood radius 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  , 
+  
+    
+      
+        
+          d
+          
+            i
+            j
+          
+        
+        ≤
+        r
+      
+    
+    {\displaystyle d_{ij}\leq r}
+  , this corresponds to an influence threshold.
+
+Connectivity decay function
+In general, a link will be established with a probability depending on the distance 
+  
+    
+      
+        
+          d
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle d_{ij}}
+  . 
+A connectivity decay function 
+  
+    
+      
+        γ
+        (
+        s
+        )
+        :
+        
+          
+            R
+          
+          
+            +
+          
+        
+        →
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle \gamma (s):\mathbb {R} ^{+}\to [0,1]}
+   represents the probability of assigning an edge to a pair of nodes at distance 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+  . 
+In this framework, the simple case of hard-code neighborhood like in random geometric graphs is referred to as truncation decay function.
+
+Generating hyperbolic geometric graphs
+Krioukov et al. describe how to generate hyperbolic geometric graphs with uniformly random node distribution (as well as generalized versions) on a disk of radius 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   in 
+  
+    
+      
+        
+          
+            H
+          
+          
+            ζ
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \mathbb {H} _{\zeta }^{2}}
+  . These graphs yield a power-law distribution for the node degrees. The angular coordinate 
+  
+    
+      
+        θ
+      
+    
+    {\displaystyle \theta }
+   of each point/node is chosen uniformly random from 
+  
+    
+      
+        [
+        0
+        ,
+        2
+        π
+        ]
+      
+    
+    {\displaystyle [0,2\pi ]}
+  , while the density function for the radial coordinate r is chosen according to the probability distribution 
+  
+    
+      
+        ρ
+      
+    
+    {\displaystyle \rho }
+  :
+
+  
+    
+      
+        ρ
+        (
+        r
+        )
+        =
+        α
+        
+          
+            
+              sinh
+              ⁡
+              (
+              α
+              r
+              )
+            
+            
+              cosh
+              ⁡
+              (
+              α
+              R
+              )
+              −
+              1
+            
+          
+        
+      
+    
+    {\displaystyle \rho (r)=\alpha {\frac {\sinh(\alpha r)}{\cosh(\alpha R)-1}}}
+  The growth parameter 
+  
+    
+      
+        α
+        >
+        0
+      
+    
+    {\displaystyle \alpha >0}
+   controls the distribution: For 
+  
+    
+      
+        α
+        =
+        ζ
+      
+    
+    {\displaystyle \alpha =\zeta }
+  , the distribution is uniform in 
+  
+    
+      
+        
+          
+            H
+          
+          
+            ζ
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \mathbb {H} _{\zeta }^{2}}
+  , for smaller values the nodes are distributed more towards the center of the disk and for bigger values more towards the border.  In this model, edges between nodes 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   and 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   exist iff 
+  
+    
+      
+        
+          d
+          
+            u
+            v
+          
+        
+        <
+        R
+      
+    
+    {\displaystyle d_{uv}<R}
+   or with probability 
+  
+    
+      
+        γ
+        (
+        
+          d
+          
+            u
+            v
+          
+        
+        )
+      
+    
+    {\displaystyle \gamma (d_{uv})}
+   if a more general connectivity decay function is used. The average degree is controlled by the radius 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   of the hyperbolic disk. It can be shown, that for 
+  
+    
+      
+        α
+        
+          /
+        
+        ζ
+        >
+        1
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle \alpha /\zeta >1/2}
+   the node degrees follow a power law distribution with exponent 
+  
+    
+      
+        γ
+        =
+        1
+        +
+        2
+        α
+        
+          /
+        
+        ζ
+      
+    
+    {\displaystyle \gamma =1+2\alpha /\zeta }
+  .
+
+The image depicts randomly generated graphs for different values of 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   and 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   in 
+  
+    
+      
+        
+          
+            H
+          
+          
+            1
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \mathbb {H} _{1}^{2}}
+  . It can be seen how 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+   has an effect on the distribution of the nodes and 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   on the connectivity of the graph. The native representation where the distance variables have their true hyperbolic values is used for the visualization of the graph, therefore edges are straight lines.
+
+Quadratic complexity generator
+The naive algorithm for the generation of hyperbolic geometric graphs distributes the nodes on the hyperbolic disk by choosing the angular and radial coordinates of each point are sampled randomly. For every pair of nodes an edge is then inserted with the probability of the value of the connectivity decay function of their respective distance. The pseudocode looks as follows:
+
+  
+    
+      
+        V
+        =
+        {
+        }
+        ,
+        E
+        =
+        {
+        }
+      
+    
+    {\displaystyle V=\{\},E=\{\}}
+  
+for 
+  
+    
+      
+        i
+        ←
+        0
+      
+    
+    {\displaystyle i\gets 0}
+   to 
+  
+    
+      
+        N
+        −
+        1
+      
+    
+    {\displaystyle N-1}
+   do
+    
+  
+    
+      
+        θ
+        ←
+        U
+        [
+        0
+        ,
+        2
+        π
+        ]
+      
+    
+    {\displaystyle \theta \gets U[0,2\pi ]}
+  
+    
+  
+    
+      
+        r
+        ←
+        
+          
+            1
+            α
+          
+        
+        
+          acosh
+        
+        (
+        1
+        +
+        (
+        cosh
+        ⁡
+        α
+        R
+        −
+        1
+        )
+        U
+        [
+        0
+        ,
+        1
+        ]
+        )
+      
+    
+    {\displaystyle r\gets {\frac {1}{\alpha }}{\text{acosh}}(1+(\cosh \alpha R-1)U[0,1])}
+  
+    
+  
+    
+      
+        V
+        =
+        V
+        ∪
+        {
+        (
+        r
+        ,
+        θ
+        )
+        }
+      
+    
+    {\displaystyle V=V\cup \{(r,\theta )\}}
+  
+for every pair  
+  
+    
+      
+        (
+        u
+        ,
+        v
+        )
+        ∈
+        V
+        ×
+        V
+        ,
+        u
+        ≠
+        v
+      
+    
+    {\displaystyle (u,v)\in V\times V,u\neq v}
+   do
+    if 
+  
+    
+      
+        U
+        [
+        0
+        ,
+        1
+        ]
+        ≤
+        γ
+        (
+        
+          d
+          
+            u
+            v
+          
+        
+        )
+      
+    
+    {\displaystyle U[0,1]\leq \gamma (d_{uv})}
+   then
+        
+  
+    
+      
+        E
+        =
+        E
+        ∪
+        {
+        (
+        u
+        ,
+        v
+        )
+        }
+      
+    
+    {\displaystyle E=E\cup \{(u,v)\}}
+  
+return 
+  
+    
+      
+        V
+        ,
+        E
+      
+    
+    {\displaystyle V,E}
+  
+
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+   is the number of nodes to generate, the distribution of the radial coordinate by the probability density function 
+  
+    
+      
+        ρ
+      
+    
+    {\displaystyle \rho }
+   is achieved by using inverse transform sampling. 
+  
+    
+      
+        U
+      
+    
+    {\displaystyle U}
+  denotes the uniform sampling of a value in the given interval. Because the algorithm checks for edges for all pairs of nodes, the runtime is quadratic. For applications where 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+   is big, this is not viable any more and algorithms with subquadratic runtime are needed.
+
+Sub-quadratic generation
+To avoid checking for edges between every pair of nodes, modern generators use additional data structures that partition the graph into bands. A visualization of this shows a hyperbolic graph with the boundary of the bands drawn in orange. In this case, the partitioning is done along the radial axis. Points are stored sorted by their angular coordinate in their respective band. For each point 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+  , the limits of its hyperbolic circle of radius 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   can be (over-)estimated and used to only perform the edge-check for points that lie in a band that intersects the circle. Additionally, the sorting within each band can be used to further reduce the number of points to look at by only considering points whose angular coordinate lie in a certain range around the one of 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+   (this range is also computed by over-estimating the hyperbolic circle around 
+  
+    
+      
+        u
+      
+    
+    {\displaystyle u}
+  ).
+Using this and other extensions of the algorithm, time complexities of 
+  
+    
+      
+        
+          
+            O
+          
+        
+        (
+        n
+        log
+        ⁡
+        log
+        ⁡
+        n
+        +
+        m
+        )
+      
+    
+    {\displaystyle {\mathcal {O}}(n\log \log n+m)}
+  (where 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   is the number of nodes and 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   the number of edges) are possible with high probability.
+
+Findings
+For 
+  
+    
+      
+        ζ
+        =
+        1
+      
+    
+    {\displaystyle \zeta =1}
+   (Gaussian curvature 
+  
+    
+      
+        K
+        =
+        −
+        1
+      
+    
+    {\displaystyle K=-1}
+  ), HGGs form an ensemble of networks for which is possible to express the degree distribution analytically as closed form for the limiting case of large number of nodes. This is worth mentioning since this is not true for many ensembles of graphs.
+
+Applications
+HGGs have been suggested as promising model for social networks where the hyperbolicity appears through a competition between similarity and popularity of an individual.
+
+
+== References ==

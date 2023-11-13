@@ -1,0 +1,1386 @@
+In probability theory and related fields, Malliavin calculus is a set of mathematical techniques and ideas that extend the mathematical field of calculus of variations from  deterministic functions to stochastic processes. In particular, it allows the computation of derivatives of random variables. Malliavin calculus is also called the stochastic calculus of variations. P. Malliavin first initiated the calculus on infinite dimensional space. Then, the significant contributors such as S. Kusuoka, D. Stroock, J-M. Bismut, S. Watanabe, I. Shigekawa, and so on finally completed the foundations.
+Malliavin calculus is named after Paul Malliavin whose ideas led to a proof that Hörmander's condition implies the existence and smoothness of a density for the solution of a stochastic differential equation; Hörmander's original proof was based on the theory of  partial differential equations. The calculus has been applied to stochastic partial differential equations as well.
+The calculus allows integration by parts with random variables; this operation is used in mathematical finance to compute the sensitivities of financial derivatives. The calculus has applications in, for example, stochastic filtering.
+
+Overview and history
+Malliavin introduced Malliavin calculus to provide a stochastic proof that Hörmander's condition implies the existence of a density for the solution of a stochastic differential equation; Hörmander's original proof was based on the theory of  partial differential equations. His calculus enabled Malliavin to prove regularity bounds for the solution's density. The calculus has been applied to stochastic partial differential equations.
+
+Invariance principle
+The usual invariance principle for Lebesgue integration over the whole real line is that, for any real number ε and integrable function f, the
+following holds
+
+  
+    
+      
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        f
+        (
+        x
+        )
+        
+        d
+        λ
+        (
+        x
+        )
+        =
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        f
+        (
+        x
+        +
+        ε
+        )
+        
+        d
+        λ
+        (
+        x
+        )
+      
+    
+    {\displaystyle \int _{-\infty }^{\infty }f(x)\,d\lambda (x)=\int _{-\infty }^{\infty }f(x+\varepsilon )\,d\lambda (x)}
+   and hence 
+  
+    
+      
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        
+          f
+          ′
+        
+        (
+        x
+        )
+        
+        d
+        λ
+        (
+        x
+        )
+        =
+        0.
+      
+    
+    {\displaystyle \int _{-\infty }^{\infty }f'(x)\,d\lambda (x)=0.}
+  This can be used to derive the integration by parts formula since, setting f = gh, it implies
+
+  
+    
+      
+        0
+        =
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        
+          f
+          ′
+        
+        
+        d
+        λ
+        =
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        (
+        g
+        h
+        
+          )
+          ′
+        
+        
+        d
+        λ
+        =
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        g
+        
+          h
+          ′
+        
+        
+        d
+        λ
+        +
+        
+          ∫
+          
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        
+          g
+          ′
+        
+        h
+        
+        d
+        λ
+        .
+      
+    
+    {\displaystyle 0=\int _{-\infty }^{\infty }f'\,d\lambda =\int _{-\infty }^{\infty }(gh)'\,d\lambda =\int _{-\infty }^{\infty }gh'\,d\lambda +\int _{-\infty }^{\infty }g'h\,d\lambda .}
+  A similar idea can be applied in stochastic analysis for the differentiation along a Cameron-Martin-Girsanov direction. Indeed, let 
+  
+    
+      
+        
+          h
+          
+            s
+          
+        
+      
+    
+    {\displaystyle h_{s}}
+   be a square-integrable predictable process and set
+
+  
+    
+      
+        φ
+        (
+        t
+        )
+        =
+        
+          ∫
+          
+            0
+          
+          
+            t
+          
+        
+        
+          h
+          
+            s
+          
+        
+        
+        d
+        s
+        .
+      
+    
+    {\displaystyle \varphi (t)=\int _{0}^{t}h_{s}\,ds.}
+  If 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   is a Wiener process, the Girsanov theorem then yields the following analogue of the invariance principle:
+
+  
+    
+      
+        E
+        (
+        F
+        (
+        X
+        +
+        ε
+        φ
+        )
+        )
+        =
+        E
+        
+          [
+          
+            F
+            (
+            X
+            )
+            exp
+            ⁡
+            
+              (
+              
+                ε
+                
+                  ∫
+                  
+                    0
+                  
+                  
+                    1
+                  
+                
+                
+                  h
+                  
+                    s
+                  
+                
+                
+                d
+                
+                  X
+                  
+                    s
+                  
+                
+                −
+                
+                  
+                    1
+                    2
+                  
+                
+                
+                  ε
+                  
+                    2
+                  
+                
+                
+                  ∫
+                  
+                    0
+                  
+                  
+                    1
+                  
+                
+                
+                  h
+                  
+                    s
+                  
+                  
+                    2
+                  
+                
+                
+                d
+                s
+              
+              )
+            
+          
+          ]
+        
+        .
+      
+    
+    {\displaystyle E(F(X+\varepsilon \varphi ))=E\left[F(X)\exp \left(\varepsilon \int _{0}^{1}h_{s}\,dX_{s}-{\frac {1}{2}}\varepsilon ^{2}\int _{0}^{1}h_{s}^{2}\,ds\right)\right].}
+  Differentiating with respect to ε on both sides and evaluating at ε=0, one obtains the following integration by parts formula:
+
+  
+    
+      
+        E
+        (
+        ⟨
+        D
+        F
+        (
+        X
+        )
+        ,
+        φ
+        ⟩
+        )
+        =
+        E
+        
+          
+            [
+          
+        
+        F
+        (
+        X
+        )
+        
+          ∫
+          
+            0
+          
+          
+            1
+          
+        
+        
+          h
+          
+            s
+          
+        
+        
+        d
+        
+          X
+          
+            s
+          
+        
+        
+          
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle E(\langle DF(X),\varphi \rangle )=E{\Bigl [}F(X)\int _{0}^{1}h_{s}\,dX_{s}{\Bigr ]}.}
+  Here, the left-hand side is the Malliavin derivative of the random variable 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+   in the direction 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   and the integral appearing on the right hand side should be interpreted as an Itô integral.
+
+Gaussian probability space
+The toy model of Malliavin calculus is an irreducible Gaussian probability space 
+  
+    
+      
+        X
+        =
+        (
+        Ω
+        ,
+        
+          
+            F
+          
+        
+        ,
+        P
+        ,
+        
+          
+            H
+          
+        
+        )
+      
+    
+    {\displaystyle X=(\Omega ,{\mathcal {F}},P,{\mathcal {H}})}
+  . This is a (complete) probability space 
+  
+    
+      
+        (
+        Ω
+        ,
+        
+          
+            F
+          
+        
+        ,
+        P
+        )
+      
+    
+    {\displaystyle (\Omega ,{\mathcal {F}},P)}
+   together with a closed subspace 
+  
+    
+      
+        
+          
+            H
+          
+        
+        ⊂
+        
+          L
+          
+            2
+          
+        
+        (
+        Ω
+        ,
+        
+          
+            F
+          
+        
+        ,
+        P
+        )
+      
+    
+    {\displaystyle {\mathcal {H}}\subset L^{2}(\Omega ,{\mathcal {F}},P)}
+   such that all 
+  
+    
+      
+        H
+        ∈
+        
+          
+            H
+          
+        
+      
+    
+    {\displaystyle H\in {\mathcal {H}}}
+   are mean zero Gaussian variables and 
+  
+    
+      
+        
+          
+            F
+          
+        
+        =
+        σ
+        (
+        H
+        :
+        H
+        ∈
+        
+          
+            H
+          
+        
+        )
+      
+    
+    {\displaystyle {\mathcal {F}}=\sigma (H:H\in {\mathcal {H}})}
+  . If one chooses a basis for 
+  
+    
+      
+        
+          
+            H
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}}
+   then one calls 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   a numerical model. On the other hand, for any separable Hilbert space 
+  
+    
+      
+        
+          
+            G
+          
+        
+      
+    
+    {\displaystyle {\mathcal {G}}}
+   exists a canonical irreducible Gaussian probability space 
+  
+    
+      
+        Seg
+        ⁡
+        (
+        
+          
+            G
+          
+        
+        )
+      
+    
+    {\displaystyle \operatorname {Seg} ({\mathcal {G}})}
+   named the Segal model having 
+  
+    
+      
+        
+          
+            G
+          
+        
+      
+    
+    {\displaystyle {\mathcal {G}}}
+   as its Gaussian subspace. Properties of a Gaussian probability space that do not depend on the particular choice of basis are called intrinsic and such that do depend on the choice extrensic.Let 
+  
+    
+      
+        γ
+      
+    
+    {\displaystyle \gamma }
+   be the canonical Gaussian measure, by transfering the Cameron-Martin theorem from 
+  
+    
+      
+        (
+        
+          
+            R
+          
+          
+            
+              N
+            
+          
+        
+        ,
+        
+          
+            B
+          
+        
+        (
+        
+          
+            R
+          
+          
+            
+              N
+            
+          
+        
+        )
+        ,
+        
+          γ
+          
+            
+              N
+            
+          
+        
+        =
+        
+          ⊗
+          
+            n
+            ∈
+            
+              N
+            
+          
+        
+        γ
+        )
+      
+    
+    {\displaystyle (\mathbb {R} ^{\mathbb {N} },{\mathcal {B}}(\mathbb {R} ^{\mathbb {N} }),\gamma ^{\mathbb {N} }=\otimes _{n\in \mathbb {N} }\gamma )}
+   into a numerical model 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+  , the additive group of 
+  
+    
+      
+        
+          
+            H
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}}
+   will define a quasi-automorphism group on 
+  
+    
+      
+        Ω
+      
+    
+    {\displaystyle \Omega }
+  . A construction can be done as follows: choose an orthonormal basis in 
+  
+    
+      
+        
+          
+            H
+          
+        
+      
+    
+    {\displaystyle {\mathcal {H}}}
+  , let 
+  
+    
+      
+        
+          τ
+          
+            α
+          
+        
+        (
+        x
+        )
+        =
+        x
+        +
+        α
+      
+    
+    {\displaystyle \tau _{\alpha }(x)=x+\alpha }
+   denote the translation on 
+  
+    
+      
+        
+          
+            R
+          
+          
+            
+              N
+            
+          
+        
+      
+    
+    {\displaystyle \mathbb {R} ^{\mathbb {N} }}
+   by 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+  , denote the map into the Cameron-Martin space by 
+  
+    
+      
+        j
+        :
+        
+          
+            H
+          
+        
+        →
+        
+          ℓ
+          
+            2
+          
+        
+      
+    
+    {\displaystyle j:{\mathcal {H}}\to \ell ^{2}}
+  , denote
+
+  
+    
+      
+        
+          L
+          
+            ∞
+            −
+            0
+          
+        
+        (
+        Ω
+        ,
+        
+          
+            F
+          
+        
+        ,
+        P
+        )
+        =
+        
+          ⋂
+          
+            p
+            <
+            ∞
+          
+        
+        
+          L
+          
+            p
+          
+        
+        (
+        Ω
+        ,
+        
+          
+            F
+          
+        
+        ,
+        P
+        )
+        
+      
+    
+    {\displaystyle L^{\infty -0}(\Omega ,{\mathcal {F}},P)=\bigcap \limits _{p<\infty }L^{p}(\Omega ,{\mathcal {F}},P)\quad }
+   and 
+  
+    
+      
+        
+        q
+        :
+        
+          L
+          
+            ∞
+            −
+            0
+          
+        
+        (
+        
+          
+            R
+          
+          
+            
+              N
+            
+          
+        
+        ,
+        
+          
+            B
+          
+        
+        (
+        
+          
+            R
+          
+          
+            
+              N
+            
+          
+        
+        )
+        ,
+        
+          γ
+          
+            
+              N
+            
+          
+        
+        )
+        →
+        
+          L
+          
+            ∞
+            −
+            0
+          
+        
+        (
+        Ω
+        ,
+        
+          
+            F
+          
+        
+        ,
+        P
+        )
+        ,
+      
+    
+    {\displaystyle \quad q:L^{\infty -0}(\mathbb {R} ^{\mathbb {N} },{\mathcal {B}}(\mathbb {R} ^{\mathbb {N} }),\gamma ^{\mathbb {N} })\to L^{\infty -0}(\Omega ,{\mathcal {F}},P),}
+  we get a canonical representation of the additive group 
+  
+    
+      
+        ρ
+        :
+        
+          
+            H
+          
+        
+        →
+        End
+        ⁡
+        (
+        
+          L
+          
+            ∞
+            −
+            0
+          
+        
+        (
+        Ω
+        ,
+        
+          
+            F
+          
+        
+        ,
+        P
+        )
+        )
+      
+    
+    {\displaystyle \rho :{\mathcal {H}}\to \operatorname {End} (L^{\infty -0}(\Omega ,{\mathcal {F}},P))}
+   acting on the endomorphisms by defining
+
+  
+    
+      
+        ρ
+        (
+        h
+        )
+        =
+        q
+        ∘
+        
+          τ
+          
+            j
+            (
+            h
+            )
+          
+        
+        ∘
+        
+          q
+          
+            −
+            1
+          
+        
+        .
+      
+    
+    {\displaystyle \rho (h)=q\circ \tau _{j(h)}\circ q^{-1}.}
+
+Clark–Ocone formula
+One of the most useful results from Malliavin calculus is the Clark–Ocone theorem, which allows the process in the martingale representation theorem to be identified explicitly. A simplified version of this theorem is as follows:
+Consider the standard Wiener measure on the canonical space 
+  
+    
+      
+        C
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle C[0,1]}
+  , equipped with its canonical filtration. For 
+  
+    
+      
+        F
+        :
+        C
+        [
+        0
+        ,
+        1
+        ]
+        →
+        
+          R
+        
+      
+    
+    {\displaystyle F:C[0,1]\to \mathbb {R} }
+   satisfying 
+  
+    
+      
+        E
+        (
+        F
+        (
+        X
+        
+          )
+          
+            2
+          
+        
+        )
+        <
+        ∞
+      
+    
+    {\displaystyle E(F(X)^{2})<\infty }
+   which is Lipschitz and such that F has a strong derivative kernel, in the sense that
+for 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   in C[0,1]
+
+  
+    
+      
+        
+          lim
+          
+            ε
+            →
+            0
+          
+        
+        
+          
+            1
+            ε
+          
+        
+        (
+        F
+        (
+        X
+        +
+        ε
+        φ
+        )
+        −
+        F
+        (
+        X
+        )
+        )
+        =
+        
+          ∫
+          
+            0
+          
+          
+            1
+          
+        
+        
+          F
+          ′
+        
+        (
+        X
+        ,
+        d
+        t
+        )
+        φ
+        (
+        t
+        )
+         
+        
+          a
+          .
+          e
+          .
+        
+         
+        X
+      
+    
+    {\displaystyle \lim _{\varepsilon \to 0}{\frac {1}{\varepsilon }}(F(X+\varepsilon \varphi )-F(X))=\int _{0}^{1}F'(X,dt)\varphi (t)\ \mathrm {a.e.} \ X}
+  then
+
+  
+    
+      
+        F
+        (
+        X
+        )
+        =
+        E
+        (
+        F
+        (
+        X
+        )
+        )
+        +
+        
+          ∫
+          
+            0
+          
+          
+            1
+          
+        
+        
+          H
+          
+            t
+          
+        
+        
+        d
+        
+          X
+          
+            t
+          
+        
+        ,
+      
+    
+    {\displaystyle F(X)=E(F(X))+\int _{0}^{1}H_{t}\,dX_{t},}
+  where H is the previsible projection of F'(x, (t,1]) which may be viewed as the derivative of the function F with respect to a suitable parallel shift of the process X over the portion (t,1] of its domain.
+This may be more concisely expressed by
+
+  
+    
+      
+        F
+        (
+        X
+        )
+        =
+        E
+        (
+        F
+        (
+        X
+        )
+        )
+        +
+        
+          ∫
+          
+            0
+          
+          
+            1
+          
+        
+        E
+        (
+        
+          D
+          
+            t
+          
+        
+        F
+        ∣
+        
+          
+            
+              F
+            
+          
+          
+            t
+          
+        
+        )
+        
+        d
+        
+          X
+          
+            t
+          
+        
+        .
+      
+    
+    {\displaystyle F(X)=E(F(X))+\int _{0}^{1}E(D_{t}F\mid {\mathcal {F}}_{t})\,dX_{t}.}
+  Much of the work in the formal development of the Malliavin calculus involves extending this result to the largest possible class of functionals F by replacing the derivative kernel used above by the "Malliavin derivative" denoted 
+  
+    
+      
+        
+          D
+          
+            t
+          
+        
+      
+    
+    {\displaystyle D_{t}}
+   in the above statement of the result.
+
+Skorokhod integral
+The Skorokhod integral operator which is conventionally denoted δ is defined as the adjoint of the Malliavin derivative in the white noise case when the Hilbert space is an 
+  
+    
+      
+        
+          L
+          
+            2
+          
+        
+      
+    
+    {\displaystyle L^{2}}
+   space, thus for u in the domain of the operator which is a subset of 
+  
+    
+      
+        
+          L
+          
+            2
+          
+        
+        (
+        [
+        0
+        ,
+        ∞
+        )
+        ×
+        Ω
+        )
+      
+    
+    {\displaystyle L^{2}([0,\infty )\times \Omega )}
+  ,
+for F in the domain of the Malliavin derivative, we require
+
+  
+    
+      
+        E
+        (
+        ⟨
+        D
+        F
+        ,
+        u
+        ⟩
+        )
+        =
+        E
+        (
+        F
+        δ
+        (
+        u
+        )
+        )
+        ,
+      
+    
+    {\displaystyle E(\langle DF,u\rangle )=E(F\delta (u)),}
+  where the inner product is that on 
+  
+    
+      
+        
+          L
+          
+            2
+          
+        
+        [
+        0
+        ,
+        ∞
+        )
+      
+    
+    {\displaystyle L^{2}[0,\infty )}
+   viz
+
+  
+    
+      
+        ⟨
+        f
+        ,
+        g
+        ⟩
+        =
+        
+          ∫
+          
+            0
+          
+          
+            ∞
+          
+        
+        f
+        (
+        s
+        )
+        g
+        (
+        s
+        )
+        
+        d
+        s
+        .
+      
+    
+    {\displaystyle \langle f,g\rangle =\int _{0}^{\infty }f(s)g(s)\,ds.}
+  The existence of this adjoint follows from the Riesz representation theorem for linear operators on Hilbert spaces.
+It can be shown that if u is adapted then
+
+  
+    
+      
+        δ
+        (
+        u
+        )
+        =
+        
+          ∫
+          
+            0
+          
+          
+            ∞
+          
+        
+        
+          u
+          
+            t
+          
+        
+        
+        d
+        
+          W
+          
+            t
+          
+        
+        ,
+      
+    
+    {\displaystyle \delta (u)=\int _{0}^{\infty }u_{t}\,dW_{t},}
+  where the integral is to be understood in the Itô sense.   Thus this provides a method of extending the Itô integral to non adapted integrands.
+
+Applications
+The calculus allows integration by parts with random variables; this operation is used in mathematical finance to compute the sensitivities of financial derivatives. The calculus has applications for example in stochastic filtering.
+
+References
+Kusuoka, S. and Stroock, D. (1981) "Applications of Malliavin Calculus I", Stochastic Analysis, Proceedings Taniguchi International Symposium Katata and Kyoto 1982, pp 271–306
+Kusuoka, S. and Stroock, D. (1985) "Applications of Malliavin Calculus II", J. Faculty Sci. Uni. Tokyo Sect. 1A Math., 32 pp 1–76
+Kusuoka, S. and Stroock, D. (1987) "Applications of Malliavin Calculus III", J. Faculty Sci. Univ. Tokyo Sect. 1A Math., 34 pp 391–442
+Malliavin, Paul and Thalmaier, Anton. Stochastic Calculus of Variations in Mathematical Finance, Springer 2005, ISBN 3-540-43431-3
+Nualart, David (2006). The Malliavin calculus and related topics (Second ed.). Springer-Verlag. ISBN 978-3-540-28328-7.
+Bell, Denis. (2007) The Malliavin Calculus, Dover. ISBN 0-486-44994-7; ebook
+Sanz-Solé, Marta (2005) Malliavin Calculus, with applications to stochastic partial differential equations. EPFL Press, distributed by CRC Press, Taylor & Francis Group.
+Schiller, Alex (2009) Malliavin Calculus for Monte Carlo Simulation with Financial Applications. Thesis, Department of Mathematics, Princeton University
+Øksendal, Bernt K.(1997) An Introduction To Malliavin Calculus With Applications To Economics. Lecture Notes, Dept. of Mathematics, University of Oslo (Zip file containing Thesis and addendum)
+Di Nunno, Giulia, Øksendal, Bernt, Proske, Frank (2009) "Malliavin Calculus for Lévy Processes with Applications to Finance", Universitext, Springer. ISBN 978-3-540-78571-2
+
+External links
+ Quotations related to Malliavin calculus at Wikiquote
+Friz, Peter K. (2005-04-10). "An Introduction to Malliavin Calculus" (PDF). Archived from the original (PDF) on 2007-04-17. Retrieved 2007-07-23. Lecture Notes, 43 pagesZhang, H. (2004-11-11). "The Malliavin Calculus" (PDF). Retrieved 2004-11-11. Thesis, 100 pages

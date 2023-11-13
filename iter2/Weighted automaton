@@ -1,0 +1,712 @@
+In theoretical computer science and formal language theory, a weighted automaton or weighted finite-state machine is a generalization of a finite-state machine in which the edges have weights, for example real numbers or integers. Finite-state machines are only capable of answering decision problems; they take as input a string and produce a Boolean output, i.e. either "accept" or "reject". In contrast, weighted automata produce a quantitative output, for example a count of how many answers are possible on a given input string, or a probability of how likely the input string is according to a probability distribution. They are one of the simplest studied models of quantitative automata.: Fig.1 The definition of a weighted automaton is generally given over an arbitrary semiring 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+  , an abstract set with an addition operation 
+  
+    
+      
+        +
+      
+    
+    {\displaystyle +}
+   and a multiplication operation 
+  
+    
+      
+        ×
+      
+    
+    {\displaystyle \times }
+  . The automaton consists of a finite set of states, a finite input alphabet of characters 
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+   and edges which are labeled with both a character in 
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+   and a weight in 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+  . The weight of any path in the automaton is defined to be the product of weights along the path, and the weight of a string is the sum of the weights of all paths which are labeled with that string. The weighted automaton thus defines a function from 
+  
+    
+      
+        
+          Σ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \Sigma ^{*}}
+   to 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+  .Weighted automata generalize deterministic finite automata (DFAs) and nondeterministic finite automata (NFAs), which correspond to weighted automata over the Boolean semiring, where addition is logical disjunction and multiplication is logical conjunction. In the DFA case, there is only one accepting path for any input string, so disjunction is not applied. When the weights are real numbers and the outgoing weights for each state add to one, weighted automata can be considered a probabilistic model and are also known as probabilistic automata. These machines define a probability distribution over all strings, and are related to other probabilistic models such as Markov decision processes and Markov chains.
+Weighted automata have applications in natural language processing where they are used to assign weights to words and sentences,: 571–596  as well as in image compression.: 453–480  They were first introduced by Marcel-Paul Schützenberger in his 1961 paper On the definition of a family of automata. Since their introduction, many extensions have been proposed, for example nested weighted automata, cost register automata, and weighted finite-state transducers. Researchers have studied weighted automata from the perspective of learning a machine from its input-output behavior (see computational learning theory) and studying decidability questions.
+
+Definition
+A commutative semiring (or rig) is a set R equipped with two distinguished elements 
+  
+    
+      
+        0
+        ≠
+        1
+      
+    
+    {\displaystyle 0\neq 1}
+   and addition and multiplication operations 
+  
+    
+      
+        ⊕
+      
+    
+    {\displaystyle \oplus }
+   and 
+  
+    
+      
+        ⊗
+      
+    
+    {\displaystyle \otimes }
+   such that 
+  
+    
+      
+        ⊕
+      
+    
+    {\displaystyle \oplus }
+   is commutative and associative with identity 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+  , 
+  
+    
+      
+        ⊗
+      
+    
+    {\displaystyle \otimes }
+   is commutative and associative with identity 
+  
+    
+      
+        1
+      
+    
+    {\displaystyle 1}
+  , 
+  
+    
+      
+        ⊗
+      
+    
+    {\displaystyle \otimes }
+   distributes over 
+  
+    
+      
+        ⊕
+      
+    
+    {\displaystyle \oplus }
+  , and 0 is an absorbing element for 
+  
+    
+      
+        ⊗
+      
+    
+    {\displaystyle \otimes }
+  .
+A weighted automaton over 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   is a tuple 
+  
+    
+      
+        
+          
+            A
+          
+        
+        =
+        (
+        Q
+        ,
+        Σ
+        ,
+        Δ
+        ,
+        I
+        ,
+        F
+        )
+      
+    
+    {\displaystyle {\mathcal {A}}=(Q,\Sigma ,\Delta ,I,F)}
+   where:
+
+  
+    
+      
+        Q
+      
+    
+    {\displaystyle Q}
+   is a finite set of states.
+
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+   is a finite alphabet.
+
+  
+    
+      
+        Δ
+        ⊆
+        Q
+        ×
+        Σ
+        ×
+        R
+        ×
+        Q
+      
+    
+    {\displaystyle \Delta \subseteq Q\times \Sigma \times R\times Q}
+   is a finite set of transitions 
+  
+    
+      
+        (
+        q
+        ,
+        σ
+        ,
+        w
+        ,
+        
+          q
+          ′
+        
+        )
+      
+    
+    {\displaystyle (q,\sigma ,w,q')}
+  , where 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   is called a character and 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   is called a weight.
+
+  
+    
+      
+        I
+        :
+        Q
+        →
+        R
+      
+    
+    {\displaystyle I:Q\to R}
+   is an initial weight function.
+
+  
+    
+      
+        F
+        :
+        Q
+        →
+        R
+      
+    
+    {\displaystyle F:Q\to R}
+   is a final weight function.A path on input 
+  
+    
+      
+        w
+        ∈
+        
+          Σ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle w\in \Sigma ^{*}}
+   is a finite path in the graph, where the concatenation of the character labels equals 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+  . The weight of the path 
+  
+    
+      
+        
+          q
+          
+            0
+          
+        
+        ,
+        
+          q
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          q
+          
+            n
+          
+        
+      
+    
+    {\displaystyle q_{0},q_{1},\ldots ,q_{n}}
+   is the product (
+  
+    
+      
+        ⊗
+      
+    
+    {\displaystyle \otimes }
+  ) of the weights along the path, additionally multiplied by the initial and final weights 
+  
+    
+      
+        I
+        (
+        
+          q
+          
+            0
+          
+        
+        )
+        ⊗
+        I
+        (
+        
+          q
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle I(q_{0})\otimes I(q_{n})}
+  . The weight of the word 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   is the sum (
+  
+    
+      
+        ⊕
+      
+    
+    {\displaystyle \oplus }
+  ) of the weights of all paths on input 
+  
+    
+      
+        w
+      
+    
+    {\displaystyle w}
+   (or 0 if there are no accepting paths). In this way the machine defines a function 
+  
+    
+      
+        [
+        
+        [
+        
+          
+            A
+          
+        
+        ]
+        
+        ]
+        :
+        
+          Σ
+          
+            ∗
+          
+        
+        →
+        R
+      
+    
+    {\displaystyle [\![{\mathcal {A}}]\!]:\Sigma ^{*}\to R}
+  .
+The underlying NFA of 
+  
+    
+      
+        
+          
+            A
+          
+        
+      
+    
+    {\displaystyle {\mathcal {A}}}
+   is an NFA formed by removing all transitions with weight 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+   and then erasing all of the weights on the transitions 
+  
+    
+      
+        Δ
+      
+    
+    {\displaystyle \Delta }
+  , so that the new transition set lies in 
+  
+    
+      
+        Q
+        ×
+        Σ
+        ×
+        Q
+      
+    
+    {\displaystyle Q\times \Sigma \times Q}
+  . The initial states and final states are the set of states 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   such that 
+  
+    
+      
+        I
+        (
+        q
+        )
+        ≠
+        0
+      
+    
+    {\displaystyle I(q)\neq 0}
+   and 
+  
+    
+      
+        F
+        (
+        q
+        )
+        ≠
+        0
+      
+    
+    {\displaystyle F(q)\neq 0}
+  , respectively.
+
+Variations
+A weighted automaton is deterministic if the underlying NFA is deterministic and unambiguous if the underlying NFA is unambiguous. In these cases, there is always exactly one accepting path, so the 
+  
+    
+      
+        ⊕
+      
+    
+    {\displaystyle \oplus }
+   operation is never applied and can be omitted from the definition.It is possible to extend the definition to allow epsilon transitions 
+  
+    
+      
+        (
+        q
+        ,
+        ϵ
+        ,
+        w
+        ,
+        
+          q
+          ′
+        
+        )
+      
+    
+    {\displaystyle (q,\epsilon ,w,q')}
+  , where 
+  
+    
+      
+        ϵ
+      
+    
+    {\displaystyle \epsilon }
+   is the empty string. In this case, one must then require that there are no cycles of epsilon transitions. This does not increase the expressiveness of weighted automata. If epsilon transitions are allowed, the initial weights and final weights can be replaced by initial and final sets of states without loss of expressiveness.The transition function can be given as a matrix 
+  
+    
+      
+        
+          Δ
+          
+            σ
+          
+        
+        ∈
+        
+          R
+          
+            Q
+            ×
+            Q
+          
+        
+      
+    
+    {\displaystyle \Delta _{\sigma }\in R^{Q\times Q}}
+   with entries in 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   for each 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  , rather than a set of transitions. The entry of the matrix at 
+  
+    
+      
+        (
+        q
+        ,
+        
+          q
+          ′
+        
+        )
+      
+    
+    {\displaystyle (q,q')}
+   is the sum of all transitions labeled 
+  
+    
+      
+        (
+        q
+        ,
+        σ
+        ,
+        
+          q
+          ′
+        
+        )
+      
+    
+    {\displaystyle (q,\sigma ,q')}
+  .Some authors omit the initial and final weight functions 
+  
+    
+      
+        I
+      
+    
+    {\displaystyle I}
+   and 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+  . Instead, 
+  
+    
+      
+        I
+      
+    
+    {\displaystyle I}
+   and 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+   are replaced by a set of initial and final states. If epsilon transitions are not present, this technically decreases expressiveness as it forces 
+  
+    
+      
+        [
+        
+        [
+        
+          
+            A
+          
+        
+        ]
+        
+        ]
+        (
+        ε
+        )
+      
+    
+    {\displaystyle [\![{\mathcal {A}}]\!](\varepsilon )}
+   to depend only on the number of states that are both initial and final.Some authors restrict to specific semirings, such as 
+  
+    
+      
+        
+          N
+        
+      
+    
+    {\displaystyle \mathbb {N} }
+   or 
+  
+    
+      
+        
+          Z
+        
+      
+    
+    {\displaystyle \mathbb {Z} }
+  , particularly when studying decidability results.The requirement that there is a zero element for 
+  
+    
+      
+        ⊕
+      
+    
+    {\displaystyle \oplus }
+   is sometimes omitted; in this case the machine defines a partial function from 
+  
+    
+      
+        
+          Σ
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \Sigma ^{*}}
+   to 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   rather than a total function.
+
+See also
+
+
+== References ==

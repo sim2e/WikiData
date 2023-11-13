@@ -1,0 +1,794 @@
+In computer networking, linear network coding is a program in which intermediate nodes transmit data from source nodes to sink nodes by means of linear combinations.
+Linear network coding may be used to improve a network's throughput, efficiency, and scalability, as well as reducing attacks and eavesdropping.  The nodes of a network take several packets and combine for transmission. This process may be used to attain the maximum possible information flow in a network.
+It has been proven that, theoretically, linear coding is enough to achieve the upper bound in multicast problems with one source. However linear coding is not sufficient in general; even for more general versions of linearity such as convolutional coding and filter-bank coding. Finding optimal coding solutions for general network problems with arbitrary demands is a hard problem, which can be NP-hard
+and even undecidable.
+
+Encoding and decoding
+In a linear network coding problem, a group of nodes 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   are involved in moving the data from 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   source nodes to 
+  
+    
+      
+        K
+      
+    
+    {\displaystyle K}
+   sink nodes. Each node generates new packets which are linear combinations of past received packets by multiplying them by coefficients chosen from a finite field, typically of size 
+  
+    
+      
+        G
+        F
+        (
+        
+          2
+          
+            s
+          
+        
+        )
+      
+    
+    {\displaystyle GF(2^{s})}
+  .
+More formally, each node, 
+  
+    
+      
+        
+          p
+          
+            k
+          
+        
+      
+    
+    {\displaystyle p_{k}}
+   with indegree, 
+  
+    
+      
+        I
+        n
+        D
+        e
+        g
+        (
+        
+          p
+          
+            k
+          
+        
+        )
+        =
+        S
+      
+    
+    {\displaystyle InDeg(p_{k})=S}
+  , generates a message 
+  
+    
+      
+        
+          X
+          
+            k
+          
+        
+      
+    
+    {\displaystyle X_{k}}
+   from the linear combination of received messages 
+  
+    
+      
+        {
+        
+          M
+          
+            i
+          
+        
+        
+          }
+          
+            i
+            =
+            1
+          
+          
+            S
+          
+        
+      
+    
+    {\displaystyle \{M_{i}\}_{i=1}^{S}}
+   by the formula:
+
+  
+    
+      
+        
+          X
+          
+            k
+          
+        
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            S
+          
+        
+        
+          g
+          
+            k
+          
+          
+            i
+          
+        
+        ⋅
+        
+          M
+          
+            i
+          
+        
+      
+    
+    {\displaystyle X_{k}=\sum _{i=1}^{S}g_{k}^{i}\cdot M_{i}}
+  Where the values 
+  
+    
+      
+        
+          g
+          
+            k
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle g_{k}^{i}}
+   are coefficients selected from 
+  
+    
+      
+        G
+        F
+        (
+        
+          2
+          
+            s
+          
+        
+        )
+      
+    
+    {\displaystyle GF(2^{s})}
+  . Since operations are computed in a finite field, the generated message is of the same length as the original messages. Each node forwards the computed value 
+  
+    
+      
+        
+          X
+          
+            k
+          
+        
+      
+    
+    {\displaystyle X_{k}}
+   along with the coefficients, 
+  
+    
+      
+        
+          g
+          
+            k
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle g_{k}^{i}}
+  , used in the 
+  
+    
+      
+        
+          k
+          
+            th
+          
+        
+      
+    
+    {\displaystyle k^{\text{th}}}
+   level, 
+  
+    
+      
+        
+          g
+          
+            k
+          
+          
+            i
+          
+        
+      
+    
+    {\displaystyle g_{k}^{i}}
+  .
+Sink nodes receive these network coded messages, and collect them in a matrix. The original messages can be recovered by performing Gaussian elimination on the matrix. In reduced row echelon form, decoded packets correspond to the rows of the form 
+  
+    
+      
+        
+          e
+          
+            i
+          
+        
+        =
+        [
+        0...010...0
+        ]
+      
+    
+    {\displaystyle e_{i}=[0...010...0]}
+
+Background
+A network is represented by a directed graph 
+  
+    
+      
+        
+          
+            G
+          
+        
+        =
+        (
+        V
+        ,
+        E
+        ,
+        C
+        )
+      
+    
+    {\displaystyle {\mathcal {G}}=(V,E,C)}
+  . 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   is the set of nodes or vertices, 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   is the set of directed links (or edges), and 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle C}
+   gives the capacity of each link of 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+  . Let 
+  
+    
+      
+        T
+        (
+        s
+        ,
+        t
+        )
+      
+    
+    {\displaystyle T(s,t)}
+   be the maximum possible throughput from node 
+  
+    
+      
+        s
+      
+    
+    {\displaystyle s}
+   to node 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  . By the max-flow min-cut theorem, 
+  
+    
+      
+        T
+        (
+        s
+        ,
+        t
+        )
+      
+    
+    {\displaystyle T(s,t)}
+   is upper bounded by the minimum capacity of all cuts, which is the sum of the capacities of the edges on a cut, between these two nodes.
+Karl Menger proved that there is always a set of edge-disjoint paths achieving the upper bound in a unicast scenario, known as the max-flow min-cut theorem. Later, the Ford–Fulkerson algorithm was proposed to find such paths in polynomial time. Then, Edmonds proved in the paper "Edge-Disjoint Branchings" the upper bound in the broadcast scenario is also achievable, and proposed a polynomial time algorithm.
+However, the situation in the multicast scenario is more complicated, and in fact, such an upper bound can't be reached using traditional routing ideas. Ahlswede et al. proved that it can be achieved if additional computing tasks (incoming packets are combined into one or several outgoing packets) can be done in the intermediate nodes.
+
+The Butterfly Network
+The butterfly network is often used to illustrate how linear network coding can outperform routing. Two source nodes (at the top of the picture) have information A and B that must be transmitted to the two destination nodes (at the bottom). Each destination node wants to know both A and B. Each edge can carry only a single value (we can think of an edge transmitting a bit in each time slot).
+If only routing were allowed, then the central link would be only able to carry A or B, but not both. Supposing we send A through the center; then the left destination would receive A twice and not know B at all. Sending B poses a similar problem for the right destination. We say that routing is insufficient because no routing scheme can transmit both A and B to both destinations simultaneously. Meanwhile, it takes four time slots in total for both destination nodes to know A and B.
+Using a simple code, as shown, A and B can be transmitted to both destinations simultaneously by sending the sum of the symbols through the two relay nodes – encoding A and B using the formula "A+B". The left destination receives A and A + B, and can calculate B by subtracting the two values. Similarly, the right destination will receive B and A + B, and will also be able to determine both A and B. Therefore, with network coding, it takes only three time slots and improves the throughput.
+
+Random Linear Network Coding
+Random linear network coding (RLNC) is a simple yet powerful encoding scheme, which in broadcast transmission schemes allows close to optimal throughput using a decentralized algorithm. Nodes transmit random linear combinations of the packets they receive, with coefficients chosen randomly, with a uniform distribution from a Galois field. If the field size is sufficiently large, the probability that the receiver(s) will obtain linearly independent combinations (and therefore obtain innovative information) approaches 1. It should however be noted that, although random linear network coding has excellent throughput performance, if a receiver obtains an insufficient number of packets, it is extremely unlikely that they can recover any of the original packets. This can be addressed by sending additional random linear combinations until the receiver obtains the appropriate number of packets.
+
+Operation and key parameters
+There are three key parameters in RLNC. The first one is the generation size. In RLNC, the original data transmitted over the network is divided into packets. The source and intermediate nodes in the network can combine and recombine the set of original and coded packets. The original 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   packets form a block, usually called a generation. The number of original packets combined and recombined together is the generation size. The second parameter is the packet size. Usually, the size of the original packets is fixed. In the case of unequally-sized packets, these can be zero-padded if they are shorter or split into multiple packets if they are longer. In practice, the packet size can be the size of the maximum transmission unit (MTU) of the underlying network protocol. For example, it can be around 1500 bytes in an Ethernet frame. The third key parameter is the Galois field used. In practice, the most commonly used Galois fields are binary extension fields. And the most commonly used sizes for the Galois fields are the binary field 
+  
+    
+      
+        G
+        F
+        (
+        2
+        )
+      
+    
+    {\displaystyle GF(2)}
+   and the so-called binary-8 (
+  
+    
+      
+        G
+        F
+        (
+        
+          2
+          
+            8
+          
+        
+        )
+      
+    
+    {\displaystyle GF(2^{8})}
+  ). In the binary field, each element is one bit long, while in the binary-8, it is one byte long. Since the packet size is usually larger than the field size, each packet is seen as a set of elements from the Galois field (usually referred to as symbols) appended together. The packets have a fixed amount of symbols (Galois field elements), and since all the operations are performed over Galois fields, then the size of the packets does not change with subsequent linear combinations.
+The sources and the intermediate nodes can combine any subset of the original and previously coded packets performing linear operations. To form a coded packet in RLNC, the original and previously coded packets are multiplied by randomly chosen coefficients and added together. Since each packet is just an appended set of Galois field elements, the operations of multiplication and addition are performed symbol-wise over each of the individual symbols of the packets, as shown in the picture from the example.
+To preserve the statelessness of the code, the coding coefficients used to generate the coded packets are appended to the packets transmitted over the network. Therefore, each node in the network can see what coefficients were used to generate each coded packet. One novelty of linear network coding over traditional block codes is that it allows the recombination of previously coded packets into new and valid coded packets. This process is usually called recoding. After a recoding operation, the size of the appended coding coefficients does not change. Since all the operations are linear, the state of the recoded packet can be preserved by applying the same operations of addition and multiplication to the payload and the appended coding coefficients. In the following example, we will illustrate this process.
+Any destination node must collect enough linearly independent coded packets to be able to reconstruct the original data. Each coded packet can be understood as a linear equation where the coefficients are known since they are appended to the packet. In these equations, each of the original 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   packets is the unknown. To solve the linear system of equations, the destination needs at least 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   linearly independent equations (packets).
+
+Example
+In the figure, we can see an example of two packets linearly combined into a new coded packet. In the example, we have two packets, namely packet 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   and packet 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+  . The generation size of our example is two. We know this because each packet has two coding coefficients (
+  
+    
+      
+        
+          C
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle C_{ij}}
+  ) appended. The appended coefficients can take any value from the Galois field. However, an original, uncoded data packet would have appended the coding coefficients 
+  
+    
+      
+        [
+        0
+        ,
+        1
+        ]
+      
+    
+    {\displaystyle [0,1]}
+   or 
+  
+    
+      
+        [
+        1
+        ,
+        0
+        ]
+      
+    
+    {\displaystyle [1,0]}
+  , which means that they are constructed by a linear combination of zero times one of the packets plus one time the other packet. Any coded packet would have appended other coefficients. In our example, packet 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   for instance has appended the coefficients 
+  
+    
+      
+        [
+        
+          C
+          
+            11
+          
+        
+        ,
+        
+          C
+          
+            12
+          
+        
+        ]
+      
+    
+    {\displaystyle [C_{11},C_{12}]}
+  . Since network coding can be applied at any layter of the communication protocol, these packets can have a header from the other layers, which is ignored in the network coding operations.
+Now, lets assume that the network node wants to produce a new coded packet combining packet 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   and packet 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+  . In RLNC, it will randomly choose two coding coefficients, 
+  
+    
+      
+        
+          d
+          
+            1
+          
+        
+      
+    
+    {\displaystyle d_{1}}
+   and 
+  
+    
+      
+        
+          d
+          
+            2
+          
+        
+      
+    
+    {\displaystyle d_{2}}
+   in the example. The node will multiply each symbol of packet 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   by 
+  
+    
+      
+        
+          d
+          
+            1
+          
+        
+      
+    
+    {\displaystyle d_{1}}
+  , and each symbol of packet 
+  
+    
+      
+        e
+      
+    
+    {\displaystyle e}
+   by 
+  
+    
+      
+        
+          d
+          
+            2
+          
+        
+      
+    
+    {\displaystyle d_{2}}
+  . Then, it will add the results symbol-wise to produce the new coded data. It will perform the same operations of multiplication and addition to the coding coefficients of the coded packets.
+
+Misconceptions
+Linear network coding is still a relatively new subject. However, the topic has been vastly researched over the last twenty years. Nevertheless, there are still some misconceptions that are no longer valid:
+Decoding computational complexity: Network coding decoders have been improved over the years. Nowadays, the algorithms are highly efficient and parallelizable. In 2016, in i5 processors with SIMD instructions enabled, the decoding goodput of network coding was 750 MB/s for a generation size of 16 packets and 250 MB/s for a generation size of 64 packets. Furthermore, today's algorithms can be vastly parallelizable, increasing the encoding and decoding goodput even further.Transmission Overhead: It is usually thought that the transmission overhead of network coding is high due to the need to append the coding coefficients to each coded packet. In reality, this overhead is negligible in most applications. The overhead due to coding coefficients can be computed as follows. Each packet has appended 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   coding coefficients. The size of each coefficient is the number of bits needed to represent one element of the Galois field. In practice, most network coding applications use a generation size of no more than 32 packets per generation and Galois fields of 256 elements (binary-8). With these numbers, each packet needs 
+  
+    
+      
+        M
+        ∗
+        l
+        o
+        
+          g
+          
+            2
+          
+        
+        (
+        s
+        )
+        =
+        32
+      
+    
+    {\displaystyle M*log_{2}(s)=32}
+   bytes of appended overhead. If each packet is 1500 bytes long (i.e. the Ethernet MTU), then 32 bytes represent an overhead of only 2%.
+
+Overhead due to linear dependencies: Since the coding coefficients are chosen randomly in RLNC, there is a chance that some transmitted coded packets are not beneficial to the destination because they are formed using a linearly dependent combination of packets. However, this overhead is negligible in most applications. The linear dependencies depend on the Galois fields' size and are practically independent of the generation size used. We can illustrate this with the following example. Let us assume we are using a Galois field of 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+   elements and a generation size of 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   packets. If the destination has not received any coded packet, we say it has 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   degrees of freedom, and then almost any coded packet will be useful and innovative. In fact, only the zero-packet (only zeroes in the coding coefficients) will be non-innovative. The probability of generating the zero-packet is equal to the probability of each of the 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   coding coefficient to be equal to the zero-element of the Galois field. I.e., the probability of a non-innovative packet is of 
+  
+    
+      
+        
+          
+            1
+            
+              q
+              
+                M
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {1}{q^{M}}}}
+  . With each successive innovative transmission, it can be shown that the exponent of the probability of a non innovative packet is reduced by one. When the destination has received 
+  
+    
+      
+        M
+        −
+        1
+      
+    
+    {\displaystyle M-1}
+   innovative packets (i.e., it needs only one more packet to fully decode the data). Then the probability of a non innovative packet is of 
+  
+    
+      
+        
+          
+            1
+            q
+          
+        
+      
+    
+    {\displaystyle {\frac {1}{q}}}
+  . We can use this knowledge to calculate the expected number of linearly dependent packets per generation. In the worst-case scenario, when the Galois field used contains only two elements (
+  
+    
+      
+        q
+        =
+        2
+      
+    
+    {\displaystyle q=2}
+  ), the expected number of linearly dependent packets per generation is of 1.6 extra packets. If our generation size if of 32 or 64 packets, this represents an overhead of 5% or 2.5%, respectively. If we use the binary-8 field (
+  
+    
+      
+        q
+        =
+        256
+      
+    
+    {\displaystyle q=256}
+  ), then the expected number of linearly dependent packets per generation is practically zero. Since it is the last packets the major contributor to the overhead due to linear dependencies, there are RLNC-based protocols such as tunable sparse network coding that exploit this knowledge. These protocols introduce sparsity (zero-elements) in the coding coefficients at the beginning of the transmission to reduce the decoding complexity, and reduce the sparsity at the end of the transmission to reduce the overhead due to linear dependencies.
+
+Applications
+Over the years, multiple researchers and companies have integrated network coding solutions into their applications. We can list some of the applications of network coding in different areas:
+
+VoIP: The performance of streaming services such as VoIP over wireless mesh networks can be improved with network coding by reducing the network delay and jitter.
+Video and audio streaming and conferencing: The performance of MPEG-4 traffic in terms of delay, packet loss, and jitter over wireless networks prone to packet erasures can be improved with RLNC. In the case of audio streaming over wireless mesh networks, the packet delivery ratio, latency, and jitter performance of the network can be significantly increased when using RLNC instead of packet forwarding-based protocols such as simplified multicast forwarding and partial dominant pruning. The performance improvements of network coding for video conferencing are not only theoretical. In 2016, the authors of  built a real-world testbed of 15 wireless Android devices to evaluate the feasibility of network-coding-based video conference systems. Their results showed large improvements in packet delivery ratio and overall user experience, especially over poor quality links compared to multicasting technologies based on packet forwarding.
+Software-defined wide area networks (SD-WAN): Large industrial IoT wireless networks can benefit from network coding. Researchers showed that network coding and its channel bundling capabilities improved the performance of SD-WANs with a large number of nodes with multiple cellular connections. Nowadays, companies such as Barracuda are employing RLNC-based solutions due to their advantages in low latency, small footprint on computing devices, and low overhead.
+Channel bundling: Due to the statelessness characteristics of RLNC, it can be used to efficiently perform channel bundling, i.e., the transmission of information through multiple network interfaces. Since the coded packets are randomly generated, and the state of the code traverses the network together with the coded packets, a source can achieve bundling without much planning just by sending coded packets through all its network interfaces. The destination can decode the information once enough coded packets arrive, irrespectively of the network interface. A video demonstrating the channel bundling capabilities of RLNC is available at.
+5G private networks: RLNC can be integrated into the 5G NR standard to improve the performance of video delivery over 5G systems. In 2018, a demo presented at the Consumer Electronics Show demonstrated a practical deployment of RLNC with NFV and SDN technologies to improve video quality against packet loss due to congestion at the core network.
+Remote collaboration.
+Augmented reality remote support and training.
+Remote vehicle driving applications.
+Connected cars networks.
+Gaming applications such as low latency streaming and multiplayer connectivity.
+Healthcare applications.
+Industry 4.0.
+Satellite networks.
+Agricultural sensor fields.
+In-flight enterteinment networks.
+Major security and firmware updates for mobile product families.
+Smart city infrastructure.
+Information-centric networking and named data networking.: Linear network coding can improve the network efficiency of information-centric networking solutions by exploiting the multi-source multi-cast nature of such systems. It has been shown, that RLNC can be integrated into distributed content delivery networks such as IPFS to increase data availability while reducing storage resources.
+Alternative to forward error correction and automatic repeat requests in traditional and wireless networks with packet loss, such as Coded TCP and Multi-user ARQ
+Protection against network attacks such as snooping, eavesdropping, replay, or data corruption.
+Digital file distribution and P2P file sharing, e.g. Avalanche filesystem from Microsoft
+Distributed storage
+Throughput increase in wireless mesh networks, e.g.: COPE, CORE, Coding-aware routing, and B.A.T.M.A.N.
+Buffer and delay reduction in spatial sensor networks: Spatial buffer multiplexing
+Wireless broadcast: RLNC can reduce the number of packet transmission for a single-hop wireless multicast network, and hence improve network bandwidth
+Distributed file sharing
+Low-complexity video streaming to mobile device
+Device-to-device extensions
+
+See also
+Secret sharing protocol
+Homomorphic signatures for network coding
+Triangular network coding
+
+References
+Fragouli, C.; Le Boudec, J. & Widmer, J. "Network coding: An instant primer" in Computer Communication Review, 2006. https://doi.org/10.1145/1111322.1111337
+Ali Farzamnia, Sharifah K. Syed-Yusof, Norsheila Fisa "Multicasting Multiple Description Coding Using p-Cycle Network Coding",  KSII Transactions on Internet and Information Systems, Vol 7, No 12, 2013. doi:10.3837/tiis.2013.12.009
+
+External links
+Network Coding Homepage
+A network coding bibliography
+Raymond W. Yeung, Information Theory and Network Coding, Springer 2008, http://iest2.ie.cuhk.edu.hk/~whyeung/book2/
+Raymond W. Yeung et al., Network Coding Theory, now Publishers, 2005, http://iest2.ie.cuhk.edu.hk/~whyeung/netcode/monograph.html
+Christina Fragouli et al., Network Coding: An Instant Primer, ACM SIGCOMM 2006, http://infoscience.epfl.ch/getfile.py?mode=best&recid=58339.
+Avalanche Filesystem, http://research.microsoft.com/en-us/projects/avalanche/default.aspx
+Random Network Coding, https://web.archive.org/web/20060618083034/http://www.mit.edu/~medard/coding1.htm
+Digital Fountain Codes, http://www.icsi.berkeley.edu/~luby/
+Coding-Aware Routing, https://web.archive.org/web/20081011124616/http://arena.cse.sc.edu/papers/rocx.secon06.pdf
+MIT offers a course: Introduction to Network Coding
+Network coding: Networking's next revolution?
+Coding-aware protocol design for wireless networks: http://scholarcommons.sc.edu/etd/230/

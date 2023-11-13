@@ -1,0 +1,5009 @@
+In quantum information theory, the classical capacity of a quantum channel is the maximum rate at which classical data can be sent over it error-free in the limit of many uses of the channel. Holevo, Schumacher, and Westmoreland proved the following least upper bound on the classical capacity of any quantum channel 
+  
+    
+      
+        
+          
+            N
+          
+        
+      
+    
+    {\displaystyle {\mathcal {N}}}
+  :
+
+  
+    
+      
+        χ
+        (
+        
+          
+            N
+          
+        
+        )
+        =
+        
+          max
+          
+            
+              ρ
+              
+                X
+                A
+              
+            
+          
+        
+        I
+        (
+        X
+        ;
+        B
+        
+          )
+          
+            
+              
+                N
+              
+            
+            (
+            ρ
+            )
+          
+        
+      
+    
+    {\displaystyle \chi ({\mathcal {N}})=\max _{\rho ^{XA}}I(X;B)_{{\mathcal {N}}(\rho )}}
+  where 
+  
+    
+      
+        
+          ρ
+          
+            X
+            A
+          
+        
+      
+    
+    {\displaystyle \rho ^{XA}}
+   is a classical-quantum state of the following form:
+
+  
+    
+      
+        
+          ρ
+          
+            X
+            A
+          
+        
+        =
+        
+          ∑
+          
+            x
+          
+        
+        
+          p
+          
+            X
+          
+        
+        (
+        x
+        )
+        |
+        x
+        ⟩
+        ⟨
+        x
+        
+          |
+          
+            X
+          
+        
+        ⊗
+        
+          ρ
+          
+            x
+          
+          
+            A
+          
+        
+        ,
+      
+    
+    {\displaystyle \rho ^{XA}=\sum _{x}p_{X}(x)\vert x\rangle \langle x\vert ^{X}\otimes \rho _{x}^{A},}
+  
+  
+    
+      
+        
+          p
+          
+            X
+          
+        
+        (
+        x
+        )
+      
+    
+    {\displaystyle p_{X}(x)}
+   is a probability distribution, and each 
+  
+    
+      
+        
+          ρ
+          
+            x
+          
+          
+            A
+          
+        
+      
+    
+    {\displaystyle \rho _{x}^{A}}
+   is a density operator that can be input to the channel 
+  
+    
+      
+        
+          
+            N
+          
+        
+      
+    
+    {\displaystyle {\mathcal {N}}}
+  .
+
+Achievability using sequential decoding
+We briefly review the HSW coding theorem (the
+statement of the achievability of the Holevo information rate 
+  
+    
+      
+        I
+        (
+        X
+        ;
+        B
+        )
+      
+    
+    {\displaystyle I(X;B)}
+   for
+communicating classical data over a quantum channel). We first review the
+minimal amount of quantum mechanics needed for the theorem. We then cover
+quantum typicality, and finally we prove the theorem using a recent sequential
+decoding technique.
+
+Review of quantum mechanics
+In order to prove the HSW coding theorem, we really just need a few basic
+things from quantum mechanics. First, a quantum state is a unit trace,
+positive operator known as a density operator. Usually, we denote it
+by 
+  
+    
+      
+        ρ
+      
+    
+    {\displaystyle \rho }
+  , 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  , 
+  
+    
+      
+        ω
+      
+    
+    {\displaystyle \omega }
+  , etc. The simplest model for a quantum channel
+is known as a classical-quantum channel:
+
+The meaning of the above notation is that inputting the classical letter 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  
+at the transmitting end leads to a quantum state 
+  
+    
+      
+        
+          ρ
+          
+            x
+          
+        
+      
+    
+    {\displaystyle \rho _{x}}
+   at the receiving
+end. It is the task of the receiver to perform a measurement to determine the
+input of the sender. If it is true that the states 
+  
+    
+      
+        
+          ρ
+          
+            x
+          
+        
+      
+    
+    {\displaystyle \rho _{x}}
+   are perfectly
+distinguishable from one another (i.e., if they have orthogonal supports such
+that 
+  
+    
+      
+        
+          T
+          r
+        
+        
+        
+          {
+          
+            
+              ρ
+              
+                x
+              
+            
+            
+              ρ
+              
+                
+                  x
+                  
+                    ′
+                  
+                
+              
+            
+          
+          }
+        
+        =
+        0
+      
+    
+    {\displaystyle \mathrm {Tr} \,\left\{\rho _{x}\rho _{x^{\prime }}\right\}=0}
+   for 
+  
+    
+      
+        x
+        ≠
+        
+          x
+          
+            ′
+          
+        
+      
+    
+    {\displaystyle x\neq x^{\prime }}
+  ), then the channel is a noiseless channel. We are interested in situations
+for which this is not the case. If it is true that the states 
+  
+    
+      
+        
+          ρ
+          
+            x
+          
+        
+      
+    
+    {\displaystyle \rho _{x}}
+   all
+commute with one another, then this is effectively identical to the situation
+for a classical channel, so we are also not interested in these situations.
+So, the situation in which we are interested is that in which the states
+
+  
+    
+      
+        
+          ρ
+          
+            x
+          
+        
+      
+    
+    {\displaystyle \rho _{x}}
+   have overlapping support and are non-commutative.
+The most general way to describe a quantum measurement is with a 
+positive operator-valued measure (POVM). We usually denote the elements of a POVM as
+
+  
+    
+      
+        
+          
+            {
+            
+              Λ
+              
+                m
+              
+            
+            }
+          
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \left\{\Lambda _{m}\right\}_{m}}
+  . These operators should satisfy
+positivity and completeness in order to form a valid POVM:
+
+  
+    
+      
+        
+          Λ
+          
+            m
+          
+        
+        ≥
+        0
+         
+         
+         
+         
+        ∀
+        m
+      
+    
+    {\displaystyle \Lambda _{m}\geq 0\ \ \ \ \forall m}
+  
+
+  
+    
+      
+        
+          ∑
+          
+            m
+          
+        
+        
+          Λ
+          
+            m
+          
+        
+        =
+        I
+        .
+      
+    
+    {\displaystyle \sum _{m}\Lambda _{m}=I.}
+  The probabilistic interpretation of quantum mechanics states that if someone
+measures a quantum state 
+  
+    
+      
+        ρ
+      
+    
+    {\displaystyle \rho }
+   using a measurement device corresponding to
+the POVM 
+  
+    
+      
+        
+          {
+          
+            Λ
+            
+              m
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \left\{\Lambda _{m}\right\}}
+  , then the probability 
+  
+    
+      
+        p
+        
+          (
+          m
+          )
+        
+      
+    
+    {\displaystyle p\left(m\right)}
+   for obtaining outcome 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   is equal to
+
+  
+    
+      
+        p
+        
+          (
+          m
+          )
+        
+        =
+        
+          Tr
+        
+        
+          {
+          
+            
+              Λ
+              
+                m
+              
+            
+            ρ
+          
+          }
+        
+        ,
+      
+    
+    {\displaystyle p\left(m\right)={\text{Tr}}\left\{\Lambda _{m}\rho \right\},}
+  and the post-measurement state is
+
+  
+    
+      
+        
+          ρ
+          
+            m
+          
+          
+            ′
+          
+        
+        =
+        
+          
+            1
+            
+              p
+              
+                (
+                m
+                )
+              
+            
+          
+        
+        
+          
+            
+              Λ
+              
+                m
+              
+            
+          
+        
+        ρ
+        
+          
+            
+              Λ
+              
+                m
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle \rho _{m}^{\prime }={\frac {1}{p\left(m\right)}}{\sqrt {\Lambda _{m}}}\rho {\sqrt {\Lambda _{m}}},}
+  if the person measuring obtains outcome 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  . These rules are sufficient for us
+to consider classical communication schemes over cq channels.
+
+Quantum typicality
+The reader can find a good review of this topic in the article about the typical subspace.
+
+Gentle operator lemma
+The following lemma is important for our proofs. It
+demonstrates that a measurement that succeeds with high probability on average
+does not disturb the state too much on average:
+Lemma: [Winter] Given an
+ensemble 
+  
+    
+      
+        
+          {
+          
+            
+              p
+              
+                X
+              
+            
+            
+              (
+              x
+              )
+            
+            ,
+            
+              ρ
+              
+                x
+              
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \left\{p_{X}\left(x\right),\rho _{x}\right\}}
+   with expected
+density operator 
+  
+    
+      
+        ρ
+        ≡
+        
+          ∑
+          
+            x
+          
+        
+        
+          p
+          
+            X
+          
+        
+        
+          (
+          x
+          )
+        
+        
+          ρ
+          
+            x
+          
+        
+      
+    
+    {\displaystyle \rho \equiv \sum _{x}p_{X}\left(x\right)\rho _{x}}
+  , suppose
+that an operator 
+  
+    
+      
+        Λ
+      
+    
+    {\displaystyle \Lambda }
+   such that 
+  
+    
+      
+        I
+        ≥
+        Λ
+        ≥
+        0
+      
+    
+    {\displaystyle I\geq \Lambda \geq 0}
+   succeeds with high
+probability on the state 
+  
+    
+      
+        ρ
+      
+    
+    {\displaystyle \rho }
+  :
+
+Then the subnormalized state 
+  
+    
+      
+        
+          
+            Λ
+          
+        
+        
+          ρ
+          
+            x
+          
+        
+        
+          
+            Λ
+          
+        
+      
+    
+    {\displaystyle {\sqrt {\Lambda }}\rho _{x}{\sqrt {\Lambda }}}
+   is close
+in expected trace distance to the original state 
+  
+    
+      
+        
+          ρ
+          
+            x
+          
+        
+      
+    
+    {\displaystyle \rho _{x}}
+  :
+
+(Note that 
+  
+    
+      
+        
+          
+            ‖
+            A
+            ‖
+          
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \left\Vert A\right\Vert _{1}}
+   is the nuclear norm of the operator
+
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+   so that 
+  
+    
+      
+        
+          
+            ‖
+            A
+            ‖
+          
+          
+            1
+          
+        
+        ≡
+      
+    
+    {\displaystyle \left\Vert A\right\Vert _{1}\equiv }
+  Tr
+  
+    
+      
+        
+          {
+          
+            
+              
+                A
+                
+                  †
+                
+              
+              A
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \left\{{\sqrt {A^{\dagger }A}}\right\}}
+  .)
+The following inequality is useful for us as well. It holds for any operators
+
+  
+    
+      
+        ρ
+      
+    
+    {\displaystyle \rho }
+  , 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  , 
+  
+    
+      
+        Λ
+      
+    
+    {\displaystyle \Lambda }
+   such that 
+  
+    
+      
+        0
+        ≤
+        ρ
+        ,
+        σ
+        ,
+        Λ
+        ≤
+        I
+      
+    
+    {\displaystyle 0\leq \rho ,\sigma ,\Lambda \leq I}
+  :
+
+The quantum information-theoretic interpretation of the above inequality is
+that the probability of obtaining outcome 
+  
+    
+      
+        Λ
+      
+    
+    {\displaystyle \Lambda }
+   from a quantum measurement
+acting on the state 
+  
+    
+      
+        ρ
+      
+    
+    {\displaystyle \rho }
+   is upper bounded by the probability of obtaining
+outcome 
+  
+    
+      
+        Λ
+      
+    
+    {\displaystyle \Lambda }
+   on the state 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   summed with the distinguishability of
+the two states 
+  
+    
+      
+        ρ
+      
+    
+    {\displaystyle \rho }
+   and 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  .
+
+Non-commutative union bound
+Lemma: [Sen's bound] The following bound
+holds for a subnormalized state 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   such that 
+  
+    
+      
+        0
+        ≤
+        σ
+      
+    
+    {\displaystyle 0\leq \sigma }
+   and
+
+  
+    
+      
+        T
+        r
+        
+          {
+          σ
+          }
+        
+        ≤
+        1
+      
+    
+    {\displaystyle Tr\left\{\sigma \right\}\leq 1}
+   with 
+  
+    
+      
+        
+          Π
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \Pi _{1}}
+  , ... , 
+  
+    
+      
+        
+          Π
+          
+            N
+          
+        
+      
+    
+    {\displaystyle \Pi _{N}}
+   being
+projectors:
+
+  
+    
+      
+        
+          Tr
+        
+        
+          {
+          σ
+          }
+        
+        −
+        
+          Tr
+        
+        
+          {
+          
+            
+              Π
+              
+                N
+              
+            
+            ⋯
+            
+              Π
+              
+                1
+              
+            
+             
+            σ
+             
+            
+              Π
+              
+                1
+              
+            
+            ⋯
+            
+              Π
+              
+                N
+              
+            
+          
+          }
+        
+        ≤
+        2
+        
+          
+            
+              ∑
+              
+                i
+                =
+                1
+              
+              
+                N
+              
+            
+            
+              Tr
+            
+            
+              {
+              
+                
+                  (
+                  
+                    I
+                    −
+                    
+                      Π
+                      
+                        i
+                      
+                    
+                  
+                  )
+                
+                σ
+              
+              }
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle {\text{Tr}}\left\{\sigma \right\}-{\text{Tr}}\left\{\Pi _{N}\cdots \Pi _{1}\ \sigma \ \Pi _{1}\cdots \Pi _{N}\right\}\leq 2{\sqrt {\sum _{i=1}^{N}{\text{Tr}}\left\{\left(I-\Pi _{i}\right)\sigma \right\}}},}
+  
+We can think of Sen's bound as a "non-commutative union
+bound" because it is analogous to the following union bound
+from probability theory:
+
+where 
+  
+    
+      
+        
+          A
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          A
+          
+            N
+          
+        
+      
+    
+    {\displaystyle A_{1},\ldots ,A_{N}}
+   are events. The analogous bound for projector
+logic would be
+
+  
+    
+      
+        
+          Tr
+        
+        
+          {
+          
+            
+              (
+              
+                I
+                −
+                
+                  Π
+                  
+                    1
+                  
+                
+                ⋯
+                
+                  Π
+                  
+                    N
+                  
+                
+                ⋯
+                
+                  Π
+                  
+                    1
+                  
+                
+              
+              )
+            
+            ρ
+          
+          }
+        
+        ≤
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            N
+          
+        
+        
+          Tr
+        
+        
+          {
+          
+            
+              (
+              
+                I
+                −
+                
+                  Π
+                  
+                    i
+                  
+                
+              
+              )
+            
+            ρ
+          
+          }
+        
+        ,
+      
+    
+    {\displaystyle {\text{Tr}}\left\{\left(I-\Pi _{1}\cdots \Pi _{N}\cdots \Pi _{1}\right)\rho \right\}\leq \sum _{i=1}^{N}{\text{Tr}}\left\{\left(I-\Pi _{i}\right)\rho \right\},}
+  if we think of 
+  
+    
+      
+        
+          Π
+          
+            1
+          
+        
+        ⋯
+        
+          Π
+          
+            N
+          
+        
+      
+    
+    {\displaystyle \Pi _{1}\cdots \Pi _{N}}
+   as a projector onto the intersection of
+subspaces. Though, the above bound only holds if the projectors 
+  
+    
+      
+        
+          Π
+          
+            1
+          
+        
+      
+    
+    {\displaystyle \Pi _{1}}
+  ,
+..., 
+  
+    
+      
+        
+          Π
+          
+            N
+          
+        
+      
+    
+    {\displaystyle \Pi _{N}}
+   are commuting (choosing 
+  
+    
+      
+        
+          Π
+          
+            1
+          
+        
+        =
+        
+          |
+          +
+          ⟩
+        
+        
+          ⟨
+          +
+          |
+        
+      
+    
+    {\displaystyle \Pi _{1}=\left\vert +\right\rangle \left\langle +\right\vert }
+  , 
+  
+    
+      
+        
+          Π
+          
+            2
+          
+        
+        =
+        
+          |
+          0
+          ⟩
+        
+        
+          ⟨
+          0
+          |
+        
+      
+    
+    {\displaystyle \Pi _{2}=\left\vert 0\right\rangle \left\langle 0\right\vert }
+  , and 
+  
+    
+      
+        ρ
+        =
+        
+          |
+          0
+          ⟩
+        
+        
+          ⟨
+          0
+          |
+        
+      
+    
+    {\displaystyle \rho =\left\vert 0\right\rangle \left\langle 0\right\vert }
+   gives a counterexample). If the projectors are non-commuting, then Sen's
+bound is the next best thing and suffices for our purposes here.
+
+HSW theorem with the non-commutative union bound
+We now prove the HSW theorem with Sen's non-commutative union bound. We
+divide up the proof into a few parts: codebook generation, POVM construction,
+and error analysis.
+Codebook Generation.  We first describe how Alice and Bob agree on a
+random choice of code. They have the channel 
+  
+    
+      
+        x
+        →
+        
+          ρ
+          
+            x
+          
+        
+      
+    
+    {\displaystyle x\rightarrow \rho _{x}}
+   and a
+distribution 
+  
+    
+      
+        
+          p
+          
+            X
+          
+        
+        
+          (
+          x
+          )
+        
+      
+    
+    {\displaystyle p_{X}\left(x\right)}
+  . They choose 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   classical sequences
+
+  
+    
+      
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x^{n}}
+   according to the IID\ distribution 
+  
+    
+      
+        
+          p
+          
+            
+              X
+              
+                n
+              
+            
+          
+        
+        
+          (
+          
+            x
+            
+              n
+            
+          
+          )
+        
+      
+    
+    {\displaystyle p_{X^{n}}\left(x^{n}\right)}
+  .
+After selecting them, they label them with indices as 
+  
+    
+      
+        
+          
+            {
+            
+              
+                x
+                
+                  n
+                
+              
+              
+                (
+                m
+                )
+              
+            
+            }
+          
+          
+            m
+            ∈
+            
+              [
+              M
+              ]
+            
+          
+        
+      
+    
+    {\displaystyle \left\{x^{n}\left(m\right)\right\}_{m\in \left[M\right]}}
+  . This leads to the following
+quantum codewords:
+
+The quantum codebook is then 
+  
+    
+      
+        
+          {
+          
+            ρ
+            
+              
+                x
+                
+                  n
+                
+              
+              
+                (
+                m
+                )
+              
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \left\{\rho _{x^{n}\left(m\right)}\right\}}
+  . The average state of the codebook is then
+
+where 
+  
+    
+      
+        ρ
+        =
+        
+          ∑
+          
+            x
+          
+        
+        
+          p
+          
+            X
+          
+        
+        
+          (
+          x
+          )
+        
+        
+          ρ
+          
+            x
+          
+        
+      
+    
+    {\displaystyle \rho =\sum _{x}p_{X}\left(x\right)\rho _{x}}
+  .
+POVM Construction . Sens' bound from the above lemma 
+suggests a method for Bob to decode a state that Alice transmits. Bob should
+first ask "Is the received state in the average typical
+subspace?" He can do this operationally by performing a
+typical subspace measurement corresponding to 
+  
+    
+      
+        
+          {
+          
+            
+              Π
+              
+                ρ
+                ,
+                δ
+              
+              
+                n
+              
+            
+            ,
+            I
+            −
+            
+              Π
+              
+                ρ
+                ,
+                δ
+              
+              
+                n
+              
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \left\{\Pi _{\rho ,\delta }^{n},I-\Pi _{\rho ,\delta }^{n}\right\}}
+  . Next, he asks in sequential order,
+"Is the received codeword in the 
+  
+    
+      
+        
+          m
+          
+            th
+          
+        
+      
+    
+    {\displaystyle m^{\text{th}}}
+  
+conditionally typical subspace?" This is in some sense
+equivalent to the question, "Is the received codeword the
+
+  
+    
+      
+        
+          m
+          
+            th
+          
+        
+      
+    
+    {\displaystyle m^{\text{th}}}
+   transmitted codeword?" He can ask these
+questions operationally by performing the measurements corresponding to the
+conditionally typical projectors 
+  
+    
+      
+        
+          {
+          
+            
+              Π
+              
+                
+                  ρ
+                  
+                    
+                      x
+                      
+                        n
+                      
+                    
+                    
+                      (
+                      m
+                      )
+                    
+                  
+                
+                ,
+                δ
+              
+            
+            ,
+            I
+            −
+            
+              Π
+              
+                
+                  ρ
+                  
+                    
+                      x
+                      
+                        n
+                      
+                    
+                    
+                      (
+                      m
+                      )
+                    
+                  
+                
+                ,
+                δ
+              
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \left\{\Pi _{\rho _{x^{n}\left(m\right)},\delta },I-\Pi _{\rho _{x^{n}\left(m\right)},\delta }\right\}}
+  .
+Why should this sequential decoding scheme work well? The reason is that the
+transmitted codeword lies in the typical subspace on average:
+
+  
+    
+      
+        
+          
+            E
+          
+          
+            
+              X
+              
+                n
+              
+            
+          
+        
+        
+          {
+          
+            
+              Tr
+            
+            
+              {
+              
+                
+                  Π
+                  
+                    ρ
+                    ,
+                    δ
+                  
+                
+                 
+                
+                  ρ
+                  
+                    
+                      X
+                      
+                        n
+                      
+                    
+                  
+                
+              
+              }
+            
+          
+          }
+        
+        =
+        
+          Tr
+        
+        
+          {
+          
+            
+              Π
+              
+                ρ
+                ,
+                δ
+              
+            
+             
+            
+              
+                E
+              
+              
+                
+                  X
+                  
+                    n
+                  
+                
+              
+            
+            
+              {
+              
+                ρ
+                
+                  
+                    X
+                    
+                      n
+                    
+                  
+                
+              
+              }
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \mathbb {E} _{X^{n}}\left\{{\text{Tr}}\left\{\Pi _{\rho ,\delta }\ \rho _{X^{n}}\right\}\right\}={\text{Tr}}\left\{\Pi _{\rho ,\delta }\ \mathbb {E} _{X^{n}}\left\{\rho _{X^{n}}\right\}\right\}}
+  
+
+  
+    
+      
+        =
+        
+          Tr
+        
+        
+          {
+          
+            
+              Π
+              
+                ρ
+                ,
+                δ
+              
+            
+             
+            
+              ρ
+              
+                ⊗
+                n
+              
+            
+          
+          }
+        
+      
+    
+    {\displaystyle ={\text{Tr}}\left\{\Pi _{\rho ,\delta }\ \rho ^{\otimes n}\right\}}
+  
+
+  
+    
+      
+        ≥
+        1
+        −
+        ϵ
+        ,
+      
+    
+    {\displaystyle \geq 1-\epsilon ,}
+  where the inequality follows from (\ref{eq:1st-typ-prop}). Also, the
+projectors 
+  
+    
+      
+        
+          Π
+          
+            
+              ρ
+              
+                
+                  x
+                  
+                    n
+                  
+                
+                
+                  (
+                  m
+                  )
+                
+              
+            
+            ,
+            δ
+          
+        
+      
+    
+    {\displaystyle \Pi _{\rho _{x^{n}\left(m\right)},\delta }}
+  
+are "good detectors" for the states 
+  
+    
+      
+        
+          ρ
+          
+            
+              x
+              
+                n
+              
+            
+            
+              (
+              m
+              )
+            
+          
+        
+      
+    
+    {\displaystyle \rho _{x^{n}\left(m\right)}}
+   (on average) because the following condition holds from conditional quantum
+typicality:
+
+Error Analysis. The probability of detecting the 
+  
+    
+      
+        
+          m
+          
+            th
+          
+        
+      
+    
+    {\displaystyle m^{\text{th}}}
+  
+codeword correctly under our sequential decoding scheme is equal to
+
+where we make the abbreviation 
+  
+    
+      
+        
+          
+            
+              Π
+              ^
+            
+          
+        
+        ≡
+        I
+        −
+        Π
+      
+    
+    {\displaystyle {\hat {\Pi }}\equiv I-\Pi }
+  . (Observe that we
+project into the average typical subspace just once.) Thus, the probability of
+an incorrect detection for the 
+  
+    
+      
+        
+          m
+          
+            th
+          
+        
+      
+    
+    {\displaystyle m^{\text{th}}}
+   codeword is given by
+
+and the average error probability of this scheme is equal to
+
+Instead of analyzing the average error probability, we analyze the expectation
+of the average error probability, where the expectation is with respect to the
+random choice of code:
+
+Our first step is to apply Sen's bound to the above quantity. But before doing
+so, we should rewrite the above expression just slightly, by observing that
+
+  
+    
+      
+        1
+        =
+        
+          
+            E
+          
+          
+            
+              X
+              
+                n
+              
+            
+          
+        
+        
+          {
+          
+            
+              
+                1
+                M
+              
+            
+            
+              ∑
+              
+                m
+              
+            
+            
+              Tr
+            
+            
+              {
+              
+                ρ
+                
+                  
+                    X
+                    
+                      n
+                    
+                  
+                  
+                    (
+                    m
+                    )
+                  
+                
+              
+              }
+            
+          
+          }
+        
+      
+    
+    {\displaystyle 1=\mathbb {E} _{X^{n}}\left\{{\frac {1}{M}}\sum _{m}{\text{Tr}}\left\{\rho _{X^{n}\left(m\right)}\right\}\right\}}
+  
+
+  
+    
+      
+        =
+        
+          
+            E
+          
+          
+            
+              X
+              
+                n
+              
+            
+          
+        
+        
+          {
+          
+            
+              
+                1
+                M
+              
+            
+            
+              ∑
+              
+                m
+              
+            
+            
+              Tr
+            
+            
+              {
+              
+                
+                  Π
+                  
+                    ρ
+                    ,
+                    δ
+                  
+                  
+                    n
+                  
+                
+                
+                  ρ
+                  
+                    
+                      X
+                      
+                        n
+                      
+                    
+                    
+                      (
+                      m
+                      )
+                    
+                  
+                
+              
+              }
+            
+            +
+            
+              Tr
+            
+            
+              {
+              
+                
+                  
+                    
+                      
+                        Π
+                        ^
+                      
+                    
+                  
+                  
+                    ρ
+                    ,
+                    δ
+                  
+                  
+                    n
+                  
+                
+                
+                  ρ
+                  
+                    
+                      X
+                      
+                        n
+                      
+                    
+                    
+                      (
+                      m
+                      )
+                    
+                  
+                
+              
+              }
+            
+          
+          }
+        
+      
+    
+    {\displaystyle =\mathbb {E} _{X^{n}}\left\{{\frac {1}{M}}\sum _{m}{\text{Tr}}\left\{\Pi _{\rho ,\delta }^{n}\rho _{X^{n}\left(m\right)}\right\}+{\text{Tr}}\left\{{\hat {\Pi }}_{\rho ,\delta }^{n}\rho _{X^{n}\left(m\right)}\right\}\right\}}
+  
+
+  
+    
+      
+        =
+        
+          
+            E
+          
+          
+            
+              X
+              
+                n
+              
+            
+          
+        
+        
+          {
+          
+            
+              
+                1
+                M
+              
+            
+            
+              ∑
+              
+                m
+              
+            
+            
+              Tr
+            
+            
+              {
+              
+                
+                  Π
+                  
+                    ρ
+                    ,
+                    δ
+                  
+                  
+                    n
+                  
+                
+                
+                  ρ
+                  
+                    
+                      X
+                      
+                        n
+                      
+                    
+                    
+                      (
+                      m
+                      )
+                    
+                  
+                
+                
+                  Π
+                  
+                    ρ
+                    ,
+                    δ
+                  
+                  
+                    n
+                  
+                
+              
+              }
+            
+          
+          }
+        
+        +
+        
+          
+            1
+            M
+          
+        
+        
+          ∑
+          
+            m
+          
+        
+        
+          Tr
+        
+        
+          {
+          
+            
+              
+                
+                  
+                    Π
+                    ^
+                  
+                
+              
+              
+                ρ
+                ,
+                δ
+              
+              
+                n
+              
+            
+            
+              
+                E
+              
+              
+                
+                  X
+                  
+                    n
+                  
+                
+              
+            
+            
+              {
+              
+                ρ
+                
+                  
+                    X
+                    
+                      n
+                    
+                  
+                  
+                    (
+                    m
+                    )
+                  
+                
+              
+              }
+            
+          
+          }
+        
+      
+    
+    {\displaystyle =\mathbb {E} _{X^{n}}\left\{{\frac {1}{M}}\sum _{m}{\text{Tr}}\left\{\Pi _{\rho ,\delta }^{n}\rho _{X^{n}\left(m\right)}\Pi _{\rho ,\delta }^{n}\right\}\right\}+{\frac {1}{M}}\sum _{m}{\text{Tr}}\left\{{\hat {\Pi }}_{\rho ,\delta }^{n}\mathbb {E} _{X^{n}}\left\{\rho _{X^{n}\left(m\right)}\right\}\right\}}
+  
+
+  
+    
+      
+        =
+        
+          
+            E
+          
+          
+            
+              X
+              
+                n
+              
+            
+          
+        
+        
+          {
+          
+            
+              
+                1
+                M
+              
+            
+            
+              ∑
+              
+                m
+              
+            
+            
+              Tr
+            
+            
+              {
+              
+                
+                  Π
+                  
+                    ρ
+                    ,
+                    δ
+                  
+                  
+                    n
+                  
+                
+                
+                  ρ
+                  
+                    
+                      X
+                      
+                        n
+                      
+                    
+                    
+                      (
+                      m
+                      )
+                    
+                  
+                
+                
+                  Π
+                  
+                    ρ
+                    ,
+                    δ
+                  
+                  
+                    n
+                  
+                
+              
+              }
+            
+          
+          }
+        
+        +
+        
+          Tr
+        
+        
+          {
+          
+            
+              
+                
+                  
+                    Π
+                    ^
+                  
+                
+              
+              
+                ρ
+                ,
+                δ
+              
+              
+                n
+              
+            
+            
+              ρ
+              
+                ⊗
+                n
+              
+            
+          
+          }
+        
+      
+    
+    {\displaystyle =\mathbb {E} _{X^{n}}\left\{{\frac {1}{M}}\sum _{m}{\text{Tr}}\left\{\Pi _{\rho ,\delta }^{n}\rho _{X^{n}\left(m\right)}\Pi _{\rho ,\delta }^{n}\right\}\right\}+{\text{Tr}}\left\{{\hat {\Pi }}_{\rho ,\delta }^{n}\rho ^{\otimes n}\right\}}
+  
+
+  
+    
+      
+        ≤
+        
+          
+            E
+          
+          
+            
+              X
+              
+                n
+              
+            
+          
+        
+        
+          {
+          
+            
+              
+                1
+                M
+              
+            
+            
+              ∑
+              
+                m
+              
+            
+            
+              Tr
+            
+            
+              {
+              
+                
+                  Π
+                  
+                    ρ
+                    ,
+                    δ
+                  
+                  
+                    n
+                  
+                
+                
+                  ρ
+                  
+                    
+                      X
+                      
+                        n
+                      
+                    
+                    
+                      (
+                      m
+                      )
+                    
+                  
+                
+                
+                  Π
+                  
+                    ρ
+                    ,
+                    δ
+                  
+                  
+                    n
+                  
+                
+              
+              }
+            
+          
+          }
+        
+        +
+        ϵ
+      
+    
+    {\displaystyle \leq \mathbb {E} _{X^{n}}\left\{{\frac {1}{M}}\sum _{m}{\text{Tr}}\left\{\Pi _{\rho ,\delta }^{n}\rho _{X^{n}\left(m\right)}\Pi _{\rho ,\delta }^{n}\right\}\right\}+\epsilon }
+  Substituting into (3) (and forgetting about the small
+
+  
+    
+      
+        ϵ
+      
+    
+    {\displaystyle \epsilon }
+   term for now) gives an upper bound of
+
+  
+    
+      
+        
+          
+            E
+          
+          
+            
+              X
+              
+                n
+              
+            
+          
+        
+        
+          {
+          
+            
+              
+                1
+                M
+              
+            
+            
+              ∑
+              
+                m
+              
+            
+            
+              Tr
+            
+            
+              {
+              
+                
+                  Π
+                  
+                    ρ
+                    ,
+                    δ
+                  
+                  
+                    n
+                  
+                
+                
+                  ρ
+                  
+                    
+                      X
+                      
+                        n
+                      
+                    
+                    
+                      (
+                      m
+                      )
+                    
+                  
+                
+                
+                  Π
+                  
+                    ρ
+                    ,
+                    δ
+                  
+                  
+                    n
+                  
+                
+              
+              }
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \mathbb {E} _{X^{n}}\left\{{\frac {1}{M}}\sum _{m}{\text{Tr}}\left\{\Pi _{\rho ,\delta }^{n}\rho _{X^{n}\left(m\right)}\Pi _{\rho ,\delta }^{n}\right\}\right\}}
+  
+
+  
+    
+      
+        −
+        
+          
+            E
+          
+          
+            
+              X
+              
+                n
+              
+            
+          
+        
+        
+          {
+          
+            
+              
+                1
+                M
+              
+            
+            
+              ∑
+              
+                m
+              
+            
+            
+              Tr
+            
+            
+              {
+              
+                
+                  Π
+                  
+                    
+                      ρ
+                      
+                        
+                          X
+                          
+                            n
+                          
+                        
+                        
+                          (
+                          m
+                          )
+                        
+                      
+                    
+                    ,
+                    δ
+                  
+                
+                
+                  
+                    
+                      
+                        Π
+                        ^
+                      
+                    
+                  
+                  
+                    
+                      ρ
+                      
+                        
+                          X
+                          
+                            n
+                          
+                        
+                        
+                          (
+                          
+                            m
+                            −
+                            1
+                          
+                          )
+                        
+                      
+                    
+                    ,
+                    δ
+                  
+                
+                ⋯
+                
+                  
+                    
+                      
+                        Π
+                        ^
+                      
+                    
+                  
+                  
+                    
+                      ρ
+                      
+                        
+                          X
+                          
+                            n
+                          
+                        
+                        
+                          (
+                          1
+                          )
+                        
+                      
+                    
+                    ,
+                    δ
+                  
+                
+                 
+                
+                  Π
+                  
+                    ρ
+                    ,
+                    δ
+                  
+                  
+                    n
+                  
+                
+                 
+                
+                  ρ
+                  
+                    
+                      X
+                      
+                        n
+                      
+                    
+                    
+                      (
+                      m
+                      )
+                    
+                  
+                
+                 
+                
+                  Π
+                  
+                    ρ
+                    ,
+                    δ
+                  
+                  
+                    n
+                  
+                
+                 
+                
+                  
+                    
+                      
+                        Π
+                        ^
+                      
+                    
+                  
+                  
+                    
+                      ρ
+                      
+                        
+                          X
+                          
+                            n
+                          
+                        
+                        
+                          (
+                          1
+                          )
+                        
+                      
+                    
+                    ,
+                    δ
+                  
+                
+                ⋯
+                
+                  
+                    
+                      
+                        Π
+                        ^
+                      
+                    
+                  
+                  
+                    
+                      ρ
+                      
+                        
+                          X
+                          
+                            n
+                          
+                        
+                        
+                          (
+                          
+                            m
+                            −
+                            1
+                          
+                          )
+                        
+                      
+                    
+                    ,
+                    δ
+                  
+                
+                
+                  Π
+                  
+                    
+                      ρ
+                      
+                        
+                          X
+                          
+                            n
+                          
+                        
+                        
+                          (
+                          m
+                          )
+                        
+                      
+                    
+                    ,
+                    δ
+                  
+                
+              
+              }
+            
+          
+          }
+        
+        .
+      
+    
+    {\displaystyle -\mathbb {E} _{X^{n}}\left\{{\frac {1}{M}}\sum _{m}{\text{Tr}}\left\{\Pi _{\rho _{X^{n}\left(m\right)},\delta }{\hat {\Pi }}_{\rho _{X^{n}\left(m-1\right)},\delta }\cdots {\hat {\Pi }}_{\rho _{X^{n}\left(1\right)},\delta }\ \Pi _{\rho ,\delta }^{n}\ \rho _{X^{n}\left(m\right)}\ \Pi _{\rho ,\delta }^{n}\ {\hat {\Pi }}_{\rho _{X^{n}\left(1\right)},\delta }\cdots {\hat {\Pi }}_{\rho _{X^{n}\left(m-1\right)},\delta }\Pi _{\rho _{X^{n}\left(m\right)},\delta }\right\}\right\}.}
+  We then apply Sen's bound to this expression with 
+  
+    
+      
+        σ
+        =
+        
+          Π
+          
+            ρ
+            ,
+            δ
+          
+          
+            n
+          
+        
+        
+          ρ
+          
+            
+              X
+              
+                n
+              
+            
+            
+              (
+              m
+              )
+            
+          
+        
+        
+          Π
+          
+            ρ
+            ,
+            δ
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \sigma =\Pi _{\rho ,\delta }^{n}\rho _{X^{n}\left(m\right)}\Pi _{\rho ,\delta }^{n}}
+   and the sequential
+projectors as 
+  
+    
+      
+        
+          Π
+          
+            
+              ρ
+              
+                
+                  X
+                  
+                    n
+                  
+                
+                
+                  (
+                  m
+                  )
+                
+              
+            
+            ,
+            δ
+          
+        
+      
+    
+    {\displaystyle \Pi _{\rho _{X^{n}\left(m\right)},\delta }}
+  , 
+  
+    
+      
+        
+          
+            
+              
+                Π
+                ^
+              
+            
+          
+          
+            
+              ρ
+              
+                
+                  X
+                  
+                    n
+                  
+                
+                
+                  (
+                  
+                    m
+                    −
+                    1
+                  
+                  )
+                
+              
+            
+            ,
+            δ
+          
+        
+      
+    
+    {\displaystyle {\hat {\Pi }}_{\rho _{X^{n}\left(m-1\right)},\delta }}
+  , ..., 
+  
+    
+      
+        
+          
+            
+              
+                Π
+                ^
+              
+            
+          
+          
+            
+              ρ
+              
+                
+                  X
+                  
+                    n
+                  
+                
+                
+                  (
+                  1
+                  )
+                
+              
+            
+            ,
+            δ
+          
+        
+      
+    
+    {\displaystyle {\hat {\Pi }}_{\rho _{X^{n}\left(1\right)},\delta }}
+  . This gives the upper bound
+
+  
+    
+      
+        
+          
+            E
+          
+          
+            
+              X
+              
+                n
+              
+            
+          
+        
+        
+          {
+          
+            
+              
+                1
+                M
+              
+            
+            
+              ∑
+              
+                m
+              
+            
+            2
+            
+              
+                [
+                
+                  
+                    Tr
+                  
+                  
+                    {
+                    
+                      
+                        (
+                        
+                          I
+                          −
+                          
+                            Π
+                            
+                              
+                                ρ
+                                
+                                  
+                                    X
+                                    
+                                      n
+                                    
+                                  
+                                  
+                                    (
+                                    m
+                                    )
+                                  
+                                
+                              
+                              ,
+                              δ
+                            
+                          
+                        
+                        )
+                      
+                      
+                        Π
+                        
+                          ρ
+                          ,
+                          δ
+                        
+                        
+                          n
+                        
+                      
+                      
+                        ρ
+                        
+                          
+                            X
+                            
+                              n
+                            
+                          
+                          
+                            (
+                            m
+                            )
+                          
+                        
+                      
+                      
+                        Π
+                        
+                          ρ
+                          ,
+                          δ
+                        
+                        
+                          n
+                        
+                      
+                    
+                    }
+                  
+                  +
+                  
+                    ∑
+                    
+                      i
+                      =
+                      1
+                    
+                    
+                      m
+                      −
+                      1
+                    
+                  
+                  
+                    Tr
+                  
+                  
+                    {
+                    
+                      
+                        Π
+                        
+                          
+                            ρ
+                            
+                              
+                                X
+                                
+                                  n
+                                
+                              
+                              
+                                (
+                                i
+                                )
+                              
+                            
+                          
+                          ,
+                          δ
+                        
+                      
+                      
+                        Π
+                        
+                          ρ
+                          ,
+                          δ
+                        
+                        
+                          n
+                        
+                      
+                      
+                        ρ
+                        
+                          
+                            X
+                            
+                              n
+                            
+                          
+                          
+                            (
+                            m
+                            )
+                          
+                        
+                      
+                      
+                        Π
+                        
+                          ρ
+                          ,
+                          δ
+                        
+                        
+                          n
+                        
+                      
+                    
+                    }
+                  
+                
+                ]
+              
+              
+                1
+                
+                  /
+                
+                2
+              
+            
+          
+          }
+        
+        .
+      
+    
+    {\displaystyle \mathbb {E} _{X^{n}}\left\{{\frac {1}{M}}\sum _{m}2\left[{\text{Tr}}\left\{\left(I-\Pi _{\rho _{X^{n}\left(m\right)},\delta }\right)\Pi _{\rho ,\delta }^{n}\rho _{X^{n}\left(m\right)}\Pi _{\rho ,\delta }^{n}\right\}+\sum _{i=1}^{m-1}{\text{Tr}}\left\{\Pi _{\rho _{X^{n}\left(i\right)},\delta }\Pi _{\rho ,\delta }^{n}\rho _{X^{n}\left(m\right)}\Pi _{\rho ,\delta }^{n}\right\}\right]^{1/2}\right\}.}
+  
+Due to concavity of the square root, we can bound this expression from above
+by
+
+  
+    
+      
+        2
+        
+          
+            [
+            
+              
+                
+                  E
+                
+                
+                  
+                    X
+                    
+                      n
+                    
+                  
+                
+              
+              
+                {
+                
+                  
+                    
+                      1
+                      M
+                    
+                  
+                  
+                    ∑
+                    
+                      m
+                    
+                  
+                  
+                    Tr
+                  
+                  
+                    {
+                    
+                      
+                        (
+                        
+                          I
+                          −
+                          
+                            Π
+                            
+                              
+                                ρ
+                                
+                                  
+                                    X
+                                    
+                                      n
+                                    
+                                  
+                                  
+                                    (
+                                    m
+                                    )
+                                  
+                                
+                              
+                              ,
+                              δ
+                            
+                          
+                        
+                        )
+                      
+                      
+                        Π
+                        
+                          ρ
+                          ,
+                          δ
+                        
+                        
+                          n
+                        
+                      
+                      
+                        ρ
+                        
+                          
+                            X
+                            
+                              n
+                            
+                          
+                          
+                            (
+                            m
+                            )
+                          
+                        
+                      
+                      
+                        Π
+                        
+                          ρ
+                          ,
+                          δ
+                        
+                        
+                          n
+                        
+                      
+                    
+                    }
+                  
+                  +
+                  
+                    ∑
+                    
+                      i
+                      =
+                      1
+                    
+                    
+                      m
+                      −
+                      1
+                    
+                  
+                  
+                    Tr
+                  
+                  
+                    {
+                    
+                      
+                        Π
+                        
+                          
+                            ρ
+                            
+                              
+                                X
+                                
+                                  n
+                                
+                              
+                              
+                                (
+                                i
+                                )
+                              
+                            
+                          
+                          ,
+                          δ
+                        
+                      
+                      
+                        Π
+                        
+                          ρ
+                          ,
+                          δ
+                        
+                        
+                          n
+                        
+                      
+                      
+                        ρ
+                        
+                          
+                            X
+                            
+                              n
+                            
+                          
+                          
+                            (
+                            m
+                            )
+                          
+                        
+                      
+                      
+                        Π
+                        
+                          ρ
+                          ,
+                          δ
+                        
+                        
+                          n
+                        
+                      
+                    
+                    }
+                  
+                
+                }
+              
+            
+            ]
+          
+          
+            1
+            
+              /
+            
+            2
+          
+        
+      
+    
+    {\displaystyle 2\left[\mathbb {E} _{X^{n}}\left\{{\frac {1}{M}}\sum _{m}{\text{Tr}}\left\{\left(I-\Pi _{\rho _{X^{n}\left(m\right)},\delta }\right)\Pi _{\rho ,\delta }^{n}\rho _{X^{n}\left(m\right)}\Pi _{\rho ,\delta }^{n}\right\}+\sum _{i=1}^{m-1}{\text{Tr}}\left\{\Pi _{\rho _{X^{n}\left(i\right)},\delta }\Pi _{\rho ,\delta }^{n}\rho _{X^{n}\left(m\right)}\Pi _{\rho ,\delta }^{n}\right\}\right\}\right]^{1/2}}
+  
+
+  
+    
+      
+        ≤
+        2
+        
+          
+            [
+            
+              
+                
+                  E
+                
+                
+                  
+                    X
+                    
+                      n
+                    
+                  
+                
+              
+              
+                {
+                
+                  
+                    
+                      1
+                      M
+                    
+                  
+                  
+                    ∑
+                    
+                      m
+                    
+                  
+                  
+                    Tr
+                  
+                  
+                    {
+                    
+                      
+                        (
+                        
+                          I
+                          −
+                          
+                            Π
+                            
+                              
+                                ρ
+                                
+                                  
+                                    X
+                                    
+                                      n
+                                    
+                                  
+                                  
+                                    (
+                                    m
+                                    )
+                                  
+                                
+                              
+                              ,
+                              δ
+                            
+                          
+                        
+                        )
+                      
+                      
+                        Π
+                        
+                          ρ
+                          ,
+                          δ
+                        
+                        
+                          n
+                        
+                      
+                      
+                        ρ
+                        
+                          
+                            X
+                            
+                              n
+                            
+                          
+                          
+                            (
+                            m
+                            )
+                          
+                        
+                      
+                      
+                        Π
+                        
+                          ρ
+                          ,
+                          δ
+                        
+                        
+                          n
+                        
+                      
+                    
+                    }
+                  
+                  +
+                  
+                    ∑
+                    
+                      i
+                      ≠
+                      m
+                    
+                  
+                  
+                    Tr
+                  
+                  
+                    {
+                    
+                      
+                        Π
+                        
+                          
+                            ρ
+                            
+                              
+                                X
+                                
+                                  n
+                                
+                              
+                              
+                                (
+                                i
+                                )
+                              
+                            
+                          
+                          ,
+                          δ
+                        
+                      
+                      
+                        Π
+                        
+                          ρ
+                          ,
+                          δ
+                        
+                        
+                          n
+                        
+                      
+                      
+                        ρ
+                        
+                          
+                            X
+                            
+                              n
+                            
+                          
+                          
+                            (
+                            m
+                            )
+                          
+                        
+                      
+                      
+                        Π
+                        
+                          ρ
+                          ,
+                          δ
+                        
+                        
+                          n
+                        
+                      
+                    
+                    }
+                  
+                
+                }
+              
+            
+            ]
+          
+          
+            1
+            
+              /
+            
+            2
+          
+        
+        ,
+      
+    
+    {\displaystyle \leq 2\left[\mathbb {E} _{X^{n}}\left\{{\frac {1}{M}}\sum _{m}{\text{Tr}}\left\{\left(I-\Pi _{\rho _{X^{n}\left(m\right)},\delta }\right)\Pi _{\rho ,\delta }^{n}\rho _{X^{n}\left(m\right)}\Pi _{\rho ,\delta }^{n}\right\}+\sum _{i\neq m}{\text{Tr}}\left\{\Pi _{\rho _{X^{n}\left(i\right)},\delta }\Pi _{\rho ,\delta }^{n}\rho _{X^{n}\left(m\right)}\Pi _{\rho ,\delta }^{n}\right\}\right\}\right]^{1/2},}
+  where the second bound follows by summing over all of the codewords not equal
+to the 
+  
+    
+      
+        
+          m
+          
+            th
+          
+        
+      
+    
+    {\displaystyle m^{\text{th}}}
+   codeword (this sum can only be larger).
+We now focus exclusively on showing that the term inside the square root can
+be made small. Consider the first term:
+
+  
+    
+      
+        
+          
+            E
+          
+          
+            
+              X
+              
+                n
+              
+            
+          
+        
+        
+          {
+          
+            
+              
+                1
+                M
+              
+            
+            
+              ∑
+              
+                m
+              
+            
+            
+              Tr
+            
+            
+              {
+              
+                
+                  (
+                  
+                    I
+                    −
+                    
+                      Π
+                      
+                        
+                          ρ
+                          
+                            
+                              X
+                              
+                                n
+                              
+                            
+                            
+                              (
+                              m
+                              )
+                            
+                          
+                        
+                        ,
+                        δ
+                      
+                    
+                  
+                  )
+                
+                
+                  Π
+                  
+                    ρ
+                    ,
+                    δ
+                  
+                  
+                    n
+                  
+                
+                
+                  ρ
+                  
+                    
+                      X
+                      
+                        n
+                      
+                    
+                    
+                      (
+                      m
+                      )
+                    
+                  
+                
+                
+                  Π
+                  
+                    ρ
+                    ,
+                    δ
+                  
+                  
+                    n
+                  
+                
+              
+              }
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \mathbb {E} _{X^{n}}\left\{{\frac {1}{M}}\sum _{m}{\text{Tr}}\left\{\left(I-\Pi _{\rho _{X^{n}\left(m\right)},\delta }\right)\Pi _{\rho ,\delta }^{n}\rho _{X^{n}\left(m\right)}\Pi _{\rho ,\delta }^{n}\right\}\right\}}
+  
+
+  
+    
+      
+        ≤
+        
+          
+            E
+          
+          
+            
+              X
+              
+                n
+              
+            
+          
+        
+        
+          {
+          
+            
+              
+                1
+                M
+              
+            
+            
+              ∑
+              
+                m
+              
+            
+            
+              Tr
+            
+            
+              {
+              
+                
+                  (
+                  
+                    I
+                    −
+                    
+                      Π
+                      
+                        
+                          ρ
+                          
+                            
+                              X
+                              
+                                n
+                              
+                            
+                            
+                              (
+                              m
+                              )
+                            
+                          
+                        
+                        ,
+                        δ
+                      
+                    
+                  
+                  )
+                
+                
+                  ρ
+                  
+                    
+                      X
+                      
+                        n
+                      
+                    
+                    
+                      (
+                      m
+                      )
+                    
+                  
+                
+              
+              }
+            
+            +
+            
+              
+                ‖
+                
+                  
+                    ρ
+                    
+                      
+                        X
+                        
+                          n
+                        
+                      
+                      
+                        (
+                        m
+                        )
+                      
+                    
+                  
+                  −
+                  
+                    Π
+                    
+                      ρ
+                      ,
+                      δ
+                    
+                    
+                      n
+                    
+                  
+                  
+                    ρ
+                    
+                      
+                        X
+                        
+                          n
+                        
+                      
+                      
+                        (
+                        m
+                        )
+                      
+                    
+                  
+                  
+                    Π
+                    
+                      ρ
+                      ,
+                      δ
+                    
+                    
+                      n
+                    
+                  
+                
+                ‖
+              
+              
+                1
+              
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \leq \mathbb {E} _{X^{n}}\left\{{\frac {1}{M}}\sum _{m}{\text{Tr}}\left\{\left(I-\Pi _{\rho _{X^{n}\left(m\right)},\delta }\right)\rho _{X^{n}\left(m\right)}\right\}+\left\Vert \rho _{X^{n}\left(m\right)}-\Pi _{\rho ,\delta }^{n}\rho _{X^{n}\left(m\right)}\Pi _{\rho ,\delta }^{n}\right\Vert _{1}\right\}}
+  
+
+  
+    
+      
+        ≤
+        ϵ
+        +
+        2
+        
+          
+            ϵ
+          
+        
+        .
+      
+    
+    {\displaystyle \leq \epsilon +2{\sqrt {\epsilon }}.}
+  where the first inequality follows from (1) and the
+second inequality follows from the gentle operator lemma and the
+properties of unconditional and conditional typicality. Consider now the
+second term and the following chain of inequalities:
+
+  
+    
+      
+        
+          ∑
+          
+            i
+            ≠
+            m
+          
+        
+        
+          
+            E
+          
+          
+            
+              X
+              
+                n
+              
+            
+          
+        
+        
+          {
+          
+            
+              Tr
+            
+            
+              {
+              
+                
+                  Π
+                  
+                    
+                      ρ
+                      
+                        
+                          X
+                          
+                            n
+                          
+                        
+                        
+                          (
+                          i
+                          )
+                        
+                      
+                    
+                    ,
+                    δ
+                  
+                
+                 
+                
+                  Π
+                  
+                    ρ
+                    ,
+                    δ
+                  
+                  
+                    n
+                  
+                
+                 
+                
+                  ρ
+                  
+                    
+                      X
+                      
+                        n
+                      
+                    
+                    
+                      (
+                      m
+                      )
+                    
+                  
+                
+                 
+                
+                  Π
+                  
+                    ρ
+                    ,
+                    δ
+                  
+                  
+                    n
+                  
+                
+              
+              }
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \sum _{i\neq m}\mathbb {E} _{X^{n}}\left\{{\text{Tr}}\left\{\Pi _{\rho _{X^{n}\left(i\right)},\delta }\ \Pi _{\rho ,\delta }^{n}\ \rho _{X^{n}\left(m\right)}\ \Pi _{\rho ,\delta }^{n}\right\}\right\}}
+  
+
+  
+    
+      
+        =
+        
+          ∑
+          
+            i
+            ≠
+            m
+          
+        
+        
+          Tr
+        
+        
+          {
+          
+            
+              
+                E
+              
+              
+                
+                  X
+                  
+                    n
+                  
+                
+              
+            
+            
+              {
+              
+                Π
+                
+                  
+                    ρ
+                    
+                      
+                        X
+                        
+                          n
+                        
+                      
+                      
+                        (
+                        i
+                        )
+                      
+                    
+                  
+                  ,
+                  δ
+                
+              
+              }
+            
+             
+            
+              Π
+              
+                ρ
+                ,
+                δ
+              
+              
+                n
+              
+            
+             
+            
+              
+                E
+              
+              
+                
+                  X
+                  
+                    n
+                  
+                
+              
+            
+            
+              {
+              
+                ρ
+                
+                  
+                    X
+                    
+                      n
+                    
+                  
+                  
+                    (
+                    m
+                    )
+                  
+                
+              
+              }
+            
+             
+            
+              Π
+              
+                ρ
+                ,
+                δ
+              
+              
+                n
+              
+            
+          
+          }
+        
+      
+    
+    {\displaystyle =\sum _{i\neq m}{\text{Tr}}\left\{\mathbb {E} _{X^{n}}\left\{\Pi _{\rho _{X^{n}\left(i\right)},\delta }\right\}\ \Pi _{\rho ,\delta }^{n}\ \mathbb {E} _{X^{n}}\left\{\rho _{X^{n}\left(m\right)}\right\}\ \Pi _{\rho ,\delta }^{n}\right\}}
+  
+
+  
+    
+      
+        =
+        
+          ∑
+          
+            i
+            ≠
+            m
+          
+        
+        
+          Tr
+        
+        
+          {
+          
+            
+              
+                E
+              
+              
+                
+                  X
+                  
+                    n
+                  
+                
+              
+            
+            
+              {
+              
+                Π
+                
+                  
+                    ρ
+                    
+                      
+                        X
+                        
+                          n
+                        
+                      
+                      
+                        (
+                        i
+                        )
+                      
+                    
+                  
+                  ,
+                  δ
+                
+              
+              }
+            
+             
+            
+              Π
+              
+                ρ
+                ,
+                δ
+              
+              
+                n
+              
+            
+             
+            
+              ρ
+              
+                ⊗
+                n
+              
+            
+             
+            
+              Π
+              
+                ρ
+                ,
+                δ
+              
+              
+                n
+              
+            
+          
+          }
+        
+      
+    
+    {\displaystyle =\sum _{i\neq m}{\text{Tr}}\left\{\mathbb {E} _{X^{n}}\left\{\Pi _{\rho _{X^{n}\left(i\right)},\delta }\right\}\ \Pi _{\rho ,\delta }^{n}\ \rho ^{\otimes n}\ \Pi _{\rho ,\delta }^{n}\right\}}
+  
+
+  
+    
+      
+        ≤
+        
+          ∑
+          
+            i
+            ≠
+            m
+          
+        
+        
+          2
+          
+            −
+            n
+            
+              [
+              
+                H
+                
+                  (
+                  B
+                  )
+                
+                −
+                δ
+              
+              ]
+            
+          
+        
+         
+        
+          Tr
+        
+        
+          {
+          
+            
+              
+                E
+              
+              
+                
+                  X
+                  
+                    n
+                  
+                
+              
+            
+            
+              {
+              
+                Π
+                
+                  
+                    ρ
+                    
+                      
+                        X
+                        
+                          n
+                        
+                      
+                      
+                        (
+                        i
+                        )
+                      
+                    
+                  
+                  ,
+                  δ
+                
+              
+              }
+            
+             
+            
+              Π
+              
+                ρ
+                ,
+                δ
+              
+              
+                n
+              
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \leq \sum _{i\neq m}2^{-n\left[H\left(B\right)-\delta \right]}\ {\text{Tr}}\left\{\mathbb {E} _{X^{n}}\left\{\Pi _{\rho _{X^{n}\left(i\right)},\delta }\right\}\ \Pi _{\rho ,\delta }^{n}\right\}}
+  The first equality follows because the codewords 
+  
+    
+      
+        
+          X
+          
+            n
+          
+        
+        
+          (
+          m
+          )
+        
+      
+    
+    {\displaystyle X^{n}\left(m\right)}
+   and
+
+  
+    
+      
+        
+          X
+          
+            n
+          
+        
+        
+          (
+          i
+          )
+        
+      
+    
+    {\displaystyle X^{n}\left(i\right)}
+   are independent since they are different. The second
+equality follows from (2). The first inequality follows from
+(\ref{eq:3rd-typ-prop}). Continuing, we have
+
+  
+    
+      
+        ≤
+        
+          ∑
+          
+            i
+            ≠
+            m
+          
+        
+        
+          2
+          
+            −
+            n
+            
+              [
+              
+                H
+                
+                  (
+                  B
+                  )
+                
+                −
+                δ
+              
+              ]
+            
+          
+        
+         
+        
+          
+            E
+          
+          
+            
+              X
+              
+                n
+              
+            
+          
+        
+        
+          {
+          
+            
+              Tr
+            
+            
+              {
+              
+                Π
+                
+                  
+                    ρ
+                    
+                      
+                        X
+                        
+                          n
+                        
+                      
+                      
+                        (
+                        i
+                        )
+                      
+                    
+                  
+                  ,
+                  δ
+                
+              
+              }
+            
+          
+          }
+        
+      
+    
+    {\displaystyle \leq \sum _{i\neq m}2^{-n\left[H\left(B\right)-\delta \right]}\ \mathbb {E} _{X^{n}}\left\{{\text{Tr}}\left\{\Pi _{\rho _{X^{n}\left(i\right)},\delta }\right\}\right\}}
+  
+
+  
+    
+      
+        ≤
+        
+          ∑
+          
+            i
+            ≠
+            m
+          
+        
+        
+          2
+          
+            −
+            n
+            
+              [
+              
+                H
+                
+                  (
+                  B
+                  )
+                
+                −
+                δ
+              
+              ]
+            
+          
+        
+         
+        
+          2
+          
+            n
+            
+              [
+              
+                H
+                
+                  (
+                  
+                    B
+                    
+                      |
+                    
+                    X
+                  
+                  )
+                
+                +
+                δ
+              
+              ]
+            
+          
+        
+      
+    
+    {\displaystyle \leq \sum _{i\neq m}2^{-n\left[H\left(B\right)-\delta \right]}\ 2^{n\left[H\left(B|X\right)+\delta \right]}}
+  
+
+  
+    
+      
+        =
+        
+          ∑
+          
+            i
+            ≠
+            m
+          
+        
+        
+          2
+          
+            −
+            n
+            
+              [
+              
+                I
+                
+                  (
+                  
+                    X
+                    ;
+                    B
+                  
+                  )
+                
+                −
+                2
+                δ
+              
+              ]
+            
+          
+        
+      
+    
+    {\displaystyle =\sum _{i\neq m}2^{-n\left[I\left(X;B\right)-2\delta \right]}}
+  
+
+  
+    
+      
+        ≤
+        M
+         
+        
+          2
+          
+            −
+            n
+            
+              [
+              
+                I
+                
+                  (
+                  
+                    X
+                    ;
+                    B
+                  
+                  )
+                
+                −
+                2
+                δ
+              
+              ]
+            
+          
+        
+        .
+      
+    
+    {\displaystyle \leq M\ 2^{-n\left[I\left(X;B\right)-2\delta \right]}.}
+  The first inequality follows from 
+  
+    
+      
+        
+          Π
+          
+            ρ
+            ,
+            δ
+          
+          
+            n
+          
+        
+        ≤
+        I
+      
+    
+    {\displaystyle \Pi _{\rho ,\delta }^{n}\leq I}
+   and exchanging
+the trace with the expectation. The second inequality follows from
+(\ref{eq:2nd-cond-typ}). The next two are straightforward.
+Putting everything together, we get our final bound on the expectation of the
+average error probability:
+
+  
+    
+      
+        1
+        −
+        
+          
+            E
+          
+          
+            
+              X
+              
+                n
+              
+            
+          
+        
+        
+          {
+          
+            
+              
+                1
+                M
+              
+            
+            
+              ∑
+              
+                m
+              
+            
+            
+              Tr
+            
+            
+              {
+              
+                
+                  Π
+                  
+                    
+                      ρ
+                      
+                        
+                          X
+                          
+                            n
+                          
+                        
+                        
+                          (
+                          m
+                          )
+                        
+                      
+                    
+                    ,
+                    δ
+                  
+                
+                
+                  
+                    
+                      
+                        Π
+                        ^
+                      
+                    
+                  
+                  
+                    
+                      ρ
+                      
+                        
+                          X
+                          
+                            n
+                          
+                        
+                        
+                          (
+                          
+                            m
+                            −
+                            1
+                          
+                          )
+                        
+                      
+                    
+                    ,
+                    δ
+                  
+                
+                ⋯
+                
+                  
+                    
+                      
+                        Π
+                        ^
+                      
+                    
+                  
+                  
+                    
+                      ρ
+                      
+                        
+                          X
+                          
+                            n
+                          
+                        
+                        
+                          (
+                          1
+                          )
+                        
+                      
+                    
+                    ,
+                    δ
+                  
+                
+                 
+                
+                  Π
+                  
+                    ρ
+                    ,
+                    δ
+                  
+                  
+                    n
+                  
+                
+                 
+                
+                  ρ
+                  
+                    
+                      X
+                      
+                        n
+                      
+                    
+                    
+                      (
+                      m
+                      )
+                    
+                  
+                
+                 
+                
+                  Π
+                  
+                    ρ
+                    ,
+                    δ
+                  
+                  
+                    n
+                  
+                
+                 
+                
+                  
+                    
+                      
+                        Π
+                        ^
+                      
+                    
+                  
+                  
+                    
+                      ρ
+                      
+                        
+                          X
+                          
+                            n
+                          
+                        
+                        
+                          (
+                          1
+                          )
+                        
+                      
+                    
+                    ,
+                    δ
+                  
+                
+                ⋯
+                
+                  
+                    
+                      
+                        Π
+                        ^
+                      
+                    
+                  
+                  
+                    
+                      ρ
+                      
+                        
+                          X
+                          
+                            n
+                          
+                        
+                        
+                          (
+                          
+                            m
+                            −
+                            1
+                          
+                          )
+                        
+                      
+                    
+                    ,
+                    δ
+                  
+                
+                
+                  Π
+                  
+                    
+                      ρ
+                      
+                        
+                          X
+                          
+                            n
+                          
+                        
+                        
+                          (
+                          m
+                          )
+                        
+                      
+                    
+                    ,
+                    δ
+                  
+                
+              
+              }
+            
+          
+          }
+        
+      
+    
+    {\displaystyle 1-\mathbb {E} _{X^{n}}\left\{{\frac {1}{M}}\sum _{m}{\text{Tr}}\left\{\Pi _{\rho _{X^{n}\left(m\right)},\delta }{\hat {\Pi }}_{\rho _{X^{n}\left(m-1\right)},\delta }\cdots {\hat {\Pi }}_{\rho _{X^{n}\left(1\right)},\delta }\ \Pi _{\rho ,\delta }^{n}\ \rho _{X^{n}\left(m\right)}\ \Pi _{\rho ,\delta }^{n}\ {\hat {\Pi }}_{\rho _{X^{n}\left(1\right)},\delta }\cdots {\hat {\Pi }}_{\rho _{X^{n}\left(m-1\right)},\delta }\Pi _{\rho _{X^{n}\left(m\right)},\delta }\right\}\right\}}
+  
+
+  
+    
+      
+        ≤
+        ϵ
+        +
+        2
+        
+          
+            [
+            
+              
+                (
+                
+                  ϵ
+                  +
+                  2
+                  
+                    
+                      ϵ
+                    
+                  
+                
+                )
+              
+              +
+              M
+               
+              
+                2
+                
+                  −
+                  n
+                  
+                    [
+                    
+                      I
+                      
+                        (
+                        
+                          X
+                          ;
+                          B
+                        
+                        )
+                      
+                      −
+                      2
+                      δ
+                    
+                    ]
+                  
+                
+              
+            
+            ]
+          
+          
+            1
+            
+              /
+            
+            2
+          
+        
+        .
+      
+    
+    {\displaystyle \leq \epsilon +2\left[\left(\epsilon +2{\sqrt {\epsilon }}\right)+M\ 2^{-n\left[I\left(X;B\right)-2\delta \right]}\right]^{1/2}.}
+  Thus, as long as we choose 
+  
+    
+      
+        M
+        =
+        
+          2
+          
+            n
+            
+              [
+              
+                I
+                
+                  (
+                  
+                    X
+                    ;
+                    B
+                  
+                  )
+                
+                −
+                3
+                δ
+              
+              ]
+            
+          
+        
+      
+    
+    {\displaystyle M=2^{n\left[I\left(X;B\right)-3\delta \right]}}
+  , there exists a code with vanishing error probability.
+
+See also
+Entanglement-assisted classical capacity
+Quantum capacity
+Quantum information theory
+Typical subspace
+
+References
+Holevo, Alexander S. (1998), "The Capacity of Quantum Channel with General Signal States", IEEE Transactions on Information Theory, 44 (1): 269–273, arXiv:quant-ph/9611023, doi:10.1109/18.651037.
+Schumacher, Benjamin; Westmoreland, Michael (1997), "Sending classical information via noisy quantum channels", Phys. Rev. A, 56 (1): 131–138, Bibcode:1997PhRvA..56..131S, doi:10.1103/PhysRevA.56.131.
+Wilde, Mark M. (2017), Quantum Information Theory, Cambridge University Press, arXiv:1106.1445, Bibcode:2011arXiv1106.1445W, doi:10.1017/9781316809976.001, S2CID 2515538
+Sen, Pranab (2012), "Achieving the Han-Kobayashi inner bound for the quantum interference channel by sequential decoding", IEEE International Symposium on Information Theory Proceedings (ISIT 2012), pp. 736–740, arXiv:1109.0802, doi:10.1109/ISIT.2012.6284656, S2CID 15119225.
+Guha, Saikat; Tan, Si-Hui; Wilde, Mark M. (2012), "Explicit capacity-achieving receivers for optical communication and quantum reading", IEEE International Symposium on Information Theory Proceedings (ISIT 2012), pp. 551–555, arXiv:1202.0518, doi:10.1109/ISIT.2012.6284251, S2CID 8786400.

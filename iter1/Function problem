@@ -1,0 +1,658 @@
+In computational complexity theory, a function problem is a computational problem where a single output (of a total function) is expected for every input, but the output is more complex than that of a decision problem. For function problems, the output is not simply 'yes' or 'no'.
+
+Formal definition
+A functional problem 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   is defined by a relation 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   over strings of an arbitrary alphabet 
+  
+    
+      
+        Σ
+      
+    
+    {\displaystyle \Sigma }
+  :
+
+  
+    
+      
+        R
+        ⊆
+        
+          Σ
+          
+            ∗
+          
+        
+        ×
+        
+          Σ
+          
+            ∗
+          
+        
+        .
+      
+    
+    {\displaystyle R\subseteq \Sigma ^{*}\times \Sigma ^{*}.}
+  An algorithm solves 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+   if for every input 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   such that there exists a 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   satisfying 
+  
+    
+      
+        (
+        x
+        ,
+        y
+        )
+        ∈
+        R
+      
+    
+    {\displaystyle (x,y)\in R}
+  , the algorithm produces one such 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  , and if there are no such 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  , it rejects.
+A promise function problem is allowed to do anything (thus may not terminate) if no such 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   exists.
+
+Examples
+A well-known function problem is given by the Functional Boolean Satisfiability Problem, FSAT for short. The problem, which is closely related to the SAT decision problem, can be formulated as follows:
+
+Given a boolean formula 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   with variables 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+        ,
+        …
+        ,
+        
+          x
+          
+            n
+          
+        
+      
+    
+    {\displaystyle x_{1},\ldots ,x_{n}}
+  , find an assignment 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+        →
+        {
+        
+          TRUE
+        
+        ,
+        
+          FALSE
+        
+        }
+      
+    
+    {\displaystyle x_{i}\rightarrow \{{\text{TRUE}},{\text{FALSE}}\}}
+   such that 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   evaluates to 
+  
+    
+      
+        
+          TRUE
+        
+      
+    
+    {\displaystyle {\text{TRUE}}}
+   or decide that no such assignment exists.In this case the relation 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   is given by tuples of suitably encoded boolean formulas and satisfying assignments.
+While a SAT algorithm, fed with a formula 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+  , only needs to return "unsatisfiable" or "satisfiable", an FSAT algorithm needs to return some satisfying assignment in the latter case.
+Other notable examples include the travelling salesman problem, which asks for the route taken by the salesman, and the integer factorization problem, which asks for the list of factors.
+
+Relationship to other complexity classes
+Consider an arbitrary decision problem 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   in the class NP. By the definition of NP, each problem instance 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   that is answered 'yes' has a polynomial-size certificate 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   which serves as a proof for the 'yes' answer. Thus, the set of these tuples 
+  
+    
+      
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle (x,y)}
+   forms a relation, representing the function problem "given 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   in 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+  , find a certificate 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   for 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  ". This function problem is called the function variant of 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+  ; it belongs to the class FNP.
+FNP can be thought of as the function class analogue of NP, in that solutions of FNP problems can be efficiently (i.e., in polynomial time in terms of the length of the input) verified, but not necessarily efficiently found. In contrast, the class FP, which can be thought of as the function class analogue of P, consists of function problems whose solutions can be found in polynomial time.
+
+Self-reducibility
+Observe that the problem FSAT introduced above can be solved using only polynomially many calls to a subroutine which decides the SAT problem: An algorithm can first ask whether the formula 
+  
+    
+      
+        φ
+      
+    
+    {\displaystyle \varphi }
+   is satisfiable. After that the algorithm can fix variable 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle x_{1}}
+   to TRUE and ask again. If the resulting formula is still satisfiable the algorithm keeps 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle x_{1}}
+   fixed to TRUE and continues to fix 
+  
+    
+      
+        
+          x
+          
+            2
+          
+        
+      
+    
+    {\displaystyle x_{2}}
+  , otherwise it decides that 
+  
+    
+      
+        
+          x
+          
+            1
+          
+        
+      
+    
+    {\displaystyle x_{1}}
+   has to be FALSE and continues. Thus, FSAT is solvable in polynomial time using an oracle deciding SAT. In general, a problem in NP is called self-reducible if its function variant can be solved in polynomial time using an oracle deciding the original problem. Every NP-complete problem is self-reducible. It is conjectured that the integer factorization problem is not self-reducible, because deciding whether an integer is prime is in P (easy), while the integer factorization problem is believed to be hard for a classical computer.
+There are several (slightly different) notions of self-reducibility.
+
+Reductions and complete problems
+Function problems can be reduced much like decision problems: Given function problems 
+  
+    
+      
+        
+          Π
+          
+            R
+          
+        
+      
+    
+    {\displaystyle \Pi _{R}}
+   and 
+  
+    
+      
+        
+          Π
+          
+            S
+          
+        
+      
+    
+    {\displaystyle \Pi _{S}}
+   we say that 
+  
+    
+      
+        
+          Π
+          
+            R
+          
+        
+      
+    
+    {\displaystyle \Pi _{R}}
+   reduces to 
+  
+    
+      
+        
+          Π
+          
+            S
+          
+        
+      
+    
+    {\displaystyle \Pi _{S}}
+   if there exists polynomially-time computable functions 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+   and 
+  
+    
+      
+        g
+      
+    
+    {\displaystyle g}
+   such that for all instances 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   of 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+   and possible solutions 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   of 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+  , it holds that
+
+If 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   has an 
+  
+    
+      
+        R
+      
+    
+    {\displaystyle R}
+  -solution, then 
+  
+    
+      
+        f
+        (
+        x
+        )
+      
+    
+    {\displaystyle f(x)}
+   has an 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+  -solution.
+
+  
+    
+      
+        (
+        f
+        (
+        x
+        )
+        ,
+        y
+        )
+        ∈
+        S
+        
+        ⟹
+        
+        (
+        x
+        ,
+        g
+        (
+        x
+        ,
+        y
+        )
+        )
+        ∈
+        R
+        .
+      
+    
+    {\displaystyle (f(x),y)\in S\implies (x,g(x,y))\in R.}
+  It is therefore possible to define FNP-complete problems analogous to the NP-complete problem:
+A problem 
+  
+    
+      
+        
+          Π
+          
+            R
+          
+        
+      
+    
+    {\displaystyle \Pi _{R}}
+   is FNP-complete if every problem in FNP can be reduced to 
+  
+    
+      
+        
+          Π
+          
+            R
+          
+        
+      
+    
+    {\displaystyle \Pi _{R}}
+  . The complexity class of FNP-complete problems is denoted by FNP-C or FNPC. Hence the problem FSAT is also an FNP-complete problem, and it holds that 
+  
+    
+      
+        
+          P
+        
+        =
+        
+          N
+          P
+        
+      
+    
+    {\displaystyle \mathbf {P} =\mathbf {NP} }
+   if and only if 
+  
+    
+      
+        
+          F
+          P
+        
+        =
+        
+          F
+          N
+          P
+        
+      
+    
+    {\displaystyle \mathbf {FP} =\mathbf {FNP} }
+  .
+
+Total function problems
+The relation 
+  
+    
+      
+        R
+        (
+        x
+        ,
+        y
+        )
+      
+    
+    {\displaystyle R(x,y)}
+   used to define function problems has the drawback of being incomplete: Not every input 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   has a counterpart 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   such that 
+  
+    
+      
+        (
+        x
+        ,
+        y
+        )
+        ∈
+        R
+      
+    
+    {\displaystyle (x,y)\in R}
+  . Therefore the question of computability of proofs is not separated from the question of their existence. To overcome this problem it is convenient to consider the restriction of function problems to total relations yielding the class TFNP as a subclass of FNP. This class contains problems such as the computation of pure Nash equilibria in certain strategic games where a solution is guaranteed to exist. In addition, if TFNP contains any FNP-complete problem it follows that 
+  
+    
+      
+        
+          N
+          P
+        
+        =
+        
+          
+            co-NP
+          
+        
+      
+    
+    {\displaystyle \mathbf {NP} ={\textbf {co-NP}}}
+  .
+
+See also
+Decision problem
+Search problem
+Counting problem (complexity)
+Optimization problem
+
+
+== References ==

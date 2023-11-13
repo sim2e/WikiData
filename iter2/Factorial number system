@@ -1,0 +1,1469 @@
+In combinatorics, the factorial number system, also called factoradic, is a mixed radix numeral system adapted to numbering permutations.  It is also called factorial base, although factorials do not function as base, but as place value of digits. By converting a number less than n! to factorial representation, one obtains a sequence of n digits that can be converted to a permutation of n elements in a straightforward way, either using them as Lehmer code or as inversion table representation; in the
+former case the resulting map from integers to permutations of n elements lists them in lexicographical order. General mixed radix systems were studied by Georg Cantor.The term "factorial number system" is used by Knuth,
+while the French equivalent "numération factorielle" was first used in 1888. The term "factoradic", which is a portmanteau of factorial and mixed radix, appears to be of more recent date.
+
+Definition
+The factorial number system is a mixed radix numeral system: the i-th digit from the right has base i, which means that the digit must be strictly less than i, and that (taking into account the bases of the less significant digits) its value is to be multiplied by (i − 1)! (its place value).
+
+From this it follows that the rightmost digit is always 0, the second can be 0 or 1, the third 0, 1 or 2, and so on (sequence A124252 in the OEIS). The factorial number system is sometimes defined with the 0! place omitted because it is always zero (sequence A007623 in the OEIS).
+In this article, a factorial number representation will be flagged by a subscript "!". In addition, some examples will have digits delimited by a colon. For example, 3:4:1:0:1:0! stands for
+
+= 3×5! + 4×4! + 1×3! + 0×2! + 1×1! + 0×0! 
+= ((((3×5 + 4)×4 + 1)×3 + 0)×2 + 1)×1 + 0
+=  46310.(The place value is the factorial of one less than the radix position, which is why the equation begins with 5! for a 6-digit factoradic number.)
+General properties of mixed radix number systems also apply to the factorial number system. For instance, one can convert a number into factorial representation producing digits from right to left, by repeatedly dividing the number by the radix (1, 2, 3, ...), taking the remainder as digits, and continuing with the integer quotient, until this quotient becomes 0.
+For example, 46310 can be transformed into a factorial representation by these successive divisions:
+
+The process terminates when the quotient reaches zero. Reading the remainders backward gives 3:4:1:0:1:0!.
+In principle, this system may be extended to represent rational numbers, though rather than the natural extension of place values (−1)!, (−2)!, etc., which are undefined, the symmetric choice of radix values n = 0, 1, 2, 3, 4, etc. after the point may be used instead. Again, the 0 and 1 places may be omitted as these are always zero. The corresponding place values are therefore 1/1, 1/1, 1/2, 1/6, 1/24, ..., 1/n!, etc.
+
+Examples
+The following sortable table shows the 24 permutations of four elements with different inversion related vectors. The left and right inversion counts 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   and 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   (the latter often called Lehmer code) are particularly eligible to be interpreted as factorial numbers. 
+  
+    
+      
+        l
+      
+    
+    {\displaystyle l}
+   gives the permutation's position in reverse colexicographic order (the default order of this table), and the latter the position in lexicographic order (both counted from 0).
+Sorting by a column that has the omissible 0 on the right makes the factorial numbers in that column correspond to the index numbers in the immovable column on the left. The small columns are reflections of the columns next to them, and can be used to bring those in colexicographic order. The rightmost column shows the digit sums of the factorial numbers (OEIS: A034968 in the tables default order).
+
+For another example, the greatest number that could be represented with six digits would be 543210! which equals 719 in decimal:
+
+5×5! + 4×4! + 3x3! + 2×2! + 1×1! + 0×0!.Clearly the next factorial number representation after 5:4:3:2:1:0! is 1:0:0:0:0:0:0! which designates 6! = 72010, the place value for the radix-7 digit. So the former number, and its summed out expression above, is equal to:
+
+6! − 1.The factorial number system provides a unique representation for each natural number, with the given restriction on the "digits" used. No number can be represented in more than one way because the sum of consecutive factorials multiplied by their index is always the next factorial minus one:
+
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            n
+          
+        
+        
+          i
+          ⋅
+          i
+          !
+        
+        =
+        
+          (
+          n
+          +
+          1
+          )
+          !
+        
+        −
+        1.
+      
+    
+    {\displaystyle \sum _{i=0}^{n}{i\cdot i!}={(n+1)!}-1.}
+  This can be easily proved with mathematical induction, or simply by noticing that 
+  
+    
+      
+        ∀
+        i
+        ,
+        i
+        ⋅
+        i
+        !
+        =
+        (
+        i
+        +
+        1
+        −
+        1
+        )
+        ⋅
+        i
+        !
+        =
+        (
+        i
+        +
+        1
+        )
+        !
+        −
+        i
+        !
+      
+    
+    {\displaystyle \forall i,i\cdot i!=(i+1-1)\cdot i!=(i+1)!-i!}
+  : subsequent terms cancel each other, leaving the first and last term (see Telescoping series).
+However, when using Arabic numerals to write the digits (and not including the subscripts as in the above examples), their simple concatenation becomes ambiguous for numbers having a "digit" greater than 9. The smallest such example is the number 10 × 10! = 36,288,00010, which may be written A0000000000!=10:0:0:0:0:0:0:0:0:0:0!, but not 100000000000! = 1:0:0:0:0:0:0:0:0:0:0:0! which denotes 11! = 39,916,80010. Thus using letters A–Z to denote digits 10, 11, 12, ..., 35 as in other base-N make the largest representable number 36 × 36! − 1. For arbitrarily greater numbers one has to choose a base for representing individual digits, say decimal, and provide a separating mark between them (for instance by subscripting each digit by its base, also given in decimal, like 24031201, this number also can be written as 2:0:1:0!). In fact the factorial number system itself is not truly a numeral system in the sense of providing a representation for all natural numbers using only a finite alphabet of symbols.
+
+Permutations
+There is a natural mapping between the integers 0, 1, ..., n! − 1 (or equivalently the numbers with n digits in factorial representation) and permutations of n elements in lexicographical order, when the integers are expressed in factoradic form.  This mapping has been termed the Lehmer code (or inversion table). For example, with n = 3, such a mapping is
+
+In each case, calculating the permutation proceeds by using the leftmost factoradic digit (here, 0, 1, or 2) as the first permutation digit, then removing it from the list of choices (0, 1, and 2). Think of this new list of choices as zero indexed, and use each successive factoradic digit to choose from its remaining elements. If the second factoradic digit is "0" then the first element of the list is selected for the second permutation digit and is then removed from the list. Similarly, if the second factoradic digit is "1", the second is selected and then removed. The final factoradic digit is always "0", and since the list now contains only one element, it is selected as the last permutation digit.
+The process may become clearer with a longer example.  Let's say we want the 2982nd permutation of the numbers 0 through 6.
+The number 2982 is 4:0:4:1:0:0:0! in factoradic, and that number picks out digits (4,0,6,2,1,3,5) in turn, via indexing a dwindling ordered set of digits and picking out each digit from the set at each turn:
+
+                            4:0:4:1:0:0:0!  ─►  (4,0,6,2,1,3,5)
+factoradic: 4              :   0            :   4          :   1        :   0      :   0    :   0!
+            ├─┬─┬─┬─┐          │                ├─┬─┬─┬─┐      ├─┐          │          │        │
+sets:      (0,1,2,3,4,5,6) ─► (0,1,2,3,5,6) ─► (1,2,3,5,6) ─► (1,2,3,5) ─► (1,3,5) ─► (3,5) ─► (5)
+                    │          │                        │        │          │          │        │
+permutation:       (4,         0,                       6,       2,         1,         3,       5)
+
+A natural index for the direct product of two permutation groups is the concatenation of two factoradic numbers, with two subscript "!"s.
+
+           concatenated
+ decimal   factoradics        permutation pair
+    010     0:0:0!0:0:0!           ((0,1,2),(0,1,2))
+    110     0:0:0!0:1:0!           ((0,1,2),(0,2,1))
+               ...
+    510     0:0:0!2:1:0!           ((0,1,2),(2,1,0))
+    610     0:1:0!0:0:0!           ((0,2,1),(0,1,2))
+    710     0:1:0!0:1:0!           ((0,2,1),(0,2,1))
+               ...
+   2210     1:1:0!2:0:0!           ((1,2,0),(2,0,1))
+               ...
+   3410     2:1:0!2:0:0!           ((2,1,0),(2,0,1))
+   3510     2:1:0!2:1:0!           ((2,1,0),(2,1,0))
+
+Fractional values
+Unlike single radix systems whose place values are basen for both positive and negative integral n, the factorial number base cannot be extended to negative place values as these would be (−1)!, (−2)! and so on, and these values are undefined (see factorial).
+One possible extension is therefore to use 1/0!, 1/1!, 1/2!, 1/3!, ..., 1/n! etc. instead, possibly omitting the 1/0! and 1/1! places which are always zero.
+With this method, all rational numbers have a terminating expansion, whose length in 'digits' is less than or equal to the denominator of the rational number represented. This may be proven by considering that there exists a factorial for any integer and therefore the denominator divides into its own factorial even if it does not divide into any smaller factorial.
+By necessity, therefore, the factoradic expansion of the reciprocal of a prime has a length of exactly that prime (less one if the 1/1! place is omitted). Other terms are given as the sequence A046021 on the OEIS. It can also be proven that the last 'digit' or term of the representation of a rational with prime denominator is equal to the difference between the numerator and the prime denominator.
+There is also a non-terminating equivalent for every rational number akin to the fact that in decimal 0.24999... = 0.25 = 1/4 and 0.999... = 1, etc., which can be created by reducing the final term by 1 and then filling in the remaining infinite number of terms with the highest value possible for the radix of that position.
+In the following selection of examples, spaces are used to separate the place values, otherwise represented in decimal. The rational numbers on the left are also in decimal:
+
+  
+    
+      
+        1
+        
+          /
+        
+        2
+        =
+        0.0
+         
+        
+          1
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/2=0.0\ 1_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        3
+        =
+        0.0
+         
+        0
+         
+        
+          2
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/3=0.0\ 0\ 2_{!}}
+  
+
+  
+    
+      
+        2
+        
+          /
+        
+        3
+        =
+        0.0
+         
+        1
+         
+        
+          1
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 2/3=0.0\ 1\ 1_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        4
+        =
+        0.0
+         
+        0
+         
+        1
+         
+        
+          2
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/4=0.0\ 0\ 1\ 2_{!}}
+  
+
+  
+    
+      
+        3
+        
+          /
+        
+        4
+        =
+        0.0
+         
+        1
+         
+        1
+         
+        
+          2
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 3/4=0.0\ 1\ 1\ 2_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        5
+        =
+        0.0
+         
+        0
+         
+        1
+         
+        0
+         
+        
+          4
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/5=0.0\ 0\ 1\ 0\ 4_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        6
+        =
+        0.0
+         
+        0
+         
+        
+          1
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/6=0.0\ 0\ 1_{!}}
+  
+
+  
+    
+      
+        5
+        
+          /
+        
+        6
+        =
+        0.0
+         
+        1
+         
+        
+          2
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 5/6=0.0\ 1\ 2_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        7
+        =
+        0.0
+         
+        0
+         
+        0
+         
+        3
+         
+        2
+         
+        0
+         
+        
+          6
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/7=0.0\ 0\ 0\ 3\ 2\ 0\ 6_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        8
+        =
+        0.0
+         
+        0
+         
+        0
+         
+        
+          3
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/8=0.0\ 0\ 0\ 3_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        9
+        =
+        0.0
+         
+        0
+         
+        0
+         
+        2
+         
+        3
+         
+        
+          2
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/9=0.0\ 0\ 0\ 2\ 3\ 2_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        10
+        =
+        0.0
+         
+        0
+         
+        0
+         
+        2
+         
+        
+          2
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/10=0.0\ 0\ 0\ 2\ 2_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        11
+         
+         
+        =
+        0.0
+         
+        0
+         
+        0
+         
+        2
+         
+        0
+         
+        5
+         
+        3
+         
+        1
+         
+        4
+         
+        0
+         
+        
+          A
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/11\ \ =0.0\ 0\ 0\ 2\ 0\ 5\ 3\ 1\ 4\ 0\ A_{!}}
+  
+
+  
+    
+      
+        2
+        
+          /
+        
+        11
+         
+         
+        =
+        0.0
+         
+        0
+         
+        1
+         
+        0
+         
+        1
+         
+        4
+         
+        6
+         
+        2
+         
+        8
+         
+        1
+         
+        
+          9
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 2/11\ \ =0.0\ 0\ 1\ 0\ 1\ 4\ 6\ 2\ 8\ 1\ 9_{!}}
+  
+
+  
+    
+      
+        9
+        
+          /
+        
+        11
+         
+         
+        =
+        0.0
+         
+        1
+         
+        1
+         
+        3
+         
+        3
+         
+        1
+         
+        0
+         
+        5
+         
+        0
+         
+        8
+         
+        
+          2
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 9/11\ \ =0.0\ 1\ 1\ 3\ 3\ 1\ 0\ 5\ 0\ 8\ 2_{!}}
+  
+
+  
+    
+      
+        10
+        
+          /
+        
+        11
+        =
+        0.0
+         
+        1
+         
+        2
+         
+        1
+         
+        4
+         
+        0
+         
+        3
+         
+        6
+         
+        4
+         
+        9
+         
+        
+          1
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 10/11=0.0\ 1\ 2\ 1\ 4\ 0\ 3\ 6\ 4\ 9\ 1_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        12
+         
+         
+        =
+        0.0
+         
+        0
+         
+        0
+         
+        
+          2
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/12\ \ =0.0\ 0\ 0\ 2_{!}}
+  
+
+  
+    
+      
+        5
+        
+          /
+        
+        12
+         
+         
+        =
+        0.0
+         
+        0
+         
+        2
+         
+        
+          2
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 5/12\ \ =0.0\ 0\ 2\ 2_{!}}
+  
+
+  
+    
+      
+        7
+        
+          /
+        
+        12
+         
+         
+        =
+        0.0
+         
+        1
+         
+        0
+         
+        
+          2
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 7/12\ \ =0.0\ 1\ 0\ 2_{!}}
+  
+
+  
+    
+      
+        11
+        
+          /
+        
+        12
+        =
+        0.0
+         
+        1
+         
+        2
+         
+        
+          2
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 11/12=0.0\ 1\ 2\ 2_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        15
+        =
+        0.0
+         
+        0
+         
+        0
+         
+        1
+         
+        
+          3
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/15=0.0\ 0\ 0\ 1\ 3_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        16
+        =
+        0.0
+         
+        0
+         
+        0
+         
+        1
+         
+        2
+         
+        
+          3
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/16=0.0\ 0\ 0\ 1\ 2\ 3_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        18
+        =
+        0.0
+         
+        0
+         
+        0
+         
+        1
+         
+        1
+         
+        
+          4
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/18=0.0\ 0\ 0\ 1\ 1\ 4_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        20
+        =
+        0.0
+         
+        0
+         
+        0
+         
+        1
+         
+        
+          1
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/20=0.0\ 0\ 0\ 1\ 1_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        24
+        =
+        0.0
+         
+        0
+         
+        0
+         
+        
+          1
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/24=0.0\ 0\ 0\ 1_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        30
+        =
+        0.0
+         
+        0
+         
+        0
+         
+        0
+         
+        
+          4
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/30=0.0\ 0\ 0\ 0\ 4_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        36
+        =
+        0.0
+         
+        0
+         
+        0
+         
+        0
+         
+        3
+         
+        
+          2
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/36=0.0\ 0\ 0\ 0\ 3\ 2_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        60
+        =
+        0.0
+         
+        0
+         
+        0
+         
+        0
+         
+        
+          2
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/60=0.0\ 0\ 0\ 0\ 2_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        72
+        =
+        0.0
+         
+        0
+         
+        0
+         
+        0
+         
+        1
+         
+        
+          4
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/72=0.0\ 0\ 0\ 0\ 1\ 4_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        120
+        =
+        0.0
+         
+        0
+         
+        0
+         
+        0
+         
+        
+          1
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/120=0.0\ 0\ 0\ 0\ 1_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        144
+        =
+        0.0
+         
+        0
+         
+        0
+         
+        0
+         
+        0
+         
+        
+          5
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/144=0.0\ 0\ 0\ 0\ 0\ 5_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        240
+        =
+        0.0
+         
+        0
+         
+        0
+         
+        0
+         
+        0
+         
+        
+          3
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/240=0.0\ 0\ 0\ 0\ 0\ 3_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        360
+        =
+        0.0
+         
+        0
+         
+        0
+         
+        0
+         
+        0
+         
+        
+          2
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/360=0.0\ 0\ 0\ 0\ 0\ 2_{!}}
+  
+
+  
+    
+      
+        1
+        
+          /
+        
+        720
+        =
+        0.0
+         
+        0
+         
+        0
+         
+        0
+         
+        0
+         
+        
+          1
+          
+            !
+          
+        
+      
+    
+    {\displaystyle 1/720=0.0\ 0\ 0\ 0\ 0\ 1_{!}}
+  There are also a small number of constants that have patterned representations with this method:
+
+  
+    
+      
+        e
+        =
+        1
+         
+        0.0
+         
+        1
+         
+        1
+         
+        1
+         
+        1
+         
+        1
+         
+        1
+         
+        1
+         
+        1
+         
+        1
+         
+        1
+         
+        1
+         
+        1
+         
+        1
+         
+        1
+         
+        
+          1...
+          
+            !
+          
+        
+      
+    
+    {\displaystyle e=1\ 0.0\ 1\ 1\ 1\ 1\ 1\ 1\ 1\ 1\ 1\ 1\ 1\ 1\ 1\ 1\ 1..._{!}}
+  
+
+  
+    
+      
+        
+          e
+          
+            −
+            1
+          
+        
+        =
+        0.0
+         
+        0
+         
+        2
+         
+        0
+         
+        4
+         
+        0
+         
+        6
+         
+        0
+         
+        8
+         
+        0
+         
+        A
+         
+        0
+         
+        C
+         
+        0
+         
+        E
+        .
+        .
+        
+          .
+          
+            !
+          
+        
+      
+    
+    {\displaystyle e^{-1}=0.0\ 0\ 2\ 0\ 4\ 0\ 6\ 0\ 8\ 0\ A\ 0\ C\ 0\ E..._{!}}
+  
+
+  
+    
+      
+        sin
+        ⁡
+        (
+        1
+        )
+        =
+        0.0
+         
+        1
+         
+        2
+         
+        0
+         
+        0
+         
+        5
+         
+        6
+         
+        0
+         
+        0
+         
+        9
+         
+        A
+         
+        0
+         
+        0
+         
+        D
+         
+        E
+        .
+        .
+        
+          .
+          
+            !
+          
+        
+      
+    
+    {\displaystyle \sin(1)=0.0\ 1\ 2\ 0\ 0\ 5\ 6\ 0\ 0\ 9\ A\ 0\ 0\ D\ E..._{!}}
+  
+
+  
+    
+      
+        cos
+        ⁡
+        (
+        1
+        )
+        =
+        0.0
+         
+        1
+         
+        0
+         
+        0
+         
+        4
+         
+        5
+         
+        0
+         
+        0
+         
+        8
+         
+        9
+         
+        0
+         
+        0
+         
+        C
+         
+        D
+         
+        
+          0...
+          
+            !
+          
+        
+      
+    
+    {\displaystyle \cos(1)=0.0\ 1\ 0\ 0\ 4\ 5\ 0\ 0\ 8\ 9\ 0\ 0\ C\ D\ 0..._{!}}
+  
+
+  
+    
+      
+        sinh
+        ⁡
+        (
+        1
+        )
+        =
+        1.0
+         
+        0
+         
+        1
+         
+        0
+         
+        1
+         
+        0
+         
+        1
+         
+        0
+         
+        1
+         
+        0
+         
+        1
+         
+        0
+         
+        1
+         
+        0
+         
+        1
+         
+        
+          0...
+          
+            !
+          
+        
+      
+    
+    {\displaystyle \sinh(1)=1.0\ 0\ 1\ 0\ 1\ 0\ 1\ 0\ 1\ 0\ 1\ 0\ 1\ 0\ 1\ 0..._{!}}
+  
+
+  
+    
+      
+        cosh
+        ⁡
+        (
+        1
+        )
+        =
+        1.0
+         
+        1
+         
+        0
+         
+        1
+         
+        0
+         
+        1
+         
+        0
+         
+        1
+         
+        0
+         
+        1
+         
+        0
+         
+        1
+         
+        0
+         
+        1
+         
+        0
+         
+        
+          1...
+          
+            !
+          
+        
+      
+    
+    {\displaystyle \cosh(1)=1.0\ 1\ 0\ 1\ 0\ 1\ 0\ 1\ 0\ 1\ 0\ 1\ 0\ 1\ 0\ 1..._{!}}
+
+See also
+Combinatorial number system (also called combinadics)
+Steinhaus–Johnson–Trotter algorithm, an algorithm that generates Gray codes for the factorial number system
+
+References
+Mantaci, Roberto; Rakotondrajao, Fanja (2001), "A permutation representation that knows what "Eulerian" means" (PDF), Discrete Mathematics and Theoretical Computer Science, 4: 101–108, archived from the original (PDF) on 2011-05-24, retrieved 2005-03-27.
+Arndt, Jörg (2010). Matters Computational: Ideas, Algorithms, Source Code. pp. 232–238.
+
+External links
+A Lehmer code calculator Note that their permutation digits start from 1, so mentally reduces o all permutation digits by one to get results equivalent to those on this page.
+Factorial number system

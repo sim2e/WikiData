@@ -1,0 +1,374 @@
+In formal reasoning, in particular in mathematical logic, computer algebra, and automated theorem proving, a fresh variable is a variable that did not occur in the context considered so far.
+The concept is often used without explanation.
+
+Example
+For example, in term rewriting, before applying a rule 
+  
+    
+      
+        l
+        →
+        r
+      
+    
+    {\displaystyle l\to r}
+   to a given term 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  , each variable in 
+  
+    
+      
+        l
+        →
+        r
+      
+    
+    {\displaystyle l\to r}
+   should be replaced by a fresh one to avoid clashes with variables occurring in 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  .
+Given the rule
+
+  
+    
+      
+        a
+        p
+        p
+        e
+        n
+        d
+        (
+        c
+        o
+        n
+        s
+        (
+        x
+        ,
+        y
+        )
+        ,
+        z
+        )
+        →
+        c
+        o
+        n
+        s
+        (
+        x
+        ,
+        a
+        p
+        p
+        e
+        n
+        d
+        (
+        y
+        ,
+        z
+        )
+        )
+      
+    
+    {\displaystyle append(cons(x,y),z)\to cons(x,append(y,z))}
+  and the term 
+
+  
+    
+      
+        a
+        p
+        p
+        e
+        n
+        d
+        (
+        c
+        o
+        n
+        s
+        (
+        x
+        ,
+        c
+        o
+        n
+        s
+        (
+        y
+        ,
+        n
+        i
+        l
+        )
+        )
+        ,
+        c
+        o
+        n
+        s
+        (
+        3
+        ,
+        n
+        i
+        l
+        )
+        )
+      
+    
+    {\displaystyle append(cons(x,cons(y,nil)),cons(3,nil))}
+  ,attempting to find a matching substitution of the rule's left-hand side, 
+  
+    
+      
+        a
+        p
+        p
+        e
+        n
+        d
+        (
+        c
+        o
+        n
+        s
+        (
+        x
+        ,
+        y
+        )
+        ,
+        z
+        )
+      
+    
+    {\displaystyle append(cons(x,y),z)}
+  , within 
+  
+    
+      
+        a
+        p
+        p
+        e
+        n
+        d
+        (
+        c
+        o
+        n
+        s
+        (
+        x
+        ,
+        c
+        o
+        n
+        s
+        (
+        y
+        ,
+        n
+        i
+        l
+        )
+        )
+        ,
+        c
+        o
+        n
+        s
+        (
+        3
+        ,
+        n
+        i
+        l
+        )
+        )
+      
+    
+    {\displaystyle append(cons(x,cons(y,nil)),cons(3,nil))}
+   will fail, since 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+   cannot match 
+  
+    
+      
+        c
+        o
+        n
+        s
+        (
+        y
+        ,
+        n
+        i
+        l
+        )
+      
+    
+    {\displaystyle cons(y,nil)}
+  .
+However, if the rule is replaced by a fresh copy
+
+  
+    
+      
+        a
+        p
+        p
+        e
+        n
+        d
+        (
+        c
+        o
+        n
+        s
+        (
+        
+          v
+          
+            1
+          
+        
+        ,
+        
+          v
+          
+            2
+          
+        
+        )
+        ,
+        
+          v
+          
+            3
+          
+        
+        )
+        →
+        c
+        o
+        n
+        s
+        (
+        
+          v
+          
+            1
+          
+        
+        ,
+        a
+        p
+        p
+        e
+        n
+        d
+        (
+        
+          v
+          
+            2
+          
+        
+        ,
+        
+          v
+          
+            3
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle append(cons(v_{1},v_{2}),v_{3})\to cons(v_{1},append(v_{2},v_{3}))}
+  before, matching will succeed with the answer substitution 
+  
+    
+      
+        {
+        
+          v
+          
+            2
+          
+        
+        ↦
+        x
+        ,
+        
+        
+          v
+          
+            2
+          
+        
+        ↦
+        c
+        o
+        n
+        s
+        (
+        y
+        ,
+        n
+        i
+        l
+        )
+        ,
+        
+        
+          v
+          
+            3
+          
+        
+        ↦
+        c
+        o
+        n
+        s
+        (
+        3
+        ,
+        n
+        i
+        l
+        )
+        }
+      
+    
+    {\displaystyle \{v_{2}\mapsto x,\;v_{2}\mapsto cons(y,nil),\;v_{3}\mapsto cons(3,nil)\}}
+  .
+
+Notes
+
+
+== References ==

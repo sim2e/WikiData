@@ -1,0 +1,3239 @@
+In linear algebra, the Laplace expansion, named after Pierre-Simon Laplace, also called cofactor expansion, is an expression of the determinant of an n × n matrix B as a weighted sum of minors, which are the determinants of some (n − 1) × (n − 1) submatrices of B. Specifically, for every i, the Laplace expansion along the ith row is the equality
+
+where 
+  
+    
+      
+        
+          b
+          
+            i
+            ,
+            j
+          
+        
+      
+    
+    {\displaystyle b_{i,j}}
+   is the entry of the ith row and jth column of B, and 
+  
+    
+      
+        
+          m
+          
+            i
+            ,
+            j
+          
+        
+      
+    
+    {\displaystyle m_{i,j}}
+   is the determinant of the submatrix obtained by removing the ith row and the jth column of B. Similarly, the Laplace expansion along the jth column is the equality
+
+(Each identity implies the other, since the determinants of a matrix and its transpose are the same.)
+The term 
+  
+    
+      
+        (
+        −
+        1
+        
+          )
+          
+            i
+            +
+            j
+          
+        
+        
+          m
+          
+            i
+            ,
+            j
+          
+        
+      
+    
+    {\displaystyle (-1)^{i+j}m_{i,j}}
+   is called the cofactor of 
+  
+    
+      
+        
+          B
+          
+            i
+            ,
+            j
+          
+        
+      
+    
+    {\displaystyle B_{i,j}}
+   in B.
+The Laplace expansion is often useful in proofs, as in, for example, allowing recursion on the size of matrices. It is also of didactic interest for its simplicity and as one of several ways to view and compute the determinant. For large matrices, it quickly becomes inefficient to compute when compared to Gaussian elimination.
+
+Examples
+Consider the matrix
+
+  
+    
+      
+        B
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  2
+                
+                
+                  3
+                
+              
+              
+                
+                  4
+                
+                
+                  5
+                
+                
+                  6
+                
+              
+              
+                
+                  7
+                
+                
+                  8
+                
+                
+                  9
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle B={\begin{bmatrix}1&2&3\\4&5&6\\7&8&9\end{bmatrix}}.}
+  The determinant of this matrix can be computed by using the Laplace expansion along any one of its rows or columns. For instance, an expansion along the first row yields:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  |
+                
+                B
+                
+                  |
+                
+              
+              
+                
+                =
+                1
+                ⋅
+                
+                  
+                    |
+                    
+                      
+                        
+                          5
+                        
+                        
+                          6
+                        
+                      
+                      
+                        
+                          8
+                        
+                        
+                          9
+                        
+                      
+                    
+                    |
+                  
+                
+                −
+                2
+                ⋅
+                
+                  
+                    |
+                    
+                      
+                        
+                          4
+                        
+                        
+                          6
+                        
+                      
+                      
+                        
+                          7
+                        
+                        
+                          9
+                        
+                      
+                    
+                    |
+                  
+                
+                +
+                3
+                ⋅
+                
+                  
+                    |
+                    
+                      
+                        
+                          4
+                        
+                        
+                          5
+                        
+                      
+                      
+                        
+                          7
+                        
+                        
+                          8
+                        
+                      
+                    
+                    |
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                1
+                ⋅
+                (
+                −
+                3
+                )
+                −
+                2
+                ⋅
+                (
+                −
+                6
+                )
+                +
+                3
+                ⋅
+                (
+                −
+                3
+                )
+                =
+                0.
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}|B|&=1\cdot {\begin{vmatrix}5&6\\8&9\end{vmatrix}}-2\cdot {\begin{vmatrix}4&6\\7&9\end{vmatrix}}+3\cdot {\begin{vmatrix}4&5\\7&8\end{vmatrix}}\\[5pt]&=1\cdot (-3)-2\cdot (-6)+3\cdot (-3)=0.\end{aligned}}}
+  Laplace expansion along the second column yields the same result:
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  |
+                
+                B
+                
+                  |
+                
+              
+              
+                
+                =
+                −
+                2
+                ⋅
+                
+                  
+                    |
+                    
+                      
+                        
+                          4
+                        
+                        
+                          6
+                        
+                      
+                      
+                        
+                          7
+                        
+                        
+                          9
+                        
+                      
+                    
+                    |
+                  
+                
+                +
+                5
+                ⋅
+                
+                  
+                    |
+                    
+                      
+                        
+                          1
+                        
+                        
+                          3
+                        
+                      
+                      
+                        
+                          7
+                        
+                        
+                          9
+                        
+                      
+                    
+                    |
+                  
+                
+                −
+                8
+                ⋅
+                
+                  
+                    |
+                    
+                      
+                        
+                          1
+                        
+                        
+                          3
+                        
+                      
+                      
+                        
+                          4
+                        
+                        
+                          6
+                        
+                      
+                    
+                    |
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                −
+                2
+                ⋅
+                (
+                −
+                6
+                )
+                +
+                5
+                ⋅
+                (
+                −
+                12
+                )
+                −
+                8
+                ⋅
+                (
+                −
+                6
+                )
+                =
+                0.
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}|B|&=-2\cdot {\begin{vmatrix}4&6\\7&9\end{vmatrix}}+5\cdot {\begin{vmatrix}1&3\\7&9\end{vmatrix}}-8\cdot {\begin{vmatrix}1&3\\4&6\end{vmatrix}}\\[5pt]&=-2\cdot (-6)+5\cdot (-12)-8\cdot (-6)=0.\end{aligned}}}
+  It is easy to verify that the result is correct: the matrix is singular because the sum of its first and third column is twice the second column, and hence its determinant is zero.
+
+Proof
+Suppose 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   is an n × n matrix and 
+  
+    
+      
+        i
+        ,
+        j
+        ∈
+        {
+        1
+        ,
+        2
+        ,
+        …
+        ,
+        n
+        }
+        .
+      
+    
+    {\displaystyle i,j\in \{1,2,\dots ,n\}.}
+   For clarity we also label the entries of 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   that compose its 
+  
+    
+      
+        i
+        ,
+        j
+      
+    
+    {\displaystyle i,j}
+   minor matrix 
+  
+    
+      
+        
+          M
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle M_{ij}}
+   as
+
+  
+    
+      
+        (
+        
+          a
+          
+            s
+            t
+          
+        
+        )
+      
+    
+    {\displaystyle (a_{st})}
+   for 
+  
+    
+      
+        1
+        ≤
+        s
+        ,
+        t
+        ≤
+        n
+        −
+        1.
+      
+    
+    {\displaystyle 1\leq s,t\leq n-1.}
+  
+Consider the terms in the expansion of 
+  
+    
+      
+        
+          |
+        
+        B
+        
+          |
+        
+      
+    
+    {\displaystyle |B|}
+   that have 
+  
+    
+      
+        
+          b
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle b_{ij}}
+   as a factor.  Each has the form
+
+  
+    
+      
+        sgn
+        ⁡
+        τ
+        
+        
+          b
+          
+            1
+            ,
+            τ
+            (
+            1
+            )
+          
+        
+        ⋯
+        
+          b
+          
+            i
+            ,
+            j
+          
+        
+        ⋯
+        
+          b
+          
+            n
+            ,
+            τ
+            (
+            n
+            )
+          
+        
+        =
+        sgn
+        ⁡
+        τ
+        
+        
+          b
+          
+            i
+            j
+          
+        
+        
+          a
+          
+            1
+            ,
+            σ
+            (
+            1
+            )
+          
+        
+        ⋯
+        
+          a
+          
+            n
+            −
+            1
+            ,
+            σ
+            (
+            n
+            −
+            1
+            )
+          
+        
+      
+    
+    {\displaystyle \operatorname {sgn} \tau \,b_{1,\tau (1)}\cdots b_{i,j}\cdots b_{n,\tau (n)}=\operatorname {sgn} \tau \,b_{ij}a_{1,\sigma (1)}\cdots a_{n-1,\sigma (n-1)}}
+  for some permutation τ ∈ Sn with 
+  
+    
+      
+        τ
+        (
+        i
+        )
+        =
+        j
+      
+    
+    {\displaystyle \tau (i)=j}
+  , and a unique and evidently related permutation 
+  
+    
+      
+        σ
+        ∈
+        
+          S
+          
+            n
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle \sigma \in S_{n-1}}
+   which selects the same minor entries as τ. Similarly each choice of σ determines a corresponding τ i.e. the correspondence 
+  
+    
+      
+        σ
+        ↔
+        τ
+      
+    
+    {\displaystyle \sigma \leftrightarrow \tau }
+   is a bijection between 
+  
+    
+      
+        
+          S
+          
+            n
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle S_{n-1}}
+   and 
+  
+    
+      
+        {
+        τ
+        ∈
+        
+          S
+          
+            n
+          
+        
+        :
+        τ
+        (
+        i
+        )
+        =
+        j
+        }
+        .
+      
+    
+    {\displaystyle \{\tau \in S_{n}\colon \tau (i)=j\}.}
+  
+Using Cauchy's two-line notation, the explicit relation between 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+   and 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   can be written as
+
+  
+    
+      
+        σ
+        =
+        
+          
+            (
+            
+              
+                
+                  1
+                
+                
+                  2
+                
+                
+                  ⋯
+                
+                
+                  i
+                
+                
+                  ⋯
+                
+                
+                  n
+                  −
+                  1
+                
+              
+              
+                
+                  (
+                  ←
+                  
+                    )
+                    
+                      j
+                    
+                  
+                  (
+                  τ
+                  (
+                  1
+                  )
+                  )
+                
+                
+                  (
+                  ←
+                  
+                    )
+                    
+                      j
+                    
+                  
+                  (
+                  τ
+                  (
+                  2
+                  )
+                  )
+                
+                
+                  ⋯
+                
+                
+                  (
+                  ←
+                  
+                    )
+                    
+                      j
+                    
+                  
+                  (
+                  τ
+                  (
+                  i
+                  +
+                  1
+                  )
+                  )
+                
+                
+                  ⋯
+                
+                
+                  (
+                  ←
+                  
+                    )
+                    
+                      j
+                    
+                  
+                  (
+                  τ
+                  (
+                  n
+                  )
+                  )
+                
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle \sigma ={\begin{pmatrix}1&2&\cdots &i&\cdots &n-1\\(\leftarrow )_{j}(\tau (1))&(\leftarrow )_{j}(\tau (2))&\cdots &(\leftarrow )_{j}(\tau (i+1))&\cdots &(\leftarrow )_{j}(\tau (n))\end{pmatrix}}}
+  where 
+  
+    
+      
+        (
+        ←
+        
+          )
+          
+            j
+          
+        
+      
+    
+    {\displaystyle (\leftarrow )_{j}}
+   is a temporary shorthand notation for a cycle 
+  
+    
+      
+        (
+        n
+        ,
+        n
+        −
+        1
+        ,
+        ⋯
+        ,
+        j
+        +
+        1
+        ,
+        j
+        )
+      
+    
+    {\displaystyle (n,n-1,\cdots ,j+1,j)}
+  .
+This operation decrements all indices larger than j so that every index fits in the set {1,2,...,n-1} 
+The permutation τ can be derived from σ as follows.
+Define 
+  
+    
+      
+        
+          σ
+          ′
+        
+        ∈
+        
+          S
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \sigma '\in S_{n}}
+   by 
+  
+    
+      
+        
+          σ
+          ′
+        
+        (
+        k
+        )
+        =
+        σ
+        (
+        k
+        )
+      
+    
+    {\displaystyle \sigma '(k)=\sigma (k)}
+   for 
+  
+    
+      
+        1
+        ≤
+        k
+        ≤
+        n
+        −
+        1
+      
+    
+    {\displaystyle 1\leq k\leq n-1}
+   and 
+  
+    
+      
+        
+          σ
+          ′
+        
+        (
+        n
+        )
+        =
+        n
+      
+    
+    {\displaystyle \sigma '(n)=n}
+  . 
+Then 
+  
+    
+      
+        
+          σ
+          ′
+        
+      
+    
+    {\displaystyle \sigma '}
+   is expressed as 
+
+  
+    
+      
+        
+          σ
+          ′
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  1
+                
+                
+                  2
+                
+                
+                  ⋯
+                
+                
+                  i
+                
+                
+                  ⋯
+                
+                
+                  n
+                  −
+                  1
+                
+                
+                  n
+                
+              
+              
+                
+                  (
+                  ←
+                  
+                    )
+                    
+                      j
+                    
+                  
+                  (
+                  τ
+                  (
+                  1
+                  )
+                  )
+                
+                
+                  (
+                  ←
+                  
+                    )
+                    
+                      j
+                    
+                  
+                  (
+                  τ
+                  (
+                  2
+                  )
+                  )
+                
+                
+                  ⋯
+                
+                
+                  (
+                  ←
+                  
+                    )
+                    
+                      j
+                    
+                  
+                  (
+                  τ
+                  (
+                  i
+                  +
+                  1
+                  )
+                  )
+                
+                
+                  ⋯
+                
+                
+                  (
+                  ←
+                  
+                    )
+                    
+                      j
+                    
+                  
+                  (
+                  τ
+                  (
+                  n
+                  )
+                  )
+                
+                
+                  n
+                
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle \sigma '={\begin{pmatrix}1&2&\cdots &i&\cdots &n-1&n\\(\leftarrow )_{j}(\tau (1))&(\leftarrow )_{j}(\tau (2))&\cdots &(\leftarrow )_{j}(\tau (i+1))&\cdots &(\leftarrow )_{j}(\tau (n))&n\end{pmatrix}}}
+  Now, the operation which apply 
+  
+    
+      
+        (
+        ←
+        
+          )
+          
+            i
+          
+        
+      
+    
+    {\displaystyle (\leftarrow )_{i}}
+   first and then apply 
+  
+    
+      
+        
+          σ
+          ′
+        
+      
+    
+    {\displaystyle \sigma '}
+   is (Notice applying A before B is equivalent
+to applying inverse of A to the upper row of B in two-line notation)
+
+  
+    
+      
+        
+          σ
+          ′
+        
+        (
+        ←
+        
+          )
+          
+            i
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  1
+                
+                
+                  2
+                
+                
+                  ⋯
+                
+                
+                  i
+                  +
+                  1
+                
+                
+                  ⋯
+                
+                
+                  n
+                
+                
+                  i
+                
+              
+              
+                
+                  (
+                  ←
+                  
+                    )
+                    
+                      j
+                    
+                  
+                  (
+                  τ
+                  (
+                  1
+                  )
+                  )
+                
+                
+                  (
+                  ←
+                  
+                    )
+                    
+                      j
+                    
+                  
+                  (
+                  τ
+                  (
+                  2
+                  )
+                  )
+                
+                
+                  ⋯
+                
+                
+                  (
+                  ←
+                  
+                    )
+                    
+                      j
+                    
+                  
+                  (
+                  τ
+                  (
+                  i
+                  +
+                  1
+                  )
+                  )
+                
+                
+                  ⋯
+                
+                
+                  (
+                  ←
+                  
+                    )
+                    
+                      j
+                    
+                  
+                  (
+                  τ
+                  (
+                  n
+                  )
+                  )
+                
+                
+                  n
+                
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle \sigma '(\leftarrow )_{i}={\begin{pmatrix}1&2&\cdots &i+1&\cdots &n&i\\(\leftarrow )_{j}(\tau (1))&(\leftarrow )_{j}(\tau (2))&\cdots &(\leftarrow )_{j}(\tau (i+1))&\cdots &(\leftarrow )_{j}(\tau (n))&n\end{pmatrix}}}
+  where 
+  
+    
+      
+        (
+        ←
+        
+          )
+          
+            i
+          
+        
+      
+    
+    {\displaystyle (\leftarrow )_{i}}
+   is temporary shorthand notation for 
+  
+    
+      
+        (
+        n
+        ,
+        n
+        −
+        1
+        ,
+        ⋯
+        ,
+        i
+        +
+        1
+        ,
+        i
+        )
+      
+    
+    {\displaystyle (n,n-1,\cdots ,i+1,i)}
+  .
+the operation which applies 
+  
+    
+      
+        τ
+      
+    
+    {\displaystyle \tau }
+   first and then applies 
+  
+    
+      
+        (
+        ←
+        
+          )
+          
+            j
+          
+        
+      
+    
+    {\displaystyle (\leftarrow )_{j}}
+   is 
+
+  
+    
+      
+        (
+        ←
+        
+          )
+          
+            j
+          
+        
+        τ
+        =
+        
+          
+            (
+            
+              
+                
+                  1
+                
+                
+                  2
+                
+                
+                  ⋯
+                
+                
+                  i
+                
+                
+                  ⋯
+                
+                
+                  n
+                  −
+                  1
+                
+                
+                  n
+                
+              
+              
+                
+                  (
+                  ←
+                  
+                    )
+                    
+                      j
+                    
+                  
+                  (
+                  τ
+                  (
+                  1
+                  )
+                  )
+                
+                
+                  (
+                  ←
+                  
+                    )
+                    
+                      j
+                    
+                  
+                  (
+                  τ
+                  (
+                  2
+                  )
+                  )
+                
+                
+                  ⋯
+                
+                
+                  n
+                
+                
+                  ⋯
+                
+                
+                  (
+                  ←
+                  
+                    )
+                    
+                      j
+                    
+                  
+                  (
+                  τ
+                  (
+                  n
+                  −
+                  1
+                  )
+                  )
+                
+                
+                  (
+                  ←
+                  
+                    )
+                    
+                      j
+                    
+                  
+                  (
+                  τ
+                  (
+                  n
+                  )
+                  )
+                
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle (\leftarrow )_{j}\tau ={\begin{pmatrix}1&2&\cdots &i&\cdots &n-1&n\\(\leftarrow )_{j}(\tau (1))&(\leftarrow )_{j}(\tau (2))&\cdots &n&\cdots &(\leftarrow )_{j}(\tau (n-1))&(\leftarrow )_{j}(\tau (n))\end{pmatrix}}}
+  above two are equal thus,
+
+  
+    
+      
+        (
+        ←
+        
+          )
+          
+            j
+          
+        
+        τ
+        =
+        
+          σ
+          ′
+        
+        (
+        ←
+        
+          )
+          
+            i
+          
+        
+      
+    
+    {\displaystyle (\leftarrow )_{j}\tau =\sigma '(\leftarrow )_{i}}
+  
+
+  
+    
+      
+        τ
+        =
+        (
+        →
+        
+          )
+          
+            j
+          
+        
+        
+          σ
+          ′
+        
+        (
+        ←
+        
+          )
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \tau =(\rightarrow )_{j}\sigma '(\leftarrow )_{i}}
+  where 
+  
+    
+      
+        (
+        →
+        
+          )
+          
+            j
+          
+        
+      
+    
+    {\displaystyle (\rightarrow )_{j}}
+   is the inverse of 
+  
+    
+      
+        (
+        ←
+        
+          )
+          
+            j
+          
+        
+      
+    
+    {\displaystyle (\leftarrow )_{j}}
+   which is 
+  
+    
+      
+        (
+        j
+        ,
+        j
+        +
+        1
+        ,
+        ⋯
+        ,
+        n
+        )
+      
+    
+    {\displaystyle (j,j+1,\cdots ,n)}
+  .
+Thus 
+
+  
+    
+      
+        τ
+        
+        =
+        (
+        j
+        ,
+        j
+        +
+        1
+        ,
+        …
+        ,
+        n
+        )
+        
+          σ
+          ′
+        
+        (
+        n
+        ,
+        n
+        −
+        1
+        ,
+        …
+        ,
+        i
+        )
+      
+    
+    {\displaystyle \tau \,=(j,j+1,\ldots ,n)\sigma '(n,n-1,\ldots ,i)}
+  Since the two cycles can be written respectively as 
+  
+    
+      
+        n
+        −
+        i
+      
+    
+    {\displaystyle n-i}
+   and 
+  
+    
+      
+        n
+        −
+        j
+      
+    
+    {\displaystyle n-j}
+   transpositions,
+
+  
+    
+      
+        sgn
+        ⁡
+        τ
+        
+        =
+        (
+        −
+        1
+        
+          )
+          
+            2
+            n
+            −
+            (
+            i
+            +
+            j
+            )
+          
+        
+        sgn
+        ⁡
+        
+          σ
+          ′
+        
+        
+        =
+        (
+        −
+        1
+        
+          )
+          
+            i
+            +
+            j
+          
+        
+        sgn
+        ⁡
+        σ
+        .
+      
+    
+    {\displaystyle \operatorname {sgn} \tau \,=(-1)^{2n-(i+j)}\operatorname {sgn} \sigma '\,=(-1)^{i+j}\operatorname {sgn} \sigma .}
+  And since the map 
+  
+    
+      
+        σ
+        ↔
+        τ
+      
+    
+    {\displaystyle \sigma \leftrightarrow \tau }
+   is bijective,
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  ∑
+                  
+                    i
+                    =
+                    1
+                  
+                  
+                    n
+                  
+                
+                
+                  ∑
+                  
+                    τ
+                    ∈
+                    
+                      S
+                      
+                        n
+                      
+                    
+                    :
+                    τ
+                    (
+                    i
+                    )
+                    =
+                    j
+                  
+                
+                sgn
+                ⁡
+                τ
+                
+                
+                  b
+                  
+                    1
+                    ,
+                    τ
+                    (
+                    1
+                    )
+                  
+                
+                ⋯
+                
+                  b
+                  
+                    n
+                    ,
+                    τ
+                    (
+                    n
+                    )
+                  
+                
+              
+              
+                
+                =
+                
+                  ∑
+                  
+                    i
+                    =
+                    1
+                  
+                  
+                    n
+                  
+                
+                
+                  ∑
+                  
+                    σ
+                    ∈
+                    
+                      S
+                      
+                        n
+                        −
+                        1
+                      
+                    
+                  
+                
+                (
+                −
+                1
+                
+                  )
+                  
+                    i
+                    +
+                    j
+                  
+                
+                sgn
+                ⁡
+                σ
+                
+                
+                  b
+                  
+                    i
+                    j
+                  
+                
+                
+                  a
+                  
+                    1
+                    ,
+                    σ
+                    (
+                    1
+                    )
+                  
+                
+                ⋯
+                
+                  a
+                  
+                    n
+                    −
+                    1
+                    ,
+                    σ
+                    (
+                    n
+                    −
+                    1
+                    )
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  ∑
+                  
+                    i
+                    =
+                    1
+                  
+                  
+                    n
+                  
+                
+                
+                  b
+                  
+                    i
+                    j
+                  
+                
+                (
+                −
+                1
+                
+                  )
+                  
+                    i
+                    +
+                    j
+                  
+                
+                
+                  ∑
+                  
+                    σ
+                    ∈
+                    
+                      S
+                      
+                        n
+                        −
+                        1
+                      
+                    
+                  
+                
+                sgn
+                ⁡
+                σ
+                
+                
+                  a
+                  
+                    1
+                    ,
+                    σ
+                    (
+                    1
+                    )
+                  
+                
+                ⋯
+                
+                  a
+                  
+                    n
+                    −
+                    1
+                    ,
+                    σ
+                    (
+                    n
+                    −
+                    1
+                    )
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  ∑
+                  
+                    i
+                    =
+                    1
+                  
+                  
+                    n
+                  
+                
+                
+                  b
+                  
+                    i
+                    j
+                  
+                
+                (
+                −
+                1
+                
+                  )
+                  
+                    i
+                    +
+                    j
+                  
+                
+                
+                  M
+                  
+                    i
+                    j
+                  
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}\sum _{i=1}^{n}\sum _{\tau \in S_{n}:\tau (i)=j}\operatorname {sgn} \tau \,b_{1,\tau (1)}\cdots b_{n,\tau (n)}&=\sum _{i=1}^{n}\sum _{\sigma \in S_{n-1}}(-1)^{i+j}\operatorname {sgn} \sigma \,b_{ij}a_{1,\sigma (1)}\cdots a_{n-1,\sigma (n-1)}\\&=\sum _{i=1}^{n}b_{ij}(-1)^{i+j}\sum _{\sigma \in S_{n-1}}\operatorname {sgn} \sigma \,a_{1,\sigma (1)}\cdots a_{n-1,\sigma (n-1)}\\&=\sum _{i=1}^{n}b_{ij}(-1)^{i+j}M_{ij}\end{aligned}}}
+  from which the result follows.  Similarly, the result holds if the index of the outer summation was replaced with 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+  .
+
+Laplace expansion of a determinant by complementary minors
+Laplace's cofactor expansion can be generalised as follows.
+
+Example
+Consider the matrix
+
+  
+    
+      
+        A
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  2
+                
+                
+                  3
+                
+                
+                  4
+                
+              
+              
+                
+                  5
+                
+                
+                  6
+                
+                
+                  7
+                
+                
+                  8
+                
+              
+              
+                
+                  9
+                
+                
+                  10
+                
+                
+                  11
+                
+                
+                  12
+                
+              
+              
+                
+                  13
+                
+                
+                  14
+                
+                
+                  15
+                
+                
+                  16
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle A={\begin{bmatrix}1&2&3&4\\5&6&7&8\\9&10&11&12\\13&14&15&16\end{bmatrix}}.}
+  The determinant of this matrix can be computed by using the Laplace's cofactor expansion along the first two rows as follows. Firstly note that there are 6 sets of two distinct numbers in {1, 2, 3, 4}, namely let 
+  
+    
+      
+        S
+        =
+        
+          {
+          
+            {
+            1
+            ,
+            2
+            }
+            ,
+            {
+            1
+            ,
+            3
+            }
+            ,
+            {
+            1
+            ,
+            4
+            }
+            ,
+            {
+            2
+            ,
+            3
+            }
+            ,
+            {
+            2
+            ,
+            4
+            }
+            ,
+            {
+            3
+            ,
+            4
+            }
+          
+          }
+        
+      
+    
+    {\displaystyle S=\left\{\{1,2\},\{1,3\},\{1,4\},\{2,3\},\{2,4\},\{3,4\}\right\}}
+   be the aforementioned set.
+By defining the complementary cofactors to be
+
+  
+    
+      
+        
+          b
+          
+            {
+            j
+            ,
+            k
+            }
+          
+        
+        =
+        
+          
+            |
+            
+              
+                
+                  
+                    a
+                    
+                      1
+                      j
+                    
+                  
+                
+                
+                  
+                    a
+                    
+                      1
+                      k
+                    
+                  
+                
+              
+              
+                
+                  
+                    a
+                    
+                      2
+                      j
+                    
+                  
+                
+                
+                  
+                    a
+                    
+                      2
+                      k
+                    
+                  
+                
+              
+            
+            |
+          
+        
+        ,
+      
+    
+    {\displaystyle b_{\{j,k\}}={\begin{vmatrix}a_{1j}&a_{1k}\\a_{2j}&a_{2k}\end{vmatrix}},}
+  
+
+  
+    
+      
+        
+          c
+          
+            {
+            p
+            ,
+            q
+            }
+          
+        
+        =
+        
+          
+            |
+            
+              
+                
+                  
+                    a
+                    
+                      3
+                      p
+                    
+                  
+                
+                
+                  
+                    a
+                    
+                      3
+                      q
+                    
+                  
+                
+              
+              
+                
+                  
+                    a
+                    
+                      4
+                      p
+                    
+                  
+                
+                
+                  
+                    a
+                    
+                      4
+                      q
+                    
+                  
+                
+              
+            
+            |
+          
+        
+        ,
+      
+    
+    {\displaystyle c_{\{p,q\}}={\begin{vmatrix}a_{3p}&a_{3q}\\a_{4p}&a_{4q}\end{vmatrix}},}
+  and the sign of their permutation to be
+
+  
+    
+      
+        
+          ε
+          
+            {
+            j
+            ,
+            k
+            }
+            ,
+            {
+            p
+            ,
+            q
+            }
+          
+        
+        =
+        sgn
+        ⁡
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  2
+                
+                
+                  3
+                
+                
+                  4
+                
+              
+              
+                
+                  j
+                
+                
+                  k
+                
+                
+                  p
+                
+                
+                  q
+                
+              
+            
+            ]
+          
+        
+        ,
+        
+           where 
+        
+        p
+        ≠
+        j
+        ,
+        q
+        ≠
+        k
+        .
+      
+    
+    {\displaystyle \varepsilon ^{\{j,k\},\{p,q\}}=\operatorname {sgn} {\begin{bmatrix}1&2&3&4\\j&k&p&q\end{bmatrix}},{\text{ where }}p\neq j,q\neq k.}
+  The determinant of A can be written out as
+
+  
+    
+      
+        
+          |
+        
+        A
+        
+          |
+        
+        =
+        
+          ∑
+          
+            H
+            ∈
+            S
+          
+        
+        
+          ε
+          
+            H
+            ,
+            
+              H
+              
+                ′
+              
+            
+          
+        
+        
+          b
+          
+            H
+          
+        
+        
+          c
+          
+            
+              H
+              
+                ′
+              
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle |A|=\sum _{H\in S}\varepsilon ^{H,H^{\prime }}b_{H}c_{H^{\prime }},}
+  where 
+  
+    
+      
+        
+          H
+          
+            ′
+          
+        
+      
+    
+    {\displaystyle H^{\prime }}
+   is the complementary set to 
+  
+    
+      
+        H
+      
+    
+    {\displaystyle H}
+  .
+In our explicit example this gives us
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  |
+                
+                A
+                
+                  |
+                
+              
+              
+                
+                =
+                
+                  b
+                  
+                    {
+                    1
+                    ,
+                    2
+                    }
+                  
+                
+                
+                  c
+                  
+                    {
+                    3
+                    ,
+                    4
+                    }
+                  
+                
+                −
+                
+                  b
+                  
+                    {
+                    1
+                    ,
+                    3
+                    }
+                  
+                
+                
+                  c
+                  
+                    {
+                    2
+                    ,
+                    4
+                    }
+                  
+                
+                +
+                
+                  b
+                  
+                    {
+                    1
+                    ,
+                    4
+                    }
+                  
+                
+                
+                  c
+                  
+                    {
+                    2
+                    ,
+                    3
+                    }
+                  
+                
+                +
+                
+                  b
+                  
+                    {
+                    2
+                    ,
+                    3
+                    }
+                  
+                
+                
+                  c
+                  
+                    {
+                    1
+                    ,
+                    4
+                    }
+                  
+                
+                −
+                
+                  b
+                  
+                    {
+                    2
+                    ,
+                    4
+                    }
+                  
+                
+                
+                  c
+                  
+                    {
+                    1
+                    ,
+                    3
+                    }
+                  
+                
+                +
+                
+                  b
+                  
+                    {
+                    3
+                    ,
+                    4
+                    }
+                  
+                
+                
+                  c
+                  
+                    {
+                    1
+                    ,
+                    2
+                    }
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                
+                  
+                    |
+                    
+                      
+                        
+                          1
+                        
+                        
+                          2
+                        
+                      
+                      
+                        
+                          5
+                        
+                        
+                          6
+                        
+                      
+                    
+                    |
+                  
+                
+                ⋅
+                
+                  
+                    |
+                    
+                      
+                        
+                          11
+                        
+                        
+                          12
+                        
+                      
+                      
+                        
+                          15
+                        
+                        
+                          16
+                        
+                      
+                    
+                    |
+                  
+                
+                −
+                
+                  
+                    |
+                    
+                      
+                        
+                          1
+                        
+                        
+                          3
+                        
+                      
+                      
+                        
+                          5
+                        
+                        
+                          7
+                        
+                      
+                    
+                    |
+                  
+                
+                ⋅
+                
+                  
+                    |
+                    
+                      
+                        
+                          10
+                        
+                        
+                          12
+                        
+                      
+                      
+                        
+                          14
+                        
+                        
+                          16
+                        
+                      
+                    
+                    |
+                  
+                
+                +
+                
+                  
+                    |
+                    
+                      
+                        
+                          1
+                        
+                        
+                          4
+                        
+                      
+                      
+                        
+                          5
+                        
+                        
+                          8
+                        
+                      
+                    
+                    |
+                  
+                
+                ⋅
+                
+                  
+                    |
+                    
+                      
+                        
+                          10
+                        
+                        
+                          11
+                        
+                      
+                      
+                        
+                          14
+                        
+                        
+                          15
+                        
+                      
+                    
+                    |
+                  
+                
+                +
+                
+                  
+                    |
+                    
+                      
+                        
+                          2
+                        
+                        
+                          3
+                        
+                      
+                      
+                        
+                          6
+                        
+                        
+                          7
+                        
+                      
+                    
+                    |
+                  
+                
+                ⋅
+                
+                  
+                    |
+                    
+                      
+                        
+                          9
+                        
+                        
+                          12
+                        
+                      
+                      
+                        
+                          13
+                        
+                        
+                          16
+                        
+                      
+                    
+                    |
+                  
+                
+                −
+                
+                  
+                    |
+                    
+                      
+                        
+                          2
+                        
+                        
+                          4
+                        
+                      
+                      
+                        
+                          6
+                        
+                        
+                          8
+                        
+                      
+                    
+                    |
+                  
+                
+                ⋅
+                
+                  
+                    |
+                    
+                      
+                        
+                          9
+                        
+                        
+                          11
+                        
+                      
+                      
+                        
+                          13
+                        
+                        
+                          15
+                        
+                      
+                    
+                    |
+                  
+                
+                +
+                
+                  
+                    |
+                    
+                      
+                        
+                          3
+                        
+                        
+                          4
+                        
+                      
+                      
+                        
+                          7
+                        
+                        
+                          8
+                        
+                      
+                    
+                    |
+                  
+                
+                ⋅
+                
+                  
+                    |
+                    
+                      
+                        
+                          9
+                        
+                        
+                          10
+                        
+                      
+                      
+                        
+                          13
+                        
+                        
+                          14
+                        
+                      
+                    
+                    |
+                  
+                
+              
+            
+            
+              
+              
+                
+                =
+                −
+                4
+                ⋅
+                (
+                −
+                4
+                )
+                −
+                (
+                −
+                8
+                )
+                ⋅
+                (
+                −
+                8
+                )
+                +
+                (
+                −
+                12
+                )
+                ⋅
+                (
+                −
+                4
+                )
+                +
+                (
+                −
+                4
+                )
+                ⋅
+                (
+                −
+                12
+                )
+                −
+                (
+                −
+                8
+                )
+                ⋅
+                (
+                −
+                8
+                )
+                +
+                (
+                −
+                4
+                )
+                ⋅
+                (
+                −
+                4
+                )
+              
+            
+            
+              
+              
+                
+                =
+                16
+                −
+                64
+                +
+                48
+                +
+                48
+                −
+                64
+                +
+                16
+                =
+                0.
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}|A|&=b_{\{1,2\}}c_{\{3,4\}}-b_{\{1,3\}}c_{\{2,4\}}+b_{\{1,4\}}c_{\{2,3\}}+b_{\{2,3\}}c_{\{1,4\}}-b_{\{2,4\}}c_{\{1,3\}}+b_{\{3,4\}}c_{\{1,2\}}\\[5pt]&={\begin{vmatrix}1&2\\5&6\end{vmatrix}}\cdot {\begin{vmatrix}11&12\\15&16\end{vmatrix}}-{\begin{vmatrix}1&3\\5&7\end{vmatrix}}\cdot {\begin{vmatrix}10&12\\14&16\end{vmatrix}}+{\begin{vmatrix}1&4\\5&8\end{vmatrix}}\cdot {\begin{vmatrix}10&11\\14&15\end{vmatrix}}+{\begin{vmatrix}2&3\\6&7\end{vmatrix}}\cdot {\begin{vmatrix}9&12\\13&16\end{vmatrix}}-{\begin{vmatrix}2&4\\6&8\end{vmatrix}}\cdot {\begin{vmatrix}9&11\\13&15\end{vmatrix}}+{\begin{vmatrix}3&4\\7&8\end{vmatrix}}\cdot {\begin{vmatrix}9&10\\13&14\end{vmatrix}}\\[5pt]&=-4\cdot (-4)-(-8)\cdot (-8)+(-12)\cdot (-4)+(-4)\cdot (-12)-(-8)\cdot (-8)+(-4)\cdot (-4)\\[5pt]&=16-64+48+48-64+16=0.\end{aligned}}}
+  As above, it is easy to verify that the result is correct: the matrix is singular because the sum of its first and third column is twice the second column, and hence its determinant is zero.
+
+General statement
+Let 
+  
+    
+      
+        B
+        =
+        [
+        
+          b
+          
+            i
+            j
+          
+        
+        ]
+      
+    
+    {\displaystyle B=[b_{ij}]}
+   be an n × n matrix and 
+  
+    
+      
+        S
+      
+    
+    {\displaystyle S}
+   the set of k-element subsets of {1, 2, ... , n}, 
+  
+    
+      
+        H
+      
+    
+    {\displaystyle H}
+   an element in it. Then the determinant of 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   can be expanded along the k rows identified by 
+  
+    
+      
+        H
+      
+    
+    {\displaystyle H}
+   as follows:
+
+  
+    
+      
+        
+          |
+        
+        B
+        
+          |
+        
+        =
+        
+          ∑
+          
+            L
+            ∈
+            S
+          
+        
+        
+          ε
+          
+            H
+            ,
+            L
+          
+        
+        
+          b
+          
+            H
+            ,
+            L
+          
+        
+        
+          c
+          
+            H
+            ,
+            L
+          
+        
+      
+    
+    {\displaystyle |B|=\sum _{L\in S}\varepsilon ^{H,L}b_{H,L}c_{H,L}}
+  where 
+  
+    
+      
+        
+          ε
+          
+            H
+            ,
+            L
+          
+        
+      
+    
+    {\displaystyle \varepsilon ^{H,L}}
+   is the sign of the permutation determined by 
+  
+    
+      
+        H
+      
+    
+    {\displaystyle H}
+   and 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+  , equal to 
+  
+    
+      
+        (
+        −
+        1
+        
+          )
+          
+            
+              (
+              
+                
+                  ∑
+                  
+                    h
+                    ∈
+                    H
+                  
+                
+                h
+              
+              )
+            
+            +
+            
+              (
+              
+                
+                  ∑
+                  
+                    ℓ
+                    ∈
+                    L
+                  
+                
+                ℓ
+              
+              )
+            
+          
+        
+      
+    
+    {\displaystyle (-1)^{\left(\sum _{h\in H}h\right)+\left(\sum _{\ell \in L}\ell \right)}}
+  , 
+  
+    
+      
+        
+          b
+          
+            H
+            ,
+            L
+          
+        
+      
+    
+    {\displaystyle b_{H,L}}
+   the square minor of 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   obtained by deleting from 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+   rows and columns with indices in 
+  
+    
+      
+        H
+      
+    
+    {\displaystyle H}
+   and 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   respectively, and 
+  
+    
+      
+        
+          c
+          
+            H
+            ,
+            L
+          
+        
+      
+    
+    {\displaystyle c_{H,L}}
+   (called the complement of 
+  
+    
+      
+        
+          b
+          
+            H
+            ,
+            L
+          
+        
+      
+    
+    {\displaystyle b_{H,L}}
+  ) defined to be 
+  
+    
+      
+        
+          b
+          
+            
+              H
+              ′
+            
+            ,
+            
+              L
+              ′
+            
+          
+        
+      
+    
+    {\displaystyle b_{H',L'}}
+   , 
+  
+    
+      
+        
+          H
+          ′
+        
+      
+    
+    {\displaystyle H'}
+   and 
+  
+    
+      
+        
+          L
+          ′
+        
+      
+    
+    {\displaystyle L'}
+   being the complement of 
+  
+    
+      
+        H
+      
+    
+    {\displaystyle H}
+   and 
+  
+    
+      
+        L
+      
+    
+    {\displaystyle L}
+   respectively.
+This coincides with the theorem above when 
+  
+    
+      
+        k
+        =
+        1
+      
+    
+    {\displaystyle k=1}
+  . The same thing holds for any fixed k columns.
+
+Computational expense
+The Laplace expansion is computationally inefficient for high-dimension matrices, with a time complexity in big O notation of O(n!). Alternatively, using a decomposition into triangular matrices as in the LU decomposition can yield determinants with a time complexity of O(n3). The following Python code implements Laplace expansion recursively:
+
+See also
+Leibniz formula for determinants
+Rule of Sarrus for 
+  
+    
+      
+        3
+        ×
+        3
+      
+    
+    {\displaystyle 3\times 3}
+   determinants
+
+References
+
+David Poole: Linear Algebra. A Modern Introduction. Cengage Learning 2005, ISBN 0-534-99845-3, pp. 265–267 (restricted online copy, p. 265, at Google Books)
+Harvey E. Rose: Linear Algebra. A Pure Mathematical Approach. Springer 2002, ISBN 3-7643-6905-1, pp. 57–60 (restricted online copy, p. 57, at Google Books)

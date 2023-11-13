@@ -1,0 +1,611 @@
+The Steane code is a tool in quantum error correction introduced by Andrew Steane in 1996. It is a CSS code (Calderbank-Shor-Steane), using the classical binary  [7,4,3] Hamming code to correct for qubit flip errors (X errors) and the dual of the Hamming code, the [7,3,4] code, to correct for phase flip errors (Z errors). The Steane code encodes one logical qubit in 7 physical qubits and is able to correct arbitrary single qubit errors.
+Its check matrix in standard form is 
+
+  
+    
+      
+        
+          
+            [
+            
+              
+                
+                  H
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  H
+                
+              
+            
+            ]
+          
+        
+      
+    
+    {\displaystyle {\begin{bmatrix}H&0\\0&H\end{bmatrix}}}
+  where H is the parity-check matrix of the Hamming code and is given by
+
+  
+    
+      
+        H
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  1
+                
+                
+                  0
+                
+                
+                  1
+                
+                
+                  1
+                
+              
+              
+                
+                  0
+                
+                
+                  1
+                
+                
+                  0
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  0
+                
+                
+                  1
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  1
+                
+                
+                  0
+                
+                
+                  1
+                
+                
+                  1
+                
+                
+                  1
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle H={\begin{bmatrix}1&0&0&1&0&1&1\\0&1&0&1&1&0&1\\0&0&1&0&1&1&1\end{bmatrix}}.}
+  The 
+  
+    
+      
+        [
+        [
+        7
+        ,
+        1
+        ,
+        3
+        ]
+        ]
+      
+    
+    {\displaystyle [[7,1,3]]}
+   Steane code is the first in the family of quantum Hamming codes, codes with parameters 
+  
+    
+      
+        [
+        [
+        
+          2
+          
+            r
+          
+        
+        −
+        1
+        ,
+        
+          2
+          
+            r
+          
+        
+        −
+        1
+        −
+        2
+        r
+        ,
+        3
+        ]
+        ]
+      
+    
+    {\displaystyle [[2^{r}-1,2^{r}-1-2r,3]]}
+   for integers 
+  
+    
+      
+        r
+        ≥
+        3
+      
+    
+    {\displaystyle r\geq 3}
+  .  It is also a quantum color code.
+
+Expression in the stabilizer formalism
+In a quantum error-correcting code, the codespace is the subspace of the overall Hilbert space where all logical states live. In an 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -qubit stabilizer code, we can describe this subspace by its Pauli stabilizing group, the set of all 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  -qubit Pauli operators which stabilize every logical state. The stabilizer formalism allows us to define the codespace of a stabilizer code by specifying its Pauli stabilizing group. We can efficiently describe this exponentially large group by listing its generators.
+Since the Steane code encodes one logical qubit in 7 physical qubits, the codespace for the Steane code is a 
+  
+    
+      
+        2
+      
+    
+    {\displaystyle 2}
+  -dimensional subspace of its 
+  
+    
+      
+        
+          2
+          
+            7
+          
+        
+      
+    
+    {\displaystyle 2^{7}}
+  -dimensional Hilbert space.
+In the stabilizer formalism, the Steane code has 6 generators:
+
+  
+    
+      
+        
+          
+            
+              
+              
+                I
+                I
+                I
+                X
+                X
+                X
+                X
+              
+            
+            
+              
+              
+                I
+                X
+                X
+                I
+                I
+                X
+                X
+              
+            
+            
+              
+              
+                X
+                I
+                X
+                I
+                X
+                I
+                X
+              
+            
+            
+              
+              
+                I
+                I
+                I
+                Z
+                Z
+                Z
+                Z
+              
+            
+            
+              
+              
+                I
+                Z
+                Z
+                I
+                I
+                Z
+                Z
+              
+            
+            
+              
+              
+                Z
+                I
+                Z
+                I
+                Z
+                I
+                Z
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}&IIIXXXX\\&IXXIIXX\\&XIXIXIX\\&IIIZZZZ\\&IZZIIZZ\\&ZIZIZIZ.\end{aligned}}}
+  Note that each of the above generators is the tensor product of 7 single-qubit Pauli operations. For instance, 
+  
+    
+      
+        I
+        I
+        I
+        X
+        X
+        X
+        X
+      
+    
+    {\displaystyle IIIXXXX}
+   is just shorthand for 
+  
+    
+      
+        I
+        ⊗
+        I
+        ⊗
+        I
+        ⊗
+        X
+        ⊗
+        X
+        ⊗
+        X
+        ⊗
+        X
+      
+    
+    {\displaystyle I\otimes I\otimes I\otimes X\otimes X\otimes X\otimes X}
+  , that is, an identity on the first three qubits and an 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   gate on each of the last four qubits. The tensor products are often omitted in notation for brevity.
+The logical 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+   and 
+  
+    
+      
+        Z
+      
+    
+    {\displaystyle Z}
+   gates are 
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  X
+                  
+                    L
+                  
+                
+              
+              
+                
+                =
+                X
+                X
+                X
+                X
+                X
+                X
+                X
+              
+            
+            
+              
+                
+                  Z
+                  
+                    L
+                  
+                
+              
+              
+                
+                =
+                Z
+                Z
+                Z
+                Z
+                Z
+                Z
+                Z
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}X_{L}&=XXXXXXX\\Z_{L}&=ZZZZZZZ.\end{aligned}}}
+  The logical 
+  
+    
+      
+        
+          |
+        
+        0
+        ⟩
+      
+    
+    {\displaystyle |0\rangle }
+   and 
+  
+    
+      
+        
+          |
+        
+        1
+        ⟩
+      
+    
+    {\displaystyle |1\rangle }
+   states of the Steane code are
+
+  
+    
+      
+        
+          
+            
+              
+                
+                  |
+                
+                0
+                
+                  ⟩
+                  
+                    L
+                  
+                
+                =
+              
+              
+                
+                  
+                    1
+                    
+                      8
+                    
+                  
+                
+                [
+                
+                  |
+                
+                0000000
+                ⟩
+                +
+                
+                  |
+                
+                1010101
+                ⟩
+                +
+                
+                  |
+                
+                0110011
+                ⟩
+                +
+                
+                  |
+                
+                1100110
+                ⟩
+              
+            
+            
+              
+              
+                
+                +
+                
+                  |
+                
+                0001111
+                ⟩
+                +
+                
+                  |
+                
+                1011010
+                ⟩
+                +
+                
+                  |
+                
+                0111100
+                ⟩
+                +
+                
+                  |
+                
+                1101001
+                ⟩
+                ]
+              
+            
+            
+              
+                
+                  |
+                
+                1
+                
+                  ⟩
+                  
+                    L
+                  
+                
+                =
+              
+              
+                
+                  X
+                  
+                    L
+                  
+                
+                
+                  |
+                
+                0
+                
+                  ⟩
+                  
+                    L
+                  
+                
+                .
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}|0\rangle _{L}=&{\frac {1}{\sqrt {8}}}[|0000000\rangle +|1010101\rangle +|0110011\rangle +|1100110\rangle \\&+|0001111\rangle +|1011010\rangle +|0111100\rangle +|1101001\rangle ]\\|1\rangle _{L}=&X_{L}|0\rangle _{L}.\end{aligned}}}
+  Arbitrary codestates are of the form 
+  
+    
+      
+        
+          |
+        
+        ψ
+        ⟩
+        =
+        α
+        
+          |
+        
+        0
+        
+          ⟩
+          
+            L
+          
+        
+        +
+        β
+        
+          |
+        
+        1
+        
+          ⟩
+          
+            L
+          
+        
+      
+    
+    {\displaystyle |\psi \rangle =\alpha |0\rangle _{L}+\beta |1\rangle _{L}}
+  .
+
+References
+Steane, Andrew (1996). "Multiple-Particle Interference and Quantum Error Correction". Proc. R. Soc. Lond. A. 452 (1954): 2551–2577. arXiv:quant-ph/9601029. Bibcode:1996RSPSA.452.2551S. doi:10.1098/rspa.1996.0136. S2CID 8246615.

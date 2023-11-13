@@ -1,0 +1,62 @@
+File attributes are a type of meta-data that describe and may modify how files and/or directories in a filesystem behave. Typical file attributes may, for example, indicate or specify whether a file is visible, modifiable, compressed, or encrypted. The availability of most file attributes depends on support by the underlying filesystem (such as FAT, NTFS, ext4) 
+where attribute data must be stored along with other control structures. Each attribute can have one of two states: set and cleared. Attributes are considered distinct from other metadata, such as dates and times, filename extensions or file system permissions. In addition to files, folders, volumes and other file system objects may have attributes.
+
+DOS and Windows
+Traditionally, in DOS and Microsoft Windows, files and folders accepted four attributes:
+Archive (A): When set, it indicates that the hosting file has changed since the last backup operation. Windows' file system sets this attribute on any file that has changed. Backup software then has the duty of clearing it upon a successful full or incremental backup (not a differential one).
+Hidden (H): When set, indicates that the hosting file is hidden. MS-DOS commands like dir and Windows apps like File Explorer do not show hidden files by default, unless asked to do so.
+System (S): When set, indicates that the hosting file is a critical system file that is necessary for the computer to operate properly. MS-DOS and Microsoft Windows use it to mark important system files. MS-DOS commands like dir and Windows apps like File Explorer do not show system files by default even when hidden files are shown, unless asked to do so.
+Read-only (R): When set, indicates that a file should not be altered. Upon opening the file, file system API usually does not grant write permission to the requesting application, unless the application explicitly requests it. Read-only attributes on folders are usually ignored, being used for another purpose.As new versions of Windows came out, Microsoft has added to the inventory of available attributes on the  NTFS file system, including but not limited to:
+Compressed (C): When set, Windows compresses the hosting file upon storage. For more information, see NTFS § File compression.
+Encrypted (E): When set, Windows encrypts the hosting file upon storage to prevent unauthorized access. For more information, see NTFS § Encryption.
+Not Content-Indexed (I): When set, Indexing Service or Windows Search do not include the hosting file in their indexing operation.Other attributes that are displayed in the "Attributes" column of Windows Explorer include:
+
+Directory (D): The entry is a subdirectory, containing file and directory entries of its own.
+Reparse Point (L): The file or directory has an associated re-parse point, or is a symbolic link.
+Offline (O): The file data is physically moved to offline storage (Remote Storage).
+Sparse (P): The file is a sparse file, i.e., its contents are partially empty and non-contiguous.
+Temporary (T): The file is used for temporary storage.In DOS, OS/2 and Windows, the attrib command in cmd.exe and command.com can be used to change and display the four traditional file attributes. File Explorer in Windows can show the seven mentioned attributes but cannot set or clear the System attribute. Windows PowerShell, which has become a component of Windows 7 and later, features two commands that can read and write attributes: Get-ItemProperty and Set-ItemProperty. To change an attribute on a file on Windows NT, the user must have appropriate file system permissions known as Write Attributes and Write Extended Attributes.
+
+Unix and POSIX
+In Unix and Unix-like systems, including POSIX-conforming systems, each file has a 'mode' containing 9 bit flags controlling read, write and execute permission for each of the file's owner, group and all other users (see File-system permissions §Traditional Unix permissions for more details) plus  the setuid and setgid bit flags and a 'sticky' bit flag.
+The mode also specifies the file type (regular file, directory, or some other special kind).
+
+4.4BSD and derivatives
+In 4.4BSD and 4.4BSD-Lite, files and directories (folders) accepted four attributes that could be set by the owner of the file or the superuser (the "User" attributes) and two attributes that could only be set by the superuser (the "System" attributes):
+(User) No-dump: When set, it indicates that the file or directory should not be saved during a backup operation.
+(User and System) Immutable: When set, indicates that the file or directory should not be altered. Attempts to open the file for writing, create a file within the directory, remove a file from the directory, rename a file within the directory, rename the file or directory, or remove the file or directory will fail with a permissions error.
+(User and System) Append-only: When set, indicates that the file should only be appended to.
+(User) Opaque: When set on a directory, indicates that the directory is opaque when viewed through a union stack.FreeBSD added some additional attributes, also supported by DragonFly BSD:
+(User and System) No-unlink: When set, indicates that the file or directory should not be renamed or removed. Attempts to rename or remove the file or directory will fail with a permissions error.FreeBSD also supports:
+(System) No-archive: When set, indicates that the file or directory should not be archived.
+(System) Snapshot: When set, indicates that the file or directory is a snapshot file. This attribute is maintained by the system, and cannot be set, even by the super-user.whereas DragonFly BSD supports:
+(User and System) No-history: When set, indicates that history should not be retained for the file or directory.
+(User) Swapcache: When set, indicates that clean filesystem data for the file, or for the directory and everything underneath the directory, should be cached in swap space on a solid-state drive.
+(System) Swapcache: When set, indicates that clean filesystem data for the file, or for the directory and everything underneath the directory, should not be cached in swap space on a solid-state drive.
+(System) Archived: When set, indicates that the file or directory may be archived.NetBSD added another attribute, also supported by OpenBSD:
+(System) Archived: When set, indicates that the file or directory is archived.macOS added three attributes:
+
+(User) Hidden: When set, indicates that the file or directory should not, by default, be displayed in the GUI; ls will display it, however.
+(System) Restricted: When set, indicates that the file or directory will be protected by System Integrity Protection
+(User and System) Compressed: Read-only attribute for files compressed using HFS+ CompressionIn these systems, the chflags and ls commands can be used to change and display file attributes.  To change a "user" attribute on a file in 4.4BSD-derived operating systems, the user must be the owner of the file or the superuser; to change a "system" attribute, the user must be the superuser.
+
+Linux
+The Linux operating system can support a wide range of file attributes that can be listed by the lsattr command and modified, where possible, by the chattr command.
+Programs can examine and alter attributes using ioctl operations.Many Linux file systems support only a limited set of attributes, and none of them support every attribute that chattr can change. File systems that support at least some attributes include ext4, XFS and btrfs.
+
+OpenSolaris and derivatives
+Support for "system attributes" (in which the operating system defines the meaning, unlike general extended file attributes) was added to OpenSolaris in 2007 in support of the CIFS server.  It has been carried forward from there into both the Oracle Solaris 11 releases and the open source illumos project.
+In this implementation, a wide range of attributes can be set via the chmod command and listed by the ls command.
+Programs can examine and alter attributes using the getattrat and setattrat functions.Currently the ZFS file system supports all defined attributes, and starting in Oracle Solaris 11.2, the tmpfs file system supports a subset of attributes.
+
+See also
+Extended file attributes
+Hidden file and hidden directory
+Volume label
+
+References
+External links
+Definition of: DOS Attrib Archived 2012-03-02 at the Wayback Machine on PC Magazine
+Hidden files in Unix-like operating systems at the Wayback Machine (archived October 17, 2007)
+Microsoft File Attribute Constants
+Win32 File Attributes

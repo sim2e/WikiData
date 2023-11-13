@@ -1,0 +1,87 @@
+Evolution-Data Optimized (EV-DO, EVDO, etc.) is a telecommunications standard for the wireless transmission of data through radio signals, typically for broadband Internet access. EV-DO is an evolution of the CDMA2000 (IS-2000) standard which supports high data rates and can be deployed alongside a wireless carrier's voice services. It uses advanced  multiplexing techniques including code-division multiple access (CDMA) as well as time-division multiplexing (TDM) to maximize throughput.  It is a part of the CDMA2000 family of standards and has been adopted by many mobile phone service providers around the world  particularly those previously employing CDMA networks. It is also used on the Globalstar satellite phone network.EV-DO service was discontinued in much of Canada in 2015.An EV-DO channel has a bandwidth of 1.25 MHz, the same bandwidth size that IS-95A (IS-95) and IS-2000 (1xRTT) use, though the channel structure is very different. The back-end network is entirely packet-based, and is not constrained by restrictions typically present on a circuit switched network.
+The EV-DO feature of CDMA2000 networks provides access to mobile devices with forward link air interface speeds of up to 2.4 Mbit/s with Rel. 0 and up to 3.1 Mbit/s with Rev. A. The reverse link rate for Rel. 0 can operate up to 153 kbit/s, while Rev. A can operate at up to 1.8 Mbit/s. It was designed to be operated end-to-end as an IP based network, and can support any application which can operate on such a network and bit rate constraints.
+
+Standard revisions
+There have been several revisions of the standard, starting with Release 0 (Rel. 0). This was later expanded upon with Revision A (Rev. A) to support quality of service (to improve latency) and higher rates on the forward and reverse link. In late 2006, Revision B (Rev. B) was published, whose features include the ability to bundle multiple carriers to achieve even higher rates and lower latencies (see TIA-856 Rev. B below).  The upgrade from EV-DO Rev. A to Rev. B involves a software update of the cell site modem, and additional equipment for new EV-DO carriers.  Existing cdma2000 operators may have to retune some of their existing 1xRTT channels to other frequencies, as Rev. B requires all DO carriers be within 5 MHz.
+
+EV-DO Rel. 0 (TIA-856 Release 0)
+The initial design of EV-DO was developed by Qualcomm in 1999 to meet IMT-2000 requirements for a greater-than-2Mbit/s down link for stationary communications, as opposed to mobile communication (i.e., moving cellular phone service). Initially, the standard was called High Data Rate (HDR), but was renamed to 1xEV-DO after it was ratified by the International Telecommunication Union (ITU) under the designation TIA-856. Originally, 1xEV-DO stood for "1x Evolution-Data Only", referring to its being a direct evolution of the 1x (1xRTT) air interface standard, with its channels carrying only data traffic. The title of the 1xEV-DO standard document is "cdma2000 High Rate Packet Data Air Interface Specification", as cdma2000 (lowercase) is another name for the 1x standard, numerically designated as TIA-2000.
+Later, due to possible negative connotations of the word "only", the "DO"-part of the standard's name 1xEV-DO was changed to stand for "Data Optimized", the full name - EV-DO now stands for "Evolution-Data Optimized." The 1x prefix has been dropped by many of the major carriers, and is marketed simply as EV-DO. This provides a more market-friendly emphasis of the technology being data-optimized.
+
+Forward link channel structure
+The primary characteristic that differentiates an EV-DO channel from a 1xRTT channel is that it is time multiplexed on the forward link (from the tower to the mobile). This means that a single mobile has full use of the forward traffic channel within a particular geographic area (a sector) during a given slot of time. Using this technique, EV-DO is able to modulate each user’s time slot independently. This allows the service of users in favorable RF conditions with very complex modulation techniques while also serving users in poor RF conditions with simpler (and more redundant) signals.The forward channel is divided into slots, each being 1.667 ms long. In addition to user traffic, overhead channels are interlaced into the stream, which include the 'pilot', which helps the mobile find and identify the channel, the Media Access Channel (MAC) which tells the mobile devices when their data is scheduled, and the 'control channel', which contains other information the network needs the mobile devices to know.
+The modulation to be used to communicate with a given mobile unit is determined by the mobile device itself; it listens to the traffic on the channel, and depending on the receive signal strength along with the perceived multi-path and fading conditions, makes a best guess as to what data-rate it can sustain while maintaining a reasonable frame error rate of 1-2%. It then communicates this information back to the serving sector in the form of an integer between 1 and 12 on the "Digital Rate Control" (DRC) channel. Alternatively, the mobile can select a "null" rate (DRC 0), indicating that the mobile either cannot decode data at any rate, or that it is attempting to hand off to another serving sector.The DRC values are as follows:
+Another important aspect of the EV-DO forward link channel is the scheduler. The scheduler most commonly used is called "proportional fair". It's designed to maximize sector throughput while also guaranteeing each user a certain minimum level of service. The idea is to schedule mobiles reporting higher DRC indices more often, with the hope that those reporting worse conditions will improve in time.
+The system also incorporates Incremental Redundancy Hybrid ARQ. Each sub-packet of a multi-slot transmission is a turbo-coded replica of the original data bits. This allows mobiles to acknowledge a packet before all of its sub-sections have been transmitted. For example, if a mobile transmits a DRC index of 3 and is scheduled to receive data, it will expect to get data during four time slots. If after decoding the first slot the mobile is able to determine the entire data packet, it can send an early acknowledgement back at that time; the remaining three sub-packets will be cancelled. If however the packet is not acknowledged, the network will proceed with the transmission of the remaining parts until all have been transmitted or the packet is acknowledged.
+
+Reverse link structure
+The reverse link (from the mobile back to the Base Transceiver Station) on EV-DO Rel. 0 operates very similar to that of CDMA2000 1xRTT. The channel includes a reverse link pilot (helps with decoding the signal) along with the user data channels. Some additional channels that do not exist in 1x include the DRC channel (described above) and the ACK channel (used for HARQ). Only the reverse link has any sort of power control, because the forward link is always transmitted at full power for use by all the mobiles.  The reverse link has both open loop and closed loop power control.  In the open loop, the reverse link transmission power is set based upon the received power on the forward link. In the closed loop, the reverse link power is adjusted up or down 800 times a second, as indicated by the serving sector (similar to 1x).All of the reverse link channels are combined using code division and transmitted back to the base station using BPSK where they are decoded. The maximum speed available for user data is 153.2 kbit/s, but in real-life conditions this is rarely achieved. Typical speeds achieved are between 20-50 kbit/s.
+
+EV-DO Rev. A (TIA-856 Revision A)
+Revision A of EV-DO makes several additions to the protocol while keeping it completely backwards compatible with Release 0.
+These changes included the introduction of several new forward link data rates that increase the maximum burst rate from 2.45 Mbit/s to 3.1 Mbit/s. Also included were protocols that would decrease connection establishment time (called enhanced access channel MAC), the ability for more than one mobile to share the same timeslot (multi-user packets) and the introduction of QoS flags. All of these were put in place to allow for low latency, low bit rate communications such as VoIP.The additional forward rates for EV-DO Rev. An are:
+In addition to the changes on the forward link, the reverse link was enhanced to support higher complexity modulation (and thus higher bit rates). An optional secondary pilot was added, which is activated by the mobile when it tries to achieve enhanced data rates. To combat reverse link congestion and noise rise, the protocol calls for each mobile to be given an interference allowance which is replenished by the network when the reverse link conditions allow it. The reverse link has a maximum rate of 1.8 Mbit/s, but under normal conditions users experience a rate of approximately 500-1000 Kbit/s but with more latency than DOCSIS and DSL.
+
+EV-DO Rev. B (TIA-856 Revision B)
+EV-DO Rev. B is a multi-carrier evolution of the Rev. A specification.  It maintains the capabilities of EV-DO Rev. A, and provides the following enhancements:
+
+Higher rates per carrier (up to 4.9 Mbit/s on the downlink per carrier).  Typical deployments are expected to include 2 or 3 carriers for a peak rate of 14.7 Mbit/s. Higher rates by bundling multiple channels together enhance the user experience and enable new services such as high definition video streaming.
+Reduced latency by using statistical multiplexing across channels—enhances the experience for latency sensitive services such as gaming, video telephony, remote console sessions and web browsing.
+Increased talk-time and standby time
+Reduced interference from the adjacent sectors especially to users at the edge of the cell signal which improves the rates that can be offered by using Hybrid frequency re-use.
+Efficient support for services that have asymmetric download and upload requirements (i.e. different data rates required in each direction) such as file transfers, web browsing, and broadband multimedia content delivery.
+
+EV-DO Rev. C (TIA-856 Revision C) and TIA-1121
+Qualcomm early on realized that EV-DO was a stop-gap solution, and foresaw an upcoming format war between LTE and determined that a new standard would be needed. Qualcomm originally called this technology EV-DV (Evolution Data and Voice). As EV-DO became more pervasive, EV-DV evolved into EV-DO Rev C.
+The EV-DO Rev. C standard was specified by 3GPP2 to improve the CDMA2000 mobile phone standard for next generation applications and requirements. It was proposed by Qualcomm as the natural evolution path for CDMA2000 and the specifications were published by 3GPP2 (C.S0084-*) and TIA (TIA-1121) in 2007 and 2008 respectively.The brand name UMB (Ultra Mobile Broadband) was introduced in 2006 as a synonym for this standard.UMB was intended to be a fourth-generation technology, which would make it compete with LTE and WiMAX.  These technologies use a high bandwidth, low latency, underlying TCP/IP network with high level services such as voice built on top.  Widespread deployment of 4G networks promises to make applications that were previously not feasible not only possible but ubiquitous.  Examples of such applications include mobile high definition video streaming and mobile gaming.
+Like LTE, the UMB system was to be based upon Internet networking technologies running over a next generation radio system, with peak rates of up to 280 Mbit/s. Its designers intended for the system to be more efficient and capable of providing more services than the technologies it was intended to replace. To provide compatibility with the systems it was intended to replace, UMB was to support handoffs with other technologies including existing CDMA2000 1X and 1xEV-DO systems.
+UMB's use of OFDMA would have eliminated many of the disadvantages of the CDMA technology used by its predecessor, including the "breathing" phenomenon, the difficulty of adding capacity via microcells, the fixed bandwidth sizes that limit the total bandwidth available to handsets, and the near complete control by one company of the required intellectual property.
+While capacity of existing Rel. B networks can be increased 1.5-fold by using EVRC-B voice codec and QLIC handset interference cancellation, 1x Advanced and EV-DO Advanced offers up to 4x network capacity increase using  BTS interference cancellation (reverse link interference cancellation), multi-carrier links, and smart network management technologies.In November 2008, Qualcomm, UMB's lead sponsor, announced it was ending development of the technology, favoring LTE instead. This followed the announcement that most CDMA carriers chose to adopt either WiMAX or the competing LTE standard as their 4G technology. In fact no carrier had announced plans to adopt UMB.However, during the ongoing development process of the 4G technology, 3GPP added some functionalities to LTE, allowing it to become a sole upgrade path for all wireless networks.
+
+Features
+OFDMA-based air interface
+Frequency Division Duplex
+Scalable bandwidth between 1.25–20 MHz (OFDMA systems are especially well suited for wider bandwidths larger than 5 MHz)
+Support of mixed cell sizes, e.g., macro-cellular, micro-cellular & pico-cellular.
+IP network architecture
+Support of flat, centralized and mixed topologies
+Data speeds over 275 Mbit/s downstream and over 75 Mbit/s upstream
+Significantly higher data rates & reduced latencies using Forward Link (FL) advanced antenna techniques
+MIMO, SDMA and Beamforming
+Higher Reverse Link (RL) sector capacity with quasi-orthogonal reverse link
+Increased cell edge user data rates using adaptive interference management
+Dynamic fractional frequency reuse
+Distributed RL power control based on other cell interference
+Real time services enabled by fast seamless L1/L2 handoffs
+Independent RL & FL handoffs provide better airlink and handoff performance
+Power optimization through use of quick paging and semi-connected state
+Low-overhead signaling using flexible airlink resource management
+Fast access and request using RL CDMA control channels
+New scalable IP architecture supports inter-technology handoffs
+New handoff mechanisms support real-time services throughout the network and across different airlink technologies
+Fast acquisition and efficient multi-carrier operation through use of beacons
+Multi-carrier configuration supports incremental deployment & mix of low-complexity & wideband devices
+
+See also
+3GPP2
+4G
+CDMA2000
+Evolved EDGE
+Flash-OFDM
+High-Speed Downlink Packet Access or HSDPA
+Mobile broadband
+Mobile broadband modem
+OFDM
+List of device bandwidths
+List of Evolution-Data Optimized network equipment suppliers
+List of CDMA2000 networks
+LTE
+Simultaneous Voice and EV-DO data (SVDO)
+WiMAX
+
+Notes and references
+External links
+3GPP2 CDMA2000 standards and specification documents
+CDMA Development Group (CDG)
+EVDOforums.com EV-DO discussion group
+A video demonstration of EVDO Rev. B capabilities

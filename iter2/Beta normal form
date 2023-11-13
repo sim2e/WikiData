@@ -1,0 +1,666 @@
+In the lambda calculus, a term is in beta normal form if no beta reduction is possible. A term is in beta-eta normal form if neither a beta reduction nor an eta reduction is possible. A term is in head normal form if there is no beta-redex in head position. The normal form of a term, if one exists, is unique (as a corollary of the Church–Rosser theorem). However, a term may have more than one head normal form.
+
+Beta reduction
+In the lambda calculus, a beta redex is a term of the form:
+
+  
+    
+      
+        (
+        
+          λ
+        
+        x
+        .
+        A
+        )
+        M
+      
+    
+    {\displaystyle (\mathbf {\lambda } x.A)M}
+  .A redex 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+   is in head position in a term 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  , if 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+   has the following shape (note that application has higher priority than abstraction, and that the formula below is meant to be a lambda-abstraction, not an application):
+
+  
+    
+      
+        λ
+        
+          x
+          
+            1
+          
+        
+        …
+        λ
+        
+          x
+          
+            n
+          
+        
+        .
+        
+          
+            
+              
+                (
+                λ
+                x
+                .
+                A
+                )
+                
+                  M
+                  
+                    1
+                  
+                
+              
+              ⏟
+            
+          
+          
+            
+              the redex 
+            
+            r
+          
+        
+        
+          M
+          
+            2
+          
+        
+        …
+        
+          M
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \lambda x_{1}\ldots \lambda x_{n}.\underbrace {(\lambda x.A)M_{1}} _{{\text{the redex }}r}M_{2}\ldots M_{m}}
+  , where 
+  
+    
+      
+        n
+        ≥
+        0
+      
+    
+    {\displaystyle n\geq 0}
+   and 
+  
+    
+      
+        m
+        ≥
+        1
+      
+    
+    {\displaystyle m\geq 1}
+  .A beta reduction is an application of the following rewrite rule to a beta redex contained in a term:
+
+  
+    
+      
+        (
+        
+          λ
+        
+        x
+        .
+        A
+        )
+        M
+        ⟶
+        A
+        [
+        x
+        :=
+        M
+        ]
+      
+    
+    {\displaystyle (\mathbf {\lambda } x.A)M\longrightarrow A[x:=M]}
+  where 
+  
+    
+      
+        A
+        [
+        x
+        :=
+        M
+        ]
+      
+    
+    {\displaystyle A[x:=M]}
+   is the result of substituting the term 
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   for the variable 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   in the term 
+  
+    
+      
+        A
+      
+    
+    {\displaystyle A}
+  .
+A head beta reduction is a beta reduction applied in head position, that is, of the following form:
+
+  
+    
+      
+        λ
+        
+          x
+          
+            1
+          
+        
+        …
+        λ
+        
+          x
+          
+            n
+          
+        
+        .
+        (
+        λ
+        x
+        .
+        A
+        )
+        
+          M
+          
+            1
+          
+        
+        
+          M
+          
+            2
+          
+        
+        …
+        
+          M
+          
+            m
+          
+        
+        ⟶
+        λ
+        
+          x
+          
+            1
+          
+        
+        …
+        λ
+        
+          x
+          
+            n
+          
+        
+        .
+        A
+        [
+        x
+        :=
+        
+          M
+          
+            1
+          
+        
+        ]
+        
+          M
+          
+            2
+          
+        
+        …
+        
+          M
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \lambda x_{1}\ldots \lambda x_{n}.(\lambda x.A)M_{1}M_{2}\ldots M_{m}\longrightarrow \lambda x_{1}\ldots \lambda x_{n}.A[x:=M_{1}]M_{2}\ldots M_{m}}
+  , where 
+  
+    
+      
+        n
+        ≥
+        0
+      
+    
+    {\displaystyle n\geq 0}
+   and 
+  
+    
+      
+        m
+        ≥
+        1
+      
+    
+    {\displaystyle m\geq 1}
+  .Any other reduction is an internal beta reduction.
+A normal form is a term that does not contain any beta redex, i.e. that cannot be further reduced. A head normal form is a term that does not contain a beta redex in head position, i.e. that cannot be further reduced by a head reduction. When considering the simple lambda calculus (viz. without the addition of constant or function symbols, meant to be reduced by additional delta rule), head normal forms are the terms of the following shape:
+
+  
+    
+      
+        λ
+        
+          x
+          
+            1
+          
+        
+        …
+        λ
+        
+          x
+          
+            n
+          
+        
+        .
+        x
+        
+          M
+          
+            1
+          
+        
+        
+          M
+          
+            2
+          
+        
+        …
+        
+          M
+          
+            m
+          
+        
+      
+    
+    {\displaystyle \lambda x_{1}\ldots \lambda x_{n}.xM_{1}M_{2}\ldots M_{m}}
+  , where 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   is a variable, 
+  
+    
+      
+        n
+        ≥
+        0
+      
+    
+    {\displaystyle n\geq 0}
+   and 
+  
+    
+      
+        m
+        ≥
+        0
+      
+    
+    {\displaystyle m\geq 0}
+  .A head normal form is not always a normal form, because the applied arguments 
+  
+    
+      
+        
+          M
+          
+            j
+          
+        
+      
+    
+    {\displaystyle M_{j}}
+   need not be normal. However, the converse is true: any normal form is also a head normal form. In fact, the normal forms are exactly the head normal forms in which the subterms 
+  
+    
+      
+        
+          M
+          
+            j
+          
+        
+      
+    
+    {\displaystyle M_{j}}
+   are themselves normal forms. This gives an inductive syntactic description of normal forms.
+There is also the notion of weak head normal form: a term in weak head normal form is either a term in head normal form or a lambda abstraction. This means a redex may appear inside a lambda body.
+
+Reduction strategies
+In general, a given term can contain several redexes, hence several different beta reductions could be applied. We may specify a strategy to choose which redex to reduce.
+
+Normal-order reduction is the strategy  in which one continually applies the rule for beta reduction in head position until no more such reductions are possible. At that point, the resulting term is in head normal form. One then continues applying head reduction in the subterms 
+  
+    
+      
+        
+          M
+          
+            j
+          
+        
+      
+    
+    {\displaystyle M_{j}}
+  , from left to right. Stated otherwise, normal‐order reduction is the strategy that always reduces the left‐most outer‐most redex first.
+By contrast, in applicative order reduction, one applies the internal reductions first, and then only applies the head reduction when no more internal reductions are possible.Normal-order reduction is complete, in the sense that if a term has a head normal form, then normal‐order reduction will eventually reach it. By the syntactic description of normal forms above, this entails the same statement for a “fully” normal form (this is the standardization theorem). By contrast, applicative order reduction may not terminate, even when the term has a normal form. For example, using applicative order reduction, the following sequence of reductions is possible:
+
+  
+    
+      
+        
+          
+            
+              
+              
+                
+                (
+                
+                  λ
+                
+                x
+                .
+                z
+                )
+                (
+                (
+                λ
+                w
+                .
+                w
+                w
+                w
+                )
+                (
+                λ
+                w
+                .
+                w
+                w
+                w
+                )
+                )
+              
+            
+            
+              
+                →
+              
+              
+                
+                (
+                λ
+                x
+                .
+                z
+                )
+                (
+                (
+                λ
+                w
+                .
+                w
+                w
+                w
+                )
+                (
+                λ
+                w
+                .
+                w
+                w
+                w
+                )
+                (
+                λ
+                w
+                .
+                w
+                w
+                w
+                )
+                )
+              
+            
+            
+              
+                →
+              
+              
+                
+                (
+                λ
+                x
+                .
+                z
+                )
+                (
+                (
+                λ
+                w
+                .
+                w
+                w
+                w
+                )
+                (
+                λ
+                w
+                .
+                w
+                w
+                w
+                )
+                (
+                λ
+                w
+                .
+                w
+                w
+                w
+                )
+                (
+                λ
+                w
+                .
+                w
+                w
+                w
+                )
+                )
+              
+            
+            
+              
+                →
+              
+              
+                
+                (
+                λ
+                x
+                .
+                z
+                )
+                (
+                (
+                λ
+                w
+                .
+                w
+                w
+                w
+                )
+                (
+                λ
+                w
+                .
+                w
+                w
+                w
+                )
+                (
+                λ
+                w
+                .
+                w
+                w
+                w
+                )
+                (
+                λ
+                w
+                .
+                w
+                w
+                w
+                )
+                (
+                λ
+                w
+                .
+                w
+                w
+                w
+                )
+                )
+              
+            
+            
+              
+              
+                
+                …
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\begin{aligned}&(\mathbf {\lambda } x.z)((\lambda w.www)(\lambda w.www))\\\rightarrow &(\lambda x.z)((\lambda w.www)(\lambda w.www)(\lambda w.www))\\\rightarrow &(\lambda x.z)((\lambda w.www)(\lambda w.www)(\lambda w.www)(\lambda w.www))\\\rightarrow &(\lambda x.z)((\lambda w.www)(\lambda w.www)(\lambda w.www)(\lambda w.www)(\lambda w.www))\\&\ldots \end{aligned}}}
+  But using normal-order reduction, the same starting point reduces quickly to normal form:
+
+  
+    
+      
+        (
+        
+          λ
+        
+        x
+        .
+        z
+        )
+        (
+        (
+        λ
+        w
+        .
+        w
+        w
+        w
+        )
+        (
+        λ
+        w
+        .
+        w
+        w
+        w
+        )
+        )
+      
+    
+    {\displaystyle (\mathbf {\lambda } x.z)((\lambda w.www)(\lambda w.www))}
+  
+
+  
+    
+      
+        →
+        z
+      
+    
+    {\displaystyle \rightarrow z}
+  Sinot's director strings is one method by which the computational complexity of beta reduction can be optimized.
+
+See also
+Lambda calculus
+Normal form (disambiguation)
+
+
+== References ==

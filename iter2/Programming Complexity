@@ -1,0 +1,346 @@
+Programming complexity (or software complexity) is a term that includes software properties that affect internal interactions. Several commentators distinguish between the terms "complex" and "complicated". Complicated implies being difficult to understand, but ultimately knowable. Complex, by contrast, describes the interactions between entities. As the number of entities increases, the number of interactions between them increases exponentially, making it impossible to know and understand them all. Similarly, higher levels of complexity in software increase the risk of unintentionally interfering with interactions, thus increasing the risk of introducing defects when changing the software. In more extreme cases, it can make modifying the software virtually impossible.
+The idea of linking software complexity to software maintainability has been explored extensively by Professor Manny Lehman, who developed his Laws of Software Evolution. He and his co-author Les Belady explored numerous Software Metrics that could be used to measure the state of software, eventually concluding that the only practical solution is to use deterministic complexity models.
+
+Measures
+Several measures of software complexity have been proposed. Many of these, although yielding a good representation of complexity, do not lend themselves to easy measurement. Some of the more commonly used metrics are
+
+McCabe's cyclomatic complexity metric
+Halstead's software science metrics
+Henry and Kafura introduced "Software Structure Metrics Based on Information Flow" in 1981, which measures complexity as a function of "fan-in" and "fan-out". They define fan-in of a procedure as the number of local flows into that procedure plus the number of data structures from which that procedure retrieves information. Fan-out is defined as the number of local flows out of that procedure plus the number of data structures that the procedure updates. Local flows relate to data passed to, and from procedures that call or are called by, the procedure in question. Henry and Kafura's complexity value is defined as "the procedure length multiplied by the square of fan-in multiplied by fan-out" (Length ×(fan-in × fan-out)²).
+Chidamber and Kemerer introduced "A Metrics Suite for Object-Oriented Design" in 1994, focusing on metrics for object-oriented code. They introduce six OO complexity metrics: (1) weighted methods per class; (2) coupling between object classes; (3) response for a class; (4) number of children; (5) depth of inheritance tree; and (6) lack of cohesion of methods.Several other metrics can be used to measure programming complexity:
+
+Branching complexity (Sneed Metric)
+Data access complexity (Card Metric)
+Data complexity (Chapin Metric)
+Data flow complexity (Elshof Metric)
+Decisional complexity (McClure Metric)
+Path Complexity (Bang Metric)Tesler's Law is an adage in human–computer interaction stating that every application has an inherent amount of complexity that cannot be removed or hidden.
+
+Types
+The complexity of an existing program determines the complexity of changing the program. Problem complexity can be divided into two categories:
+Accidental complexity relates to difficulties a programmer faces due to the software engineering tools. Selecting a better tool set or a higher-level programming language may reduce it. Accidental complexity often results from not using the domain to frame the form of the solution. Domain-driven design can help minimize accidental complexity.
+Essential complexity is caused by the characteristics of the problem to be solved and cannot be reduced.
+
+Chidamber and Kemerer Metrics
+Chidamber and Kemerer proposed a set of programing complexity metrics widely used in measurements and academic articles: weighted methods per class, coupling between object classes, response for a class, number of children, depth of inheritance tree, and lack of cohesion of methods, described below:
+
+Weighted methods per class ("WMC")
+
+  
+    
+      
+        W
+        M
+        C
+        =
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          c
+          
+            i
+          
+        
+      
+    
+    {\displaystyle WMC=\sum _{i=1}^{n}c_{i}}
+  
+n is the number of methods on the class
+
+  
+    
+      
+        
+          c
+          
+            i
+          
+        
+      
+    
+    {\displaystyle c_{i}}
+  is the complexity of the method
+Coupling between object classes ("CBO")
+number of other class which is coupled (using or being used)
+Response for a class ("RFC")
+
+  
+    
+      
+        R
+        F
+        C
+        =
+        
+          |
+        
+        R
+        S
+        
+          |
+        
+      
+    
+    {\displaystyle RFC=|RS|}
+   where
+
+  
+    
+      
+        R
+        S
+        =
+        {
+        M
+        }
+        
+          ∪
+          
+            a
+            l
+            l
+             
+            i
+          
+        
+        {
+        
+          R
+          
+            i
+          
+        
+        }
+      
+    
+    {\displaystyle RS=\{M\}\cup _{all\ i}\{R_{i}\}}
+  
+
+  
+    
+      
+        
+          R
+          
+            i
+          
+        
+      
+    
+    {\displaystyle R_{i}}
+   is set of methods called by method i
+
+  
+    
+      
+        M
+      
+    
+    {\displaystyle M}
+   is the set of methods in the class
+Number of children ("NOC")
+sum of all classes that inherit this class or a descendant of it
+Depth of inheritance tree ("DIT")
+maximum depth of the inheritance tree for this class
+Lack of cohesion of methods ("LCOM")
+Measures the intersection of the attributes used in common by the class methods
+
+  
+    
+      
+        L
+        C
+        O
+        M
+        =
+        
+          
+            {
+            
+              
+                
+                  
+                    |
+                  
+                  P
+                  
+                    |
+                  
+                  −
+                  
+                    |
+                  
+                  Q
+                  
+                    |
+                  
+                  ,
+                
+                
+                  
+                    if 
+                  
+                  
+                    |
+                  
+                  P
+                  
+                    |
+                  
+                  >
+                  
+                    |
+                  
+                  Q
+                  
+                    |
+                  
+                
+              
+              
+                
+                  0
+                  ,
+                
+                
+                  
+                    otherwise 
+                  
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle LCOM={\begin{cases}|P|-|Q|,&{\text{if }}|P|>|Q|\\0,&{\text{otherwise }}\end{cases}}}
+  
+Where 
+  
+    
+      
+        P
+        =
+        {
+        (
+        
+          I
+          
+            i
+          
+        
+        ,
+        
+          I
+          
+            j
+          
+        
+        )
+        
+          |
+        
+        
+          I
+          
+            i
+          
+        
+        ∩
+        
+          I
+          
+            j
+          
+        
+        =
+        ∅
+        }
+      
+    
+    {\displaystyle P=\{(I_{i},I_{j})|I_{i}\cap I_{j}=\emptyset \}}
+  
+And 
+  
+    
+      
+        Q
+        =
+        {
+        (
+        
+          I
+          
+            i
+          
+        
+        ,
+        
+          I
+          
+            j
+          
+        
+        )
+        
+          |
+        
+        
+          I
+          
+            i
+          
+        
+        ∩
+        
+          I
+          
+            j
+          
+        
+        ≠
+        ∅
+        }
+      
+    
+    {\displaystyle Q=\{(I_{i},I_{j})|I_{i}\cap I_{j}\neq \emptyset \}}
+  
+With 
+  
+    
+      
+        
+          I
+          
+            i
+          
+        
+      
+    
+    {\displaystyle I_{i}}
+   is the set of attributes (instance variables) accessed (read from or written to) by the 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  -th method of the class
+
+See also
+Software crisis (and subsequent programming paradigm solutions)
+Software metrics - quantitative measure of some property of a program.
+
+
+== References ==

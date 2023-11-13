@@ -1,0 +1,35 @@
+The IBM 709 was a computer system, initially announced by IBM in January 1957 and first installed during August 1958. The 709 was an improved version of its predecessor, the IBM 704, and  was the third of the IBM 700/7000 series of scientific computers. The improvements included overlapped input/output, indirect addressing, and three "convert" instructions which provided support for decimal arithmetic, leading zero suppression, and several other operations. The 709 had 32,768 words of 36-bit magnetic core memory and could execute 42,000 add or subtract instructions per second. It could multiply two 36-bit integers at a rate of 5000 per second.An optional hardware emulator executed old IBM 704 programs on the IBM 709. This was the first commercially available emulator. Registers and most 704 instructions were emulated in 709 hardware. Complex 704 instructions such as floating point trap and input-output routines were emulated in 709 software.
+The FORTRAN Assembly Program was first introduced for the 709.
+It was a large system; customer installations used 100 to 250 kW to run them and almost as much again on the cooling. It weighed about 2,110 pounds (960 kg) (without peripheral equipment).
+The 709 was built using vacuum tubes. 
+IBM announced a transistorized version of the 709, called the IBM 7090, in 1958, only a year after the announcement of the 709, thus cutting short the 709's product life.
+
+Registers
+The IBM 709 has a 38-bit accumulator, a 36-bit multiplier quotient register, and three 15-bit index registers whose contents are subtracted from the base address instead of being added to it. All three index registers can participate in an instruction: the 3-bit tag field in the instruction is a bit map specifying which of the registers participate in the operation, however if more than one index register is specified, their contents are combined by a logical or operation, not addition.p. 12
+
+Instruction and data formats
+There are five instruction formats, referred to as Types A, B,C, D and E.  Most instructions are of type B.Type A instructions have, in sequence, a 3-bit prefix (instruction code), a 15-bit decrement field, a 3-bit tag field, and a 15-bit address field.  They are conditional jump operations based on the values in the decrement registers specified in the tag field.  Some also subtract the decrement field from the contents of the index registers.  The implementation requires that the second two bits of the instruction code be non-zero, giving a total of six possible type A instructions.  One (STR, instruction code binary 101) was not implemented until the IBM 709.
+Type B instructions have, in sequence, a 12-bit instruction code (with the second and third bits set to 0 to distinguish them from type A instructions), a 2-bit flag field, four unused bits, a 3-bit tag field, and a 15-bit address field.
+Types C, D and E are used for specialized instructions.
+
+Fixed point numbers are stored in binary sign/magnitude format.
+Single precision floating point numbers have a sign, an 8-bit excess-128 exponent and a 27-bit fraction (there was no "hidden bit").
+Alphanumeric characters are 6-bit BCD, packed six to a word.The instruction set implicitly subdivides the data format into the same fields as type A instructions: prefix, decrement, tag and address.  Instructions exist to modify each of these fields in a data word without changing the remainder of the word.
+
+I/O channel
+The primary improvements of the 709 over the previous 704 involved more magnetic core memory and apparently the first use of independent I/O channels. Whereas I/O on 704 is a programmed function of the central processor - data words are transferred to or from the I/O register, one at a time, using a "copy" instruction - the 709 uses the IBM-766 data synchronizer, which provides two independently "programmed" I/O channels. Up to three Data Synchronizers can be attached to a 709, each able to control up to 20 IBM 729 tape drives and an IBM 716 alphanumeric line printer, IBM 711 card-reader and 721 card punch. This allows six times as many I/O devices on 709, and allows I/O to proceed on multiple devices while program execution continues in parallel. Up to two IBM 733 Magnetic Drum units, each with 8,192 words of memory, could be attached independently from the Data Synchronizers.  The 709 could initially load programs (boot) from card, tape or drum.: 113 The IBM 738 Magnetic Core Storage used on 709 was also a milestone of hybrid technology. Although the core array drivers are all vacuum tube, the read sense amplifiers were a very early use of transistors in computing.
+
+See also
+List of vacuum tube computers
+IBM 740 CRT recorder
+SHARE Operating System (SOS)
+SQUOZE
+
+References
+Further reading
+Sherman, Philip M. (1963).  Written at Bell Telephone Laboratories, Murray Hill, New Jersey, USA. Programming and Coding the IBM 709-7090-7094 Computers (PDF) (1 ed.). New York / London / Sydney: John Wiley & Sons, Inc. Archived (PDF) from the original on 2020-06-18. Retrieved 2020-06-18.
+
+External links
+709 Data Processing System – IBM history
+IBM 709 Data Processing System – BRL report, (details of each installation) with photos
+IBM 709 page at Columbia University – with photos

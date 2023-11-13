@@ -1,0 +1,2306 @@
+In computational chemistry, the Lennard-Jones potential (also termed the LJ potential or 12-6 potential; named for John Lennard-Jones) is an intermolecular pair potential. Out of all the intermolecular potentials, the Lennard-Jones potential is probably the one that has been the most extensively studied. It is considered an archetype model for simple yet realistic intermolecular interactions.
+The Lennard-Jones potential models soft repulsive and attractive (van der Waals) interactions. Hence, the Lennard-Jones potential describes electronically neutral atoms or molecules. The commonly used expression for the Lennard-Jones potential is
+
+where r is the distance between two interacting particles, ε is the depth of the potential well (usually referred to as 'dispersion energy'), and σ is the distance at which the particle-particle potential energy V is zero (often referred to as 'size of the particle'). The Lennard-Jones potential has its minimum at a distance of 
+  
+    
+      
+        r
+        =
+        
+          r
+          
+            
+              m
+              i
+              n
+            
+          
+        
+        =
+        
+          2
+          
+            1
+            
+              /
+            
+            6
+          
+        
+        σ
+        ,
+      
+    
+    {\displaystyle r=r_{\rm {min}}=2^{1/6}\sigma ,}
+   where the potential energy has the value 
+  
+    
+      
+        V
+        =
+        −
+        ε
+        .
+      
+    
+    {\displaystyle V=-\varepsilon .}
+  
+The Lennard-Jones potential is a simplified model that yet describes the essential features of interactions between simple atoms and molecules: Two interacting particles repel each other at very close distance, attract each other at moderate distance, and do not interact at infinite distance, as shown in Figure 1. The Lennard-Jones potential is a pair potential, i.e. no three- or multi-body interactions are covered by the potential.
+Statistical mechanics and computer simulations can be used to study the Lennard-Jones potential and to obtain thermophysical properties of the 'Lennard-Jones substance'. The Lennard-Jones substance is often referred to as 'Lennard-Jonesium,' suggesting that it is viewed as a (fictive) chemical element.  Moreover, its energy and length parameters can be adjusted to fit many different real substances. Both the Lennard-Jones potential and, accordingly, the Lennard-Jones substance are simplified yet realistic models, such as they accurately capture essential physical principles like the presence of a critical and a triple point, condensation and freezing. Due in part to its mathematical simplicity, the Lennard-Jones potential has been extensively used in studies on matter since the early days of computer simulation. The Lennard-Jones potential is probably still the most frequently studied model potential.The Lennard-Jones potential is usually the standard choice for the development of theories for matter (especially soft-matter) as well as for the development and testing of computational methods and algorithms. Upon adjusting the model parameters ε and σ to real substance properties, the Lennard-Jones potential can be used to describe simple substance (like noble gases) with good accuracy. Furthermore, the Lennard-Jones potential is often used as a building block in molecular models (a.k.a. force fields) for more complex substances.
+
+Physical background and mathematical details
+The Lennard-Jones potential models the two most important and fundamental molecular interactions: The repulsive term (
+  
+    
+      
+        1
+        
+          /
+        
+        
+          r
+          
+            12
+          
+        
+      
+    
+    {\displaystyle 1/r^{12}}
+   term) describes the Pauli repulsion at short distances of the interacting particles due to overlapping electron orbitals and the attractive term (
+  
+    
+      
+        1
+        
+          /
+        
+        
+          r
+          
+            6
+          
+        
+      
+    
+    {\displaystyle 1/r^{6}}
+   term) describes attraction at long ranged interactions (London dispersion force), which vanish at infinite distance between two particles. The steep repulsive interactions at short distances yield the low compressibility of the solid and liquid phase; the attractive dispersive interactions act stabilizing for the condensed phase, especially the vapor–liquid equilibrium.
+The functional form of the attractive term, the exponent '6', has a physical justification, which does not hold as rigorously for the repulsive term with the exponent '12'. The attractive dispersive interactions between simple atoms and molecules are a result of fluctuating partial charges. It has been shown by quantum-chemical calculations that this dispersive contribution has to decay with 
+  
+    
+      
+        1
+        
+          /
+        
+        
+          r
+          
+            6
+          
+        
+      
+    
+    {\displaystyle 1/r^{6}}
+  .The 
+  
+    
+      
+        1
+        
+          /
+        
+        
+          r
+          
+            12
+          
+        
+      
+    
+    {\displaystyle 1/r^{12}}
+   term is mainly used because it can be implemented computationally very efficiently as the square of 
+  
+    
+      
+        1
+        
+          /
+        
+        
+          r
+          
+            6
+          
+        
+      
+    
+    {\displaystyle 1/r^{6}}
+  , which does not hold to the same extent for values other than '12'. Also, 
+  
+    
+      
+        1
+        
+          /
+        
+        
+          r
+          
+            12
+          
+        
+      
+    
+    {\displaystyle 1/r^{12}}
+   approximates the Pauli repulsion reasonably well. If needed, the Lennard-Jones potential can be generalized using arbitrary exponents instead of 12 and 6; the resulting model is called the Mie potential. The present article exclusively discusses the original (12-6) Lennard-Jones potential.
+The Lennard-Jones potential exhibits a pole at 
+  
+    
+      
+        r
+        →
+        0
+      
+    
+    {\displaystyle r\rightarrow 0}
+  , i.e. the potential energy diverges to 
+  
+    
+      
+        V
+        →
+        ∞
+      
+    
+    {\displaystyle V\rightarrow \infty }
+  , which can cause instabilities in molecular simulations, e.g. for the sampling of the chemical potential. The Lennard-Jones potential converges to 
+  
+    
+      
+        V
+        →
+        0
+      
+    
+    {\displaystyle V\rightarrow 0}
+   for 
+  
+    
+      
+        r
+        →
+        ∞
+      
+    
+    {\displaystyle r\rightarrow \infty }
+  . Hence, from a mathematical standpoint, attractive interactions stay present for infinitely distanced particles. These dispersive 'long-range' interactions have an important influence on several properties of the Lennard-Jones substance, e.g. the pressure or heat capacity in the vicinity of the critical point and the critical point itself. The importance of the long-range interactions were noticed already in the early stages of statistical mechanics. For computer simulations, only finite numbers of particles can be used, which leads to the fact that the potential can only be evaluated up to a finite radius 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  , which is a so-called finite size effect. There are well-established methods to implicitly consider the thereby neglected long-range contribution for a given observable (details are given below).
+It is often claimed that multiple Lennard-Jones potentials and corresponding substances exist depending on the handling of the long-range interactions. This is misleading. There is only one 'Lennard-Jones potential', which is exactly defined by Eq. (1). The Lennard-Jones potential requires the consideration and evaluation of long-range interactions up to very long (actually infinite) distances – at least so that the influence of the truncation has no influence on the observable of interest for the reported decimal places.
+The Lennard-Jones potential implies that the particles are point masses with a mass 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  . Even though the parameter 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   is often referred to as 'size of the particle', particles interacting with the Lennard-Jones potential have no uniquely defined 'size' – opposite to the hard sphere potential. Particles interacting with the Lennard-Jones potential rather have soft repulsive cores.
+The Lennard-Jones model describes the potential intermolecular energy 
+  
+    
+      
+        V
+      
+    
+    {\displaystyle V}
+   between two particles based on the outlined principles. Following Newton's mechanics, the actual force 
+  
+    
+      
+        F
+      
+    
+    {\displaystyle F}
+   between two interacting particles is simply obtained by negating and differentiating the Lennard-Jones potential with respect to 
+  
+    
+      
+        r
+      
+    
+    {\displaystyle r}
+  , i.e. 
+  
+    
+      
+        F
+        =
+        −
+        
+          d
+        
+        V
+        
+          /
+        
+        
+          d
+        
+        r
+      
+    
+    {\displaystyle F=-\mathrm {d} V/\mathrm {d} r}
+  . Depending on the distance between the two particles, the net force can be either attractive or repulsive.
+The Lennard-Jones potential yields a good approximation of intermolecular interactions for many applications: The macroscopic properties computed using the Lennard-Jones potential are in good agreement with experimental data for simple substances like argon on one side and the potential function 
+  
+    
+      
+        
+          V
+          
+            
+              L
+              J
+            
+          
+        
+        (
+        r
+        )
+      
+    
+    {\displaystyle V_{\mathrm {LJ} }(r)}
+   is in fair agreement with results from quantum chemistry on the other side. The Lennard-Jones potential gives a good description of molecular interactions in fluid phases, whereas molecular interactions in solid phases are only roughly well described. This is mainly due to the fact that multi-body interactions play a significant role in solid phases, which are not comprised in the Lennard-Jones potential. Therefore, the Lennard-Jones potential is extensively used in soft-matter physics and associated fields, whereas it is less frequently used in solid-state physics. Due to its simplicity, the Lennard-Jones potential is often used to describe the properties of gases and simple fluids and to model dispersive and repulsive interactions in molecular models. It is especially accurate for noble gas atoms and methane. It is furthermore a good approximation for molecular interactions at long and short distances for neutral atoms and molecules. Therefore, the Lennard-Jones potential is very often used as a building block of molecular models of complex molecules, e.g. alkanes or water. The Lennard-Jones potential can also be used to model the adsorption interactions at solid–fluid interfaces, i.e. physisorption or chemisorption.
+It is well accepted, that the main limitations of the Lennard-Jones potential lie in the fact the potential is a pair potential (does not cover multi-body interactions) and that the 
+  
+    
+      
+        1
+        
+          /
+        
+        
+          r
+          
+            12
+          
+        
+      
+    
+    {\displaystyle 1/r^{12}}
+   exponent term is used for the repulsion. Results from quantum chemistry suggest that a higher exponent than 12 has to be used, i.e. a steeper potential. Furthermore, the Lennard-Jones potential has a limited flexibility, i.e. only the two model parameters 
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+   and 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   can be used for the fitting to describe a real substance.
+Numerous intermolecular potentials have been proposed in the past for the modeling of simple soft repulsive and attractive interactions between spherically symmetric particles, i.e. the general shape shown in Figure 1. Examples for other potentials are the Morse potential, the Mie potential, the Buckingham potential and the Tang-Tönnies potential. Nevertheless, none of those are of such general importance as the Lennard-Jones potential.
+
+Application of the Lennard-Jones potential
+The Lennard-Jones potential is not only of fundamental importance in computational chemistry and soft-matter physics, but also for the modeling of real substances. The Lennard-Jones potential is frequently used for fundamental studies on the behavior of matter and for elucidating atomistic phenomena. It is also often used for somewhat special use cases, e.g. for studying thermophysical properties of two- or four-dimensional substances (instead of the classical three spatial directions of our universe).
+The Lennard-Jones potential is extensively used for molecular modeling. There are essentially two ways the Lennard-Jones potential can be used for molecular modeling: (1) A real substance atom or molecule is modeled directly by the Lennard-Jones potential, which yields very good results for noble gases and methane, i.e. dispersively interacting spherical particles. In the case of methane, the molecule is assumed to be spherically symmetric and the hydrogen atoms are fused with the carbon atom to a common unit. This simplification can in general also be applied to more complex molecules, but yields usually poor results. (2) A real substance molecule is built of multiple Lennard-Jones interactions sites, which can be connected either by rigid bonds or flexible additional potentials (and eventually also consists of other potential types, e.g. partial charges). Molecular models (often referred to as 'force fields') for practically all molecular and ionic particles can be constructed using this scheme for example for alkanes.
+Upon using the first outlined approach, the molecular model has only the two parameters of the Lennard-Jones potential 
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+   and 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   that can be used for the fitting, e.g. 
+  
+    
+      
+        ε
+        
+          /
+        
+        
+          k
+          
+            
+              B
+            
+          
+        
+        =
+        120
+        
+        
+          K
+        
+      
+    
+    {\displaystyle \varepsilon /k_{\mathrm {B} }=120\,\mathrm {K} }
+   and 
+  
+    
+      
+        σ
+        =
+        0.34
+        
+        
+          n
+          m
+        
+      
+    
+    {\displaystyle \sigma =0.34\,\mathrm {nm} }
+   are frequently used for argon. Evidently, this approach is only a good approximation for spherical and simply dispersively interacting molecules and atoms. The direct use of the Lennard-Jones potential has the great advantage that simulation results and theories for the Lennard-Jones potential can be used directly. Hence, available results for the Lennard-Jones potential and substance can be directly scaled using the appropriate 
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+   and 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   (see reduced units). The Lennard-Jones potential parameters 
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+   and 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   can in general be fitted to any desired real substance property. In soft-matter physics, usually experimental data for the vapor–liquid phase equilibrium or the critical point are used for the parametrization; in solid-state physics, rather the compressibility, heat capacity or lattice constants are employed.The second outlined approach of using the Lennard-Jones potential as a building block of elongated and complex molecules is far more sophisticated. Molecular models are thereby tailor-made in a sense that simulation results are only applicable for that particular model. This development approach for molecular force fields is today mainly performed in soft-matter physics and associated fields such as chemical engineering, chemistry, and computational biology. A large number of force fields are based on the Lennard-Jones potential, e.g. the TraPPE force field, the OPLS force field, and the MolMod force field (an overview of molecular force fields is out of the scope of the present article). For the state-of-the-art modeling of solid-state materials, more elaborate multi-body potentials (e.g. EAM potentials) are used.
+
+Alternative notations of the Lennard-Jones potential
+There are several different ways to formulate the Lennard-Jones potential besides Eq. (1). Alternatives are:
+AB form
+The AB form is frequently used in implementations of simulation software as it is computationally favorable. The Lennard-Jones potential can be written as
+
+where, 
+  
+    
+      
+        A
+        =
+        4
+        ε
+        
+          σ
+          
+            12
+          
+        
+      
+    
+    {\displaystyle A=4\varepsilon \sigma ^{12}}
+   and 
+  
+    
+      
+        B
+        =
+        4
+        ε
+        
+          σ
+          
+            6
+          
+        
+      
+    
+    {\displaystyle B=4\varepsilon \sigma ^{6}}
+  . Conversely, 
+  
+    
+      
+        σ
+        =
+        
+          
+            
+              A
+              B
+            
+            
+              6
+            
+          
+        
+      
+    
+    {\displaystyle \sigma ={\sqrt[{6}]{\frac {A}{B}}}}
+   and 
+  
+    
+      
+        ε
+        =
+        
+          
+            
+              B
+              
+                2
+              
+            
+            
+              4
+              A
+            
+          
+        
+      
+    
+    {\displaystyle \varepsilon ={\frac {B^{2}}{4A}}}
+  . 
+This is the form in which Lennard-Jones originally presented the potential named after him.n-exp form
+The n-exp form is a mathematically more general form (see Mie potential) and can be written as
+
+where 
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+   is the bonding energy of the molecule (the energy required to separate the atoms). Applying a harmonic approximation to the potential minimum (at 
+  
+    
+      
+        V
+        (
+        
+          r
+          
+            m
+          
+        
+        )
+        =
+        −
+        ε
+      
+    
+    {\displaystyle V(r_{m})=-\varepsilon }
+  ), the exponent 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   and the energy parameter 
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+   can be related to the harmonic spring constant:
+
+from which 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   can be calculated if 
+  
+    
+      
+        k
+      
+    
+    {\displaystyle k}
+   is known. If changes in the harmonic states 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   are known from experiment (for example, from Raman spectroscopy) then 
+  
+    
+      
+        Δ
+        E
+        =
+        ℏ
+        ω
+      
+    
+    {\displaystyle \Delta E=\hbar \omega }
+  , where 
+  
+    
+      
+        ω
+        =
+        
+          
+            k
+            
+              /
+            
+            μ
+          
+        
+      
+    
+    {\textstyle \omega ={\sqrt {k/\mu }}}
+   and 
+  
+    
+      
+        μ
+        =
+        m
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle \mu =m/2}
+   is the reduced mass and 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+   is the particle mass, may be used to estimate the spring constant. Alternatively 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   can be related to  
+  
+    
+      
+        
+          v
+          
+            g
+          
+        
+      
+    
+    {\displaystyle v_{\text{g}}}
+  , the group velocity in a crystal, using
+
+where 
+  
+    
+      
+        a
+      
+    
+    {\displaystyle a}
+   is the lattice distance.
+
+Dimensionless (reduced units)
+Dimensionless reduced units can be defined based on the Lennard-Jones potential parameters, which is convenient for molecular simulations. From a numerical point of view, the advantages of this unit system include computing values which are closer to unity, using simplified equations and being able to easily scale the results. This reduced units system requires the specification of the size parameter 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+   and the energy parameter 
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+   of the Lennard-Jones potential and the mass of the particle 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  . All physical properties can be converted straightforwardly taking the respective dimension into account, see table. The reduced units are often abbreviated and indicated by an asterisk.
+In general, reduced units can also be built up on other molecular interaction potentials that consist of a length parameter and an energy parameter.
+
+Thermophysical properties of the Lennard-Jones substance
+Thermophysical properties of the Lennard-Jones substance, i.e. particles interacting with the Lennard-Jones potential can be obtained using statistical mechanics. Some properties can be computed analytically, i.e. with machine precision, whereas most properties can only be obtained by performing molecular simulations. The latter will in general be superimposed by both statistical and systematic uncertainties. The virial coefficients can for example be computed directly from the Lennard-potential using algebraic expressions and reported data has therefore no uncertainty. Molecular simulation results, e.g. the pressure at a given temperature and density has both statistical and systematic uncertainties. Molecular simulations of the Lennard-Jones potential can in general be performed using either molecular dynamics (MD) simulations or Monte Carlo (MC) simulation. For MC simulations, the Lennard-Jones potential 
+  
+    
+      
+        
+          V
+          
+            
+              L
+              J
+            
+          
+        
+        (
+        r
+        )
+      
+    
+    {\displaystyle V_{\mathrm {LJ} }(r)}
+   is directly used, whereas MD simulations are always based on the derivative of the potential, i.e. the force 
+  
+    
+      
+        F
+        =
+        
+          d
+        
+        V
+        
+          /
+        
+        
+          d
+        
+        r
+      
+    
+    {\displaystyle F=\mathrm {d} V/\mathrm {d} r}
+  . These differences in combination with differences in the treatment of the long-range interactions (see below) can influence computed thermophysical properties.Since the Lennard-Jonesium is the archetype for the modeling of simple yet realistic intermolecular interactions, a large number of thermophysical properties were studied and reported in the literature. Computer experiment data of the Lennard-Jones potential is presently considered the most accurately known data in classical mechanics computational chemistry. Hence, such data is also mostly used as benchmark for the validation and testing of new algorithms and theories. The Lennard-Jones potential has been constantly used since the early days of molecular simulations. The first results from computer experiments for the Lennard-Jones potential were reported by Rosenbluth and Rosenbluth and Wood and Parker after molecular simulations on "fast computing machines" became available in 1953. Since then many studies reported data of the Lennard-Jones substance; approximately 50,000 data points are publicly available. The current state of research of thermophysical properties of the Lennard-Jones substance is summarized in the following. The most comprehensive summary and digital database was given by Stephan et al. Presently, no data repository covers and maintains this database (or any other model potential) – the concise data selection stated by the NIST website should be treated with caution regarding referencing and coverage (it contains a small fraction of the available data). Most of the data on NIST website provides non-peer-reviewed data generated in-house by NIST.
+Figure 2 shows the phase diagram of the Lennard-Jones fluid. Phase equilibria of the Lennard-Jones potential have been studied numerous times and are accordingly known today with good precision. Figure 2 shows results correlations derived from computer experiment results (hence, lines instead of data points are shown).
+The mean intermolecular interaction of a Lennard-Jones particle strongly depends on the thermodynamic state, i.e. temperature and pressure (or density). For solid states, the attractive Lennard-Jones interaction plays a dominant role – especially at low temperatures. For liquid states, no ordered structure is present compared to solid states. The mean potential energy per particle is negative. For gaseous states, attractive interactions of the Lennard-Jones potential play a minor role – since they are far distanced. The main part of the internal energy is stored as kinetic energy for gaseous states. At supercritical states, the attractive Lennard-Jones interaction plays a minor role. With increasing temperature, the mean kinetic energy of the particles increases and exceeds the energy well of the Lennard-Jones potential. Hence, the particles mainly interact by the potentials' soft repulsive interactions and the mean potential energy per particle is accordingly positive.
+Overall, due to the large timespan the Lennard-Jones potential has been studied and thermophysical property data has been reported in the literature and computational resources were insufficient for accurate simulations (to modern standards), a noticeable amount of data is known to be dubious. Nevertheless, in many studies such data is used as reference. The lack of data repositories and data assessment is a crucial element for future work in the long-going field of Lennard-Jones potential research.
+
+Characteristic points and curves
+The most important characteristic points of the Lennard-Jones potential are the critical point and the vapor–liquid–solid triple point. They were studied numerous times in the literature and compiled in Ref. The critical point was thereby assessed to be located at
+
+  
+    
+      
+        
+          T
+          
+            
+              c
+            
+          
+        
+        =
+        1.321
+        ±
+        0.007
+        
+        ε
+        
+          k
+          
+            
+              B
+            
+          
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle T_{\mathrm {c} }=1.321\pm 0.007\,\varepsilon k_{\mathrm {B} }^{-1}}
+  
+
+  
+    
+      
+        
+          ρ
+          
+            
+              c
+            
+          
+        
+        =
+        0.316
+        ±
+        0.005
+        
+        
+          σ
+          
+            −
+            3
+          
+        
+      
+    
+    {\displaystyle \rho _{\mathrm {c} }=0.316\pm 0.005\,\sigma ^{-3}}
+  
+
+  
+    
+      
+        
+          p
+          
+            
+              c
+            
+          
+        
+        =
+        0.129
+        ±
+        0.005
+        
+        ε
+        
+          σ
+          
+            −
+            3
+          
+        
+      
+    
+    {\displaystyle p_{\mathrm {c} }=0.129\pm 0.005\,\varepsilon \sigma ^{-3}}
+  The given uncertainties were calculated from the standard deviation of the critical parameters derived from the most reliable available vapor–liquid equilibrium data sets. These uncertainties can be assumed as a lower limit to the accuracy with which the critical point of fluid can be obtained from molecular simulation results.
+
+The triple point is presently assumed to be located at
+
+  
+    
+      
+        
+          T
+          
+            
+              t
+              r
+            
+          
+        
+        =
+        0.69
+        ±
+        0.005
+        
+        ε
+        
+          k
+          
+            
+              B
+            
+          
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle T_{\mathrm {tr} }=0.69\pm 0.005\,\varepsilon k_{\mathrm {B} }^{-1}}
+  
+
+  
+    
+      
+        
+          ρ
+          
+            
+              t
+              r
+              ,
+              g
+              a
+              s
+            
+          
+        
+        =
+        0.0017
+        ±
+        0.004
+        
+        
+          σ
+          
+            −
+            3
+          
+        
+      
+    
+    {\displaystyle \rho _{\mathrm {tr,gas} }=0.0017\pm 0.004\,\sigma ^{-3}}
+  
+
+  
+    
+      
+        
+          ρ
+          
+            
+              t
+              r
+              ,
+              l
+              i
+              q
+            
+          
+        
+        =
+        0.845
+        ±
+        0.009
+        
+        
+          σ
+          
+            −
+            3
+          
+        
+      
+    
+    {\displaystyle \rho _{\mathrm {tr,liq} }=0.845\pm 0.009\,\sigma ^{-3}}
+  
+
+  
+    
+      
+        
+          ρ
+          
+            
+              t
+              r
+              ,
+              s
+              o
+              l
+            
+          
+        
+        =
+        0.961
+        ±
+        0.007
+        
+        
+          σ
+          
+            −
+            3
+          
+        
+      
+    
+    {\displaystyle \rho _{\mathrm {tr,sol} }=0.961\pm 0.007\,\sigma ^{-3}}
+  
+
+  
+    
+      
+        
+          p
+          
+            
+              t
+              r
+            
+          
+        
+        =
+        0.0012
+        ±
+        0.0007
+        
+        ε
+        
+          σ
+          
+            −
+            3
+          
+        
+      
+    
+    {\displaystyle p_{\mathrm {tr} }=0.0012\pm 0.0007\,\varepsilon \sigma ^{-3}}
+  The uncertainties represent the scattering of data from different authors. The critical point of the Lennard-Jones substance has been studied far more often than the triple point. For both the critical point and the vapor–liquid–solid triple point, several studies reported results out of the above stated ranges. The above stated data is the presently assumed correct and reliable data. Nevertheless, the determinateness of the critical temperature and the triple point temperature is still unsatisfactory.
+Evidently, the phase coexistence curves (cf. figure 2) are of fundamental importance to characterize the Lennard-Jones potential. Furthermore, Brown's characteristic curves yield an illustrative description of essential features of the Lennard-Jones potential. Brown's characteristic curves are defined as curves on which a certain thermodynamic property of the substance matches that of an ideal gas. For a real fluid, 
+  
+    
+      
+        Z
+      
+    
+    {\displaystyle Z}
+   and its derivatives can match the values of the ideal gas for special 
+  
+    
+      
+        T
+      
+    
+    {\displaystyle T}
+  , 
+  
+    
+      
+        ρ
+      
+    
+    {\displaystyle \rho }
+   combinations only as a result of Gibbs' phase rule. The resulting points collectively constitute a characteristic curve. Four main characteristic curves are defined: One 0th-order (named Zeno curve) and three 1st-order curves (named Amagat, Boyle, and Charles curve). The characteristic curve are required to have a negative or zero curvature throughout and a single maximum in a double-logarithmic pressure-temperature diagram. Furthermore, Brown's characteristic curves and the virial coefficients are directly linked in the limit of the ideal gas and are therefore known exactly at 
+  
+    
+      
+        ρ
+        →
+        0
+      
+    
+    {\displaystyle \rho \rightarrow 0}
+  . Both computer simulation results and equation of state results have been reported in the literature for the Lennard-Jones potential.Points on the Zeno curve Z have a compressibility factor of unity 
+  
+    
+      
+        Z
+        =
+        p
+        
+          /
+        
+        (
+        ρ
+        T
+        )
+        =
+        1
+      
+    
+    {\displaystyle Z=p/(\rho T)=1}
+  . The Zeno curve originates at the Boyle temperature 
+  
+    
+      
+        
+          T
+          
+            
+              B
+            
+          
+        
+        =
+        3.417927982
+        
+        ε
+        
+          k
+          
+            
+              B
+            
+          
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle T_{\mathrm {B} }=3.417927982\,\varepsilon k_{\mathrm {B} }^{-1}}
+  , surrounds the critical point, and has a slope of unity in the low temperature limit. Points on the Boyle curve B have 
+  
+    
+      
+        
+          
+            
+            
+              
+                
+                  
+                    d
+                  
+                  Z
+                
+                
+                  
+                    d
+                  
+                  (
+                  1
+                  
+                    /
+                  
+                  ρ
+                  )
+                
+              
+            
+            |
+          
+          
+            T
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle \left.{\frac {\mathrm {d} Z}{\mathrm {d} (1/\rho )}}\right|_{T}=0}
+  . The Boyle curve originates with the Zeno curve at the Boyle temperature, faintly surrounds the critical point, and ends on the vapor pressure curve. Points on the Charles curve (a.k.a. Joule-Thomson inversion curve) have 
+  
+    
+      
+        
+          
+            
+            
+              
+                
+                  
+                    d
+                  
+                  Z
+                
+                
+                  
+                    d
+                  
+                  T
+                
+              
+            
+            |
+          
+          
+            p
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle \left.{\frac {\mathrm {d} Z}{\mathrm {d} T}}\right|_{p}=0}
+   and more importantly 
+  
+    
+      
+        
+          
+            
+            
+              
+                
+                  
+                    d
+                  
+                  T
+                
+                
+                  
+                    d
+                  
+                  p
+                
+              
+            
+            |
+          
+          
+            h
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle \left.{\frac {\mathrm {d} T}{\mathrm {d} p}}\right|_{h}=0}
+  , i.e. no temperature change upon isenthalpic throttling. It originates at 
+  
+    
+      
+        T
+        =
+        6.430798418
+        
+        ε
+        
+          k
+          
+            
+              B
+            
+          
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle T=6.430798418\,\varepsilon k_{\mathrm {B} }^{-1}}
+   in the ideal gas limit, crosses the Zeno curve, and terminates on the vapor pressure curve. Points on the Amagat curve A have 
+  
+    
+      
+        
+          
+            
+            
+              
+                
+                  
+                    d
+                  
+                  Z
+                
+                
+                  
+                    d
+                  
+                  T
+                
+              
+            
+            |
+          
+          
+            ρ
+          
+        
+        =
+        0
+      
+    
+    {\displaystyle \left.{\frac {\mathrm {d} Z}{\mathrm {d} T}}\right|_{\rho }=0}
+  . It also starts in the ideal gas limit at 
+  
+    
+      
+        T
+        =
+        25.15242837
+        
+        ε
+        
+          k
+          
+            
+              B
+            
+          
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle T=25.15242837\,\varepsilon k_{\mathrm {B} }^{-1}}
+  , surrounds the critical point and the other three characteristic curves and passes into the solid phase region. A comprehensive discussion of the characteristic curves of the Lennard-Jones potential is given by Stephan and Deiters.
+
+Properties of the Lennard-Jones fluid
+Properties of the Lennard-Jones fluid have been studied extensively in the literature due to the outstanding importance of the Lennard-Jones potential in soft-matter physics and related fields. About 50 datasets of computer experiment data for the vapor–liquid equilibrium have been published to date. Furthermore, more than 35,000 data points at homogeneous fluid states have been published over the years and recently been compiled and assessed for outliers in an open access database.The vapor–liquid equilibrium of the Lennard-Jones substance is presently known with a precision, i.e. mutual agreement of thermodynamically consistent data, of 
+  
+    
+      
+        ±
+        1
+        %
+      
+    
+    {\displaystyle \pm 1\%}
+   for the vapor pressure, 
+  
+    
+      
+        ±
+        0.2
+        %
+      
+    
+    {\displaystyle \pm 0.2\%}
+   for the saturated liquid density, 
+  
+    
+      
+        ±
+        1
+        %
+      
+    
+    {\displaystyle \pm 1\%}
+   for the saturated vapor density, 
+  
+    
+      
+        ±
+        0.75
+        %
+      
+    
+    {\displaystyle \pm 0.75\%}
+   for the enthalpy of vaporization, and 
+  
+    
+      
+        ±
+        4
+        %
+      
+    
+    {\displaystyle \pm 4\%}
+   for the surface tension. This status quo can not be considered satisfactory considering the fact that statistical uncertainties usually reported for single data sets are significantly below the above stated values (even for far more complex molecular force fields).
+Both phase equilibrium properties and homogeneous state properties at arbitrary density can in general only be obtained from molecular simulations, whereas virial coefficients can be computed directly from the Lennard-Jones potential. Numerical data for the second and third virial coefficient is available in a wide temperature range. For higher virial coefficients (up to the sixteenth), the number of available data points decreases with increasing number of the virial coefficient. Also transport properties (viscosity, heat conductivity, and self diffusion coefficient) of the Lennard-Jones fluid have been studied frequently, but the database is significantly less dense than for homogeneous equilibrium properties like 
+  
+    
+      
+        p
+        v
+        T
+      
+    
+    {\displaystyle pvT}
+   – or internal energy data. Moreover, a large number of analytical models (equations of state) have been developed for the description of the Lennard-Jones fluid (see below for details).
+
+Properties of the Lennard-Jones solid
+The database and knowledge for the Lennard-Jones solid is significantly poorer than for the fluid phases, which is mainly due to the fact that the Lennard-Jones potential is less frequently used in applications for the modeling of solid substances. It was realized early that the interactions in solid phases should not be approximated to be pair-wise additive – especially for metals.Nevertheless, the Lennard-Jones potential is still frequently used in solid-state physics due to its simplicity and computational efficiency. Hence, the basic properties of the solid phases and the solid–fluid phase equilibria have been investigated several times, e.g. Refs.The Lennard-Jones substance form fcc (face centered cubic), hcp (hexagonal close-packed) and other close-packed polytype lattices – depending on temperature and pressure, cf. figure 2. At low temperature and up to moderate pressure, the hcp lattice is energetically favored and therefore the equilibrium structure. The fcc lattice structure is energetically favored at both high temperature and high pressure and therefore overall the equilibrium structure in a wider state range. The coexistence line between the fcc and hcp phase starts at 
+  
+    
+      
+        T
+        =
+        0
+      
+    
+    {\displaystyle T=0}
+   at approximately 
+  
+    
+      
+        p
+        =
+        878.5
+        
+        ε
+        
+          σ
+          
+            −
+            3
+          
+        
+      
+    
+    {\displaystyle p=878.5\,\varepsilon \sigma ^{-3}}
+  , passes through a temperature maximum at approximately 
+  
+    
+      
+        T
+        =
+        0.4
+        
+        ε
+        
+          k
+          
+            
+              B
+            
+          
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle T=0.4\,\varepsilon k_{\mathrm {B} }^{-1}}
+  , and then ends on the vapor–solid phase boundary at approximately 
+  
+    
+      
+        T
+        =
+        0.32
+        
+        ε
+        
+          k
+          
+            
+              B
+            
+          
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle T=0.32\,\varepsilon k_{\mathrm {B} }^{-1}}
+  , which thereby forms a triple point. Hence, only the fcc solid phase exhibits phase equilibria with the liquid and supercritical phase, cf. figure 2.
+The triple point of the two solid phases (fcc and hcp) and the vapor phase is reported to be located at:
+
+  
+    
+      
+        
+          T
+          
+            
+              t
+              r
+            
+          
+        
+        =
+        0.32
+        ±
+        0.001
+        
+        ε
+        
+          k
+          
+            
+              B
+            
+          
+          
+            −
+            1
+          
+        
+      
+    
+    {\displaystyle T_{\mathrm {tr} }=0.32\pm 0.001\,\varepsilon k_{\mathrm {B} }^{-1}}
+  
+
+  
+    
+      
+        
+          ρ
+          
+            
+              t
+              r
+              ,
+              g
+              a
+              s
+            
+          
+        
+        =
+        .
+        .
+      
+    
+    {\displaystyle \rho _{\mathrm {tr,gas} }=..}
+   not reported yet
+
+  
+    
+      
+        
+          ρ
+          
+            
+              t
+              r
+              ,
+              f
+              c
+              c
+            
+          
+        
+        =
+        1.03859
+        ±
+        0.0008
+        
+        
+          σ
+          
+            −
+            3
+          
+        
+      
+    
+    {\displaystyle \rho _{\mathrm {tr,fcc} }=1.03859\pm 0.0008\,\sigma ^{-3}}
+  
+
+  
+    
+      
+        
+          ρ
+          
+            
+              t
+              r
+              ,
+              h
+              c
+              p
+            
+          
+        
+        =
+        1.03861
+        ±
+        0.0007
+        
+        
+          σ
+          
+            −
+            3
+          
+        
+      
+    
+    {\displaystyle \rho _{\mathrm {tr,hcp} }=1.03861\pm 0.0007\,\sigma ^{-3}}
+  
+
+  
+    
+      
+        
+          p
+          
+            
+              t
+              r
+            
+          
+        
+        =
+        0.96
+        ⋅
+        
+          10
+          
+            −
+            9
+          
+        
+        
+        ε
+        
+          σ
+          
+            −
+            3
+          
+        
+      
+    
+    {\displaystyle p_{\mathrm {tr} }=0.96\cdot 10^{-9}\,\varepsilon \sigma ^{-3}}
+  Note, that other and significantly differing values have also been reported in the literature. Hence, the database for the fcc-hcp–vapor triple point should be further solidified in the future.
+
+Mixtures of Lennard-Jones substances
+Mixtures of Lennard-Jones particles are mostly used as a prototype for the development of theories and methods of solutions, but also to study properties of solutions in general. This dates back to the fundamental work of conformal solution theory of Longuet-Higgins and Leland and Rowlinson and co-workers. Those are today the basis of most theories for mixtures.Mixtures of two or more Lennard-Jones components are set up by changing at least one potential interaction parameter (
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+   or 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  ) of one of the components with respect to the other. For a binary mixture, this yields three types of pair interactions that are all modeled by the Lennard-Jones potential: 1-1, 2-2, and 1-2 interactions. For the cross interactions 1-2, additional assumptions are required for the specification of parameters 
+  
+    
+      
+        
+          ε
+          
+            
+              12
+            
+          
+        
+      
+    
+    {\displaystyle \varepsilon _{\mathrm {12} }}
+   or 
+  
+    
+      
+        
+          σ
+          
+            
+              12
+            
+          
+        
+      
+    
+    {\displaystyle \sigma _{\mathrm {12} }}
+   from 
+  
+    
+      
+        
+          ε
+          
+            
+              11
+            
+          
+        
+      
+    
+    {\displaystyle \varepsilon _{\mathrm {11} }}
+  , 
+  
+    
+      
+        
+          σ
+          
+            
+              11
+            
+          
+        
+      
+    
+    {\displaystyle \sigma _{\mathrm {11} }}
+   and 
+  
+    
+      
+        
+          ε
+          
+            
+              22
+            
+          
+        
+      
+    
+    {\displaystyle \varepsilon _{\mathrm {22} }}
+  , 
+  
+    
+      
+        
+          σ
+          
+            
+              22
+            
+          
+        
+      
+    
+    {\displaystyle \sigma _{\mathrm {22} }}
+  . Various choices (all more or less empirical and not rigorously based on physical arguments) can be used for these co-called combination rules. The by far most frequently used combination rule is the one of Lorentz and Berthelot
+
+The parameter 
+  
+    
+      
+        
+          ξ
+          
+            12
+          
+        
+      
+    
+    {\displaystyle \xi _{12}}
+   is an additional state-independent interaction parameter for the mixture. The parameter 
+  
+    
+      
+        
+          η
+          
+            12
+          
+        
+      
+    
+    {\displaystyle \eta _{12}}
+   is usually set to unity since the arithmetic mean can be considered physically plausible for the cross-interaction size parameter. The parameter 
+  
+    
+      
+        
+          ξ
+          
+            12
+          
+        
+      
+    
+    {\displaystyle \xi _{12}}
+   on the other hand is often used to adjust the geometric mean so as to reproduce the phase behavior of the model mixture. For analytical models, e.g. equations of state, the deviation parameter is usually written as 
+  
+    
+      
+        
+          k
+          
+            12
+          
+        
+        =
+        1
+        −
+        
+          ξ
+          
+            12
+          
+        
+      
+    
+    {\displaystyle k_{12}=1-\xi _{12}}
+  . For 
+  
+    
+      
+        
+          ξ
+          
+            12
+          
+        
+        >
+        1
+      
+    
+    {\displaystyle \xi _{12}>1}
+  , the cross-interaction dispersion energy and accordingly the attractive force between unlike particles is intensified, and the attractive forces between unlike particles are diminished for 
+  
+    
+      
+        
+          ξ
+          
+            12
+          
+        
+        <
+        1
+      
+    
+    {\displaystyle \xi _{12}<1}
+  .
+For Lennard-Jones mixtures, both fluid and solid phase equilibria can be studied, i.e. vapor–liquid, liquid–liquid, gas–gas, solid–vapor, solid–liquid, and solid–solid. Accordingly, different types of triple points (three-phase equilibria) and critical points can exist as well as different eutectic and azeotropic points. Binary Lennard-Jones mixtures in the fluid region (various types of equilibria of liquid and gas phases) have been studied more comprehensively then phase equilibria comprising solid phases. A large number of different Lennard-Jones mixtures have been studied in the literature. To date, no standard for such has been established. Usually, the binary interaction parameters and the two component parameters are chosen such that a mixture with properties convenient for a given task are obtained. Yet, this often makes comparisons tricky.
+For the fluid phase behavior, mixtures exhibit practically ideal behavior (in the sense of Raoult's law) for 
+  
+    
+      
+        
+          ξ
+          
+            12
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle \xi _{12}=1}
+  . For 
+  
+    
+      
+        
+          ξ
+          
+            12
+          
+        
+        >
+        1
+      
+    
+    {\displaystyle \xi _{12}>1}
+   attractive interactions prevail and the mixtures tend to form high-boiling azeotropes, i.e. a lower pressure than pure components' vapor pressures is required to stabilize the vapor–liquid equilibrium. For 
+  
+    
+      
+        
+          ξ
+          
+            12
+          
+        
+        <
+        1
+      
+    
+    {\displaystyle \xi _{12}<1}
+   repulsive interactions prevail and mixtures tend to form low-boiling azeotropes, i.e. a higher pressure than pure components' vapor pressures is required to stabilize the vapor–liquid equilibrium since the mean dispersive forces are decreased. Particularly low values of 
+  
+    
+      
+        
+          ξ
+          
+            12
+          
+        
+      
+    
+    {\displaystyle \xi _{12}}
+   furthermore will result in liquid–liquid miscibility gaps. Also various types of phase equilibria comprising solid phases have been studied in the literature, e.g. by Carol and co-workers. Also, cases exist where the solid phase boundaries interrupt fluid phase equilibria. However, for phase equilibria that comprise solid phases, the amount of published data is sparse.
+
+Equations of state for the Lennard-Jones potential
+A large number of equations of state (EOS) for the Lennard-Jones potential/ substance have been proposed since its characterization and evaluation became available with the first computer simulations. Due to the fundamental importance of the Lennard-Jones potential, most currently available molecular-based EOS are built around the Lennard-Jones fluid. They have been comprehensively reviewed by Stephan et al.Equations of state for the Lennard-Jones fluid are of particular importance in soft-matter physics and physical chemistry since those are frequently used as starting point for the development of EOS for complex fluids, e.g. polymers and associating fluids. The monomer units of these models are usually directly adapted from Lennard-Jones EOS as a building block, e.g. the PHC EOS, the BACKONE EOS, and SAFT type EOS.More than 30 Lennard-Jones EOS have been proposed in the literature. A comprehensive evaluation of such EOS showed that several EOS describe the Lennard-Jones potential with good and similar accuracy, but none of them is outstanding. Three of those EOS show an unacceptable unphysical behavior in some fluid region, e.g. multiple van der Waals loops, while being elsewise reasonably precise. Only the Lennard-Jones EOS of Kolafa and Nezbeda was found to be robust and precise for most thermodynamic properties of the Lennard-Jones fluid. Hence, the Lennard-Jones EOS of Kolafa and Nezbeda is presently considered to be most useful choice – because robust and precise. Furthermore, the Lennard-Jones EOS of Johnson et al. was found to be less precise for practically all available reference data than the Kolafa and Nezbeda EOS. It is interesting to note that the LJ EOS Johnson et al. is yet far more often used than that of Kolafa and Nezbeda.
+
+Long-range interactions of the Lennard-Jones potential
+The Lennard-Jones potential, cf. Eq. (1) and Figure 1, has an infinite range. Only under its consideration, the 'true' and 'full' Lennard-Jones potential is examined. For the evaluation of an observable of an ensemble of particles interacting by the Lennard-Jones potential using molecular simulations, the interactions can only be evaluated explicitly up to a certain distance – simply due to the fact that the number of particles will always be finite. The maximum distance applied in a simulation is usually referred to as 'cut-off' radius 
+  
+    
+      
+        
+          r
+          
+            
+              c
+            
+          
+        
+      
+    
+    {\displaystyle r_{\mathrm {c} }}
+   (because the Lennard-Jones potential is radially symmetric). To obtain thermophysical properties (both macroscopic or microscopic) of the 'true' and 'full' Lennard-Jones (LJ) potential, the contribution of the potential beyond the cut-off radius has to be accounted for.
+Different corrections schemes have been developed to account for the influence of the long-range interactions in simulations and to sustain a sufficiently good approximation of the 'full' potential. They are based on simplifying assumptions regarding the structure of the fluid. For simple cases, such as in studies of the equilibrium of homogeneous fluids, simple correction terms yield excellent results. In other cases, such as in studies of inhomogeneous systems with different phases, accounting for the long-range interactions is more tedious. These corrections are usually referred to as 'long-range corrections'. For most properties, simple analytical expressions are known and well established. For a given observable 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+  , the 'corrected' simulation result 
+  
+    
+      
+        
+          X
+          
+            
+              c
+              o
+              r
+              r
+            
+          
+        
+      
+    
+    {\displaystyle X_{\mathrm {corr} }}
+   is then simply computed from the actually sampled value 
+  
+    
+      
+        
+          X
+          
+            
+              s
+              a
+              m
+              p
+              l
+              e
+              d
+            
+          
+        
+      
+    
+    {\displaystyle X_{\mathrm {sampled} }}
+   and the long-range correction value 
+  
+    
+      
+        
+          X
+          
+            
+              l
+              r
+              c
+            
+          
+        
+      
+    
+    {\displaystyle X_{\mathrm {lrc} }}
+  , e.g. for the internal energy 
+  
+    
+      
+        
+          U
+          
+            
+              c
+              o
+              r
+              r
+            
+          
+        
+        =
+        
+          U
+          
+            
+              s
+              a
+              m
+              p
+              l
+              e
+              d
+            
+          
+        
+        +
+        
+          U
+          
+            
+              l
+              r
+              c
+            
+          
+        
+      
+    
+    {\displaystyle U_{\mathrm {corr} }=U_{\mathrm {sampled} }+U_{\mathrm {lrc} }}
+  . The hypothetical true value of the observable of the Lennard-Jones potential at truly infinite cut-off distance (thermodynamic limit) 
+  
+    
+      
+        
+          X
+          
+            
+              t
+              r
+              u
+              e
+            
+          
+        
+      
+    
+    {\displaystyle X_{\mathrm {true} }}
+   can in general only be estimated.
+Furthermore, the quality of the long-range correction scheme depends on the cut-off radius. The assumptions made with the correction schemes are usually not justified at (very) short cut-off radii. This is illustrated in the example shown in figure 7. The long-range correction scheme is said to be converged, if the remaining error of the correction scheme is sufficiently small at a given cut-off distance, cf. figure 7.
+
+Lennard-Jones truncated & shifted (LJTS) potential
+The Lennard-Jones truncated & shifted (LJTS) potential is an often used alternative to the 'full' Lennard-Jones potential (see Eq. (1)). The 'full' and the 'truncated & shifted' Lennard-Jones potential have to be kept strictly separate. They are simply two different intermolecular potentials yielding different thermophysical properties. The Lennard-Jones truncated & shifted potential is defined as
+
+with
+
+Hence, the LJTS potential is truncated at 
+  
+    
+      
+        
+          r
+          
+            
+              e
+              n
+              d
+            
+          
+        
+      
+    
+    {\displaystyle r_{\mathrm {end} }}
+   and shifted by the corresponding energy value 
+  
+    
+      
+        
+          V
+          
+            
+              L
+              J
+            
+          
+        
+        (
+        
+          r
+          
+            
+              e
+              n
+              d
+            
+          
+        
+        )
+      
+    
+    {\displaystyle V_{\mathrm {LJ} }(r_{\mathrm {end} })}
+  . The latter is applied to avoid a discontinuity jump of the potential at 
+  
+    
+      
+        
+          r
+          
+            
+              e
+              n
+              d
+            
+          
+        
+      
+    
+    {\displaystyle r_{\mathrm {end} }}
+  . For the LJTS potential, no long-range interactions beyond 
+  
+    
+      
+        
+          r
+          
+            
+              e
+              n
+              d
+            
+          
+        
+      
+    
+    {\displaystyle r_{\mathrm {end} }}
+   are required – neither explicitly nor implicitly. The most frequently used version of the Lennard-Jones truncated & shifted potential is the one with 
+  
+    
+      
+        
+          r
+          
+            
+              e
+              n
+              d
+            
+          
+        
+        =
+        2.5
+        
+        σ
+      
+    
+    {\displaystyle r_{\mathrm {end} }=2.5\,\sigma }
+  . Nevertheless, different 
+  
+    
+      
+        
+          r
+          
+            
+              e
+              n
+              d
+            
+          
+        
+      
+    
+    {\displaystyle r_{\mathrm {end} }}
+   values have been used in the literature. Each LJTS potential with a given truncation radius 
+  
+    
+      
+        
+          r
+          
+            
+              e
+              n
+              d
+            
+          
+        
+      
+    
+    {\displaystyle r_{\mathrm {end} }}
+   has to be considered as a potential and accordingly a substance of its own.
+The LJTS potential is computationally significantly cheaper than the 'full' Lennard-Jones potential, but still covers the essential physical features of matter (the presence of a critical and a triple point, soft repulsive and attractive interactions, phase equilibria etc.). Therefore, the LJTS potential is very frequently used for the testing of new algorithms, simulation methods, and new physical theories.Interestingly, for homogeneous systems, the intermolecular forces that are calculated from the LJ and the LJTS potential at a given distance are the same (since 
+  
+    
+      
+        
+          d
+        
+        V
+        
+          /
+        
+        
+          d
+        
+        r
+      
+    
+    {\displaystyle {\text{d}}V/{\text{d}}r}
+   is the same), whereas the potential energy and the pressure are affected by the shifting. Also, the properties of the LJTS substance may furthermore be affected by the chosen simulation algorithm, i.e. MD or MC sampling (this is in general not the case for the 'full' Lennard-Jones potential).
+For the LJTS potential with 
+  
+    
+      
+        
+          r
+          
+            
+              e
+              n
+              d
+            
+          
+        
+        =
+        2.5
+        
+        σ
+      
+    
+    {\displaystyle r_{\mathrm {end} }=2.5\,\sigma }
+  , the potential energy shift is approximately 1/60 of the dispersion energy at the potential well: 
+  
+    
+      
+        
+          V
+          
+            
+              L
+              J
+            
+          
+        
+        (
+        
+          r
+          
+            
+              e
+              n
+              d
+            
+          
+        
+        =
+        2.5
+        
+        σ
+        )
+        =
+        −
+        0.0163
+        
+        ε
+      
+    
+    {\displaystyle V_{\mathrm {LJ} }(r_{\mathrm {end} }=2.5\,\sigma )=-0.0163\,\varepsilon }
+  . The figure 8 shows the comparison of the vapor–liquid equilibrium of the 'full' Lennard-Jones potential and the 'Lennard-Jones truncated & shifted' potential. The 'full' Lennard-Jones potential results prevail a significantly higher critical temperature and pressure compared to the LJTS potential results, but the critical density is very similar. The vapor pressure and the enthalpy of vaporization are influenced more strongly by the long-range interactions than the saturated densities. This is due to the fact that the potential is manipulated mainly energetically by the truncation and shifting.
+
+Extensions and modifications of the Lennard-Jones potential
+The Lennard-Jones potential – as an archetype for intermolecular potentials – has been used numerous times as starting point for the development of more elaborate or more generalized intermolecular potentials. Various extensions and modifications of the Lennard-Jones potential have been proposed in the literature; a more extensive list is given in the 'interatomic potential' article. The following list refers only to several example potentials that are directly related to the Lennard-Jones potential and are of both historic importance and still relevant for present research.
+
+Mie potential The Mie potential is the generalized version of the Lennard-Jones potential, i.e. the exponents 12 and 6 are introduced as parameters 
+  
+    
+      
+        
+          λ
+          
+            
+              r
+              e
+              p
+            
+          
+        
+      
+    
+    {\displaystyle \lambda _{\mathrm {rep} }}
+   and 
+  
+    
+      
+        
+          λ
+          
+            
+              a
+              t
+              t
+              r
+            
+          
+        
+      
+    
+    {\displaystyle \lambda _{\mathrm {attr} }}
+  . Especially thermodynamic derivative properties, e.g. the compressibility and the speed of sound, are known to be very sensitive to the steepness of the repulsive part of the intermolecular potential, which can therefore be modeled more sophisticated by the Mie potential. The first explicit formulation of the Mie potential is attributed to Eduard Grüneisen. Hence, the Mie potential was actually proposed before the Lennard-Jones potential. The Mie potential is named after Gustav Mie.
+Buckingham potential The Buckingham potential was proposed by Richard Buckingham. The repulsive part of the Lennard-Jones potential is therein replaced by an exponential function and it incorporates an additional parameter.
+Stockmayer potential The Stockmayer potential is named after W.H. Stockmayer. The Stockmayer potential is a combination of a Lennard-Jones potential superimposed by a dipole. Hence, Stockmayer particles are not spherically symmetric, but rather have an important orientational structure.
+Two center Lennard-Jones potential The two center Lennard-Jones potential consists of two identical Lennard-Jones interaction sites (same 
+  
+    
+      
+        ε
+      
+    
+    {\displaystyle \varepsilon }
+  , 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  , 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  ) that are bonded as a rigid body. It is often abbreviated as 2CLJ. Usually, the elongation (distance between the Lennard-Jones sites) is significantly smaller than the size parameter 
+  
+    
+      
+        σ
+      
+    
+    {\displaystyle \sigma }
+  . Hence, the two interaction sites are significantly fused.
+Lennard-Jones truncated & splined potential The Lennard-Jones truncated & splined potential is a rarely used yet useful potential. Similar to the more popular LJTS potential, it is sturdily truncated at a certain 'end' distance 
+  
+    
+      
+        
+          r
+          
+            
+              e
+              n
+              d
+            
+          
+        
+      
+    
+    {\displaystyle r_{\mathrm {end} }}
+   and no long-range interactions are considered beyond. Opposite to the LJTS potential, which is shifted such that the potential is continuous, the Lennard-Jones truncated & splined potential is made continuous by using an arbitrary but favorable spline function.
+
+See also
+Comparison of force-field implementations
+Embedded atom model
+Force field (chemistry)
+Molecular mechanics
+Morse potential and Morse/Long-range potential
+Virial expansion
+
+References
+External links
+Lennard-Jones model on SklogWiki.

@@ -1,0 +1,3782 @@
+In mathematical notation for numbers, a signed-digit representation is a positional numeral system with a set of signed digits used to encode the integers.
+Signed-digit representation can be used to accomplish fast addition of integers because it can eliminate chains of dependent carries.  In the binary numeral system, a special case signed-digit representation is the non-adjacent form, which can offer speed benefits with minimal space overhead.
+
+History
+Challenges in calculation stimulated early authors Colson (1726) and Cauchy (1840) to use signed-digit representation. The further step of replacing negated digits with new ones was suggested by Selling (1887) and Cajori (1928).
+In 1928, Florian Cajori noted the recurring theme of signed digits, starting with Colson (1726) and Cauchy (1840). In his book History of Mathematical Notations, Cajori titled the section "Negative numerals". For completeness, Colson uses examples and describes addition (pp. 163–4), multiplication (pp. 165–6) and division (pp. 170–1) using a table of multiples of the divisor. He explains the convenience of approximation by truncation in multiplication. Colson also devised an instrument (Counting Table) that calculated using signed digits.
+Eduard Selling advocated inverting the digits 1, 2, 3, 4, and 5 to indicate the negative sign. He also suggested snie, jes, jerd, reff, and niff as names to use vocally. Most of the other early sources used a bar over a digit to indicate a negative sign for it. Another German usage of signed-digits was described in 1902 in Klein's encyclopedia.
+
+Definition and properties
+Digit set
+Let 
+  
+    
+      
+        
+          
+            D
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}}
+   be a finite set of numerical digits with cardinality 
+  
+    
+      
+        b
+        >
+        1
+      
+    
+    {\displaystyle b>1}
+   (If 
+  
+    
+      
+        b
+        ≤
+        1
+      
+    
+    {\displaystyle b\leq 1}
+  , then the positional number system is trivial and only represents the trivial ring), with each digit denoted as 
+  
+    
+      
+        
+          d
+          
+            i
+          
+        
+      
+    
+    {\displaystyle d_{i}}
+   for 
+  
+    
+      
+        0
+        ≤
+        i
+        <
+        b
+        .
+      
+    
+    {\displaystyle 0\leq i<b.}
+   
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   is known as the radix or number base. 
+  
+    
+      
+        
+          
+            D
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}}
+   can be used for a signed-digit representation if it's associated with a unique function 
+  
+    
+      
+        
+          f
+          
+            
+              D
+            
+          
+        
+        :
+        
+          
+            D
+          
+        
+        →
+        
+          Z
+        
+      
+    
+    {\displaystyle f_{\mathcal {D}}:{\mathcal {D}}\rightarrow \mathbb {Z} }
+   such that 
+  
+    
+      
+        
+          f
+          
+            
+              D
+            
+          
+        
+        (
+        
+          d
+          
+            i
+          
+        
+        )
+        ≡
+        i
+        
+          mod
+          
+            b
+          
+        
+      
+    
+    {\displaystyle f_{\mathcal {D}}(d_{i})\equiv i{\bmod {b}}}
+   for all 
+  
+    
+      
+        0
+        ≤
+        i
+        <
+        b
+        .
+      
+    
+    {\displaystyle 0\leq i<b.}
+   
+This function, 
+  
+    
+      
+        
+          f
+          
+            
+              D
+            
+          
+        
+        ,
+      
+    
+    {\displaystyle f_{\mathcal {D}},}
+   is what rigorously and formally establishes how integer values are assigned to the symbols/glyphs in 
+  
+    
+      
+        
+          
+            D
+          
+        
+        .
+      
+    
+    {\displaystyle {\mathcal {D}}.}
+   One benefit of this formalism is that the definition of "the integers" (however they may be defined) is not conflated with any particular system for writing/representing them; in this way, these two distinct (albeit closely related) concepts are kept separate. 
+
+  
+    
+      
+        
+          
+            D
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}}
+   can be partitioned into three distinct sets 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            +
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}_{+}}
+  , 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}_{0}}
+  , and 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            −
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}_{-}}
+  , representing the positive, zero, and negative digits respectively, such that all digits 
+  
+    
+      
+        
+          d
+          
+            +
+          
+        
+        ∈
+        
+          
+            
+              D
+            
+          
+          
+            +
+          
+        
+      
+    
+    {\displaystyle d_{+}\in {\mathcal {D}}_{+}}
+   satisfy 
+  
+    
+      
+        
+          f
+          
+            
+              D
+            
+          
+        
+        (
+        
+          d
+          
+            +
+          
+        
+        )
+        >
+        0
+      
+    
+    {\displaystyle f_{\mathcal {D}}(d_{+})>0}
+  , all digits 
+  
+    
+      
+        
+          d
+          
+            0
+          
+        
+        ∈
+        
+          
+            
+              D
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle d_{0}\in {\mathcal {D}}_{0}}
+   satisfy 
+  
+    
+      
+        
+          f
+          
+            
+              D
+            
+          
+        
+        (
+        
+          d
+          
+            0
+          
+        
+        )
+        =
+        0
+      
+    
+    {\displaystyle f_{\mathcal {D}}(d_{0})=0}
+   and all digits 
+  
+    
+      
+        
+          d
+          
+            −
+          
+        
+        ∈
+        
+          
+            
+              D
+            
+          
+          
+            −
+          
+        
+      
+    
+    {\displaystyle d_{-}\in {\mathcal {D}}_{-}}
+   satisfy 
+  
+    
+      
+        
+          f
+          
+            
+              D
+            
+          
+        
+        (
+        
+          d
+          
+            −
+          
+        
+        )
+        <
+        0
+      
+    
+    {\displaystyle f_{\mathcal {D}}(d_{-})<0}
+  . The cardinality of 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            +
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}_{+}}
+   is 
+  
+    
+      
+        
+          b
+          
+            +
+          
+        
+      
+    
+    {\displaystyle b_{+}}
+  , the cardinality of 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            0
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}_{0}}
+   is 
+  
+    
+      
+        
+          b
+          
+            0
+          
+        
+      
+    
+    {\displaystyle b_{0}}
+  , and the cardinality of 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            −
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}_{-}}
+   is 
+  
+    
+      
+        
+          b
+          
+            −
+          
+        
+      
+    
+    {\displaystyle b_{-}}
+  , giving the number of positive and negative digits respectively, such that 
+  
+    
+      
+        b
+        =
+        
+          b
+          
+            +
+          
+        
+        +
+        
+          b
+          
+            0
+          
+        
+        +
+        
+          b
+          
+            −
+          
+        
+      
+    
+    {\displaystyle b=b_{+}+b_{0}+b_{-}}
+  .
+
+Balanced form representations
+Balanced form representations are representations where for every positive digit 
+  
+    
+      
+        
+          d
+          
+            +
+          
+        
+      
+    
+    {\displaystyle d_{+}}
+  , there exist a corresponding negative digit 
+  
+    
+      
+        
+          d
+          
+            −
+          
+        
+      
+    
+    {\displaystyle d_{-}}
+   such that 
+  
+    
+      
+        
+          f
+          
+            
+              D
+            
+          
+        
+        (
+        
+          d
+          
+            +
+          
+        
+        )
+        =
+        −
+        
+          f
+          
+            
+              D
+            
+          
+        
+        (
+        
+          d
+          
+            −
+          
+        
+        )
+      
+    
+    {\displaystyle f_{\mathcal {D}}(d_{+})=-f_{\mathcal {D}}(d_{-})}
+  . It follows that 
+  
+    
+      
+        
+          b
+          
+            +
+          
+        
+        =
+        
+          b
+          
+            −
+          
+        
+      
+    
+    {\displaystyle b_{+}=b_{-}}
+  . Only odd bases can have balanced form representations, as otherwise 
+  
+    
+      
+        
+          d
+          
+            b
+            
+              /
+            
+            2
+          
+        
+      
+    
+    {\displaystyle d_{b/2}}
+   has to be the opposite of itself and hence 0, but 
+  
+    
+      
+        0
+        ≠
+        
+          
+            b
+            2
+          
+        
+      
+    
+    {\displaystyle 0\neq {\frac {b}{2}}}
+  . In balanced form, the negative digits 
+  
+    
+      
+        
+          d
+          
+            −
+          
+        
+        ∈
+        
+          
+            
+              D
+            
+          
+          
+            −
+          
+        
+      
+    
+    {\displaystyle d_{-}\in {\mathcal {D}}_{-}}
+   are usually denoted as positive digits with a bar over the digit, as 
+  
+    
+      
+        
+          d
+          
+            −
+          
+        
+        =
+        
+          
+            
+              
+                d
+                ¯
+              
+            
+          
+          
+            +
+          
+        
+      
+    
+    {\displaystyle d_{-}={\bar {d}}_{+}}
+   for 
+  
+    
+      
+        
+          d
+          
+            +
+          
+        
+        ∈
+        
+          
+            
+              D
+            
+          
+          
+            +
+          
+        
+      
+    
+    {\displaystyle d_{+}\in {\mathcal {D}}_{+}}
+  . For example, the digit set of balanced ternary would be 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            3
+          
+        
+        =
+        {
+        
+          
+            
+              1
+              ¯
+            
+          
+        
+        ,
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle {\mathcal {D}}_{3}=\lbrace {\bar {1}},0,1\rbrace }
+   with 
+  
+    
+      
+        
+          f
+          
+            
+              
+                
+                  D
+                
+              
+              
+                3
+              
+            
+          
+        
+        (
+        
+          
+            
+              1
+              ¯
+            
+          
+        
+        )
+        =
+        −
+        1
+      
+    
+    {\displaystyle f_{{\mathcal {D}}_{3}}({\bar {1}})=-1}
+  , 
+  
+    
+      
+        
+          f
+          
+            
+              
+                
+                  D
+                
+              
+              
+                3
+              
+            
+          
+        
+        (
+        0
+        )
+        =
+        0
+      
+    
+    {\displaystyle f_{{\mathcal {D}}_{3}}(0)=0}
+  , and 
+  
+    
+      
+        
+          f
+          
+            
+              
+                
+                  D
+                
+              
+              
+                3
+              
+            
+          
+        
+        (
+        1
+        )
+        =
+        1
+      
+    
+    {\displaystyle f_{{\mathcal {D}}_{3}}(1)=1}
+  . This convention is adopted in finite fields of odd prime order 
+  
+    
+      
+        q
+      
+    
+    {\displaystyle q}
+  :
+
+  
+    
+      
+        
+          
+            F
+          
+          
+            q
+          
+        
+        =
+        {
+        0
+        ,
+        1
+        ,
+        
+          
+            
+              1
+              ¯
+            
+          
+        
+        =
+        −
+        1
+        ,
+        .
+        .
+        .
+        d
+        =
+        
+          
+            
+              q
+              −
+              1
+            
+            2
+          
+        
+        ,
+         
+        
+          
+            
+              d
+              ¯
+            
+          
+        
+        =
+        
+          
+            
+              1
+              −
+              q
+            
+            2
+          
+        
+         
+        
+          |
+        
+         
+        q
+        =
+        0
+        }
+        .
+      
+    
+    {\displaystyle \mathbb {F} _{q}=\lbrace 0,1,{\bar {1}}=-1,...d={\frac {q-1}{2}},\ {\bar {d}}={\frac {1-q}{2}}\ |\ q=0\rbrace .}
+
+Dual signed-digit representation
+Every digit set 
+  
+    
+      
+        
+          
+            D
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}}
+   has a dual digit set 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            op
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}^{\operatorname {op} }}
+   given by the inverse order of the digits with an isomorphism 
+  
+    
+      
+        g
+        :
+        
+          
+            D
+          
+        
+        →
+        
+          
+            
+              D
+            
+          
+          
+            op
+          
+        
+      
+    
+    {\displaystyle g:{\mathcal {D}}\rightarrow {\mathcal {D}}^{\operatorname {op} }}
+   defined by 
+  
+    
+      
+        −
+        
+          f
+          
+            
+              D
+            
+          
+        
+        =
+        g
+        ∘
+        
+          f
+          
+            
+              
+                
+                  D
+                
+              
+              
+                op
+              
+            
+          
+        
+      
+    
+    {\displaystyle -f_{\mathcal {D}}=g\circ f_{{\mathcal {D}}^{\operatorname {op} }}}
+  . As a result, for any signed-digit representations 
+  
+    
+      
+        
+          
+            N
+          
+        
+      
+    
+    {\displaystyle {\mathcal {N}}}
+   of a number system ring 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+   constructed from 
+  
+    
+      
+        
+          
+            D
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}}
+   with valuation 
+  
+    
+      
+        
+          v
+          
+            
+              D
+            
+          
+        
+        :
+        
+          
+            N
+          
+        
+        →
+        N
+      
+    
+    {\displaystyle v_{\mathcal {D}}:{\mathcal {N}}\rightarrow N}
+  , there exists a dual signed-digit representations of 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+  , 
+  
+    
+      
+        
+          
+            
+              N
+            
+          
+          
+            op
+          
+        
+      
+    
+    {\displaystyle {\mathcal {N}}^{\operatorname {op} }}
+  , constructed from 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            op
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}^{\operatorname {op} }}
+   with valuation 
+  
+    
+      
+        
+          v
+          
+            
+              
+                
+                  D
+                
+              
+              
+                op
+              
+            
+          
+        
+        :
+        
+          
+            
+              N
+            
+          
+          
+            op
+          
+        
+        →
+        N
+      
+    
+    {\displaystyle v_{{\mathcal {D}}^{\operatorname {op} }}:{\mathcal {N}}^{\operatorname {op} }\rightarrow N}
+  , and an isomorphism 
+  
+    
+      
+        h
+        :
+        
+          
+            N
+          
+        
+        →
+        
+          
+            
+              N
+            
+          
+          
+            op
+          
+        
+      
+    
+    {\displaystyle h:{\mathcal {N}}\rightarrow {\mathcal {N}}^{\operatorname {op} }}
+   defined by 
+  
+    
+      
+        −
+        
+          v
+          
+            
+              D
+            
+          
+        
+        =
+        h
+        ∘
+        
+          v
+          
+            
+              
+                
+                  D
+                
+              
+              
+                op
+              
+            
+          
+        
+      
+    
+    {\displaystyle -v_{\mathcal {D}}=h\circ v_{{\mathcal {D}}^{\operatorname {op} }}}
+  , where 
+  
+    
+      
+        −
+      
+    
+    {\displaystyle -}
+   is the additive inverse operator of 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+  . The digit set for balanced form representations is self-dual.
+
+For integers
+Given the digit set 
+  
+    
+      
+        
+          
+            D
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}}
+   and function 
+  
+    
+      
+        f
+        :
+        
+          
+            D
+          
+        
+        →
+        
+          Z
+        
+      
+    
+    {\displaystyle f:{\mathcal {D}}\rightarrow \mathbb {Z} }
+   as defined above, let us define an integer endofunction 
+  
+    
+      
+        T
+        :
+        
+          Z
+        
+        →
+        
+          Z
+        
+      
+    
+    {\displaystyle T:\mathbb {Z} \rightarrow \mathbb {Z} }
+   as the following:
+
+  
+    
+      
+        T
+        (
+        n
+        )
+        =
+        
+          
+            {
+            
+              
+                
+                  
+                    
+                      
+                        n
+                        −
+                        f
+                        (
+                        
+                          d
+                          
+                            i
+                          
+                        
+                        )
+                      
+                      b
+                    
+                  
+                
+                
+                  
+                    if 
+                  
+                  n
+                  ≡
+                  i
+                  
+                    mod
+                    
+                      b
+                    
+                  
+                  ,
+                  0
+                  ≤
+                  i
+                  <
+                  b
+                
+              
+            
+            
+          
+        
+      
+    
+    {\displaystyle T(n)={\begin{cases}{\frac {n-f(d_{i})}{b}}&{\text{if }}n\equiv i{\bmod {b}},0\leq i<b\end{cases}}}
+  If the only periodic point of 
+  
+    
+      
+        T
+      
+    
+    {\displaystyle T}
+   is the fixed point 
+  
+    
+      
+        0
+      
+    
+    {\displaystyle 0}
+  , then the set of all signed-digit representations of the integers 
+  
+    
+      
+        
+          Z
+        
+      
+    
+    {\displaystyle \mathbb {Z} }
+   using 
+  
+    
+      
+        
+          
+            D
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}}
+   is given by the Kleene plus 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            +
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}^{+}}
+  , the set of all finite concatenated strings of digits 
+  
+    
+      
+        
+          d
+          
+            n
+          
+        
+        …
+        
+          d
+          
+            0
+          
+        
+      
+    
+    {\displaystyle d_{n}\ldots d_{0}}
+   with at least one digit, with 
+  
+    
+      
+        n
+        ∈
+        
+          N
+        
+      
+    
+    {\displaystyle n\in \mathbb {N} }
+  . Each signed-digit representation 
+  
+    
+      
+        m
+        ∈
+        
+          
+            
+              D
+            
+          
+          
+            +
+          
+        
+      
+    
+    {\displaystyle m\in {\mathcal {D}}^{+}}
+   has a valuation 
+  
+    
+      
+        
+          v
+          
+            
+              D
+            
+          
+        
+        :
+        
+          
+            
+              D
+            
+          
+          
+            +
+          
+        
+        →
+        
+          Z
+        
+      
+    
+    {\displaystyle v_{\mathcal {D}}:{\mathcal {D}}^{+}\rightarrow \mathbb {Z} }
+  
+
+  
+    
+      
+        
+          v
+          
+            
+              D
+            
+          
+        
+        (
+        m
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            n
+          
+        
+        
+          f
+          
+            
+              D
+            
+          
+        
+        (
+        
+          d
+          
+            i
+          
+        
+        )
+        
+          b
+          
+            i
+          
+        
+      
+    
+    {\displaystyle v_{\mathcal {D}}(m)=\sum _{i=0}^{n}f_{\mathcal {D}}(d_{i})b^{i}}
+  .Examples include balanced ternary with digits 
+  
+    
+      
+        
+          
+            D
+          
+        
+        =
+        {
+        
+          
+            
+              1
+              ¯
+            
+          
+        
+        ,
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle {\mathcal {D}}=\lbrace {\bar {1}},0,1\rbrace }
+  .  
+Otherwise, if there exist a non-zero periodic point of 
+  
+    
+      
+        T
+      
+    
+    {\displaystyle T}
+  , then there exist integers that are represented by an infinite number of non-zero digits in 
+  
+    
+      
+        
+          
+            D
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}}
+  . Examples include the standard decimal numeral system with the digit set 
+  
+    
+      
+        dec
+        =
+        {
+        0
+        ,
+        1
+        ,
+        2
+        ,
+        3
+        ,
+        4
+        ,
+        5
+        ,
+        6
+        ,
+        7
+        ,
+        8
+        ,
+        9
+        }
+      
+    
+    {\displaystyle \operatorname {dec} =\lbrace 0,1,2,3,4,5,6,7,8,9\rbrace }
+  , which requires an infinite number of the digit 
+  
+    
+      
+        9
+      
+    
+    {\displaystyle 9}
+   to represent the additive inverse 
+  
+    
+      
+        −
+        1
+      
+    
+    {\displaystyle -1}
+  , as 
+  
+    
+      
+        
+          T
+          
+            dec
+          
+        
+        (
+        −
+        1
+        )
+        =
+        
+          
+            
+              −
+              1
+              −
+              9
+            
+            10
+          
+        
+        =
+        −
+        1
+      
+    
+    {\displaystyle T_{\operatorname {dec} }(-1)={\frac {-1-9}{10}}=-1}
+  , and the positional numeral system with the digit set 
+  
+    
+      
+        
+          
+            D
+          
+        
+        =
+        {
+        
+          A
+        
+        ,
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle {\mathcal {D}}=\lbrace {\text{A}},0,1\rbrace }
+   with 
+  
+    
+      
+        f
+        (
+        
+          A
+        
+        )
+        =
+        −
+        4
+      
+    
+    {\displaystyle f({\text{A}})=-4}
+  , which requires an infinite number of the digit 
+  
+    
+      
+        
+          A
+        
+      
+    
+    {\displaystyle {\text{A}}}
+   to represent the number 
+  
+    
+      
+        2
+      
+    
+    {\displaystyle 2}
+  , as 
+  
+    
+      
+        
+          T
+          
+            
+              D
+            
+          
+        
+        (
+        2
+        )
+        =
+        
+          
+            
+              2
+              −
+              (
+              −
+              4
+              )
+            
+            3
+          
+        
+        =
+        2
+      
+    
+    {\displaystyle T_{\mathcal {D}}(2)={\frac {2-(-4)}{3}}=2}
+  .
+
+For decimal fractions
+If the integers can be represented by the Kleene plus 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            +
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}^{+}}
+  , then the set of all signed-digit representations of the decimal fractions, or 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  -adic rationals 
+  
+    
+      
+        
+          Z
+        
+        [
+        1
+        ∖
+        b
+        ]
+      
+    
+    {\displaystyle \mathbb {Z} [1\backslash b]}
+  , is given by 
+  
+    
+      
+        
+          
+            Q
+          
+        
+        =
+        
+          
+            
+              D
+            
+          
+          
+            +
+          
+        
+        ×
+        
+          
+            P
+          
+        
+        ×
+        
+          
+            
+              D
+            
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle {\mathcal {Q}}={\mathcal {D}}^{+}\times {\mathcal {P}}\times {\mathcal {D}}^{*}}
+  , the Cartesian product of the Kleene plus 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            +
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}^{+}}
+  , the set of all finite concatenated strings of digits 
+  
+    
+      
+        
+          d
+          
+            n
+          
+        
+        …
+        
+          d
+          
+            0
+          
+        
+      
+    
+    {\displaystyle d_{n}\ldots d_{0}}
+   with at least one digit, the singleton 
+  
+    
+      
+        
+          
+            P
+          
+        
+      
+    
+    {\displaystyle {\mathcal {P}}}
+   consisting of the radix point (
+  
+    
+      
+        .
+      
+    
+    {\displaystyle .}
+   or 
+  
+    
+      
+        ,
+      
+    
+    {\displaystyle ,}
+  ), and the Kleene star 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}^{*}}
+  , the set of all finite concatenated strings of digits 
+  
+    
+      
+        
+          d
+          
+            −
+            1
+          
+        
+        …
+        
+          d
+          
+            −
+            m
+          
+        
+      
+    
+    {\displaystyle d_{-1}\ldots d_{-m}}
+  , with 
+  
+    
+      
+        m
+        ,
+        n
+        ∈
+        
+          N
+        
+      
+    
+    {\displaystyle m,n\in \mathbb {N} }
+  . Each signed-digit representation 
+  
+    
+      
+        q
+        ∈
+        
+          
+            Q
+          
+        
+      
+    
+    {\displaystyle q\in {\mathcal {Q}}}
+   has a valuation 
+  
+    
+      
+        
+          v
+          
+            
+              D
+            
+          
+        
+        :
+        
+          
+            Q
+          
+        
+        →
+        
+          Z
+        
+        [
+        1
+        ∖
+        b
+        ]
+      
+    
+    {\displaystyle v_{\mathcal {D}}:{\mathcal {Q}}\rightarrow \mathbb {Z} [1\backslash b]}
+  
+
+  
+    
+      
+        
+          v
+          
+            
+              D
+            
+          
+        
+        (
+        q
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            −
+            m
+          
+          
+            n
+          
+        
+        
+          f
+          
+            
+              D
+            
+          
+        
+        (
+        
+          d
+          
+            i
+          
+        
+        )
+        
+          b
+          
+            i
+          
+        
+      
+    
+    {\displaystyle v_{\mathcal {D}}(q)=\sum _{i=-m}^{n}f_{\mathcal {D}}(d_{i})b^{i}}
+
+For real numbers
+If the integers can be represented by the Kleene plus 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            +
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}^{+}}
+  , then the set of all signed-digit representations of the real numbers 
+  
+    
+      
+        
+          R
+        
+      
+    
+    {\displaystyle \mathbb {R} }
+   is given by 
+  
+    
+      
+        
+          
+            R
+          
+        
+        =
+        
+          
+            
+              D
+            
+          
+          
+            +
+          
+        
+        ×
+        
+          
+            P
+          
+        
+        ×
+        
+          
+            
+              D
+            
+          
+          
+            
+              N
+            
+          
+        
+      
+    
+    {\displaystyle {\mathcal {R}}={\mathcal {D}}^{+}\times {\mathcal {P}}\times {\mathcal {D}}^{\mathbb {N} }}
+  , the Cartesian product of the Kleene plus 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            +
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}^{+}}
+  , the set of all finite concatenated strings of digits 
+  
+    
+      
+        
+          d
+          
+            n
+          
+        
+        …
+        
+          d
+          
+            0
+          
+        
+      
+    
+    {\displaystyle d_{n}\ldots d_{0}}
+   with at least one digit, the singleton 
+  
+    
+      
+        
+          
+            P
+          
+        
+      
+    
+    {\displaystyle {\mathcal {P}}}
+   consisting of the radix point (
+  
+    
+      
+        .
+      
+    
+    {\displaystyle .}
+   or 
+  
+    
+      
+        ,
+      
+    
+    {\displaystyle ,}
+  ), and the Cantor space 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            
+              N
+            
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}^{\mathbb {N} }}
+  , the set of all infinite concatenated strings of digits 
+  
+    
+      
+        
+          d
+          
+            −
+            1
+          
+        
+        
+          d
+          
+            −
+            2
+          
+        
+        …
+      
+    
+    {\displaystyle d_{-1}d_{-2}\ldots }
+  , with 
+  
+    
+      
+        n
+        ∈
+        
+          N
+        
+      
+    
+    {\displaystyle n\in \mathbb {N} }
+  . Each signed-digit representation 
+  
+    
+      
+        r
+        ∈
+        
+          
+            R
+          
+        
+      
+    
+    {\displaystyle r\in {\mathcal {R}}}
+   has a valuation 
+  
+    
+      
+        
+          v
+          
+            
+              D
+            
+          
+        
+        :
+        
+          
+            R
+          
+        
+        →
+        
+          R
+        
+      
+    
+    {\displaystyle v_{\mathcal {D}}:{\mathcal {R}}\rightarrow \mathbb {R} }
+  
+
+  
+    
+      
+        
+          v
+          
+            
+              D
+            
+          
+        
+        (
+        r
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            −
+            ∞
+          
+          
+            n
+          
+        
+        
+          f
+          
+            
+              D
+            
+          
+        
+        (
+        
+          d
+          
+            i
+          
+        
+        )
+        
+          b
+          
+            i
+          
+        
+      
+    
+    {\displaystyle v_{\mathcal {D}}(r)=\sum _{i=-\infty }^{n}f_{\mathcal {D}}(d_{i})b^{i}}
+  .The infinite series always converges to a finite real number.
+
+For other number systems
+All base-
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   numerals can be represented as a subset of 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            
+              Z
+            
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}^{\mathbb {Z} }}
+  , the set of all doubly infinite sequences of digits in 
+  
+    
+      
+        
+          
+            D
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}}
+  , where 
+  
+    
+      
+        
+          Z
+        
+      
+    
+    {\displaystyle \mathbb {Z} }
+   is the set of integers, and the ring of base-
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+   numerals is represented by the formal power series ring 
+  
+    
+      
+        
+          Z
+        
+        [
+        [
+        b
+        ,
+        
+          b
+          
+            −
+            1
+          
+        
+        ]
+        ]
+      
+    
+    {\displaystyle \mathbb {Z} [[b,b^{-1}]]}
+  , the doubly infinite series
+
+  
+    
+      
+        
+          ∑
+          
+            i
+            =
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        
+          a
+          
+            i
+          
+        
+        
+          b
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \sum _{i=-\infty }^{\infty }a_{i}b^{i}}
+  where 
+  
+    
+      
+        
+          a
+          
+            i
+          
+        
+        ∈
+        
+          Z
+        
+      
+    
+    {\displaystyle a_{i}\in \mathbb {Z} }
+   for 
+  
+    
+      
+        i
+        ∈
+        
+          Z
+        
+      
+    
+    {\displaystyle i\in \mathbb {Z} }
+  .
+
+Integers modulo powers of b
+The set of all signed-digit representations of the integers modulo 
+  
+    
+      
+        
+          b
+          
+            n
+          
+        
+      
+    
+    {\displaystyle b^{n}}
+  , 
+  
+    
+      
+        
+          Z
+        
+        ∖
+        
+          b
+          
+            n
+          
+        
+        
+          Z
+        
+      
+    
+    {\displaystyle \mathbb {Z} \backslash b^{n}\mathbb {Z} }
+   is given by the set 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}^{n}}
+  , the set of all finite concatenated strings of digits 
+  
+    
+      
+        
+          d
+          
+            n
+            −
+            1
+          
+        
+        …
+        
+          d
+          
+            0
+          
+        
+      
+    
+    {\displaystyle d_{n-1}\ldots d_{0}}
+   of length 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  , with 
+  
+    
+      
+        n
+        ∈
+        
+          N
+        
+      
+    
+    {\displaystyle n\in \mathbb {N} }
+  . Each signed-digit representation 
+  
+    
+      
+        m
+        ∈
+        
+          
+            
+              D
+            
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle m\in {\mathcal {D}}^{n}}
+   has a valuation 
+  
+    
+      
+        
+          v
+          
+            
+              D
+            
+          
+        
+        :
+        
+          
+            
+              D
+            
+          
+          
+            n
+          
+        
+        →
+        
+          Z
+        
+        
+          /
+        
+        
+          b
+          
+            n
+          
+        
+        
+          Z
+        
+      
+    
+    {\displaystyle v_{\mathcal {D}}:{\mathcal {D}}^{n}\rightarrow \mathbb {Z} /b^{n}\mathbb {Z} }
+  
+
+  
+    
+      
+        
+          v
+          
+            
+              D
+            
+          
+        
+        (
+        m
+        )
+        ≡
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            n
+            −
+            1
+          
+        
+        
+          f
+          
+            
+              D
+            
+          
+        
+        (
+        
+          d
+          
+            i
+          
+        
+        )
+        
+          b
+          
+            i
+          
+        
+        
+          
+            mod
+            
+              b
+            
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle v_{\mathcal {D}}(m)\equiv \sum _{i=0}^{n-1}f_{\mathcal {D}}(d_{i})b^{i}{\bmod {b}}^{n}}
+
+Prüfer groups
+A Prüfer group is the quotient group 
+  
+    
+      
+        
+          Z
+        
+        (
+        
+          b
+          
+            ∞
+          
+        
+        )
+        =
+        
+          Z
+        
+        [
+        1
+        ∖
+        b
+        ]
+        
+          /
+        
+        
+          Z
+        
+      
+    
+    {\displaystyle \mathbb {Z} (b^{\infty })=\mathbb {Z} [1\backslash b]/\mathbb {Z} }
+   of the integers and the 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  -adic rationals. The set of all signed-digit representations of the Prüfer group is given by the Kleene star 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}^{*}}
+  , the set of all finite concatenated strings of digits 
+  
+    
+      
+        
+          d
+          
+            1
+          
+        
+        …
+        
+          d
+          
+            n
+          
+        
+      
+    
+    {\displaystyle d_{1}\ldots d_{n}}
+  , with 
+  
+    
+      
+        n
+        ∈
+        
+          N
+        
+      
+    
+    {\displaystyle n\in \mathbb {N} }
+  . Each signed-digit representation 
+  
+    
+      
+        p
+        ∈
+        
+          
+            
+              D
+            
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle p\in {\mathcal {D}}^{*}}
+   has a valuation 
+  
+    
+      
+        
+          v
+          
+            
+              D
+            
+          
+        
+        :
+        
+          
+            
+              D
+            
+          
+          
+            ∗
+          
+        
+        →
+        
+          Z
+        
+        (
+        
+          b
+          
+            ∞
+          
+        
+        )
+      
+    
+    {\displaystyle v_{\mathcal {D}}:{\mathcal {D}}^{*}\rightarrow \mathbb {Z} (b^{\infty })}
+  
+
+  
+    
+      
+        
+          v
+          
+            
+              D
+            
+          
+        
+        (
+        m
+        )
+        ≡
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          f
+          
+            
+              D
+            
+          
+        
+        (
+        
+          d
+          
+            i
+          
+        
+        )
+        
+          b
+          
+            −
+            i
+          
+        
+        
+          mod
+          
+            1
+          
+        
+      
+    
+    {\displaystyle v_{\mathcal {D}}(m)\equiv \sum _{i=1}^{n}f_{\mathcal {D}}(d_{i})b^{-i}{\bmod {1}}}
+
+Circle group
+The circle group is the quotient group 
+  
+    
+      
+        
+          T
+        
+        =
+        
+          R
+        
+        
+          /
+        
+        
+          Z
+        
+      
+    
+    {\displaystyle \mathbb {T} =\mathbb {R} /\mathbb {Z} }
+   of the integers and the real numbers. The set of all signed-digit representations of the circle group is given by the Cantor space 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            
+              N
+            
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}^{\mathbb {N} }}
+  , the set of all right-infinite concatenated strings of digits 
+  
+    
+      
+        
+          d
+          
+            1
+          
+        
+        
+          d
+          
+            2
+          
+        
+        …
+      
+    
+    {\displaystyle d_{1}d_{2}\ldots }
+  . Each signed-digit representation 
+  
+    
+      
+        m
+        ∈
+        
+          
+            
+              D
+            
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle m\in {\mathcal {D}}^{n}}
+   has a valuation 
+  
+    
+      
+        
+          v
+          
+            
+              D
+            
+          
+        
+        :
+        
+          
+            
+              D
+            
+          
+          
+            
+              N
+            
+          
+        
+        →
+        
+          T
+        
+      
+    
+    {\displaystyle v_{\mathcal {D}}:{\mathcal {D}}^{\mathbb {N} }\rightarrow \mathbb {T} }
+  
+
+  
+    
+      
+        
+          v
+          
+            
+              D
+            
+          
+        
+        (
+        m
+        )
+        ≡
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            ∞
+          
+        
+        
+          f
+          
+            
+              D
+            
+          
+        
+        (
+        
+          d
+          
+            i
+          
+        
+        )
+        
+          b
+          
+            −
+            i
+          
+        
+        
+          mod
+          
+            1
+          
+        
+      
+    
+    {\displaystyle v_{\mathcal {D}}(m)\equiv \sum _{i=1}^{\infty }f_{\mathcal {D}}(d_{i})b^{-i}{\bmod {1}}}
+  The infinite series always converges.
+
+b-adic integers
+The set of all signed-digit representations of the 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  -adic integers, 
+  
+    
+      
+        
+          
+            Z
+          
+          
+            b
+          
+        
+      
+    
+    {\displaystyle \mathbb {Z} _{b}}
+   is given by the Cantor space 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            
+              N
+            
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}^{\mathbb {N} }}
+  , the set of all left-infinite concatenated strings of digits 
+  
+    
+      
+        …
+        
+          d
+          
+            1
+          
+        
+        
+          d
+          
+            0
+          
+        
+      
+    
+    {\displaystyle \ldots d_{1}d_{0}}
+  . Each signed-digit representation 
+  
+    
+      
+        m
+        ∈
+        
+          
+            
+              D
+            
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle m\in {\mathcal {D}}^{n}}
+   has a valuation 
+  
+    
+      
+        
+          v
+          
+            
+              D
+            
+          
+        
+        :
+        
+          
+            
+              D
+            
+          
+          
+            
+              N
+            
+          
+        
+        →
+        
+          
+            Z
+          
+          
+            b
+          
+        
+      
+    
+    {\displaystyle v_{\mathcal {D}}:{\mathcal {D}}^{\mathbb {N} }\rightarrow \mathbb {Z} _{b}}
+  
+
+  
+    
+      
+        
+          v
+          
+            
+              D
+            
+          
+        
+        (
+        m
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            0
+          
+          
+            ∞
+          
+        
+        
+          f
+          
+            
+              D
+            
+          
+        
+        (
+        
+          d
+          
+            i
+          
+        
+        )
+        
+          b
+          
+            i
+          
+        
+      
+    
+    {\displaystyle v_{\mathcal {D}}(m)=\sum _{i=0}^{\infty }f_{\mathcal {D}}(d_{i})b^{i}}
+
+b-adic solenoids
+The set of all signed-digit representations of the 
+  
+    
+      
+        b
+      
+    
+    {\displaystyle b}
+  -adic solenoids, 
+  
+    
+      
+        
+          
+            T
+          
+          
+            b
+          
+        
+      
+    
+    {\displaystyle \mathbb {T} _{b}}
+   is given by the Cantor space 
+  
+    
+      
+        
+          
+            
+              D
+            
+          
+          
+            
+              Z
+            
+          
+        
+      
+    
+    {\displaystyle {\mathcal {D}}^{\mathbb {Z} }}
+  , the set of all doubly infinite concatenated strings of digits 
+  
+    
+      
+        …
+        
+          d
+          
+            1
+          
+        
+        
+          d
+          
+            0
+          
+        
+        
+          d
+          
+            −
+            1
+          
+        
+        …
+      
+    
+    {\displaystyle \ldots d_{1}d_{0}d_{-1}\ldots }
+  . Each signed-digit representation 
+  
+    
+      
+        m
+        ∈
+        
+          
+            
+              D
+            
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle m\in {\mathcal {D}}^{n}}
+   has a valuation 
+  
+    
+      
+        
+          v
+          
+            
+              D
+            
+          
+        
+        :
+        
+          
+            
+              D
+            
+          
+          
+            
+              Z
+            
+          
+        
+        →
+        
+          
+            T
+          
+          
+            b
+          
+        
+      
+    
+    {\displaystyle v_{\mathcal {D}}:{\mathcal {D}}^{\mathbb {Z} }\rightarrow \mathbb {T} _{b}}
+  
+
+  
+    
+      
+        
+          v
+          
+            
+              D
+            
+          
+        
+        (
+        m
+        )
+        =
+        
+          ∑
+          
+            i
+            =
+            −
+            ∞
+          
+          
+            ∞
+          
+        
+        
+          f
+          
+            
+              D
+            
+          
+        
+        (
+        
+          d
+          
+            i
+          
+        
+        )
+        
+          b
+          
+            i
+          
+        
+      
+    
+    {\displaystyle v_{\mathcal {D}}(m)=\sum _{i=-\infty }^{\infty }f_{\mathcal {D}}(d_{i})b^{i}}
+
+In written and spoken language
+Indo-Aryan languages
+The oral and written forms of numbers in the Indo-Aryan languages use a negative numeral (e.g., "un" in Hindi and Bengali, "un" or "unna" in Punjabi, "ekon" in Marathi) for the numbers between 11 and 90 that end with a nine. The numbers followed by their names are shown for Punjabi below (the prefix "ik" means "one"):
+19 unni, 20 vih, 21 ikki
+29 unatti, 30 tih, 31 ikatti
+39 untali, 40 chali, 41 iktali
+49 unanja, 50 panjah, 51 ikvanja
+59 unahat, 60 sath, 61 ikahat
+69 unattar, 70 sattar, 71 ikhattar
+79 unasi, 80 assi, 81 ikiasi
+89 unanve, 90 nabbe, 91 ikinnaven.Similarly, the Sesotho language utilizes negative numerals to form 8's and 9's.
+
+8 robeli (/Ro-bay-dee/)  meaning "break two" i.e. two fingers down
+9 robong (/Ro-bong/) meaning "break one" i.e. one finger down
+
+Classical Latin
+In Classical Latin, integers 18 and 19 did not even have a spoken, nor written form including corresponding parts for "eight" or "nine" in practice - despite them being in existence. Instead, in Classic Latin,
+
+18 = duodēvīgintī ("two taken from twenty"), (IIXX or XIIX),
+19 = ūndēvīgintī ("one taken from twenty"), (IXX or XIX)
+20 = vīgintī ("twenty"), (XX).For upcoming integer numerals [28, 29, 38, 39, ..., 88, 89] the additive form in the language had been much more common, however, for the listed numbers, the above form was still preferred. Hence, approaching thirty, numerals were expressed as:
+28 = duodētrīgintā ("two taken from thirty"), less frequently also yet vīgintī octō / octō et vīgintī ("twenty eight / eight and twenty"), (IIXXX or XXIIX versus XXVIII, latter having been fully outcompeted.)
+29 = ūndētrīgintā ("one taken from thirty") despite the less preferred form was also at their disposal.This is one of the main foundations of contemporary historians' reasoning, explaining why the subtractive I- and II- was so common in this range of cardinals compared to other ranges. Numerals 98 and 99 could also be expressed in both forms, yet "two to hundred" might have sounded a bit odd - clear evidence is the scarce occurrence of these numbers written down in a subtractive fashion in authentic sources.
+
+Finnish Language
+There is yet another language having this feature (by now, only in traces), however, still in active use today. This is the Finnish Language, where the (spelled out) numerals are used this way should a digit of 8 or 9 occur. The scheme is like this:
+1 = "yksi" (Note: yhd- or yht- mostly when about to be declined; e.g. "yhdessä" = "together, as one [entity]")
+2 = "kaksi" (Also note: kahde-, kahte- when declined)
+3 = "kolme"
+4 = "neljä"...
+
+7 = "seitsemän"
+8 = "kah(d)eksan" (two left [for it to reach it])
+9 = "yh(d)eksän" (one left [for it to reach it])
+10 = "kymmenen" (ten)Above list is no special case, it consequently appears in larger cardinals as well, e.g.:
+
+399 = "kolmesataayhdeksänkymmentäyhdeksän"Emphasizing of these attributes stay present even in the shortest colloquial forms of numerals:
+
+1 = "yy"
+2 = "kaa"
+3 = "koo"...
+
+7 = "seiska"
+8 = "kasi"
+9 = "ysi"
+10 = "kymppi"However, this phenomenon has no influence on written numerals, the Finnish use the standard Western-Arabic decimal notation.
+
+Time keeping
+In the English language it is common to refer to times as, for example, 'seven to three', 'to' performing the negation.
+
+Other systems
+There exist other signed-digit bases such that the base 
+  
+    
+      
+        b
+        ≠
+        
+          b
+          
+            +
+          
+        
+        +
+        
+          b
+          
+            −
+          
+        
+        +
+        1
+      
+    
+    {\displaystyle b\neq b_{+}+b_{-}+1}
+  . A notable examples of this is Booth encoding, which has a digit set 
+  
+    
+      
+        
+          
+            D
+          
+        
+        =
+        {
+        
+          
+            
+              1
+              ¯
+            
+          
+        
+        ,
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle {\mathcal {D}}=\lbrace {\bar {1}},0,1\rbrace }
+   with 
+  
+    
+      
+        
+          b
+          
+            +
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle b_{+}=1}
+   and 
+  
+    
+      
+        
+          b
+          
+            −
+          
+        
+        =
+        1
+      
+    
+    {\displaystyle b_{-}=1}
+  , but which uses a base 
+  
+    
+      
+        b
+        =
+        2
+        <
+        3
+        =
+        
+          b
+          
+            +
+          
+        
+        +
+        
+          b
+          
+            −
+          
+        
+        +
+        1
+      
+    
+    {\displaystyle b=2<3=b_{+}+b_{-}+1}
+  . The standard binary numeral system would only use digits of value 
+  
+    
+      
+        {
+        0
+        ,
+        1
+        }
+      
+    
+    {\displaystyle \lbrace 0,1\rbrace }
+  .
+Note that non-standard signed-digit representations are not unique.  For instance:
+
+  
+    
+      
+        
+          0111
+          
+            
+              D
+            
+          
+        
+        =
+        4
+        +
+        2
+        +
+        1
+        =
+        7
+      
+    
+    {\displaystyle 0111_{\mathcal {D}}=4+2+1=7}
+  
+
+  
+    
+      
+        10
+        
+          
+            
+              1
+              ¯
+            
+          
+        
+        
+          1
+          
+            
+              D
+            
+          
+        
+        =
+        8
+        −
+        2
+        +
+        1
+        =
+        7
+      
+    
+    {\displaystyle 10{\bar {1}}1_{\mathcal {D}}=8-2+1=7}
+  
+
+  
+    
+      
+        1
+        
+          
+            
+              1
+              ¯
+            
+          
+        
+        
+          11
+          
+            
+              D
+            
+          
+        
+        =
+        8
+        −
+        4
+        +
+        2
+        +
+        1
+        =
+        7
+      
+    
+    {\displaystyle 1{\bar {1}}11_{\mathcal {D}}=8-4+2+1=7}
+  
+
+  
+    
+      
+        100
+        
+          
+            
+              
+                1
+                ¯
+              
+            
+          
+          
+            
+              D
+            
+          
+        
+        =
+        8
+        −
+        1
+        =
+        7
+      
+    
+    {\displaystyle 100{\bar {1}}_{\mathcal {D}}=8-1=7}
+  The non-adjacent form (NAF) of Booth encoding does guarantee a unique representation for every integer value. However, this only applies for integer values. For example, consider the following repeating binary numbers in NAF,
+
+  
+    
+      
+        
+          
+            2
+            3
+          
+        
+        =
+        0.
+        
+          
+            
+              10
+              ¯
+            
+          
+          
+            
+              D
+            
+          
+        
+        =
+        1.
+        
+          
+            
+              
+                0
+                
+                  
+                    
+                      1
+                      ¯
+                    
+                  
+                
+              
+              ¯
+            
+          
+          
+            
+              D
+            
+          
+        
+      
+    
+    {\displaystyle {\frac {2}{3}}=0.{\overline {10}}_{\mathcal {D}}=1.{\overline {0{\bar {1}}}}_{\mathcal {D}}}
+
+See also
+Balanced ternary
+Negative base
+Redundant binary representation
+
+Notes and references
+
+J. P. Balantine (1925) "A Digit for Negative One", American Mathematical Monthly 32:302.
+Lui Han, Dongdong Chen, Seok-Bum Ko, Khan A. Wahid "Non-speculative Decimal Signed Digit Adder" from Department of Electrical and Computer Engineering, University of Saskatchewan.

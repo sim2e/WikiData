@@ -1,0 +1,31 @@
+A ring network is a network topology in which each node connects to exactly two other nodes, forming a single continuous pathway for signals through each node – a ring. Data travels from node to node, with each node along the way handling every packet.
+Rings can be unidirectional, with all traffic travelling either clockwise or anticlockwise around the ring, or bidirectional (as in SONET/SDH). Because a unidirectional ring topology provides only one pathway between any two nodes, unidirectional ring networks may be disrupted by the failure of a single link. A node failure or cable break might isolate every node attached to the ring. In response, some ring networks add a "counter-rotating ring" (C-Ring) to form a redundant topology: in the event of a break, data are wrapped back onto the complementary ring before reaching the end of the cable, maintaining a path to every node along the resulting C-Ring. Such "dual ring" networks include the ITU-T's PSTN telephony systems network Signalling System No. 7 (SS7), Spatial Reuse Protocol, Fiber Distributed Data Interface (FDDI), Resilient Packet Ring, and Ethernet Ring Protection Switching. IEEE 802.5 networks – also known as IBM Token Ring networks – avoid the weakness of a ring topology altogether: they actually use a star topology at the physical layer and a media access unit (MAU) to imitate a ring at the datalink layer. Ring networks are used by ISPs to provide data backhaul services, connecting the ISP's facilities such as central offices/headends together.All Signalling System No. 7 (SS7), and some SONET/SDH rings have two sets of bidirectional links between nodes. This allows maintenance or failures at multiple points of the ring usually without loss of the primary traffic on the outer ring by switching the traffic onto the inner ring past the failure points.
+
+Advantages
+Very orderly network where every device has access to the token and the opportunity to transmit
+Performs better than a bus topology under heavy network load
+Does not require a central node to manage the connectivity between the computers
+Due to the point-to-point line configuration of devices with a device on either side (each device is connected to its immediate neighbor), it is quite easy to install and reconfigure since adding or removing a device requires moving just two connections.
+Point-to-point line configuration makes it easy to identify and isolate faults.
+Ring Protection reconfiguration for line faults of bidirectional rings can be very fast, as switching happens at a high level, and thus the traffic does not require individual rerouting.
+Ring topology helps mitigate collisions in a network.
+
+Disadvantages
+One malfunctioning workstation can create problems for the entire network. This can be solved by using a dual ring or a switch that closes off the break.
+Moving, adding and changing the devices can affect the network
+Communication delay is directly proportional to number of nodes in the network
+Bandwidth is shared on all links between devices
+More difficult to configure than a Star: node adjunction = Ring shutdown and reconfiguration
+
+Access protocols
+Rings can be used to carry circuits or packets or a combination of both.  SDH rings carry circuits.  Circuits are set up with out-of-band signalling protocols, whereas packets are usually carried via a Medium Access Control Protocol (MAC).
+The purpose of media access control is to determine which station transmits when.  As in any MAC protocol, the aims are to resolve contention and provide fairness. There are three main classes of media access protocol for ring networks: slotted, token and register insertion.
+The slotted ring treats the latency of the ring network as a large shift register that permanently rotates.  It is formatted into so-called slots of fixed size.  A slot is either full or empty, as indicated by control flags in the head of the slot.  A station that wishes to transmit waits for an empty slot and puts data in. Other stations can copy out the data and may free the slot, or it may circulate back to the source who frees it.  An advantage of source-release, if the sender is banned from immediately re-using  it, is that all other stations get the chance to use it first, hence avoiding bandwidth hogging.  The pre-eminent example of the slotted ring is the Cambridge Ring.
+
+Misconceptions
+"Token Ring is an example of a ring topology." 802.5 (Token Ring) networks do not use a ring topology at layer 1. Token Ring networks are technologies developed by IBM typically used in local area networks. Token Ring (802.5) networks imitate a ring at layer 2 but use a physical star at layer 1.
+"Rings prevent collisions." The term "ring" only refers to the layout of the cables. It is true that there are no collisions on an IBM Token Ring, but this is because of the layer 2 Media Access Control method, not the physical topology (which again is a star, not a ring.) Token passing, not rings, prevent collisions.
+"Token passing happens on rings." Token passing is a way of managing access to the cable, implemented at the MAC sublayer of layer 2. Ring topology is the cable layout at layer one. It is possible to do token passing on a bus (802.4) a star (802.5) or a ring (FDDI). Token passing is not restricted to rings.
+
+
+== References ==

@@ -1,0 +1,1243 @@
+Assortativity, or assortative mixing, is a preference for a network's nodes to attach to others that are similar in some way. Though the specific measure of similarity may vary, network theorists often examine assortativity in terms of a node's degree. The addition of this characteristic to network models more closely approximates the behaviors of many real world networks.
+Correlations between nodes of similar degree are often found in the mixing patterns of many observable networks. For instance, in social networks, nodes tend to be connected with other nodes with similar degree values. This tendency is referred to as assortative mixing, or assortativity. On the other hand, technological and biological networks typically show disassortative mixing, or disassortativity, as high degree nodes tend to attach to low degree nodes.
+
+Measurement
+Assortativity is often operationalized as a correlation between two nodes. However, there are several ways to capture such a correlation. The two most prominent measures are the assortativity coefficient and the neighbor connectivity. These measures are outlined in more detail below.
+
+Assortativity coefficient
+The assortativity coefficient is the Pearson correlation coefficient of degree between pairs of linked nodes. Positive values of r indicate a correlation between nodes of similar degree, while negative values indicate relationships between nodes of different degree. In general, r lies between −1 and 1. When r = 1, the network is said to have perfect assortative mixing patterns, when r = 0 the network is non-assortative, while at r = −1 the network is completely disassortative.
+The assortativity coefficient is given by 
+  
+    
+      
+        r
+        =
+        
+          
+            
+              
+                ∑
+                
+                  j
+                  k
+                
+              
+              
+                j
+                k
+                (
+                
+                  e
+                  
+                    j
+                    k
+                  
+                
+                −
+                
+                  q
+                  
+                    j
+                  
+                
+                
+                  q
+                  
+                    k
+                  
+                
+                )
+              
+            
+            
+              σ
+              
+                q
+              
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle r={\frac {\sum _{jk}{jk(e_{jk}-q_{j}q_{k})}}{\sigma _{q}^{2}}}}
+  . The term 
+  
+    
+      
+        
+          q
+          
+            k
+          
+        
+      
+    
+    {\displaystyle q_{k}}
+   is the distribution of the remaining degree. This captures the number of edges leaving the node, other than the one that connects the pair. The distribution of this term is derived from the degree distribution 
+  
+    
+      
+        
+          p
+          
+            k
+          
+        
+      
+    
+    {\displaystyle p_{k}}
+   as 
+  
+    
+      
+        
+          q
+          
+            k
+          
+        
+        =
+        
+          
+            
+              (
+              k
+              +
+              1
+              )
+              
+                p
+                
+                  k
+                  +
+                  1
+                
+              
+            
+            
+              
+                ∑
+                
+                  j
+                  ≥
+                  1
+                
+              
+              j
+              
+                p
+                
+                  j
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle q_{k}={\frac {(k+1)p_{k+1}}{\sum _{j\geq 1}jp_{j}}}}
+  . Finally, 
+  
+    
+      
+        
+          e
+          
+            j
+            k
+          
+        
+      
+    
+    {\displaystyle e_{jk}}
+   refers to the joint probability distribution of the remaining degrees of the two vertices. This quantity is symmetric on an undirected graph, and follows the sum rules 
+  
+    
+      
+        
+          ∑
+          
+            j
+            k
+          
+        
+        
+          
+            e
+            
+              j
+              k
+            
+          
+        
+        =
+        1
+        
+      
+    
+    {\displaystyle \sum _{jk}{e_{jk}}=1\,}
+   and 
+  
+    
+      
+        
+          ∑
+          
+            j
+          
+        
+        
+          
+            e
+            
+              j
+              k
+            
+          
+        
+        =
+        
+          q
+          
+            k
+          
+        
+        
+      
+    
+    {\displaystyle \sum _{j}{e_{jk}}=q_{k}\,}
+  .
+In a Directed graph, in-assortativity (
+  
+    
+      
+        r
+        (
+        
+          in
+        
+        ,
+        
+          in
+        
+        )
+      
+    
+    {\displaystyle r({\text{in}},{\text{in}})}
+  ) and out-assortativity (
+  
+    
+      
+        r
+        (
+        
+          out
+        
+        ,
+        
+          out
+        
+        )
+      
+    
+    {\displaystyle r({\text{out}},{\text{out}})}
+  ) measure the tendencies of nodes to connect with other nodes that have similar in and out degrees as themselves, respectively. Extending this further, four types of assortativity can be considered (see ). Adopting the notation of that article, it is possible to define four metrics 
+  
+    
+      
+        r
+        (
+        
+          in
+        
+        ,
+        
+          in
+        
+        )
+      
+    
+    {\displaystyle r({\text{in}},{\text{in}})}
+  , 
+  
+    
+      
+        r
+        (
+        
+          in
+        
+        ,
+        
+          out
+        
+        )
+      
+    
+    {\displaystyle r({\text{in}},{\text{out}})}
+  , 
+  
+    
+      
+        r
+        (
+        
+          out
+        
+        ,
+        
+          in
+        
+        )
+      
+    
+    {\displaystyle r({\text{out}},{\text{in}})}
+  , and 
+  
+    
+      
+        r
+        (
+        
+          out
+        
+        ,
+        
+          out
+        
+        )
+      
+    
+    {\displaystyle r({\text{out}},{\text{out}})}
+  . Let 
+  
+    
+      
+        (
+        α
+        ,
+        β
+        )
+      
+    
+    {\displaystyle (\alpha ,\beta )}
+  , be one of the in/out word pairs (e.g. 
+  
+    
+      
+        (
+        α
+        ,
+        β
+        )
+        =
+        (
+        
+          out
+        
+        ,
+        
+          in
+        
+        )
+      
+    
+    {\displaystyle (\alpha ,\beta )=({\text{out}},{\text{in}})}
+  ). Let 
+  
+    
+      
+        E
+      
+    
+    {\displaystyle E}
+   be the number of edges in the network. Suppose we label the edges of the network 
+  
+    
+      
+        1
+        ,
+        …
+        ,
+        E
+      
+    
+    {\displaystyle 1,\ldots ,E}
+  . Given edge 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  , let 
+  
+    
+      
+        
+          j
+          
+            i
+          
+          
+            α
+          
+        
+      
+    
+    {\displaystyle j_{i}^{\alpha }}
+   be the 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+  -degree of the source (i.e. tail) node vertex of the edge, and 
+  
+    
+      
+        
+          k
+          
+            i
+          
+          
+            β
+          
+        
+      
+    
+    {\displaystyle k_{i}^{\beta }}
+   be the 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+  -degree of the target (i.e. head) node of edge 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  . We indicate average values with bars, so that 
+  
+    
+      
+        
+          
+            
+              
+                j
+                
+                  α
+                
+              
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {j^{\alpha }}}}
+  , and 
+  
+    
+      
+        
+          
+            
+              
+                k
+                
+                  β
+                
+              
+              ¯
+            
+          
+        
+      
+    
+    {\displaystyle {\bar {k^{\beta }}}}
+   are the average 
+  
+    
+      
+        α
+      
+    
+    {\displaystyle \alpha }
+  -degree of sources, and 
+  
+    
+      
+        β
+      
+    
+    {\displaystyle \beta }
+  -degree of targets, respectively; averages being taken over the edges of the network. Finally, we have
+
+  
+    
+      
+        r
+        (
+        α
+        ,
+        β
+        )
+        =
+        
+          
+            
+              
+                ∑
+                
+                  i
+                
+              
+              (
+              
+                j
+                
+                  i
+                
+                
+                  α
+                
+              
+              −
+              
+                
+                  
+                    
+                      j
+                      
+                        α
+                      
+                    
+                    ¯
+                  
+                
+              
+              )
+              (
+              
+                k
+                
+                  i
+                
+                
+                  β
+                
+              
+              −
+              
+                
+                  
+                    
+                      k
+                      
+                        β
+                      
+                    
+                    ¯
+                  
+                
+              
+              )
+            
+            
+              
+                
+                  
+                    ∑
+                    
+                      i
+                    
+                  
+                  (
+                  
+                    j
+                    
+                      i
+                    
+                    
+                      α
+                    
+                  
+                  −
+                  
+                    
+                      
+                        
+                          j
+                          
+                            α
+                          
+                        
+                        ¯
+                      
+                    
+                  
+                  
+                    )
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  
+                    ∑
+                    
+                      i
+                    
+                  
+                  (
+                  
+                    k
+                    
+                      i
+                    
+                    
+                      β
+                    
+                  
+                  −
+                  
+                    
+                      
+                        
+                          k
+                          
+                            β
+                          
+                        
+                        ¯
+                      
+                    
+                  
+                  
+                    )
+                    
+                      2
+                    
+                  
+                
+              
+            
+          
+        
+        .
+      
+    
+    {\displaystyle r(\alpha ,\beta )={\frac {\sum _{i}(j_{i}^{\alpha }-{\bar {j^{\alpha }}})(k_{i}^{\beta }-{\bar {k^{\beta }}})}{{\sqrt {\sum _{i}(j_{i}^{\alpha }-{\bar {j^{\alpha }}})^{2}}}{\sqrt {\sum _{i}(k_{i}^{\beta }-{\bar {k^{\beta }}})^{2}}}}}.}
+
+Neighbor connectivity
+Another means of capturing the degree correlation is by examining the properties of 
+  
+    
+      
+        ⟨
+        
+          k
+          
+            n
+            n
+          
+        
+        ⟩
+      
+    
+    {\displaystyle \langle k_{nn}\rangle }
+  , or the average degree of neighbors of a node with degree k. This term is formally defined as: 
+  
+    
+      
+        ⟨
+        
+          k
+          
+            n
+            n
+          
+        
+        ⟩
+        =
+        
+          ∑
+          
+            
+              k
+              ′
+            
+          
+        
+        
+          
+            k
+            ′
+          
+          P
+          (
+          
+            k
+            ′
+          
+          
+            |
+          
+          k
+          )
+        
+      
+    
+    {\displaystyle \langle k_{nn}\rangle =\sum _{k'}{k'P(k'|k)}}
+  , where 
+  
+    
+      
+        P
+        (
+        
+          k
+          ′
+        
+        
+          |
+        
+        k
+        )
+      
+    
+    {\displaystyle P(k'|k)}
+   is the conditional probability that an edge of node with degree k points to a node with degree k'. If this function is increasing, the network is assortative, since it shows that nodes of high degree connect, on average, to nodes of high degree. Alternatively, if the function is decreasing, the network is disassortative, since nodes of high degree tend to connect to nodes of lower degree. The function can be plotted on a graph (see Fig. 2) to depict the overall assortativity trend for a network.
+
+Local assortativity
+In assortative networks, there could be nodes that are disassortative and vice versa. A local assortative measure is required to identify such anomalies within networks. Local assortativity is defined as the contribution that each node makes to the network assortativity. Local assortativity in undirected networks is defined as,
+
+  
+    
+      
+        ρ
+        =
+        
+          
+            
+              j
+               
+              
+                (
+                
+                  j
+                  +
+                  1
+                
+                )
+              
+              
+                (
+                
+                  
+                    
+                      k
+                      ¯
+                    
+                  
+                  −
+                   
+                  
+                    
+                      μ
+                    
+                    
+                      q
+                    
+                  
+                
+                )
+              
+            
+            
+              2
+              M
+              
+                
+                  σ
+                
+                
+                  q
+                
+                
+                  2
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle \rho ={\frac {j\ \left(j+1\right)\left({\overline {k}}-\ {\mu }_{q}\right)}{2M{\sigma }_{q}^{2}}}}
+  
+Where 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+   is the excess degree of a particular node and 
+  
+    
+      
+        
+          
+            k
+            ¯
+          
+        
+      
+    
+    {\displaystyle {\overline {k}}}
+   is the average excess degree of its neighbors and M is the number of links in the network.
+Respectively, local assortativity for directed networks is a node's contribution to the directed assortativity of a network. A node's contribution to the assortativity of a directed network 
+  
+    
+      
+        
+          r
+          
+            d
+          
+        
+      
+    
+    {\displaystyle r_{d}}
+   is defined as,
+
+  
+    
+      
+        
+          
+            ρ
+          
+          
+            d
+          
+        
+        =
+         
+        
+          
+            
+              
+                
+                  
+                    j
+                    
+                      o
+                      u
+                      t
+                    
+                  
+                
+                
+                  2
+                
+              
+              
+                (
+                
+                  
+                    
+                      
+                        k
+                        ¯
+                      
+                    
+                    
+                      i
+                      n
+                    
+                  
+                  −
+                   
+                  
+                    
+                      μ
+                    
+                    
+                      q
+                    
+                    
+                      i
+                      n
+                    
+                  
+                
+                )
+              
+              +
+               
+              
+                
+                  
+                    j
+                    
+                      i
+                      n
+                    
+                  
+                
+                
+                  2
+                
+              
+              
+                (
+                
+                  
+                    
+                      
+                        k
+                        ¯
+                      
+                    
+                    
+                      o
+                      u
+                      t
+                    
+                  
+                  −
+                   
+                  
+                    
+                      μ
+                    
+                    
+                      q
+                    
+                    
+                      o
+                      u
+                      t
+                    
+                  
+                
+                )
+              
+            
+            
+              2
+               
+              M
+              
+                
+                  σ
+                
+                
+                  q
+                
+                
+                  i
+                  n
+                
+              
+              
+                
+                  σ
+                
+                
+                  q
+                
+                
+                  o
+                  u
+                  t
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle {\rho }_{d}=\ {\frac {{j_{out}}^{2}\left({\overline {k}}_{in}-\ {\mu }_{q}^{in}\right)+\ {j_{in}}^{2}\left({\overline {k}}_{out}-\ {\mu }_{q}^{out}\right)}{2\ M{\sigma }_{q}^{in}{\sigma }_{q}^{out}}}}
+  
+Where 
+  
+    
+      
+        
+          j
+          
+            o
+            u
+            t
+          
+        
+      
+    
+    {\displaystyle j_{out}}
+   is the out-degree of the node under consideration and 
+  
+    
+      
+        
+          j
+          
+            i
+            n
+          
+        
+      
+    
+    {\displaystyle j_{in}}
+   is the in-degree, 
+  
+    
+      
+        
+          
+            
+              k
+              ¯
+            
+          
+          
+            i
+            n
+          
+        
+      
+    
+    {\displaystyle {\overline {k}}_{in}}
+   is the average in-degree of its neighbors (to which node 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+  } has an edge) and 
+  
+    
+      
+        
+          
+            
+              k
+              ¯
+            
+          
+          
+            o
+            u
+            t
+          
+        
+      
+    
+    {\displaystyle {\overline {k}}_{out}}
+   is the average out-degree of its neighbors (from which node 
+  
+    
+      
+        v
+      
+    
+    {\displaystyle v}
+   has an edge).
+  
+    
+      
+        
+          
+            σ
+          
+          
+            q
+          
+          
+            i
+            n
+          
+        
+         
+        ≠
+        0
+      
+    
+    {\displaystyle {\sigma }_{q}^{in}\ \neq 0}
+  ,
+  
+    
+      
+         
+        
+          
+             
+            σ
+          
+          
+            q
+          
+          
+            o
+            u
+            t
+          
+        
+         
+        ≠
+        0
+      
+    
+    {\displaystyle \ {\ \sigma }_{q}^{out}\ \neq 0}
+  .
+By including the scaling terms 
+  
+    
+      
+        
+          
+            σ
+          
+          
+            q
+          
+          
+            i
+            n
+          
+        
+      
+    
+    {\displaystyle {\sigma }_{q}^{in}}
+   and 
+  
+    
+      
+        
+          
+             
+            σ
+          
+          
+            q
+          
+          
+            o
+            u
+            t
+          
+        
+      
+    
+    {\displaystyle {\ \sigma }_{q}^{out}}
+   , we ensure that the equation for local assortativity for a directed network satisfies the condition  
+  
+    
+      
+        
+          r
+          
+            d
+          
+        
+        =
+         
+        
+          ∑
+          
+            i
+            =
+            1
+          
+          
+            N
+          
+        
+        
+          
+            
+              ρ
+            
+            
+              d
+            
+          
+        
+      
+    
+    {\displaystyle r_{d}=\ \sum _{i=1}^{N}{{\rho }_{d}}}
+  .
+Further, based on whether the in-degree or out-degree distribution is considered, it is possible to define local in-assortativity and local out-assortativity as the respective local assortativity measures in a directed network.
+
+Assortative mixing patterns of real networks
+The assortative patterns of a variety of real world networks have been examined. For instance, Fig. 3 lists values of r for a variety of networks. Note that the social networks (the first five entries) have apparent assortative mixing. On the other hand, the technological and biological networks (the middle six entries) all appear to be disassortative. It has been suggested that this is because most networks have a tendency to evolve, unless otherwise constrained, towards their maximum entropy state—which is usually disassortative.The table also has the value of r calculated analytically for two models of networks:
+
+the random graph of Erdős and Rényi
+BA Model (Barabási-Albert model)In the ER model, since edges are placed at random without regard to vertex degree, it follows that r = 0 in the limit of large graph size. The scale-free BA model also holds this property. For the BA model in the special case of m=1 (where each incoming node attaches to only one of the existing nodes with a degree-proportional probability), a more precise result is known: as 
+  
+    
+      
+        N
+      
+    
+    {\displaystyle N}
+   (the number of vertices) tends to infinity, r approaches 0 at the same rate as 
+  
+    
+      
+        (
+        
+          log
+          
+            2
+          
+        
+        ⁡
+        N
+        )
+        
+          /
+        
+        N
+      
+    
+    {\displaystyle (\log ^{2}N)/N}
+  .
+
+Application
+The properties of assortativity are useful in the field of epidemiology, since they can help understand the spread of disease or cures. For instance, the removal of a portion of a network's vertices may correspond to curing, vaccinating, or quarantining individuals or cells. Since social networks demonstrate assortative mixing, diseases targeting high degree individuals are likely to spread to other high degree nodes. Alternatively, within the cellular network—which, as a biological network is likely dissortative—vaccination strategies that specifically target the high degree vertices may quickly destroy the epidemic network.
+
+Structural disassortativity
+The basic structure of a network can cause these measures to show disassortativity, which is not representative of any underlying assortative or disassortative mixing.  Special caution must be taken to avoid this structural disassortativity.
+
+See also
+Assortative mixing
+Preferential attachment
+Homophily
+Structural cut-off
+Rich-club coefficient
+
+
+== References ==

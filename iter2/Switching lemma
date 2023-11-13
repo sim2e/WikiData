@@ -1,0 +1,315 @@
+In computational complexity theory, Håstad's switching lemma is a key tool for proving lower bounds on the size of constant-depth Boolean circuits. It was first introduced by Johan Håstad to prove that AC0 Boolean circuits of depth k require size 
+  
+    
+      
+        exp
+        ⁡
+        (
+        Ω
+        (
+        
+          n
+          
+            1
+            
+              /
+            
+            (
+            k
+            −
+            1
+            )
+          
+        
+        )
+        )
+      
+    
+    {\displaystyle \exp(\Omega (n^{1/(k-1)}))}
+   to compute the parity function on 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+   bits. He was later awarded the Gödel Prize for this work in 1994.
+The switching lemma describes the behavior of a depth-2 circuit under random restriction, i.e. when randomly fixing most of the coordinates to 0 or 1. Specifically, from the lemma, it follows that a formula in conjunctive normal form (that is, an AND of ORs) becomes a formula in disjunctive normal form (an OR and ANDs) under random restriction, and vice versa. This "switching" gives the lemma its name.
+
+Statement
+Consider a width-w formula in disjunctive normal form 
+  
+    
+      
+        F
+        =
+        
+          C
+          
+            1
+          
+        
+        ∧
+        
+          C
+          
+            2
+          
+        
+        ∧
+        ⋯
+        ∧
+        
+          C
+          
+            m
+          
+        
+      
+    
+    {\displaystyle F=C_{1}\wedge C_{2}\wedge \cdots \wedge C_{m}}
+  , the OR of clauses 
+  
+    
+      
+        
+          C
+          
+            ℓ
+          
+        
+      
+    
+    {\displaystyle C_{\ell }}
+   which are the AND of w literals (
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+   or its negation 
+  
+    
+      
+        ¬
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle \neg x_{i}}
+  ). For example, 
+  
+    
+      
+        (
+        ¬
+        
+          x
+          
+            1
+          
+        
+        ∨
+        
+          x
+          
+            2
+          
+        
+        )
+        ∧
+        (
+        
+          x
+          
+            2
+          
+        
+        ∨
+        
+          x
+          
+            3
+          
+        
+        )
+        ∧
+        (
+        
+          x
+          
+            2
+          
+        
+        ∨
+        
+          x
+          
+            3
+          
+        
+        )
+      
+    
+    {\displaystyle (\neg x_{1}\vee x_{2})\wedge (x_{2}\vee x_{3})\wedge (x_{2}\vee x_{3})}
+   is an example of a formula in this form with width 2.
+Let 
+  
+    
+      
+        F
+        
+          |
+        
+        
+          R
+          
+            p
+          
+        
+      
+    
+    {\displaystyle F|R_{p}}
+   denote the formula under a random restriction: each 
+  
+    
+      
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle x_{i}}
+   is set independently to 0 or 1 with probability 
+  
+    
+      
+        (
+        1
+        −
+        p
+        )
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle (1-p)/2}
+  . Then, for a sufficiently large constant C, the switching lemma states that
+
+  
+    
+      
+        Pr
+        [
+        DT
+        ⁡
+        (
+        F
+        ∣
+        
+          R
+          
+            p
+          
+        
+        )
+        ≥
+        t
+        ]
+        <
+        C
+        (
+        p
+        w
+        
+          )
+          
+            t
+          
+        
+        ,
+      
+    
+    {\displaystyle \Pr[\operatorname {DT} (F\mid R_{p})\geq t]<C(pw)^{t},}
+  where 
+  
+    
+      
+        DT
+        ⁡
+        (
+        f
+        )
+      
+    
+    {\displaystyle \operatorname {DT} (f)}
+   denotes decision tree complexity, the number of bits of 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+   needed to compute the function 
+  
+    
+      
+        f
+      
+    
+    {\displaystyle f}
+  .
+
+Proof
+Intuitively, the switching lemma holds because DNF formulas shrink significantly under random restriction: when a literal in a clause is set to 0, the whole AND clause evaluates to zero, and therefore can be discarded.
+The original proof of the switching lemma (Håstad 1987) involves an argument with conditional probabilities.
+Arguably simpler proofs have been subsequently given by Razborov (1993) and Beame (1994). For an introduction, see Chapter 14 in Arora & Barak (2009).
+
+Bounds on AC0 circuits
+The switching lemma is a key tool used for understanding the circuit complexity class AC0, which consists of constant-depth circuits consisting of AND, OR, and NOT. Håstad's initial application of this lemma was to establish tight exponential lower bounds for such circuits computing PARITY, improving on the prior super-polynomial lower bounds of Merrick Furst, James Saxe and Michael Sipser  and independently Miklós Ajtai. This is done by applying the switching lemma 
+  
+    
+      
+        d
+        −
+        1
+      
+    
+    {\displaystyle d-1}
+   times, where 
+  
+    
+      
+        d
+      
+    
+    {\displaystyle d}
+   is the depth of the circuit: each application removes a layer of the circuit until one is left with a very simple circuit, whereas PARITY is still PARITY under random restriction, and so remains complex. So, a circuit that computes PARITY must have high depth.The switching lemma is the basis for bounds on the Fourier spectrum of AC0 circuits and algorithms for learning such circuits.
+
+See also
+AC0
+Boolean circuit
+Circuit satisfiability
+Circuit value problem
+Parity function
+
+
+== References ==

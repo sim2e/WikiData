@@ -1,0 +1,1185 @@
+In computer science, the controlled NOT gate (also C-NOT or CNOT), controlled-X gate, controlled-bit-flip gate, Feynman gate or controlled Pauli-X is a quantum logic gate that is an essential component in the construction of a gate-based quantum computer. It can be used to entangle and disentangle Bell states. Any quantum circuit can be simulated to an arbitrary degree of accuracy using a combination of CNOT gates and single qubit rotations. The gate is sometimes named after Richard Feynman who developed an early notation for quantum gate diagrams in 1986.The CNOT can be expressed in the Pauli basis as:
+
+  
+    
+      
+        
+          
+            CNOT
+          
+        
+        =
+        
+          e
+          
+            i
+            
+              
+                π
+                4
+              
+            
+            (
+            
+              I
+              
+                1
+              
+            
+            −
+            
+              Z
+              
+                1
+              
+            
+            )
+            (
+            
+              I
+              
+                2
+              
+            
+            −
+            
+              X
+              
+                2
+              
+            
+            )
+          
+        
+        =
+        
+          e
+          
+            −
+            i
+            
+              
+                π
+                4
+              
+            
+            (
+            
+              I
+              
+                1
+              
+            
+            −
+            
+              Z
+              
+                1
+              
+            
+            )
+            (
+            
+              I
+              
+                2
+              
+            
+            −
+            
+              X
+              
+                2
+              
+            
+            )
+          
+        
+        .
+      
+    
+    {\displaystyle {\mbox{CNOT}}=e^{i{\frac {\pi }{4}}(I_{1}-Z_{1})(I_{2}-X_{2})}=e^{-i{\frac {\pi }{4}}(I_{1}-Z_{1})(I_{2}-X_{2})}.}
+  Being both unitary and Hermitian, CNOT has the property 
+  
+    
+      
+        
+          e
+          
+            i
+            θ
+            U
+          
+        
+        =
+        (
+        cos
+        ⁡
+        θ
+        )
+        I
+        +
+        (
+        i
+        sin
+        ⁡
+        θ
+        )
+        U
+      
+    
+    {\displaystyle e^{i\theta U}=(\cos \theta )I+(i\sin \theta )U}
+   and 
+  
+    
+      
+        U
+        =
+        
+          e
+          
+            i
+            
+              
+                π
+                2
+              
+            
+            (
+            I
+            −
+            U
+            )
+          
+        
+        =
+        
+          e
+          
+            −
+            i
+            
+              
+                π
+                2
+              
+            
+            (
+            I
+            −
+            U
+            )
+          
+        
+      
+    
+    {\displaystyle U=e^{i{\frac {\pi }{2}}(I-U)}=e^{-i{\frac {\pi }{2}}(I-U)}}
+  , and is involutory.  
+The CNOT gate can be further decomposed as products of rotation operator gates and exactly one two qubit interaction gate, for example
+
+  
+    
+      
+        
+          
+            CNOT
+          
+        
+        =
+        
+          e
+          
+            −
+            i
+            
+              
+                π
+                4
+              
+            
+          
+        
+        
+          R
+          
+            
+              y
+              
+                1
+              
+            
+          
+        
+        (
+        −
+        π
+        
+          /
+        
+        2
+        )
+        
+          R
+          
+            
+              x
+              
+                1
+              
+            
+          
+        
+        (
+        −
+        π
+        
+          /
+        
+        2
+        )
+        
+          R
+          
+            
+              x
+              
+                2
+              
+            
+          
+        
+        (
+        −
+        π
+        
+          /
+        
+        2
+        )
+        
+          R
+          
+            x
+            x
+          
+        
+        (
+        π
+        
+          /
+        
+        2
+        )
+        
+          R
+          
+            
+              y
+              
+                1
+              
+            
+          
+        
+        (
+        π
+        
+          /
+        
+        2
+        )
+        .
+      
+    
+    {\displaystyle {\mbox{CNOT}}=e^{-i{\frac {\pi }{4}}}R_{y_{1}}(-\pi /2)R_{x_{1}}(-\pi /2)R_{x_{2}}(-\pi /2)R_{xx}(\pi /2)R_{y_{1}}(\pi /2).}
+  In general, any single qubit unitary gate can be expressed as 
+  
+    
+      
+        U
+        =
+        
+          e
+          
+            i
+            H
+          
+        
+      
+    
+    {\displaystyle U=e^{iH}}
+  , where H is a Hermitian matrix, and then the controlled U is 
+  
+    
+      
+        C
+        U
+        =
+        
+          e
+          
+            i
+            
+              
+                1
+                2
+              
+            
+            (
+            
+              I
+              
+                1
+              
+            
+            −
+            
+              Z
+              
+                1
+              
+            
+            )
+            
+              H
+              
+                2
+              
+            
+          
+        
+      
+    
+    {\displaystyle CU=e^{i{\frac {1}{2}}(I_{1}-Z_{1})H_{2}}}
+  .
+The CNOT gate is also used in classical reversible computing.
+
+Operation
+The CNOT gate operates on a quantum register consisting of 2 qubits. The CNOT gate flips the second qubit (the target qubit) if and only if the first qubit (the control qubit) is 
+  
+    
+      
+        
+          |
+        
+        1
+        ⟩
+      
+    
+    {\displaystyle |1\rangle }
+  .
+
+If 
+  
+    
+      
+        {
+        
+          |
+        
+        0
+        ⟩
+        ,
+        
+          |
+        
+        1
+        ⟩
+        }
+      
+    
+    {\displaystyle \{|0\rangle ,|1\rangle \}}
+   are the only allowed input values for both qubits, then the TARGET output of the CNOT gate corresponds to the result of a classical XOR gate. Fixing CONTROL as 
+  
+    
+      
+        
+          |
+        
+        1
+        ⟩
+      
+    
+    {\displaystyle |1\rangle }
+  , the TARGET output of the CNOT gate yields the result of a classical NOT gate.
+More generally, the inputs are allowed to be a linear superposition of 
+  
+    
+      
+        {
+        
+          |
+        
+        0
+        ⟩
+        ,
+        
+          |
+        
+        1
+        ⟩
+        }
+      
+    
+    {\displaystyle \{|0\rangle ,|1\rangle \}}
+  . The CNOT gate transforms the quantum state:
+
+  
+    
+      
+        a
+        
+          |
+        
+        00
+        ⟩
+        +
+        b
+        
+          |
+        
+        01
+        ⟩
+        +
+        c
+        
+          |
+        
+        10
+        ⟩
+        +
+        d
+        
+          |
+        
+        11
+        ⟩
+      
+    
+    {\displaystyle a|00\rangle +b|01\rangle +c|10\rangle +d|11\rangle }
+  
+into:
+
+  
+    
+      
+        a
+        
+          |
+        
+        00
+        ⟩
+        +
+        b
+        
+          |
+        
+        01
+        ⟩
+        +
+        c
+        
+          |
+        
+        11
+        ⟩
+        +
+        d
+        
+          |
+        
+        10
+        ⟩
+      
+    
+    {\displaystyle a|00\rangle +b|01\rangle +c|11\rangle +d|10\rangle }
+  
+The action of the CNOT gate can be represented by the matrix (permutation matrix form):
+
+  
+    
+      
+        CNOT
+        =
+        
+          
+            [
+            
+              
+                
+                  1
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  1
+                
+                
+                  0
+                
+                
+                  0
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  0
+                
+                
+                  1
+                
+              
+              
+                
+                  0
+                
+                
+                  0
+                
+                
+                  1
+                
+                
+                  0
+                
+              
+            
+            ]
+          
+        
+        .
+      
+    
+    {\displaystyle \operatorname {CNOT} ={\begin{bmatrix}1&0&0&0\\0&1&0&0\\0&0&0&1\\0&0&1&0\end{bmatrix}}.}
+  The first experimental realization of a CNOT gate was accomplished in 1995. Here, a single Beryllium ion in a trap was used. The two qubits were encoded into an optical state and into the vibrational state of the ion within the trap. At the time of the experiment, the reliability of the CNOT-operation was measured to be on the order of 90%.In addition to a regular controlled NOT gate, one could construct a function-controlled NOT gate, which accepts an arbitrary number n+1 of qubits as input, where n+1 is greater than or equal to 2 (a quantum register). This gate flips the last qubit of the register if and only if a built-in function, with the first n qubits as input, returns a 1.
+The function-controlled NOT gate is an essential element of the Deutsch–Jozsa algorithm.
+
+Behaviour in the Hadamard transformed basis
+When viewed only in the computational basis 
+  
+    
+      
+        {
+        
+          |
+        
+        0
+        ⟩
+        ,
+        
+          |
+        
+        1
+        ⟩
+        }
+      
+    
+    {\displaystyle \{|0\rangle ,|1\rangle \}}
+  , the behaviour of the CNOT appears to be like the equivalent classical gate. However, the simplicity of labelling one qubit the control and the other the target does not reflect the complexity of what happens for most input values of both qubits.
+
+Insight can be won by expressing the CNOT gate with respect to a Hadamard transformed basis 
+  
+    
+      
+        {
+        
+          |
+        
+        +
+        ⟩
+        ,
+        
+          |
+        
+        −
+        ⟩
+        }
+      
+    
+    {\displaystyle \{|+\rangle ,|-\rangle \}}
+  . The Hadamard transformed basis of a one-qubit register is given by
+
+  
+    
+      
+        
+          |
+        
+        +
+        ⟩
+        =
+        
+          
+            1
+            
+              2
+            
+          
+        
+        (
+        
+          |
+        
+        0
+        ⟩
+        +
+        
+          |
+        
+        1
+        ⟩
+        )
+        ,
+        
+        
+          |
+        
+        −
+        ⟩
+        =
+        
+          
+            1
+            
+              2
+            
+          
+        
+        (
+        
+          |
+        
+        0
+        ⟩
+        −
+        
+          |
+        
+        1
+        ⟩
+        )
+        ,
+      
+    
+    {\displaystyle |+\rangle ={\frac {1}{\sqrt {2}}}(|0\rangle +|1\rangle ),\qquad |-\rangle ={\frac {1}{\sqrt {2}}}(|0\rangle -|1\rangle ),}
+  and the corresponding basis of a 2-qubit register is
+
+  
+    
+      
+        
+          |
+        
+        +
+        +
+        ⟩
+        =
+        
+          |
+        
+        +
+        ⟩
+        ⊗
+        
+          |
+        
+        +
+        ⟩
+        =
+        
+          
+            1
+            2
+          
+        
+        (
+        
+          |
+        
+        0
+        ⟩
+        +
+        
+          |
+        
+        1
+        ⟩
+        )
+        ⊗
+        (
+        
+          |
+        
+        0
+        ⟩
+        +
+        
+          |
+        
+        1
+        ⟩
+        )
+        =
+        
+          
+            1
+            2
+          
+        
+        (
+        
+          |
+        
+        00
+        ⟩
+        +
+        
+          |
+        
+        01
+        ⟩
+        +
+        
+          |
+        
+        10
+        ⟩
+        +
+        
+          |
+        
+        11
+        ⟩
+        )
+      
+    
+    {\displaystyle |++\rangle =|+\rangle \otimes |+\rangle ={\frac {1}{2}}(|0\rangle +|1\rangle )\otimes (|0\rangle +|1\rangle )={\frac {1}{2}}(|00\rangle +|01\rangle +|10\rangle +|11\rangle )}
+  ,etc. Viewing CNOT in this basis, the state of the second qubit remains unchanged, and the state of the first qubit is flipped, according to the state of the second bit. (For details see below.) "Thus, in this basis the sense of which bit is the control bit and which the target bit has reversed. But we have not changed the transformation at all, only the way we are thinking about it."The "computational" basis 
+  
+    
+      
+        {
+        
+          |
+        
+        0
+        ⟩
+        ,
+        
+          |
+        
+        1
+        ⟩
+        }
+      
+    
+    {\displaystyle \{|0\rangle ,|1\rangle \}}
+   is the eigenbasis for the spin in the Z-direction, whereas the Hadamard basis 
+  
+    
+      
+        {
+        
+          |
+        
+        +
+        ⟩
+        ,
+        
+          |
+        
+        −
+        ⟩
+        }
+      
+    
+    {\displaystyle \{|+\rangle ,|-\rangle \}}
+   is the eigenbasis for spin in the X-direction. Switching X and Z and qubits 1 and 2, then, recovers the original transformation." This expresses a fundamental symmetry of the CNOT gate.
+The observation that both qubits are (equally) affected in a CNOT interaction is of importance when considering information flow in entangled quantum systems.
+
+Details of the computation
+We now proceed to give the details of the computation. Working through each of the Hadamard basis states, the first qubit flips between 
+  
+    
+      
+        
+          |
+        
+        +
+        ⟩
+      
+    
+    {\displaystyle |+\rangle }
+   and 
+  
+    
+      
+        
+          |
+        
+        −
+        ⟩
+      
+    
+    {\displaystyle |-\rangle }
+   when the second qubit is 
+  
+    
+      
+        
+          |
+        
+        −
+        ⟩
+      
+    
+    {\displaystyle |-\rangle }
+  :
+
+A quantum circuit that performs a Hadamard transform followed by CNOT then another Hadamard transform, can be described as performing the CNOT gate in the Hadamard basis (i.e. a change of basis):
+(H1 ⊗ H1)−1 . CNOT . (H1 ⊗ H1)
+The single-qubit Hadamard transform, H1, is Hermitian and therefore its own inverse. The tensor product of two Hadamard transforms operating (independently) on two qubits is labelled H2. We can therefore write the matrices as:
+H2 . CNOT . H2
+When multiplied out, this yields a matrix that swaps the 
+  
+    
+      
+        
+          |
+        
+        01
+        ⟩
+      
+    
+    {\displaystyle |01\rangle }
+   and 
+  
+    
+      
+        
+          |
+        
+        11
+        ⟩
+      
+    
+    {\displaystyle |11\rangle }
+   terms over, while leaving the 
+  
+    
+      
+        
+          |
+        
+        00
+        ⟩
+      
+    
+    {\displaystyle |00\rangle }
+   and 
+  
+    
+      
+        
+          |
+        
+        10
+        ⟩
+      
+    
+    {\displaystyle |10\rangle }
+   terms alone. This is equivalent to a CNOT gate where qubit 2 is the control qubit and qubit 1 is the target qubit:
+
+Constructing a Bell State
+A common application of the CNOT gate is to maximally entangle two qubits into the 
+  
+    
+      
+        
+          |
+        
+        
+          Φ
+          
+            +
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\Phi ^{+}\rangle }
+   Bell state; this forms part of the setup of the superdense coding, quantum teleportation, and entangled quantum cryptography algorithms.
+To construct 
+  
+    
+      
+        
+          |
+        
+        
+          Φ
+          
+            +
+          
+        
+        ⟩
+      
+    
+    {\displaystyle |\Phi ^{+}\rangle }
+  , the inputs A (control) and B (target) to the CNOT gate are:
+
+  
+    
+      
+        
+          
+            1
+            
+              2
+            
+          
+        
+        (
+        
+          |
+        
+        0
+        ⟩
+        +
+        
+          |
+        
+        1
+        ⟩
+        
+          )
+          
+            A
+          
+        
+      
+    
+    {\displaystyle {\frac {1}{\sqrt {2}}}(|0\rangle +|1\rangle )_{A}}
+   and 
+  
+    
+      
+        
+          |
+        
+        0
+        
+          ⟩
+          
+            B
+          
+        
+      
+    
+    {\displaystyle |0\rangle _{B}}
+  
+After applying CNOT, the resulting Bell State 
+  
+    
+      
+        
+          
+            1
+            
+              2
+            
+          
+        
+        (
+        
+          |
+        
+        00
+        ⟩
+        +
+        
+          |
+        
+        11
+        ⟩
+        )
+      
+    
+    {\textstyle {\frac {1}{\sqrt {2}}}(|00\rangle +|11\rangle )}
+   has the property that the individual qubits can be measured using any basis and will always present a 50/50 chance of resolving to each state. In effect, the individual qubits are in an undefined state. The correlation between the two qubits is the complete description of the state of the two qubits; if we both choose the same basis to measure both qubits and compare notes, the measurements will perfectly correlate.
+When viewed in the computational basis, it appears that qubit A is affecting qubit B. Changing our viewpoint to the Hadamard basis demonstrates that, in a symmetrical way, qubit B is affecting qubit A.
+The input state can alternately be viewed as:
+
+  
+    
+      
+        
+          |
+        
+        +
+        
+          ⟩
+          
+            A
+          
+        
+      
+    
+    {\displaystyle |+\rangle _{A}}
+   and 
+  
+    
+      
+        
+          
+            1
+            
+              2
+            
+          
+        
+        (
+        
+          |
+        
+        +
+        ⟩
+        +
+        
+          |
+        
+        −
+        ⟩
+        
+          )
+          
+            B
+          
+        
+      
+    
+    {\displaystyle {\frac {1}{\sqrt {2}}}(|+\rangle +|-\rangle )_{B}}
+  
+In the Hadamard view, the control and target qubits have conceptually swapped and qubit A is inverted when qubit B is 
+  
+    
+      
+        
+          |
+        
+        −
+        
+          ⟩
+          
+            B
+          
+        
+      
+    
+    {\displaystyle |-\rangle _{B}}
+  . The output state after applying the CNOT gate is 
+  
+    
+      
+        
+          
+            1
+            
+              2
+            
+          
+        
+        (
+        
+          |
+        
+        +
+        +
+        ⟩
+        +
+        
+          |
+        
+        −
+        −
+        ⟩
+        )
+      
+    
+    {\textstyle {\frac {1}{\sqrt {2}}}(|++\rangle +|--\rangle )}
+   which can be shown to be exactly the same state as 
+  
+    
+      
+        
+          
+            1
+            
+              2
+            
+          
+        
+        (
+        
+          |
+        
+        00
+        ⟩
+        +
+        
+          |
+        
+        11
+        ⟩
+        )
+      
+    
+    {\textstyle {\frac {1}{\sqrt {2}}}(|00\rangle +|11\rangle )}
+  .
+
+C-ROT gate
+The C-ROT gate (controlled Rabi rotation) is equivalent to a C-NOT gate except for a 
+  
+    
+      
+        π
+        
+          /
+        
+        2
+      
+    
+    {\displaystyle \pi /2}
+   rotation of the nuclear spin around the z axis.
+
+Implementations
+Trapped ion quantum computers:
+
+Cirac–Zoller controlled-NOT gate
+Mølmer–Sørensen gate
+
+See also
+Toffoli gate (controlled-controlled-NOT gate)
+
+Notes
+References
+External links
+Michael Westmoreland: "Isolation and information flow in quantum dynamics" - discussion around the Cnot gate
